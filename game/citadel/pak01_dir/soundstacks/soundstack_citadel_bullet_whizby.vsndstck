@@ -1,0 +1,126 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_bullet_whizby = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "_builtins"
+				operator = "sos_builtins"
+				_voicegraph = "citadel.hrtf_basic"
+			},
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					import_public_opvars = "citadel_default_3d"
+					bullet_start_location = 
+					{
+						data_type = "float3"
+						value = "[ 0.0, 0.0, 0.0]"
+						_system_properties = 
+						{
+							property_group = "citadel_bullet_whizby"
+						}
+					}
+					bullet_end_location = 
+					{
+						data_type = "float3"
+						value = "[ 0.0, 0.0, 0.0]"
+						_system_properties = 
+						{
+							property_group = "citadel_bullet_whizby"
+						}
+					}
+					whizby_time_to_peak = 
+					{
+						data_type = "float"
+						value = ".100"
+						_system_properties = 
+						{
+							property_group = "citadel_bullet_whizby"
+						}
+					}
+					enable_whiz_animation = 
+					{
+						data_type = "float"
+						value = "1.0"
+						_system_properties = 
+						{
+							property_group = "citadel_bullet_whizby"
+						}
+					}
+					position_force_from_input = 
+					{
+						data_type = "float"
+						value = "1.0"
+						_system_properties = 
+						{
+							property_group = "citadel_bullet_whizby"
+						}
+					}
+				}
+			},
+			
+			{
+				name = "get_event_info"
+				operator = "soundevent_get_info"
+			},
+			
+			{
+				name = "calc_animation_duration"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@public.whizby_time_to_peak"
+				input2 = "2.0"
+			},
+			
+			{
+				name = "calc_elapsed_time_fraction"
+				operator = "math_float"
+				apply = "div"
+				input1 = "@get_event_info.output_elapsed_time"
+				input2 = "@calc_animation_duration.output"
+			},
+			
+			{
+				name = "clamp_animation_duration"
+				operator = "math_float"
+				execute_once = "false"
+				apply = "min"
+				input1 = "@calc_elapsed_time_fraction.output"
+				input2 = "1.0"
+			},
+			
+			{
+				name = "lerp_bullet_position"
+				operator = "math_animate_float3"
+				input_execute = "@public.enable_whiz_animation"
+				input_animation_pct = "@clamp_animation_duration.output"
+				input_float3_start = "@public.bullet_start_location"
+				input_float3_end = "@public.bullet_end_location"
+				input_distance_scalar = "1.0"
+				input_animation_direction = "0.0"
+				anim_type = "lerp"
+			},
+			
+			{
+				name = "citadel_default_3d_import"
+				operator = "sos_import_stack"
+				import_stack = "citadel_default_3d"
+				auto_connect_public_fields = "true"
+				operator_variables = 
+				{
+					position = 
+					{
+						data_type = "float3"
+						value = "@lerp_bullet_position.output"
+					}
+				}
+			},
+		]
+	}
+}

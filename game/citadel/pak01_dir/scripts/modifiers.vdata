@@ -1,0 +1,503 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	generic_data_type = "CModifierVData"
+	modifier_citadel_in_fountain = 
+	{
+		_class = "modifier_citadel_in_fountain"
+		m_bIsHidden = true
+	}
+	modifier_hero_upgrade_bonuses = 
+	{
+		_class = "modifier_hero_upgrade_bonuses"
+		m_nAttributes = "MODIFIER_ATTRIBUTE_PERMANENT|MODIFIER_ATTRIBUTE_CANNOT_BE_PURGED"
+		m_bIsHidden = true
+	}
+	modifier_citadel_stunned = 
+	{
+		_class = "modifier_citadel_stunned"
+		m_eHudDisplayLocation = "DISPLAY_HUD_CENTER"
+		m_strSmallIconCssClass = "stunned"
+	}
+	modifier_citadel_knockdown = 
+	{
+		_class = "modifier_citadel_knockdown"
+		m_eHudDisplayLocation = "DISPLAY_HUD_CENTER"
+		m_strSmallIconCssClass = "stunned"
+		m_bKeepMaximumDurationOnRefresh = true
+		m_cameraSequenceCreated = 
+		{
+			m_vecDistanceOperations = 
+			[
+				
+				{
+					m_eCameraOperation = "k_ECameraOp_Lerp"
+					m_bLerpEndAtDefault = false
+					m_flLerpEnd = 300.000000
+					m_flLerpBias = 0.508000
+					m_flLerpDuration = 0.500000
+				},
+				
+				{
+					m_eCameraOperation = "k_ECameraOp_Maintain"
+					m_flMaintainDuration = 5.000000
+				},
+			]
+			m_vecFOVOperations = 
+			[
+				
+				{
+					m_eCameraOperation = "k_ECameraOp_Lerp"
+					m_bLerpEndAtDefault = false
+					m_flLerpEnd = 80.000000
+					m_flLerpDuration = 0.150000
+				},
+				
+				{
+					m_eCameraOperation = "k_ECameraOp_Lerp"
+					m_flLerpBias = 0.800000
+					m_flLerpDuration = 0.150000
+				},
+			]
+		}
+		m_cameraSequenceGetUp = 
+		{
+			m_vecDistanceOperations = 
+			[
+				
+				{
+					m_eCameraOperation = "k_ECameraOp_Lerp"
+					m_flLerpDuration = 0.250000
+					m_flLerpBias = 0.702000
+				},
+			]
+		}
+		m_flGetUpSeqDuration = 0.250000
+	}
+	modifier_life_steal = 
+	{
+		_class = "modifier_life_steal"
+		m_nAttributes = "MODIFIER_ATTRIBUTE_MULTIPLE"
+	}
+	modifier_life_steal_watcher = 
+	{
+		_class = "modifier_life_steal_watcher"
+		m_nAttributes = "MODIFIER_ATTRIBUTE_PERMANENT|MODIFIER_ATTRIBUTE_CANNOT_BE_PURGED"
+	}
+	modifier_boss_invuln = 
+	{
+		_class = "modifier_boss_invuln"
+		m_ShieldParticle = resource_name:"particles/trooper/tier1_boss_invulerability_shield.vpcf"
+	}
+	modifier_t2_boss_invuln = 
+	{
+		_class = "modifier_boss_invuln"
+		m_ShieldParticle = resource_name:"particles/trooper/tier2_boss_invulerability_shield.vpcf"
+		m_flShieldRadius = 300
+	}
+	modifier_zipline_speed_trooper_first_wave = 
+	{
+		_class = "modifier_zipline_speed"
+		m_flPercentageMultiplierEnd = 33.333300
+		m_flRampUpTime = 0
+	}
+	modifier_zipline_speed_trooper_reinforcement = 
+	{
+		_class = "modifier_zipline_speed"
+		m_flPercentageMultiplierEnd = 100
+		m_flRampUpTime = 0
+	}
+	modifier_zipline_speed_player_generator_kill = 
+	{
+		_class = "modifier_zipline_speed"
+		m_flPercentageMultiplierEnd = 120
+		m_flRampUpTime = 4
+		m_bIsHidden = true
+		m_nAttributes = "MODIFIER_ATTRIBUTE_MULTIPLE|MODIFIER_ATTRIBUTE_PERMANENT|MODIFIER_ATTRIBUTE_CANNOT_BE_PURGED"
+	}
+	modifier_control_point_capturer_aura = 
+	{
+		_class = "modifier_control_point_capturer_aura"
+		m_iAuraSearchType = "CITADEL_UNIT_TARGET_HERO_ENEMY"
+		m_iAuraSearchFlags = "CITADEL_UNIT_TARGET_FLAG_PENETRATE_INVULNERABLE | CITADEL_UNIT_TARGET_FLAG_NO_INVIS"
+		m_modifierProvidedByAura = subclass:
+		{
+			_class = "modifier_control_point_capturer_aura_target"
+			_my_subclass_name = "modifier_control_point_capturer_aura_target"
+		}
+	}
+	modifier_control_point_blocker_aura = 
+	{
+		_class = "modifier_control_point_blocker_aura"
+		m_iAuraSearchType = "CITADEL_UNIT_TARGET_HERO_FRIENDLY"
+		m_iAuraSearchFlags = "CITADEL_UNIT_TARGET_FLAG_PENETRATE_INVULNERABLE | CITADEL_UNIT_TARGET_FLAG_NO_INVIS"
+		m_modifierProvidedByAura = subclass:
+		{
+			_class = "modifier_control_point_blocker_aura_target"
+			_my_subclass_name = "modifier_control_point_blocker_aura_target"
+		}
+	}
+	modifier_idol_pickup_aura = 
+	{
+		_class = "modifier_held_item_pickup_aura"
+		m_iAuraSearchType = "CITADEL_UNIT_TARGET_HERO"
+		m_strParticleEffect = resource_name:"particles/generic/idol_pickup_aura.vpcf"
+		m_modifierProvidedByAura = subclass:
+		{
+			_class = "modifier_item_pickup_aura_target"
+			_my_subclass_name = "aura_target"
+			m_bIsHidden = true
+			m_PickupTimer = 2.000000
+			m_PickupTimerModifier = subclass:
+			{
+				_class = "modifier_item_pickup_timer"
+				_my_subclass_name = "timer"
+				m_bReverseHudProgressBar = true
+				m_bIsHidden = false
+				m_eDrawOverheadStatus = "OVERHEAD_DRAW_FOR_EVERYONE"
+				m_eHudDisplayLocation = "DISPLAY_HUD_CENTER"
+				m_TimerToSilence = 0.500000
+				m_SilenceDuration = 0.100000
+				m_SilenceModifier = subclass:
+				{
+					_class = "modifier_citadel_silenced"
+					_my_subclass_name = "modifier_citadel_silenced"
+					m_bIsHidden = true
+					m_nEnabledStateMask = "MODIFIER_STATE_SILENCED | MODIFIER_STATE_MUTED | MODIFIER_STATE_ZIPLINE_DISABLED"
+				}
+			}
+		}
+		m_strFilterAbilityName = "ability_golden_idol"
+		m_bIsHidden = true
+		m_flAuraRadius = 70.000000
+	}
+	modifier_citadel_idol_return = 
+	{
+		_class = "modifier_citadel_idol_return"
+		m_nEnabledStateMask = "MODIFIER_STATE_RETURN_IDOL_AREA"
+		m_bIsHidden = true
+	}
+	modifier_citadel_in_shoptunnel_amber = 
+	{
+		_class = "modifier_citadel_in_shoptunnel"
+		m_nEnabledStateMask = "MODIFIER_STATE_IN_SHOPTUNNEL_AMBER"
+		m_bIsHidden = true
+	}
+	modifier_citadel_in_shoptunnel_sapphire = 
+	{
+		_class = "modifier_citadel_in_shoptunnel"
+		m_nEnabledStateMask = "MODIFIER_STATE_IN_SHOPTUNNEL_SAPPHIRE"
+		m_bIsHidden = true
+	}
+	modifier_rejuv_pickup_aura = 
+	{
+		_class = "modifier_item_pickup_aura"
+		m_iAuraSearchType = "CITADEL_UNIT_TARGET_HERO"
+		m_strParticleEffect = resource_name:"particles/environment/rejuv_ambient.vpcf"
+		m_modifierProvidedByAura = subclass:
+		{
+			_class = "modifier_item_pickup_aura_target"
+			_my_subclass_name = "aura_target"
+			m_bIsHidden = true
+			m_PickupTimerModifier = subclass:
+			{
+				_class = "modifier_item_pickup_timer"
+				_my_subclass_name = "timer"
+				m_bReverseHudProgressBar = true
+				m_bIsHidden = false
+				m_eDrawOverheadStatus = "OVERHEAD_DRAW_FOR_EVERYONE"
+				m_eHudDisplayLocation = "DISPLAY_HUD_CENTER"
+				m_eDebuffType = "MODIFIER_DEBUFF_NO"
+			}
+			m_PickupTimer = 1.500000
+			m_bDurationCanBeTimeScaled = false
+			m_eDebuffType = "MODIFIER_DEBUFF_NO"
+		}
+		m_bIsHidden = true
+		m_flAuraRadius = 70.000000
+		m_iAuraSearchFlags = "CITADEL_UNIT_TARGET_FLAG_PENETRATE_INVULNERABLE"
+		m_eDebuffType = "MODIFIER_DEBUFF_ENEMY_TEAM_ONLY"
+	}
+	citadel_modifier_teleport = 
+	{
+		m_eHudDisplayLocation = "DISPLAY_HUD_CENTER"
+		m_eDebuffType = "MODIFIER_DEBUFF_NO"
+	}
+	modifier_neutral_gold_pickup_aura = 
+	{
+		_class = "modifier_item_pickup_aura"
+		m_iAuraSearchType = "CITADEL_UNIT_TARGET_HERO"
+		m_strParticleEffect = resource_name:"particles/generic/neutral_gold_pickup_aura.vpcf"
+		m_modifierProvidedByAura = subclass:
+		{
+			_class = "modifier_item_pickup_aura_target"
+			_my_subclass_name = "aura_target"
+			m_bIsHidden = true
+			m_PickupTimerModifier = subclass:
+			{
+				_class = "modifier_item_pickup_timer"
+				_my_subclass_name = "timer"
+				m_bReverseHudProgressBar = true
+				m_bIsHidden = false
+				m_eDrawOverheadStatus = "OVERHEAD_DRAW_FOR_EVERYONE"
+				m_eHudDisplayLocation = "DISPLAY_HUD_CENTER"
+				m_sEndSound = soundevent:""
+			}
+			m_PickupTimer = 0.750000
+		}
+		m_bIsHidden = true
+		m_flAuraRadius = 70.000000
+	}
+	modifier_early_gold_pickup_aura = 
+	{
+		_class = "modifier_item_pickup_aura"
+		m_iAuraSearchType = "CITADEL_UNIT_TARGET_HERO"
+		m_strParticleEffect = resource_name:"particles/items/crate_light_pillar.vpcf"
+		m_modifierProvidedByAura = subclass:
+		{
+			_class = "modifier_item_pickup_aura_target"
+			_my_subclass_name = "aura_target"
+			m_bIsHidden = true
+			m_PickupTimerModifier = subclass:
+			{
+				_class = "modifier_item_pickup_timer"
+				_my_subclass_name = "timer"
+				m_bReverseHudProgressBar = true
+				m_bIsHidden = false
+				m_eDrawOverheadStatus = "OVERHEAD_DRAW_FOR_EVERYONE"
+				m_eHudDisplayLocation = "DISPLAY_HUD_CENTER"
+			}
+			m_PickupTimer = 2.000000
+		}
+		m_bIsHidden = true
+		m_flAuraRadius = 70.000000
+	}
+	modifier_payload_pusher_aura = 
+	{
+		_class = "modifier_base_aura"
+		m_strParticleEffect = resource_name:"particles/generic/payload_push_aoe.vpcf"
+		m_nAmbientParticleRadiusControlPoint = 1
+		m_flAuraRadius = 700.000000
+		m_iAuraSearchType = "CITADEL_UNIT_TARGET_HERO_FRIENDLY"
+		m_iAuraSearchFlags = "CITADEL_UNIT_TARGET_FLAG_PENETRATE_INVULNERABLE | CITADEL_UNIT_TARGET_FLAG_NO_INVIS"
+		m_modifierProvidedByAura = subclass:
+		{
+			_class = "modifier_payload_pusher_aura_target"
+			_my_subclass_name = "modifier_payload_pusher_aura_target"
+			m_strParticleEffect = resource_name:"particles/abilities/nano/nano_cohesion.vpcf"
+			m_nAttributes = "MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+			m_bIsHidden = true
+		}
+	}
+	modifier_payload_blocker_aura = 
+	{
+		_class = "modifier_base_aura"
+		m_flAuraRadius = 700.000000
+		m_iAuraSearchType = "CITADEL_UNIT_TARGET_HERO_ENEMY"
+		m_iAuraSearchFlags = "CITADEL_UNIT_TARGET_FLAG_PENETRATE_INVULNERABLE | CITADEL_UNIT_TARGET_FLAG_NO_INVIS"
+		m_modifierProvidedByAura = subclass:
+		{
+			_class = "modifier_base"
+			_my_subclass_name = "modifier_aura_target"
+			m_nAttributes = "MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+			m_bIsHidden = true
+		}
+	}
+	modifier_shield_tracker_base = 
+	{
+		_class = "modifier_shield_tracker_base"
+		m_strParticleEffect = resource_name:""
+		m_bIsHidden = true
+		m_flShieldImpactEffectDuration = 1.500000
+		_base = ""
+		flCooldownOnBreak = 60.000000
+	}
+	modifier_citadel_disarmed = 
+	{
+		_class = "modifier_citadel_disarmed"
+		m_strParticleStatusEffect = resource_name:"particles/generic/generic_disarmed.vpcf"
+		m_sLocalizationName = "MODIFIER_STATE_DISARMED"
+		m_strHudMessageText = "#modifier_citadel_disarmed"
+		m_strSmallIconCssClass = "disarm_proc"
+	}
+	modifier_citadel_holding_golden_idol = 
+	{
+		_class = "modifier_citadel_holding_golden_idol"
+		m_strParticleStatusEffect = resource_name:""
+		m_IdolParticle = resource_name:"particles/generic/idol_carry.vpcf"
+		m_eHudDisplayLocation = "DISPLAY_HUD_CENTER"
+		m_nAmbientLoopingSoundRecipients = "MODIFIER_SOUND_RECIPIENT_PARENT_IS_LOCAL_PLAYER"
+		m_sStartSound = soundevent:""
+		m_sAmbientLoopingSound = soundevent:""
+		m_nEnabledStateMask = "MODIFIER_STATE_HOLDING_IDOL"
+	}
+	modifier_citadel_idol_walkback = 
+	{
+		_class = "modifier_citadel_idol_walkback"
+		m_flStopDistance = 600
+		m_flMaxSpeedDistance = 1600
+		m_flSlowSpeed = 30.000000
+		m_flFastSpeed = 175.000000
+		m_flVerticalOffset = 0.000000
+		m_flTolerance = 20.000000
+	}
+	modifier_hero_testing_damage_aura = 
+	{
+		_class = "modifier_hero_testing_damage_aura"
+		m_strParticleEffect = resource_name:"particles/npc/tier2boss/tier2boss_barrage_explosion_ground.vpcf"
+		m_flAuraRadius = 50.000000
+		m_modifierProvidedByAura = subclass:
+		{
+			_my_subclass_name = "modifier_hero_testing_damage_aura"
+			_class = "modifier_hero_testing_damage_auradebuff"
+			m_bIsHidden = true
+		}
+		m_iAuraSearchType = "CITADEL_UNIT_TARGET_ALL"
+	}
+	modifier_hide_health = 
+	{
+		_class = "modifier_base"
+		m_eDebuffType = "MODIFIER_DEBUFF_NO"
+		m_nEnabledStateMask = "MODIFIER_STATE_UNIT_STATUS_HEALTH_HIDDEN"
+		m_eDrawOverheadStatus = "OVERHEAD_DRAW_NEVER"
+		m_bIsHidden = true
+	}
+	midboss_modifier_damage_resistance = 
+	{
+		_class = "modifier_damage_resistance"
+		m_flDamageResistancePerSecond = 100
+		m_flTickInterval = 0.050000
+		m_flDamageResistanceBonusPerGameMinute = 8
+	}
+	modifier_citadel_in_shop = 
+	{
+		_class = "modifier_base"
+		m_nEnabledStateMask = "MODIFIER_STATE_IN_SHOP"
+		m_eDebuffType = "MODIFIER_DEBUFF_NO"
+		m_nAttributes = "MODIFIER_ATTRIBUTE_CANNOT_BE_PURGED"
+		m_nAmbientLoopingSoundRecipients = "MODIFIER_SOUND_RECIPIENT_PARENT_IS_LOCAL_PLAYER"
+		m_bIsHidden = true
+		m_sAmbientLoopingSound = soundevent:""
+	}
+	modifier_debug_is_visible_to_enemy_team = 
+	{
+		_class = "modifier_debug_is_visible_to_enemy_team"
+		m_sLocalizationName = "Debug - On Enemy Minimap"
+		m_eDebuffType = "MODIFIER_DEBUFF_YES"
+	}
+	modifier_citadel_power_generator = 
+	{
+		_class = "modifier_citadel_power_generator"
+		m_EffectToTitan = resource_name:"particles/npc/tier3boss/tier3_boss_generator_beam.vpcf"
+	}
+	modifier_tier3_boss_invuln = 
+	{
+		_class = "modifier_tier3_boss_invuln"
+		m_ShieldParticle = resource_name:"particles/npc/tier3boss/tier3_boss_invulerability_shield.vpcf"
+		m_flShieldRadius = 350.000000
+	}
+	modifier_citadel_can_damage_tier3phase2_boss = 
+	{
+		_class = "modifier_citadel_can_damage_tier3phase2_boss"
+		m_bIsHidden = true
+		m_eDebuffType = "MODIFIER_DEBUFF_NO"
+		m_nAttributes = "MODIFIER_ATTRIBUTE_CANNOT_BE_PURGED | MODIFIER_ATTRIBUTE_MULTIPLE"
+		m_nEnabledStateMask = "MODIFIER_STATE_IN_TIER3_PHASE2_BOSS_PIT"
+	}
+	modifier_player_disconnected = 
+	{
+		_class = "modifier_player_disconnected"
+		m_bIsHidden = true
+		m_nAttributes = "MODIFIER_ATTRIBUTE_PERMANENT"
+	}
+	modifier_citadel_in_friendly_base = 
+	{
+		_class = "modifier_base_server_only"
+		_base = ""
+		m_nEnabledStateMask = "MODIFIER_STATE_IN_FRIENDLY_BASE"
+		m_bIsHidden = true
+	}
+	modifier_citadel_in_enemy_base = 
+	{
+		_class = "modifier_base_server_only"
+		_base = ""
+		m_nEnabledStateMask = "MODIFIER_STATE_IN_ENEMY_BASE | MODIFIER_STATE_TITAN_LASER_VALID_TARGET"
+		m_bIsHidden = true
+	}
+	modifier_citadel_in_mid_boss_temple = 
+	{
+		_class = "modifier_base_server_only"
+		_base = ""
+		m_nEnabledStateMask = "MODIFIER_STATE_IN_MID_BOSS_TEMPLE"
+		m_bIsHidden = true
+	}
+	modifier_obscured_by_steam = 
+	{
+		_class = "modifier_obscured"
+		m_strScreenParticleEffect = resource_name:"particles/modifiers/obscured_by_steam_screen.vpcf"
+		m_nEnabledStateMask = ""
+		m_strParticleEffect = resource_name:""
+		m_strParticleStatusEffect = resource_name:"particles/status_fx/status_fx_obscured_by_steam.vpcf"
+		m_vecScriptValues = 
+		[
+		]
+		m_vecScriptEventHandlers = 
+		[
+		]
+		m_eDebuffType = "MODIFIER_DEBUFF_ENEMY_TEAM_ONLY"
+		m_flRevealDuration = 1.000000
+		m_flHideDuration = 1.000000
+	}
+	modifier_bullet_shield_tracker = 
+	{
+		_class = "modifier_bullet_shield_tracker"
+		m_strParticleEffect = resource_name:""
+		m_bIsHidden = true
+		m_flShieldImpactEffectDuration = 1.500000
+		_base = "modifier_shield_tracker_base"
+		flCooldownOnBreak = 60.000000
+		m_ShieldImpactModifier = subclass:
+		{
+			_class = "modifier_bullet_shield_impact"
+			_my_subclass_name = "bullet_shield_impact"
+			m_ShieldBreakParticle = resource_name:"particles/upgrades/bullet_shield_impact_break.vpcf"
+			m_bIsHidden = true
+			m_ShieldBreakSound = soundevent:"StatusEffects.ShieldBreak"
+		}
+		m_ShieldImpactParticle = resource_name:"particles/items/bullet_shield_impact.vpcf"
+		m_nAttributes = "MODIFIER_ATTRIBUTE_PERMANENT"
+	}
+	modifier_magic_shield_tracker = 
+	{
+		_class = "modifier_magic_shield_tracker"
+		m_strParticleEffect = resource_name:""
+		m_bIsHidden = true
+		m_flShieldImpactEffectDuration = 1.500000
+		_base = "modifier_shield_tracker_base"
+		flCooldownOnBreak = 60.000000
+		eShieldType = "TechShield"
+		m_ShieldImpactModifier = subclass:
+		{
+			_class = "modifier_tech_shield_impact"
+			_my_subclass_name = "tech_shield_impact"
+			m_ShieldBreakParticle = resource_name:"particles/upgrades/tech_shield_impact_break.vpcf"
+			m_bIsHidden = true
+			m_strParticleEffect = resource_name:"particles/upgrades/tech_shield_impact.vpcf"
+			m_ShieldBreakSound = soundevent:"StatusEffects.ShieldBreak"
+		}
+		m_ShieldImpactParticle = resource_name:"particles/upgrades/magic_shield_impact.vpcf"
+		m_nAttributes = "MODIFIER_ATTRIBUTE_PERMANENT"
+	}
+	modifier_low_health_glow = 
+	{
+		_class = "modifier_low_health_glow"
+		m_bIsHidden = true
+		m_GlowParticle = resource_name:"particles/status_fx/status_fx_last_hit.vpcf"
+	}
+	modifier_trigger_push = 
+	{
+		_class = "modifier_trigger_push"
+		m_bIsHidden = true
+		m_nAttributes = "MODIFIER_ATTRIBUTE_CANNOT_BE_PURGED"
+		m_eDebuffType = "MODIFIER_DEBUFF_NO"
+	}
+}

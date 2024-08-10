@@ -1,0 +1,775 @@
+/* Prettified by Source 2 Viewer 10.1.0.0 - https://valveresourceformat.github.io */
+
+@define CrosshairPanelOffset: translate3d( 0.5px, 0.5px, 0px );
+@define cppPipDefaultOffset: 7;
+@define cppBlackPipDefaultOffset: 2;
+@define cppArcDefaultOffset: 4.0;
+@define arcSize: 15px;
+@define cppBulletsInset: 1;
+@define cppProgressBarInset: 2;
+@define crosshairGreenColor: white;
+@define crosshairEnemyColor: #c93121;
+@define crosshairColor1: white;
+@define crosshairColor2: white;
+@define crosshairColor3: white;
+@define crosshairColor4: white;
+@define clipLiveBulletColor: rgba(255, 255, 255, 1);
+@define clipEmptyBulletColor: rgba(36, 36, 36, 1);
+@define clipLowBulletColor: rgba(255, 36, 36, 1);
+@define clipBonusBulletColor: rgba(255, 232, 107, 1);
+.ability_element_gun
+{
+	height: fit-children;
+	width: fit-children;
+	vertical-align: center;
+	horizontal-align: center;
+}
+
+.excluded .ability_element_gun
+{
+	visibility: visible;
+}
+
+.excluded #gun_data
+{
+	visibility: collapse;
+}
+
+.attack_delayed.reloading:not(.excluded) .dot_bits
+{
+	visibility: collapse;
+}
+
+.gun_crosshair
+{
+	horizontal-align: center_nopixelsnap;
+	vertical-align: center_nopixelsnap;
+	height: 500px;
+	width: 500px;
+	opacity: 1;
+	transition-property: opacity;
+	transition-duration: 0.1s;
+}
+
+.attack_disabled .gun_crosshair,.attack_delayed .gun_crosshair
+{
+	opacity: 0;
+}
+
+.ability_element_gun--hidden
+{
+	visibility: collapse;
+}
+
+.crosshair__pip
+{
+	horizontal-align: center_nopixelsnap;
+	vertical-align: center_nopixelsnap;
+	overflow: noclip;
+	background-color: black;
+}
+
+.show_hit_marker .crosshair__pip
+{
+	background-color: red;
+}
+
+.ability_element_gun--piphidden .crosshair__pip
+{
+	visibility: collapse;
+}
+
+.crosshair__pip--green
+{
+	opacity: 0.75;
+}
+
+.crosshair__pip--black
+{
+	wash-color: #000000AA;
+	opacity: 0;
+}
+
+.unzoomed .crosshair__pip
+{
+	opacity: 0;
+}
+
+.crosshair__arc
+{
+	width: arcSize;
+	height: 4px;
+	border: 1px solid black;
+	horizontal-align: center_nopixelsnap;
+	vertical-align: center_nopixelsnap;
+	opacity: 0;
+	overflow: noclip;
+}
+
+.unzoomed .crosshair__arc
+{
+	opacity: 1;
+}
+
+.obstructed .crosshair__pip
+{
+	background-color: grey;
+}
+
+.ability_element_gun--archidden .crosshair__arc
+{
+	visibility: collapse;
+}
+
+.show_hit_marker .crosshair__arc
+{
+	height: 4px;
+	border: 1px solid red;
+}
+
+.crosshair__dotborder
+{
+	width: 8px;
+	height: 8px;
+	border: 2px solid black;
+	border-radius: 50%;
+	horizontal-align: center_nopixelsnap;
+	vertical-align: center_nopixelsnap;
+	opacity: 0.85;
+}
+
+.crosshair__outercircle
+{
+	width: 31px;
+	height: 31px;
+	border: 2px solid black;
+	border-radius: 50%;
+	horizontal-align: center_nopixelsnap;
+	vertical-align: center_nopixelsnap;
+	opacity: 0.5;
+}
+
+.crosshair__dotborder
+{
+	width: 8px;
+	height: 8px;
+	border: 2px solid black;
+	border-radius: 50%;
+	horizontal-align: center_nopixelsnap;
+	vertical-align: center_nopixelsnap;
+	opacity: 0.85;
+}
+
+.crosshair__dot
+{
+	width: 2px;
+	height: 2px;
+	horizontal-align: center_nopixelsnap;
+	vertical-align: center_nopixelsnap;
+	overflow: noclip;
+	wash-color: white;
+	background-color: white;
+	opacity: 0.85;
+}
+
+.crosshair__innercircle
+{
+	width: 26px;
+	height: 26px;
+	border: 5px solid white;
+	border-radius: 50%;
+	horizontal-align: center_nopixelsnap;
+	vertical-align: center_nopixelsnap;
+	opacity: 0.1;
+}
+
+.crosshair__dot
+{
+	width: 2px;
+	height: 2px;
+	horizontal-align: center_nopixelsnap;
+	vertical-align: center_nopixelsnap;
+	overflow: noclip;
+	wash-color: crosshairGreenColor;
+}
+
+.crosshair__blackcircle
+{
+	horizontal-align: center_nopixelsnap;
+	vertical-align: center_nopixelsnap;
+	overflow: noclip;
+	wash-color: #00000088;
+	width: 7px;
+	height: 7px;
+}
+
+.ability_element_gun--color1 .crosshair__dot,.ability_element_gun--color1 .crosshair__arc
+{
+	background-color: crosshairColor1;
+}
+
+.ability_element_gun--color1 .crosshair__pip--green
+{
+	wash-color: crosshairColor1;
+}
+
+.ability_element_gun--color2 .crosshair__dot,.ability_element_gun--color2 .crosshair__arc
+{
+	background-color: crosshairColor2;
+}
+
+.ability_element_gun--color2 .crosshair__pip--green
+{
+	wash-color: crosshairColor2;
+}
+
+.ability_element_gun--color3 .crosshair__dot,.ability_element_gun--color3 .crosshair__arc
+{
+	background-color: crosshairColor3;
+}
+
+.ability_element_gun--color3 .crosshair__pip--green
+{
+	wash-color: crosshairColor3;
+}
+
+.ability_element_gun--color4 .crosshair__dot,.ability_element_gun--color4 .crosshair__arc
+{
+	background-color: crosshairColor4;
+}
+
+.ability_element_gun--color4 .crosshair__pip--green
+{
+	wash-color: crosshairColor4;
+}
+
+.heat
+{
+	width: 300px;
+	height: 300px;
+	vertical-align: center;
+	horizontal-align: center;
+	transition-property: opacity;
+	transition-duration: 0.1s;
+	opacity: 0.8;
+	opacity: 1;
+}
+
+.heat_inner
+{
+	width: 160px;
+	height: 160px;
+	vertical-align: center;
+	horizontal-align: center;
+	transition-property: opacity;
+	transition-duration: 0.1s;
+	opacity: 0.8;
+	transform: rotateZ(90deg);
+	opacity: 1;
+}
+
+.mirrored.heat_inner
+{
+	transform: rotateZ(180deg);
+}
+
+.attack_disabled.heat
+{
+	opacity: 0;
+}
+
+#heat_guage
+{
+	horizontal-align: center;
+	vertical-align: center;
+	width: 400px;
+	height: 260px;
+	flow-children: down;
+	visibility: collapse;
+}
+
+.heat_text
+{
+	margin-top: 215px;
+	horizontal-align: center;
+	vertical-align: bottom;
+	font-size: 16px;
+	color: #ffffff;
+	background-color: #ffffff10;
+	padding: 0px 5px 1px 5px;
+	border-radius: 2px;
+	opacity: 1;
+}
+
+.heat_power_text
+{
+	horizontal-align: center;
+	vertical-align: bottom;
+	font-size: 16px;
+	color: #ffffff;
+	background-color: #ffffff10;
+	padding: 0px 5px 1px 5px;
+	border-radius: 2px;
+	opacity: 1;
+}
+
+.overheating .heat_text,.overheating .heat_power_text
+{
+	background-color: #FF491060;
+}
+
+.flushing .heat_text
+{
+	opacity: 0;
+}
+
+.heat_percent
+{
+	font-weight: semi-bold;
+}
+
+#ReticleMessage
+{
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+}
+
+#ReticleMessage Label
+{
+	font-size: 14px;
+	color: #ffffff;
+	text-align: center;
+	vertical-align: center;
+	horizontal-align: center;
+	margin-bottom: 70px;
+	background-color: #FF491060;
+	padding: 0px 5px 1px 5px;
+	border-radius: 2px;
+	text-transform: uppercase;
+	font-weight: semi-bold;
+}
+
+.flushing #ReticleMessage
+{
+	opacity: 1;
+}
+
+.heat_percent.hide_heat_0,.heat_percent.hide_heat_25,.heat_percent.hide_heat_50,.heat_percent.hide_heat_75,.heat_percent.hide_heat_100,.heat_percent.hide_heat_125,.heat_percent.hide_heat_150,.heat_percent.hide_heat_175,.heat_percent.hide_heat_200,.heat_percent.hide_heat_225,.heat_percent.hide_heat_250,.heat_percent.hide_heat_275,.heat_percent.hide_heat_300
+{
+	visibility: collapse;
+}
+
+#clip_progress_bar
+{
+	width: 192px;
+	height: 192px;
+	vertical-align: center;
+	horizontal-align: center;
+	border-radius: 50%;
+	clip: radial( 50% 50%, 0deg, 90deg );
+	border: 8px solid clipLiveBulletColor;
+	transition-property: border;
+	transition-duration: 0.2s;
+}
+
+.overheating #clip_progress_bar
+{
+	border: 8px solid clipLowBulletColor;
+}
+
+.flushing #clip_progress_bar
+{
+	animation-name: flushing_gun_bar;
+	animation-duration: 0.7s;
+	animation-iteration-count: infinite;
+	opacity: 0.7;
+}
+
+@keyframes 'flushing_gun_bar'
+{
+	0%
+	{
+		border: 8px solid #FF491010;
+	}
+	
+	10%
+	{
+		border: 8px solid #FF4910;
+	}
+	
+	100%
+	{
+		border: 8px solid #FF491010;
+	}
+	
+}
+
+#clip_progress_bar_overlay
+{
+	width: 192px;
+	height: 192px;
+	vertical-align: center;
+	horizontal-align: center;
+	border-radius: 50%;
+	clip: radial( 50% 50%, 0deg, 90deg );
+	opacity: 1;
+	border: 8px solid blue;
+}
+
+#clip_progress_bar.low_clip
+{
+	border: 3px solid green;
+}
+
+#clip_bg_progress_bar
+{
+	width: 200px;
+	height: 200px;
+	vertical-align: center;
+	horizontal-align: center;
+	border-radius: 50%;
+	clip: radial( 50% 50%, 0deg, 90deg );
+	border: 6px solid clipEmptyBulletColor;
+	border: 8px solid #ffffff50;
+	opacity: 0.3;
+}
+
+.overheating #clip_bg_progress_bar
+{
+	border: 6px solid #000000;
+}
+
+.flushing #clip_bg_progress_bar
+{
+	animation-name: flushing_gun_bar;
+	animation-duration: 0.7s;
+	animation-iteration-count: infinite;
+	opacity: 0.2;
+	background-color: #FF491010;
+}
+
+#clip_bonus_progress_bar
+{
+	width: 200%;
+	height: 200%;
+	vertical-align: center;
+	horizontal-align: center;
+	border-radius: 50%;
+	clip: radial( 50% 50%, 0deg, 90deg );
+	border: 5px solid clipBonusBulletColor;
+	visibility: collapse;
+}
+
+#clip_bullet
+{
+	width: 192px;
+	height: 192px;
+	vertical-align: center;
+	horizontal-align: center;
+	border-radius: 50%;
+	clip: radial( 50% 50%, 0deg, 90deg );
+	border: 4px solid clipEmptyBulletColor;
+	visibility: collapse;
+}
+
+.attack_disabled.reloading.heat,.attack_delayed.reloading.heat
+{
+	visibility: collapse;
+}
+
+#clip_bullet.bullet_present
+{
+	border: 5px solid clipLiveBulletColor;
+	visibility: visible;
+}
+
+#clip_bullet.bullet_present.low_clip
+{
+	border: 5px solid clipLowBulletColor;
+	visibility: visible;
+}
+
+#spinup_progress_bar,#attack_delayed_progress_bar
+{
+	width: 200px;
+	height: 200px;
+	vertical-align: center;
+	horizontal-align: center;
+	border-radius: 50%;
+	clip: radial( 50% 50%, 0deg, 90deg );
+	border: 10px solid rgba(206, 0, 0, 0.774);
+	visibility: collapse;
+}
+
+.reloading #attack_delayed_progress_bar
+{
+	border: 10px solid rgba(206, 0, 0, 0.774);
+}
+
+.reloading #attack_delayed_progress_bar
+{
+	border: 10px solid rgba(206, 0, 0, 0.774);
+}
+
+@keyframes 'progress_red_flash_shot_disarmed'
+{
+	0%
+	{
+		border: 10px solid rgba(255, 0, 0, 0.774 );
+	}
+	
+	10%
+	{
+		border: 10px solid rgba(255, 0, 0, 0.774 );
+	}
+	
+	100%
+	{
+		border: 10px solid rgba(150, 0, 0, 0.774);
+	}
+	
+}
+
+.shot_while_disarmed #attack_delayed_progress_bar
+{
+	animation-name: progress_red_flash_shot_disarmed;
+	animation-duration: 0.2s;
+	animation-iteration-count: 4;
+}
+
+.bebop_spin_up #attack_delayed_progress_bar
+{
+	width: 70px;
+	height: 70px;
+	border: 5px solid rgba(196, 196, 196, 0.774);
+}
+
+.weapon_spin_up #spinup_progress_bar
+{
+	width: 75px;
+	height: 75px;
+	border: 2px solid rgba(196, 196, 196, 0.774);
+	visibility: visible;
+}
+
+#attack_delayed_label
+{
+	text-transform: uppercase;
+	vertical-align: center;
+	horizontal-align: center;
+	font-size: 12px;
+	visibility: collapse;
+	color: rgba(255, 200, 200, 1);
+	text-shadow: 0px 0px 8px 3.0 rgb(124, 0, 0);
+}
+
+@keyframes 'label_red_flash_shot_disarmed'
+{
+	0%
+	{
+		color: rgba(255, 200, 200, 1 );
+	}
+	
+	10%
+	{
+		color: rgba(255, 200, 200, 1 );
+	}
+	
+	100%
+	{
+		color: rgba(255, 0, 0, 1);
+	}
+	
+}
+
+.shot_while_disarmed #attack_delayed_label
+{
+	animation-name: label_red_flash_shot_disarmed;
+	animation-duration: 0.2s;
+	animation-iteration-count: 4;
+}
+
+.attack_delayed #attack_delayed_progress_bar,.attack_delayed #attack_delayed_label
+{
+	visibility: visible;
+}
+
+.reloading #attack_delayed_label
+{
+	visibility: collapse;
+}
+
+#attackDelayedReloading
+{
+	vertical-align: center;
+	horizontal-align: center;
+	wash-color: red;
+	visibility: collapse;
+}
+
+.attack_delayed.reloading #attackDelayedReloading
+{
+	visibility: visible;
+}
+
+#obstructed_shot
+{
+	visibility: collapse;
+	width: 100px;
+	height: 100px;
+	vertical-align: center;
+	horizontal-align: center;
+}
+
+#obstructed_cross
+{
+	opacity: 0.7;
+	wash-color: red;
+	vertical-align: center;
+	horizontal-align: center;
+}
+
+.obstructed:not(.unzoomed) #obstructed_shot
+{
+	visibility: visible;
+}
+
+.fired_obstructed_shot #obstructed_cross
+{
+	opacity: 1;
+	pre-transform-scale2d: 1.5;
+	transition-property: opacity, pre-transform-scale2d;
+	transition-duration: 0.1s;
+}
+
+.weapon_ammo
+{
+	font-size: 18px;
+	font-weight: bold;
+	color: rgba(255, 255, 255, 0.8);
+	text-align: left;
+	vertical-align: bottom;
+	horizontal-align: left;
+}
+
+.has_bonus_clip .weapon_ammo
+{
+	color: clipBonusBulletColor;
+}
+
+.weapon_ammo_max
+{
+	font-size: 18px;
+	color: rgba(255, 255, 255, 0.1);
+	vertical-align: bottom;
+	horizontal-align: left;
+	text-align: left;
+}
+
+#ammo_panel
+{
+	y: 85px;
+	x: 50%;
+	vertical-align: center;
+	horizontal-align: left;
+	margin-left: 0px;
+	flow-children: right;
+	transition-property: opacity;
+	transition-duration: 0.1s;
+	opacity: 1;
+}
+
+#ammo_panel.attack_disabled
+{
+	opacity: 0;
+}
+
+#clips_container
+{
+	height: 70%;
+	flow-children: right;
+	vertical-align: bottom;
+	horizontal-align: center;
+	margin-left: 10px;
+	visibility: collapse;
+}
+
+#clips_container.no_clips
+{
+	visibility: collapse;
+}
+
+.ammo_clip_display
+{
+	vertical-align: bottom;
+	height: 10%;
+	width: 50%;
+	margin-left: 25%;
+	margin-bottom: 0px;
+}
+
+.ammo_clip_display_vert
+{
+	horizontal-align: center;
+	height: 100%;
+	width: 10px;
+	margin-left: 10px;
+	margin-bottom: 0px;
+	visibility: collapse;
+}
+
+.ammo_numbers
+{
+	flow-children: right;
+	horizontal-align: left;
+	vertical-align: bottom;
+	margin-left: 10px;
+	height: 75%;
+}
+
+.hide_clip_ammo #ammo_panel
+{
+	visibility: collapse;
+}
+
+.lowAmmo .weapon_ammo
+{
+	color: white;
+	text-shadow: 0px 0px 5px #FF410D;
+	transition-property: color, text-shadow;
+	transition-duration: 0.4s;
+}
+
+#NoReticle
+{
+	width: 30px;
+	height: 30px;
+	opacity: 0.8;
+	background-size: contain;
+	background-position: center;
+	background-image: url("s2r://panorama/images/hud/crosshair/reticle_disarmed_outline.vsvg");
+	align: center center;
+	visibility: collapse;
+}
+
+.view_is_in_eye .excluded #NoReticle,.view_is_in_eye .attack_disabled #NoReticle,.view_is_in_eye #heat_guage
+{
+	visibility: visible;
+}
+
+.excluded .crosshair__dot,.excluded .crosshair__dotborder,.attack_disabled .crosshair__dot,.attack_disabled .crosshair__dotborder
+{
+	visibility: collapse;
+}
+
+#GunGrosshair
+{
+	opacity: 0;
+}
+
+.attack_delayed.reloading:not(.excluded) .dot_bits
+{
+	visibility: collapse;
+}
+

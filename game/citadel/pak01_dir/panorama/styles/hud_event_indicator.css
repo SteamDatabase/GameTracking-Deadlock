@@ -1,0 +1,848 @@
+/* Prettified by Source 2 Viewer 10.1.0.0 - https://valveresourceformat.github.io */
+
+@import url("s2r://panorama/styles/citadel_shared_colors.vcss_c");
+@import url("s2r://panorama/styles/citadel_base_styles.vcss_c");
+@define normalDamageInitColor: #FFD18D;
+@define normalDamageColor: #EC9719;
+@define abilityDamageInitColor: #E7C8FF;
+@define abilityDamageColor: #CE90FF;
+@define meleeDamageInitColor: #FFD18D;
+@define meleeDamageColor: #EC9719;
+@define poisonDamageInitColor: #227031;
+@define poisonDamageColor: #49B960;
+@define critDamageInitColor: rgb(255, 255, 255);
+@define critDamageColor: yellow;
+@define buffedGunDamageInitColor: rgb(255, 255, 220);
+@define buffedGunDamageColor: orange;
+@define buffedAbilityDamageInitColor: rgb(234, 208, 255);
+@define buffedAbilityDamageColor: rgb(172, 255, 253);
+@define buffedMeleeDamageInitColor: rgb(255, 255, 220);
+@define buffedMeleeDamageColor: orange;
+@define statusEffectInitColor: rgb(79, 50, 50);
+@define statusEffectColor: rgb(255, 255, 255);
+@define numberOffsetX: 40;
+@keyframes 'desc_text'
+{
+	2%
+	{
+		opacity: 0;
+	}
+	
+	3%
+	{
+		opacity: 1;
+	}
+	
+	100%
+	{
+		opacity: 0;
+	}
+	
+}
+
+@keyframes 'damage_pop_low'
+{
+	0%
+	{
+		pre-transform-scale2d: 0.7;
+	}
+	
+	100%
+	{
+		pre-transform-scale2d: 0.7;
+	}
+	
+}
+
+@keyframes 'damage_pop_batched'
+{
+	0%
+	{
+		pre-transform-scale2d: 1;
+	}
+	
+	3%
+	{
+		pre-transform-scale2d: 1.2;
+	}
+	
+	10%
+	{
+		pre-transform-scale2d: 1;
+	}
+	
+	60%
+	{
+		pre-transform-scale2d: 0.3;
+	}
+	
+	100%
+	{
+		pre-transform-scale2d: 0.3;
+	}
+	
+}
+
+@keyframes 'healing'
+{
+	0%
+	{
+		pre-transform-scale2d: 1;
+		transform: translateY(-40px) translateX(60px);
+	}
+	
+	1%
+	{
+		pre-transform-scale2d: 1.3;
+	}
+	
+	3%
+	{
+		pre-transform-scale2d: 1;
+	}
+	
+	15%
+	{
+		opacity:0;
+		transform: translateY(-120px) translateX(60px);
+	}
+	
+	100%
+	{
+		transform: translateY(-120px) translateX(60px);
+		opacity: 0;
+	}
+	
+}
+
+@keyframes 'gold_pop'
+{
+	0%
+	{
+		opacity: 0.2;
+		pre-transform-scale2d: 0.6;
+	}
+	
+	3%
+	{
+		opacity: 0.8;
+		pre-transform-scale2d: 1.2;
+	}
+	
+	5%
+	{
+		opacity: 0.8;
+		pre-transform-scale2d: 0.8;
+	}
+	
+	30%
+	{
+		opacity: 0;
+		pre-transform-scale2d: 0.8;
+	}
+	
+	100%
+	{
+		opacity: 0;
+		pre-transform-scale2d: 0.3;
+	}
+	
+}
+
+@keyframes 'damage_color'
+{
+	0%
+	{
+		color: normalDamageInitColor;
+	}
+	
+	100%
+	{
+		color: normalDamageColor;
+	}
+	
+}
+
+@keyframes 'crit_color'
+{
+	0%
+	{
+		color: critDamageInitColor;
+	}
+	
+	100%
+	{
+		color: critDamageColor;
+	}
+	
+}
+
+@keyframes 'buffed_gun_color'
+{
+	0%
+	{
+		color: buffedGunDamageInitColor;
+	}
+	
+	100%
+	{
+		color: buffedGunDamageColor;
+	}
+	
+}
+
+@keyframes 'buffed_ability_color'
+{
+	0%
+	{
+		color: buffedAbilityDamageInitColor;
+	}
+	
+	100%
+	{
+		color: buffedAbilityDamageColor;
+	}
+	
+}
+
+@keyframes 'buffed_melee_color'
+{
+	0%
+	{
+		color: buffedMeleeDamageInitColor;
+	}
+	
+	100%
+	{
+		color: buffedMeleeDamageColor;
+	}
+	
+}
+
+@keyframes 'ability_color'
+{
+	0%
+	{
+		color: abilityDamageInitColor;
+	}
+	
+	100%
+	{
+		color: abilityDamageColor;
+	}
+	
+}
+
+@keyframes 'poison_color'
+{
+	0%
+	{
+		color: poisonDamageInitColor;
+	}
+	
+	100%
+	{
+		color: poisonDamageColor;
+	}
+	
+}
+
+@keyframes 'status_effect_color'
+{
+	0%
+	{
+		color: statusEffectInitColor;
+	}
+	
+	100%
+	{
+		color: statusEffectColor;
+	}
+	
+}
+
+@keyframes 'crit_pop'
+{
+	0%
+	{
+		pre-transform-scale2d: 1.4;
+	}
+	
+	100%
+	{
+		pre-transform-scale2d: 1.4;
+	}
+	
+}
+
+@keyframes 'rise_and_fade_gun'
+{
+	0%
+	{
+		transform: translateX(100px);
+		opacity: 1;
+	}
+	
+	15%
+	{
+		opacity: 0;
+	}
+	
+	100%
+	{
+		transform: translateX(100px);
+		opacity: 0;
+	}
+	
+}
+
+@keyframes 'rise_and_fade_gun_batched'
+{
+	0%
+	{
+		pre-transform-scale2d: 1;
+		transform: translateX(100px);
+	}
+	
+	1%
+	{
+		pre-transform-scale2d: 1.3;
+	}
+	
+	3%
+	{
+		pre-transform-scale2d: 1;
+	}
+	
+	35%
+	{
+		opacity: 1;
+	}
+	
+	55%
+	{
+		opacity: 0;
+	}
+	
+	100%
+	{
+		transform: translateX(100px);
+		opacity: 0;
+	}
+	
+}
+
+@keyframes 'rise_and_fade_melee'
+{
+	0%
+	{
+		pre-transform-scale2d: 1;
+		transform: translateY(-40px) translateX(60px);
+	}
+	
+	1%
+	{
+		pre-transform-scale2d: 1.3;
+	}
+	
+	3%
+	{
+		pre-transform-scale2d: 1;
+	}
+	
+	15%
+	{
+		transform: translateY(-40px) translateX(60px);
+	}
+	
+	30%
+	{
+		transform: translateY(-120px) translateX(60px);
+		opacity: 0;
+	}
+	
+	100%
+	{
+		transform: translateY(-120px) translateX(60px);
+		opacity: 0;
+	}
+	
+}
+
+@keyframes 'rise_and_fade_tech'
+{
+	0%
+	{
+		transform: translateX(50px);
+		opacity: 0.5;
+	}
+	
+	50%
+	{
+		opacity: 0;
+	}
+	
+	100%
+	{
+		transform: translateX(50px);
+		opacity: 0;
+	}
+	
+}
+
+@keyframes 'rise_and_fade_tech_batched'
+{
+	0%
+	{
+		pre-transform-scale2d: 1;
+		transform: translateX(50px);
+	}
+	
+	1%
+	{
+		pre-transform-scale2d: 1.3;
+	}
+	
+	3%
+	{
+		pre-transform-scale2d: 1;
+	}
+	
+	35%
+	{
+		opacity: 0.4;
+	}
+	
+	55%
+	{
+		opacity: 0;
+	}
+	
+	100%
+	{
+		transform: translateX(50px);
+		opacity: 0;
+	}
+	
+}
+
+.WindowRoot
+{
+	height: 300px;
+	width: 300px;
+	flow-children: right;
+	font-size: 40px;
+	opacity: 1;
+}
+
+.HudIndicatorText
+{
+	padding: 10px 10px 10px 40px;
+	width: fit-children;
+	height: fit-children;
+	horizontal-align: center;
+	vertical-align: center;
+	text-align: center;
+	font-family: sansMono;
+	text-shadow: 0px 0px 2px 5.0 black;
+}
+
+.HudIndicatorContainer
+{
+	horizontal-align: center;
+	vertical-align: center;
+	flow-children: right;
+	text-align: right;
+	z-index: -1;
+	padding: 10px;
+}
+
+.HudIndicatorIcon
+{
+	visibility: collapse;
+	width: 30px;
+	height: 30px;
+	margin-left: 10px;
+	horizontal-align: center;
+	vertical-align: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-image: url("s2r://panorama/images/hud/headshot_psd.vtex");
+}
+
+.damage_type_gun .HudIndicatorContainer
+{
+	horizontal-align: center;
+	vertical-align: center;
+	flow-children: right;
+	z-index: -1;
+	animation-timing-function: linear;
+	animation-name: rise_and_fade_gun;
+	animation-duration: 3s;
+}
+
+.batched.damage_type_gun .HudIndicatorContainer
+{
+	horizontal-align: center;
+	vertical-align: center;
+	flow-children: right;
+	z-index: 1;
+	animation-name: rise_and_fade_gun_batched;
+	animation-duration: 3s;
+}
+
+.batched.crit .HudIndicatorContainer
+{
+	horizontal-align: center;
+	vertical-align: center;
+	flow-children: right;
+	z-index: 1;
+	animation-name: rise_and_fade_gun_batched;
+	animation-duration: 3s;
+}
+
+.damage_type_ability .HudIndicatorContainer
+{
+	horizontal-align: center;
+	vertical-align: center;
+	flow-children: right;
+	z-index: -1;
+	animation-name: rise_and_fade_tech;
+	animation-duration: 3s;
+}
+
+.batched.damage_type_ability .HudIndicatorContainer
+{
+	horizontal-align: center;
+	vertical-align: center;
+	flow-children: right;
+	z-index: -1;
+	animation-name: rise_and_fade_tech_batched;
+	animation-duration: 3s;
+}
+
+.batched.damage_type_melee .HudIndicatorContainer
+{
+	horizontal-align: center;
+	vertical-align: center;
+	flow-children: right;
+	z-index: -1;
+	animation-name: rise_and_fade_melee;
+	animation-duration: 3s;
+}
+
+.gold .HudIndicatorContainer
+{
+	horizontal-align: center;
+	vertical-align: center;
+	height: fit-children;
+	width: fit-children;
+	flow-children: right;
+	z-index: 10;
+	animation-name: gold_pop;
+	animation-duration: 3s;
+}
+
+.gold .HudIndicatorIcon,.gold_small .HudIndicatorIcon
+{
+	visibility: visible;
+	wash-color: #70F8C1;
+	height: 36px;
+	margin-left: 0px;
+	background-image: url("s2r://panorama/images/hud/icons/icon_soul.vsvg");
+	img-shadow: 0px 0px 3px #000000;
+}
+
+.gold_small .HudIndicatorContainer
+{
+	horizontal-align: center;
+	vertical-align: center;
+	height: fit-children;
+	width: fit-children;
+	flow-children: right;
+	z-index: 10;
+	animation-name: gold_pop;
+	animation-duration: 3s;
+}
+
+.deny .HudIndicatorContainer
+{
+	horizontal-align: center;
+	vertical-align: center;
+	height: fit-children;
+	width: fit-children;
+	flow-children: right;
+	z-index: 10;
+	animation-name: gold_pop;
+	animation-duration: 3s;
+}
+
+#Desc
+{
+	visibility: collapse;
+}
+
+.hasDesc #Desc
+{
+	font-size: 15px;
+	font-weight: semi-bold;
+	color: rgb(179, 179, 179);
+	white-space: nowrap;
+	animation-name: desc_text;
+	animation-duration: 0.5s;
+	opacity: 0;
+	visibility: visible;
+}
+
+.distance_near .HudIndicatorText
+{
+	font-size: 28px;
+}
+
+.distance_normal .HudIndicatorText
+{
+	font-size: 24px;
+}
+
+.distance_far .HudIndicatorText
+{
+	font-size: 20px;
+}
+
+.distance_very_far .HudIndicatorText
+{
+	font-size: 16px;
+}
+
+.distance_extremely_far .HudIndicatorText
+{
+	font-size: 12px;
+}
+
+.damage_type_gun .HudIndicatorText
+{
+	opacity: 0.8;
+	text-align: center;
+	color: normalDamageColor;
+}
+
+.batched.damage_type_gun .HudIndicatorText
+{
+	opacity: 1;
+	text-align: center;
+	animation-name: damage_color;
+	animation-duration: 0.3s;
+}
+
+.batched.buffed.damage_type_gun .HudIndicatorText
+{
+	opacity: 1;
+	text-align: center;
+	color: buffedGunDamageColor;
+	animation-name: buffed_gun_color;
+	animation-duration: 0.3s;
+}
+
+.buffed.damage_type_gun .HudIndicatorText
+{
+	opacity: 0.5;
+	text-align: center;
+	color: buffedGunDamageColor;
+	animation-name: buffed_gun_color;
+	animation-duration: 0.3s;
+}
+
+@keyframes 'crit_flash'
+{
+	0%
+	{
+		text-shadow: 0px 0px 4px 5.0 red;
+	}
+	
+	10%
+	{
+		text-shadow: 0px 0px 4px 5.0 red;
+	}
+	
+	100%
+	{
+		text-shadow: 0px 0px 4px 1.0 orange;
+	}
+	
+}
+
+.crit.damage_type_gun .HudIndicatorText
+{
+	opacity: 0.5;
+	color: critDamageColor;
+	text-align: center;
+	text-shadow: 0px 0px 4px 1.0 orange;
+	animation-name: crit_color, crit_flash;
+	animation-duration: 0.3s, 1s;
+}
+
+.batched.crit.damage_type_gun .HudIndicatorText
+{
+	opacity: 1;
+	color: critDamageColor;
+	text-align: center;
+	pre-transform-scale2d: 1.4;
+	animation-name: crit_color, crit_flash;
+	animation-duration: 0.3s, 0.3s;
+}
+
+.damage_type_melee .HudIndicatorText
+{
+	opacity: 1;
+	color: meleeDamageColor;
+	font-size: 60px;
+	text-align: center;
+	text-shadow: 0px 0px 6px 1.5 black;
+}
+
+.buffed.damage_type_melee .HudIndicatorText
+{
+	opacity: 1;
+	font-size: 60px;
+	text-align: center;
+	text-shadow: 0px 0px 6px 1.5 black;
+	color: buffedMeleeDamageColor;
+	animation-name: buffed_melee_color;
+	animation-duration: 0.3s;
+}
+
+.damage_type_ability .HudIndicatorText
+{
+	opacity: 0.3;
+	text-align: center;
+	color: abilityDamageColor;
+	animation-name: ability_color;
+	animation-duration: 0.3s;
+}
+
+.batched.damage_type_ability .HudIndicatorText
+{
+	opacity: 1;
+	text-align: center;
+	color: abilityDamageColor;
+	animation-name: ability_color;
+	animation-duration: 0.3s;
+}
+
+.buffed.damage_type_ability .HudIndicatorText
+{
+	opacity: 1;
+	color: buffedAbilityDamageColor;
+	animation-name: buffed_ability_color;
+	animation-duration: 0.3s;
+	text-align: center;
+	text-shadow: 0px 0px 6px 1.5 blue;
+}
+
+.damage.damage_type_poison .HudIndicatorText
+{
+	color: poisonDamageColor;
+	animation-name: poison_color;
+	animation-duration: 0.3s;
+}
+
+.status_effect .HudIndicatorText
+{
+	color: statusEffectColor;
+	animation-name: status_effect_color;
+	animation-duration: 0.3s;
+	text-transform: uppercase;
+	text-shadow: 2px 2px 10px rgb(79, 50, 50);
+}
+
+.gold .HudIndicatorText
+{
+	font-weight: bolder;
+	font-size: 40px;
+	color: #70F8C1;
+}
+
+.gold_small .HudIndicatorText
+{
+	font-weight: bold;
+	font-size: 40px;
+	color: #70F8C1;
+}
+
+.xp .HudIndicatorText
+{
+	font-size: 40px;
+	color: white;
+}
+
+.mana_burn .HudIndicatorText
+{
+	color: mediumblue;
+	animation-name: crit_pop;
+	animation-duration: 0.6s;
+}
+
+.deny .HudIndicatorText
+{
+	color: rgb(255, 117, 85);
+	font-weight: bold;
+	font-style: italic;
+	animation-name: crit_pop;
+	animation-duration: 0.6s;
+}
+
+.heal
+{
+	font-size: 50px;
+	color: greenyellow;
+	animation-name: healing;
+	animation-duration: 3s;
+}
+
+.modifier .HudIndicatorText
+{
+	color: white;
+	font-size: 30px;
+}
+
+.batched .HudIndicatorText
+{
+	font-weight:bold;
+}
+
+.heal.use_css_position
+{
+	horizontal-align: center;
+	margin-right: 25%;
+	y: 72.5%;
+}
+
+.damage.dpspercent_low
+{
+	font-size: 40px;
+}
+
+.damage.dpspercent_mid
+{
+	font-size: 50px;
+}
+
+.damage.dpspercent_high
+{
+	font-size: 60px;
+}
+
+.crit .HudIndicatorIcon
+{
+	wash-color: critDamageColor;
+	width: 30px;
+	height: 30px;
+}
+
+.distance_far .HudIndicatorIcon,.distance_very_far .HudIndicatorIcon,.distance_extremely_far .HudIndicatorIcon,.distance_far.crit .HudIndicatorIcon,.distance_very_far.crit .HudIndicatorIcon,.distance_extremely_far.crit .HudIndicatorIcon
+{
+	width: 20px;
+	height: 20px;
+	margin-left: 5px;
+}
+

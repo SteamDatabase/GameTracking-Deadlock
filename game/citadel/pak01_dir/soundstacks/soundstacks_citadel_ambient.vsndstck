@@ -1,0 +1,2566 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_ambient_rand = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					random_position_base = 
+					{
+						data_type = "enum"
+						enum_decl = 
+						{
+							value = 
+							[
+								"player_position",
+								"entity_position",
+							]
+						}
+						value = "player_position"
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_rand"
+						}
+					}
+					random_soundevent_name = 
+					{
+						data_type = "string"
+						value = "default.null"
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_rand"
+						}
+					}
+					random_soundevent_timer_min = 
+					{
+						data_type = "float"
+						value = "4.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_rand"
+						}
+					}
+					random_soundevent_timer_max = 
+					{
+						data_type = "float"
+						value = "10.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_rand"
+						}
+					}
+					position = 
+					{
+						data_type = "float3"
+						value = "[0.0, 0.0, 0.0]"
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_rand"
+						}
+					}
+					position_random = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_rand"
+						}
+					}
+					rand_radius_min = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_rand"
+						}
+					}
+					rand_radius_max = 
+					{
+						data_type = "float"
+						value = "250.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_rand"
+						}
+					}
+					volume_atten = 
+					{
+						data_type = "float"
+						value = "1.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_rand"
+						}
+					}
+					use_initial_random_offset = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_rand"
+						}
+					}
+					cull_at_distance = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_rand"
+						}
+					}
+				}
+			},
+			
+			{
+				name = "get_event_info"
+				operator = "soundevent_get_info"
+			},
+			
+			{
+				name = "globals"
+				operator = "get_system_globals"
+				input_execute = "1"
+				input_listener_index = "0"
+			},
+			
+			{
+				name = "random_delay"
+				operator = "math_random_float"
+				input_execute = "1.0"
+				input_min = "@public.random_soundevent_timer_min"
+				input_max = "@public.random_soundevent_timer_max"
+				round_to_int = "0"
+			},
+			
+			{
+				name = "one_time_random"
+				operator = "math_random_float"
+				execute_once = "true"
+				input_execute = "@public.use_initial_random_offset"
+				input_min = "0"
+				input_max = "@random_delay.output"
+				round_to_int = "0"
+			},
+			
+			{
+				name = "first_execution_check"
+				operator = "math_float"
+				apply = "less_than_or_equal"
+				input1 = "@get_event_info.output_elapsed_time"
+				input2 = "0.05"
+			},
+			
+			{
+				name = "one_time_random_enabled_check"
+				operator = "math_float"
+				apply = "min"
+				input1 = "@first_execution_check.output"
+				input2 = "@public.use_initial_random_offset"
+			},
+			
+			{
+				name = "switch_one_time_and_random"
+				operator = "ctrl_switch_float"
+				input_switch = "@one_time_random_enabled_check.output"
+				input1 = "@random_delay.output"
+				input2 = "@one_time_random.output"
+			},
+			
+			{
+				name = "set_dependency"
+				operator = "soundevent_control"
+				input_add_dependent = "@get_event_info.output_unstopped"
+			},
+			
+			{
+				name = "set_wait"
+				operator = "soundevent_control"
+				input_execute = "@get_event_info.output_unstopped"
+				input_wait_time = "@switch_one_time_and_random.output"
+			},
+			
+			{
+				name = "listener_or_entity_position"
+				operator = "ctrl_switch_float3"
+				input_switch = "@public.random_position_base"
+				input1 = "@globals.output_listener_front"
+				input2 = "@public.position"
+			},
+			
+			{
+				name = "get_random_pos"
+				operator = "math_random_float3"
+				input_execute = "@public.position_random"
+				input_radius_min = "@public.rand_radius_min"
+				input_radius_max = "@public.rand_radius_max"
+				input_position = "@listener_or_entity_position.output"
+			},
+			
+			{
+				name = "random_or_passed_position"
+				operator = "ctrl_switch_float3"
+				input_switch = "@public.position_random"
+				input1 = "@public.position"
+				input2 = "@get_random_pos.output"
+			},
+			
+			{
+				name = "culling_enabled"
+				operator = "math_float"
+				execute_once = "true"
+				apply = "greater_than"
+				input1 = "@public.cull_at_distance"
+				input2 = "0.000000"
+			},
+			
+			{
+				name = "distance_to_listener"
+				operator = "calc_distance"
+				input_execute = "@culling_enabled.output"
+				execute_once = "false"
+				input_position1 = "@random_or_passed_position.output"
+				input_position2 = "@globals.output_listener_position"
+			},
+			
+			{
+				name = "inside_cull_range"
+				operator = "math_float"
+				input_execute = "@culling_enabled.output"
+				apply = "less_than_or_equal"
+				input1 = "@distance_to_listener.output"
+				input2 = "@public.cull_at_distance"
+			},
+			
+			{
+				name = "inside_cull_range_and_unstopped"
+				operator = "math_float"
+				input_execute = "@culling_enabled.output"
+				apply = "min"
+				input1 = "@inside_cull_range.output"
+				input2 = "@get_event_info.output_unstopped"
+			},
+			
+			{
+				name = "should_start_soundevent_switch"
+				operator = "ctrl_switch_float"
+				input_switch = "@culling_enabled.output"
+				input1 = "@get_event_info.output_unstopped"
+				input2 = "@inside_cull_range_and_unstopped.output"
+			},
+			
+			{
+				name = "not_first_execution"
+				operator = "math_float"
+				apply = "sub"
+				input1 = "1.0"
+				input2 = "@first_execution_check.output"
+			},
+			
+			{
+				name = "should_start_and_not_first_time"
+				operator = "math_float"
+				apply = "min"
+				input1 = "@should_start_soundevent_switch.output"
+				input2 = "@not_first_execution.output"
+			},
+			
+			{
+				name = "play_random"
+				operator = "soundevent_start"
+				input_start = "@should_start_and_not_first_time.output"
+				soundevent_name = "@public.random_soundevent_name"
+				input_spawn_oneshots = "1.000000"
+				spawn_orphans = "true"
+				pass_opvar_args = "true"
+				operator_variables = 
+				{
+					public.position = 
+					{
+						operator_arg_field = "true"
+						data_type = "float3"
+						value = "@random_or_passed_position.output"
+					}
+					public.volume_atten = 
+					{
+						operator_arg_field = "true"
+						data_type = "float"
+						value = "@public.volume_atten"
+					}
+				}
+			},
+		]
+		_system_properties = 
+		{
+			display_game = "citadel"
+			display_mod = "citadel"
+			display_group = "advanced"
+		}
+	}
+	citadel_ambient_opvar_iterator = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					opvars = 
+					{
+						data_type = "string"
+						value = ""
+						_system_properties = 
+						{
+							display_group = "normal"
+							property_group = "citadel_ambient_opvar_iterator - Opvars"
+						}
+					}
+				}
+			},
+			
+			{
+				name = "output"
+				operator = "util_null"
+				execute_once = "1.000000"
+				operator_variables = 
+				{
+					val = 
+					{
+						data_type = "float"
+						value = "0.000000"
+					}
+					pos = 
+					{
+						data_type = "float3"
+						value = "[0.0, 0.0, 0.0]"
+					}
+				}
+			},
+			
+			{
+				name = "zero_out_val"
+				operator = "opvar_set_float"
+				input = 0.000000
+				input_execute = "@check_null_opvar.output"
+				input_stack_name = ""
+				input_operator_name = "output"
+				input_field_name = "val"
+				input_use_namespace = "true"
+			},
+			
+			{
+				name = "get_opvar_data_length"
+				operator = "opvar_get_info"
+				execute_once = "true"
+				check_event_data = "true"
+				input_operator_name = "public"
+				input_field_name = "@public.opvars"
+				input_use_namespace = "false"
+			},
+			
+			{
+				name = "get_opvar_name"
+				operator = "opvar_get_string"
+				check_event_data = "true"
+				input_operator_name = "public"
+				input_field_name = "@public.opvars"
+				input_use_namespace = "false"
+				array_selection_type = "index"
+				input_index = "@goto_operator.output_goto_count"
+			},
+			
+			{
+				name = "check_null_opvar"
+				input_execute = "1.000000"
+				execute_once = "false"
+				operator = "math_string"
+				apply = "not_equal"
+				input1 = "@get_opvar_name.output"
+				input2 = ""
+			},
+			
+			{
+				name = "get_opvar_val"
+				operator = "opvar_get_float"
+				input_execute = "@check_null_opvar.output"
+				input_stack_name = "citadel_global_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "@get_opvar_name.output"
+				input_use_namespace = "false"
+			},
+			
+			{
+				name = "add_pos_string_to_opvar"
+				operator = "math_string"
+				input_execute = "@check_null_opvar.output"
+				input1 = "@get_opvar_name.output"
+				input2 = "_pos"
+				apply = "add"
+			},
+			
+			{
+				name = "get_opvar_pos"
+				operator = "opvar_get_float3"
+				input_execute = "@check_null_opvar.output"
+				input_stack_name = "citadel_global_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "@add_pos_string_to_opvar.output_string"
+				input_use_namespace = "false"
+			},
+			
+			{
+				name = "check_index"
+				operator = "math_float"
+				input_execute = "@check_null_opvar.output"
+				execute_once = "false"
+				apply = "equal"
+				input1 = "@goto_operator.output_goto_count"
+				input2 = 0.000000
+			},
+			
+			{
+				name = "calc_opvar_weighted_avg"
+				operator = "math_calc_weighted_avg_serial_vec3"
+				input_execute = "@check_null_opvar.output"
+				input = "@get_opvar_pos.output"
+				input_weight = "@get_opvar_val.output"
+				input_reset = "@check_index.output"
+			},
+			
+			{
+				name = "get_pos_max_weight"
+				operator = "math_float"
+				input_execute = "@check_null_opvar.output"
+				apply = "max"
+				input1 = "@get_opvar_val.output"
+				input2 = "@output.val"
+			},
+			
+			{
+				name = "set_new_max"
+				operator = "opvar_set_float"
+				input = "@get_pos_max_weight.output"
+				input_execute = "@check_null_opvar.output"
+				input_stack_name = ""
+				input_operator_name = "output"
+				input_field_name = "val"
+				input_use_namespace = "true"
+			},
+			
+			{
+				name = "set_new_pos"
+				operator = "opvar_set_float3"
+				input_execute = "@check_null_opvar.output"
+				input = "@calc_opvar_weighted_avg.output"
+				input_stack_name = ""
+				input_operator_name = "output"
+				input_field_name = "pos"
+				input_use_namespace = "true"
+			},
+			
+			{
+				name = "goto_operator"
+				operator = "sos_goto"
+				input_execute = "1"
+				input_goto_operator = "citadel_ambient_opvar_iterator::get_opvar_name"
+				input_max_loop_count = "@get_opvar_data_length.output_element_count"
+			},
+		]
+	}
+	citadel_ambient_multi_opvar_remap = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					global_opvar_names = 
+					{
+						soundevent_data = "true"
+						data_type = "string"
+						value = ""
+						_system_properties = 
+						{
+							display_group = "normal"
+							property_group = "citadel_ambient_multi_opvar_remap - Opvars"
+							property_help = "List of opvars whose values influence the volume/filter values of the sound"
+						}
+					}
+					global_inverse_opvar_names = 
+					{
+						soundevent_data = "true"
+						data_type = "string"
+						value = ""
+						_system_properties = 
+						{
+							display_group = "normal"
+							property_group = "citadel_ambient_multi_opvar_remap - Opvars"
+							property_help = "List of opvars whose values have an inverse influence on the volume/filter values of the sound"
+						}
+					}
+					global_position_opvar_names = 
+					{
+						soundevent_data = "true"
+						data_type = "string"
+						value = ""
+						_system_properties = 
+						{
+							display_group = "normal"
+							property_group = "citadel_ambient_multi_opvar_remap - Opvars"
+							property_help = "List of opvars whose values influence the position of the sound.  As volume goes to zero the position goes towards the position"
+						}
+					}
+					global_inverse_position_opvar_names = 
+					{
+						soundevent_data = "true"
+						data_type = "string"
+						value = ""
+						_system_properties = 
+						{
+							display_group = "normal"
+							property_group = "citadel_ambient_multi_opvar_remap - Opvars"
+							property_help = "List of opvars whose values have an inverse influence on the the position of the sound.  As volume goes to zero the position goes towards the inverse of the position"
+						}
+					}
+					global_inverse_position_non_vol_opvar_names = 
+					{
+						soundevent_data = "true"
+						data_type = "string"
+						value = ""
+						_system_properties = 
+						{
+							display_group = "normal"
+							property_group = "citadel_ambient_multi_opvar_remap - Opvars"
+							property_help = "List of opvars whose values have an inverse influence on the the position of the sound, they will alter the position regardless of the volume"
+						}
+					}
+					global_opvar_filter_velocity = 
+					{
+						data_type = "float"
+						value = 999
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_multi_opvar_remap - Opvars"
+							property_help = "Max rate that the opvar value will change (in units/sec)"
+						}
+					}
+					global_opvar_inverse_filter_velocity = 
+					{
+						data_type = "float"
+						value = 999
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_multi_opvar_remap - Opvars"
+							property_help = "Max rate that the inverse opvar value will change (in units/sec)"
+						}
+					}
+					opvar_to_vol_curve = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 1.0, 0.0, 0.0, 1.0, 1.0 ]",
+							"[ 1.0, 1.0, 1.0, 1.0, 0.0, 1.0 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "advanced"
+							display_edit_type = "field_curve_2d_editor"
+							property_group = "citadel_ambient_multi_opvar_remap - Volume"
+							property_help = "Remaps the aggregate opvar value to the volume"
+						}
+					}
+					opvar_to_filter_curve = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 1.0, 0.0, 0.0, 1.0, 1.0 ]",
+							"[ 1.0, 1.0, 1.0, 1.0, 0.0, 1.0 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "advanced"
+							display_edit_type = "field_curve_2d_editor"
+							property_group = "citadel_ambient_multi_opvar_remap - Filter"
+							property_help = "Remaps the aggregate opvar value to the lpf value"
+						}
+					}
+					global_opvar_to_volume_multiplier_min = 
+					{
+						data_type = "float"
+						value = 0.000000
+						_system_properties = 
+						{
+							display_group = "normal"
+							property_group = "citadel_ambient_multi_opvar_remap - Volume"
+							property_help = "Min value for the linear volume remapper"
+						}
+					}
+					global_opvar_to_volume_multiplier_max = 
+					{
+						data_type = "float"
+						value = 1.000000
+						_system_properties = 
+						{
+							display_group = "normal"
+							property_group = "citadel_ambient_multi_opvar_remap - Volume"
+							property_help = "Max value for the linear volume remapper"
+						}
+					}
+					opvar_inverse_to_vol_curve = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 1.0, 0.0, 0.0, 1.0, 1.0 ]",
+							"[ 1.0, 1.0, 1.0, 1.0, 0.0, 1.0 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "advanced"
+							display_edit_type = "field_curve_2d_editor"
+							property_group = "citadel_ambient_multi_opvar_remap - Volume"
+							property_help = "Remaps the aggregate inverse opvar value to the volume"
+						}
+					}
+					opvar_inverse_to_filter_curve = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 1.0, 0.0, 0.0, 1.0, 1.0 ]",
+							"[ 1.0, 1.0, 1.0, 1.0, 0.0, 1.0 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "advanced"
+							display_edit_type = "field_curve_2d_editor"
+							property_group = "citadel_ambient_multi_opvar_remap - Filter"
+							property_help = "Remaps the aggregate inverse opvar value to the filter value"
+						}
+					}
+					volume_lfo_freq = 
+					{
+						data_type = "float"
+						value = 1.000000
+						property_group = "LFO"
+						_system_properties = 
+						{
+							display_group = "advanced"
+							property_group = "citadel_ambient_multi_opvar_remap - LFO"
+							property_help = "Frequency control for the volume LFO"
+						}
+					}
+					volume_lfo_scale = 
+					{
+						data_type = "float"
+						value = 0.000000
+						_system_properties = 
+						{
+							display_group = "advanced"
+							property_group = "citadel_ambient_multi_opvar_remap - LFO"
+							property_help = "Amplitude control for the volume LFO"
+						}
+					}
+					volume_atten = 
+					{
+						data_type = "float"
+						value = 1.000000
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_ambient_multi_opvar_remap - Volume"
+							property_help = "Volume scalar, usually set from code or another stack"
+						}
+					}
+					volume_base = 
+					{
+						data_type = "float"
+						value = 1.000000
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_ambient_multi_opvar_remap - Volume"
+							property_help = "Volume scalar, no idea where it's set from"
+						}
+					}
+				}
+			},
+			
+			{
+				name = "comments"
+				operator = "util_null"
+				operator_variables = 
+				{
+					docstring_01 = 
+					{
+						data_type = "string"
+						value = "Used to enable opvar remapping for an array (of unknown size) of opvars"
+					}
+					docstring_02 = 
+					{
+						data_type = "string"
+						value = "TODO: Use (futuretech) compound types to associate freq/vol curves with each opvar name, and remap the value through those curves"
+					}
+				}
+			},
+			
+			{
+				name = "globals"
+				operator = "get_system_globals"
+				input_execute = "1"
+				input_listener_index = "0"
+			},
+			
+			{
+				name = "volume_opvar_values"
+				operator = "util_null"
+				execute_once = "1.000000"
+				operator_variables = 
+				{
+					max_vol_val = 
+					{
+						data_type = "float"
+						value = "0.000000"
+					}
+					min_vol_inverse_val = 
+					{
+						data_type = "float"
+						value = "1.00"
+					}
+				}
+			},
+			
+			{
+				name = "reset_max_vol_val"
+				input = "0.0"
+				input_execute = "1.0"
+				operator = "opvar_set_float"
+				input_stack_name = ""
+				input_operator_name = "volume_opvar_values"
+				input_field_name = "max_vol_val"
+				input_use_namespace = "true"
+			},
+			
+			{
+				name = "reset_min_vol_inverse_val"
+				input = "1.0"
+				input_execute = "1.0"
+				operator = "opvar_set_float"
+				input_stack_name = ""
+				input_operator_name = "volume_opvar_values"
+				input_field_name = "min_vol_inverse_val"
+				input_use_namespace = "true"
+			},
+			
+			{
+				name = "get_opvar_data_length"
+				operator = "opvar_get_info"
+				execute_once = "true"
+				check_event_data = "true"
+				input_operator_name = "public"
+				input_field_name = "global_opvar_names"
+				input_use_namespace = "false"
+			},
+			
+			{
+				name = "get_opvar_name"
+				operator = "opvar_get_string"
+				check_event_data = "true"
+				input_operator_name = "public"
+				input_field_name = "global_opvar_names"
+				input_use_namespace = "false"
+				array_selection_type = "index"
+				input_index = "@goto_operator.output_goto_count"
+			},
+			
+			{
+				name = "check_null_opvar"
+				input_execute = "1.000000"
+				execute_once = "false"
+				operator = "math_string"
+				apply = "not_equal"
+				input1 = "@get_opvar_name.output"
+				input2 = ""
+			},
+			
+			{
+				name = "get_global_opvar"
+				operator = "opvar_get_float"
+				input_execute = "@check_null_opvar.output"
+				input_stack_name = "citadel_global_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "@get_opvar_name.output"
+				input_use_namespace = "false"
+			},
+			
+			{
+				name = "get_max_value"
+				input_execute = "@check_null_opvar.output"
+				operator = "math_float"
+				apply = "max"
+				input1 = "@get_global_opvar.output"
+				input2 = "@volume_opvar_values.max_vol_val"
+			},
+			
+			{
+				name = "set_new_max"
+				input = "@get_max_value.output"
+				input_execute = "@check_null_opvar.output"
+				operator = "opvar_set_float"
+				input_stack_name = ""
+				input_operator_name = "volume_opvar_values"
+				input_field_name = "max_vol_val"
+				input_use_namespace = "true"
+			},
+			
+			{
+				name = "goto_operator"
+				operator = "sos_goto"
+				input_execute = "1"
+				input_goto_operator = "citadel_ambient_multi_opvar_remap::get_opvar_name"
+				input_max_loop_count = "@get_opvar_data_length.output_element_count"
+			},
+			
+			{
+				name = "global_opvar_filter"
+				operator = "math_filter_float"
+				input = "@volume_opvar_values.max_vol_val"
+				input_max_velocity = "@public.global_opvar_filter_velocity"
+			},
+			
+			{
+				name = "remap_opvar_value"
+				operator = "math_curve_2d"
+				input = "@global_opvar_filter.output"
+				public_field_name = "public.opvar_to_vol_curve"
+				input_scale_x = 1.000000
+				input_scale_y = 1.000000
+			},
+			
+			{
+				name = "remap_opvar_value_to_filter_freq"
+				operator = "math_curve_2d"
+				input = "@global_opvar_filter.output"
+				public_field_name = "public.opvar_to_filter_curve"
+				input_scale_x = 1.000000
+				input_scale_y = 1.000000
+			},
+			
+			{
+				name = "map_global_opvar_to_volume"
+				input_execute = "1.000000"
+				operator = "math_remap_float"
+				input = "@remap_opvar_value.output"
+				input_min = "0.000000"
+				input_max = "1.000000"
+				input_map_min = "@public.global_opvar_to_volume_multiplier_min"
+				input_map_max = "@public.global_opvar_to_volume_multiplier_max"
+				default_to_max = "true"
+			},
+			
+			{
+				name = "get_opvar_inverse_data_length"
+				operator = "opvar_get_info"
+				execute_once = "true"
+				check_event_data = "true"
+				input_operator_name = "public"
+				input_field_name = "global_inverse_opvar_names"
+				input_use_namespace = "false"
+			},
+			
+			{
+				name = "get_opvar_inverse_name"
+				operator = "opvar_get_string"
+				check_event_data = "true"
+				input_operator_name = "public"
+				input_field_name = "global_inverse_opvar_names"
+				input_use_namespace = "false"
+				array_selection_type = "index"
+				input_index = "@goto_operator_inverse.output_goto_count"
+			},
+			
+			{
+				name = "check_null_inverse_opvar"
+				input_execute = "1.000000"
+				execute_once = "false"
+				operator = "math_string"
+				apply = "not_equal"
+				input1 = "@get_opvar_inverse_name.output"
+				input2 = ""
+			},
+			
+			{
+				name = "get_global_inverse_opvar"
+				operator = "opvar_get_float"
+				input_execute = "@check_null_inverse_opvar.output"
+				input_stack_name = "citadel_global_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "@get_opvar_inverse_name.output"
+				input_use_namespace = "false"
+			},
+			
+			{
+				name = "invert_opvar_val"
+				input_execute = "@check_null_inverse_opvar.output"
+				operator = "math_float"
+				apply = "sub"
+				input1 = "1.0"
+				input2 = "@get_global_inverse_opvar.output"
+			},
+			
+			{
+				name = "min_inverse_val"
+				input_execute = "@check_null_inverse_opvar.output"
+				operator = "math_float"
+				apply = "min"
+				input1 = "@invert_opvar_val.output"
+				input2 = "@volume_opvar_values.min_vol_inverse_val"
+			},
+			
+			{
+				name = "set_new_val"
+				input_execute = "@check_null_inverse_opvar.output"
+				input = "@min_inverse_val.output"
+				operator = "opvar_set_float"
+				input_stack_name = ""
+				input_operator_name = "volume_opvar_values"
+				input_field_name = "min_vol_inverse_val"
+				input_use_namespace = "true"
+			},
+			
+			{
+				name = "goto_operator_inverse"
+				operator = "sos_goto"
+				input_execute = "1"
+				input_goto_operator = "citadel_ambient_multi_opvar_remap::get_opvar_inverse_name"
+				input_max_loop_count = "@get_opvar_inverse_data_length.output_element_count"
+			},
+			
+			{
+				name = "reinvert_opvar_val_so_curve_looks_nice"
+				input_execute = "@check_null_inverse_opvar.output"
+				operator = "math_float"
+				apply = "sub"
+				input1 = "1.0"
+				input2 = "@volume_opvar_values.min_vol_inverse_val"
+			},
+			
+			{
+				name = "global_opvar_inverse_filter"
+				operator = "math_filter_float"
+				input = "@reinvert_opvar_val_so_curve_looks_nice.output"
+				input_max_velocity = "@public.global_opvar_inverse_filter_velocity"
+			},
+			
+			{
+				name = "map_global_opvar_inverse_to_volume"
+				operator = "math_curve_2d"
+				input = "@global_opvar_inverse_filter.output"
+				public_field_name = "public.opvar_inverse_to_vol_curve"
+				input_scale_x = 1.000000
+				input_scale_y = 1.000000
+			},
+			
+			{
+				name = "remap_opvar_inverse_value_to_filter_freq"
+				operator = "math_curve_2d"
+				input = "@global_opvar_inverse_filter.output"
+				public_field_name = "public.opvar_inverse_to_filter_curve"
+				input_scale_x = 1.000000
+				input_scale_y = 1.000000
+			},
+			
+			{
+				name = "vol_lfo"
+				operator = "mod_LFO"
+				wave_type = "sin"
+				input_frequency = "@public.volume_lfo_freq"
+				input_scale = "@public.volume_lfo_scale"
+				input_center = "1.000000"
+			},
+			
+			{
+				name = "opvar_volume_accumulate"
+				operator = "math_accumulate12_float"
+				apply = "mult"
+				input1 = "@map_global_opvar_to_volume.output"
+				input2 = "@map_global_opvar_inverse_to_volume.output"
+				input3 = "1"
+				input4 = "@public.volume_atten"
+				input5 = "@public.volume_base"
+				input6 = "@vol_lfo.output"
+				input7 = "1.000000"
+				input8 = "1.000000"
+				input9 = "1.000000"
+				input10 = "1.000000"
+				input11 = "1.000000"
+				input12 = "1.000000"
+			},
+			
+			{
+				name = "filter_freq_accumulate"
+				operator = "math_accumulate12_float"
+				apply = "mult"
+				input1 = "@remap_opvar_value_to_filter_freq.output"
+				input2 = "@remap_opvar_inverse_value_to_filter_freq.output"
+				input3 = "1"
+				input4 = "1.000000"
+				input5 = "1.000000"
+				input6 = "1.000000"
+				input7 = "1.000000"
+				input8 = "1.000000"
+				input9 = "1.000000"
+				input10 = "1.000000"
+				input11 = "1.000000"
+				input12 = "1.000000"
+			},
+			
+			{
+				name = "mult_opvars_for_output"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@global_opvar_filter.output"
+				input2 = "@map_global_opvar_inverse_to_volume.output"
+			},
+			
+			{
+				name = "output_values"
+				operator = "util_null"
+				execute_once = "1.000000"
+				operator_variables = 
+				{
+					volume_val = 
+					{
+						data_type = "float"
+						value = "@opvar_volume_accumulate.output"
+					}
+					filter_val = 
+					{
+						data_type = "float"
+						value = "@filter_freq_accumulate.output"
+					}
+					opvar_val = 
+					{
+						data_type = "float"
+						value = "@mult_opvars_for_output.output"
+					}
+					position_weight_max = 
+					{
+						data_type = "float"
+						value = 0.000000
+					}
+					inverse_position_weight_max = 
+					{
+						data_type = "float"
+						value = 0.000000
+					}
+					folddown_position = 
+					{
+						data_type = "float3"
+						value = "[ 0.0, 0.0, 0.0 ]"
+					}
+					folddown_position_non_vol = 
+					{
+						data_type = "float3"
+						value = "[ 0.0, 0.0, 0.0 ]"
+					}
+					foldown_opvar_val_non_vol = 
+					{
+						data_type = "float"
+						value = 0.000000
+					}
+				}
+			},
+			
+			{
+				name = "set_new_pos_max"
+				operator = "opvar_set_float"
+				input = 0.000000
+				input_execute = "@check_null_opvar.output"
+				input_stack_name = ""
+				input_operator_name = "output_values"
+				input_field_name = "position_weight_max"
+				input_use_namespace = "true"
+			},
+			
+			{
+				name = "set_new_inverse_pos_max"
+				operator = "opvar_set_float"
+				input = 0.000000
+				input_execute = "@check_null_opvar.output"
+				input_stack_name = ""
+				input_operator_name = "output_values"
+				input_field_name = "inverse_position_weight_max"
+				input_use_namespace = "true"
+			},
+			
+			{
+				name = "citadel_ambient_opvar_iterator"
+				operator = "sos_import_stack"
+				import_stack = "citadel_ambient_opvar_iterator"
+				operator_variables = 
+				{
+					opvars = 
+					{
+						data_type = "string"
+						value = "global_position_opvar_names"
+					}
+				}
+			},
+			
+			{
+				name = "citadel_ambient_opvar_iterator_inverse"
+				operator = "sos_import_stack"
+				import_stack = "citadel_ambient_opvar_iterator"
+				operator_variables = 
+				{
+					opvars = 
+					{
+						data_type = "string"
+						value = "global_inverse_position_opvar_names"
+					}
+				}
+			},
+			
+			{
+				name = "citadel_ambient_opvar_iterator_inverse_non_vol"
+				operator = "sos_import_stack"
+				import_stack = "citadel_ambient_opvar_iterator"
+				operator_variables = 
+				{
+					opvars = 
+					{
+						data_type = "string"
+						value = "global_inverse_position_non_vol_opvar_names"
+					}
+				}
+			},
+			
+			{
+				name = "calculate_inverse_position"
+				operator = "math_calc_directional_vec3"
+				input_start_position = "@citadel_ambient_opvar_iterator_inverse::output.pos"
+				input_center_position = "@globals.output_listener_position"
+			},
+			
+			{
+				name = "calculate_inverse_position_non_vol"
+				operator = "math_calc_directional_vec3"
+				input_start_position = "@citadel_ambient_opvar_iterator_inverse_non_vol::output.pos"
+				input_center_position = "@globals.output_listener_position"
+			},
+			
+			{
+				name = "inverse_debug"
+				operator = "util_draw_radius"
+				input_execute = 0.000000
+				input_radius_min = 10.000000
+				input_name = "inverse"
+				input_position = "@calculate_inverse_position.output"
+			},
+			
+			{
+				name = "invert_pos_weight"
+				input_execute = "1.000000"
+				operator = "math_float"
+				apply = "sub"
+				input1 = 1.000000
+				input2 = "@citadel_ambient_opvar_iterator::output.val"
+			},
+			
+			{
+				name = "calc_folddown_position"
+				input_execute = "1.000000"
+				execute_once = "false"
+				operator = "math_calc_weighted_avg_vec3"
+				input_1 = "@citadel_ambient_opvar_iterator::output.pos"
+				input_2 = "@calculate_inverse_position.output"
+				input_weight_1 = "@invert_pos_weight.output"
+				input_weight_2 = "@citadel_ambient_opvar_iterator_inverse::output.val"
+			},
+			
+			{
+				name = "set_folddown_pos_opvar"
+				operator = "opvar_set_float3"
+				input_execute = "1.000000"
+				input = "@calc_folddown_position.output"
+				input_stack_name = ""
+				input_operator_name = "output_values"
+				input_field_name = "folddown_position"
+				input_use_namespace = "true"
+			},
+			
+			{
+				name = "set_folddown_pos_opvar_non_vol"
+				operator = "opvar_set_float3"
+				input_execute = "1.000000"
+				input = "@calculate_inverse_position_non_vol.output"
+				input_stack_name = ""
+				input_operator_name = "output_values"
+				input_field_name = "folddown_position_non_vol"
+				input_use_namespace = "true"
+			},
+			
+			{
+				name = "set_foldown_opvar_val_non_vol"
+				operator = "opvar_set_float"
+				input_execute = "1.000000"
+				input = "@citadel_ambient_opvar_iterator_inverse_non_vol::output.val"
+				input_index = "0"
+				input_operator_name = "output_values"
+				input_field_name = "foldown_opvar_val_non_vol"
+				input_use_namespace = "true"
+			},
+		]
+	}
+	citadel_simple_voicegraph_filter_dynamics = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					import_public_opvars = 
+					[
+						"citadel_base_3d",
+						"citadel_ambient_multi_opvar_remap",
+					]
+					vsnd_files = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = 
+						[
+							"sounds/common/null.vsnd",
+						]
+					}
+					filter_mix = 
+					{
+						data_type = "float"
+						value = "1.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_simple_voicegraph_filter_dynamics"
+						}
+					}
+					volume_atten = 
+					{
+						data_type = "float"
+						value = "1.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_simple_voicegraph_filter_dynamics"
+						}
+					}
+					volume_lfo_freq = 
+					{
+						data_type = "float"
+						value = "1.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_simple_voicegraph_filter_dynamics"
+						}
+					}
+					volume_lfo_scale = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_simple_voicegraph_filter_dynamics"
+						}
+					}
+					pitch_external = 
+					{
+						data_type = "float"
+						value = "1.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_simple_voicegraph_filter_dynamics"
+						}
+					}
+					direct_mix_level = 
+					{
+						data_type = "float"
+						value = "1.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_simple_voicegraph_filter_dynamics"
+						}
+					}
+					voicegraph_name = 
+					{
+						data_type = "string"
+						value = "citadel.hrtf_w_lpf_dynamics_b"
+						_system_properties = 
+						{
+							property_group = "citadel_simple_voicegraph_filter_dynamics"
+						}
+					}
+					use_hrtf = 
+					{
+						data_type = "float"
+						value = "1.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_simple_voicegraph_filter_dynamics"
+						}
+					}
+					delay = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_simple_voicegraph_filter_dynamics"
+						}
+					}
+					vsnd_pause_with_game = 
+					{
+						data_type = "bool"
+						value = "true"
+						_system_properties = 
+						{
+							property_group = "citadel_simple_voicegraph_filter_dynamics"
+						}
+					}
+					should_save = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_simple_voicegraph_filter_dynamics"
+						}
+					}
+				}
+			},
+			
+			{
+				name = "citadel_ambient_multi_opvar_remap"
+				operator = "sos_import_stack"
+				import_stack = "citadel_ambient_multi_opvar_remap"
+				auto_connect_public_fields = "true"
+				operator_variables = 
+				{
+				}
+			},
+			
+			{
+				name = "citadel_base_3d"
+				operator = "sos_import_stack"
+				import_stack = "citadel_base_3d"
+				auto_connect_public_fields = "true"
+				operator_variables = 
+				{
+					volume_atten = 
+					{
+						value = "@citadel_ambient_multi_opvar_remap::opvar_volume_accumulate.output"
+					}
+				}
+			},
+			
+			{
+				name = "pitch_mult"
+				input_execute = "1.000000"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@public.pitch_external"
+				input2 = "@citadel_base_3d::pitch_adjustment.output"
+			},
+			
+			{
+				name = "get_vsnd"
+				execute_once = "true"
+				operator = "opvar_get_vsnd"
+				check_event_data = "true"
+				input_operator_name = "public"
+				input_field_name = "vsnd_files"
+				input_use_namespace = "false"
+				array_selection_type = "random_exclusive"
+			},
+			
+			{
+				name = "speakers_select"
+				operator = "ctrl_switch_speakers"
+				input_switch = "1.000000"
+				input1 = "@citadel_base_3d::speakers_spatialize.output"
+				left_front2 = "1.000000"
+				right_front2 = "1.000000"
+				left_rear2 = "1.000000"
+				right_rear2 = "1.000000"
+				center2 = "1.000000"
+				lfe2 = "1.000000"
+			},
+			
+			{
+				name = "culling_invert"
+				operator = "math_float"
+				input_execute = "@public.cull_at_distance"
+				apply = "sub"
+				input1 = "1.000000"
+				input2 = "@citadel_base_3d::greater_than_cull_distance.output"
+			},
+			
+			{
+				name = "not_culling_and_unstopped"
+				operator = "math_float"
+				input_execute = "@public.cull_at_distance"
+				apply = "min"
+				input1 = "@culling_invert.output"
+				input2 = "@citadel_base_3d::get_event_info.output_unstopped"
+			},
+			
+			{
+				name = "switch_start_mode"
+				operator = "ctrl_switch_float"
+				input_switch = "@public.cull_at_distance"
+				input1 = "@citadel_base_3d::get_event_info.output_unstopped"
+				input2 = "@not_culling_and_unstopped.output"
+			},
+			
+			{
+				name = "set_builtins"
+				operator = "sos_set_builtins"
+				input_voicegraph = "@public.voicegraph_name"
+			},
+			
+			{
+				name = "start_vmix"
+				operator = "vmix_voice_start"
+				input_track1 = "track_01"
+				input_start2 = "0.000000"
+				input_start3 = "0.000000"
+				input_start4 = "0.000000"
+				input_start5 = "0.000000"
+				input_start6 = "0.000000"
+				input_start7 = "0.000000"
+				input_start8 = "0.000000"
+				input_vsnd1 = "@get_vsnd.output"
+				execute_once = "false"
+				input_execute = "1.000000"
+				input_start = "@switch_start_mode.output"
+				input_should_pause = "@public.vsnd_pause_with_game"
+				input_should_save = "@public.should_save"
+				input_speaker_volumes = "@speakers_select.output"
+				input_pitch = "@pitch_mult.output"
+				input_delay = "@public.delay"
+				input_memory_type = "@public.memory_type"
+				input_fade_out = "@public.volume_fade_out"
+			},
+			
+			{
+				name = "send_voicegraph_hrtf"
+				operator = "vmix_voicegraph_input"
+				input_name = "hrtf_mix"
+				input = "@public.use_hrtf"
+			},
+			
+			{
+				name = "send_voicegraph_filter_freq"
+				operator = "vmix_voicegraph_input"
+				input_name = "filter_freq"
+				input = "@citadel_ambient_multi_opvar_remap::filter_freq_accumulate.output"
+			},
+			
+			{
+				name = "send_voicegraph_filter_mix"
+				operator = "vmix_voicegraph_input"
+				input_name = "filter_mix"
+				input = "@public.filter_mix"
+			},
+			
+			{
+				name = "unpack_pos"
+				input_execute = "1.000000"
+				operator = "util_elements_float3"
+				input = "@citadel_base_3d::add_position_offset.output"
+			},
+			
+			{
+				name = "send_voicegraph_pos_x"
+				operator = "vmix_voicegraph_input"
+				input_name = "pos_x"
+				input = "@unpack_pos.output_0"
+			},
+			
+			{
+				name = "send_voicegraph_pos_y"
+				operator = "vmix_voicegraph_input"
+				input_name = "pos_y"
+				input = "@unpack_pos.output_1"
+			},
+			
+			{
+				name = "send_voicegraph_pos_z"
+				operator = "vmix_voicegraph_input"
+				input_name = "pos_z"
+				input = "@unpack_pos.output_2"
+			},
+			
+			{
+				name = "send_voicegraph_direct_mix_level"
+				operator = "vmix_voicegraph_input"
+				input_name = "Direct Mix Level"
+				input = "@public.direct_mix_level"
+			},
+		]
+		_system_properties = 
+		{
+			display_game = "citadel"
+		}
+	}
+	citadel_ambient_fixed_rotation_multi_vsnd = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					import_public_opvars = 
+					[
+						"citadel_base_3d",
+						"citadel_ambient_multi_opvar_remap",
+					]
+					vsnd_file_01 = 
+					{
+						data_type = "vsnd"
+						value = ""
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_fixed_rotation_multi_vsnd"
+						}
+					}
+					vsnd_vol_01 = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_fixed_rotation_multi_vsnd"
+						}
+					}
+					vsnd_file_02 = 
+					{
+						data_type = "vsnd"
+						value = ""
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_fixed_rotation_multi_vsnd"
+						}
+					}
+					vsnd_vol_02 = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_fixed_rotation_multi_vsnd"
+						}
+					}
+					vsnd_file_03 = 
+					{
+						data_type = "vsnd"
+						value = ""
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_fixed_rotation_multi_vsnd"
+						}
+					}
+					vsnd_vol_03 = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_fixed_rotation_multi_vsnd"
+						}
+					}
+					vsnd_file_04 = 
+					{
+						data_type = "vsnd"
+						value = ""
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_fixed_rotation_multi_vsnd"
+						}
+					}
+					vsnd_vol_04 = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_fixed_rotation_multi_vsnd"
+						}
+					}
+					vsnd_file_05 = 
+					{
+						data_type = "vsnd"
+						value = ""
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_fixed_rotation_multi_vsnd"
+						}
+					}
+					vsnd_vol_05 = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_fixed_rotation_multi_vsnd"
+						}
+					}
+					vsnd_file_06 = 
+					{
+						data_type = "vsnd"
+						value = ""
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_fixed_rotation_multi_vsnd"
+						}
+					}
+					vsnd_vol_06 = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_fixed_rotation_multi_vsnd"
+						}
+					}
+					vsnd_file_07 = 
+					{
+						data_type = "vsnd"
+						value = ""
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_fixed_rotation_multi_vsnd"
+						}
+					}
+					vsnd_vol_07 = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_fixed_rotation_multi_vsnd"
+						}
+					}
+					vsnd_file_08 = 
+					{
+						data_type = "vsnd"
+						value = ""
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_fixed_rotation_multi_vsnd"
+						}
+					}
+					vsnd_vol_08 = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_fixed_rotation_multi_vsnd"
+						}
+					}
+					radius = 
+					{
+						data_type = "float"
+						value = "100.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_fixed_rotation_multi_vsnd"
+						}
+					}
+					rotation_angle = 
+					{
+						data_type = "float"
+						value = "0"
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_fixed_rotation_multi_vsnd"
+						}
+					}
+					vertical_rotation_angle = 
+					{
+						data_type = "float"
+						value = "0"
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_fixed_rotation_multi_vsnd"
+						}
+					}
+					filter_mix = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_fixed_rotation_multi_vsnd"
+						}
+					}
+					compressor_gain = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_fixed_rotation_multi_vsnd"
+						}
+					}
+					compressor_enable = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_fixed_rotation_multi_vsnd"
+						}
+					}
+					send_name = 
+					{
+						value = "world"
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_fixed_rotation_multi_vsnd"
+						}
+					}
+					mixer_mixgroup = 
+					{
+						value = "World"
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_fixed_rotation_multi_vsnd"
+						}
+					}
+					vsnd_pause_with_game = 
+					{
+						data_type = "bool"
+						value = "true"
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_fixed_rotation_multi_vsnd"
+						}
+					}
+					voicegraph_name = 
+					{
+						data_type = "string"
+						value = "citadel.hrtf_8layer_ambience"
+						_system_properties = 
+						{
+							property_group = "citadel_ambient_fixed_rotation_multi_vsnd"
+						}
+					}
+				}
+			},
+			
+			{
+				name = "globals"
+				operator = "get_system_globals"
+				input_execute = "1"
+				input_listener_index = "0"
+			},
+			
+			{
+				name = "calc_rotation_angle_position"
+				operator = "math_calc_fixed_rotation"
+				input_center_position = "@globals.output_listener_position"
+				input_radius = "@public.radius"
+				input_rotation_angle = "@public.rotation_angle"
+				input_elevation_angle = "@public.vertical_rotation_angle"
+			},
+			
+			{
+				name = "citadel_ambient_multi_opvar_remap"
+				operator = "sos_import_stack"
+				import_stack = "citadel_ambient_multi_opvar_remap"
+				auto_connect_public_fields = "true"
+				operator_variables = 
+				{
+				}
+			},
+			
+			{
+				name = "citadel_base_3d"
+				operator = "sos_import_stack"
+				import_stack = "citadel_base_3d"
+				auto_connect_public_fields = "true"
+				operator_variables = 
+				{
+					position = 
+					{
+						value = "@calc_rotation_angle_position.output"
+					}
+					occlusion_scale = 
+					{
+						value = "@public.occlusion_scale"
+					}
+					volume_atten = 
+					{
+						value = "@citadel_ambient_multi_opvar_remap::opvar_volume_accumulate.output"
+					}
+				}
+			},
+			
+			{
+				name = "should_start_1"
+				input_execute = "1.000000"
+				execute_once = "true"
+				operator = "math_float"
+				apply = "greater_than"
+				input1 = "@public.vsnd_vol_01"
+				input2 = "0.000000"
+			},
+			
+			{
+				name = "should_start_2"
+				input_execute = "1.000000"
+				execute_once = "true"
+				operator = "math_float"
+				apply = "greater_than"
+				input1 = "@public.vsnd_vol_02"
+				input2 = "0.000000"
+			},
+			
+			{
+				name = "should_start_3"
+				input_execute = "1.000000"
+				execute_once = "true"
+				operator = "math_float"
+				apply = "greater_than"
+				input1 = "@public.vsnd_vol_03"
+				input2 = "0.000000"
+			},
+			
+			{
+				name = "should_start_4"
+				input_execute = "1.000000"
+				execute_once = "true"
+				operator = "math_float"
+				apply = "greater_than"
+				input1 = "@public.vsnd_vol_04"
+				input2 = "0.000000"
+			},
+			
+			{
+				name = "should_start_5"
+				input_execute = "1.000000"
+				execute_once = "true"
+				operator = "math_float"
+				apply = "greater_than"
+				input1 = "@public.vsnd_vol_05"
+				input2 = "0.000000"
+			},
+			
+			{
+				name = "should_start_6"
+				input_execute = "1.000000"
+				execute_once = "true"
+				operator = "math_float"
+				apply = "greater_than"
+				input1 = "@public.vsnd_vol_06"
+				input2 = "0.000000"
+			},
+			
+			{
+				name = "should_start_7"
+				input_execute = "1.000000"
+				execute_once = "true"
+				operator = "math_float"
+				apply = "greater_than"
+				input1 = "@public.vsnd_vol_07"
+				input2 = "0.000000"
+			},
+			
+			{
+				name = "should_start_8"
+				input_execute = "1.000000"
+				execute_once = "true"
+				operator = "math_float"
+				apply = "greater_than"
+				input1 = "@public.vsnd_vol_08"
+				input2 = "0.000000"
+			},
+			
+			{
+				name = "set_builtins"
+				operator = "sos_set_builtins"
+				input_voicegraph = "@public.voicegraph_name"
+			},
+			
+			{
+				name = "start_vmix"
+				operator = "vmix_voice_start"
+				input_execute = "1.000000"
+				input_track1 = "track_01"
+				input_track2 = "track_02"
+				input_track3 = "track_03"
+				input_track4 = "track_04"
+				input_track5 = "track_05"
+				input_track6 = "track_06"
+				input_track7 = "track_07"
+				input_track8 = "track_08"
+				input_start1 = "@should_start_1.output"
+				input_start2 = "@should_start_2.output"
+				input_start3 = "@should_start_3.output"
+				input_start4 = "@should_start_4.output"
+				input_start5 = "@should_start_5.output"
+				input_start6 = "@should_start_6.output"
+				input_start7 = "@should_start_7.output"
+				input_start8 = "@should_start_8.output"
+				input_vsnd1 = "@public.vsnd_file_01"
+				input_vsnd2 = "@public.vsnd_file_02"
+				input_vsnd3 = "@public.vsnd_file_03"
+				input_vsnd4 = "@public.vsnd_file_04"
+				input_vsnd5 = "@public.vsnd_file_05"
+				input_vsnd6 = "@public.vsnd_file_06"
+				input_vsnd7 = "@public.vsnd_file_07"
+				input_vsnd8 = "@public.vsnd_file_08"
+				execute_once = "false"
+				input_should_pause = "@public.vsnd_pause_with_game"
+				input_start = "@citadel_base_3d::get_event_info.output_unstopped"
+				input_speaker_volumes = "@citadel_base_3d::speakers_spatialize.output"
+				input_pitch = "@public.pitch"
+				input_fade_out = "@public.volume_fade_out"
+				input_delay = "@public.delay"
+				input_memory_type = "@public.memory_type"
+			},
+			
+			{
+				name = "send_voicegraph_hrtf_mix_level"
+				input_execute = "@citadel_base_3d::get_event_info.output_unstopped"
+				operator = "vmix_voicegraph_input"
+				input_name = "hrtf_mix"
+				input = "@citadel_base_3d::speakers_spatialize.output_hrtf_mix"
+			},
+			
+			{
+				name = "send_volume_1"
+				input_execute = "@public.vsnd_vol_01"
+				operator = "vmix_voicegraph_input"
+				input_name = "volume_1"
+				input = "@public.vsnd_vol_01"
+			},
+			
+			{
+				name = "send_volume_2"
+				input_execute = "@public.vsnd_vol_02"
+				operator = "vmix_voicegraph_input"
+				input_name = "volume_2"
+				input = "@public.vsnd_vol_02"
+			},
+			
+			{
+				name = "send_volume_3"
+				input_execute = "@public.vsnd_vol_03"
+				operator = "vmix_voicegraph_input"
+				input_name = "volume_3"
+				input = "@public.vsnd_vol_03"
+			},
+			
+			{
+				name = "send_volume_4"
+				input_execute = "@public.vsnd_vol_04"
+				operator = "vmix_voicegraph_input"
+				input_name = "volume_4"
+				input = "@public.vsnd_vol_04"
+			},
+			
+			{
+				name = "send_volume_5"
+				input_execute = "@public.vsnd_vol_05"
+				operator = "vmix_voicegraph_input"
+				input_name = "volume_5"
+				input = "@public.vsnd_vol_05"
+			},
+			
+			{
+				name = "send_volume_6"
+				input_execute = "@public.vsnd_vol_06"
+				operator = "vmix_voicegraph_input"
+				input_name = "volume_6"
+				input = "@public.vsnd_vol_06"
+			},
+			
+			{
+				name = "send_volume_7"
+				input_execute = "@public.vsnd_vol_07"
+				operator = "vmix_voicegraph_input"
+				input_name = "volume_7"
+				input = "@public.vsnd_vol_07"
+			},
+			
+			{
+				name = "send_volume_8"
+				input_execute = "@public.vsnd_vol_08"
+				operator = "vmix_voicegraph_input"
+				input_name = "volume_8"
+				input = "@public.vsnd_vol_08"
+			},
+			
+			{
+				name = "send_filter_freq"
+				input_execute = "@public.filter_mix"
+				operator = "vmix_voicegraph_input"
+				input_name = "filter_freq"
+				input = "@citadel_ambient_multi_opvar_remap::filter_freq_accumulate.output"
+			},
+			
+			{
+				name = "send_filter_mix"
+				input_execute = "@public.filter_mix"
+				operator = "vmix_voicegraph_input"
+				input_name = "filter_mix"
+				input = "@public.filter_mix"
+			},
+			
+			{
+				name = "send_compressor_enable"
+				input_execute = "@public.compressor_enable"
+				operator = "vmix_voicegraph_input"
+				input_name = "compressor_enable"
+				input = "@public.compressor_enable"
+			},
+			
+			{
+				name = "send_compressor_gain"
+				input_execute = "1.000000"
+				operator = "vmix_voicegraph_input"
+				input_name = "compressor_gain"
+				input = "@public.compressor_gain"
+			},
+		]
+		_system_properties = 
+		{
+			display_game = "citadel"
+			display_mod = "citadel"
+			display_group = "advanced"
+		}
+	}
+	citadel_start_multi_quad = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					soundevent_01 = 
+					{
+						data_type = "string"
+						value = ""
+						_system_properties = 
+						{
+							property_group = "citadel_start_multi_quad"
+						}
+					}
+					soundevent_02 = 
+					{
+						data_type = "string"
+						value = ""
+						_system_properties = 
+						{
+							property_group = "citadel_start_multi_quad"
+						}
+					}
+					soundevent_03 = 
+					{
+						data_type = "string"
+						value = ""
+						_system_properties = 
+						{
+							property_group = "citadel_start_multi_quad"
+						}
+					}
+					soundevent_04 = 
+					{
+						data_type = "string"
+						value = ""
+						_system_properties = 
+						{
+							property_group = "citadel_start_multi_quad"
+						}
+					}
+					volume_atten = 
+					{
+						data_type = "float"
+						value = "1.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_start_multi_quad"
+						}
+					}
+					pitch_adjust = 
+					{
+						data_type = "float"
+						value = "1.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_start_multi_quad"
+						}
+					}
+					attachment = 
+					{
+						data_type = "string_token"
+						value = ""
+						_system_properties = 
+						{
+							property_group = "citadel_start_multi_quad"
+							display_group = "locked"
+						}
+					}
+					position = 
+					{
+						data_type = "float3"
+						value = "[0.0, 0.0, 0.0]"
+						_system_properties = 
+						{
+							property_group = "citadel_start_multi_quad"
+							display_group = "locked"
+							display_edit_type = "field_position_editor"
+						}
+					}
+					stop_at_time = 
+					{
+						data_type = "float"
+						value = "-1.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_start_multi_quad"
+						}
+					}
+					rand_delay_min = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_start_multi_quad"
+						}
+					}
+					rand_delay_max = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_start_multi_quad"
+						}
+					}
+					radius = 
+					{
+						data_type = "float"
+						value = "100.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_start_multi_quad"
+						}
+					}
+					set_radius = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_start_multi_quad"
+						}
+					}
+					volume_opvar_01_filter_velocity = 
+					{
+						data_type = "float"
+						value = "0.600000"
+						_system_properties = 
+						{
+							property_group = "citadel_start_multi_quad"
+						}
+					}
+					global_volume_opvar_01 = 
+					{
+						data_type = "string"
+						value = ""
+						_system_properties = 
+						{
+							property_group = "citadel_start_multi_quad"
+						}
+					}
+					remap_global_opvar_01_to_vol_min = 
+					{
+						data_type = "float"
+						value = "1.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_start_multi_quad"
+						}
+					}
+					remap_global_opvar_01_to_vol_max = 
+					{
+						data_type = "float"
+						value = "1.000000"
+						_system_properties = 
+						{
+							property_group = "citadel_start_multi_quad"
+						}
+					}
+					voice_layer = 
+					{
+						data_type = "enum"
+						enum_field = "vmix_voice_start.voice_layer"
+						value = "none"
+						_system_properties = 
+						{
+							property_group = "citadel_start_multi_quad"
+						}
+					}
+				}
+			},
+			
+			{
+				name = "stop_at_time"
+				operator = "soundevent_control"
+				input_stop_at_time = "@public.stop_at_time"
+				voice_layer = "@public.voice_layer"
+			},
+			
+			{
+				name = "get_event_info"
+				operator = "soundevent_get_info"
+			},
+			
+			{
+				name = "random_delay"
+				operator = "math_random_float"
+				input_execute = "1.000000"
+				execute_once = "true"
+				input_min = "@public.rand_delay_min"
+				input_max = "@public.rand_delay_max"
+				round_to_int = "0"
+			},
+			
+			{
+				name = "check_null_volume_opvar"
+				input_execute = "1.000000"
+				operator = "math_string"
+				apply = "not_equal"
+				input1 = "@public.global_volume_opvar_01"
+				input2 = ""
+			},
+			
+			{
+				name = "get_volume_opvar_01"
+				operator = "opvar_get_float"
+				input_execute = "@check_null_volume_opvar.output"
+				input_stack_name = "citadel_global_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "@public.global_volume_opvar_01"
+				input_use_namespace = "false"
+			},
+			
+			{
+				name = "volume_opvar_01_filter"
+				operator = "math_filter_float"
+				input = "@get_volume_opvar_01.output"
+				input_max_velocity = "@public.volume_opvar_01_filter_velocity"
+			},
+			
+			{
+				name = "map_global_opvar_to_volume_01"
+				input_execute = "1.000000"
+				operator = "math_remap_float"
+				input = "@volume_opvar_01_filter.output"
+				input_min = "0.000000"
+				input_max = "1.000000"
+				input_map_min = "@public.remap_global_opvar_01_to_vol_min"
+				input_map_max = "@public.remap_global_opvar_01_to_vol_max"
+				default_to_max = "false"
+			},
+			
+			{
+				name = "mult_volume_opvar_by_volume_atten"
+				input_execute = "1.000000"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@map_global_opvar_to_volume_01.output"
+				input2 = "@public.volume_atten"
+			},
+			
+			{
+				name = "soundevent_01"
+				operator = "soundevent_start"
+				execute_once = "false"
+				input_spawn_oneshots = "0.000000"
+				input_execute = "1.000000"
+				input_start = "@get_event_info.output_unstopped"
+				soundevent_name = "@public.soundevent_01"
+				pass_opvar_args = "true"
+				input_update_opvar_args = "true"
+				operator_variables = 
+				{
+					public.volume_atten = 
+					{
+						operator_arg_field = "true"
+						data_type = "float"
+						value = "@mult_volume_opvar_by_volume_atten.output"
+					}
+					public.attachment = 
+					{
+						operator_arg_field = "true"
+						data_type = "string_token"
+						value = "@public.attachment"
+					}
+					public.position = 
+					{
+						operator_arg_field = "true"
+						data_type = "float3"
+						value = "@public.position"
+					}
+					public.pitch_adjust = 
+					{
+						operator_arg_field = "true"
+						data_type = "float"
+						value = "@public.pitch_adjust"
+					}
+					public.voice_layer = 
+					{
+						operator_arg_field = "true"
+						data_type = "float"
+						value = "@public.voice_layer"
+					}
+				}
+			},
+			
+			{
+				name = "soundevent_01_set_radius"
+				operator = "soundevent_param"
+				input_guid = "@soundevent_01.output_current_guid"
+				input_execute = "@public.set_radius"
+				operator_variables = 
+				{
+					public.radius = 
+					{
+						operator_arg_field = "true"
+						data_type = "float"
+						value = "@public.radius"
+					}
+				}
+			},
+			
+			{
+				name = "soundevent_02"
+				operator = "soundevent_start"
+				execute_once = "false"
+				input_spawn_oneshots = "0.000000"
+				input_execute = "1.000000"
+				input_start = "@get_event_info.output_unstopped"
+				soundevent_name = "@public.soundevent_02"
+				pass_opvar_args = "true"
+				input_update_opvar_args = "true"
+				operator_variables = 
+				{
+					public.volume_atten = 
+					{
+						operator_arg_field = "true"
+						data_type = "float"
+						value = "@mult_volume_opvar_by_volume_atten.output"
+					}
+					public.attachment = 
+					{
+						operator_arg_field = "true"
+						data_type = "string_token"
+						value = "@public.attachment"
+					}
+					public.position = 
+					{
+						operator_arg_field = "true"
+						data_type = "float3"
+						value = "@public.position"
+					}
+					public.pitch_adjust = 
+					{
+						operator_arg_field = "true"
+						data_type = "float"
+						value = "@public.pitch_adjust"
+					}
+					public.voice_layer = 
+					{
+						operator_arg_field = "true"
+						data_type = "float"
+						value = "@public.voice_layer"
+					}
+				}
+			},
+			
+			{
+				name = "soundevent_02_set_radius"
+				operator = "soundevent_param"
+				input_guid = "@soundevent_02.output_current_guid"
+				input_execute = "@public.set_radius"
+				operator_variables = 
+				{
+					public.radius = 
+					{
+						operator_arg_field = "true"
+						data_type = "float"
+						value = "@public.radius"
+					}
+				}
+			},
+			
+			{
+				name = "soundevent_03"
+				operator = "soundevent_start"
+				execute_once = "false"
+				input_spawn_oneshots = "0.000000"
+				input_execute = "1.000000"
+				input_start = "@get_event_info.output_unstopped"
+				soundevent_name = "@public.soundevent_03"
+				pass_opvar_args = "true"
+				input_update_opvar_args = "true"
+				operator_variables = 
+				{
+					public.volume_atten = 
+					{
+						operator_arg_field = "true"
+						data_type = "float"
+						value = "@mult_volume_opvar_by_volume_atten.output"
+					}
+					public.attachment = 
+					{
+						operator_arg_field = "true"
+						data_type = "string_token"
+						value = "@public.attachment"
+					}
+					public.position = 
+					{
+						operator_arg_field = "true"
+						data_type = "float3"
+						value = "@public.position"
+					}
+					public.pitch_adjust = 
+					{
+						operator_arg_field = "true"
+						data_type = "float"
+						value = "@public.pitch_adjust"
+					}
+					public.voice_layer = 
+					{
+						operator_arg_field = "true"
+						data_type = "float"
+						value = "@public.voice_layer"
+					}
+				}
+			},
+			
+			{
+				name = "soundevent_03_set_radius"
+				operator = "soundevent_param"
+				input_guid = "@soundevent_03.output_current_guid"
+				input_execute = "@public.set_radius"
+				operator_variables = 
+				{
+					public.radius = 
+					{
+						operator_arg_field = "true"
+						data_type = "float"
+						value = "@public.radius"
+					}
+				}
+			},
+			
+			{
+				name = "soundevent_04"
+				operator = "soundevent_start"
+				execute_once = "false"
+				input_spawn_oneshots = "0.000000"
+				input_execute = "1.000000"
+				input_start = "@get_event_info.output_unstopped"
+				soundevent_name = "@public.soundevent_04"
+				pass_opvar_args = "true"
+				input_update_opvar_args = "true"
+				operator_variables = 
+				{
+					public.volume_atten = 
+					{
+						operator_arg_field = "true"
+						data_type = "float"
+						value = "@mult_volume_opvar_by_volume_atten.output"
+					}
+					public.attachment = 
+					{
+						operator_arg_field = "true"
+						data_type = "string_token"
+						value = "@public.attachment"
+					}
+					public.position = 
+					{
+						operator_arg_field = "true"
+						data_type = "float3"
+						value = "@public.position"
+					}
+					public.pitch_adjust = 
+					{
+						operator_arg_field = "true"
+						data_type = "float"
+						value = "@public.pitch_adjust"
+					}
+					public.voice_layer = 
+					{
+						operator_arg_field = "true"
+						data_type = "float"
+						value = "@public.voice_layer"
+					}
+				}
+			},
+			
+			{
+				name = "soundevent_04_set_radius"
+				operator = "soundevent_param"
+				input_guid = "@soundevent_04.output_current_guid"
+				input_execute = "@public.set_radius"
+				operator_variables = 
+				{
+					public.radius = 
+					{
+						operator_arg_field = "true"
+						data_type = "float"
+						value = "@public.radius"
+					}
+				}
+			},
+		]
+		_system_properties = 
+		{
+			display_game = "citadel"
+			display_group = "advanced"
+		}
+	}
+}

@@ -1,0 +1,2964 @@
+/* Prettified by Source 2 Viewer 10.1.0.0 - https://valveresourceformat.github.io */
+
+CitadelHud
+{
+	width: 100%;
+	height: 100%;
+}
+
+#PopupManager
+{
+	z-index: 1001;
+}
+
+#ability_tooltip
+{
+	box-shadow: fill rgba(0, 0, 0, 0.35) 0px 0px 12px 4px;
+	z-index: 1001;
+}
+
+#gameplay_hud
+{
+	width: 100%;
+	height: 100%;
+	transition-property: background-color;
+	transition-duration: 0.1s;
+	visibility: collapse;
+	perspective: -500;
+	z-index: 2;
+}
+
+.clamp_width
+{
+	width: 100%;
+	height: 100%;
+	horizontal-align: center;
+	max-width: 2000px;
+	z-index: 100;
+}
+
+#HudEventIndicatorsPanel
+{
+	width: 100%;
+	height: 100%;
+}
+
+.deathReplayBar
+{
+	width: 100%;
+	background-color: #000000FF;
+	height: 10%;
+	visibility: collapse;
+	vertical-align: top;
+}
+
+.deathReplayActive .deathReplayBar
+{
+	visibility: collapse;
+}
+
+#deathReplayNoticeLower
+{
+	vertical-align: bottom;
+}
+
+#deathReplayNoticeLower Label
+{
+	font-size: 50px;
+	color: red;
+	vertical-align: center;
+}
+
+#death_replay_loading
+{
+	visibility: collapse;
+	vertical-align: center;
+	horizontal-align: center;
+	width: 300px;
+	height: 100px;
+	border-radius: 8px;
+	background-color: #000000dd;
+}
+
+#death_replay_loading.Active
+{
+	visibility: visible;
+}
+
+#death_replay_loading Label
+{
+	vertical-align: center;
+	horizontal-align: center;
+	color: yellow;
+	font-size: 24px;
+}
+
+CitadelHudHeroShop,.joined_team #gameplay_hud.gShopOpen,#gameplay_hud.gShopOpen,.inPostGame.joined_team #gameplay_hud,.wants_scoreboard #context_action_container,.wants_scoreboard #context_action_container.context_action_available
+{
+	visibility: collapse;
+}
+
+CitadelHudHeroShop.gShopOpen
+{
+	visibility: visible;
+}
+
+.joined_team #gameplay_hud
+{
+	visibility: visible;
+}
+
+.GameStatePostGame #gameplay_hud,.GameStatePostGame CitadelHudSoulAPContainer,.GameStatePostGame #AbilitiesContainer,.GameStatePostGame #StatsAndModsContainer
+{
+	opacity: 0;
+}
+
+#gameplay_hud_alive
+{
+	width: 100%;
+	height: 100%;
+	visibility: collapse;
+}
+
+#low_health_screen_effect,#stunned_screen_effect,#silenced_screen_effect,#scope_screen_effect
+{
+	width: 100%;
+	height: 100%;
+}
+
+.alive #gameplay_hud_alive,.viewing_as_player #gameplay_hud_alive
+{
+	visibility: visible;
+}
+
+#gameplay_hud_dead
+{
+	width: 100%;
+	height: 100%;
+	visibility: collapse;
+	z-index: 204;
+}
+
+.dead:not(.deathReplayActive) #gameplay_hud_dead
+{
+	visibility: visible;
+}
+
+#hudBacker
+{
+	width: 300px;
+	height: 450px;
+	vertical-align: bottom;
+	background-image: url("s2r://panorama/images/hud/hud_lowerleft_backer_psd.vtex");
+	background-size: cover;
+	z-index: 1;
+	opacity: 0;
+}
+
+.AspectRatio21x9 #hudBacker
+{
+	visibility: collapse;
+}
+
+Button
+{
+	background-color: #999999;
+	horizontal-align: center;
+	vertical-align: center;
+	border: 4px solid black;
+	width: 50%;
+	height: 50%;
+}
+
+Button:hover
+{
+	border: 4px solid white;
+}
+
+#gameplay_hud
+{
+	perspective: 1500;
+}
+
+@keyframes 'healthMid'
+{
+	0%
+	{
+		pre-transform-scale2d: 1;
+		transform: translate3d(0px, 0px, 0px) rotateY(9deg);
+	}
+	
+	20%
+	{
+		transform: translate3d(0px, -30px, 0px) rotateY(9deg);
+		pre-transform-scale2d: 1.25;
+	}
+	
+	40%
+	{
+		transform: translate3d(0px, -30px, 0px) rotateY(9deg);
+		pre-transform-scale2d: 1.20;
+	}
+	
+	60%
+	{
+		transform: translate3d(0px, -30px, 0px) rotateY(9deg);
+		pre-transform-scale2d: 1.25;
+	}
+	
+	100%
+	{
+		pre-transform-scale2d: 1;
+		transform: translate3d(0px, 0px, 0px) rotateY(9deg);
+	}
+	
+}
+
+@keyframes 'healthLow'
+{
+	0%
+	{
+		pre-transform-scale2d: 1;
+		transform: translate3d(0px, 0px, 0px) rotateY(9deg);
+	}
+	
+	30%
+	{
+		transform: translate3d(0px, -0px, 0px) rotateY(15deg);
+		pre-transform-scale2d: 1.3;
+	}
+	
+	50%
+	{
+		transform: translate3d(0px, -0px, 0px) rotateY(9deg);
+		pre-transform-scale2d: 1.20;
+	}
+	
+	70%
+	{
+		transform: translate3d(0px, -0px, 0px) rotateY(15deg);
+		pre-transform-scale2d: 1.3;
+	}
+	
+	100%
+	{
+		pre-transform-scale2d: 1;
+		transform: translate3d(0px, 0px, 0px) rotateY(9deg);
+	}
+	
+}
+
+#ability_resource
+{
+	vertical-align: bottom;
+	horizontal-align: center;
+	margin-bottom: 200px;
+}
+
+#health_and_abilities_container
+{
+	width: 250px;
+	height: 380px;
+	vertical-align: bottom;
+	horizontal-align: left;
+	margin-left: 235px;
+	margin-bottom: 0px;
+	horizontal-align: center;
+	margin-right: 1290px;
+	flow-children: none;
+	transition-property: margin-left, ui-scale;
+	transition-duration: 0.1s;
+}
+
+#health_and_abilities_container.isZoomed
+{
+	transition-property: margin-left, ui-scale;
+	transition-duration: 0.1s;
+}
+
+.replay_playback #gold_and_ap_container
+{
+	margin-bottom: 110px;
+}
+
+.replay_playback #gold_and_ap_container.gShopOpen
+{
+	margin-bottom: 105px;
+}
+
+.GameStatePreGame #health_and_abilities_container,.GameStatePreGame #gold_and_ap_container
+{
+	opacity: 0;
+	transition-property: opacity, transform;
+	transition-duration: 1.5s;
+	transition-timing-function: ease-in;
+	transition-delay: 1s;
+}
+
+.connectedToHeroTesting.GameStatePreGame #health_and_abilities_container
+{
+	transform: translateX(0px) rotateY(9deg);
+	opacity: 1;
+}
+
+#health_and_abilities_container.localPlayerLowHealth
+{
+	animation-name: healthLow;
+	animation-duration: 0.8s;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+}
+
+#health_and_abilities_container.localPlayerMidHealth
+{
+	animation-name: healthMid;
+	animation-duration: 0.8s;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+}
+
+.AspectRatio21x9 #health_and_abilities_container
+{
+	horizontal-align: center;
+	margin-right: 1210px;
+}
+
+.AspectRatio16x10 #health_and_abilities_container
+{
+	horizontal-align: center;
+	margin-right: 1030px;
+	margin-left: 0px;
+}
+
+CitadelHudModifierIcons
+{
+	height: 40px;
+	margin-bottom: 10px;
+}
+
+#health_and_abilities_container
+{
+	ui-scale: 120%;
+}
+
+.player_selected #health_and_abilities_container
+{
+	visibility: visible;
+}
+
+.spec_mode_directed #health_and_abilities_container
+{
+	margin-top: directedSpectateStatusDistFromTop;
+}
+
+@keyframes 'health_pulse_text2'
+{
+	0%
+	{
+		pre-transform-scale2d: 1;
+	}
+	
+	50%
+	{
+		pre-transform-scale2d: 1.03;
+	}
+	
+	100%
+	{
+		pre-transform-scale2d: 1;
+	}
+	
+}
+
+#context_action_container
+{
+	width: fit-children;
+	height: fit-children;
+	flow-children: right;
+	vertical-align: bottom;
+	horizontal-align: center;
+	margin-bottom: 280px;
+	visibility: collapse;
+}
+
+.hintActive #context_action_container,.hintActive #context_action_container.context_action_available
+{
+	visibility: collapse;
+}
+
+.dead #context_action_container
+{
+	vertical-align: bottom;
+	margin-bottom: 280px;
+}
+
+.context_action
+{
+	min-width: 150px;
+	width: fit-children;
+	visibility: collapse;
+	flow-children: down;
+}
+
+.action_binding
+{
+	text-transform: uppercase;
+	horizontal-align: center;
+	min-width: 50px;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+	vertical-align: center;
+	margin-top: 0px;
+	padding-left: 14px;
+	padding-right: 14px;
+	border-radius: 50px;
+	padding: 15px 30px;
+	background-color: #000000aa;
+	z-index: 5;
+}
+
+#context_action_container.context_action_available
+{
+	visibility: visible;
+}
+
+#context_action_container.gDetailView,.wants_scoreboard #context_action_container
+{
+	visibility: collapse;
+}
+
+.context_action_icon
+{
+	width: 50px;
+	height: 50px;
+	margin-bottom: 10px;
+	vertical-align: center;
+	horizontal-align: center;
+}
+
+.upgrade_container
+{
+	width: 200px;
+	height: 40px;
+	horizontal-align: center;
+	vertical-align: center;
+	background-color: #ffff4c50;
+}
+
+#zipline_sign
+{
+	horizontal-align: center;
+	width: 160px;
+	height: 120px;
+	margin-bottom: -20px;
+	z-index: 10;
+	background-image: url("s2r://panorama/images/hud/zipline/ui_sign_york_png.vtex");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.yellowLane #zipline_sign
+{
+	background-image: url("s2r://panorama/images/hud/zipline/ui_sign_york_png.vtex");
+}
+
+.orangeLane #zipline_sign
+{
+	background-image: url("s2r://panorama/images/hud/zipline/ui_sign_orchard_png.vtex");
+}
+
+.blueLane #zipline_sign
+{
+	background-image: url("s2r://panorama/images/hud/zipline/ui_sign_broadway_png.vtex");
+}
+
+.purpleLane #zipline_sign
+{
+	background-image: url("s2r://panorama/images/hud/zipline/ui_sign_park_png.vtex");
+}
+
+#shop_sign
+{
+	horizontal-align: center;
+	width: 280px;
+	margin-bottom: 10px;
+	z-index: 10;
+}
+
+.action_upgrade,.action_mantle,.action_teleport,.action_vehicle .action_zip_line,.gShopOpen .unused_ability_points .action_upgrade,.gShopOpen .can_shop .action_upgrade
+{
+	visibility: collapse;
+}
+
+.unused_ability_points .action_upgrade,.in_shop_zone .action_upgrade,.can_mantle .action_mantle,.can_teleport .action_teleport,.can_ride_vehicle .action_vehicle,.can_zip_line .action_zip_line
+{
+	visibility: visible;
+}
+
+.connectedToHeroTesting.heroTestingDisableUpgrades:not(.in_shop_zone) .action_upgrade
+{
+	visibility: collapse;
+}
+
+.can_capture_zip_line .action_capture_zip_line
+{
+	visibility: visible;
+}
+
+.GameStatePreGame .action_upgrade
+{
+	visibility: collapse;
+}
+
+.speed_text
+{
+	font-size: 20px;
+	horizontal-align: left;
+}
+
+#out_of_ammo_label
+{
+	color: colorEnemy;
+	font-size: 30px;
+	text-shadow: 0px 0px 10px 1 colorEnemy;
+	opacity: 0;
+	vertical-align: center;
+	horizontal-align: center;
+}
+
+@keyframes 'no_ammo_pulse'
+{
+	0%
+	{
+		color: rgba(219, 0, 0, 1);
+	}
+	
+	50%
+	{
+		color: rgba(255, 150, 150, 1);
+	}
+	
+	100%
+	{
+		color: rgba(219, 0, 0, 1);
+	}
+	
+}
+
+.out_of_ammo #out_of_ammo_label
+{
+	opacity: 1;
+	margin-top: 200px;
+	transition-property: color;
+	transition-duration: 0.4s;
+	animation-name: no_ammo_pulse;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+}
+
+#low_ammo_label
+{
+	color: #FF410D;
+	font-size: 30px;
+	text-shadow: 0px 0px 10px 1 colorEnemyD;
+	opacity: 0;
+	vertical-align: center;
+	horizontal-align: center;
+	margin-top: 200px;
+	transition-property: opacity;
+	transition-duration: 0.4s;
+}
+
+.low_ammo #low_ammo_label
+{
+	opacity: 1;
+}
+
+#out_of_mana_label
+{
+	color: rgb(0, 0, 219);
+	font-size: 30px;
+	text-shadow: 0px 0px 10px 1 blue;
+	opacity: 0;
+	vertical-align: center;
+	horizontal-align: center;
+}
+
+@keyframes 'low_mana_pulse'
+{
+	0%
+	{
+		color: rgba(0, 0, 219, 1);
+	}
+	
+	50%
+	{
+		color: rgba(100, 100, 255, 1);
+	}
+	
+	100%
+	{
+		color: rgba(0, 0, 219, 1);
+	}
+	
+}
+
+.not_enough_mana_for_selected #out_of_mana_label
+{
+	opacity: 1;
+	margin-top: 200px;
+	transition-property: color;
+	transition-duration: 0.4s;
+	animation-name: low_mana_pulse;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+}
+
+#cast_failed_box
+{
+	opacity: 0;
+	vertical-align: bottom;
+	horizontal-align: center;
+	margin-bottom: 160px;
+	flow-children: down;
+	border-radius: 3px;
+	background-color: #000000AE;
+	padding: 8px 15px;
+}
+
+#cast_failed_box.cast_failed
+{
+	opacity: 1;
+	transition-property: opacity;
+	transition-duration: 0.2s;
+}
+
+.invalid_cast_line
+{
+	flow-children: right;
+	horizontal-align: center;
+}
+
+#invalid_cast_reason
+{
+	color: rgb(252, 81, 81);
+	font-size: 14px;
+	text-transform: uppercase;
+	font-weight: semi-bold;
+	font-style: italic;
+	opacity: 0.7;
+}
+
+#invalid_cast_time_remaining
+{
+	color: offWhite;
+	font-size: 14px;
+	text-transform: uppercase;
+	font-weight: semi-bold;
+	font-style: italic;
+	opacity: 0.5;
+	margin-left: 8px;
+	visibility: collapse;
+}
+
+.has_invalid_cast_time_remaining #invalid_cast_time_remaining
+{
+	visibility: visible;
+}
+
+#invalid_cast_ability
+{
+	color: offWhite;
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 0px;
+}
+
+#voice_active_box
+{
+	opacity: 0;
+	vertical-align: bottom;
+	horizontal-align: center;
+	margin-bottom: 200px;
+	flow-children: down;
+	border-radius: 6px;
+	background-color: #00000077;
+	padding: 10px 15px;
+	flow-children: down;
+	transition-property: opacity;
+	transition-duration: 0.12s;
+}
+
+#voice_active_box.InPartyChat
+{
+	border: 2px solid #7ec59a60;
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( #598b6d70 ), to( #43434380 ) );
+}
+
+.micIcon
+{
+	background-image: url("s2r://panorama/images/global/chat_type_teamchat.vsvg");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	width: 20px;
+	height: 20px;
+	margin-right: 5px;
+	vertical-align: middle;
+}
+
+.InPartyChat .micIcon
+{
+	background-image: url("s2r://panorama/images/global/chat_type_partychat.vsvg");
+}
+
+#voice_active_box.voiceActive
+{
+	opacity: 1;
+}
+
+#voice_active_box Label
+{
+	color: offWhite;
+	font-size: 20px;
+	font-weight: semi-bold;
+}
+
+#voice_active_not_in_chat
+{
+	visibility: collapse;
+	horizontal-align: center;
+}
+
+#voice_active_not_in_chat Label
+{
+	color: #FF6666;
+	font-size: 18px;
+	font-weight: semi-bold;
+}
+
+#voice_active_box.voiceActiveButNotInChat #voice_active_not_in_chat
+{
+	visibility: visible;
+}
+
+#ability_interrupt_panel
+{
+	vertical-align: bottom;
+	horizontal-align: center;
+	margin-bottom: 220px;
+}
+
+#respawn_timer
+{
+	width: 380px;
+	border-radius: 2px;
+	vertical-align: bottom;
+	horizontal-align: middle;
+	margin-bottom: 160px;
+	flow-children: down;
+}
+
+.gShopOpen #respawn_timer
+{
+	horizontal-align: left;
+	vertical-align: top;
+	margin-left: 192px;
+	margin-top: 22px;
+}
+
+.respawn_timer_container
+{
+	width: 100%;
+	height: 50px;
+	flow-children: right;
+	background-color: #FF5656;
+	z-index: 10;
+}
+
+.respawn_timer_col_left
+{
+	height: 100%;
+}
+
+.respawn_timer_col_left Image
+{
+	horizontal-align: right;
+}
+
+.respawn_timer_col_right
+{
+	height: 100%;
+	horizontal-align: right;
+	background-color: #141414;
+	width: 100px;
+}
+
+.respawn_text
+{
+	margin-left: 15px;
+	horizontal-align: left;
+	vertical-align: center;
+	font-size: 24px;
+	font-family: sans;
+	font-weight: bold;
+	color: #000000ea;
+}
+
+.respawn_number
+{
+	horizontal-align: center;
+	vertical-align: center;
+	text-align: center;
+	font-size: 36px;
+	color: #E9E9E9;
+	font-family: sansMono;
+	font-weight: semi-bold;
+	max-width: 100px;
+	text-overflow: shrink;
+}
+
+.death_button_hint
+{
+	flow-children: right;
+	horizontal-align: center;
+	background-color: offBlack;
+	width: 100%;
+	z-index: 5;
+	transition-property: opacity, transform;
+	transition-duration: 0.3s;
+}
+
+.replay_death
+{
+	transform: translateY(-80px);
+	opacity: 0;
+}
+
+.shop_while_dead
+{
+	transform: translateY(-40px);
+	opacity: 0;
+}
+
+.deathReplayAvailable .death_button_hint.replay_death
+{
+	transform: translateY(0px);
+	opacity: 1;
+}
+
+.showShopWhileDeadHint .death_button_hint.shop_while_dead
+{
+	transform: translateY(0px);
+	opacity: 1;
+}
+
+.gShopOpen .shop_while_dead,.gShopOpen .replay_death
+{
+	visibility: collapse;
+}
+
+.death_button_hint Label
+{
+	padding-left: 20px;
+}
+
+.death_button_hint Label.emphasis
+{
+	font-weight: bold;
+	font-family: sansMono;
+	font-size: 24px;
+}
+
+.button_hint_text
+{
+	font-size: 18px;
+	vertical-align: center;
+	margin-bottom: 2px;
+}
+
+.button_hint
+{
+	font-weight: bold;
+}
+
+.hero_panel
+{
+	width: 500px;
+	height: fit-children;
+	vertical-align: bottom;
+	horizontal-align: left;
+	margin-left: DistFromWindowBorder;
+	margin-bottom: DistFromWindowBorder;
+	visibility: collapse;
+	flow-children: down;
+}
+
+.spec_mode .hero_panel
+{
+	margin-bottom: DistFromWindowBorderWithSpecBar;
+}
+
+.team_name
+{
+	font-size: 18px;
+	font-weight: bold;
+	margin-top: 8px;
+	color: rgba(255, 255, 255, 0.35);
+}
+
+.team_gold
+{
+	margin-top: 20px;
+	vertical-align: center;
+	font-size: 24px;
+	font-weight: bold;
+	color: white;
+	visibility: collapse;
+}
+
+#team_friendly .team_score
+{
+	horizontal-align: center;
+}
+
+#team_enemy .team_score
+{
+	horizontal-align: center;
+}
+
+.team_score
+{
+	font-size: 20px;
+	font-weight: bold;
+	vertical-align: center;
+	text-align: center;
+	color: white;
+	margin-top: -2px;
+}
+
+#team_friendly .team_name
+{
+	horizontal-align: right;
+	text-align: right;
+	margin-right: 48px;
+}
+
+#team_enemy .team_name
+{
+	horizontal-align: left;
+	margin-left: 48px;
+}
+
+#team_friendly .team_gold
+{
+	horizontal-align: right;
+	text-align: right;
+	margin-right: 24px;
+}
+
+#team_enemy .team_gold
+{
+	horizontal-align: left;
+	text-align: left;
+	margin-left: 24px;
+}
+
+.top_left_team_panel
+{
+	width: 525px;
+	height: fit-children;
+	flow-children: down;
+	horizontal-align: center;
+	margin-top: 4px;
+	margin-right: 640px;
+}
+
+.top_right_team_panel
+{
+	width: 525px;
+	height: fit-children;
+	flow-children: down;
+	horizontal-align: center;
+	margin-top: 4px;
+	margin-left: 640px;
+}
+
+.top_right_team_panel,.top_left_team_panel
+{
+	transform: translateY(0px);
+	opacity: 1;
+	transition-property: transform, opacity;
+	transition-duration: 4s;
+}
+
+.spectatorList
+{
+	width: 250px;
+	height: fit-children;
+	flow-children: down;
+	horizontal-align: right;
+	opacity: 0.6;
+}
+
+.team_color
+{
+	width: 10%;
+	background-color: #aaaaaaFF;
+}
+
+.team_status_panel
+{
+	width: 100%;
+	horizontal-align: center;
+}
+
+#team_status_panel_spectator
+{
+	margin-top: 32px;
+	visibility: visible;
+}
+
+#objectives_health_friendly
+{
+	width: 1300px;
+	margin-top: 130px;
+	visibility: visible;
+	horizontal-align: center;
+	flow-children: down;
+}
+
+#PingIndicator
+{
+	height: 100%;
+	width: 100%;
+	vertical-align: center;
+	horizontal-align: center;
+	z-index: -1;
+}
+
+.ping_offscreen
+{
+	width: 105px;
+	height: 105px;
+	padding: 10px;
+	transition-property: opacity, ui-scale;
+	transition-duration: 0.2s, 0.1s;
+	opacity: 0;
+	overflow: noclip;
+}
+
+.ping_offscreen.active
+{
+	opacity: 1;
+	transition-duration: 0.5s, 0.1s;
+}
+
+.pingedEnemyPlayer .ping_arrow_icon
+{
+	wash-color: red;
+}
+
+.ping_arrow_icon
+{
+	wash-color: white;
+	animation-name: ping_pulse;
+	animation-duration: 0.6s;
+	animation-iteration-count: infinite;
+	brightness: 1.5;
+	visibility: collapse;
+	z-index: 5;
+}
+
+@keyframes 'ping_pulse'
+{
+	0%
+	{
+		opacity: 0.5;
+	}
+	
+	50%
+	{
+		opacity: 1;
+	}
+	
+	100%
+	{
+		opacity: 0.5;
+	}
+	
+}
+
+.ping_arrow_up
+{
+	vertical-align: top;
+	horizontal-align: center;
+	height: 15px;
+	width: 20px;
+}
+
+.ping_arrow_right
+{
+	vertical-align: center;
+	horizontal-align: right;
+	height: 20px;
+	width: 15px;
+}
+
+.ping_arrow_down
+{
+	vertical-align: bottom;
+	horizontal-align: center;
+	height: 15px;
+	width: 20px;
+}
+
+.ping_arrow_left
+{
+	vertical-align: center;
+	horizontal-align: left;
+	height: 20px;
+	width: 15px;
+}
+
+.ping_offscreen.left .ping_arrow_left
+{
+	visibility: visible;
+}
+
+.ping_offscreen.right .ping_arrow_right
+{
+	visibility: visible;
+}
+
+.ping_offscreen.bottom .ping_arrow_up
+{
+	visibility: visible;
+}
+
+.ping_offscreen.top .ping_arrow_down
+{
+	visibility: visible;
+}
+
+.playerPulse
+{
+	height: 35px;
+	width: 35px;
+	vertical-align: center;
+	horizontal-align: center;
+	overflow: noclip;
+}
+
+.yellowLane .playerPortraitBackground,.yellowLane .playerPulse
+{
+	wash-color: laneYellowColor;
+}
+
+.blueLane .playerPortraitBackground,.blueLane .playerPulse
+{
+	wash-color: laneBlueColor;
+}
+
+.orangeLane .playerPortraitBackground,.orangeLane .playerPulse
+{
+	wash-color: laneOrangeColor;
+}
+
+.purpleLane .playerPortraitBackground,.purpleLane .playerPulse
+{
+	wash-color: lanePurpleColor;
+}
+
+.pingedEnemyPlayer .playerPortraitBackground,.pingedEnemyPlayer .playerPulse
+{
+	wash-color: red;
+}
+
+.playerPortraitBackground
+{
+	height: 40px;
+	width: 40px;
+	vertical-align: center;
+	horizontal-align: center;
+}
+
+.pingPlayerPulse1
+{
+	animation-name: playerPulse;
+	animation-duration: 1.5s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+}
+
+.pingPlayerPulse2
+{
+	animation-name: playerPulse;
+	animation-duration: 1.5s;
+	animation-delay: 0.35s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+}
+
+.pingPlayerPulse3
+{
+	animation-name: playerPulse;
+	animation-duration: 1.5s;
+	animation-delay: 0.7s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+}
+
+@keyframes 'playerPulse'
+{
+	0%
+	{
+		opacity: 1;
+		pre-transform-scale2d: 1;
+	}
+	
+	59.99%
+	{
+		opacity: 0;
+		pre-transform-scale2d: 2.2;
+	}
+	
+	60%
+	{
+		opacity: 0;
+		pre-transform-scale2d: 1;
+	}
+	
+	99.99%
+	{
+		opacity: 0;
+		pre-transform-scale2d: 1;
+	}
+	
+	100%
+	{
+		opacity: 1;
+		pre-transform-scale2d: 1;
+	}
+	
+}
+
+.ping_offscreen.idol #hero_icon
+{
+	width: 70px;
+	height: 70px;
+	border-radius: 1px;
+}
+
+.ping_offscreen #hero_icon
+{
+	width: 35px;
+	height: 35px;
+	vertical-align: center;
+	horizontal-align: center;
+	border-radius: 20px;
+}
+
+#damage_indicator_radar
+{
+	height: 800px;
+	width: 800px;
+	margin-top: 200px;
+	vertical-align: center;
+	horizontal-align: center;
+	z-index: -10;
+	transform: rotateX(72deg);
+}
+
+#damage_indicator_canvas
+{
+	width: 100%;
+	height: 100%;
+}
+
+#damage_indicator_offscreen_enemy
+{
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+}
+
+.damage_offscreen
+{
+	width: 120px;
+	height: 120px;
+	transition-property: opacity;
+	transition-duration: 0.1s;
+	opacity: 0;
+}
+
+.damage_offscreen.player
+{
+	width: 140px;
+	height: 140px;
+}
+
+.damage_offscreen.active
+{
+	opacity: 1;
+	transition-duration: 0.06s;
+}
+
+@keyframes 'damage_pulse'
+{
+	0%
+	{
+		opacity: 0.5;
+	}
+	
+	50%
+	{
+		opacity: 1;
+	}
+	
+	100%
+	{
+		opacity: 0.5;
+	}
+	
+}
+
+.damage_arrow_icon
+{
+	wash-color: colorEnemy;
+	animation-name: damage_pulse;
+	animation-duration: 0.6s;
+	animation-iteration-count: infinite;
+	visibility: collapse;
+}
+
+.damage_arrow_up
+{
+	vertical-align: top;
+	horizontal-align: center;
+}
+
+.damage_arrow_right
+{
+	vertical-align: center;
+	horizontal-align: right;
+}
+
+.damage_arrow_down
+{
+	vertical-align: bottom;
+	horizontal-align: center;
+}
+
+.damage_arrow_left
+{
+	vertical-align: center;
+	horizontal-align: left;
+}
+
+.damage_offscreen.left .damage_arrow_left
+{
+	visibility: visible;
+}
+
+.damage_offscreen.right .damage_arrow_right
+{
+	visibility: visible;
+}
+
+.damage_offscreen.bottom .damage_arrow_up
+{
+	visibility: visible;
+}
+
+.damage_offscreen.top .damage_arrow_down
+{
+	visibility: visible;
+}
+
+.damage_offscreen #unit_info
+{
+	vertical-align: middle;
+	horizontal-align: center;
+	border: 3px solid rgba(139, 0, 0, 0.5);
+	width: 42px;
+	height: 36px;
+	flow-children: right;
+}
+
+.damage_offscreen.player #unit_info
+{
+	width: 80px;
+	height: 68px;
+	vertical-align: center;
+	horizontal-align: center;
+	border: 3px solid colorEnemy;
+	background-color: rgba(255, 194, 194, 0.6);
+	border-radius: 4px;
+}
+
+.damage_offscreen #hero_icon
+{
+	width: 30px;
+	height: 36px;
+	horizontal-align: left;
+}
+
+.damage_offscreen #health_container
+{
+	height: 100%;
+	width: 6px;
+	horizontal-align: right;
+}
+
+.damage_offscreen #health_bar
+{
+	height: 100%;
+	width: 6px;
+	vertical-align: bottom;
+	background-color: colorEnemy;
+	z-index: 10;
+}
+
+@keyframes 'neardeath_warning'
+{
+	0%
+	{
+		opacity: 0;
+	}
+	
+	100%
+	{
+		opacity: 1;
+	}
+	
+}
+
+.damage_offscreen.nearDeath #health_bar
+{
+	animation-name: neardeath_warning;
+	animation-duration: 0.2s;
+	animation-timing-function: ease-out;
+	animation-iteration-count: infinite;
+}
+
+.damage_offscreen #health_backer
+{
+	height: 100%;
+	width: 6px;
+	background-color: offBlack;
+	z-index: 1;
+}
+
+.damage_offscreen.player #hero_icon
+{
+	width: 100%;
+	height: 100%;
+	vertical-align: bottom;
+	horizontal-align: center;
+}
+
+.damage_offscreen.player #health_bar
+{
+	visibility: collapse;
+}
+
+#minimap_persp
+{
+	width: 450px;
+	height: 400px;
+	margin-bottom: 32px;
+	margin-right: 32px;
+	vertical-align: bottom;
+	horizontal-align: right;
+	perspective: 900;
+	ui-scale: 95%;
+	opacity: 1;
+	transform: translateX(0px);
+	transition-property: ui-scale;
+	transition-duration: 0s;
+}
+
+.GameStatePreGame #minimap_persp
+{
+	opacity: 0;
+	transition-property: opacity, transform;
+	transition-duration: 1.5s;
+	transition-timing-function: ease-in;
+	transition-delay: 1s;
+}
+
+#minimap_container
+{
+	width: 400px;
+	height: 400px;
+	horizontal-align: right;
+	transition-property: transform;
+	transform: rotateX(0deg);
+	z-index: 999;
+	border-radius: 70px;
+}
+
+#minimap_blur
+{
+	width: 100%;
+	height: 100%;
+	background-color: #0000;
+}
+
+#hud_minimap
+{
+	width: 100%;
+	height: 100%;
+	background-color: #0000;
+	transition-property: width,height;
+	transition-duration: 0.1s;
+}
+
+#join_team
+{
+	width: 100%;
+	height: 100%;
+	background-color: #000000ee;
+}
+
+.joined_team #join_team
+{
+	visibility: collapse;
+}
+
+#join_team_mid
+{
+	horizontal-align: center;
+	height: 600px;
+	margin-top: 300px;
+	visibility: collapse;
+}
+
+.loaded #join_team_mid
+{
+	visibility: visible;
+}
+
+.join_team_box
+{
+	flow-children: down;
+}
+
+.join_team_play
+{
+	height: 180px;
+	width: 800px;
+	background-color: rgb( 121, 121, 121);
+	border-radius: 8px;
+}
+
+.join_team_specific
+{
+	flow-children: right;
+	horizontal-align: left;
+	margin-left: 30px;
+	margin-bottom: 8px;
+}
+
+.join_team_team
+{
+	font-size: 20px;
+	color: grey;
+}
+
+.join_team_auto
+{
+	font-size: 60px;
+	color: white;
+	horizontal-align: left;
+	vertical-align: center;
+	margin-left: 30px;
+}
+
+.teams_full .join_team_auto
+{
+	visibility: collapse;
+}
+
+.join_team_full_warning
+{
+	font-size: 60px;
+	color: red;
+	horizontal-align: left;
+	vertical-align: center;
+	margin-left: 30px;
+	visibility: collapse;
+}
+
+.teams_full .join_team_full_warning
+{
+	visibility: visible;
+}
+
+.join_team_play:hover
+{
+	background-color: #333333ff;
+}
+
+.join_team_specific
+{
+	vertical-align: bottom;
+}
+
+.join_team_autoselect
+{
+	font-size: 20px;
+	text-align: center;
+	color: grey;
+	margin-left: 4px;
+}
+
+.join_team_play:hover .join_team_autoselect,.join_team_autoselect:hover
+{
+	color: white;
+}
+
+.join_team_humans
+{
+	font-size: 20px;
+	text-align: center;
+	margin-left: 20px;
+	color: grey;
+}
+
+.join_team_humans:hover
+{
+	color: white;
+}
+
+.join_team_aliens
+{
+	font-size: 20px;
+	text-align: center;
+	color: grey;
+	margin-left: 20px;
+}
+
+.join_team_aliens:hover
+{
+	color: white;
+}
+
+.join_team_spectate
+{
+	vertical-align: center;
+	horizontal-align: left;
+	height: 180px;
+	width: 100%;
+	background-color: rgb( 121, 121, 121);
+	border-radius: 8px;
+}
+
+.join_team_spectate:hover
+{
+	background-color: #333333ff;
+}
+
+.join_team_spectate Label
+{
+	margin-left: 30px;
+	font-size: 60px;
+	color: white;
+	vertical-align: center;
+	horizontal-align: left;
+}
+
+#hero_selection
+{
+	width: 100%;
+	height: 100%;
+	background-color: #000000dd;
+	visibility: collapse;
+	z-index: 3;
+}
+
+.connectedToHeroTesting.wants_hero_select #hero_selection,.connectedToHeroTesting #hero_selection
+{
+	visibility: collapse;
+}
+
+.wants_hero_select #hero_selection
+{
+	visibility: visible;
+}
+
+#hud_signature
+{
+	height: fit-children;
+	width: fit-children;
+	visibility: collapse;
+	horizontal-align: center;
+	vertical-align: bottom;
+	margin-top: 5px;
+	ui-scale: 90%;
+	transition-property: ui-scale, transform;
+	transition-duration: 0.2s;
+	border-radius: 2px;
+}
+
+.gShopOpen.PopupVisible #hud_signature
+{
+	visibility: collapse;
+}
+
+#hud_passive_items
+{
+	height: 40px;
+	width: fit-children;
+	visibility: collapse;
+	horizontal-align: center;
+	vertical-align: bottom;
+	margin-bottom: 180px;
+	ui-scale: 130%;
+}
+
+ActiveAbilitiesMenu
+{
+	horizontal-align: right;
+	height: 85px;
+	width: fit-children;
+	vertical-align: bottom;
+	transition-property: opacity;
+	transition-duration: 0.2s;
+	transition-property: transform;
+	transition-duration: 0.1s;
+	z-index: -1;
+}
+
+ActiveAbilitiesMenu.gBrowsingBuilds:not(.gEditingBuilds)
+{
+	visibility: collapse;
+}
+
+#hud_innate
+{
+	horizontal-align: center;
+	height: fit-children;
+	width: fit-children;
+	visibility: visible;
+}
+
+.lots_of_gadgets #hud_items
+{
+	height: 160px;
+	margin-bottom: 29px;
+}
+
+.lots_of_gadgets #gadgets_label
+{
+	margin-bottom: 180px;
+}
+
+#hud_teleport
+{
+	vertical-align: bottom;
+	horizontal-align: left;
+	horizontal-align: left;
+	height: 92px;
+	width: 92px;
+}
+
+#hud_aura_modifiers
+{
+	vertical-align: bottom;
+	horizontal-align: left;
+	margin-bottom: 450px;
+	width: 250px;
+	height: 450px;
+	margin-left: 20px;
+}
+
+#status_bars
+{
+	vertical-align: bottom;
+	horizontal-align: center;
+	height: 240px;
+	margin-bottom: 120px;
+	width: 550px;
+	flow-children: down;
+}
+
+#hud_modifiers
+{
+	horizontal-align: center;
+	width: 550px;
+	margin-bottom: 10px;
+}
+
+#hud_custom_modifiers
+{
+	vertical-align: bottom;
+	horizontal-align: left;
+	height: 40%;
+	margin-bottom: 40px;
+	margin-left: 440px;
+	width: 320px;
+	flow-children: up;
+}
+
+#hud_castbars
+{
+	horizontal-align: center;
+	width: 550px;
+}
+
+.precache
+{
+	background-image: url("s2r://panorama/images/hud/ledge_climb_psd.vtex");
+	background-image: url("s2r://panorama/images/hud/leap_psd.vtex");
+	background-image: url("s2r://panorama/images/hud/teleport_icon_psd.vtex");
+	background-image: url("s2r://panorama/images/hud/data_feed_golden_idol_png.vtex");
+}
+
+#spectate_container
+{
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+}
+
+#spectate_bar
+{
+	width: 100%;
+	height: 240px;
+	visibility: collapse;
+	vertical-align: top;
+}
+
+.spec_mode #spectate_bar
+{
+	visibility: visible;
+}
+
+#hud_replay
+{
+	width: 100%;
+	height: 60px;
+	margin-bottom: 0;
+	vertical-align: bottom;
+	visibility: collapse;
+}
+
+.replay_playback #hud_replay
+{
+	visibility: visible;
+}
+
+#shortcut_container
+{
+	margin-right: 0px;
+	vertical-align: bottom;
+	horizontal-align: center;
+	flow-children: right;
+	margin-left: DistFromWindowBorder;
+	margin-bottom: DistFromWindowBorder;
+	visibility: collapse;
+}
+
+.shortcut_button
+{
+	width: 48px;
+	height: 48px;
+	margin-left: 4px;
+	margin-right: 4px;
+	background-color: #ffffffa0;
+	border: 1px solid black;
+}
+
+.shortcut_button Label
+{
+	color: white;
+	width: 100%;
+	height: 18px;
+	text-align: center;
+	background-color: #80808080;
+	text-shadow: 2px 2px 0px black;
+	font-size: 18px;
+	vertical-align: bottom;
+	horizontal-align: center;
+	margin-bottom: 0px;
+	text-overflow: shrink;
+}
+
+.action_button
+{
+	width: 70px;
+	height: fit-children;
+	vertical-align: bottom;
+	margin-left: 2px;
+}
+
+#shield_button
+{
+	background-image: url("s2r://panorama/images/hud/flare_icon_psd.vtex");
+	background-size: 24px 24px;
+	background-position: 42px 4px;
+	background-repeat: no-repeat;
+}
+
+#mount_button
+{
+	background-image: url("s2r://panorama/images/hud/bike_icon_psd.vtex");
+	background-size: 40px 22px;
+	background-position: 35px 4px;
+	background-repeat: no-repeat;
+}
+
+#melee_button
+{
+	background-image: url("s2r://panorama/images/hud/fist_icon_psd.vtex");
+	background-size: 24px 24px;
+	background-position: 42px 4px;
+	background-repeat: no-repeat;
+}
+
+#vehicle_button
+{
+	background-image: url("s2r://panorama/images/hud/bike_icon_psd.vtex");
+	background-size: 24px 24px;
+	background-position: 41px 4px;
+	background-repeat: no-repeat;
+}
+
+#zipline_button
+{
+	background-image: url("s2r://panorama/images/hud/zipline_icon_psd.vtex");
+	background-size: 24px 24px;
+	background-position: right 50% top 10%;
+	background-repeat: no-repeat;
+}
+
+#roll_button
+{
+	background-image: url("s2r://panorama/images/hud/roll_icon_psd.vtex");
+	background-size: 24px 24px;
+	background-position: right 50% top 10%;
+	background-repeat: no-repeat;
+}
+
+#roll_button Label
+{
+	font-size: 12px;
+}
+
+#ping_button
+{
+	height: ActionButtonHeight;
+	background-image: url("s2r://panorama/images/hud/ping_icon_psd.vtex");
+	background-size: 24px 24px;
+	background-position: right 50% top 10%;
+	background-repeat: no-repeat;
+}
+
+#weapon_button
+{
+	height: ActionButtonHeight;
+	background-image: url("s2r://panorama/images/hud/melee_icon_psd.vtex");
+	background-size: 24px 24px;
+	background-position: right 50% top 10%;
+	background-repeat: no-repeat;
+}
+
+.action_button.simple #button_container
+{
+	width: 100%;
+	height: 100%;
+	border: 1px solid #ADD8E6AA;
+	background-color: rgba(0, 0, 0, 0.438);
+}
+
+.action_button.simple Label
+{
+	width: 100%;
+	text-align: center;
+	vertical-align: bottom;
+	font-size: 15px;
+	height: 18px;
+	line-height: 18px;
+	color: lightblue;
+	background-color: #00000088;
+	text-transform: uppercase;
+}
+
+#damage_meter
+{
+	width: 100px;
+	vertical-align: center;
+	horizontal-align: center;
+	color: rgb( 255, 255, 0 );
+	font-size: 20px;
+	margin-left: 250px;
+	visibility: collapse;
+}
+
+.show_dps_meter #damage_meter
+{
+	visibility: visible;
+}
+
+.out_of_combat #damage_meter
+{
+	color: white;
+}
+
+#mispredict_indicator
+{
+	border-radius: 4px;
+	width: 8px;
+	height: 8px;
+	border-color: red;
+	background-color: red;
+	margin: 0px 5px 10px 0px;
+	horizontal-align: right;
+	vertical-align: bottom;
+}
+
+#clientserver_stats
+{
+	horizontal-align: right;
+	vertical-align: bottom;
+	width: 250px;
+	height: 50px;
+	font-size: 13px;
+	text-align: right;
+	margin: 0px 15px 10px 0px;
+	color: #ffffff99;
+}
+
+.viewing_as_player .hero_panel,.viewing_as_player #hud_weapons,.viewing_as_player #hud_signature,.viewing_as_player #hud_items,.viewing_as_player #shortcut_container,.viewing_as_player #hud_passive_items,.ShowGoldAndAPOnHud #hud_signature,.ShowGoldAndAPOnHud #hud_items,.ShowGoldAndAPOnHud #hud_passive_items
+{
+	visibility: visible;
+}
+
+.kill_hype
+{
+	padding-top: 200px;
+	align: center top;
+}
+
+#TopDownScoreboard
+{
+	visibility: collapse;
+	z-index: 1000;
+}
+
+.wants_scoreboard #TopDownScoreboard
+{
+	visibility: visible;
+}
+
+#hintsPanel
+{
+	margin-top: 155px;
+	align: center top;
+	z-index: 100;
+}
+
+#reportCard
+{
+	margin-top: 100px;
+	align: right center;
+	z-index: 100;
+	visibility: visible;
+}
+
+.GameStatePreGame #reportCard
+{
+	visibility: collapse;
+}
+
+.InsertingSoImageGetsBuilt
+{
+	background-image: url("s2r://panorama/images/hud/orb_icon_png.vtex");
+}
+
+CitadelTooltipManager
+{
+	height: 100%;
+	width: 100%;
+	z-index: 9999;
+}
+
+#TimerContainer
+{
+	height: 100%;
+	width: 100%;
+	visibility: collapse;
+}
+
+#SafeToAbandonIndicator
+{
+	margin: 12px;
+	vertical-align: top;
+	horizontal-align: right;
+	background-color: #911717ee;
+	border-radius: 8px;
+	width: 190px;
+	height: 90px;
+	visibility: collapse;
+}
+
+.SafeToAbandon #SafeToAbandonIndicator
+{
+	visibility: visible;
+}
+
+#SafeToAbandonIndicator Label
+{
+	padding: 8px;
+	vertical-align: center;
+	horizontal-align: center;
+	text-align: center;
+	font-weight: bold;
+	opacity: 0.75;
+}
+
+#GameOverButtonContainer
+{
+	visibility: collapse;
+	horizontal-align: center;
+	vertical-align: center;
+	flow-children: right;
+	padding: 60px;
+	border-radius: 8px;
+	background-color: rgba(50, 50, 50, 0.9);
+}
+
+.inPostGame #GameOverButtonContainer
+{
+	visibility: visible;
+}
+
+.gameOverButtons
+{
+	margin-left: 40px;
+	margin-right: 40px;
+}
+
+.connectedToHeroTesting #stats_game_clock,.connectedToHeroTesting #minimap_persp,.connectedToHeroTesting #ObjectivesMap,.connectedToHeroTesting .top_left_team_panel,.connectedToHeroTesting .top_right_team_panel
+{
+	visibility: collapse;
+}
+
+.abilitiesContainer
+{
+	horizontal-align: center;
+	vertical-align: bottom;
+	width: 1035px;
+	height: 280px;
+	overflow: noclip;
+	z-index: 9998;
+}
+
+.wants_scoreboard .abilitiesContainer,.abilitiesContainer.gDetailView
+{
+	height: 400px;
+}
+
+.gShopOpen.abilitiesContainer
+{
+	height: 240px;
+}
+
+.replay_playback .abilitiesContainer
+{
+	margin-bottom: 55px;
+}
+
+.replay_playback .abilitiesContainer.gShopOpen
+{
+	margin-bottom: 0px;
+}
+
+#APContainer
+{
+	width: 80px;
+	height: 40px;
+	horizontal-align: center;
+	vertical-align: bottom;
+	flow-children: right;
+	margin-bottom: 0px;
+	padding-left: 16px;
+	opacity: 1;
+	visibility: collapse;
+	ui-scale: 100%;
+	transition-property: ui-scale;
+	transition-duration: 0.2s;
+}
+
+.ShowGoldAndAPOnHud #APContainer
+{
+	visibility: visible;
+}
+
+.APCurrencyIcon
+{
+	width: 16px;
+	height: 16px;
+	vertical-align: middle;
+	margin-right: 5px;
+	margin-top: 3px;
+	background-image: url("s2r://panorama/images/hud/ap_icon.vsvg");
+	background-size: contain;
+	wash-color: #d8b8ff;
+}
+
+.APCurrencyAmount
+{
+	font-size: 28px;
+	font-weight: bold;
+	vertical-align: middle;
+	horizontal-align: left;
+	color: #d8b8ff;
+}
+
+.infiniteMoney .APCurrencyAmount
+{
+	visibility: collapse;
+}
+
+#hudAPInfinite
+{
+	visibility: collapse;
+	wash-color: spiritLightColor&80;
+}
+
+.infiniteMoney #hudAPInfinite
+{
+	visibility: visible;
+	height: 30px;
+	width: 30px;
+	margin-top: 1px;
+	margin-left: 3px;
+	vertical-align: center;
+}
+
+#AbilityPanelsContainer
+{
+	horizontal-align: center;
+	vertical-align: middle;
+	margin-left: 1235px;
+	z-index: 1000;
+	visibility: visible;
+}
+
+.AspectRatio16x10 #AbilityPanelsContainer
+{
+	margin-left: 1155px;
+	ui-scale: 98%;
+}
+
+.showingAbility1 #AbilityDetailsPanel1,.showingAbility2 #AbilityDetailsPanel2,.showingAbility3 #AbilityDetailsPanel3,.showingAbility4 #AbilityDetailsPanel4
+{
+	opacity: 1;
+}
+
+#LowHealthWarning
+{
+	horizontal-align: center;
+	vertical-align: middle;
+	background-color: #D23619;
+	border-radius: 1px;
+	opacity: 0;
+	margin-top: 260px;
+	margin-left: 0px;
+}
+
+#LowHealthWarning Label
+{
+	font-size: 14px;
+	text-transform: uppercase;
+	font-weight: bold;
+	padding: 0px 10px 2px 10px;
+	color: #ffffffee;
+}
+
+#MidHealthWarning
+{
+	horizontal-align: center;
+	vertical-align: middle;
+	background-color: #ffde59b6;
+	border-radius: 2px;
+	opacity: 0;
+	margin-top: 260px;
+	margin-left: 0px;
+}
+
+#MidHealthWarning Label
+{
+	font-size: 14px;
+	text-transform: uppercase;
+	font-weight: bold;
+	padding: 0px 5px 2px 5px;
+	color: #ffffff;
+}
+
+#MidHealthWarning.localPlayerMidHealth
+{
+	animation-name: lowhealth_warning;
+	animation-duration: 4s;
+	animation-timing-function: ease-out;
+	animation-iteration-count: 1;
+}
+
+#LowHealthWarning.localPlayerLowHealth
+{
+	animation-name: lowhealth_warning;
+	animation-duration: 6s;
+	animation-timing-function: ease-out;
+	animation-iteration-count: infinite;
+}
+
+@keyframes 'lowhealth_warning'
+{
+	0%
+	{
+		opacity: 0;
+	}
+	
+	10%
+	{
+		opacity: 1;
+	}
+	
+	20%
+	{
+		opacity: 0;
+	}
+	
+	30%
+	{
+		opacity: 1;
+	}
+	
+	40%
+	{
+		opacity: 0;
+	}
+	
+	50%
+	{
+		opacity: 1;
+	}
+	
+	60%
+	{
+		opacity: 0;
+	}
+	
+	70%
+	{
+		opacity: 1;
+	}
+	
+	80%
+	{
+		opacity: 0;
+	}
+	
+	90%
+	{
+		opacity: 1;
+	}
+	
+	100%
+	{
+		opacity: 0;
+	}
+	
+}
+
+.unlockMessage,.upgradeMessage
+{
+	width: 300px;
+	background-color: #b969ff80;
+	visibility: collapse;
+	width: 240px;
+	margin-top: 120px;
+	horizontal-align: center;
+	border-radius: 4px;
+	animation-name: unlockAvailable;
+	animation-duration: 1.2s;
+	animation-iteration-count: infinite;
+	ui-scale: 140%;
+}
+
+.wants_scoreboard .unlockMessage,.wants_scoreboard .upgradeMessage,.gDetailView .unlockMessage,.gDetailView .upgradeMessage
+{
+	margin-top: 0px;
+	opacity: 0;
+}
+
+.unlockMessage Label,.upgradeMessage Label
+{
+	font-size: 12px;
+	font-weight: bold;
+	text-transform: uppercase;
+	margin-bottom: 1px;
+	color: #ffffff;
+	horizontal-align: center;
+	padding: 1px 0px;
+}
+
+.unlock_available:not(.gShopOpen) .unlockMessage,.upgrade_available:not(.gShopOpen) .upgradeMessage
+{
+	visibility: visible;
+	animation-name: unlockAvailable;
+	animation-duration: 1.2s;
+	animation-iteration-count: 3;
+}
+
+.upgrade_reminder .upgradeMessage
+{
+	visibility: visible;
+	animation-name: unlockAvailable;
+	animation-duration: 1.2s;
+	animation-iteration-count: infinite;
+}
+
+.unlockMessage .keybind,.upgradeMessage .keybind
+{
+	color: #dab0ff;
+}
+
+.GameStatePreGame .unlockMessage
+{
+	ui-scale: 200%;
+}
+
+@keyframes 'unlockAvailable'
+{
+	0%
+	{
+		pre-transform-scale2d: 1.2;
+		background-color: #b969ff99;
+	}
+	
+	50%
+	{
+		pre-transform-scale2d: 1;
+		background-color: #b969ff30;
+	}
+	
+	100%
+	{
+		pre-transform-scale2d: 1.2;
+		background-color: #b969ff99;
+	}
+	
+}
+
+CitadelHudSandboxTutorial
+{
+	visibility: collapse;
+}
+
+.connectedToHeroTesting CitadelHudSandboxTutorial
+{
+	visibility: visible;
+}
+
+#TeamFriendly,#TeamEnemy
+{
+	width: 540px;
+	height: fit-children;
+	flow-children: down;
+	horizontal-align: center;
+	margin-top: 0px;
+	margin-right: 660px;
+}
+
+#TeamEnemy
+{
+	margin-right: 0px;
+	margin-left: 650px;
+}
+
+.teleport_tip
+{
+	width: 300px;
+	height: fit-children;
+	background-color: #000000AA;
+	border-radius: 10px;
+	x: 60%;
+	y: 60%;
+	padding: 8px;
+	margin-right: 80px;
+	visibility: visible;
+	flow-children: right;
+}
+
+@keyframes 'teleportBlink'
+{
+	0%
+	{
+		box-shadow: fill rgba(255, 255, 0, 0.35) 0px 0px 12px 4px;
+		pre-transform-scale2d: 1.0;
+	}
+	
+	50%
+	{
+		pre-transform-scale2d: 1;
+		box-shadow: fill rgba(255, 255, 0, 0.) 0px 0px 12px 4px;
+	}
+	
+	100%
+	{
+		pre-transform-scale2d: 1.0;
+		box-shadow: fill rgba(255, 255, 0, 0.35) 0px 0px 12px 4px;
+	}
+	
+}
+
+.teleport_tip
+{
+	width: 300px;
+	height: fit-children;
+	x: 80.5%;
+	y: 53%;
+	padding: 8px;
+	margin-right: 80px;
+	flow-children: right;
+	animation-name: teleportBlink;
+	animation-duration: 1.2s;
+	animation-iteration-count: infinite;
+	visibility: collapse;
+	background-color: #000000AA;
+	border-radius: 10px;
+}
+
+.tier2_under_attack
+{
+	visibility: visible;
+}
+
+.teleport_tip Label
+{
+	font-size: 20px;
+}
+
+#invisibility
+{
+	width: 60px;
+	height: 60px;
+	visibility: collapse;
+	vertical-align: center;
+	horizontal-align: center;
+	y: -1%;
+	x: 3%;
+	opacity: 1;
+}
+
+#invisibility.is_invisible
+{
+	visibility: visible;
+}
+
+#invisibility.invis_spotted
+{
+	wash-color: red;
+}
+
+#invisibility.invis_hidden
+{
+	wash-color: yellow;
+}
+
+#invisibility.invis_fully
+{
+	wash-color: gray;
+}
+
+#PlayerLevel
+{
+	margin-bottom: 20px;
+	margin-left: 30px;
+	vertical-align: bottom;
+	visibility: visible;
+}
+
+.connectedToHeroTesting #PlayerLevel,.connectedToHeroTesting #gold_and_ap_container
+{
+	visibility: visible;
+}
+
+#hero_pos_debug
+{
+	width: 100%;
+	height: 100%;
+	visibility: collapse;
+}
+
+#hero_pos_debug.show_model_pos_debug
+{
+	visibility: visible;
+}
+
+#model_position_debug
+{
+	x: 24%;
+	y: 50%;
+	width: 19%;
+	height: 60%;
+	background-color: yellow;
+	opacity: 0.25;
+}
+
+#large_model_position_debug
+{
+	x: 19%;
+	y: 45%;
+	width: 24%;
+	height: 70%;
+	background-color: darkred;
+	opacity: 0.25;
+}
+
+#gun_position_debug
+{
+	x: 40%;
+	y: 52%;
+	width: 8%;
+	height: 14%;
+	background-color: blue;
+	opacity: 0.5;
+}
+
+.show_model_pos_debug_aimed #gun_position_debug
+{
+	x: 30%;
+	y: 53%;
+	width: 14%;
+	height: 22%;
+	background-color: blue;
+	opacity: 0.5;
+}
+
+.show_model_pos_debug_aimed #model_position_debug
+{
+	x: 0%;
+	y: 42%;
+	width: 38%;
+	height: 70%;
+	background-color: red;
+	opacity: 0.25;
+}
+
+.show_model_pos_debug_aimed #large_model_position_debug
+{
+	x: 0%;
+	y: 32%;
+	width: 42%;
+	height: 70%;
+	background-color: darkred;
+	opacity: 0.25;
+}
+
+#StatsAndModsContainer,.gShopOpen.wants_scoreboard #StatsAndModsContainer
+{
+	visibility: visible;
+	width: 100%;
+	height: 100%;
+	ui-scale: 100%;
+	z-index: 2000;
+	transition-property: ui-scale, transform, margin-bottom, margin-left;
+	transition-duration: 0.1s;
+	transition-timing-function: ease-out;
+}
+
+#StatsAndModsContainer.gBrowsingBuilds
+{
+	visibility: collapse;
+}
+
+#StatsAndModsContainer.gBrowsingBuilds.gEditingBuilds
+{
+	visibility: visible;
+}
+
+#LowerLeft
+{
+	horizontal-align: left;
+	vertical-align: bottom;
+	padding-top: 20px;
+}
+
+#StatsAndModsContainer.gShopOpen #LowerLeft
+{
+	transform: translateX(10px) translateY(-10px);
+	ui-scale: 150%;
+}
+
+.AspectRatio21x9 #StatsAndModsContainer
+{
+	max-width: 2000px;
+	horizontal-align: center;
+}
+
+.AspectRatio21x9 #StatsAndModsContainer.gShopOpen #LowerLeft
+{
+	transform: translateX(60px) translateY(-10px);
+	max-width: 2000px;
+}
+
+.replay_playback #StatsAndModsContainer
+{
+	margin-bottom: 50px;
+}
+
+.replay_playback #StatsAndModsContainer.gShopOpen
+{
+	margin-bottom: 0px;
+}
+
+.wants_scoreboard #StatsAndModsContainer
+{
+	visibility: visible;
+}
+
+CitadelHeroStats.hero_stats
+{
+	horizontal-align: left;
+	vertical-align: top;
+	margin-top: 100px;
+	margin-left: 50px;
+	height: fit-children;
+	visibility: collapse;
+}
+
+#StatsAndModsContainer .hero_stats
+{
+	background-color: offBlack&ea;
+	visibility: collapse;
+}
+
+.ModsContainer
+{
+	horizontal-align: left;
+	vertical-align: bottom;
+	margin-bottom: 15px;
+	margin-left: 20px;
+	height: fit-children;
+	width: 420px;
+	flow-children: right;
+	visibility: visible;
+	ui-scale: 90%;
+	padding-top: 30px;
+}
+
+.ModSection
+{
+	flow-children: down;
+	margin: 0px 3px;
+	overflow: noclip;
+	margin-top: 30px;
+	transition-property: background-color, border;
+	transition-duration: 0.2s;
+}
+
+.modsBacker
+{
+	width: 100%;
+	height: 90%;
+	vertical-align: bottom;
+	border-radius: 10px;
+	ignore-parent-flow: true;
+	transition-property: background-color, border;
+	transition-duration: 0.2s;
+	visibility: collapse;
+}
+
+.gShopOpen .modsBacker
+{
+	visibility: visible;
+}
+
+.gShopOpen .WeaponMods .modsBacker
+{
+	background-color: courageDarkColor&20;
+	border: 2px solid courageBrightColor&30;
+	border-brush: gradient( linear, 0% 0%, 0% 100%, from( #ffffff ), to( #ffffff00 ) );
+}
+
+.gShopOpen .ArmorMods .modsBacker
+{
+	background-color: fortitudeDarkColor&20;
+	border: 2px solid fortitudeBrightColor&30;
+	border-brush: gradient( linear, 0% 0%, 0% 100%, from( #ffffff ), to( #ffffff00 ) );
+}
+
+.gShopOpen .TechMods .modsBacker
+{
+	background-color: spiritDarkColor&20;
+	border: 2px solid spiritBrightColor&30;
+	border-brush: gradient( linear, 0% 0%, 0% 100%, from( #ffffff ), to( #ffffff00 ) );
+}
+
+.viewingWeaponStats .WeaponMods .modsBacker
+{
+	background-color: courageDarkColor;
+}
+
+.viewingArmorStats .ArmorMods .modsBacker
+{
+	background-color: fortitudeDarkColor;
+}
+
+.viewingTechStats .TechMods .modsBacker
+{
+	background-color: spiritDarkColor;
+}
+
+.ModTypeLabel
+{
+	font-size: 10px;
+	text-transform: uppercase;
+	font-weight: bold;
+	horizontal-align: center;
+	opacity: 0.5;
+	visibility: collapse;
+}
+
+.gShopOpen .ModTypeLabel
+{
+	visibility: visible;
+}
+
+.modBonusContainer
+{
+	visibility: collapse;
+}
+
+.gShopOpen .modBonusContainer
+{
+	visibility: visible;
+}
+
+.WeaponMods .ModTypeLabel
+{
+	color: courageBrightColor;
+}
+
+.ArmorMods .ModTypeLabel
+{
+	color: fortitudeBrightColor;
+}
+
+.TechMods .ModTypeLabel
+{
+	color: spiritBrightColor;
+}
+
+.FlexMods
+{
+	height: 100%;
+}
+
+CitadelModsPurchasedPanel
+{
+	vertical-align: bottom;
+}
+
+CitadelZiplineBoostIcon
+{
+	vertical-align: bottom;
+	horizontal-align: right;
+	margin-right: 35px;
+	margin-bottom: 60px;
+	z-index: 1000;
+}
+
+CitadelZiplineBoostIcon.gShopOpen
+{
+	visibility: collapse;
+}
+
+CitadelPlayerLevelRewards
+{
+	visibility: collapse;
+	vertical-align: bottom;
+	horizontal-align: center;
+	margin-bottom: 105px;
+	margin-right: 1370px;
+	background-color: gradient( linear, 0% 100%, 0% 0%, from( #266149 ), to( #26614950 ) );
+}
+
+.AspectRatio16x10 CitadelPlayerLevelRewards
+{
+	margin-right: 1460px;
+}
+
+.AspectRatio21x9 CitadelPlayerLevelRewards
+{
+	margin-right: 1220px;
+}
+
+.wants_scoreboard CitadelPlayerLevelRewards
+{
+	visibility: visible;
+}
+
+#hudPlayerStats
+{
+	vertical-align: bottom;
+	horizontal-align: left;
+	flow-children: down;
+	margin-bottom: 170px;
+	width: 280px;
+	visibility: collapse;
+}
+
+.replay_playback #hudPlayerStats
+{
+	margin-bottom: 220px;
+}
+
+.player_selected #hudPlayerStats
+{
+	visibility: visible;
+}
+
+.deathReplayActive #TopBar,.deathReplayActive #health_and_abilities_container,.deathReplayActive #DataFeed
+{
+	visibility: collapse;
+}
+
+CitadelGameOverDisplay
+{
+	z-index: 99;
+}
+
+CitadelHudSoulAPContainer
+{
+	visibility: collapse;
+}
+
+CitadelHudSoulAPContainer.ShowGoldAndAPOnHud
+{
+	visibility: visible;
+}
+
+#party_ctn
+{
+	width: 400px;
+	horizontal-align: right;
+	vertical-align: top;
+	margin: 160px 30px 30px 30px;
+	flow-children: down;
+	z-index: 1000;
+	visibility: collapse;
+}
+
+.replay_playback #party_ctn,.TeamSpectator #party_ctn,.connectedToHeroTesting #party_ctn
+{
+	visibility: visible;
+}
+

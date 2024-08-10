@@ -1,0 +1,54 @@
+<!-- xml reconstructed by Source 2 Viewer 10.1.0.0 - https://valveresourceformat.github.io -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/gamestyles.vcss_c" />
+		<include src="s2r://panorama/styles/citadel_base_styles.vcss_c" />
+		<include src="s2r://panorama/styles/citadel_ui_party.vcss_c" />
+	</styles>
+	<CitadelParty>
+		<Panel id="DisconnectedFromGCGroup">
+			<Label id="PartyNotConnectedToGC" text="#Citadel_Party_NotConnectedToGC" />
+		</Panel>
+		<Panel id="ConnectedToGCGroup">
+			<Panel id="InPartyGroup">
+				<Panel id="PartyGroup">
+					<Panel id="MembersAndCode">
+						<Panel id="MemberRow">
+							<Panel id="MemberList" />
+							<Panel id="InviteButton" onactivate="CitadelPartyInviteUsers()" onmouseover="UIShowTextTooltip( #Citadel_Party_InviteFriends ); CitadelPlayUISound( EMainMenuHover )" onmouseout="UIHideTextTooltip()" />
+							<Panel class="HighSkillRangeAlert" onmouseover="UIShowTextTooltip( #MyRosterPartyHighSkillRange ); CitadelPlayUISound( EMainMenuHover )" onmouseout="UIHideTextTooltip()" />
+						</Panel>
+						<CitadelPartyCode id="PartyCodeGroup" class="HideLabel" />
+					</Panel>
+				</Panel>
+			</Panel>
+			<Panel id="NotInPartyGroup">
+				<Panel id="NavToProfile" class="PlayerInfo" onactivate="CitadelShowProfilePage(); CitadelPlayUISound( EMainMenuActivate )" hittest="true">
+					<CitadelAvatarImage id="SelfImage" />
+					<Panel id="NameAndLink">
+						<CitadelUserName id="SelfName" />
+						<Label class="viewProfile" text="#Citadel_Party_MatchHistory" />
+					</Panel>
+				</Panel>
+				<Panel class="ButtonCol">
+					<Button id="Social" onactivate="CitadelShowSocialPage(); CitadelPlayUISound( EMainMenuActivate )" onmouseover="CitadelPlayUISound( EMainMenuHover )" onmouseout="UIHideTextTooltip()">
+						<Button id="FriendListButton" class="SecondaryButton fill light hasIcon">
+							<Panel class="FriendsIcon buttonIcon" />
+							<Label text="#Citadel_Party_PlayWithFriends" />
+						</Button>
+						<Button id="InviteFriendsButton" class="SecondaryButton fill light hasIcon" onactivate="CitadelCreatePartyFromInvites(); CitadelPlayUISound( ESocialMenuHover )">
+							<Panel class="FriendsIcon buttonIcon" />
+							<Label text="#Citadel_Party_InviteFriends" />
+						</Button>
+						<Button id="LeavePartyButton" class="SecondaryButton red hasIcon" onactivate="CitadelPartyLeave(); CitadelPlayUISound( ESocialMenuHover )">
+							<Label text="#Citadel_Party_LeaveParty" />
+						</Button>
+						<Button id="PartyOptions" class="SecondaryButton light hasIcon iconOnly" onactivate="CitadelPlayUISound( ESocialMenuActivate )">
+							<Panel class="PartyOptionsIcon buttonIcon" />
+						</Button>
+					</Button>
+				</Panel>
+			</Panel>
+		</Panel>
+	</CitadelParty>
+</root>

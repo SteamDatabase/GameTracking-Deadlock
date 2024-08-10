@@ -1,0 +1,173 @@
+<!-- xml reconstructed by Source 2 Viewer 10.1.0.0 - https://valveresourceformat.github.io -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/citadel_base_styles.vcss_c" />
+		<include src="s2r://panorama/styles/citadel_db_page_shared.vcss_c" />
+		<include src="s2r://panorama/styles/post_game/post_game_global.vcss_c" />
+		<include src="s2r://panorama/styles/post_game/citadel_db_page_post_game.vcss_c" />
+	</styles>
+	<snippets>
+		<snippet name="BaseStat">
+			<Panel class="BaseStat LeftRightFlow">
+				<Panel class="BaseStat TopBottomFlow Best">
+					<Panel class="StatBackground" />
+					<Panel class="StatIcon" />
+					<Panel class="StatCore">
+						<Label class="StatAmount" text="{i:stat_value}" />
+						<Label class="StatLabel" text="{s:stat_name}" />
+					</Panel>
+				</Panel>
+			</Panel>
+		</snippet>
+		<snippet name="AwardSnippet">
+			<Panel class="playerAward" />
+		</snippet>
+	</snippets>
+	<CitadelPostGame class="DashboardPage" oncancel="CitadelNavigateBack();">
+		<Panel id="LoadingBody" class="TabContents">
+			<Panel class="LoadingContents">
+				<Label text="#Citadel_MatchDetails_Loading" />
+				<Image id="LoadingSpinner" src="s2r://panorama/images/control_icons/spinner_png.vtex" />
+			</Panel>
+		</Panel>
+		<Panel id="ErrorBody" class="TabContents">
+			<Panel class="ErrorContents">
+				<Label class="ErrorMsg" text="{s:ErrorMsg}" />
+				<Button id="RetryButton" class="PopupButton" onactivate="CitadelMatchDetailsRetry(); CitadelPlayUISound( EMainMenuActivate )">
+					<Label text="#Citadel_Post_Game_Retry" />
+				</Button>
+			</Panel>
+		</Panel>
+		<Panel id="FooterBar">
+			<Panel id="BottomButtonsContainer">
+				<MatchDetailsReplayButton id="ReplayButton" />
+			</Panel>
+		</Panel>
+		<Panel id="PostGameNavigation">
+			<Panel class="Personal PostGameNav">
+				<Label id="PersonalButton" text="#Citadel_Post_Game_Personal" onactivate="CitadelShowPostGameTab( 0 );" />
+			</Panel>
+			<Label class="NavDivider personaNavDivider" text="/" />
+			<Panel class="Scoreboard PostGameNav">
+				<Label id="ScoreboardButton" text="#Citadel_Post_Game_Scoreboard" onactivate="CitadelShowPostGameTab( 1 );" />
+			</Panel>
+			<Label class="NavDivider" text="/" />
+			<Panel class="Graphs PostGameNav">
+				<Label id="GraphsButton" text="#Citadel_Post_Game_Graphs" onactivate="CitadelShowPostGameTab( 2 );" />
+			</Panel>
+		</Panel>
+		<Panel id="PageContainer">
+			<Panel id="HeroAchievementsPage" class="tabPage">
+				<Panel class="BackgroundPanel" />
+				<Panel id="Timer">
+					<Label text="{i:time_left}" />
+				</Panel>
+				<Panel id="PersonalContent">
+					<ScenePanel id="HeroScenePanel" map="ui/hero_select" scene_data_name="hero_selection" hero_animgraph_enum="HeroSelect" parent_entity_name="hero_root" camera="portrait_camera" use_hero_map="true" sound="PORTRAIT_SOUND_MODE_ALL_SOUNDS" rotateonhover="true" allowrotation="true" />
+					<Panel class="HeroContent TopBottomFlow">
+						<Panel class="IntroContent TopBottomFlow">
+							<Label class="HeroName" text="{g:citadel_hero_name:player_hero_id}" />
+							<Panel class="PlayerName LeftRightFlow">
+								<Label html="true" text="#Citadel_Post_Game_PlayedBy" />
+								<CitadelUserName id="PlayerUserName" />
+							</Panel>
+						</Panel>
+						<Panel id="StatsContainer" class="LeftRightFlow BaseStats" />
+						<Label class="HeroStatsWIP" text="NARRATIVE PROGRESSION BAR GOES HERE" />
+						<Panel id="HeroStatContainer">
+							<Panel id="HeroStatsIntro">
+								<Label text="Shiv Abilities" />
+							</Panel>
+							<Panel class="HeroStats">
+								<Panel class="HeroStat Stat1 GoldAward">
+									<Panel class="AwardBG" />
+									<Panel class="StatContent">
+										<Label class="StatAmount" text="30" />
+										<Label class="StatLabel" text="Kills" />
+									</Panel>
+									<Panel class="StatAward">
+										<Panel class="MedalContent">
+											<Panel class="Medal" />
+											<Label class="AwardName" text="First Strike!" />
+										</Panel>
+									</Panel>
+								</Panel>
+								<Panel class="StatDivider" />
+								<Panel class="HeroStat Stat2  SilverAward">
+									<Panel class="AwardBG" />
+									<Panel class="StatBG" />
+									<Panel class="StatContent">
+										<Label class="StatAmount" text="30" />
+										<Label class="StatLabel" text="Kills" />
+									</Panel>
+									<Panel class="StatAward">
+										<Panel class="MedalContent">
+											<Panel class="Medal" />
+											<Label class="AwardName" text="First Strike!" />
+										</Panel>
+									</Panel>
+								</Panel>
+								<Panel class="StatDivider" />
+								<Panel class="HeroStat Stat3">
+									<Panel class="AwardBG" />
+									<Panel class="StatBG" />
+									<Panel class="StatContent">
+										<Label class="StatAmount" text="30" />
+										<Label class="StatLabel" text="Kills" />
+									</Panel>
+									<Panel class="StatAward">
+										<Panel class="MedalContent">
+											<Panel class="Medal" />
+											<Label class="AwardName" text="First Strike!" />
+										</Panel>
+									</Panel>
+								</Panel>
+								<Panel class="StatDivider" />
+								<Panel class="HeroStat Stat4">
+									<Panel class="AwardBG" />
+									<Panel class="StatBG" />
+									<Panel class="StatContent">
+										<Label class="StatAmount" text="30" />
+										<Label class="StatLabel" text="Kills" />
+									</Panel>
+									<Panel class="StatAward">
+										<Panel class="MedalContent">
+											<Panel class="Medal" />
+											<Label class="AwardName" text="First Strike!" />
+										</Panel>
+									</Panel>
+								</Panel>
+								<Panel class="StatDivider" />
+								<Panel class="HeroStat Stat5 BronzeAward">
+									<Panel class="AwardBG" />
+									<Panel class="StatBG" />
+									<Panel class="StatContent">
+										<Label class="StatAmount" text="30" />
+										<Label class="StatLabel" text="Kills" />
+									</Panel>
+									<Panel class="StatAward">
+										<Panel class="MedalContent">
+											<Panel class="Medal" />
+											<Label class="AwardName" text="First Strike!" />
+										</Panel>
+									</Panel>
+								</Panel>
+							</Panel>
+						</Panel>
+					</Panel>
+				</Panel>
+			</Panel>
+			<Panel id="ScoreboardPage" class="tabPage">
+				<CitadelPostGameScoreboard id="PostGameScoreboard" />
+			</Panel>
+			<Panel id="GraphsPage" class="tabPage">
+				<MatchDetailsGraphs id="Graphs" />
+			</Panel>
+		</Panel>
+		<Panel class="matchOutcomeContainer">
+			<Label class="matchIDLabel" text="#Citadel_MatchDetails_MatchID" />
+			<Label id="OutcomeVictory" class="matchOutcomeLabel" text="#Citadel_MatchDetails_Victory" />
+			<Label id="OutcomeDefeat" class="matchOutcomeLabel" text="#Citadel_MatchDetails_Defeat" />
+		</Panel>
+	</CitadelPostGame>
+</root>

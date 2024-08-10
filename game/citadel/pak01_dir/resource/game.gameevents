@@ -1,0 +1,640 @@
+//=========== (C) Copyright Valve, L.L.C. All rights reserved. ===========
+//
+// The copyright to the contents herein is the property of Valve, L.L.C.
+// The contents may be used and/or copied only with the written permission of
+// Valve, L.L.C., or in accordance with the terms and conditions stipulated in
+// the agreement/contract under which the contents have been supplied.
+//=============================================================================
+
+// No spaces in event names, max length 32
+// All strings are case sensitive
+// total game event byte length must be < 1024
+//
+// valid data key types are:
+//   none   : value is not networked
+//   string : a zero terminated string
+//   bool   : unsigned int, 1 bit
+//   byte   : unsigned int, 8 bit
+//   short  : signed int, 16 bit
+//   long   : signed int, 32 bit
+//   float  : float, 32 bit
+//   local : any data, dont network this field
+//
+// following keys names are reserved:
+//   local      : if set to 1, event is not networked to clients
+//   reliable   : if set to 0, event is networked unreliable
+
+"gameevents"
+{
+	"gameui_activated" {}
+	"gameui_hidden"	{}
+
+	"gameui_free_cursor_changed"	{}
+
+
+	"client_disconnect"
+	{
+		"reason_code" "int"
+		"reason_desc" "string"
+	}
+
+	"player_death"				// a game event, name may be 32 charaters long
+	{
+		// this extents the original player_death by a new fields
+		"userid"	"player_controller_and_pawn"   	// user who died				
+		"entityid"	"long"   	// entity ID who died, userid should be used first, to get the dead Player.  Otherwise, it is not a player, so use this.		
+		"attacker"	"player_controller_and_pawn"	 	// user ID who killed
+		"attackername" "string" // What type of zombie, so we don't have zombie names
+		"attackerehandle" "ehandle"	// if killer not a player, the ehandle of who killed.  Again, use attacker first
+		"weapon"	"string" 	// weapon name killer used 
+		"headshot"	"bool"		// singals a headshot
+		"attackerisbot" "bool"  // is the attacker a bot
+		"victimname" "string"   // What type of zombie, so we don't have zombie names
+		"victimisbot" "bool"    // is the victim a bot
+		"abort" "bool"    // did the victim abort
+		"type"		"long"		// damage type
+		"victim_x"	"float"
+		"victim_y"	"float"
+		"victim_z"	"float"
+		"bounty"	"short"
+		"dropped_gold" "short"
+		"assister1controller"			"player_controller"
+		"assister2controller"			"player_controller"
+		"assister3controller"			"player_controller"
+		"assister4controller"			"player_controller"
+		"assister5controller"			"player_controller"
+	}
+	
+	"player_hurt"
+	{
+		"local"		"1"			// Not networked
+		"userid"	"player_controller_and_pawn"   	// user ID who was hurt
+		"attacker"	"player_controller_and_pawn"		// user id who attacked
+		"attackerentid"	"long"	// entity id who attacked, if attacker not a player, and userid therefore invalid
+		"health"	"short"		// remaining health points
+		"armor"		"byte"		// remaining armor points
+		"weapon"	"string"	// weapon name attacker used, if not the world
+		"dmg_health"	"short"	// damage done to health
+		"dmg_armor"	"byte"		// damage done to armor
+		"hitgroup"	"byte"		// hitgroup that was damaged
+		"type"		"long"		// damage type
+	}
+
+	"player_respawned"
+	{
+		"userid"		"player_pawn"   	// user ID who was respawned
+		"facing_yaw"	"float"		// where the camera should point at
+	}
+
+	// what hint we should show to the local player has changed
+	"citadel_hint_changed"
+	{
+		"hint_feature"			"long"
+	}
+
+	// local message when the spectate mode has changed
+	"spectate_mode_changed"
+	{
+		"local"		"1"			// Not networked
+	}
+
+	// local message when the spectate team has changed
+	"spectate_team_changed"
+	{
+		"local"		"1"			// Not networked
+	}
+
+	// local message when a player has changed who they chat with
+	"player_chat_group_changed"
+	{
+		"local"		"1"			// Not networked
+		"player"	"player_controller"
+	}
+
+	// SourceTV events - tell the client to watch a specific spot
+	"citadeltv_chase_hero"
+	{
+		"target1"		"ehandle"		// primary traget index 
+		"target2"		"ehandle"		// secondary target index or 0
+		"type"			"byte"
+		"priority"		"short"
+		"gametime"		"float"
+		"highlight"		"bool"		// if set, a result of highlight reel mode
+		"target1playerid"	"player_controller"
+		"target2playerid"	"player_controller"
+		"eventtype"		"short"		// ECitadelSpectateEvent
+	}
+
+	// SourceTV game server event - a hint that something interesting is happening
+	"citadeltv_unit_event"
+	{
+		"victim"		"short"
+		"attacker"		"short"
+		"basepriority"	"short"
+		"priority"		"short"
+		"eventtype"		"short"		// ECitadelSpectateEvent
+	}
+
+	"player_bot_replace"
+	{
+		"player"	"short"		// user ID of the player
+		"bot"		"short"		// user ID of the bot
+	}
+	
+	"bot_player_replace"
+	{
+		"bot"		"short"		// user ID of the bot
+		"player"	"short"		// user ID of the player
+	}
+		
+	"weapon_reload_started"
+	{
+		"entindex_player"		"long"
+		"bullets_left_in_clip"	"int"
+	}
+
+	"weapon_reload_complete"
+	{
+		"entindex_player"		"long"
+	}
+
+	"weapon_zoom_started"
+	{
+		"entindex_player"		"long"
+	}
+
+	"match_clock"
+	{
+		"match_time"	"float"
+		"paused"		"bool"
+	}
+
+	"item_pickup"
+	{
+		"userid"		"player_controller"
+		"item"		"string"	// either a weapon such as 'tmp' or 'hegrenade', or an item such as 'nvgs'
+	}
+
+	"grenade_bounce"
+	{
+		"userid"		"player_pawn"
+	}
+
+	"team_msg"
+	{
+		"event_type"	"short"
+		"team"			"byte"
+		"lane_color"	"short"
+		"userid"		"player_controller"
+	}
+
+	"rejuv_status_msg"
+	{
+		"killing_team"	"byte"
+		"userid"		"player_pawn"
+		"user_team"		"short"
+		"event_type"	"byte"
+	}
+
+	"game_state_changed"
+	{
+		"game_state_new"	"long"
+	}
+
+	"boss_killed"
+	{
+		"objective_team"			"short"
+		"objective_mask_change"		"short"
+		"entity_killed"				"ehandle"
+		"entity_killer"				"ehandle"
+	}
+
+	"boss_damaged"
+	{
+		"objective_team"			"short"
+		"objective_id"				"short"
+		"entity_damaged"			"ehandle"
+	}
+
+	"hero_assigned_lane_changed"
+	{
+		"player"			"player_controller"
+	}
+
+	"hero_draft_order_changed"
+	{
+		// "player"			"player_controller"	-- commented since not networked
+	}
+
+	"gameover_msg"
+	{
+		"winning_team"	"byte"
+		"reliable"		"1"		// this event is reliable
+	}
+
+	"gameover_msg_test"
+	{
+		"winning_team"	"byte"
+	}
+
+	// these player_ messages should be a direct protobuf message instead of a broadcast event
+	"player_damage_increased"
+	{
+		"entindex_player"	"long"
+		"damage_increase"	"long"
+	}
+
+	"player_maxhealth_increased"
+	{
+		"entindex_player"		"long"
+		"maxhealth_increase"	"long"
+	}
+
+	"player_ammo_increased"
+	{
+		"entindex_player"		"long"
+		"ammo_increase"			"long"
+	}
+
+	"player_ammo_full"
+	{
+		"entindex_player"		"long"
+	}
+
+	// server and client (note on the client you may not have updated the value in the network vars yet)
+	"player_currency_change"
+	{
+		"entindex_player"	"long"
+		"currency_type"			"short"
+		"currency_source"		"short"
+		"delta"				"float"
+		"notification"		"bool"
+		"entindex_victim"	"long"
+		"teamnumber_victim"	"short"
+		"victim_x"	"float"
+		"victim_y"	"float"
+		"victim_z"	"float"
+		"play_sound"	"short"
+	}
+
+	// client - sent after the new values have been correctly received
+	"client_player_currency_change"
+	{
+		"userid"	"player_pawn"		// user ID on server
+	}
+
+	"player_used_ability"
+	{
+		"entindex_player"	"long"
+		"abilityname"	"string"
+		"caster_entindex"	"long"
+		"ability_vdata"		""
+	}
+
+	"player_used_item"
+	{
+		"userid_caster"		"player_pawn"
+		"abilityid_used"	"long"
+	}
+
+	"player_rez_incoming"
+	{
+		"entindex_player_rezzer"	"long"
+		"entindex_player_rezzee"	"long"
+		"victim_x"	"float"
+		"victim_y"	"float"
+		"victim_z"	"float"
+	}
+
+	"non_player_used_ability"
+	{
+		"abilityname"	"string"
+		"entindex_caster"	"long"
+	}
+
+	// Client-side only event - The local player's unit states have changed
+	"local_player_unit_states_changed"
+	{}
+
+	// Client-side only event - A player's item/abilities have changed
+	"player_items_changed"
+	{
+		"userid"	"player_pawn"		// user ID on server
+	}
+
+	"player_item_price_changed"
+	{
+		"userid"		"player_pawn"		// user ID on server
+	}
+
+	"player_ability_upgrade_sell_price_changed"
+	{
+		"userid"		"player_pawn"		// user ID on server
+	}
+
+	"player_respawn_time_changed"
+	{
+		"userid"		"player_pawn"		// user ID on server
+	}	
+	
+	"local_player_abilities_vdata_changed"
+	{
+		"ability"			"ehandle"
+	}
+
+	// Client-side only event - The local player's weapons have changed
+	"local_player_weapons_changed"
+	{}
+
+	// Client-side only event - The local player's item/abilities have changed
+	"player_ability_upgraded"
+	{
+		"userid"			"player_pawn"		// user ID on server
+		"ability"			"ehandle"
+	}
+
+	"local_player_ability_cooldown_end_changed"
+	{
+		"entindex_ability"	"long"
+	}
+
+	// any players' abilities changed
+	"player_data_abilities_changed"
+	{
+		"userid"			"player_pawn"
+	}
+
+	"player_ability_bonus_counter_changed"
+	{
+		"userid"			"player_pawn"
+	}
+
+	// client-side only event - player has gotten/lost a buff/debuff
+	"player_modifiers_changed"
+	{
+		"entindex_player"	"long"
+		"modifier_index"	"long"
+	}
+
+	// client-side only event - the player opened the item shop
+	"player_opened_item_shop"
+	{
+		"userid"	"player_pawn"		// user ID on server
+	}
+
+	// client-side only event - content has changed for the UI, reload everything
+	"tools_content_changed"
+	{
+	}
+
+	// client-side only event - something about the players position in the world changed that effects what shops are available
+	"player_shop_zone_changed"
+	{
+	}
+
+	"player_healed"
+	{
+		"entindex_healer"			"long"
+		"entindex_healed"			"long"
+		"heal_amount"				"long"
+		"abilityid_healing_source"	"long"
+	}
+
+	"player_heal_prevented"
+	{
+		"entindex_attacker"			"long"
+		"entindex_victim"			"long"
+		"prevented_amount"			"long"
+		"abilityid_source"			"long"
+	}
+
+	"player_given_shield"
+	{
+		"entindex_provider"		"long"
+		"entindex_target"		"long"
+		"bullet_shield_amount"		"long"
+		"bullet_shield_health"		"long"
+		"bullet_shield_health_max"	"long"
+		"tech_shield_amount"		"long"
+		"tech_shield_health"		"long"
+		"tech_shield_health_max"	"long"
+		"abilityid_source"		"long"
+	}
+
+	"player_weapon_switched"
+	{
+		"entindex_player"	"long"
+		"viewmodelindex"	"long"
+	}
+
+	"player_hero_changed"
+	{
+		"userid"	"player_pawn"		// user ID on server
+	}
+
+	"player_drafting_changed"
+	{
+	}
+
+	"player_guided_sandbox_started"
+	{
+	}
+
+	"player_lane_challenge_started"
+	{
+	}
+
+	"player_lane_challenge_ended"
+	{
+	}
+
+	"player_opened_hero_select"
+	{
+		"entindex_player"	"long"
+	}
+
+	// Used for Hero Testing when player invokes a hero reset
+	"player_hero_reset"
+	{
+	}
+	
+	"player_info_individual_updated"
+	{
+		"account_id"	"long"
+	}
+
+	"persona_updated"
+	{
+		"SteamID"	"uint64"
+	}
+
+	// client-event - item/ability files have been reloaded
+	"item_file_reloaded"
+	{
+	}
+
+	"party_updated"
+	{
+	}
+
+	"ability_cast_succeeded"
+	{
+		"entindex_ability"	"long"
+	}
+
+	"ability_cast_failed"
+	{
+		"entindex_ability"	"long"
+		"reason"			"long"
+	}
+
+	"reload_failed_no_ammo"
+	{}
+
+	"broke_enemy_shield"
+	{
+		"entindex_victim"		"long"
+		"entindex_inflictor"	"long"
+	}
+
+	"ability_added"
+	{
+		"userid"			"player_pawn"
+		"ability"			"ehandle"
+	}
+
+	"ability_removed"
+	{
+		"userid"			"player_pawn"
+		"ability"			"ehandle"
+	}
+
+	"ability_level_changed"
+	{
+		"userid"			"player_pawn"
+		"ability"			"ehandle"
+		"abilitylevel"		"long"
+	}
+
+	"player_level_changed"
+	{
+		"userid"	"player_pawn"		// user ID on server
+		"new_player_level"	"short"
+	}
+
+	"currency_missed"
+	{
+		"entindex_player"	"long"
+		"type"				"short"
+		"amount"			"long"
+	}
+
+	"currency_denied"
+	{
+		"entindex_player"	"long"
+		"type"				"short"
+		"amount"			"long"
+		"is_denier"			"bool"
+		"pos_x"				"float"
+		"pos_y"				"float"
+		"pos_z"				"float"
+		"entindex_orb"		"long"
+	}
+
+	// client-event - when local player thinks the bullet hit enemy
+	"local_player_shot_hit"
+	{
+	}
+
+	"zipline_player_attached"
+	{
+		"userid"			"player_pawn"
+	}
+
+	"zipline_player_detached"
+	{
+		"userid"			"player_pawn"
+	}
+
+	"player_kill_streak"
+	{
+		"entindex_player"	"long"
+		"kills"				"short"
+		"firstblood"		"bool"
+	}
+
+	"player_kill_streak_new"
+	{
+		"entindex_player"	"long"
+		"kills"				"short"
+		"firstblood"		"bool"
+		"duration"			"float"
+	}
+
+	// client-event - when someone's hero changes
+	"client_player_hero_changed"
+	{
+		"userid"	"player_pawn"
+	}
+
+	"crate_spawn"
+	{
+		"early"				"bool"
+		"spawn_time"		"float"
+		"spawn_location"	"short"
+	}
+
+	"crate_spawn_notification"
+	{
+		"spawn_time"		"float"
+	}
+
+	"citadel_pause_event"
+	{
+		"userid"			"player_controller"
+		"value"			"short"
+		"message"		"short"
+	}
+
+	"break_piece_spawned"
+	{
+		"entindex"	"long"
+		"is_rigid"	"bool"
+	}
+
+	"sandbox_player_moved"
+	{
+	}
+
+	"lane_test_state_updated"
+	{
+		"running"		"bool"
+	}
+
+	"player_closed_item_shop"
+	{
+		"userid"	"player_pawn"		// user ID on server
+	}
+
+	"spectate_home_team_changed"
+	{}
+
+	"player_stats_changed"
+	{
+		"userid"	"player_pawn"		// user ID on server
+	}
+
+	"mid_boss_spawned"
+	{
+	}
+
+	"titan_transforming_start"
+	{
+		"entindex"	"long"
+	}
+
+	"titan_transforming_complete"
+	{
+		"entindex"	"long"
+	}
+}

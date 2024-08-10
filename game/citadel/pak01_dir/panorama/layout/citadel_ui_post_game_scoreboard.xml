@@ -1,0 +1,109 @@
+<!-- xml reconstructed by Source 2 Viewer 10.1.0.0 - https://valveresourceformat.github.io -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/citadel_base_styles.vcss_c" />
+		<include src="s2r://panorama/styles/citadel_shared_colors.vcss_c" />
+		<include src="s2r://panorama/styles/citadel_ui_post_game_scoreboard.vcss_c" />
+	</styles>
+	<snippets>
+		<snippet name="PlayerSnippet">
+			<Panel class="PlayerSnippet">
+				<CitadelHeroImage id="HeroImage" heroimagestyle="vertical" scaling="stretch-to-fit-y-preserve-aspect" />
+				<Panel id="NameBarGraphs">
+					<CitadelUserName id="PlayerName" />
+					<CitadelHudModBarGraph id="ModBarGraph" />
+				</Panel>
+				<Panel class="PlayerStatsContainer">
+					<Panel id="Networth" class="StatsLabelContainer">
+						<Label class="PlayerNetworth Row0 StatsLabel" text="{i:player_networth}" />
+					</Panel>
+					<Panel id="Kills" class="StatsLabelContainer">
+						<Label class="PlayerKills Row1 StatsLabel" text="{i:player_kills}" />
+					</Panel>
+					<Panel id="Deaths" class="StatsLabelContainer">
+						<Label class="PlayerDeaths Row2 StatsLabel" text="{i:player_deaths}" />
+					</Panel>
+					<Panel id="Assists" class="StatsLabelContainer">
+						<Label class="PlayerAssists Row3 StatsLabel" text="{i:player_assists}" />
+					</Panel>
+					<Panel id="PlayerDamage" class="StatsLabelContainer">
+						<Label class="PlayerHeroDmg Row4 StatsLabel" text="{i:player_hero_dmg}" />
+					</Panel>
+					<Panel id="ObjDamage" class="StatsLabelContainer">
+						<Label class="PlayerObjDmg Row5 StatsLabel" text="{i:player_objective_dmg}" />
+					</Panel>
+					<Panel id="Healing" class="StatsLabelContainer">
+						<Label class="PlayerHealing Row6 StatsLabel" text="{i:player_healing}" />
+					</Panel>
+				</Panel>
+				<Panel id="PlayerReportContainer">
+					<Label id="ReportPlayerLabel" text="#Citadel_MatchDetails_Report" onmouseover="UIShowTextTooltip( #Citadel_MatchDetails_ReportTooltip );" onmouseout="UIHideTextTooltip()" />
+					<Label id="ReportedPlayerLabel" text="#Citadel_MatchDetails_Reported" />
+				</Panel>
+			</Panel>
+		</snippet>
+		<snippet name="AwardSnippet">
+			<Panel class="playerAward" />
+		</snippet>
+	</snippets>
+	<CitadelPostGameScoreboard hittest="false">
+		<Panel id="ScoreContainer">
+			<Panel id="GoldAndTimeContainer">
+				<Panel id="Team1Networth" class="TeamNetworth">
+					<Panel class="ScoreBG" />
+					<Panel class="ScoreContainer">
+						<Panel class="SoulsImage" />
+						<Label class="ScoreLabel" html="true" text="#Citadel_MatchDetails_Team1NetWorth" />
+					</Panel>
+				</Panel>
+				<Panel class="TimeContainer">
+					<Label class="TimeLabel" text="{s:match_minutes}:{s:match_seconds}" />
+				</Panel>
+				<Panel id="Team2Networth" class="TeamNetworth">
+					<Panel class="ScoreBG" />
+					<Panel class="ScoreContainer">
+						<Panel class="SoulsImage" />
+						<Label class="ScoreLabel" html="true" text="#Citadel_MatchDetails_Team2NetWorth" />
+					</Panel>
+				</Panel>
+			</Panel>
+		</Panel>
+		<Panel id="PatronImageContainer" />
+		<Panel class="TeamNamesContainer">
+			<Panel id="Team1TitleContainer" class="titleContainer">
+				<Panel id="Team1NameContainer" class="nameContainer">
+					<Panel class="TeamColorCircle" />
+					<Label class="TeamName" text="#Citadel_Team1_Name" />
+				</Panel>
+				<Label class="VictoryLabel" text="#Citadel_MatchDetails_Victory" />
+			</Panel>
+			<Panel id="Team2TitleContainer" class="titleContainer">
+				<Panel id="Team2NameContainer" class="nameContainer">
+					<Label class="TeamName" text="#Citadel_Team2_Name" />
+					<Panel class="TeamColorCircle" />
+				</Panel>
+				<Label class="VictoryLabel" text="#Citadel_MatchDetails_Victory" />
+			</Panel>
+		</Panel>
+		<Panel class="PlayersContainer">
+			<Panel id="Team1Players" class="TeamPlayersContainer" />
+			<Panel id="StatsTypeContainer">
+				<Label class="StatsLabel Title" text="#Citadel_MatchDetails_Stats" />
+				<Label class="StatsLabel Row0 SoulsStatLabel" text="#Citadel_MatchDetails_NetWorth" />
+				<Label class="StatsLabel Row1" text="#Citadel_MatchDetails_Kills" />
+				<Label class="StatsLabel Row2" text="#Citadel_MatchDetails_Deaths" />
+				<Label class="StatsLabel Row3" text="#Citadel_MatchDetails_Assists" />
+				<Label class="StatsLabel Row4" text="#Citadel_MatchDetails_PlayerDmg" />
+				<Label class="StatsLabel Row5" text="#Citadel_MatchDetails_ObjDmg" />
+				<Label class="StatsLabel Row6" text="#Citadel_MatchDetails_Healing" />
+			</Panel>
+			<Panel id="Team2Players" class="TeamPlayersContainer" />
+		</Panel>
+		<CitadelScoreboardMods id="ScoreboardMods" hittest="false" onmouseout="CitadelPostGameScoreboardPlayerUnhovered();" />
+		<Panel id="SwitchPage" onactivate="CitadelShowPostGameTab( 2 );">
+			<Panel id="GraphIcon" />
+			<Label text="#Citadel_MatchDetails_ViewGraphs" />
+			<Panel id="NavArrow" />
+		</Panel>
+	</CitadelPostGameScoreboard>
+</root>

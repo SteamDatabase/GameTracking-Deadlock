@@ -1,0 +1,104 @@
+<!-- xml reconstructed by Source 2 Viewer 10.1.0.0 - https://valveresourceformat.github.io -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/citadel_base_styles.vcss_c" />
+		<include src="s2r://panorama/styles/popups/popups_shared.vcss_c" />
+		<include src="s2r://panorama/styles/match_details_graphs.vcss_c" />
+	</styles>
+	<snippets>
+		<snippet name="Player">
+			<Panel class="Player">
+				<Panel class="PlayerContainer">
+					<CitadelHeroImage id="HeroImage" scaling="stretch-to-fit-x-preserve-aspect" />
+					<Panel id="PlayerColor" />
+					<CitadelUserName id="PlayerUserName" />
+				</Panel>
+			</Panel>
+		</snippet>
+		<snippet name="LaneStatPlayer">
+			<Panel class="LaneStatPlayer">
+				<CitadelHeroImage id="HeroImage" />
+				<CitadelUserName id="PlayerUserName" />
+			</Panel>
+		</snippet>
+		<snippet name="LaneStat">
+			<Panel class="LaneStat">
+				<Panel class="BackgroundBars">
+					<Panel id="LeftHighlightBar" class="BackgroundBar" />
+					<Panel id="LeftBar" class="BackgroundBar" />
+					<Panel id="RightBar" class="BackgroundBar" />
+					<Panel id="RightHighlightBar" class="BackgroundBar" />
+				</Panel>
+				<Panel class="LabelCtn">
+					<Label class="LeftLabel" text="{s:left_value}" />
+					<Label class="StatName" text="{s:stat_name}" />
+					<Label class="RightLabel" text="{s:right_value}" />
+				</Panel>
+			</Panel>
+		</snippet>
+	</snippets>
+	<MatchDetailsGraphs>
+		<Panel class="GraphPage">
+			<Panel class="TeamsRow">
+				<Panel id="TeamCtnLeft" class="TeamCtn" />
+				<Panel id="SwitchPage" onactivate="CitadelShowPostGameTab( 1 );">
+					<Panel id="NavArrow" />
+					<Label text="#Citadel_MatchDetails_ViewScoreboard" />
+					<Panel id="GraphIcon" />
+				</Panel>
+				<Panel id="TeamCtnRight" class="TeamCtn" />
+			</Panel>
+			<Panel class="MainCol">
+				<Panel class="GraphSelectCtn">
+					<Panel class="DropDownCtn">
+						<DropDown class="SelectDropDown" id="TypeDropDown" dropdownbodyposition="100% 100%" />
+					</Panel>
+					<Panel class="GraphOptionsCtn">
+						<Panel id="GraphTeamOption" class="GraphOption">
+							<Label class="OptionLabel" text="#Citadel_MatchDetails_ShowDataBy" />
+							<Panel id="HeroButton" class="GraphOptionButton" onactivate="CitadelGraphShowAsTeam( 0 )">
+								<Label text="#Citadel_MatchDetails_ShowDataByPlayer" />
+							</Panel>
+							<Panel id="TeamButton" class="GraphOptionButton" onactivate="CitadelGraphShowAsTeam( 1 )">
+								<Label text="#Citadel_MatchDetails_ShowDataByTeam" />
+							</Panel>
+						</Panel>
+						<Panel id="GraphPctOption" class="GraphOption">
+							<Label class="OptionLabel" text="#Citadel_MatchDetails_ViewAs" />
+							<Panel id="ValueButton" class="GraphOptionButton" onactivate="CitadelGraphShowAsPct( 0 )">
+								<Label text="#Citadel_MatchDetails_ViewAsValue" />
+							</Panel>
+							<Panel id="PctButton" class="GraphOptionButton" onactivate="CitadelGraphShowAsPct( 1 )">
+								<Label text="#Citadel_MatchDetails_ViewAsPct" />
+							</Panel>
+						</Panel>
+					</Panel>
+					<Label class="DropDownIntro" text="#Citadel_MatchDetails_GraphType" />
+				</Panel>
+				<Panel class="GraphCtn">
+					<UICanvas id="Graph" />
+					<Panel id="XLabels" hittest="false" hittestchildren="false" />
+					<Panel id="YLabels" hittest="false" hittestchildren="false" />
+				</Panel>
+				<Panel class="LaneStatsCtn">
+					<Panel class="LaneBody">
+						<Panel id="LeftPlayers" class="LaneStatPlayerCtn" />
+						<Panel class="LaneStats">
+							<Label class="StatGroupLabel" text="#Citadel_MatchDetails_StatsAt" />
+							<Panel id="LaneStatKills" />
+							<Panel id="LaneStatNetWorth" />
+							<Panel id="LaneStatLastHits" />
+							<Panel id="LaneStatDenies" />
+							<Panel id="LaneStatDamage" />
+							<Label class="StatGroupLabel" text="#Citadel_MatchDetails_Objectives" />
+							<Panel id="LaneStatTier1" />
+							<Panel id="LaneStatTier2" />
+							<Panel id="LaneStatBarracks" />
+						</Panel>
+						<Panel id="RightPlayers" class="LaneStatPlayerCtn" />
+					</Panel>
+				</Panel>
+			</Panel>
+		</Panel>
+	</MatchDetailsGraphs>
+</root>

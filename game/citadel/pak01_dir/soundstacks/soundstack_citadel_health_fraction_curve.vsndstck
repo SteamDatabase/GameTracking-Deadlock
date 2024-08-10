@@ -1,0 +1,64 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_health_fraction_curve = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					health_fraction_curve = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.005714, 0.3, 1.083, 1.083, 2.0, 3.0 ]",
+							"[ 1.0, 1.0, 0.227125, 0.227125, 2.0, 3.0 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "locked"
+							display_edit_type = "field_curve_2d_editor"
+							property_group = "citadel_health_fraction_curve"
+						}
+					}
+				}
+			},
+			
+			{
+				name = "get_player_health_fraction"
+				operator = "opvar_get_float"
+				input_execute = "1"
+				input_stack_name = "citadel_relevance_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "player_health_fraction"
+			},
+			
+			{
+				name = "evaluate_opvar_health_fraction"
+				operator = "math_curve_2d"
+				input = "@get_player_health_fraction.output"
+				public_field_name = "public.health_fraction_curve"
+				input_scale_x = "1.0"
+				input_scale_y = "1.0"
+			},
+			
+			{
+				name = "output"
+				operator = "util_null"
+				operator_variables = 
+				{
+					curve_result = 
+					{
+						data_type = "float"
+						value = "@evaluate_opvar_health_fraction.output"
+					}
+				}
+			},
+		]
+	}
+}

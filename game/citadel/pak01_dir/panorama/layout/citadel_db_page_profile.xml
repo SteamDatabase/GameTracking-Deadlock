@@ -1,0 +1,67 @@
+<!-- xml reconstructed by Source 2 Viewer 10.1.0.0 - https://valveresourceformat.github.io -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/citadel_base_styles.vcss_c" />
+		<include src="s2r://panorama/styles/citadel_db_page_shared.vcss_c" />
+		<include src="s2r://panorama/styles/citadel_db_page_profile.vcss_c" />
+	</styles>
+	<snippets>
+		<snippet name="ProfileStat">
+			<Panel class="StatRow">
+				<Panel class="StatValue">
+					<Label text="{d:stat_value}" />
+				</Panel>
+				<Panel class="StatName">
+					<Label text="{s:stats_name}" />
+				</Panel>
+			</Panel>
+		</snippet>
+	</snippets>
+	<CitadelProfilePage class="DashboardPage" oncancel="CitadelNavigateBack();">
+		<Panel id="Title">
+			<Label text="#Citadel_Profile_Title" />
+		</Panel>
+		<Panel class="MainContents">
+			<Panel class="LeftPanel">
+				<Panel class="StatsBody">
+					<Panel class="ProfileSection">
+						<CitadelAvatarImage id="SelfImage" />
+						<CitadelUserName id="SelfName" />
+					</Panel>
+					<Panel class="StatsSectionLoading">
+						<Label text="#Citadel_Profile_Loading" />
+					</Panel>
+					<Panel id="StatsSection" />
+					<Panel class="StatsFooter">
+						<CitadelHeroImage id="FavoriteHeroImage" />
+						<Panel class="HeroRightCol">
+							<Label class="MostPlayedLabel" text="#Citadel_Profile_MostPlayed" />
+							<Label class="MostPlayedNameLabel" text="{g:citadel_hero_name:most_played_hero_id}" />
+						</Panel>
+					</Panel>
+					<Button id="ForumButton" class="SecondaryButton light hasIcon" onactivate="CitadelJoinForum(); CitadelPlayUISound( ESocialMenuHover )">
+						<Panel class="ForumIcon buttonIcon" />
+						<Label class="defaultText" text="#Citadel_JoinForum_ViewInfo" />
+					</Button>
+				</Panel>
+			</Panel>
+			<Panel class="RightPanel">
+				<Panel class="MatchHistoryTitle">
+					<Label text="#Citadel_Profile_MatchHistory" />
+				</Panel>
+				<Panel id="MatchListingLoading">
+					<Label text="#Citadel_Profile_Loading" />
+				</Panel>
+				<Panel id="MatchListing" />
+				<Panel class="MatchHistoryFooter">
+					<Panel id="PrevMatchPage" class="MatchHistoryButton" onactivate="CitadelProfileHistoryPrevPage();">
+						<Label text="Prev" />
+					</Panel>
+					<Panel id="NextMatchPage" class="MatchHistoryButton" onactivate="CitadelProfileHistoryNextPage();">
+						<Label text="Next" />
+					</Panel>
+				</Panel>
+			</Panel>
+		</Panel>
+	</CitadelProfilePage>
+</root>

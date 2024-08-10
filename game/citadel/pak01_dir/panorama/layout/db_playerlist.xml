@@ -1,0 +1,62 @@
+<!-- xml reconstructed by Source 2 Viewer 10.1.0.0 - https://valveresourceformat.github.io -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/base.vcss_c" />
+		<include src="s2r://panorama/styles/db_playerlist.vcss_c" />
+		<include src="s2r://panorama/styles/citadel_base_styles.vcss_c" />
+	</styles>
+	<snippets>
+		<snippet name="PlayerEntry">
+			<Panel id="" class="PlayerContainer">
+				<Panel id="ChatControl">
+					<Panel id="ChatIndicator" class="muted">
+						<Panel class="chatIcon" />
+					</Panel>
+				</Panel>
+				<Panel id="PlayerInfo">
+					<CitadelHeroImage id="CitadelHeroImage" scaling="none" heroimagestyle="hero_sm" />
+					<CitadelAvatarImage id="CitadelAvatarImage" />
+					<Label id="PlayerName" text="{s:playerName}" />
+					<Label class="invitedLabel" text="Invite Sent" />
+					<Panel id="InvitedIcon" />
+				</Panel>
+				<Label id="MatchHistory" text="#Citadel_Main_ViewProfile" />
+				<Panel id="LinkToProfile" onactivate="CitadelShowProfilePage(); CitadelPlayUISound( EMainMenuActivate )" onmouseover="CitadelPlayUISound( EMainMenuHover )" onmouseout="UIHideTextTooltip()" />
+			</Panel>
+		</snippet>
+	</snippets>
+	<DBPlayerList>
+		<Panel id="LocalPlayerAndParty" class="playersSection">
+			<Panel id="LocalPlayerAndPartyList" class="playerList" />
+		</Panel>
+		<Panel id="Teammates" class="playersSection">
+			<Panel id="TeammateList" class="playerList" />
+		</Panel>
+		<Panel id="ChatSelection">
+			<Panel id="ChatTypeIcon" />
+			<Panel id="ChatType">
+				<Label class="chatTypeLabel inPartyOnly" text="Party Chat" />
+				<Label class="chatTypeLabel notInPartyOnly" text="Voice and Text Chat" />
+				<Label class="playersInTeamChat" text="{i:players_in_team_chat} Players" />
+				<Label class="dashboardNote" text="In-game only" />
+			</Panel>
+			<DropDown id="ChatTypeSelector">
+				<Label id="chattype_0" value="0" text="Disabled" />
+				<Label id="chattype_2" value="2" text="All-team" />
+			</DropDown>
+			<Label id="chattype_1" value="1" text="Party-only" onmouseover="CitadelUIShowTextTooltip( test ); CitadelPlayUISound( EMainMenuHover )" onmouseout="CitadelUIHideTextTooltip()" />
+		</Panel>
+		<Panel id="FriendListButton" onactivate="CitadelShowSocialPage(); CitadelPlayUISound( EMainMenuActivate )" onmouseover="CitadelPlayUISound( EMainMenuHover )" onmouseout="UIHideTextTooltip()">
+			<Panel class="FriendsIcon" />
+			<Label class="SocialTitle" text="#Citadel_Friends_Play_With_Friends" />
+			<Panel id="FriendsPlaying">
+				<Label class="FriendsOnline" html="true" text="#Citadel_Friends_Playing" />
+			</Panel>
+		</Panel>
+		<Panel id="PartyButtonRow">
+			<Button id="LeavePartyButton" class="SecondaryButton red fill hasIcon" onactivate="CitadelPartyLeave(); CitadelPlayUISound( ESocialMenuHover )">
+				<Label text="Leave Party" />
+			</Button>
+		</Panel>
+	</DBPlayerList>
+</root>

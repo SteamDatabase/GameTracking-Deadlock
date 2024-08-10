@@ -1,0 +1,289 @@
+/* Prettified by Source 2 Viewer 10.1.0.0 - https://valveresourceformat.github.io */
+
+@define team1Color: #BF9A53;
+@define team1ColorBright: #FBDCA0;
+@define team1ColorDark: #937600;
+@define team2Color: #5B79E6;
+@define team2ColorBright: #BDCBFF;
+@define team2ColorDark: #4156A0;
+CitadelHudInfoFeed
+{
+	height: fit-children;
+	width: fit-children;
+	margin-left: 10px;
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+
+@keyframes 'PlayerKilled'
+{
+	0%
+	{
+		transform: translateX(-100px);
+		opacity: 0;
+	}
+	
+	100%
+	{
+		transform: translateX(0px);
+		opacity: 1;
+	}
+	
+}
+
+CitadelHudInfoFeed
+{
+	transition-property: background-color, transform;
+	transition-timing-function: ease-out;
+	animation-name: PlayerKilled;
+	animation-duration: 0.5s;
+	animation-iteration-count: 1;
+}
+
+.killerContainer
+{
+	z-index: 2;
+	margin-right: 5px;
+	flow-children: right;
+	border-radius: 3px;
+}
+
+.hasAssists .killerContainer
+{
+	margin-right: 3px;
+}
+
+#TextContainer
+{
+	width: fit-children;
+	flow-children: right;
+}
+
+Label
+{
+	font-size: 13px;
+	color: white;
+	text-shadow: 0px 0px 10px #000000;
+	vertical-align: bottom;
+}
+
+.dataFeedClass
+{
+	color: #FFED79;
+}
+
+.killedSelf .goldIcon,.killedSelf .killerContainer,.isRejuvenatorUsed .goldIcon,.isRejuvenatorPickup .goldIcon,.hideVictimImage .victimContainer
+{
+	visibility: collapse;
+}
+
+.goldIcon
+{
+	background-repeat: no-repeat;
+	background-image: url("s2r://panorama/images/hud/orb_icon_png.vtex");
+	background-size: contain;
+	height: 12px;
+	width: 12px;
+	vertical-align: bottom;
+	margin-bottom: 8px;
+}
+
+.victimContainer
+{
+	flow-children: right;
+	horizontal-align: right;
+	margin-left: 5px;
+	border-radius: 3px;
+}
+
+.killerTeam1 .killerContainer,.team1Died .victimContainer,.team2Died .killerContainer
+{
+	background-color: team1Color;
+}
+
+.killerTeam2 .killerContainer,.team1Died .killerContainer,.team2Died .victimContainer
+{
+	background-color: team2Color;
+}
+
+.enemyDied .victimContainer,.teammateDied .killerContainer,.killedSelf .victimContainer
+{
+	background-color: #FF5656;
+}
+
+.enemyDied .killerContainer,.teammateDied .victimContainer
+{
+	background-color: #FFEFD7;
+}
+
+.enemyDied .killerContainer Label,.teammateDied .victimContainer Label
+{
+	color: #000000;
+	text-shadow: none;
+}
+
+.team1Died .victimImageContainer,.team2Died .killerImageContainer
+{
+	background-color: team1ColorDark;
+}
+
+.team1Died .killerImageContainer,.team2Died .victimImageContainer
+{
+	background-color: team2ColorDark;
+}
+
+.enemyDied .killerImageContainer,.teammateDied .victimImageContainer
+{
+	background-color: #bdae97;
+}
+
+.enemyDied .victimImageContainer,.teammateDied .killerImageContainer,.killedSelf .victimImageContainer
+{
+	background-color: #820000;
+}
+
+.isRejuvenator .victimContainer,.isRejuvenatorPickup .victimContainer,.IdolPickedUp .victimContainer,.IdolReturned .victimContainer
+{
+	background-color: #999999;
+}
+
+.isRejuvenator .victimImageContainer,.isRejuvenatorPickup .victimImageContainer,.IdolPickedUp .victimImageContainer,.IdolReturned .victimImageContainer
+{
+	background-color: #ffcc00;
+}
+
+.isRejuvenator #VictimImage,.isRejuvenatorPickup #VictimImage
+{
+	wash-color: black;
+}
+
+.victimImageContainer,.killerImageContainer
+{
+	vertical-align: center;
+	margin: 2px;
+}
+
+CitadelHeroImage
+{
+	height: 28px;
+	width: 28px;
+}
+
+.killerInfo,.victimInfo
+{
+	max-width: 180px;
+	text-overflow: ellipsis;
+}
+
+.isRejuvenator .victimInfo,.isRejuvenatorPickup .victimInfo,.IdolPickedUp .victimInfo,.IdolReturned .victimInfo
+{
+	color: black;
+	text-shadow: none;
+}
+
+.hideKillerImage .killerInfo
+{
+	margin-left: 5px;
+}
+
+.hideKillerImage #KillerImage
+{
+	visibility: collapse;
+}
+
+.personaName
+{
+	vertical-align: center;
+	text-transform: uppercase;
+	margin: 3px 10px 5px 10px;
+	font-weight: bold;
+}
+
+.croasshairImage
+{
+	height: 19px;
+	width: 19px;
+	vertical-align: center;
+	background-repeat: no-repeat;
+	background-image: url("s2r://panorama/images/hud/kill_feed_crosshair_png.vtex");
+	background-size: contain;
+	z-index: 3;
+}
+
+.isRejuvenatorUsed .croasshairImage
+{
+	z-index: 10;
+	background-image: url("s2r://panorama/images/hud/modifiers/icon_rejuvenator.vsvg");
+	wash-color: #FFE57C;
+}
+
+.isRejuvenatorPickup .croasshairImage
+{
+	visibility: collapse;
+}
+
+.killedSelf .croasshairImage
+{
+	margin-left: 90px;
+}
+
+.arrowImage
+{
+	height: 17px;
+	width: 19px;
+	vertical-align: center;
+	background-repeat: no-repeat;
+	background-image: url("s2r://panorama/images/hud/kill_feed_arrow_png.vtex");
+	background-size: contain;
+	margin-left: -10px;
+	z-index: 2;
+	margin-right: 3px;
+}
+
+.isRejuvenatorPickup .arrowImage
+{
+	margin-left: 0px;
+}
+
+.isRejuvenatorUsed .arrowImage,.isRejuvenatorPickup .arrowImage
+{
+	transform: rotateZ( -90deg );
+}
+
+#AssistsContainer
+{
+	height: 100%;
+	width: fit-children;
+	margin-right: 3px;
+	flow-children: right;
+}
+
+CitadelHeroImage.assister
+{
+	height: 100%;
+	width: 20px;
+	border: 2px solid #FFEFD790;
+	background-color: #FFEFD730;
+	margin-right: 3px;
+}
+
+.team2Died CitadelHeroImage.assister
+{
+	border: 2px solid team1Color;
+}
+
+.team1Died CitadelHeroImage.assister
+{
+	border: 2px solid team2Color;
+}
+
+.teammateDied CitadelHeroImage.assister
+{
+	border: 2px solid #FF5656;
+}
+
+.enemyDied CitadelHeroImage.assister
+{
+	border: 2px solid #FFEFD790;
+}
+

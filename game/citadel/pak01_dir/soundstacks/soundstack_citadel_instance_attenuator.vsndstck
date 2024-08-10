@@ -1,0 +1,133 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_instance_attenuator = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "_builtins"
+				operator = "sos_builtins"
+				_voicegraph = "citadel.hrtf_basic"
+			},
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					instance_attenuator_enabled = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "Instance Attenuator"
+							property_help = "Enables, disables gain adjustment relative to number of group branch instances."
+						}
+					}
+					instance_count_offset_amount_db = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.005714, 0.3, 1.083, 1.083, 2.0, 3.0 ]",
+							"[ 6.619538, 0.0, -0.311869, -0.311869, 2.0, 3.0 ]",
+							"[ 17.077585, -10.603477, -0.127606, -0.127606, 2.0, 3.0 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "advanced"
+							property_group = "Instance Attenuator"
+							display_edit_type = "field_curve_2d_editor"
+						}
+					}
+					instance_attenuator_name = 
+					{
+						data_type = "string"
+						value = ""
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "Instance Attenuator"
+							property_help = "The name of the branch that the group evaluates."
+						}
+					}
+				}
+			},
+			
+			{
+				name = "join_instance_attenuator_group"
+				input_execute = "@public.instance_attenuator_enabled"
+				execute_once = "true"
+				operator = "soundevent_group_join"
+				input_group_name = "instance_attenuator"
+				input_match_string = "@public.instance_attenuator_name"
+			},
+			
+			{
+				name = "get_instance_attenuator_kv3"
+				execute_once = "false"
+				input_execute = "@public.instance_attenuator_enabled"
+				operator = "soundevent_group_get_float"
+				input_group_result = "@join_instance_attenuator_group.output_result"
+				input_name = "current_count"
+			},
+			
+			{
+				name = "get_group_result_info"
+				input_execute = "@public.instance_attenuator_enabled"
+				execute_once = "true"
+				operator = "soundevent_group_info"
+				input_group_result = "@join_instance_attenuator_group.output_result"
+			},
+			
+			{
+				name = "evaluate_opvar_instance_atten"
+				operator = "math_curve_2d"
+				input_execute = "@public.instance_attenuator_enabled"
+				input = "@get_instance_attenuator_kv3.output"
+				public_field_name = "public.instance_count_offset_amount_db"
+				input_scale_x = "1.0"
+				input_scale_y = "1.0"
+			},
+			
+			{
+				name = "volume_offset_instance_mult"
+				execute_once = "true"
+				input_execute = "@public.instance_attenuator_enabled"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@public.instance_attenuator_enabled"
+				input2 = "@evaluate_opvar_instance_atten.output"
+			},
+			
+			{
+				name = "volume_to_gain"
+				operator = "math_db_to_gain"
+				input_execute = "@public.instance_attenuator_enabled"
+				input = "@volume_offset_instance_mult.output"
+			},
+			
+			{
+				name = "output"
+				operator = "util_null"
+				operator_variables = 
+				{
+					result_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "@volume_offset_instance_mult.output"
+					}
+					result_vol_offset_linear = 
+					{
+						data_type = "float"
+						value = "@volume_to_gain.output"
+					}
+				}
+			},
+		]
+	}
+}

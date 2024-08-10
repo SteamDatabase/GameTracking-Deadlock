@@ -1,0 +1,93 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_diagetic_music = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "_builtins"
+				operator = "sos_builtins"
+				_voicegraph = "citadel.music_3d"
+			},
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					import_public_opvars = "citadel_default_3d"
+					toggle_2d_3d = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							display_group = "advanced"
+							property_group = "citadel_diagetic_music - Volume"
+						}
+					}
+					toggle_filter_rate = 
+					{
+						data_type = "float"
+						value = "3.000000"
+						_system_properties = 
+						{
+							display_group = "advanced"
+							property_group = "citadel_diagetic_music - Volume"
+						}
+					}
+				}
+			},
+			
+			{
+				name = "toggle_filter_float"
+				operator = "math_filter_float"
+				input = "@public.toggle_2d_3d"
+				input_max_velocity = "@public.toggle_filter_rate"
+			},
+			
+			{
+				name = "speaker_effect_mix"
+				operator = "vmix_voicegraph_input"
+				input_name = "speaker_effect_mix"
+				input = "@toggle_filter_float.output"
+			},
+			
+			{
+				name = "citadel_default_3d"
+				operator = "sos_import_stack"
+				import_stack = "citadel_default_3d"
+				auto_connect_public_fields = "true"
+				operator_variables = 
+				{
+					spread_min_value = 
+					{
+						data_type = "float"
+						value = "@toggle_filter_float.output"
+					}
+					spread_max_value = 
+					{
+						data_type = "float"
+						value = "@toggle_filter_float.output"
+					}
+					hrtf_on = 
+					{
+						data_type = "float"
+						value = "1.000000"
+						_system_properties = 
+						{
+							display_group = "advanced"
+							property_group = "Hrtf"
+						}
+					}
+					event_use_music_convar = 
+					{
+						data_type = "bool"
+						value = "false"
+					}
+				}
+			},
+		]
+	}
+}

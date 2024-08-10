@@ -1,0 +1,160 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_footsteps = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "_builtins"
+				operator = "sos_builtins"
+				_voicegraph = "citadel.hrtf_basic"
+			},
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					import_public_opvars = "citadel_perspective_default"
+					owner_entity_index = 
+					{
+						data_type = "float"
+						value = "-1.0"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_footsteps"
+							property_help = "set by code"
+						}
+					}
+					vsnd_files = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = 
+						[
+							"sounds/common/null.vsnd",
+						]
+						_system_properties = 
+						{
+							property_group = "citadel_footsteps"
+						}
+					}
+					vsnd_files_override_player = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = 
+						[
+							"sounds/common/null.vsnd",
+						]
+						_system_properties = 
+						{
+							property_group = "citadel_footsteps"
+						}
+					}
+					vsnd_files_override_team = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = 
+						[
+							"sounds/common/null.vsnd",
+						]
+						_system_properties = 
+						{
+							property_group = "citadel_footsteps"
+						}
+					}
+					vsnd_files_override_opponent = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = 
+						[
+							"sounds/common/null.vsnd",
+						]
+						_system_properties = 
+						{
+							property_group = "citadel_footsteps"
+						}
+					}
+					vsnd_files_override_neutral = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = 
+						[
+							"sounds/common/null.vsnd",
+						]
+						_system_properties = 
+						{
+							property_group = "citadel_footsteps"
+						}
+					}
+				}
+			},
+			
+			{
+				name = "citadel_find_perspective"
+				operator = "sos_import_stack"
+				import_stack = "citadel_find_perspective"
+				auto_connect_public_fields = "true"
+			},
+			
+			{
+				name = "select_vsnd_file_field_name_perspective"
+				operator = "logic_perspective_switch_string"
+				input_participant_perspective = "@citadel_find_perspective::game_entity_perspective.output"
+				input_player_value = "vsnd_files_override_player"
+				input_team_value = "vsnd_files_override_team"
+				input_opponent_value = "vsnd_files_override_opponent"
+				input_neutral_value = "vsnd_files_override_neutral"
+			},
+			
+			{
+				name = "get_vsnd_field_perspective"
+				execute_once = "true"
+				operator = "opvar_get_vsnd"
+				check_event_data = "true"
+				input_operator_name = "public"
+				input_field_name = "@select_vsnd_file_field_name_perspective.output"
+				input_use_namespace = "false"
+				array_selection_type = "random_exclusive"
+			},
+			
+			{
+				name = "opvar_get_vsnd_is_valid_perspective"
+				input_execute = "1.000000"
+				execute_once = "true"
+				operator = "opvar_get_vsnd_is_valid"
+				input = "@get_vsnd_field_perspective.output"
+			},
+			
+			{
+				name = "switch_vsnd_files_field_name"
+				execute_once = "true"
+				operator = "ctrl_switch_string"
+				input_switch = "@opvar_get_vsnd_is_valid_perspective.output"
+				input1 = "vsnd_files"
+				input2 = "@select_vsnd_file_field_name_perspective.output"
+			},
+			
+			{
+				name = "citadel_perspective_default"
+				operator = "sos_import_stack"
+				import_stack = "citadel_perspective_default"
+				auto_connect_public_fields = "true"
+				operator_variables = 
+				{
+					vsnd_files_field_name = 
+					{
+						data_type = "string"
+						value = "@switch_vsnd_files_field_name.output"
+					}
+				}
+			},
+		]
+	}
+}

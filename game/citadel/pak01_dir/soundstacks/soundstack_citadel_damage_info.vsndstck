@@ -1,0 +1,329 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_damage_info = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					entity_index_attacker = 
+					{
+						data_type = "float"
+						value = "-1.0"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_damage_info"
+							property_help = "set by code"
+						}
+					}
+					entity_index_victim = 
+					{
+						data_type = "float"
+						value = "-1.0"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_damage_info"
+							property_help = "set by code"
+						}
+					}
+					entity_index_inflictor = 
+					{
+						data_type = "float"
+						value = "-1.0"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_damage_info"
+							property_help = "set by code"
+						}
+					}
+					damage_amount = 
+					{
+						data_type = "float"
+						value = "-1.0"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_damage_info"
+							property_help = "set by code"
+						}
+					}
+					damage_index = 
+					{
+						data_type = "float"
+						value = "-1.0"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_damage_info"
+							property_help = "0 - attacker, 1 - victim, 2 - everyone else"
+						}
+					}
+				}
+			},
+			
+			{
+				name = "private"
+				operator = "util_null"
+				operator_variables = 
+				{
+					damage_index = 
+					{
+						data_type = "float"
+						value = "-1.0"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "Damage"
+							property_help = "0 - attacker, 1 - victim, 2 - everyone else"
+						}
+					}
+				}
+			},
+			
+			{
+				name = "get_viewing_entity_index"
+				operator = "opvar_get_float"
+				input_execute = "1.0"
+				input_stack_name = "citadel_relevance_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "viewing_entity_index"
+			},
+			
+			{
+				name = "get_attacker_info"
+				input_execute = "1"
+				execute_once = "1"
+				operator = "game_entity_info"
+				input_entity_index = "@public.entity_index_attacker"
+			},
+			
+			{
+				name = "get_victim_info"
+				input_execute = "1"
+				execute_once = "1"
+				operator = "game_entity_info"
+				input_entity_index = "@public.entity_index_victim"
+			},
+			
+			{
+				name = "get_inflictor_info"
+				input_execute = "1"
+				execute_once = "1"
+				operator = "game_entity_info"
+				input_entity_index = "@public.entity_index_inflictor"
+			},
+			
+			{
+				name = "check_viewer_is_victim"
+				execute_once = "true"
+				input_execute = "1.0"
+				operator = "math_float"
+				apply = "equal"
+				input1 = "@get_victim_info.output_entity_is_actual_player_entity"
+				input2 = "1.0"
+			},
+			
+			{
+				name = "set_damage_index_opvar_victim"
+				input = "1"
+				input_execute = "@check_viewer_is_victim.output"
+				operator = "opvar_set_float"
+				input_operator_name = "private"
+				input_field_name = "damage_index"
+			},
+			
+			{
+				name = "check_viewer_is_attacker"
+				execute_once = "true"
+				input_execute = "1.0"
+				operator = "math_float"
+				apply = "equal"
+				input1 = "@get_attacker_info.output_entity_is_actual_player_entity"
+				input2 = "1.0"
+			},
+			
+			{
+				name = "set_damage_index_opvar_attacker"
+				input = "0.0"
+				input_execute = "@check_viewer_is_attacker.output"
+				operator = "opvar_set_float"
+				input_operator_name = "private"
+				input_field_name = "damage_index"
+			},
+			
+			{
+				name = "check_viewer_is_inflictor"
+				execute_once = "true"
+				input_execute = "1.0"
+				operator = "math_float"
+				apply = "equal"
+				input1 = "@get_inflictor_info.output_entity_is_actual_player_entity"
+				input2 = "1.0"
+			},
+			
+			{
+				name = "check_damage_index_set"
+				execute_once = "true"
+				input_execute = "1.0"
+				operator = "math_float"
+				apply = "equal"
+				input1 = "@private.damage_index"
+				input2 = "-1.0"
+			},
+			
+			{
+				name = "set_damage_index_opvar_everyone_else"
+				input = "2.0"
+				execute_once = "true"
+				input_execute = "@check_damage_index_set.output"
+				operator = "opvar_set_float"
+				input_operator_name = "private"
+				input_field_name = "damage_index"
+			},
+			
+			{
+				name = "switch_damage_index"
+				execute_once = "true"
+				operator = "ctrl_switch3_string"
+				input_index = "@private.damage_index"
+				input1 = "viewing_attacker"
+				input2 = "viewing_victim"
+				input3 = "everyone_else"
+			},
+			
+			{
+				name = "inverse_is_viewing_victim"
+				execute_once = "true"
+				input_execute = "1.0"
+				operator = "math_float"
+				apply = "sub"
+				input1 = "1.0"
+				input2 = "@check_viewer_is_victim.output"
+			},
+			
+			{
+				name = "inverse_is_viewing_attacker"
+				execute_once = "true"
+				input_execute = "1.0"
+				operator = "math_float"
+				apply = "sub"
+				input1 = "1.0"
+				input2 = "@check_viewer_is_attacker.output"
+			},
+			
+			{
+				name = "check_is_viewing_other"
+				execute_once = "true"
+				input_execute = "1.0"
+				operator = "math_float"
+				apply = "equal"
+				input1 = "2.0"
+				input2 = "@private.damage_index"
+			},
+			
+			{
+				name = "get_player_health_regen_amount"
+				operator = "opvar_get_float"
+				input_execute = "1.0"
+				input_stack_name = "citadel_relevance_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "player_health_regen_amount"
+			},
+			
+			{
+				name = "eval_damage_is_below_regen_amount"
+				execute_once = "true"
+				input_execute = "1.0"
+				operator = "math_float"
+				apply = "less_than"
+				input1 = "@public.damage_amount"
+				input2 = "@get_player_health_regen_amount.output"
+			},
+			
+			{
+				name = "chip_damage_result"
+				execute_once = "true"
+				input_execute = "1.0"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@eval_damage_is_below_regen_amount.output"
+				input2 = "@check_viewer_is_victim.output"
+			},
+			
+			{
+				name = "inverse_is_chip_damage"
+				execute_once = "true"
+				input_execute = "1.0"
+				operator = "math_float"
+				apply = "sub"
+				input1 = "1.0"
+				input2 = "@chip_damage_result.output"
+			},
+			
+			{
+				name = "output"
+				operator = "util_null"
+				operator_variables = 
+				{
+					damage_index = 
+					{
+						data_type = "float"
+						value = "@private.damage_index"
+					}
+					damage_perspective_string = 
+					{
+						data_type = "string"
+						value = "@switch_damage_index.output"
+					}
+					is_viewing_attacker = 
+					{
+						data_type = "float"
+						value = "@check_viewer_is_attacker.output"
+					}
+					inverse_is_viewing_attacker = 
+					{
+						data_type = "float"
+						value = "@inverse_is_viewing_attacker.output"
+					}
+					is_viewing_victim = 
+					{
+						data_type = "float"
+						value = "@check_viewer_is_victim.output"
+					}
+					inverse_is_viewing_victim = 
+					{
+						data_type = "float"
+						value = "@inverse_is_viewing_victim.output"
+					}
+					is_viewing_inflictor = 
+					{
+						data_type = "float"
+						value = "@check_viewer_is_inflictor.output"
+					}
+					is_viewing_other = 
+					{
+						data_type = "float"
+						value = "@check_is_viewing_other.output"
+					}
+					is_chip_damage = 
+					{
+						data_type = "float"
+						value = "@chip_damage_result.output"
+					}
+					inverse_is_chip_damage = 
+					{
+						data_type = "float"
+						value = "@inverse_is_chip_damage.output"
+					}
+				}
+			},
+		]
+	}
+}

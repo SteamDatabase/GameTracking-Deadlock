@@ -1,0 +1,407 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_dialog = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "_builtins"
+				operator = "sos_builtins"
+				_voicegraph = "citadel.hrtf_basic"
+			},
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					import_public_opvars = "citadel_perspective_default"
+					volume = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "Volume"
+							property_help = "Base volume for a sound in db."
+						}
+					}
+					owner_entity_index = 
+					{
+						data_type = "float"
+						value = "-1.0"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_dialog"
+							property_help = "set by code"
+						}
+					}
+					dialog_priority_group_name = 
+					{
+						data_type = "string"
+						value = "dialog_mix_priority"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_dialog"
+							property_help = "Sets the branching group name."
+						}
+					}
+					dialog_mix_priority = 
+					{
+						data_type = "float"
+						value = "-1.0"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "citadel_dialog"
+							property_help = "A value that determines mix and playback behavior. -1 is undefined."
+						}
+					}
+					dialog_priority_mix_limit = 
+					{
+						data_type = "float"
+						value = "9999.0"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "citadel_dialog"
+							property_help = "A value that determines mix and playback behavior. -1 is undefined."
+						}
+					}
+					low_priority_vol_atten_db = 
+					{
+						data_type = "float"
+						value = "-16.0"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "citadel_dialog"
+							property_help = "The db value to duck low priority dialog."
+						}
+					}
+					low_priority_vol_filter_rate = 
+					{
+						data_type = "float"
+						value = "200.0"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "citadel_dialog"
+							property_help = "The speed with which volume changes are made."
+						}
+					}
+					scale_priority_over_distance = 
+					{
+						data_type = "bool"
+						value = "false"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "citadel_dialog"
+							property_help = "Scales the priority between a min and max distance."
+						}
+					}
+					priority_scale_min_distance = 
+					{
+						data_type = "float"
+						value = "2000.0"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "citadel_dialog"
+							property_help = "Scales the priority between a min and max distance."
+						}
+					}
+					priority_scale_max_distance = 
+					{
+						data_type = "float"
+						value = "2500.0"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "citadel_dialog"
+							property_help = "Scales the priority between a min and max distance."
+						}
+					}
+					priority_scale_floor = 
+					{
+						data_type = "float"
+						value = "-1.0"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "citadel_dialog"
+							property_help = "The minimum scaled priority value when at max distance."
+						}
+					}
+				}
+			},
+			
+			{
+				name = "private"
+				operator = "util_null"
+				operator_variables = 
+				{
+					cached_priority = 
+					{
+						data_type = "float"
+						value = "-1.000000"
+					}
+				}
+			},
+			
+			{
+				name = "cache_priority"
+				operator = "opvar_set_float"
+				input = "@public.dialog_mix_priority"
+				input_execute = "1.0"
+				execute_once = "1.0"
+				input_stack_name = ""
+				input_operator_name = "private"
+				input_field_name = "cached_priority"
+				input_use_namespace = "true"
+			},
+			
+			{
+				name = "source_info"
+				operator = "game_get_source_info"
+				source = "entity"
+			},
+			
+			{
+				name = "get_entity_info"
+				input_execute = "1"
+				operator = "game_entity_info"
+				input_entity_index = "@source_info.output_entity_index"
+			},
+			
+			{
+				name = "globals"
+				operator = "get_system_globals"
+				input_execute = "1"
+				input_listener_index = "0"
+			},
+			
+			{
+				name = "distance_to_source"
+				operator = "calc_distance"
+				input_position1 = "@get_entity_info.output_position"
+				input_position2 = "@globals.output_listener_position"
+			},
+			
+			{
+				name = "outside_max_distance"
+				operator = "math_float"
+				input_execute = "1.0"
+				apply = "greater_than"
+				input1 = "@distance_to_source.output"
+				input2 = "@public.priority_scale_max_distance"
+			},
+			
+			{
+				name = "blocking_enabled"
+				operator = "math_float"
+				input_execute = "1.0"
+				apply = "mult"
+				input1 = "@public.scale_priority_over_distance"
+				input2 = "@outside_max_distance.output"
+			},
+			
+			{
+				name = "get_event_info"
+				operator = "soundevent_get_info"
+			},
+			
+			{
+				name = "blocking_message"
+				operator = "math_string"
+				input_execute = "@blocking_enabled.output"
+				apply = "add"
+				input1 = "@get_event_info.output_soundevent_name"
+				input2 = " - blocked, outside max distance (citadel_dialog)."
+			},
+			
+			{
+				name = "convar_get_debug_enabled"
+				operator = "convar_get"
+				input_execute = "1.0"
+				convar = "audio_display_soundstack_debug_dialog"
+			},
+			
+			{
+				name = "blocking_message_enabled"
+				operator = "math_float"
+				input_execute = "@blocking_enabled.output"
+				apply = "mult"
+				input1 = "@convar_get_debug_enabled.output"
+				input2 = "@outside_max_distance.output"
+			},
+			
+			{
+				name = "print_blocking"
+				operator = "util_print_string"
+				input_execute = "@blocking_message_enabled.output"
+				input = "@blocking_message.output_string"
+			},
+			
+			{
+				name = "block_distance"
+				operator = "sos_goto"
+				input_goto_end = "true"
+				execute_once = "1.000000"
+				input_execute = "@blocking_enabled.output"
+			},
+			
+			{
+				name = "remap_priority"
+				operator = "math_remap_float"
+				input = "@distance_to_source.output"
+				input_execute = "@public.scale_priority_over_distance"
+				input_min = "@public.priority_scale_min_distance"
+				input_max = "@public.priority_scale_max_distance"
+				input_map_min = "@private.cached_priority"
+				input_map_max = "@public.priority_scale_floor"
+				default_to_max = "false"
+			},
+			
+			{
+				name = "overwrite_scaled_priority"
+				operator = "opvar_set_float"
+				input = "@remap_priority.output"
+				input_execute = "@public.scale_priority_over_distance"
+				input_stack_name = ""
+				input_operator_name = "public"
+				input_field_name = "dialog_mix_priority"
+				input_use_namespace = "true"
+			},
+			
+			{
+				name = "citadel_find_perspective"
+				operator = "sos_import_stack"
+				import_stack = "citadel_find_perspective"
+				auto_connect_public_fields = "true"
+			},
+			
+			{
+				name = "join_dialog_priority_group"
+				input_execute = "1.0"
+				execute_once = "true"
+				operator = "soundevent_group_join"
+				input_group_name = "@public.dialog_priority_group_name"
+			},
+			
+			{
+				name = "get_dialog_priority_kv3_max"
+				execute_once = "false"
+				input_execute = "1.0"
+				operator = "soundevent_group_get_float"
+				input_group_result = "@join_dialog_priority_group.output_result"
+				input_name = "max"
+			},
+			
+			{
+				name = "get_group_result_info"
+				input_execute = "1.0"
+				execute_once = "true"
+				operator = "soundevent_group_info"
+				input_group_result = "@join_dialog_priority_group.output_result"
+			},
+			
+			{
+				name = "priority_less_than_max"
+				operator = "math_float"
+				input_execute = "1.0"
+				apply = "less_than"
+				input1 = "@public.dialog_mix_priority"
+				input2 = "@get_dialog_priority_kv3_max.output"
+			},
+			
+			{
+				name = "volume_accumulate"
+				operator = "math_accumulate12_float"
+				apply = "mult"
+				input1 = "@get_dialog_priority_kv3_max.output_success"
+				input2 = "@priority_less_than_max.output"
+				input3 = "@public.low_priority_vol_atten_db"
+				input4 = "1.0"
+				input5 = "1.0"
+				input6 = "1.0"
+				input7 = "1.0"
+				input8 = "1.0"
+				input9 = "1.0"
+				input10 = "1.0"
+				input11 = "1.0"
+				input12 = "1.0"
+			},
+			
+			{
+				name = "volume_filter"
+				operator = "math_filter_float"
+				input = "@volume_accumulate.output"
+				input_max_velocity = "@public.low_priority_vol_filter_rate"
+			},
+			
+			{
+				name = "add_volume_offset"
+				operator = "math_float"
+				input_execute = "1.0"
+				apply = "add"
+				input1 = "@public.volume"
+				input2 = "@volume_filter.output"
+			},
+			
+			{
+				name = "citadel_perspective_default"
+				operator = "sos_import_stack"
+				import_stack = "citadel_perspective_default"
+				auto_connect_public_fields = "true"
+				operator_variables = 
+				{
+					volume = 
+					{
+						data_type = "float"
+						value = "@add_volume_offset.output"
+					}
+				}
+			},
+			
+			{
+				name = "switch_debug_color"
+				operator = "ctrl_switch_float3"
+				input_switch = "@priority_less_than_max.output"
+				input1 = "[3., 252., 111.]"
+				input2 = "[252., 3., 82.]"
+			},
+			
+			{
+				name = "util_draw_debug_sphere"
+				operator = "util_draw_debug_sphere"
+				input_radius = "20.f"
+				input_position = "@globals.output_listener_position"
+				input_execute = "@convar_get_debug_enabled.output"
+				input_rgb_color = "@switch_debug_color.output"
+				input_label = ""
+				input_show_detailed_info = "1.0"
+				detail_label_1 = "pri"
+				detail_value_1 = "@public.dialog_mix_priority"
+				detail_label_2 = "vol"
+				detail_value_2 = "@add_volume_offset.output"
+				detail_label_3 = ""
+				detail_value_3 = ""
+				detail_label_4 = ""
+				detail_value_4 = ""
+				detail_label_5 = ""
+				detail_value_5 = ""
+				detail_label_6 = ""
+				detail_value_6 = ""
+				detail_label_7 = ""
+				detail_value_7 = ""
+				detail_label_8 = ""
+				detail_value_8 = ""
+			},
+		]
+	}
+}

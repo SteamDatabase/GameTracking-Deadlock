@@ -1,0 +1,196 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_distance_falloff = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "_builtins"
+				operator = "sos_builtins"
+				_voicegraph = "citadel.hrtf_basic"
+			},
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					volume_falloff_curve_field_name = 
+					{
+						data_type = "string"
+						value = "volume_falloff_curve_db"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_help = "Used by child stacks to override the volume-over-distance falloff."
+							property_group = "citadel_distance_falloff"
+						}
+					}
+					volume_falloff_curve_db = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.005714, 0.3, 1.083, 1.083, 2.0, 3.0 ]",
+							"[ 6.619538, 0.0, -0.311869, -0.311869, 2.0, 3.0 ]",
+							"[ 17.077585, -10.603477, -0.127606, -0.127606, 2.0, 3.0 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "advanced"
+							display_edit_type = "field_curve_2d_editor"
+							property_help = "Remaps distance to volume attenuation in db."
+							property_group = "citadel_distance_falloff"
+						}
+					}
+					distance = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_distance_falloff"
+							property_help = "Distance input."
+						}
+					}
+					volume_falloff_min = 
+					{
+						data_type = "float"
+						value = "800.000000"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "citadel_distance_falloff"
+							property_help = "Minimum distance before attenuation falloff begins."
+						}
+					}
+					volume_falloff_max = 
+					{
+						data_type = "float"
+						value = "3000.000000"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "citadel_distance_falloff"
+							property_help = "The farthest point of distance attenuation."
+						}
+					}
+					volume_falloff_curve_amount = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "citadel_distance_falloff"
+							property_help = "TODO - find out what this param is [SH]."
+						}
+					}
+					volume_falloff_floor = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "citadel_distance_falloff"
+							property_help = "Attenuation will not decrease below this amount. Unit is linear scale."
+						}
+					}
+					volume_falloff_use_curve_editor = 
+					{
+						data_type = "bool"
+						value = "false"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "citadel_distance_falloff"
+							property_help = "Enable curve editing. 'volume_falloff_min', 'volume_falloff_max', 'volume_falloff_curve_amount' no longer apply. 'volume_falloff_floor' still applies."
+						}
+					}
+				}
+			},
+			
+			{
+				name = "inverse_use_curve_editor"
+				execute_once = "true"
+				input_execute = "1.0"
+				operator = "math_float"
+				apply = "sub"
+				input1 = "1.0"
+				input2 = "@public.volume_falloff_use_curve_editor"
+			},
+			
+			{
+				name = "classic_volume_falloff"
+				input_execute = "1.0"
+				operator = "calc_falloff_curve"
+				input_distance = "@public.distance"
+				input_curve_amount = "@public.volume_falloff_curve_amount"
+				input_min = "@public.volume_falloff_min"
+				input_max = "@public.volume_falloff_max"
+				input_floor = "@public.volume_falloff_floor"
+				input_atten = "1.000000"
+			},
+			
+			{
+				name = "evaluate_opvar_falloff_curve"
+				operator = "math_curve_2d"
+				input_execute = "@public.volume_falloff_use_curve_editor"
+				input = "@public.distance"
+				public_field_name = "@public.volume_falloff_curve_field_name"
+				input_scale_x = "1.0"
+				input_scale_y = "1.0"
+			},
+			
+			{
+				name = "volume_falloff_curve_to_gain"
+				operator = "math_db_to_gain"
+				input_execute = "@public.volume_falloff_use_curve_editor"
+				input = "@evaluate_opvar_falloff_curve.output"
+			},
+			
+			{
+				name = "switch_enable_curve_editor"
+				operator = "ctrl_switch_float"
+				input_switch = "@public.volume_falloff_use_curve_editor"
+				input1 = "@classic_volume_falloff.output"
+				input2 = "@volume_falloff_curve_to_gain.output"
+			},
+			
+			{
+				name = "volume_floor"
+				input_execute = "1.0"
+				operator = "math_float"
+				apply = "max"
+				input1 = "@switch_enable_curve_editor.output"
+				input2 = "@public.volume_falloff_floor"
+			},
+			
+			{
+				name = "volume_ceiling"
+				input_execute = "1.0"
+				operator = "math_float"
+				apply = "min"
+				input1 = "@volume_floor.output"
+				input2 = "1.0"
+			},
+			
+			{
+				name = "output"
+				operator = "util_null"
+				operator_variables = 
+				{
+					result_vol_linear = 
+					{
+						data_type = "float"
+						value = "@volume_ceiling.output"
+					}
+				}
+			},
+		]
+	}
+}

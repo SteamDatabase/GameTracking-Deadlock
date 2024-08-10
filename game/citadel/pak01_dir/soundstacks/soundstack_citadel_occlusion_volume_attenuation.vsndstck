@@ -1,0 +1,96 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_occlusion_volume_attenuation = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					occlusion_gain_value = 
+					{
+						data_type = "float"
+						value = "1.0"
+						_system_properties = 
+						{
+							property_group = "citadel_occlusion_volume_attenuation"
+						}
+					}
+					distance = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							property_group = "citadel_occlusion_volume_attenuation"
+						}
+					}
+					distance_min = 
+					{
+						data_type = "float"
+						value = "800.0"
+						_system_properties = 
+						{
+							property_group = "citadel_occlusion_volume_attenuation"
+						}
+					}
+					distance_max = 
+					{
+						data_type = "float"
+						value = "1800.0"
+						_system_properties = 
+						{
+							property_group = "citadel_occlusion_volume_attenuation"
+						}
+					}
+				}
+			},
+			
+			{
+				name = "remap_distance_normalized"
+				operator = "math_remap_float"
+				input_execute = "1.0"
+				input = "@public.distance"
+				input_min = "@public.distance_min"
+				input_max = "@public.distance_max"
+				input_map_min = "0.0"
+				input_map_max = "1.0"
+			},
+			
+			{
+				name = "occlusion_value_distance_scale"
+				operator = "math_remap_float"
+				input_execute = "1.0"
+				input = "@remap_distance_normalized.output"
+				input_min = "0.0"
+				input_max = "1.0"
+				input_map_min = "1.0"
+				input_map_max = "@public.occlusion_gain_value"
+			},
+			
+			{
+				name = "occlusion_vmix_send"
+				operator = "vmix_voicegraph_input"
+				input_execute = "1.000000"
+				input_name = "occlusion_distance_scaled"
+				input = "@occlusion_value_distance_scale.output"
+			},
+			
+			{
+				name = "output"
+				operator = "util_null"
+				operator_variables = 
+				{
+					result = 
+					{
+						data_type = "float"
+						value = "@occlusion_value_distance_scale.output"
+					}
+				}
+			},
+		]
+	}
+}

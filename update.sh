@@ -3,9 +3,8 @@
 cd "${0%/*}"
 . ../common.sh
 
-echo "Processing CS2..."
+echo "Processing Deadlock..."
 
-ProcessDepot ".so"
 ProcessDepot ".dll"
 ProcessVPK
 
@@ -28,9 +27,9 @@ do
 	sed -i '/\/\/# sourceMappingURL=/d' "$file"
 done <   <(find . -type f -name "*.js" -print0)
 
-ProcessToolAssetInfo
+#ProcessToolAssetInfo
 FixUCS2
 
-CreateCommit "$(grep "ClientVersion=" game/csgo/steam.inf | grep -o '[0-9\.]*')" "$1"
+CreateCommit "$(grep "ClientVersion=" game/citadel/steam.inf | grep -o '[0-9\.]*')" "$1"
 
 echo "Done"

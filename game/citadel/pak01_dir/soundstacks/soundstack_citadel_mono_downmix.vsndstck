@@ -1,0 +1,81 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_mono_downmix = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					mono_downmix_enabled = 
+					{
+						data_type = "float"
+						value = "1.0"
+						_system_properties = 
+						{
+							property_group = "citadel_mono_downmix"
+						}
+					}
+					mono_downmix_min_distance = 
+					{
+						data_type = "float"
+						value = "250.0"
+						_system_properties = 
+						{
+							property_group = "citadel_mono_downmix"
+						}
+					}
+					mono_downmix_max_distance = 
+					{
+						data_type = "float"
+						value = "950.0"
+						_system_properties = 
+						{
+							property_group = "citadel_mono_downmix"
+						}
+					}
+					distance = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							property_group = "citadel_mono_downmix"
+						}
+					}
+				}
+			},
+			
+			{
+				name = "remap_distance_normalized"
+				operator = "math_remap_float"
+				input = "@public.distance"
+				input_min = "@public.mono_downmix_min_distance"
+				input_max = "@public.mono_downmix_max_distance"
+				input_map_min = "0.000000"
+				input_map_max = "1.000000"
+			},
+			
+			{
+				name = "enable_downmix_mult"
+				operator = "math_float"
+				execute_once = "false"
+				apply = "mult"
+				input1 = "@public.mono_downmix_enabled"
+				input2 = "@remap_distance_normalized.output"
+			},
+			
+			{
+				name = "mono_downmix_value_send"
+				execute_once = "false"
+				operator = "vmix_voicegraph_input"
+				input_execute = "1.000000"
+				input_name = "mono_downmix_fraction"
+				input = "@enable_downmix_mult.output"
+			},
+		]
+	}
+}

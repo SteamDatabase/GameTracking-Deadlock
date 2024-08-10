@@ -1,0 +1,118 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_closest_point_on_segment = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "_builtins"
+				operator = "sos_builtins"
+				_voicegraph = "citadel.hrtf_basic"
+			},
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					import_public_opvars = "citadel_perspective_default"
+					start_point = 
+					{
+						data_type = "float3"
+						value = "[ 0.f, 0.f, 0.f]"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_closest_point_on_segment"
+							property_help = "set by code"
+						}
+					}
+					end_point = 
+					{
+						data_type = "float3"
+						value = "[ 0.f, 0.f, 0.f]"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_closest_point_on_segment"
+							property_help = "set by code"
+						}
+					}
+					draw_debug = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							display_group = "advanced"
+							property_group = "citadel_closest_point_on_segment"
+						}
+					}
+				}
+			},
+			
+			{
+				name = "globals"
+				operator = "get_system_globals"
+				input_execute = "1"
+				input_listener_index = "0"
+			},
+			
+			{
+				name = "closest_point_on_line"
+				operator = "calc_closest_point_on_line"
+				input_pos = "@globals.output_listener_position"
+				input_line_start = "@public.start_point"
+				input_line_end = "@public.end_point"
+			},
+			
+			{
+				name = "citadel_perspective_default"
+				operator = "sos_import_stack"
+				import_stack = "citadel_perspective_default"
+				auto_connect_public_fields = "true"
+				operator_variables = 
+				{
+					position_force_from_input = 
+					{
+						data_type = "float"
+						value = "1.0"
+					}
+					position = 
+					{
+						data_type = "float3"
+						value = "@closest_point_on_line.output_pos"
+					}
+				}
+			},
+			
+			{
+				name = "draw_sound_position"
+				input_execute = "@public.draw_debug"
+				operator = "util_draw_radius"
+				input_position = "@closest_point_on_line.output_pos"
+				input_radius_min = "20.f"
+				input_radius_max = "20.f"
+			},
+			
+			{
+				name = "draw_sound_start"
+				input_execute = "@public.draw_debug"
+				operator = "util_draw_radius"
+				input_position = "@public.start_point"
+				input_radius_min = "20.f"
+				input_radius_max = "20.f"
+			},
+			
+			{
+				name = "draw_sound_end"
+				input_execute = "@public.draw_debug"
+				operator = "util_draw_radius"
+				input_position = "@public.end_point"
+				input_radius_min = "20.f"
+				input_radius_max = "20.f"
+			},
+		]
+	}
+}

@@ -1,0 +1,115 @@
+<!-- xml reconstructed by Source 2 Viewer 10.1.0.0 - https://valveresourceformat.github.io -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/citadel_base_styles.vcss_c" />
+		<include src="s2r://panorama/styles/hud_common.vcss_c" />
+		<include src="s2r://panorama/styles/citadel_hud_top_bar.vcss_c" />
+	</styles>
+	<snippets>
+		<snippet name="ChatWheelMessage">
+			<Panel class="ChatLineContainer">
+				<Panel class="PingArrow" />
+				<Label id="ChatText" html="false" class="ChatLine" />
+				<Panel id="ResponsesContainer">
+					<Panel id="NegativeResponses" />
+					<Panel id="PositiveResponses">
+						<Panel id="PositiveResponseHeroImages" />
+						<Panel id="PositiveBackground">
+							<Panel class="thumbsUpIcon" />
+						</Panel>
+					</Panel>
+				</Panel>
+			</Panel>
+		</snippet>
+	</snippets>
+	<CitadelHudTopBarPlayer hittest="false">
+		<Panel id="PauseIndicator" />
+		<Panel class="VoiceBar" />
+		<Panel class="KingPandaContainer">
+			<Panel class="PandaBacker" />
+			<Panel class="PandaIcon" />
+		</Panel>
+		<Panel id="ChatMessageContainer" />
+		<Panel id="PlayerDetailsContainer" hittest="false" hittestchildren="false" onmouseover="CitadelTopDownScoreboardPlayerHovered();" onactivate="CitadelTopDownScoreboardPlayerClicked();">
+			<Panel id="KillStreakContainer">
+				<ParticleScenePanel id="KillStreakParticlePanel" particleonly="true" particleName="particles/ui/ui_topbar_killstreak.vpcf" fov="20" lookAt="0 0 -20" squarePixels="true" />
+				<Panel id="KillStreakText">
+					<Label class="KillStreakNum" text="{d:num_kills}" />
+					<Panel class="KillStreakImageTextContainer">
+						<Panel class="KillStreakImageText SpreeText" />
+						<Panel class="FirstBloodImageText FirstBlood" />
+					</Panel>
+				</Panel>
+			</Panel>
+			<Label class="TeammateKeybind" text="{s:spectate_keybind}" html="true" />
+			<Image class="SpectatorImage" src="s2r://panorama/images/hud/spec_icon_png.vtex" />
+			<Panel id="HeroContents" class="HeroContents" hittest="false">
+				<Panel id="HeroImageArea">
+					<Panel class="HeroContentsCoinOuterBorder" />
+					<Panel class="HeroContentsCoinBackground" />
+					<Panel class="HeroIconContainer">
+						<CitadelHeroImage id="HeroIcon" scaling="stretch-to-fit-x-preserve-aspect" heroimagestyle="vertical" />
+					</Panel>
+					<Panel class="HeroContentsCoinInnerBorder" />
+				</Panel>
+				<Panel class="HeroInnerContent">
+					<Panel id="HealthBar">
+						<ProgressBar id="HeroHealth" min="0" max="1" vertical="true" />
+					</Panel>
+					<Panel id="UltimateStatus" class="UltimateStatus">
+						<Panel id="UltimateStatusBG" class="UltimateStatusBG" />
+						<Panel id="UltimateAbilityIconMini" />
+						<Panel class="LockedOverlay">
+							<Panel class="LockedIcon" />
+						</Panel>
+					</Panel>
+					<Panel class="DeathStatus">
+						<Label class="DeadLabel" text="{d:hero_level}" />
+						<Panel class="RespawnContainer">
+							<Panel class="DeathIcon" />
+							<Label class="RespawnTimer" text="{d:respawn_time}" />
+						</Panel>
+					</Panel>
+					<Panel class="NetworkStatus">
+						<Image class="NetworkIcon" />
+					</Panel>
+				</Panel>
+			</Panel>
+			<Panel class="Rejuvenator">
+				<Panel class="RejuvenatorIcon" />
+				<Panel class="RebirthIcon" />
+				<Panel class="RebirthAndRejuvenator" />
+			</Panel>
+		</Panel>
+		<Panel id="PlayerNameNWContainer">
+			<Panel class="PlayerInfoContainer TopBottomFlow">
+				<Panel id="TotalSoulsContainer">
+					<Panel class="SoulsBacker" />
+					<Label class="TotalSoulsLabel" text="TOTAL SOULS" />
+					<Panel class="SoulsValueContainer">
+						<Panel class="SoulsImage" />
+						<Label class="SoulsValue" html="true" text="{s:total_souls}" />
+					</Panel>
+				</Panel>
+				<Panel class="ValveEmployee" />
+				<Label class="PlayerName" text="{s:player_name}" />
+				<Panel id="KDAContainer" class="TopBottomFlow">
+					<Panel class="KDALabels LeftRightFlow">
+						<Label class="StatLabel" text="K" />
+						<Label class="StatLabel" text="D" />
+						<Label class="StatLabel" text="A" />
+					</Panel>
+					<Panel class="KDAStats LeftRightFlow">
+						<Label class="PlayerStat kills" text="{i:kills}" />
+						<Label class="ForwardSlash" text="/" />
+						<Label class="PlayerStat deaths" text="{i:deaths}" />
+						<Label class="ForwardSlash" text="/" />
+						<Label class="PlayerStat assists" text="{i:assists}" />
+					</Panel>
+				</Panel>
+				<CitadelHudModBarGraph id="ModsBarGraph" />
+			</Panel>
+		</Panel>
+		<Panel id="SpectatePlayerButtonPanel" onmouseover="$.GetContextPanel().AddClass(&apos;SpectateHover&apos;)" onmouseout="$.GetContextPanel().RemoveClass(&apos;SpectateHover&apos;)" />
+	</CitadelHudTopBarPlayer>
+</root>

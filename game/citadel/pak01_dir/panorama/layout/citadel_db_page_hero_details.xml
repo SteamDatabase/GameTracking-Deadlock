@@ -1,0 +1,122 @@
+<!-- xml reconstructed by Source 2 Viewer 10.1.0.0 - https://valveresourceformat.github.io -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/citadel_base_styles.vcss_c" />
+		<include src="s2r://panorama/styles/citadel_db_page_shared.vcss_c" />
+		<include src="s2r://panorama/styles/ability_icons.vcss_c" />
+		<include src="s2r://panorama/styles/citadel_db_page_hero_details.vcss_c" />
+	</styles>
+	<snippets>
+		<snippet name="stat_snippet">
+			<Panel class="statsContainer">
+				<Label class="statName" text="{s:stat_name}" />
+				<Label class="statValue" text="{s:stat_value}" />
+			</Panel>
+		</snippet>
+		<snippet name="complexity_snippet">
+			<Panel class="statsContainer">
+				<Label class="hero_desc_title" text="#Citadel_HeroPage_Complexity" />
+				<Panel class="hero_desc_section_complexity_stars">
+					<Image class="complexity_star complexity_star1" src="s2r://panorama/images/upgrades/recommended_star_png.vtex" />
+					<Image class="complexity_star complexity_star2" src="s2r://panorama/images/upgrades/recommended_star_png.vtex" />
+					<Image class="complexity_star complexity_star3" src="s2r://panorama/images/upgrades/recommended_star_png.vtex" />
+				</Panel>
+			</Panel>
+		</snippet>
+		<snippet name="player_stat_snippet">
+			<Panel class="playerStatContainer">
+				<Label class="playerStatValue" text="{d:stat_value}" />
+				<Label class="playerStatName" text="{s:stat_name}" />
+			</Panel>
+		</snippet>
+	</snippets>
+	<CitadelHeroDetailsPage class="DashboardPage" oncancel="CitadelNavigateBack();">
+		<Panel id="StaticContent" hittest="false">
+			<Panel id="NavContainer" />
+			<Panel id="NavigationButtons" hittest="false">
+				<Panel id="PrevButton" class="navigationButton">
+					<Panel class="backArrow" />
+				</Panel>
+				<Panel id="NextButton" class="navigationButton">
+					<Panel class="backArrow" />
+				</Panel>
+			</Panel>
+		</Panel>
+		<Panel class="LeftPanelBG" />
+		<Panel id="LeftPanel" hittest="false">
+			<Panel id="HeroDetailsContainer" hittest="false">
+				<Panel id="InfoIcon" onmouseout="CitadelHideLevelRewardsTooltip();" />
+				<Panel id="HeroDetails" hittest="false">
+					<Panel class="HeroNameAndLevelsIcon LeftRightFlow">
+						<Label id="HeroName" text="{s:hero_name}" />
+					</Panel>
+					<Label id="HeroType" text="{s:hero_role}" />
+					<Panel id="AbilityIconsContainer">
+						<CitadelAbilityIcon id="AbilityIcon1" class="AbilityIcon" on_dashboard="true" onactivate="CitadelHeroDetailsSelectAbilityNum( 1 );" onmouseover="CitadelHeroDetailsMouseOverAbilityNum( 1 );" onmouseout="CitadelHeroDetailsMouseOutAbilityNum();" />
+						<CitadelAbilityIcon id="AbilityIcon2" class="AbilityIcon" on_dashboard="true" onactivate="CitadelHeroDetailsSelectAbilityNum( 2 );" onmouseover="CitadelHeroDetailsMouseOverAbilityNum( 2 );" onmouseout="CitadelHeroDetailsMouseOutAbilityNum();" />
+						<CitadelAbilityIcon id="AbilityIcon3" class="AbilityIcon" on_dashboard="true" onactivate="CitadelHeroDetailsSelectAbilityNum( 3 );" onmouseover="CitadelHeroDetailsMouseOverAbilityNum( 3 );" onmouseout="CitadelHeroDetailsMouseOutAbilityNum();" />
+						<CitadelAbilityIcon id="AbilityIcon4" class="AbilityIcon" on_dashboard="true" onactivate="CitadelHeroDetailsSelectAbilityNum( 4 );" onmouseover="CitadelHeroDetailsMouseOverAbilityNum( 4 );" onmouseout="CitadelHeroDetailsMouseOutAbilityNum();" />
+					</Panel>
+					<Label id="HeroLore" text="{s:hero_desc}" />
+				</Panel>
+				<Panel id="LowerDetails">
+					<Panel id="ActionItemsContainer" hittest="false">
+						<Panel id="HeroTestingButton" class="actionItemButton testingButton" onmouseover="CitadelPlayUISound( EMainMenuHover )">
+							<Panel class="ButtonItems">
+								<Label class="actionItemLabel" text="#Citadel_HeroPage_Sandbox" />
+							</Panel>
+						</Panel>
+						<CitadelHeroImage id="HeroImage" />
+					</Panel>
+					<Panel id="HeroStatsContainer">
+						<Panel id="HeroStatsContent">
+							<Panel id="StatsHeaderContainer">
+								<Panel class="separator leftSeperator" />
+								<Label id="StatsHeader" text="#Citadel_HeroPage_BaseStatsS" />
+								<Panel class="separator rightSeperator" />
+							</Panel>
+							<Panel id="TopStats" />
+							<Panel id="BottomStats" />
+						</Panel>
+					</Panel>
+				</Panel>
+			</Panel>
+		</Panel>
+		<Panel id="PlayerStatsContainer">
+			<Label class="playerStatTitle" text="#Citadel_HeroPage_PlayerStats" />
+			<Panel id="PlayerStatsList" />
+		</Panel>
+		<CitadelHeroStats id="HeroStats" on_dashboard="true" />
+		<Panel id="RightPanel" hittest="false">
+			<ScenePanel id="HeroScenePanel" map="ui/hero_select" scene_data_name="hero_selection" hero_animgraph_enum="HeroSelect" parent_entity_name="hero_root" camera="portrait_camera" use_hero_map="true" sound="PORTRAIT_SOUND_MODE_ALL_SOUNDS" rotateonhover="true" allowrotation="true" />
+		</Panel>
+		<Panel id="AbilityDetailsContainer">
+			<Movie id="movie_preview" class="movieArea" autoplay="onload" repeat="true">
+				<Panel class="movieFooterBar" />
+			</Movie>
+			<Panel class="noMoviePreview movieArea">
+				<Label class="noMovieLabel" text="#Citadel_HeroPage_MissingVideos" />
+			</Panel>
+			<Panel id="AbilityDetails1" class="abilityDetails TopBottomFlow">
+				<AbilityDetailsPanel id="AbilityInfoPanel1" ability_slot="1" />
+				<CitadelAbilityUpgradeList id="AbilityUpgradeList1" />
+			</Panel>
+			<Panel id="AbilityDetails2" class="abilityDetails TopBottomFlow">
+				<AbilityDetailsPanel id="AbilityInfoPanel2" ability_slot="2" />
+				<CitadelAbilityUpgradeList id="AbilityUpgradeList2" />
+			</Panel>
+			<Panel id="AbilityDetails3" class="abilityDetails TopBottomFlow">
+				<AbilityDetailsPanel id="AbilityInfoPanel3" ability_slot="3" />
+				<CitadelAbilityUpgradeList id="AbilityUpgradeList3" />
+			</Panel>
+			<Panel id="AbilityDetails4" class="abilityDetails TopBottomFlow">
+				<AbilityDetailsPanel id="AbilityInfoPanel4" ability_slot="4" />
+				<CitadelAbilityUpgradeList id="AbilityUpgradeList4" />
+			</Panel>
+		</Panel>
+		<Panel id="HeroBackstoryContainer">
+			<Label class="HeroBackstoryHeaderLabel" text="#Citadel_HeroPage_FatesTale" />
+			<Label class="HeroBackstoryLabel" text="{s:hero_backstory}" />
+		</Panel>
+	</CitadelHeroDetailsPage>
+</root>

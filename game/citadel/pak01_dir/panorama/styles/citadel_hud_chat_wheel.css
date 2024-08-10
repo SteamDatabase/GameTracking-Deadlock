@@ -1,0 +1,497 @@
+/* Prettified by Source 2 Viewer 10.1.0.0 - https://valveresourceformat.github.io */
+
+@define arrowOffset: 60px;
+@define angleBetweenWheelSlices: 2;
+@define angleBetweenSubnavWheelSlices: 1;
+@define subnavSliceDegrees: 30;
+@define selectedPhraseOffset: 22px;
+@define selectedPhraseTwoSliceOffset: 40px;
+@define selectedPhraseSubnavOffset: 35px;
+@define hudWorldBlur: gaussian(4,4,2);
+@define defaultPhraseLabelTopMargin: 35px;
+CitadelChatWheel
+{
+	width: 100%;
+	height: 950px;
+	horizontal-align: center;
+	vertical-align: middle;
+	z-index: 100;
+}
+
+.Hidden
+{
+	visibility: collapse;
+}
+
+#SubnavPhrasesContainer
+{
+	z-index: 9998;
+	height: 1600px;
+	width: 1600px;
+	vertical-align: center;
+	horizontal-align: center;
+	opacity: 0;
+}
+
+#SubnavPhrasesContainer.Selected
+{
+	opacity: 1;
+	animation-name: SubnavNavigateIn;
+	animation-duration: 0.2s;
+	animation-iteration-count: 1;
+}
+
+@keyframes 'SubnavNavigateIn'
+{
+	0%
+	{
+		transform: translate3d(-50px, -50px, 0px);
+		opacity: 0;
+	}
+	
+	50%
+	{
+		transform: translate3d(-50px, -50px, 0px);
+		opacity: 0;
+	}
+	
+	100%
+	{
+		transform: translate3d(-0px, -0px, 0px);
+		opacity: 1;
+	}
+	
+}
+
+#PhrasesContainer
+{
+	z-index: 9999;
+	height: 1000px;
+	width: 1000px;
+	vertical-align: center;
+	horizontal-align: center;
+}
+
+#PhraseContainer
+{
+	margin-top: defaultPhraseLabelTopMargin;
+	flow-children: down;
+	horizontal-align: center;
+}
+
+.SubnavPhrase.Phrase
+{
+	vertical-align: middle;
+	horizontal-align: center;
+	height: 890px;
+	width: 890px;
+	background-color: #000000ee;
+	background-size: 100% 100%;
+	opacity-mask: url("s2r://panorama/images/masks/chat_wheel_mask_subnav_psd.vtex");
+	border-radius: 50%;
+	clip: radial( 50% 50%, -21.5deg, 43deg );
+	transition-property: background-color;
+	transition-duration: 0.1s;
+}
+
+.Phrase
+{
+	vertical-align: middle;
+	horizontal-align: center;
+	height: 550px;
+	width: 550px;
+	background-color: #000000ee;
+	opacity-mask: url("s2r://panorama/images/masks/chat_wheel_mask_psd.vtex");
+	border-radius: 50%;
+	clip: radial( 50% 50%, -21.5deg, 43deg );
+	ui-scale: 100%;
+	transition-property: background-color;
+	transition-duration: 0.1s;
+	flow-children: down;
+}
+
+.Phrase:disabled,.Icon:disabled
+{
+	opacity: 0.5;
+}
+
+.Phrase:disabled Label
+{
+	margin-top: -5px;
+}
+
+.DisabledWhileDeadLabel,.Phrase .DisabledWhileDeadLabel
+{
+	visibility: collapse;
+	color: #ff4b4b;
+	font-size: 12px;
+	margin-top: 5px;
+}
+
+.Phrase:disabled .DisabledWhileDeadLabel
+{
+	visibility: visible;
+}
+
+.Phrase,.Icon
+{
+	transition-delay: 0.2s;
+	transition-duration: 0.2s;
+	transition-property: opacity;
+}
+
+.subnavOptionSelected .Phrase,.subnavOptionSelected .Icon
+{
+	opacity: 0.5;
+	transition-duration: 0s;
+}
+
+.subnavOptionSelected .Phrase.Selected,.subnavOptionSelected .Phrase.SubnavPhrase,.subnavOptionSelected .Selected.Icon
+{
+	opacity: 1;
+}
+
+.Phrase.isContextualSlice
+{
+	background-color: #253341ea;
+}
+
+.Phrase.IsSpray
+{
+	height: 64px;
+}
+
+.Phrase Label
+{
+	color: offWhite;
+	horizontal-align: center;
+	font-weight: semi-bold;
+	font-size: 18px;
+	text-align: center;
+	max-width: 95px;
+	transition-property: color;
+	transition-duration: 0.1s;
+}
+
+.Phrase:disabled Label,.Icon:disabled
+{
+	opacity: 0.3;
+}
+
+.Phrase.Selected
+{
+	ui-scale: 115%;
+	background-color: #ffffffaa;
+	z-index: 9;
+}
+
+.Phrase #ChatWheelEmoticon
+{
+	margin-left: 10px;
+	width: 32px;
+	height: 32px;
+}
+
+.Phrase #ChatWheelEmoticon.Hidden
+{
+	visibility: collapse;
+}
+
+.Phrase > Label
+{
+	transform: translate3d(0px, 40px, 0px);
+}
+
+@keyframes 'TextGlowPulse'
+{
+}
+
+.Phrase.Selected Label
+{
+	animation-name: TextGlowPulse;
+	animation-duration: 1s;
+	animation-delay: 0s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	color: black;
+	font-weight: bold;
+}
+
+.ChatWheelSoundIcon
+{
+	width: 22px;
+	height: 22px;
+	margin-right: 4px;
+	transform: translateY( 8px );
+	background-image: url("s2r://panorama/images/chat_wheel/icon_scoreboard_mute_sound_psd.vtex");
+	background-repeat: no-repeat;
+	background-size: contain;
+	visibility: collapse;
+}
+
+.Phrase.HasSound:not(.IsSpray) .ChatWheelSoundIcon
+{
+	visibility: visible;
+}
+
+.Phrase.HasSound.RequiresHeroBadgeTier .ChatWheelSoundIcon
+{
+	visibility: collapse;
+}
+
+.ChatWheelAllPrefix
+{
+	visibility: collapse;
+}
+
+.Phrase.SendToAllChat .ChatWheelAllPrefix
+{
+	visibility: visible;
+}
+
+.ChatWheelRequiredTierIcon
+{
+	width: 36px;
+	height: 36px;
+	visibility: collapse;
+}
+
+.RequiresHeroBadgeTier .ChatWheelRequiredTierIcon
+{
+	visibility: visible;
+}
+
+.RequiresHeroBadgeTier:not(.RequiredTierUnlocked) Label
+{
+	opacity: 0.3;
+}
+
+.ChatWheelRequiredTierLockIcon,.ChatWheelRequiredTierLockIconShadow
+{
+	vertical-align: middle;
+	horizontal-align: center;
+	width: 14px;
+	height: 14px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+.ChatWheelRequiredTierLockIconShadow
+{
+	transform: translate3d( 2px, 2px, 0px );
+	wash-color: black;
+}
+
+.RequiredTierUnlocked .ChatWheelRequiredTierLockIcon,.RequiredTierUnlocked .ChatWheelRequiredTierLockIconShadow
+{
+	visibility: collapse;
+}
+
+#Wheel
+{
+	height: 1000px;
+	width: 1000px;
+	horizontal-align: center;
+	vertical-align: middle;
+	padding: 20px;
+}
+
+#WheelBG
+{
+	background-size: contain;
+	horizontal-align: center;
+	vertical-align: middle;
+	height: 90px;
+	width: 90px;
+	border-radius: 45px;
+	border: 1px solid #cecece90;
+}
+
+#WheelCenter
+{
+	background-size: contain;
+	horizontal-align: center;
+	vertical-align: middle;
+	height: 80px;
+	width: 80px;
+}
+
+#WheelBG2
+{
+	background-size: contain;
+	horizontal-align: center;
+	vertical-align: middle;
+	height: 128px;
+	width: 128px;
+}
+
+#WheelPointer
+{
+	background-size: contain;
+	horizontal-align: center;
+	vertical-align: middle;
+	margin-bottom: 10px;
+	height: 128px;
+	width: 128px;
+}
+
+#PointerContainer
+{
+	height: 164px;
+	width: 164px;
+	horizontal-align: center;
+	vertical-align: middle;
+}
+
+#Bubble
+{
+	horizontal-align: center;
+	vertical-align: middle;
+	height: 20px;
+	width: 20px;
+	background-color: #C4FF47;
+	border-radius: 50px;
+	z-index: 9999;
+}
+
+#HeroImage
+{
+	width: 100%;
+	height: 100%;
+	visibility: collapse;
+}
+
+.HeroChatWheel #HeroImage,.HasHeroImage #HeroImage
+{
+	visibility: visible;
+}
+
+.HeroChatWheel #Bubble,.HasHeroImage #Bubble
+{
+	background-image: none;
+}
+
+#Arrow
+{
+	horizontal-align: center;
+	vertical-align: middle;
+	height: 46px;
+	width: 46px;
+	brightness: 2.0;
+	background-image: url("s2r://panorama/images/chat_wheel/arrow_psd.vtex");
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	margin-bottom: 11px;
+	visibility: collapse;
+}
+
+.ChatWheelSprayImage
+{
+	visibility: collapse;
+	height: 100%;
+	width: height-percentage( 100% );
+	horizontal-align: center;
+	wash-color: #fff;
+}
+
+.IsSpray .ChatWheelSprayImage
+{
+	visibility: visible;
+}
+
+.globalText
+{
+	font-size: 12px;
+	margin-top: -10px;
+	text-align: center;
+	horizontal-align: center;
+	vertical-align: center;
+}
+
+#IconsContainer
+{
+	height: 350px;
+	width: 350px;
+	horizontal-align: center;
+	vertical-align: center;
+	z-index: 99;
+}
+
+.Icon
+{
+	height: 100%;
+	width: 100%;
+	padding: 20px;
+}
+
+#IconPanel
+{
+	horizontal-align: center;
+	margin-top: 30px;
+	opacity: 0.5;
+	ui-scale: 75%;
+	transition-property: ui-scale, opacity;
+	transition-duration: 0.1s;
+}
+
+.isContextualSlice #IconPanel
+{
+	wash-color: #a7d3ff;
+}
+
+.Selected #IconPanel
+{
+	ui-scale: 85%;
+	opacity: 1;
+}
+
+.isRespondingToPing #RespondingToContainer
+{
+	visibility: visible;
+}
+
+.isRespondingToPing #Icon2,.isRespondingToPing #Icon3
+{
+	visibility: collapse;
+}
+
+#RespondingToContainer
+{
+	horizontal-align: center;
+	margin-top: 530px;
+	visibility: collapse;
+	background-color: #000000AA;
+	padding: 4px;
+	border-radius: 5px;
+}
+
+.heroNameText
+{
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.respondingToLabel
+{
+	color: #389cff;
+	text-align: center;
+	font-size: 16px;
+}
+
+#CustomizeReminder
+{
+	vertical-align: bottom;
+	horizontal-align: center;
+	margin-bottom: 100px;
+	background-color: #000000ae;
+	border-radius: 100px;
+	padding: 20px 40px;
+}
+
+#CustomizeReminder Label
+{
+	font-weight: semi-bold;
+}
+

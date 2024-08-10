@@ -1,0 +1,74 @@
+<!-- xml reconstructed by Source 2 Viewer 10.1.0.0 - https://valveresourceformat.github.io -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/hud_damage_report.vcss_c" />
+	</styles>
+	<snippets>
+		<snippet name="HeroDamageColumn">
+			<Panel class="HeroDamageColumn">
+				<ProgressBarWithMiddle id="DamageRatioProgressBar" class="DamageRatioProgressBar" vertical="true" />
+				<Panel class="HeroIconContainer">
+					<CitadelHeroImage id="HeroImage" scaling="stretch-to-cover-preserve-aspect" heroimagestyle="vertical" />
+					<Image class="NeutralImage" scaling="stretch-to-cover-preserve-aspect" src="s2r://panorama/images/npcs/trooper_psd.vtex" />
+				</Panel>
+			</Panel>
+		</snippet>
+		<snippet name="AbilityDamageBar">
+			<Panel class="AbilityDamageContainer">
+				<Image id="AbilityImage" />
+				<Panel class="AbilityDamageBarContainer">
+					<ProgressBarWithMiddle id="DamageRatioProgressBar" class="DamageRatioProgressBar Horizontal" />
+					<Label class="AbilityName" text="{s:damage_name}" />
+					<Label class="DamageValue" text="{d:damage_done}" />
+				</Panel>
+			</Panel>
+		</snippet>
+	</snippets>
+	<Panel class="HudDamageReport">
+		<GlobalClassListener classes="gDetailView gBrowsingBuilds gShopOpen" />
+		<Panel id="ReportContents">
+			<Panel class="Header">
+				<Panel class="OpenTab CompactnessToggle" onactivate="CitadelHudDamageReport_SetUICompactness(0)" />
+				<Panel class="OpenCompact CompactnessToggle" onactivate="CitadelHudDamageReport_SetUICompactness(1)" />
+				<Panel class="OpenFull CompactnessToggle" onactivate="CitadelHudDamageReport_SetUICompactness(2)" />
+				<CitadelHeroImage id="ViewingHeroImage" scaling="stretch-to-cover-preserve-aspect" heroimagestyle="vertical" />
+				<Label html="true" class="DamageReportHeader" text="#Citadel_HUD_DamageReport_DamageReceived" />
+				<Panel class="TimeControl">
+					<DropDown id="TimeControlDropDown">
+						<Label id="TimeOptionLastRespawn" class="TimeControlOption" value="-1" text="#Citadel_HUD_DamageReport_LastRespawn" />
+						<Label id="TimeOption600" class="TimeControlOption" value="600" text="#Citadel_HUD_DamageReport_Time600" />
+						<Label id="TimeOption300" class="TimeControlOption" value="300" text="#Citadel_HUD_DamageReport_Time300" />
+						<Label id="TimeOption180" class="TimeControlOption" value="180" text="#Citadel_HUD_DamageReport_Time180" />
+						<Label id="TimeOption60" class="TimeControlOption" value="60" text="#Citadel_HUD_DamageReport_Time60" />
+						<Label id="TimeOption30" class="TimeControlOption" value="30" text="#Citadel_HUD_DamageReport_Time30" />
+					</DropDown>
+				</Panel>
+				<Panel class="CloseButton" onactivate="CitadelHudDamageReport_SetUICompactness(0)" />
+			</Panel>
+			<Panel class="DamageSection">
+				<Panel class="DamageControlRow DamageControls">
+					<Panel class="DamageBreakdown">
+						<Label html="true" class="DamagePercent weaponDmg" text="#Citadel_HUD_DamageReport_DamagePercentWeapon" />
+						<ProgressBarWithMiddle id="DamageByTypeProgressBar" class="DamageRatioProgressBar Horizontal" />
+						<Label html="true" class="DamagePercent spiritDmg" text="#Citadel_HUD_DamageReport_DamagePercentAbility" />
+					</Panel>
+				</Panel>
+				<Panel id="DamageByHero" class="DamageByHero" />
+				<Label class="TopDamageSources" text="#Citadel_HUD_DamageReport_TopDamageSources" />
+				<CitadelDamageRows id="DamageByAbility" />
+				<Panel id="DamagePieGraph" />
+				<Panel class="Footer">
+					<Panel class="DamageTotal">
+						<Panel class="LabelArea">
+							<Label html="true" class="DamageDesc" text="#Citadel_HUD_DamageReport_Total" />
+							<Label html="true" class="DamageValue" text="#Citadel_HUD_DamageReport_TotalDamageValue" />
+						</Panel>
+						<Panel class="ShowMore" onactivate="CitadelHudDamageReport_SetUICompactness(2)">
+							<Label text="#Citadel_HUD_DamageReport_ShowMore" />
+						</Panel>
+					</Panel>
+				</Panel>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

@@ -1,0 +1,286 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_default_2d = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					import_public_opvars = "citadel_base_3d"
+					vsnd_files = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = 
+						[
+							"sounds/common/null.vsnd",
+						]
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					vsnd_selection_type = 
+					{
+						data_type = "enum"
+						enum_field = "opvar_get_vsnd.array_selection_type"
+						value = "random_exclusive"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					vsnd_selection_index = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					pitch_external = 
+					{
+						data_type = "float"
+						value = "1.000000"
+						_system_properties = 
+						{
+							property_group = "Pitch"
+						}
+					}
+					pitch_filter_rate = 
+					{
+						data_type = "float"
+						value = "99999.000000"
+						_system_properties = 
+						{
+							property_group = "Pitch"
+						}
+					}
+					hrtf_on = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "Hrtf"
+						}
+					}
+					vsnd_pause_with_game = 
+					{
+						data_type = "bool"
+						value = "true"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					vsnd_play_loop_release = 
+					{
+						data_type = "bool"
+						value = "false"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					voicegraph = 
+					{
+						data_type = "string"
+						value = "citadel.hrtf_basic"
+						_system_properties = 
+						{
+							display_group = "advanced"
+						}
+					}
+					position_force_from_player = 
+					{
+						data_type = "bool"
+						value = "true"
+						_system_properties = 
+						{
+							property_group = "Position"
+						}
+					}
+					apply_radio_effect_for_voice = 
+					{
+						data_type = "bool"
+						value = "false"
+						_system_properties = 
+						{
+							property_group = "Effects"
+						}
+					}
+					voice_radio_effect_distance_threshold = 
+					{
+						data_type = "float"
+						value = "500.0"
+						_system_properties = 
+						{
+							property_group = "Effects"
+						}
+					}
+				}
+			},
+			
+			{
+				name = "citadel_base_3d"
+				operator = "sos_import_stack"
+				import_stack = "citadel_base_3d"
+				auto_connect_public_fields = "true"
+				operator_variables = 
+				{
+					spread_max_value = 
+					{
+						data_type = "float"
+						value = "1"
+					}
+				}
+			},
+			
+			{
+				name = "get_vsnd"
+				execute_once = "true"
+				operator = "opvar_get_vsnd"
+				check_event_data = "true"
+				input_operator_name = "public"
+				input_field_name = "vsnd_files"
+				input_use_namespace = "false"
+				array_selection_type = "@public.vsnd_selection_type"
+				input_index = "@public.vsnd_selection_index"
+			},
+			
+			{
+				name = "pitch_mult"
+				input_execute = "1.000000"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@public.pitch_external"
+				input2 = "@citadel_base_3d::pitch_adjustment.output"
+			},
+			
+			{
+				name = "pitch_filter"
+				operator = "math_filter_float"
+				input = "@pitch_mult.output"
+				input_max_velocity = "@public.pitch_filter_rate"
+			},
+			
+			{
+				name = "culling_invert"
+				operator = "math_float"
+				input_execute = "@public.cull_at_distance"
+				apply = "sub"
+				input1 = "1.000000"
+				input2 = "@citadel_base_3d::greater_than_cull_distance.output"
+			},
+			
+			{
+				name = "not_culling_and_unstopped"
+				operator = "math_float"
+				input_execute = "@public.cull_at_distance"
+				apply = "min"
+				input1 = "@culling_invert.output"
+				input2 = "@citadel_base_3d::get_event_info.output_unstopped"
+			},
+			
+			{
+				name = "switch_start_mode"
+				operator = "ctrl_switch_float"
+				input_switch = "@public.cull_at_distance"
+				input1 = "@citadel_base_3d::get_event_info.output_unstopped"
+				input2 = "@not_culling_and_unstopped.output"
+			},
+			
+			{
+				name = "set_builtins"
+				operator = "sos_set_builtins"
+				input_execute = "@public.hrtf_on"
+				input_voicegraph = "@public.voicegraph"
+			},
+			
+			{
+				name = "start_vmix"
+				operator = "vmix_voice_start"
+				input_execute = "1"
+				input_track1 = "track_01"
+				input_start2 = "0.000000"
+				input_start3 = "0.000000"
+				input_start4 = "0.000000"
+				input_start5 = "0.000000"
+				input_start6 = "0.000000"
+				input_start7 = "0.000000"
+				input_start8 = "0.000000"
+				input_vsnd1 = "@get_vsnd.output"
+				execute_once = "false"
+				input_should_pause = "@public.vsnd_pause_with_game"
+				input_should_play_tail = "@public.vsnd_play_loop_release"
+				input_start = "@switch_start_mode.output"
+				input_speaker_volumes = "@citadel_base_3d::speakers_spatialize.output"
+				input_pitch = "@pitch_filter.output"
+				input_fade_out = "@public.volume_fade_out"
+				input_delay = "@citadel_base_3d::switch_delay.output"
+				input_memory_type = "@public.memory_type"
+			},
+			
+			{
+				name = "reset_mixlayer"
+				operator = "soundmixer_set_mixlayer_amount"
+				input_execute = "@start_vmix.output_voice_finished"
+				input = "0.000000"
+				mixlayer = "@public.mixer_mixlayer_to_set"
+			},
+			
+			{
+				name = "get_radio_entity_info"
+				input_execute = "1"
+				operator = "game_entity_info"
+				input_entity_index = "@citadel_base_3d::source_info.output_entity_index"
+				input_default_world_position = "@public.position"
+				input_default_local_position = "@citadel_base_3d::globals.output_listener_front"
+				use_world_position = "@public.position_force_from_input"
+				attachment = "@public.attachment"
+			},
+			
+			{
+				name = "add_radio_position_offset"
+				operator = "math_float3"
+				apply = "add"
+				input1 = "@get_radio_entity_info.output_position"
+				input2 = "@public.position_offset"
+			},
+			
+			{
+				name = "distance_to_radio_source"
+				operator = "calc_distance"
+				input_position1 = "@add_radio_position_offset.output"
+				input_position2 = "@citadel_base_3d::globals.output_listener_position"
+			},
+			
+			{
+				name = "check_radio_effect_distance"
+				input_execute = "@public.apply_radio_effect_for_voice"
+				operator = "math_float"
+				apply = "greater_than"
+				input1 = "@distance_to_radio_source.output"
+				input2 = "@public.voice_radio_effect_distance_threshold"
+			},
+			
+			{
+				name = "apply_hero_voice_VO_effect"
+				operator = "vmix_voicegraph_name_input"
+				input_execute = "@check_radio_effect_distance.output"
+				input_name = "effect.voiceEffect"
+				input_dsp_preset_name = "fx.radio_voice"
+			},
+		]
+		_system_properties = 
+		{
+			display_game = "citadel"
+		}
+	}
+}

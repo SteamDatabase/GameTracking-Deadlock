@@ -1,0 +1,743 @@
+/* Prettified by Source 2 Viewer 10.1.0.0 - https://valveresourceformat.github.io */
+
+@define unlearnedWashColor: rgba(255, 255, 255, 0.2);
+@define abilityOffsetX: 440px;
+@define abilityOffsetY: 240px;
+DraggableAbilityIcon
+{
+	width: fit-children;
+	height: 80px;
+	flow-children: up;
+	vertical-align: bottom;
+	overflow: noclip;
+	tooltip-position: right;
+	transition-property: transform, wash-color, margin;
+	transition-duration: 0.2s;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+DraggableAbilityIcon.NoAbility
+{
+	opacity: 0;
+}
+
+.gShopOpen DraggableAbilityIcon.NoAbility,.gDetailView DraggableAbilityIcon.NoAbility,.wants_scoreboard DraggableAbilityIcon.NoAbility
+{
+	opacity: 0.1;
+}
+
+.IsBeingDragged.button_container
+{
+	vertical-align: top;
+}
+
+.button_container
+{
+	width: 60px;
+	height: 60px;
+	vertical-align: center;
+	margin-top: 0px;
+}
+
+.ability_bg
+{
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	visibility: collapse;
+	wash-color: #e8e4ea;
+	background-image: url("s2r://panorama/images/hud/core/ability_static_frame_icon_tex_png.vtex");
+	background-image: url("s2r://panorama/images/hud/core/ability_static_frame_icon.vsvg");
+	background-image: url("s2r://panorama/images/hud/core/ability_frame_0.vsvg");
+}
+
+.cooling_down .ability_bg,.ability_not_ready .ability_bg
+{
+	opacity: 0.05;
+	transition-property: opacity, pre-transform-scale2d;
+	transition-duration: 0.2s;
+}
+
+.button_container
+{
+	margin-top: 0px;
+	height: 65px;
+	margin-bottom: 15px;
+}
+
+.image_container
+{
+	width: 100%;
+	height: 100%;
+	vertical-align: middle;
+	horizontal-align: middle;
+}
+
+.action_button .button_container
+{
+	height: 50px;
+	background-color: rgba(0, 0, 0, 0.438);
+}
+
+.active #button_container,.active #stack_charges
+{
+	transform: translateY(-10px);
+}
+
+.active .image_container
+{
+	background-size: 100% 100%;
+}
+
+.ability_icon
+{
+	width: 24px;
+	background-size: 24px;
+	height: width-percentage(100%);
+	horizontal-align: right;
+	vertical-align: top;
+}
+
+.action_button .ability_icon
+{
+	opacity: 0;
+}
+
+.new_item .button_container
+{
+	background-color: #ffe91ec2;
+	wash-color: #b969ffc2;
+	transition-property: background-color;
+	transition-duration: 1s;
+}
+
+.active .button_container,.channeling .button_container
+{
+	z-index: 100;
+	animation-name: ability_active;
+	animation-duration: 1.5s;
+	animation-iteration-count: infinite;
+}
+
+@keyframes 'ability_active'
+{
+	0%
+	{
+		pre-transform-scale2d: 1;
+		transform: translateY(0px);
+	}
+	
+	50%
+	{
+		pre-transform-scale2d: 1.1;
+		transform: translateY(-10px);
+	}
+	
+	100%
+	{
+		pre-transform-scale2d: 1;
+		transform: translateY(0px);
+	}
+	
+}
+
+.learning_ability .image_container
+{
+	saturation: 1;
+	wash-color: offWhite;
+	opacity: 1;
+}
+
+.not_enough_mana .button_container
+{
+	wash-color: rgb(36, 75, 100);
+	border: 0px;
+}
+
+.ability_upgradable .button_container
+{
+	border: 0px solid transparent;
+}
+
+.IsBeingDragged .ability_key_container
+{
+	visibility: collapse;
+}
+
+.ability_key_container
+{
+	width: 24px;
+	height: 18px;
+	padding-top: 0px;
+	font-size: 14px;
+	margin-bottom: 3px;
+	font-weight: bold;
+	horizontal-align: left;
+	text-overflow: shrink;
+	color: offBlack;
+	background-size: cover;
+	text-align: center;
+	border-radius: 2px;
+	wash-color: #dedede;
+	z-index: -1;
+	text-transform: uppercase;
+	horizontal-align: middle;
+	vertical-align: bottom;
+	opacity: 0.8;
+}
+
+.ability_upgradable .ability_key_container
+{
+	opacity: 1;
+}
+
+.ability_not_ready .ability_key_container
+{
+	opacity: 0.2;
+}
+
+.active .ability_key_container,.channeling .ability_key_container
+{
+	wash-color: #dab0ffc2;
+	opacity: 1;
+}
+
+.ability_key
+{
+	font-size: 12px;
+	font-weight: bold;
+	margin-bottom: 0px;
+	horizontal-align: left;
+	text-overflow: shrink;
+	color: offBlack&ee;
+	text-align: center;
+	text-transform: uppercase;
+	horizontal-align: middle;
+	vertical-align: bottom;
+}
+
+.ability_upgradable .ability_key
+{
+	opacity: 1;
+}
+
+Label.ability_key
+{
+	font-weight: bold;
+}
+
+.action_button .ability_key
+{
+	line-height: 18px;
+}
+
+.action_button .ability_key
+{
+	font-size: 15px;
+	width: 100%;
+	height: 18px;
+	vertical-align: bottom;
+}
+
+.learning_ability .ability_key,.ability_upgradable .ability_key
+{
+	opacity: 1;
+	color: white;
+}
+
+.connectedToNewPlayerSandbox.heroTestingDisableUpgrades #abilities
+{
+	visibility: collapse;
+}
+
+#abilities
+{
+	width: fit-children;
+	height: fit-children;
+	vertical-align: top;
+	flow-children: right;
+}
+
+.ability_name
+{
+	horizontal-align: center;
+	vertical-align: center;
+	text-align: center;
+	font-size: 12px;
+	color: darkgrey;
+	width: 90%;
+	text-transform: uppercase;
+}
+
+.action_button .ability_name
+{
+	opacity: 0;
+}
+
+.ability_name
+{
+	color: white;
+}
+
+.has_ability_image .ability_name,.IsBeingDragged .ability_name
+{
+	visibility: collapse;
+}
+
+.unlockProgress
+{
+	color: white;
+	opacity: 0.1;
+	vertical-align: middle;
+	horizontal-align: center;
+	font-size: 18px;
+	font-weight: semi-bold;
+	text-overflow: shrink;
+	visibility: collapse;
+}
+
+.unlockProgress,.learning_ability .unlockProgress,.ability_upgradable .unlockProgress
+{
+	visibility: collapse;
+}
+
+.ability_image
+{
+	height: 47%;
+	margin-top: 3px;
+	width: height-percentage( 100% );
+	vertical-align: center;
+	horizontal-align: center;
+	visibility: collapse;
+	opacity: 0.95;
+	wash-color: offBlack;
+}
+
+.ability_upgradable .ability_image
+{
+	height: 53%;
+	margin-top: 0px;
+	width: height-percentage( 100% );
+	wash-color: #ffffff;
+	opacity: 1;
+	transition-property: wash-color, opacity, pre-transform-scale2d;
+	transition-duration: 0.35s;
+}
+
+@keyframes 'FlashAbilityIcon'
+{
+	0%
+	{
+		opacity: 0.6;
+		pre-transform-scale2d: 1;
+		wash-color: offBlack;
+	}
+	
+	50%
+	{
+		opacity: 1;
+		pre-transform-scale2d: 1.1;
+		wash-color: offBlack;
+	}
+	
+	100%
+	{
+		opacity: 0.6;
+		pre-transform-scale2d: 1;
+		wash-color: offBlack;
+	}
+	
+}
+
+@keyframes 'FlashAbilityBG'
+{
+	0%
+	{
+		opacity: 0.3;
+		wash-color: #9d87ff;
+		pre-transform-scale2d: 1;
+	}
+	
+	50%
+	{
+		opacity: 1.0;
+		wash-color: #9d87ff;
+		pre-transform-scale2d: 1.1;
+	}
+	
+	100%
+	{
+		opacity: 0.3;
+		wash-color: #9d87ff;
+		pre-transform-scale2d: 1;
+	}
+	
+}
+
+.ability_upgradable .image_container
+{
+	saturation: 1;
+	wash-color: #9d87ff;
+	opacity: 1;
+	animation-name: FlashAbilityIcon;
+	animation-duration: 2s;
+	animation-timing-function: ease-out;
+	animation-iteration-count: infinite;
+}
+
+.ability_upgradable .ability_bg
+{
+	saturation: 1;
+	wash-color: #7662cf;
+	opacity: 1;
+	animation-name: FlashAbilityBG;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-out;
+}
+
+.learning_ability .ability_image
+{
+	pre-transform-scale2d: 1.5;
+	wash-color: #ffffff;
+}
+
+.ability_image
+{
+	height: 50%;
+	margin-top: 0px;
+	width: height-percentage( 100% );
+}
+
+.cooling_down .ability_image
+{
+	wash-color: offBlack;
+}
+
+.ability_not_ready .ability_image
+{
+	wash-color: offBlack&30;
+}
+
+#.image_container .ability_image
+{
+	opacity: 0.9;
+	horizontal-align: center;
+	width: 100%;
+	wash-color: offBlack;
+	height: 37px;
+	margin-top: 7px;
+}
+
+.ability_bg
+{
+	background-image: url("s2r://panorama/images/hud/core/ability_active_backer.vsvg");
+	visibility: visible;
+	height: 60px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: bottom;
+	margin-top: 0px;
+	opacity: 0.8;
+}
+
+.cooling_down .image_container .ability_image
+{
+	opacity: 0.5;
+	background-color: #00000090;
+}
+
+.has_ability_image .ability_image,.IsBeingDragged .ability_image
+{
+	visibility: visible;
+}
+
+.bonusCounter
+{
+	font-size: 18px;
+	font-weight: bold;
+	horizontal-align: center;
+	text-align: center;
+	vertical-align: bottom;
+	color: black;
+	text-shadow: 0px 0px 0px 5.0 rgba(200, 200, 200, 0.95);
+	opacity: 0;
+	text-overflow: shrink;
+	margin-bottom: 25px;
+}
+
+.active .bonusCounter
+{
+	text-shadow: 0px 0px 0px 5.0 #dab0ffc2;
+}
+
+.hasBonusCounter .bonusCounter
+{
+	opacity: 1;
+	z-index: 1;
+}
+
+.ability_not_ready.hasBonusCounter .bonusCounter
+{
+	opacity: 0.3;
+	color: rgba(200, 200, 200, 0.95);
+	text-shadow: 0px 0px 0px 5.0 offBlack;
+}
+
+@keyframes 'FlashBonusCounter'
+{
+	0%
+	{
+		text-shadow: 0px 0px 0px 5.0 rgba(200, 200, 200, 0.95);
+		transform: translateY(0px);
+	}
+	
+	50%
+	{
+		text-shadow: 0px 0px 0px 5.0 yellow;
+		transform: translateY(-10px);
+	}
+	
+	100%
+	{
+		text-shadow: 0px 0px 0px 5.0 rgba(200, 200, 200, 0.95);
+		transform: translateY(0px);
+	}
+	
+}
+
+.bonusCounterIncreased .bonusCounter
+{
+	animation-name: FlashBonusCounter;
+	animation-duration: 0.8s;
+}
+
+.cooling_down #cooldown_mask,.ability_not_ready #cooldown_mask
+{
+	width: 100%;
+	height: 100%;
+	background-color: offBlack&ee;
+	opacity: 0.90;
+}
+
+#cooldown_mask
+{
+	opacity-mask: url("s2r://panorama/images/hud/core/ability_active_backer.vsvg");
+	height: 57px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	margin-top: 3px;
+}
+
+.cooling_down .ability_image
+{
+	opacity: 0.6;
+}
+
+.active .ability_image,.channeling .ability_image
+{
+	opacity: 1;
+	wash-color: offBlack;
+}
+
+#cooldown_mask
+{
+	transform: scaleX(-1);
+}
+
+.cooling_down .ability_name,.ability_not_ready .ability_name
+{
+	color: lightgrey;
+	opacity: 0.3;
+}
+
+.active.cooling_down #cooldown_mask,.active.ability_not_ready #cooldown_mask,.channeling.cooling_down #cooldown_mask,.channeling.ability_not_ready #cooldown_mask
+{
+	visibility: collapse;
+	opacity: 0;
+}
+
+.cooldown_timer
+{
+	horizontal-align: center;
+	vertical-align: center;
+	text-align: center;
+	font-size: 30px;
+	color: offWhite;
+	visibility: collapse;
+	text-overflow: shrink;
+	font-weight: semi-bold;
+	font-family: sansMono;
+	text-shadow: 0px 0px 5px 2.0 #000000;
+}
+
+.cooldown_timer
+{
+	font-size: 18px;
+	vertical-align: bottom;
+	margin-bottom: 2px;
+}
+
+.cooling_down .cooldown_timer
+{
+	visibility: visible;
+}
+
+.active.cooling_down .cooldown_timer,.channeling.cooling_down .cooldown_timer
+{
+	visibility: collapse;
+}
+
+.action_button .cooldown_timer
+{
+	font-size: 35px;
+}
+
+#active_toggle
+{
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	border: 2px solid yellow;
+	box-shadow: inset rgba(255,255,0, 0.2) 0px 0px 12px 0px;
+	pre-transform-scale2d: 1.3;
+}
+
+.toggled_on #active_toggle
+{
+	opacity: 1;
+}
+
+.stack_charges
+{
+	width: 60%;
+	height: 10px;
+	border: 1px solid #000;
+	border-radius: 15px;
+	margin-bottom: 115px;
+	visibility: collapse;
+	vertical-align: bottom;
+	horizontal-align: middle;
+	ignore-parent-flow: true;
+	transition-property: margin, transform;
+	transition-duration: 0.3s;
+}
+
+.has_stack_charges .stack_charges
+{
+	visibility: visible;
+	height: 10px;
+}
+
+.has_stack_charges .stack_charges.stack_cooldown_complete
+{
+	opacity: 0;
+}
+
+.has_stack_charges
+{
+	margin-top: 0px;
+}
+
+.cooldown_refills_all_charges .stack_divider_container
+{
+	visibility: collapse;
+}
+
+.stack_charges
+{
+	width: 100%;
+}
+
+.stack_charges .ProgressBarLeft
+{
+	background-color: #f5f5f5;
+}
+
+.stack_charges .ProgressBarMiddle
+{
+	background-color: #8b7ca7;
+}
+
+.stack_charges .ProgressBarRight
+{
+	background-color: #00000088;
+}
+
+.stack_divider_container
+{
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+}
+
+.stack_divider
+{
+	width: 1px;
+	height: 100%;
+	background-color: black;
+}
+
+.ability_key,.ability_level,.ability_icon
+{
+	z-index: 1;
+}
+
+#expanded_info
+{
+	width: 100%;
+	visibility: collapse;
+}
+
+.gDetailView #expanded_info
+{
+	visibility: collapse;
+}
+
+.expanded_name
+{
+	margin-top: 2px;
+	horizontal-align: center;
+	text-align: center;
+	font-size: 12px;
+	text-transform: uppercase;
+	color: white;
+}
+
+.ability_image
+{
+	height: 60%;
+	width: height-percentage( 100% );
+	vertical-align: top;
+	horizontal-align: center;
+	opacity: 0.95;
+	wash-color: offWhite;
+	margin-top: 0px;
+}
+
+.cooldown_timer
+{
+	font-size: 22px;
+	vertical-align: top;
+	margin-top: 12px;
+	font-weight: semi-bold;
+}
+
+#slot_item_1,#slot_item_2,#slot_item_3
+{
+	margin-right: 10px;
+}
+
+CitadelHudAbilities CitadelHudAbilityUpgradePips
+{
+	ignore-parent-flow: true;
+	visibility: collapse;
+	ui-scale: 60%;
+}
+
+.wants_scoreboard CitadelHudAbilities CitadelHudAbilityUpgradePips,.gDetailView CitadelHudAbilities CitadelHudAbilityUpgradePips
+{
+	visibility: visible;
+}
+

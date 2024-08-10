@@ -1,0 +1,44 @@
+<!-- xml reconstructed by Source 2 Viewer 10.1.0.0 - https://valveresourceformat.github.io -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/citadel_base_styles.vcss_c" />
+		<include src="s2r://panorama/styles/popups/popups_shared.vcss_c" />
+		<include src="s2r://panorama/styles/popups/popup_sell_max_items.vcss_c" />
+		<include src="s2r://panorama/styles/ability_icons.vcss_c" />
+	</styles>
+	<snippets>
+		<snippet name="ButtonToSell">
+			<Panel class="buttonToSell">
+				<Panel id="modIconContainer" class="centerAlign">
+					<CitadelModIcon id="ModIcon" class="modIconButton" hittest="false" />
+					<Label id="modName" class="centerAlign" text="{s:mod_name}" />
+				</Panel>
+			</Panel>
+		</snippet>
+	</snippets>
+	<PopupSellMaxItems class="PopupPanel Hidden" popupbackground="dim" oncancel="UIPopupButtonClicked()">
+		<Panel id="ModToPurchaseContainer">
+			<Panel class="LeftRightFlow topModContainer">
+				<CitadelModIcon id="ModIconToSell" class="modIconButton" />
+				<Panel id="ModNameAndCostContainer" class="TopBottomFlow">
+					<Label id="modNameToPurchase" class="centerAlign" text="{s:mod_name}" />
+					<Panel class="LeftRightFlow">
+						<Panel class="goldIcon" />
+						<Label id="ModCost" class="centerAlign" text="{i:mod_cost}" />
+					</Panel>
+				</Panel>
+			</Panel>
+		</Panel>
+		<Panel id="ModsSellContainer">
+			<Panel id="HeaderContainer">
+				<Label id="HeaderLabel" class="centerAlign" text="All slots are full!" />
+				<Label class="headerDesc" text="To complete this purchase, select a mod to &lt;span class=&apos;highlight&apos;&gt;sell for half price and replace&lt;/span&gt;" html="true" />
+			</Panel>
+			<Panel id="ModsContainer" class="centerAlign" />
+			<Panel id="ButtonsContainer">
+				<TextButton id="DestroyItemButton" class="sellButton" text="Sell" onactivate="CitadelReplaceShopItem()" />
+				<TextButton id="CancelButton" class="sellButton" text="Cancel" onactivate="UIPopupButtonClicked()" />
+			</Panel>
+		</Panel>
+	</PopupSellMaxItems>
+</root>

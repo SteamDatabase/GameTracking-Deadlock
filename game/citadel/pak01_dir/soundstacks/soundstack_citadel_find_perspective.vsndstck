@@ -1,0 +1,80 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_find_perspective = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					owner_entity_index = 
+					{
+						data_type = "float"
+						value = "-1.0"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_find_perspective"
+							property_help = "set by code"
+						}
+					}
+					force_entity_perspective_assignment = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							property_group = "citadel_find_perspective"
+						}
+					}
+				}
+			},
+			
+			{
+				name = "owner_entity_index_public_field_is_invalid"
+				input_execute = "1.0"
+				execute_once = true
+				operator = "math_float"
+				apply = "equal"
+				input1 = "@public.owner_entity_index"
+				input2 = "-1"
+			},
+			
+			{
+				name = "use_entity_index_for_perspective"
+				input_execute = "1.0"
+				execute_once = true
+				operator = "math_float"
+				apply = "or"
+				input1 = "@owner_entity_index_public_field_is_invalid.output"
+				input2 = "@public.force_entity_perspective_assignment"
+			},
+			
+			{
+				name = "entity_source_info"
+				execute_once = true
+				operator = "game_get_source_info"
+				source = "entity"
+			},
+			
+			{
+				name = "switch_owner_entity_index"
+				execute_once = true
+				operator = "ctrl_switch_float"
+				input_switch = "@use_entity_index_for_perspective.output"
+				input1 = "@public.owner_entity_index"
+				input2 = "@entity_source_info.output_entity_index"
+			},
+			
+			{
+				name = "game_entity_perspective"
+				execute_once = true
+				operator = "game_entity_perspective"
+				input_owner_entity_index = "@switch_owner_entity_index.output"
+			},
+		]
+	}
+}
