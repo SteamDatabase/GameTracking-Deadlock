@@ -13,7 +13,7 @@ do
 	echo " > $file"
 
 	# When updating vpk_extensions, also update "vpk:..." in GameTracking/files.json
-	~/ValveResourceFormat/Decompiler/bin/Release/linux-x64/publish/Decompiler \
+	"$VRF_PATH" \
 		--input "$file" \
 		--output "$(echo "$file" | sed -e 's/\.vpk$/\//g')" \
 		--vpk_cache \
