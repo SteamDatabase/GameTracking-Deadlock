@@ -6,6 +6,7 @@ cd "${0%/*}"
 echo "Processing Deadlock..."
 
 ProcessDepot ".dll"
+DeduplicateStringsFrom ".dll" "game/bin/win64/engine2_strings.txt" "game/bin/win64/tier0_strings.txt"
 ProcessVPK
 
 while IFS= read -r -d '' file
