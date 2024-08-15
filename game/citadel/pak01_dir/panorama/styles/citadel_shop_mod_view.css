@@ -98,12 +98,12 @@ CitadelShopMod.itemDisabled:hover
 	ignore-parent-flow: true;
 }
 
-CitadelShopMod.canAffordMod:hover .mod_backer,CitadelShopMod.owned:hover .mod_backer
+CitadelShopMod.canAffordMod:hover .mod_backer,CitadelShopMod.owned:hover .mod_backer,CitadelShopMod.usedAsComponent:hover .mod_backer
 {
 	box-shadow: 2px 2px 0px courageDarkerColor&80;
 }
 
-CitadelShopMod.owned .mod_backer
+CitadelShopMod.owned .mod_backer,CitadelShopMod.usedAsComponent .mod_backer
 {
 	background-color: offBlack;
 	box-shadow: 2px 2px 0px courageDarkerColor&80;
@@ -153,6 +153,11 @@ CitadelShopMod.owned .mod_backer
 .owned .modStatusCol
 {
 	background-color: offWhite&ee;
+}
+
+.usedAsComponent .modStatusCol
+{
+	background-color: offBlack&00;
 }
 
 .isWeapon.owned .modStatusCol
@@ -400,7 +405,7 @@ CitadelShopMod.owned .mod_backer
 	vertical-align: middle;
 	horizontal-align: middle;
 	width: 100%;
-	padding: 10px;
+	padding: 5px;
 	flow-children: down;
 }
 
@@ -419,7 +424,7 @@ CitadelShopMod.owned .mod_backer
 {
 	width: 100%;
 	text-align: center;
-	font-size: 15px;
+	font-size: 14px;
 	font-weight: semi-bold;
 	text-align: center;
 }
@@ -448,13 +453,14 @@ CitadelShopMod.owned .mod_backer
 	color: offWhite;
 	vertical-align: middle;
 	margin-bottom: 4px;
+	font-size: 16px;
 }
 
 #SellOverlay .goldIcon
 {
 	width: 20px;
 	height: 20px;
-	margin-right: 8px;
+	margin-right: 0px;
 }
 
 #ReturnToShop
@@ -649,6 +655,7 @@ CitadelShopMod.recommended:hover #AddToBuild,CitadelShopMod.itemDisabled:hover #
 .usedAsComponent .modName
 {
 	font-style: italic;
+	color: offWhite&90;
 }
 
 .New .modName
@@ -825,7 +832,7 @@ CitadelShopMod.recommended:hover #AddToBuild,CitadelShopMod.itemDisabled:hover #
 	height: 28px;
 }
 
-.owned .componentModIconContainer,.componentOwned.componentModIconContainer
+.owned .componentModIconContainer,.componentOwned .componentModIconContainer
 {
 	opacity: 1;
 	background-color: offBlack&ee;
@@ -900,17 +907,17 @@ CitadelShopMod.recommended:hover #AddToBuild,CitadelShopMod.itemDisabled:hover #
 	height: 10px;
 }
 
-.componentOwned.isWeaponComponent #componentModIcon
+.componentOwned .isWeaponComponent #componentModIcon
 {
 	wash-color: courageBrightColor;
 }
 
-.componentOwned.isArmorComponent #componentModIcon
+.componentOwned .isArmorComponent #componentModIcon
 {
 	wash-color: fortitudeBrightColor;
 }
 
-.componentOwned.isTechComponent #componentModIcon
+.componentOwned .isTechComponent #componentModIcon
 {
 	wash-color: spiritBrightColor;
 }
@@ -928,5 +935,26 @@ CitadelShopMod.recommended:hover #AddToBuild,CitadelShopMod.itemDisabled:hover #
 CitadelShopMod.owned:hover .componentModIconContainer
 {
 	opacity: 0;
+}
+
+#Outline
+{
+	width: 100%;
+	height: 100%;
+	border: 3px solid white;
+	z-index: 100;
+	ignore-parent-flow: true;
+	border-radius: 5px;
+	visibility: collapse;
+}
+
+.HoveredItemIsComponent #Outline,.HoveredItemIsUpgrade #Outline
+{
+	visibility: visible;
+}
+
+.owned #Outline
+{
+	visibility: collapse;
 }
 

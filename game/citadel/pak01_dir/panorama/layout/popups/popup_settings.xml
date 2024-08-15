@@ -11,14 +11,54 @@
 	<snippets>
 		<snippet name="OptionsTabContent">
 			<Panel class="SettingsSecondaryPanel">
-				<Panel id="BasicOptions" class="SettingsColumnContainer FullHeight">
-					<Panel id="Column0" class="SettingsColumn">
+				<Panel id="BasicOptions" class="SettingsColumnContainer">
+					<Panel class="SettingsDualColumn FullHeight">
 						<Panel id="" class="SettingsSection">
 							<Label text="#citadel_settings_game" class="SectionHeader" />
+							<Panel class="SectionHeaderLine" />
 							<ToggleButton class="CheckBox" id="EnableConsoleCheckbox" text="#citadel_settings_enable_console" onactivate="CitadelUpdateEnableConsole();" onmouseover="UIShowTextTooltipStyled( #citadel_settings_enable_console_tooltip , OptionsTooltip)" onmouseout="UIHideTextTooltip()" />
 							<CitadelSettingsCheckbox convar="citadel_camera_pitch_inverted" text="#citadel_camera_pitch_inverted" />
 							<CitadelSettingsCheckbox convar="cl_citadel_zoom_is_toggle" text="#citadel_camera_zoom_is_toggle" />
 							<CitadelSettingsSlider convar="sensitivity" min="0.05" max="8.0" percentage="false" displayprecision="2" text="#citadel_settings_mousesensitivity" />
+							<CitadelSettingsSlider convar="zoom_sensitivity_ratio" min="0.03" max="3.0" percentage="false" displayprecision="2" text="#citadel_settings_mousezoomsensitivity" />
+							<Panel class="LeftRightFlow">
+								<Label class="AlignVerticalCenter" text="#citadel_settings_ui_language" />
+								<DropDown id="UILanguage" />
+							</Panel>
+						</Panel>
+					</Panel>
+					<Panel class="SettingsDualColumn FullHeight CrosshairSettings">
+						<Panel id="ReticleSection" class="SettingsSection">
+							<Label text="#citadel_settings_crosshair" class="SectionHeader" />
+							<Panel class="SectionHeaderLine" />
+							<Panel id="CrosshairOptions" class="reticleSubSection">
+								<Label class="SubHeaderText" text="#citadel_settings_crosshair_size" />
+								<Panel class="settingsGroup">
+									<CitadelSettingsSlider convar="citadel_crosshair_pip_gap" min="0" max="50" percentage="false" displayprecision="0" text="#citadel_settings_crosshair_pip_gap" />
+									<CitadelSettingsSlider convar="citadel_crosshair_pip_width" min="2" max="50" percentage="false" displayprecision="0" text="#citadel_settings_crosshair_pip_width" />
+									<CitadelSettingsSlider convar="citadel_crosshair_pip_height" min="2" max="50" percentage="false" displayprecision="0" text="#citadel_settings_crosshair_pip_height" />
+									<CitadelSettingsSlider convar="citadel_crosshair_pip_opacity" min="0" max="1" percentage="false" displayprecision="2" text="#citadel_settings_crosshair_pip_opacity" />
+									<CitadelSettingsCheckbox convar="citadel_crosshair_pip_border" text="#citadel_settings_crosshair_pip_border" />
+								</Panel>
+							</Panel>
+							<Panel id="DotOptions" class="reticleSubSection">
+								<Label class="SubHeaderText" text="#citadel_settings_crosshair_visibility" />
+								<Panel class="settingsGroup">
+									<CitadelSettingsSlider convar="citadel_crosshair_dot_opacity" min="0" max="1" percentage="false" displayprecision="2" text="#citadel_settings_crosshair_dot_opacity" />
+									<CitadelSettingsSlider convar="citadel_crosshair_dot_outline_opacity" min="0" max="1" percentage="false" displayprecision="2" text="#citadel_settings_crosshair_dot_outline_opacity" />
+								</Panel>
+							</Panel>
+							<Panel id="ColorOptions" class="reticleSubSection">
+								<Label class="SubHeaderText" text="#citadel_settings_crosshair_color" />
+								<Panel class="settingsGroup">
+									<CitadelSettingsSlider convar="citadel_crosshair_color_r" min="0" max="255" percentage="false" displayprecision="0" text="#citadel_settings_crosshair_color_r" />
+									<CitadelSettingsSlider convar="citadel_crosshair_color_g" min="0" max="255" percentage="false" displayprecision="0" text="#citadel_settings_crosshair_color_g" />
+									<CitadelSettingsSlider convar="citadel_crosshair_color_b" min="0" max="255" percentage="false" displayprecision="0" text="#citadel_settings_crosshair_color_b" />
+								</Panel>
+							</Panel>
+							<Button id="RestoreCrosshairDefault" class="ButtonBevel" onactivate="CitadelResetCrosshairSettings()">
+								<Label text="#citadel_settings_crosshair_defaults" />
+							</Button>
 						</Panel>
 					</Panel>
 				</Panel>
@@ -74,7 +114,16 @@
 								<Label id="RenderSystemCurrent" />
 								<DropDown id="RenderSystemDropDown" onmouseover="UIShowTextTooltipStyled( #citadel_settings_render_system_tooltip, OptionsTooltip)" onmouseout="UIHideTextTooltip()" />
 							</Panel>
+							<Panel class="TopBottomFlow" id="LowLatencyPanel">
+								<Label id="LowLatencyLabel" text="#citadel_settings_low_latency" />
+								<CitadelSettingsEnumDropDown id="LowLatencyDropDown" convar="r_low_latency">
+									<Label text="#citadel_settings_lowlatency_off" id="off" value="0" onmouseover="UIShowTextTooltipStyled( #citadel_settings_low_latency_tooltip_off, OptionsTooltip)" onmouseout="UIHideTextTooltip()" />
+									<Label text="#citadel_settings_lowlatency_on" id="on" value="1" onmouseover="UIShowTextTooltipStyled( #citadel_settings_low_latency_tooltip_on, OptionsTooltip)" onmouseout="UIHideTextTooltip()" />
+									<Label text="#citadel_settings_lowlatency_boost" id="boost" value="2" onmouseover="UIShowTextTooltipStyled( #citadel_settings_low_latency_tooltip_boost, OptionsTooltip)" onmouseout="UIHideTextTooltip()" />
+								</CitadelSettingsEnumDropDown>
+							</Panel>
 							<ToggleButton id="FullscreenFocusBehaviorButton" class="CheckBox Hide" text="#citadel_settings_fullscreen_focus_behavior" onactivate="CitadelSetFullscreenFocusBehavior();" />
+							<CitadelSettingsCheckbox convar="r_light_sensitivity_mode" text="#citadel_settings_light_sensitivity_mode" onmouseover="UIShowTextTooltip( #citadel_settings_light_sensitivity_mode_desc )" onmouseout="UIHideTextTooltip()" />
 						</Panel>
 					</Panel>
 					<Panel class="SettingsDualColumn FullHeight">
@@ -258,6 +307,7 @@
 								<CitadelSettingsKeyBinder id="Ability3Binder" text="#citadel_keybind_ability3" bind="Ability3" />
 								<CitadelSettingsKeyBinder id="Ability4Binder" text="#citadel_keybind_ability4" bind="Ability4" />
 								<CitadelSettingsKeyBinder id="HeldItemBinder" text="#citadel_keybind_held_item" bind="HeldItem" />
+								<CitadelSettingsKeyBinder id="CancelAbilityBinder" text="#citadel_keybind_cancel_ability" bind="CancelAbility" />
 								<CitadelSettingsKeyBinder id="AltCastBinder" class="alt_cast_key" text="#citadel_keybind_alt_cast" bind="AltCastDirect" />
 								<CitadelSettingsKeyBinder id="AltCastModifierBinder" class="alt_cast_modifier_key" text="#citadel_keybind_alt_cast_modifier" bind="AltCastModifier" />
 								<Panel class="SelfCastContainer">

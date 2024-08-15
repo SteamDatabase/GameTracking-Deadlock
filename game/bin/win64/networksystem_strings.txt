@@ -235,7 +235,6 @@
 -networkvar_validate
 -noip
 -steamnetworkingsockets_use_steamclient
--ty!-dx!-4w!-
 -use_valve_ice
 .?AV?$CBaseAppSystem@VINetworkSystem@@@@
 .?AV?$CConCommandMemberAccessor@VCNetworkMessages@@@@
@@ -311,15 +310,17 @@
 0 bit issue, spot 4
 08@HRp
 08Bp
-2\vp4
+2\vpp
+2tx!2dw!24v!2
+81e&
 8@Jp
-8BP\t
+8md&
 <classname> <fieldname>:  spew why field was excluded from networking for classname.
 @ inf
-@HPX`hv`+
-@HV09
+@HPX`hv
 @htPJ
 A network serializer attempted to use an undefined network context data type "%s"!\n
+AA:`D
 Accepting Steam Net connection %s\n
 AckSeqNum
 Activates/deactivates net message validation
@@ -503,7 +504,6 @@ CNetChan::FlowIncomingAck
 CNetChan::FlowNewPacket
 CNetChan::GetAvgLoss
 CNetChan::GetBuffer
-CNetChan::GetCurrentMessageRecvMargin
 CNetChan::GetLatencyBreakdown
 CNetChan::GetNumBitsWritten
 CNetChan::InternalSetCheckpoint
@@ -638,12 +638,10 @@ CUtlDict<struct CWriteSerializersStableVersionDatabase::OrderedVariants_t *,clas
 CUtlDict<struct NetworkFieldSerializerGroup_t *,class CDefFastCaselessStringLess>::Insert
 CUtlDict<struct empty_t,class CDefFastCaselessStringLess>::Insert
 CUtlLeanVectorFixedGrowableBase<class CEncodeSerializerStack,6,short>::EnsureCapacity
-CUtlLeanVectorFixedGrowableBase<class CFieldPathReconstruct_t,3,short>::EnsureCapacity
-CUtlLeanVectorFixedGrowableBase<struct CFieldPath::Path_t,6,short>::EnsureCapacity
 CUtlLeanVectorFixedGrowableBase<struct ChangeCallback_t const *,2,short>::EnsureCapacity
 CUtlLeanVectorFixedGrowableBase<struct std::pair<class CFlattenedSerializer const *,void const *>,6,short>::EnsureCapacity
-CUtlLeanVectorImpl<class CUtlLeanVectorFixedGrowableBase<struct CFieldPath::Path_t,6,short>,struct CFieldPath::Path_t,short>::AddMultipleToTail
-CUtlLeanVectorImpl<class CUtlLeanVectorFixedGrowableBase<unsigned int,3,short>,unsigned int,short>::AddMultipleToTail
+CUtlLeanVectorImpl<class CUtlLeanVectorFixedGrowableBase<struct CFieldPath::Path_t,6,int>,struct CFieldPath::Path_t,int>::AddMultipleToTail
+CUtlLeanVectorImpl<class CUtlLeanVectorFixedGrowableBase<unsigned int,3,int>,unsigned int,int>::AddMultipleToTail
 CUtlLinkedList<class CNetChan *,int,0,int,class CUtlMemory<struct UtlLinkedListElem_t<class CNetChan *,int>,int> >::AllocInternal
 CUtlLinkedList<class CNetChan *,int,0,int,class CUtlMemory<struct UtlLinkedListElem_t<class CNetChan *,int>,int> >::Free
 CUtlLinkedList<class CNetChan *,int,0,int,class CUtlMemory<struct UtlLinkedListElem_t<class CNetChan *,int>,int> >::LinkBefore
@@ -1205,8 +1203,6 @@ List all registered net messages
 Log network processing
 Log packets to files
 Loss . . . . . . . . . : %8.2f%%%8.2f%%%9s   net_fakeloss\n
-MIsBoxedFloatType
-MIsBoxedIntegerType
 MNetworkAlias
 MNetworkArraySerializer
 MNetworkBitCount
@@ -1315,8 +1311,6 @@ Opened Steam Net Connection on socket '%s' to %s, connection %s\n
 Order,'From','To',Bits\n
 OutSeqNumAck
 Overrides IP for multihomed hosts
-P08J@
-P6PF
 PACKET_STATUS_DROPPED
 PACKET_STATUS_INVALID
 PACKET_STATUS_NORMAL
@@ -1381,6 +1375,7 @@ QueueChange
 QueueReplayCompatFieldChange( %s ): can't place MNetworkReplayCompatField callback on a fully fake struct (e.g., a pointed to component or object), game code should move callback on entity %d to a C_BaseEntity derived class!\n
 QueueTimeMS
 RSDS
+R\vpp
 RadianEuler
 ReAlloc(0) can cause a crash on some platforms (like Linux)
 ReadFields
@@ -1521,7 +1516,6 @@ WriteToBuffer Message %s is not initialized! Probably missing required fields!\n
 Writing %d bits for path %s of serializer %s entity %d, this will fail to parse\n
 X`hrp
 [ Net Message Info: %s ]\n
-[%s] Calculated recv margin is %lld usec, which is suspicious, discarding\n
 [%s] sequence number flow %d jumping back by a large amount %d -> %d!
 [%s] setting extremely high timeout\n
 [GroupID]
@@ -1530,6 +1524,7 @@ X`hrp
 [Type]
 [context entity 0x%p]
 [opaque]
+\fp\vPH
 \rBytes
 \tCannotBeNetworked        = %s\n
 \tCategory Mask            = %08X\n
@@ -1539,7 +1534,6 @@ X`hrp
 \tGroup ID                 = %u\n
 \tID                       = %u\n
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t
-`6PC
 `htPJ
 activated
 added
@@ -1850,7 +1844,8 @@ outgoing
 outgoing_data_bytespersecond
 outgoing_sequence
 outgoing_sequence_start
-p2P\t
+p0j`:
+p602
 pArrayContext
 pArrayContext->m_nFieldIndex >= 0
 pBase->GetAssociatedSerializer() == hSerializer
@@ -1980,7 +1975,6 @@ usage: %s <client|server>\n
 usage: %s <name> <server>\n
 usage: %s classname fieldname\n
 usage: fs_spew_readfieldlist entindex <optional min change bytes>\n
-usecPollTime > 0
 utlvector
 v@vector2
 valid

@@ -41,7 +41,7 @@ CitadelHeroCard:hover
 CitadelRosterHeroCard,CitadelSelectionHeroCard
 {
 	margin: 2px;
-	opacity: 0.5;
+	opacity: 0.3;
 	width: fill-parent-flow(1.0);
 	height: width-percentage(135%);
 	transition-property: pre-transform-scale2d, transform;
@@ -52,15 +52,6 @@ CitadelRosterHeroCard.inRoster,CitadelSelectionHeroCard.inRoster
 {
 	opacity: 1;
 	pre-transform-scale2d: 1;
-}
-
-CitadelRosterHeroCard:hover,CitadelSelectionHeroCard:hover
-{
-	pre-transform-scale2d: 1.30;
-	z-index: 100;
-	brightness: 1.1;
-	opacity: 1;
-	z-index: 1000;
 }
 
 CitadelRosterHeroCard.disabled:hover,CitadelSelectionHeroCard.disabled:hover
@@ -89,6 +80,29 @@ CitadelRosterHeroCard.inRoster,CitadelSelectionHeroCard:selected
 	z-index: 99;
 }
 
+CitadelRosterHeroCard.isPriority
+{
+	pre-transform-scale2d: 1.2;
+	z-index: 100;
+	background-color: #ffe58f;
+}
+
+CitadelRosterHeroCard.isHighPriority
+{
+	pre-transform-scale2d: 1.3;
+	z-index: 101;
+	background-color: #dd9eff;
+}
+
+CitadelRosterHeroCard:hover,CitadelSelectionHeroCard:hover
+{
+	pre-transform-scale2d: 1.35;
+	z-index: 100;
+	brightness: 1.1;
+	opacity: 1;
+	z-index: 1000;
+}
+
 #GrainOverlay
 {
 	width: 100%;
@@ -108,9 +122,14 @@ CitadelRosterHeroCard.inRoster,CitadelSelectionHeroCard:selected
 	z-index: 100;
 }
 
-.isPreferred .SelectedState
+.isPriority .SelectedState
 {
 	border: 3px solid #ffc533;
+}
+
+.isHighPriority .SelectedState
+{
+	border: 3px solid #a464ff;
 }
 
 .SelectedIcon
@@ -123,9 +142,14 @@ CitadelRosterHeroCard.inRoster,CitadelSelectionHeroCard:selected
 	background-color: offWhite;
 }
 
-.isPreferred .SelectedIcon
+.isPriority .SelectedIcon
 {
 	background-color: #ffc533;
+}
+
+.isHighPriority .SelectedIcon
+{
+	background-color: #a464ff;
 }
 
 .IconCheck
@@ -153,7 +177,7 @@ CitadelHeroCard.newPlayers:hover #GrainOverlay
 	z-index: 20;
 }
 
-.isPreferred .IconCheck
+.isPriority .IconCheck,.isHighPriority .IconCheck
 {
 	visibility: collapse;
 }
@@ -174,7 +198,7 @@ CitadelHeroCard.newPlayers:hover #GrainOverlay
 	wash-color: #000000;
 }
 
-.isPreferred #Starred,.isPreferred.inRoster #Starred
+.isPriority #Starred,.isPriority.inRoster #Starred,.isHighPriority #Starred,.isHighPriority.inRoster #Starred
 {
 	visibility: visible;
 }
@@ -279,7 +303,7 @@ CitadelRosterHeroCard #NamePlate,CitadelSelectionHeroCard #NamePlate
 	transition-timing-function: ease-in-out;
 }
 
-.inRoster.isPreferred #HeroInfo
+.inRoster.isPriority #HeroInfo,.inRoster.isHighPriority #HeroInfo
 {
 	background-color: #ffc533;
 }
@@ -376,7 +400,7 @@ CitadelRosterHeroCard.inRoster #HeroName,CitadelSelectionHeroCard:selected
 	margin-left: 5px;
 }
 
-.isPreferred #Add,.inRoster #Add
+.isPriority #Add,.isHighPriority #Add,.inRoster #Add
 {
 	visibility: collapse;
 }

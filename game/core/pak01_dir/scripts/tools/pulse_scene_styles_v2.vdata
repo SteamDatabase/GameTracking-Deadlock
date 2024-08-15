@@ -5,6 +5,8 @@
 	{
 		"$GreenMid" = "#1B6037"
 		"$GreenMid_Hover" = "#1f6f40"
+		"$GreenMidLight" = "#7DB18A66"
+		"$GreenMidLight_Hover" = "#83b59066"
 		"$GreenLight" = "#7DB18A"
 		"$GreenLight_Hover" = "#83b590"
 		"$GreenLightBright" = "#7AD691"
@@ -17,6 +19,8 @@
 		"$TealMidDark_Hover" = "#1b4251"
 		"$TealMid" = "#1C3D4B"
 		"$TealMid_Hover" = "#22495a"
+		"$TealMidLight" = "#32505D66"
+		"$TealMidLight_Hover" = "#385a6966"
 		"$TealLight" = "#32505D"
 		"$TealLight_Hover" = "#385a69"
 		"$TealBright" = "#98F2DC"
@@ -36,6 +40,8 @@
 		"$Mustard_Hover" = "#986e00"
 		"$Tan" = "#947A53"
 		"$Tan_Hover" = "#9d8158"
+		"$TanMidLight" = "#D3B87466"
+		"$TanMidLight_Hover" = "#d5bc7b66"
 		"$TanLight" = "#D3B874"
 		"$TanLight_Hover" = "#d5bc7b"
 		"$Beige" = "#e0d7af"
@@ -52,8 +58,8 @@
 		"$GreyDark_Hover" = "#303030"
 		"$GreyMid" = "#373737"
 		"$GreyMid_Hover" = "#414141"
-		"$GreyMidLight" = "#666666"
-		"$GreyMidLight_Hover" = "#6e6e6e"
+		"$GreyMidLight" = "#99999966"
+		"$GreyMidLight_Hover" = "#9e9e9e66"
 		"$GreyLight" = "#999999"
 		"$GreyLight_Hover" = "#9e9e9e"
 		"$GreyBright" = "#D9D9D9"
@@ -146,6 +152,24 @@
 		"&:hover .FlowRail, &:hover-descendant .FlowRail" = 
 		{
 			Visibility = "HIDDEN"
+		}
+		".InflowPortsLayout, .OutflowPortsLayout" = 
+		{
+			Visibility = "COLLAPSE"
+		}
+		"&.AreInflowsAvailableForExplicitConnection" = 
+		{
+			.InflowPortsLayout = 
+			{
+				Visibility = "VISIBLE"
+			}
+		}
+		"&.AreOutflowsAvailableForExplicitConnection" = 
+		{
+			.OutflowPortsLayout = 
+			{
+				Visibility = "VISIBLE"
+			}
 		}
 	}
 	.BaseFlow.HasMultipleOutflows = 
@@ -380,7 +404,6 @@
 				HAlign = "STRETCH"
 				VAlign = "BOTTOM"
 				BackgroundImage = "tools/images/pulse_editor/dashed_line_repeat.png"
-				ImageTint = "$node_base_accessory"
 				BackgroundSize = "Natural"
 				Positioning = "ON_PARENT_BORDER"
 				PaintLayer = "CONNECTIONS_FOREGROUND"
@@ -545,7 +568,7 @@
 			{
 				PaintLayer = "COMMENT_OVERLAY"
 			}
-			"&:after" = 
+			"&::after" = 
 			{
 				Visibility = "HIDDEN"
 			}
@@ -589,41 +612,20 @@
 		Margin_Left = 0
 		InteractionPriority = "NONINTERACTIVE"
 	}
-	.RequirementsIconInsideHeader = 
+	.RequirementsIconAlongsideFlow = 
 	{
-		InteractionPriority = "BASE"
-		FixedSizeX = 18
-		FixedSizeY = 18
-		Margin_Right = 4
-		Margin_Left = -4
-		PaintLayer = "NODES"
-		VAlign = "CENTER"
-		Visibility = "COLLAPSE"
-	}
-	.RequirementsIconAlongsideFirstPort = 
-	{
-		FixedSizeX = 18
-		FixedSizeY = 18
-		Margin_Top = 2
-		Margin_Right = 0
+		FixedSizeX = 16
+		FixedSizeY = 16
+		Margin_Top = 0
+		Margin_Right = 2
 		Margin_Left = 0
+		Margin_Bottom = 0
 		PaintLayer = "CONNECTIONS_FOREGROUND"
 		VAlign = "CENTER"
 		HAlign = "LEFT"
 		Positioning = "OUTSIDE_PARENT"
 		Visibility = "COLLAPSE"
-	}
-	.RequirementsIconInRequirementsList = 
-	{
 		InteractionPriority = "BASE"
-		FixedSizeX = 18
-		FixedSizeY = 18
-		Margin_Right = 0
-		Margin_Left = 0
-		PaintLayer = "CONNECTIONS_FOREGROUND"
-		VAlign = "CENTER"
-		HAlign = "LEFT"
-		Positioning = "OUTSIDE_PARENT"
 	}
 	.RequirementsNodeList = 
 	{
@@ -649,7 +651,6 @@
 		HAlign = "STRETCH"
 		VAlign = "BOTTOM"
 		BackgroundImage = "tools/images/pulse_editor/dashed_line_repeat.png"
-		ImageTint = "$node_base_accessory"
 		BackgroundSize = "Natural"
 		Positioning = "ON_PARENT_BORDER"
 		PaintLayer = "CONNECTIONS_FOREGROUND"
@@ -660,11 +661,7 @@
 		{
 			Visibility = "VISIBLE"
 		}
-		"&.ShowIconAlongsideFirstPort .RequirementsIconAlongsideFirstPort" = 
-		{
-			Visibility = "VISIBLE"
-		}
-		"&.ShowRequirementsIconInsideHeader .RequirementsIconInsideHeader" = 
+		.RequirementsIconAlongsideFlow = 
 		{
 			Visibility = "VISIBLE"
 		}
@@ -776,7 +773,6 @@
 			HAlign = "STRETCH"
 			VAlign = "BOTTOM"
 			BackgroundImage = "tools/images/pulse_editor/dashed_line_repeat.png"
-			ImageTint = "$node_base_accessory"
 			BackgroundSize = "Natural"
 			Positioning = "ON_PARENT_BORDER"
 			PaintLayer = "CONNECTIONS_FOREGROUND"
@@ -916,9 +912,66 @@
 			BackgroundImage = "tools/images/pulse_editor/flow_icon_execute_inline_accessory.png"
 		}
 	}
+	".IsYielding .FlowEntry" = 
+	{
+		"&.FlowEntry" = 
+		{
+			LayoutGrowFactor = "unset"
+			FixedSizeY = 9
+		}
+		"&.FlowExit" = 
+		{
+			MinSizeX = 6
+			FixedSizeY = 5
+			VAlign = "STRETCH"
+			LayoutGrowFactor = "unset"
+		}
+	}
 	".IsSpontaneous .FlowIcon" = 
 	{
 		Visibility = "COLLAPSE"
+	}
+	".Outflow_Cycle.IsControlFlowNode .NodeRow:last-child, .Outflow_Simultaneous.IsControlFlowNode .NodeRow:last-child" = 
+	{
+		.FlowExit = 
+		{
+			Visibility = "HIDDEN"
+		}
+		.FlowIcon = 
+		{
+			BackgroundImage = "tools/images/pulse_editor/flow_icon_cursor_control.png"
+		}
+		.FlowEntry = 
+		{
+			LayoutGrowFactor = "unset"
+			FixedSizeY = 10
+		}
+	}
+	".Outflow_If.IsControlFlowNode .NodeRow:last-child, .Outflow_IntSwitch.IsControlFlowNode .NodeRow:last-child, .Step_FireCursors.IsControlFlowNode .NodeRow:last-child" = 
+	{
+		.FlowExit = 
+		{
+			MinSizeX = 6
+			MinSizeY = 6
+			VAlign = "STRETCH"
+			LayoutGrowFactor = "1"
+		}
+		.FlowIcon = 
+		{
+			Positioning = "unset"
+			BackgroundImage = "tools/images/pulse_editor/flow_icon_execute_inline.png"
+		}
+		.FlowEntry = 
+		{
+			LayoutGrowFactor = "1"
+			FixedSizeY = 10
+		}
+	}
+	".Outflow_Cycle.IsControlFlowNode.HasSpecialMultipleOutflowsSection .SpecialMultipleOutflowsSection .MultipleOutflowsSectionBar, .Outflow_Simultaneous.IsControlFlowNode.HasSpecialMultipleOutflowsSection .SpecialMultipleOutflowsSection .MultipleOutflowsSectionBar" = 
+	{
+		Margin_Left = 0
+		BorderRadius_BottomLeft = 0
+		BorderRadius_TopLeft = 0
 	}
 	"&:first-child .FlowRail::before" = 
 	{
@@ -951,6 +1004,7 @@
 		Margin_Bottom = 6
 		BorderRadius = "3px"
 		Visibility = "HIDDEN"
+		PaintLayer = "HOVER_OVERLAY"
 	}
 	.DragHandleContainer = 
 	{
@@ -982,6 +1036,7 @@
 		BorderRadius = "3px"
 		Margin_Top = 2
 		Margin_Bottom = 2
+		PaintLayer = "HOVER_OVERLAY"
 	}
 	.PortPlugCtn = 
 	{
@@ -1380,17 +1435,29 @@
 		}
 		.BlockCommentHeader = 
 		{
-			Positioning = "INSIDE_PARENT"
+			Positioning = "OUTSIDE_PARENT"
 			InteractionPriority = "BASE"
 			VAlign = "TOP"
-			HAlign = "STRETCH"
+			HAlign = "LEFT"
 			FixedSizeY = 20
-			Padding = "2px"
 			BorderRadius_TopLeft = "12px"
 			BorderRadius_TopRight = "12px"
 		}
+		.BlockCommentHeaderText = 
+		{
+			Positioning = "INSIDE_PARENT"
+			VAlign = "STRETCH"
+			HAlign = "STRETCH"
+			FixedSizeY = 22
+			TextVAlign = "TOP"
+			Margin_Left = 16
+			TextClipMode = "ELIDE_TEXT_END"
+			Font = "$BaseFont"
+			LayoutGrowFactor = 1
+		}
 		.BlockCommentTextBox = 
 		{
+			PaintLayer = "COMMENTS"
 			ParticipatesInBoxSelection = false
 			Positioning = "INSIDE_PARENT"
 			VAlign = "STRETCH"
@@ -1406,11 +1473,33 @@
 			.BlockCommentHeader = 
 			{
 				DefaultHoverCursorName = "OpenHandCursor"
+				PaintLayer = "COMMENT_OVERLAY"
+			}
+			.BlockCommentHeaderText = 
+			{
+				Visibility = "VISIBLE"
+				PaintLayer = "COMMENT_OVERLAY"
+			}
+			.CommentDragHandle = 
+			{
+				PaintLayer = "COMMENT_OVERLAY"
+				InteractionPriority = "DRAG_HANDLE"
+				DefaultHoverCursorName = "OpenHandCursor"
 			}
 		}
 		"&.BlockCommentNote" = 
 		{
 			InteractionPriority = "BASE"
+			.BlockCommentHeader = 
+			{
+				PaintLayer = "COMMENTS"
+				Visibility = "HIDDEN"
+			}
+			.BlockCommentHeaderText = 
+			{
+				PaintLayer = "COMMENTS"
+				Visibility = "HIDDEN"
+			}
 		}
 	}
 	".PulseServerDebugNode .HeaderText" = 
@@ -1427,7 +1516,7 @@
 	.FlowNodeComment = 
 	{
 		HAlign = "LEFT"
-		Margin_Right = 8.000000
+		Margin_Right = 22.000000
 	}
 	.ValueNodeComment = 
 	{
@@ -1514,13 +1603,20 @@
 				Visibility = "HIDDEN"
 			}
 		}
+		"&:last-child, &:only-child" = 
+		{
+			.SpecialMultipleOutflowsSection = 
+			{
+				BorderRadius_BottomRight = 5
+			}
+		}
 		.SpecialMultipleOutflowsSection = 
 		{
 			HAlign = "STRETCH"
 			VAlign = "STRETCH"
 			LayoutGrowFactor = 1
 			BorderRadius_TopLeft = 5
-			BorderRadius_BottomRight = 5
+			BorderRadius_BottomRight = 0
 			LayoutChildren = "DEFAULT"
 			.MultipleOutflowsSectionBar = 
 			{
@@ -1565,6 +1661,10 @@
 		{
 			Margin_Top = -20
 		}
+		"&.Outflow_If .OutflowPort:nth-child(n+2), &.Outflow_If_Else .OutflowPort:nth-child(n+2)" = 
+		{
+			Margin_Top = 0
+		}
 	}
 	.WaitForChildOutflows = 
 	{
@@ -1595,7 +1695,7 @@
 			}
 		}
 	}
-	".Outflow_Cycle, .Outflow_Simultaneous, .Outflow_IntSwitch, .Outflow_StringSwitch" = 
+	".Outflow_Cycle, .Outflow_Simultaneous, .Outflow" = 
 	{
 		.OutflowPort = 
 		{
@@ -1606,7 +1706,7 @@
 			Margin_Left = 55
 		}
 	}
-	.Step_FireCursors = 
+	".Step_FireCursors, Outflow_IntSwitch, Outflow_StringSwitch" = 
 	{
 		".OutflowPort:first-child" = 
 		{
@@ -1829,6 +1929,13 @@
 				{
 					Background_Color = "$data_type_other"
 				}
+				.NodeRows = 
+				{
+					".NodeRow:after" = 
+					{
+						ImageTint = "$DashedLineColor"
+					}
+				}
 			}
 			.BaseValueInnerContainer = 
 			{
@@ -1865,10 +1972,24 @@
 							Foreground_Color = "$colorBase"
 						}
 					}
+					"&.NodeRows" = 
+					{
+						".NodeRow:after" = 
+						{
+							ImageTint = "$DashedLineColor"
+						}
+					}
 				}
 				.HeaderIcon = 
 				{
 					ImageTint = "$iconColor"
+				}
+				"&.IsMethodPrivate" = 
+				{
+					.HeaderIcon = 
+					{
+						ImageTint = "$flowColor"
+					}
 				}
 			}
 			.FlowIcon = 
@@ -1926,7 +2047,7 @@
 			}
 			.RequirementLayout_Separator_Line = 
 			{
-				ImageTint = "$node_base_accessory"
+				ImageTint = "$DashedLineColor"
 			}
 			"&.BaseConnection" = 
 			{
@@ -2042,6 +2163,14 @@
 						Background_Color = "$flowColor"
 					}
 				}
+				"&.IsYielding .SpecialMultipleOutflowsSection .MultipleOutflowsSectionBar" = 
+				{
+					Background_Color = "$MultipleOutflowsSectionBar"
+				}
+				"&.IsYielding .SpecialMultipleOutflowsSectionPortChild .PortEvent::after" = 
+				{
+					Background_Color = "$MultipleOutflowsSectionBar"
+				}
 				.SpecialMultipleOutflowsSectionPortChild = 
 				{
 					".PortEvent::after" = 
@@ -2116,7 +2245,6 @@
 			{
 				"&:nth-child(n+2) .PortPlug" = 
 				{
-					Background_Color = "$flowColor"
 					Border_Color = "$bgColorHover"
 				}
 			}
@@ -2150,7 +2278,6 @@
 			{
 				"&:nth-child(n+2) .PortPlug" = 
 				{
-					Background_Color = "$flowColor"
 					Border_Color = "$bgColorHover"
 				}
 			}
@@ -2189,7 +2316,7 @@
 		"$flowColorAccessory" = "$White"
 		"$dragColorBase" = "$GreyLight"
 		"$dragColorHover" = "$White"
-		"$iconColor" = "$White"
+		"$iconColor" = "$GreyLight"
 		"$colorBase" = "$White"
 		"$colorHover" = "$White"
 		"$borderColor" = "$GreyDark"
@@ -2202,6 +2329,7 @@
 		"$PortBorderColor" = "$GreyDark"
 		"$InFlowOutFlowPortBackgroundColor" = "$GreyLight"
 		"$InFlowOutFlowPortBackgroundColorAlt" = "$GreyLight"
+		"$MultipleOutflowsSectionBar" = "$GreyLight"
 		"$typeFace" = "$BaseFont"
 	}
 	"@variable-context node_theme_yielding" = 
@@ -2220,15 +2348,16 @@
 		"$colorBase" = "$White"
 		"$colorHover" = "$White"
 		"$borderColor" = "$GreyDark"
-		"$DashedLineColor" = "$TanLight"
+		"$DashedLineColor" = "$TanMidLight"
+		"$DashedLineColorHover" = "$TanMidLight_Hover"
 		"$LightAccessoryColor" = "$TanLight"
 		"$LightAccessoryColorHover" = "$TanLight_Hover"
-		"$DashedLineColorHover" = "$TanLight_Hover"
 		"$borderColorSelected" = "$TealBright"
 		"$PortBackgroundColor" = "$Black"
 		"$PortBorderColor" = "$GreyDark"
 		"$InFlowOutFlowPortBackgroundColor" = "$GreyLight"
 		"$InFlowOutFlowPortBackgroundColorAlt" = "$YellowLight"
+		"$MultipleOutflowsSectionBar" = "$Tan"
 		"$typeFace" = "$BaseFont"
 	}
 	"@variable-context node_theme_value" = 
@@ -2247,15 +2376,16 @@
 		"$colorBase" = "$White"
 		"$colorHover" = "$White"
 		"$borderColor" = "$TealMid"
-		"$DashedLineColor" = "$TealLight"
+		"$DashedLineColor" = "$TealMidLight"
+		"$DashedLineColorHover" = "$TealMidLight_Hover"
 		"$LightAccessoryColor" = "$TealLight"
 		"$LightAccessoryColorHover" = "$TealLight_Hover"
-		"$DashedLineColorHover" = "$TealLight_Hover"
 		"$borderColorSelected" = "$TealBright"
 		"$PortBackgroundColor" = "$Black"
 		"$PortBorderColor" = "$GreyDark"
 		"$InFlowOutFlowPortBackgroundColor" = "$GreyLight"
 		"$InFlowOutFlowPortBackgroundColorAlt" = "$GreyLight"
+		"$MultipleOutflowsSectionBar" = "$TealLight"
 		"$portColor" = "$Black"
 		"$typeFace" = "$BaseFont"
 	}
@@ -2275,15 +2405,16 @@
 		"$colorBase" = "$White"
 		"$colorHover" = "$White"
 		"$borderColor" = "$TealMid"
-		"$DashedLineColor" = "$GreenLight"
+		"$DashedLineColor" = "$GreenMidLight"
+		"$DashedLineColorHover" = "$GreenMidLight_Hover"
 		"$LightAccessoryColor" = "$GreenLight"
 		"$LightAccessoryColorHover" = "$GreenLight_Hover"
-		"$DashedLineColorHover" = "$GreenLight_Hover"
 		"$borderColorSelected" = "$GreenBright"
 		"$PortBackgroundColor" = "$Black"
 		"$PortBorderColor" = "$GreyDark"
 		"$InFlowOutFlowPortBackgroundColor" = "$GreyLight"
 		"$InFlowOutFlowPortBackgroundColorAlt" = "$GreenLight"
+		"$MultipleOutflowsSectionBar" = "$GreenLight"
 		"$portColor" = "$Black"
 		"$typeFace" = "$BaseFontBold"
 	}
@@ -2303,8 +2434,8 @@
 		"$colorBase" = "$Blackish"
 		"$colorHover" = "$Blackish"
 		"$borderColor" = "$GreyDark"
-		"$DashedLineColor" = "$GreyMidLight"
-		"$DashedLineColorHover" = "$GreyMidLight_Hover"
+		"$DashedLineColor" = "$GreyLight"
+		"$DashedLineColorHover" = "$GreyLight_Hover"
 		"$LightAccessoryColor" = "$GreyLight"
 		"$LightAccessoryColorHover" = "$GreyLight_Hover"
 		"$borderColorSelected" = "$TealBright"
@@ -2312,6 +2443,7 @@
 		"$PortBorderColor" = "$GreyDark"
 		"$InFlowOutFlowPortBackgroundColor" = "$GreyLight"
 		"$InFlowOutFlowPortBackgroundColorAlt" = "$GreyLight"
+		"$MultipleOutflowsSectionBar" = "$Blackish"
 		"$typeFace" = "$BaseFont"
 	}
 	"@variable-context node_theme_IsControlFlowNodeIsYielding" = 
@@ -2339,6 +2471,7 @@
 		"$PortBorderColor" = "$GreyDark"
 		"$InFlowOutFlowPortBackgroundColor" = "$GreyLight"
 		"$InFlowOutFlowPortBackgroundColorAlt" = "$GreyDark"
+		"$MultipleOutflowsSectionBar" = "$Blackish"
 		"$typeFace" = "$BaseFont"
 	}
 	"@include-mixin node_theme(default)" = 

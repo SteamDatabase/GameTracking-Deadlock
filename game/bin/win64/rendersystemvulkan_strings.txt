@@ -126,6 +126,7 @@
 #Vulkan_DisableInstructions
 #Vulkan_InitializationFailure
 #Vulkan_RequiredExtensionMissing
+%-100s %-6s %-6s\n
 %.0Lf
 %.100s: Can not read TIFF directory
 %016llx
@@ -201,6 +202,9 @@
 %s: cannot handle zero tile size
 %s: invalid TIFF directory; tags are not sorted in ascending order
 %s: unknown field with tag %d (0x%x) encountered
+%s: vkAllocateMemory failed fallback system memory allocation.  Fatal error: out of video and system memory.\n
+%s: vkAllocateMemory failed for DEVICE_LOCAL memory indicating video memory is full, trying again in system memory as a fallback.\n
+%s: vkAllocateMemory failed to allocate GPU memory.  Fatal error: out of GPU video memory and no fallback heap available.\n
 %s: wrong data type %d for "%s"; tag ignored
 %s: zlib error: %s
 %sEOL padding
@@ -290,6 +294,7 @@
 , channels = 
 , height = 
 , near %s
+--------------------------------------------\n
 -Stop: 
 -antilag
 -autoconfig
@@ -375,7 +380,7 @@
 -vulkan_enable_google_display_timing
 -vulkan_enable_gpu_validation
 -vulkan_enable_nv_raytracing_validation
--vulkan_enable_robust_buffer_access
+-vulkan_enable_robustness
 -vulkan_enable_sync_validation
 -vulkan_enable_validation
 -vulkan_force_cpu
@@ -611,13 +616,13 @@
 .?AV_Future_error_category2@std@@
 .?AVcodecvt_base@std@@
 .?AVrange_error@std@@
-.\tV_logd
 .bak
 .counter
 .elements
 .foz
 .rdc
 .wN\f9
+/\tV_logd
 0 && "Allocation mapped too many times simultaneously."
 0 && "Allocation not found in linear allocator!"
 0 && "Allocation to free not found in linear allocator!"
@@ -683,6 +688,8 @@
 2\f%24
 2\fu24 
 2\nP!E
+2\vp0
+2\vpX
 4\fU4t.
 5;FJ$,XEK4<
 5Bx\r
@@ -698,8 +705,8 @@
 :Jan:January:Feb:February:Mar:March:Apr:April:May:May:Jun:June:Jul:July:Aug:August:Sep:September:Oct:October:Nov:November:Dec:December
 :Sun:Sunday:Mon:Monday:Tue:Tuesday:Wed:Wednesday:Thu:Thursday:Fri:Friday:Sat:Saturday
 :V!2m
-:\tV_powd
 ;\tFzo
+;\tV_powd
 ;b\tB;tK
 <DOWN>
 <EOR>
@@ -994,6 +1001,7 @@ CImageLayoutTracker::ComputeImageMemoryBarrierMasks
 CImageLayoutTracker::UpdateImageTransitionFinalLayout
 CIndexBufferBase::AllocateBackingStore
 CIndexBufferBase::GetIndexCapacity
+CIndexBufferBase::GetIndexCount
 CIndexBufferVulkan::Allocate
 CIndexBufferVulkan::AllocateBackingStore
 CIndexBufferVulkan::AllocatePerFrameDynamicPooled
@@ -1019,11 +1027,11 @@ CLargeCommandBufferChunk CUtlMemoryPool
 CMediumCommandBufferChunk CUtlMemoryPool
 CMemoryManagerVulkan::Allocate
 CMemoryManagerVulkan::AllocateBufferInCustomPoolGroup
-CMemoryManagerVulkan::AllocateBufferInCustomPoolGroup(1556): vmaCreatePool failed with error: %d\n
+CMemoryManagerVulkan::AllocateBufferInCustomPoolGroup(1566): vmaCreatePool failed with error: %d\n
 CMemoryManagerVulkan::AllocateForObject
 CMemoryManagerVulkan::AllocateForObjectPooled
 CMemoryManagerVulkan::AllocateImageInCustomPoolGroup
-CMemoryManagerVulkan::AllocateImageInCustomPoolGroup(1485): vmaCreatePool failed with error: %d\n
+CMemoryManagerVulkan::AllocateImageInCustomPoolGroup(1495): vmaCreatePool failed with error: %d\n
 CMemoryManagerVulkan::AllocatePooled
 CMemoryManagerVulkan::DestroyCustomPoolGroup
 CMemoryManagerVulkan::GetCommandBuffer
@@ -1194,19 +1202,19 @@ CRenderDeviceBase
 CRenderDeviceBase::AcquirePooledDynamicConstantBuffer
 CRenderDeviceBase::AllocatePooledBackingStore
 CRenderDeviceBase::AllocatePooledIndexBuffer
-CRenderDeviceBase::AllocatePooledIndexBuffer(3642): 
-CRenderDeviceBase::AllocatePooledIndexBuffer(3678): 
+CRenderDeviceBase::AllocatePooledIndexBuffer(3704): 
+CRenderDeviceBase::AllocatePooledIndexBuffer(3740): 
 CRenderDeviceBase::AllocatePooledVertexBuffer
-CRenderDeviceBase::AllocatePooledVertexBuffer(3781): 
-CRenderDeviceBase::AllocatePooledVertexBuffer(3812): 
-CRenderDeviceBase::AsyncSetTextureData(3297): 
-CRenderDeviceBase::BeginRenderingToSwapChain(3546): 
+CRenderDeviceBase::AllocatePooledVertexBuffer(3860): 
+CRenderDeviceBase::AllocatePooledVertexBuffer(3891): 
+CRenderDeviceBase::AsyncSetTextureData(3359): 
+CRenderDeviceBase::BeginRenderingToSwapChain(3608): 
 CRenderDeviceBase::CreateConstantBuffer
 CRenderDeviceBase::CreateConstantBuffer(1587): 
 CRenderDeviceBase::CreateConstantBufferInternal
 CRenderDeviceBase::DestroyConstantBuffer
 CRenderDeviceBase::EnableAsyncPresent
-CRenderDeviceBase::EndRenderDocCapture(3532): 
+CRenderDeviceBase::EndRenderDocCapture(3594): 
 CRenderDeviceBase::FindOrCreateTexture
 CRenderDeviceBase::FindOrCreateTexture(1767): 
 CRenderDeviceBase::FindOrCreateTexture: Trying to load multiple mipmaps into 3d or array texture: %s\n
@@ -1230,7 +1238,7 @@ CRenderDeviceBase::QueueFallbackTextureCopy
 CRenderDeviceBase::ResizeEngineWindow
 CRenderDeviceBase::SetCubemapRadianceSHConstants
 CRenderDeviceBase::SetCubemapRadianceSHConstants::<lambda_1>::operator ()
-CRenderDeviceBase::StartRenderDocCapture(3519): 
+CRenderDeviceBase::StartRenderDocCapture(3581): 
 CRenderDeviceBase::UnregisterExternalAllocation
 CRenderDeviceMgrBase::AddDeviceEventListener
 CRenderDeviceMgrBase::AddModeChangeCallback
@@ -1255,21 +1263,21 @@ CRenderDeviceVulkan::AcquireDynamicDescriptorSet
 CRenderDeviceVulkan::AcquireSemaphore
 CRenderDeviceVulkan::AllocateBufferInPool
 CRenderDeviceVulkan::AllocateBufferInPool - invalid memory pool handle.\n
-CRenderDeviceVulkan::AllocateBufferInPool(9288): failed to allocate GPU memory in custom pool for %s.\n
-CRenderDeviceVulkan::AllocateBufferInPool(9298): vmaBindImageMemory failed for buffer %s with error %d.\n
+CRenderDeviceVulkan::AllocateBufferInPool(9311): failed to allocate GPU memory in custom pool for %s.\n
+CRenderDeviceVulkan::AllocateBufferInPool(9321): vmaBindImageMemory failed for buffer %s with error %d.\n
 CRenderDeviceVulkan::AllocateTextureInPool
 CRenderDeviceVulkan::AllocateTextureInPool - invalid memory pool handle.\n
-CRenderDeviceVulkan::AllocateTextureInPool(9195): Unable to get Vulkan image for %s.\n
-CRenderDeviceVulkan::AllocateTextureInPool(9202): Allocation already set for %s, it is not valid to assign a new allocation.\n
-CRenderDeviceVulkan::AllocateTextureInPool(9214): failed to allocate GPU memory in custom pool for %s.\n
-CRenderDeviceVulkan::AllocateTextureInPool(9223): vmaBindImageMemory failed for image %s with error %d.\n
+CRenderDeviceVulkan::AllocateTextureInPool(9214): Unable to get Vulkan image for %s.\n
+CRenderDeviceVulkan::AllocateTextureInPool(9221): Allocation already set for %s, it is not valid to assign a new allocation.\n
+CRenderDeviceVulkan::AllocateTextureInPool(9233): failed to allocate GPU memory in custom pool for %s.\n
+CRenderDeviceVulkan::AllocateTextureInPool(9245): vmaBindImageMemory failed for image %s with error %d.\n
 CRenderDeviceVulkan::AssignQueryObjectToPool
-CRenderDeviceVulkan::BeginSubmittingDisplayLists(4030): 
+CRenderDeviceVulkan::BeginSubmittingDisplayLists(4048): 
 CRenderDeviceVulkan::CreateBLASForCompact
 CRenderDeviceVulkan::CreateBLASForCompact::<lambda_1>::operator ()
 CRenderDeviceVulkan::CreateConstantBufferInternal
 CRenderDeviceVulkan::CreateDefaultBuffers
-CRenderDeviceVulkan::CreateDefaultBuffers(2162): 
+CRenderDeviceVulkan::CreateDefaultBuffers(2180): 
 CRenderDeviceVulkan::CreateDefaultShaders
 CRenderDeviceVulkan::CreateDescriptorSet: Failed to create descriptor set.\n
 CRenderDeviceVulkan::CreateDescriptorSetVulkan
@@ -1279,31 +1287,31 @@ CRenderDeviceVulkan::CreateIndirectCommandsPreprocessBuffer- invalid layout hand
 CRenderDeviceVulkan::CreateIndirectExecutionSet
 CRenderDeviceVulkan::CreateMemoryPooledGPUBuffer
 CRenderDeviceVulkan::CreateQueryObject
-CRenderDeviceVulkan::CreateTLAS(7347): 
+CRenderDeviceVulkan::CreateTLAS(7365): 
 CRenderDeviceVulkan::CreateViewsOfTexture
 CRenderDeviceVulkan::CreateViewsOfTexture on texture %s but it does not have TSPEC_MUTABLE_FORMAT.
 CRenderDeviceVulkan::CreateViewsOfTexture on texture %s but view %s does not have TSPEC_IMAGE_VIEW_ONLY.
 CRenderDeviceVulkan::CreateViewsOfTexture on texture %s but view %s was already created.  A view can only be created once.
-CRenderDeviceVulkan::DeleteQueryObject(4225): 
+CRenderDeviceVulkan::DeleteQueryObject(4243): 
 CRenderDeviceVulkan::DestroyAllSemaphores
 CRenderDeviceVulkan::DestroyCmdBuffer
 CRenderDeviceVulkan::DestroyDescriptorSet
 CRenderDeviceVulkan::DestroyDeviceMemoryPool - invalid memory pool handle.\n
 CRenderDeviceVulkan::DestroyIndirectCommandsLayout - invalid layout handle.\n
 CRenderDeviceVulkan::FreeBufferFromPool
-CRenderDeviceVulkan::FreeBufferFromPool(9347): Unable to get Vulkan buffer.\n
-CRenderDeviceVulkan::FreeBufferFromPool(9353): no allocation for buffer %s.\n
+CRenderDeviceVulkan::FreeBufferFromPool(9370): Unable to get Vulkan buffer.\n
+CRenderDeviceVulkan::FreeBufferFromPool(9376): no allocation for buffer %s.\n
 CRenderDeviceVulkan::FreeTextureFromPool
 CRenderDeviceVulkan::FreeTextureFromPool - invalid memory pool handle.\n
-CRenderDeviceVulkan::FreeTextureFromPool(9245): Unable to get Vulkan image for %s.\n
-CRenderDeviceVulkan::FreeTextureFromPool(9251): no allocation for image %s.\n
+CRenderDeviceVulkan::FreeTextureFromPool(9267): Unable to get Vulkan image for %s.\n
+CRenderDeviceVulkan::FreeTextureFromPool(9273): no allocation for image %s.\n
 CRenderDeviceVulkan::GetCmdPool
 CRenderDeviceVulkan::GetDeviceMemoryBufferAllocationInfo
-CRenderDeviceVulkan::GetDeviceMemoryBufferAllocationInfo(9392): Unable to get Vulkan buffer.\n
-CRenderDeviceVulkan::GetDeviceMemoryBufferAllocationInfo(9398): no allocation for buffer %s.\n
+CRenderDeviceVulkan::GetDeviceMemoryBufferAllocationInfo(9415): Unable to get Vulkan buffer.\n
+CRenderDeviceVulkan::GetDeviceMemoryBufferAllocationInfo(9421): no allocation for buffer %s.\n
 CRenderDeviceVulkan::GetDeviceMemoryTextureAllocationInfo
-CRenderDeviceVulkan::GetDeviceMemoryTextureAllocationInfo(9367): Unable to get Vulkan image for %s.\n
-CRenderDeviceVulkan::GetDeviceMemoryTextureAllocationInfo(9373): no allocation for image %s.\n
+CRenderDeviceVulkan::GetDeviceMemoryTextureAllocationInfo(9390): Unable to get Vulkan image for %s.\n
+CRenderDeviceVulkan::GetDeviceMemoryTextureAllocationInfo(9396): no allocation for image %s.\n
 CRenderDeviceVulkan::GetDeviceSpecificBuffer
 CRenderDeviceVulkan::GetDeviceSpecificDescriptorSet
 CRenderDeviceVulkan::GetDeviceSpecificRayTracePipeline
@@ -1323,7 +1331,7 @@ CRenderDeviceVulkan::OnLowMemoryNotification - evicting all textures to reduce m
 CRenderDeviceVulkan::QueryFeature
 CRenderDeviceVulkan::QueueStaticDescriptorPoolDeletion
 CRenderDeviceVulkan::ReadTexturePixels
-CRenderDeviceVulkan::ReadTexturePixels(3827): 
+CRenderDeviceVulkan::ReadTexturePixels(3845): 
 CRenderDeviceVulkan::RebakeDescriptorSetsReferencing - could not allocate descriptor in new pool.\n
 CRenderDeviceVulkan::RecreateGlobalPerFrameDescriptorSet
 CRenderDeviceVulkan::RegisterDescriptorSetLayout
@@ -1377,7 +1385,7 @@ CSheetDataTextureCache::AllocateAndUploadSequenceData
 CSheetDataTextureCache::AllocateAndUploadSequenceData(358): 
 CSwapChainBase::QueuePresentAndWait() looped for %d iterations without a present event.\n
 CSwapChainVulkan::CreateSwapChain
-CSwapChainVulkan::CreateSwapChain(2915): 
+CSwapChainVulkan::CreateSwapChain(2933): 
 CSwapChainVulkan::CreateSwapChain::<lambda_2>::operator ()
 CSwapChainVulkan::SetupViews
 CSwapChainVulkan::SwapBuffers
@@ -1488,7 +1496,7 @@ CTextureManagerBase::~CTextureManagerBase
 CTextureManagerVulkan::AddReferenceToDescriptorSet
 CTextureManagerVulkan::CTextureManagerVulkan
 CTextureManagerVulkan::ComputeTextureObject
-CTextureManagerVulkan::ComputeTextureObject(1479): 
+CTextureManagerVulkan::ComputeTextureObject(1480): 
 CTextureManagerVulkan::ComputeTextureObject: Tried to create a depth-stencil texture which is *not* a render target!\n
 CTextureManagerVulkan::CreateSamplerObject
 CTextureManagerVulkan::CreateSamplerObject::<lambda_1>::operator ()
@@ -1523,8 +1531,8 @@ CTextureVulkan::AssignStandin
 CTextureVulkan::ComputeImageViews
 CTextureVulkan::CopyImage
 CTextureVulkan::CreateImageViews
-CTextureVulkan::SetInitialImageLayout(812): 
-CTextureVulkan::SetInitialImageLayout(819): 
+CTextureVulkan::SetInitialImageLayout(813): 
+CTextureVulkan::SetInitialImageLayout(820): 
 CTextureVulkan::SpinWaitForFallbackTextureHookup
 CTextureVulkan::VmaAssignNewObject
 CTextureVulkan::VmaCreateNewVulkanObject
@@ -1837,6 +1845,8 @@ CUtlMemory<struct CRenderDeviceBase::MultiViewCBPool_t,int>::Grow::<lambda_1>::o
 CUtlMemory<struct CRenderDeviceBase::MultiViewCBPool_t,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<struct CRenderDeviceBase::PerFrameMemoryStack_t *,int>::Grow
 CUtlMemory<struct CRenderDeviceBase::PerFrameMemoryStack_t *,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<struct CRenderDeviceBase::RenderBufferInfo_t,int>::Grow
+CUtlMemory<struct CRenderDeviceBase::RenderBufferInfo_t,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<struct CRenderDeviceMgrBase::AdapterInfo_t,int>::Grow
 CUtlMemory<struct CRenderDeviceMgrBase::AdapterInfo_t,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<struct CRenderDeviceVulkan::DynamicIBPool_t,int>::Grow
@@ -2149,6 +2159,7 @@ CUtlStreamBuffer::CUtlStreamBuffer
 CVertexBufferBase::AllocateBackingStore
 CVertexBufferBase::CVertexBufferBase
 CVertexBufferBase::GetVertexCapacity
+CVertexBufferBase::GetVertexCount
 CVertexBufferBase::GetVertexSize
 CVertexBufferVulkan::Allocate
 CVertexBufferVulkan::Allocate called with invalid buffer size = %d for buffer (%s).\n
@@ -2517,6 +2528,7 @@ Hitch alert: Present was waiting for %d iterations and %.1f seconds.\n
 Horizontal differencing "Predictor" not supported with %d-bit samples
 HostComputer
 I could not work out what I was expecting, like so many of us these days!\n
+IB Size: %s (Count: %d)\n
 IBPool
 ICC Profile
 IMAGE_LINEAR
@@ -2688,6 +2700,7 @@ NVIDIA Low Latency/AMD Anti-Lag 2 (0 = off, 1 = on, 2 = NV-only, on + boost)
 N_U9203
 NeXT
 NeXTDecode: Not enough data for scanline %ld
+No Pool
 No Vulkan heaps support system memory allocation for this resource.\n
 No displayable format found for swapchain that supports the requested display mode.\n
 No memory type supports the requested properties. \n
@@ -2780,6 +2793,7 @@ Prevent state leakage: Do not modify rendercontext's attributes when doing local
 Previous allocation with memoryRequirements.memoryTypeBits=0x%x was from heap %d (propertyFlags: 0x%x) with requested propertyFlags 0x%x, trying in heap %d (propertyFlags: 0x%x) with requested propertyFlags 0x%x.\n
 Prewarm_
 PrimaryChromaticities
+Print Vertex/Index/GPU buffers.
 Prints out detailed memory fragmentation stats for the Vulkan memory manager
 Prints out stats for the Vulkan Framebuffer manager
 Prints out stats for the Vulkan Pipeline manager
@@ -2832,6 +2846,7 @@ RESOURCE_TYPE_TEXTURE
 RJqn
 RSDS
 RTX\n
+R\fpX
 R_T5Y
 Ran out of occlusion query slots.\n
 Rasterizer state is VK_POLYGON_MODE_LINE but VkPhysicalDeviceFeatures.fillModeNonSolid is not supported.  Forcing to VK_POLYGON_MODE_FILL.  May result in incorrect rendering.\n
@@ -3115,6 +3130,7 @@ Total Shader Modules Requested: %.2fMB\n
 Total Shader Modules Stored: %.2fMB\n
 Total Shader Requested: %.2fMB\n
 Total Shader Stored: %.2fMB\n
+Total Size: %s (Count: %d)\n
 Total VMA ( %llu MB ) ( Free %llu MB )\n
 Total size of the texture pool in MB
 TotalBytes
@@ -3197,6 +3213,7 @@ Using Steam Shader Pre-Cache whitelist %s\n
 Using VK_EXT_memory_budget set texture memory budget to %llu MB.\n
 Using VK_GOOGLE_display_timing for frame pacing.\n
 VALIDATION
+VB Size: %s (Count: %d)\n
 VBPool
 VERBOSE : 
 VK %s - Message Id Number: %d | Message Id Name: %s\n\t%s
@@ -3269,6 +3286,7 @@ VK_EXT_memory_priority
 VK_EXT_multi_draw
 VK_EXT_pageable_device_local_memory
 VK_EXT_pipeline_creation_cache_control
+VK_EXT_robustness2
 VK_EXT_subgroup_size_control
 VK_EXT_subgroup_size_control does not support required features, disabling.\n
 VK_EXT_validation_cache
@@ -3541,6 +3559,7 @@ Vulkan device does not support precise occlusion queries, this may result in inc
 Vulkan driver doesn't support MultiDrawIndexedInstancedIndirectCount\n.
 Vulkan driver version Major = %d, Minor = %d, Patch = %d\n
 Vulkan driver version: %d.%d.%d.%d\n
+Vulkan encountered unrecoverable error VK_ERROR_DEVICE_LOST.  If on NVIDIA, try reproducing with -aftermath -aftermath_full added to your command-line to gather GPU crash dump.\n
 Vulkan extension enabled: %s\n
 Vulkan failed to create descriptor pool.\n
 Vulkan framebuffers: %s; renderpasses: %s\n
@@ -3607,6 +3626,7 @@ ZeroStride Vertex buffer created!
 \n    near %s\n    
 \n\tCommand Buffer Labels - %d\n
 \n\tObjects - %d\n
+\npPP
 \r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r
 \t The lexer was matching from line %d, offset %d, which\n\t 
 \t@@@@@@@@@@@@@@@@{N{N{N{N{N{N{N{N
@@ -3626,12 +3646,12 @@ ZeroStride Vertex buffer created!
 \t_V_StringAfterPrefixCaseSensitive
 \ysK
 ]rHa
-^\tV_strtoi64
 _TIFFMergeFieldInfo
 _TIFFSetupFieldInfo
 _TIFFVGetField
 _TIFFVSetField
 _USAGE_
+_\tV_strtoi64
 _capture
 _counter_
 _counter_0
@@ -4557,6 +4577,7 @@ pSpec->GetArrayCount() >= 6
 pSpec->m_nFlags & TSPEC_CUBE_TEXTURE
 pSpec->m_nWidth != 0 && pSpec->m_nHeight != 0
 pSrc
+pSrc->GetBufferSizeInBytes() <= int( pSrc->GetBufferSizeInBytes() - nDstOffsetBytes )
 pSrcFormat
 pSrcImage != nullptr
 pSrcTextureSpec->m_nFlags & TSPEC_RENDER_TARGET_SAMPLEABLE
@@ -4657,7 +4678,7 @@ psize
 pushConstantRanges
 quAt
 queryType != RENDER_QUERY_EVENT
-r\fph
+r\vpX
 r_async_shader_compile_notify_frequency
 r_dilatedDepth
 r_dilated_motion_vectors
@@ -4689,6 +4710,7 @@ r_multigpu_num_gpus_used
 r_prefer_loop_unrolling
 r_prepared_input_color
 r_previous_dilated_motion_vectors
+r_print_buffers
 r_rcas_input
 r_reactive_mask
 r_reconstructed_previous_nearest_depth
@@ -4982,9 +5004,6 @@ vkAllocateCommandBuffers( m_pDeviceVulkan, &cmdBufferCreateinfo, &pCmdBuffer )
 vkAllocateDescriptorSets
 vkAllocateDescriptorSets( m_pDeviceVulkan, &allocInfo, &pCurrentDescriptorSetPool->m_ppDescriptorSets[ pCurrentDescriptorSetPool->m_nCurrentDescriptorSet - 1 ] )
 vkAllocateMemory
-vkAllocateMemory failed fallback system memory allocation.  Fatal error: out of video and system memory.\n
-vkAllocateMemory failed for DEVICE_LOCAL memory indicating video memory is full, trying again in system memory as a fallback.\n
-vkAllocateMemory failed to allocate GPU memory.  Fatal error: out of GPU video memory and no fallback heap available.\n
 vkAntiLagUpdateAMD
 vkBeginCommandBuffer
 vkBeginCommandBuffer( (*ppCommandBuffer)->m_pCmdBuffer, &beginInfo )

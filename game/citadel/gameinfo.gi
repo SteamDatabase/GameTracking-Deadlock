@@ -90,6 +90,7 @@
 		Use32BitDepthBufferWithoutStencil 1
 		SwapChainSampleableDepth 1
 		VulkanMutableSwapchain 1
+		//"LowLatency"								"1"
 		"VulkanOnly"								"1"	[ $LINUX || $OSX ] // No OpenGL or D3D9/11 fallback on Linux or OSX, only Vulkan is supported.
 		"VulkanRequireSubgroupWaveOpSupport"		"1"	[ !$OSX ]
 		"VulkanRequireDescriptorIndexing"			"1"	[ !$OSX ]
@@ -442,5 +443,7 @@
 
 		"cl_joystick_enabled" "0"
 		"panorama_joystick_enabled" "0"
+
+		"snd_event_browser_focus_events" "true"
 	}
 }

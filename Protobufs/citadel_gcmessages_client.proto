@@ -110,6 +110,7 @@ enum EGCCitadelClientMessages {
 	k_EMsgClientToGCUpdateHeroBuildPreferenceResponse = 9216;
 	k_EMsgClientToGCGetOldHeroBuildData = 9217;
 	k_EMsgClientToGCGetOldHeroBuildDataResponse = 9218;
+	k_EMsgClientToGCUpdateSpectatorStatus = 9219;
 }
 
 enum ECitadelAccountPermissionFlag {
@@ -185,6 +186,7 @@ enum ECitadelClientAccountEvent {
 	k_eViewedGuidePage_30s = 52;
 	k_eViewedGuidePage_60s = 53;
 	k_eOpenedBookTest = 54;
+	k_eSandboxViaHeroPage = 55;
 }
 
 message CSOGameAccountClient {
@@ -752,7 +754,6 @@ message CMsgClientToGCSpectateUser {
 	optional .ECitadelRegionMode region_mode = 2 [default = k_ECitadelRegionMode_ROW];
 	optional uint32 client_version = 3;
 	optional .EGCPlatform client_platform = 4 [default = k_eGCPlatform_None];
-	optional bool allow_broadcast = 5;
 }
 
 message CMsgClientToGCSpectateUserResponse {
@@ -786,7 +787,6 @@ message CMsgClientToGCSpectateLobby {
 	optional .ECitadelRegionMode region_mode = 2 [default = k_ECitadelRegionMode_ROW];
 	optional uint32 client_version = 3;
 	optional .EGCPlatform client_platform = 4 [default = k_eGCPlatform_None];
-	optional bool allow_broadcast = 5;
 }
 
 message CMsgClientToGCSpectateLobbyResponse {
@@ -1177,8 +1177,20 @@ message CMsgHeroBuild {
 		optional float height = 5;
 	}
 
+	message CurrencyChange {
+		optional uint32 ability_id = 1;
+		optional int32 currency_type = 2;
+		optional int32 delta = 3;
+		optional string annotation = 4;
+	}
+
+	message AbilityOrder {
+		repeated .CMsgHeroBuild.CurrencyChange currency_changes = 1;
+	}
+
 	message Details_V0 {
 		repeated .CMsgHeroBuild.BuildModCategory mod_categories = 1;
+		optional .CMsgHeroBuild.AbilityOrder ability_order = 2;
 	}
 
 	optional uint32 hero_build_id = 1;
@@ -1411,4 +1423,8 @@ message CMsgClientToGCGetFriendGameStatusResponse {
 	optional .CMsgClientToGCGetFriendGameStatusResponse.EResponse response = 1 [default = k_eInternalError];
 	repeated uint32 friends_played_game = 2 [packed = true];
 	repeated uint32 friends_invited = 3 [packed = true];
+}
+
+message CMsgClientToGCUpdateSpectatorStatus {
+	optional fixed64 spectating_lobby_id = 1;
 }

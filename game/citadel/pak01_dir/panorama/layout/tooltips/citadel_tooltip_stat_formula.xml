@@ -6,27 +6,34 @@
 		<include src="s2r://panorama/styles/citadel_shared_colors.vcss_c" />
 		<include src="s2r://panorama/styles/tooltips/citadel_tooltip_stat_formula.vcss_c" />
 	</styles>
-	<TooltipContents>
-		<Panel class="TopFormulaContainer LeftRightFlow">
-			<Label class="BaseValue" text="{s:base_value}" />
-			<Label class="AdditionLabel ScaleAddition" text=" + " />
-			<Label class="ScalingValue CurrentStatValue" text="{s:scaling_value}" />
-			<Label class="LevelBonusAddition AdditionLabel" text=" + " />
-			<Label class="LevelBonusValue" text="{s:level_bonus_value}" />
-			<Label class="AdditionLabel ModsAddition" text=" + " />
-			<Label class="ModsValue" text="{s:mods_value}" />
-		</Panel>
-		<Panel class="BottomFormulaContainer LeftRightFlow">
-			<Label class="FormulaBaseLabel" text="Base" />
-			<Label class="AdditionLabel ScaleAddition" text=" + " />
-			<Label class="ScalingValue" text="({s:scaling_stat_value} x" />
-			<Label class="ScalingValue CurrentStatValue" text=" {s:scaling_current_value} " />
-			<Panel class="ScalingStatImage" />
-			<Label class="ScalingValue" text=")" />
-			<Label class="LevelBonusAddition AdditionLabel" text=" + " />
-			<Label class="LevelBonusValue" text="Level Bonus" />
-			<Label class="AdditionLabel ModsAddition" text=" + " />
-			<Label class="ModsValue" text="Mods" />
+	<snippets>
+		<snippet name="MainStatValue">
+			<Panel class="MainStatValue">
+				<Label class="StatName" text="{s:stat_name}" />
+				<Label class="StatValue" text="{s:stat_value}" html="true" />
+			</Panel>
+		</snippet>
+		<snippet name="SubStatValue">
+			<Panel class="SubStatValue">
+				<Label class="StatName" text="{s:stat_name}" />
+				<Label class="StatValue" text="{s:stat_value}" html="true" />
+			</Panel>
+		</snippet>
+		<snippet name="SpiritScalingRow">
+			<Panel class="MainStatValue">
+				<Panel class="LeftRightFlow">
+					<Label class="StatName" text="{s:stat_name}" />
+					<Label class="ScalingStatValue" text="x ({s:scaling_multiplier})" />
+				</Panel>
+				<Label class="StatValue" text="{s:stat_value}" html="true" />
+			</Panel>
+		</snippet>
+	</snippets>
+	<TooltipContents hittest="false" hittestchildren="false">
+		<Panel id="StatsBreakdownContainer" class="TopBottomFlow" />
+		<Panel class="TotalStatValue">
+			<Label class="StatName" text="#Citadel_ShopStats_Total" />
+			<Label class="StatValue" text="{s:total_stat_value}" html="true" />
 		</Panel>
 	</TooltipContents>
 </root>

@@ -5,8 +5,12 @@
 !"Expecting response group with >= 1 elements"
 !V_isempty( pDocRequirement->GetName() )
 !V_isempty( pRuleName )
+!V_isempty( pszConcept )
+!V_isempty( pszSpeaker )
 !V_stricmp_fast( pToken, m_token )
 !V_stricmp_fast( resourceName, "scenes" ) || !V_stricmp_fast( resourceName, "scenes_staging" )
+!bSeparateAnySpeakerAndNoConceptRules || !V_isempty( pszConcept )
+!bSeparateAnySpeakerAndNoConceptRules || !V_isempty( pszSpeaker )
 !include.IsEmpty()
 !m_bIsUndoObject
 !newResponse.m_pConceptFollowup
@@ -22,6 +26,7 @@
 %s/%s:  discarded rule because of invalid criterion %i:  %s\n
 '%20s' vs. '%20s' = 
 ( nFlags & KEYVALUES3_AS_STRING_APPEND ) == 0
+( pDict >= m_RuleParts ) && ( pDict < m_RuleParts + TOTAL_NUM_RESPONSE_PARTITIONS )
 , score %4.2f\n
 .?AV<lambda_1>@?1??Compare@CResponseSystem@@QEAA_NPEBDPEAUCriteria@@_N@Z@
 .?AV<lambda_1>@?1??ComputeMatcher@@YAXPEAUCriteria@@PEAVCResponseSystem@@@Z@
@@ -60,6 +65,8 @@
 .?AVISceneFileCache@@
 .?AVIUndoable@@
 .vcd
+2\vpL~
+2\vpTq
 <map_key>
 <map_value>
 >333@
@@ -267,7 +274,7 @@ CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<unsigned int,void (_
 CUtlMemory<struct UtlRBTreeNode_t<unsigned int,unsigned short>,unsigned short>::Grow
 CUtlMemory<struct UtlRBTreeNode_t<unsigned int,unsigned short>,unsigned short>::Grow::<lambda_1>::operator ()
 CUtlMemory<struct UtlRBTreeNode_t<unsigned int,unsigned short>,unsigned short>::Grow::<lambda_2>::operator ()
-CUtlMemoryFixed<class CResponseDict<struct Rule *,unsigned short> *,2>::Grow
+CUtlMemoryFixed<class CResponseDict<struct Rule *,unsigned short> *,3>::Grow
 CUtlRBTree<char const *,class CDefStringLess,int,class CUtlMemory<struct UtlRBTreeNode_t<char const *,int>,int> >::Insert
 CUtlRBTree<char const *,class CDefStringLess,int,class CUtlMemory<struct UtlRBTreeNode_t<char const *,int>,int> >::NewNode
 CUtlRBTree<char const *,class CDefStringLess,int,class CUtlMemory<struct UtlRBTreeNode_t<char const *,int>,int> >::RemoveAll
@@ -328,11 +335,13 @@ ChoreoSceneDataStartup
 ChoreoSceneDataStartup_Staging
 ChoreoSceneFileDataManifest
 ChoreoSceneFileDataManifest_Staging
+Citadel
 ComputeMatcher
 ComputeResponseType
 Concept
 Discarded rule %s\n
 DocResponseTypeToRuntimeResponseType
+Dota
 Duplicate include: %s\n
 ENTITYIO
 EResponseType
@@ -356,6 +365,7 @@ Found %i matching rules, selecting slot %i\n
 GetSceneDataFromImage( %s ) called with %u byte buffer, but compressed file is %u bytes\n
 GetSceneDataFromImage( %s ) called with %u byte buffer, but file data is %u bytes\n
 GetSceneDataFromImage( %s ) lzma decompression failed\n
+Hammer/GameFeatureSet
 IResourceTypeManager::GetNonStreamingDataLoadSize
 IResourceTypeManager::IsStreamingDataAlreadyLoaded
 IResourceTypeManager::LoadStreamingData
@@ -409,6 +419,7 @@ RESPONSE_SCENE
 RESPONSE_SPEAK
 RSDS
 RULE MATCHED!\n
+R\fpL~
 Reading: %s\n
 Reloading .vcdlist due to addon change\n
 RenameResponseGroupIfSameAsParentName::<lambda_1>::operator ()
@@ -429,6 +440,9 @@ ResponseGroup has no name, and no embedded rule - adding a dummy embedded rule\n
 ResponseGroup::MarkResponseUsed
 ResponseParams
 ResponseParams::Schema_VerifyBindingIsRegistered
+ResponseRulePartition::GetBucketForSpeakerAndConcept::<lambda_1>::operator ()
+ResponseRulePartition::GetBucketForSpeakerAndConcept::<lambda_2>::operator ()
+ResponseRulePartition::GetDictsForCriteria
 ResponseRulePartition::GetElementName
 ResponseRulePartition::IndexFromDictElem
 ResponseRulePartition::Next
@@ -482,9 +496,9 @@ World contexts: '%s',
 \nFailed to upconvert %s\n
 _Response
 _Rule
-_\tV_strtok
 _response
 _rule
+`\tV_strtok
 applycontext
 applycontexttoworld
 array[ iFind ]
@@ -623,7 +637,6 @@ pAutoGenRuntimeRule->m_Responses.IsEmpty()
 pConceptCriteria
 pDestValue
 pDict
-pDict >= m_RuleParts && pDict < m_RuleParts + N_RESPONSE_PARTITIONS
 pDocResponseGroup->m_pEmbeddedRule->m_ResponseGroups.IsEmpty()
 pFileInfo
 pFilename
@@ -641,6 +654,7 @@ permitrepeats
 ppStringPool
 predelay
 prules->IsValidIndex( ( uint16 ) i )
+r\vpL~
 resourcesystem
 respeakdelay
 response
@@ -649,6 +663,8 @@ response entry '%s' with unknown command '%s'
 response entry '%s' with unknown command '%s'\n
 response entry '%s' with unknown response type '%s'
 response entry '%s' with unknown response type '%s'\n
+response rule %s has no CONCEPT!\n
+response rule %s has no speaker!\n
 response_rules
 response_rules_staging
 rp.predelay.IsValid()

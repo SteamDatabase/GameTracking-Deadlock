@@ -238,16 +238,19 @@
 			<Panel id="LowerLeft" hittest="false">
 				<CitadelHudSoulAPContainer id="gold_and_ap_container" />
 				<Panel class="ModsContainer" hittest="false">
-					<Panel class="ModSection WeaponMods" hittest="false">
-						<Label class="ModTypeLabel" text="#CitadelCategoryWeapon" />
+					<Panel id="WeaponModsContainer" class="ModSection WeaponMods" onmouseover="CitadelShowStatsTooltip( EItemSlotType_WeaponMod );" onmouseout="CitadelHideStatsTooltip();">
+						<Panel class="modsBacker" />
+						<CitadelModBonus id="WeaponBonus" bonus_type="Weapon" />
 						<CitadelModsPurchasedPanel id="ModPurchasedPanelWeapon" class="mod_weapon modsButton" mod_category="Weapon" show_cooldowns="true" show_spectating_player_items="true" />
 					</Panel>
-					<Panel class="ModSection ArmorMods" hittest="false">
-						<Label class="ModTypeLabel" text="#CitadelCategoryArmor" />
+					<Panel id="ArmorModsContainer" class="ModSection ArmorMods" onmouseover="CitadelShowStatsTooltip( EItemSlotType_Armor );" onmouseout="CitadelHideStatsTooltip();">
+						<Panel class="modsBacker" />
+						<CitadelModBonus id="ArmorBonus" bonus_type="Armor" />
 						<CitadelModsPurchasedPanel id="ModPurchasedPanelArmor" class="mod_armor modsButton" mod_category="Armor" show_cooldowns="true" show_spectating_player_items="true" />
 					</Panel>
-					<Panel class="ModSection TechMods" hittest="false">
-						<Label class="ModTypeLabel" text="#CitadelCategoryTech" />
+					<Panel id="TechModsContainer" class="ModSection TechMods" onmouseover="CitadelShowStatsTooltip( EItemSlotType_Tech );" onmouseout="CitadelHideStatsTooltip();">
+						<Panel class="modsBacker" />
+						<CitadelModBonus id="SpiritBonus" bonus_type="Tech" />
 						<CitadelModsPurchasedPanel id="ModPurchasedPanelTech" class="mod_tech modsButton" mod_category="Tech" show_cooldowns="true" show_spectating_player_items="true" />
 					</Panel>
 					<Panel class="ModSection FlexMods" hittest="false">
@@ -255,10 +258,15 @@
 						<CitadelModsPurchasedPanel id="ModPurchasedPanelUniversal" class="mod_universal modsButton" mod_category="Locked Universal" show_cooldowns="true" show_spectating_player_items="true" />
 					</Panel>
 				</Panel>
+				<Panel id="HeroStatsTooltips" class="HeroStatsContainer">
+					<CitadelHeroStatsWeapon id="HeroStatsWeapon" class="heroStatsDisplay" bonus_type="Weapon" onmouseout="CitadelHideStatsTooltip();" />
+					<CitadelHeroStatsArmor id="HeroStatsArmor" class="heroStatsDisplay" bonus_type="Armor" onmouseout="CitadelHideStatsTooltip();" />
+					<CitadelHeroStatsTech id="HeroStatsTech" class="heroStatsDisplay" bonus_type="Tech" onmouseout="CitadelHideStatsTooltip();" />
+				</Panel>
 			</Panel>
 		</Panel>
 		<CitadelHeroSelection id="hero_selection" hittest="true" />
-		<CitadelPaused id="PausedInfo" class="VisGroup_Top" />
+		<CitadelPaused id="PausedInfo" />
 		<Panel id="deathReplayNoticeLower" class="deathReplayBar" />
 		<Panel id="deathReplayNoticeUpper" class="deathReplayBar">
 			<Label text="#Citadel_Hud_DeathCam" />
@@ -295,6 +303,7 @@
 			</Panel>
 		</Panel>
 		<CitadelPingIndicator id="PingIndicator" hittest="false" />
+		<CitadelContextMenuManager id="ContextMenuManager" hittest="false" />
 		<CitadelTooltipManager id="TooltipManager" hittest="false" />
 	</CitadelHud>
 </root>

@@ -45,11 +45,11 @@
  [No Valid Layers]
  [Not Loaded]
  [error.vfx]
- \tV_iswcntrl
  mat_print_material_info <mod\path\file.vmat>\n
  mat_print_shader_info <file.vfx> [options]\n
  using substring "%s"
 !IsDynamicComboVariableDataCompact()
+!\tV_iswcntrl
 !destBlock.IsReadOnly() && !destBlock.IsExternalMemory()
 !m_bBufferInstalled && m_nVertexIncrement == 0
 !m_bIsLoaded
@@ -65,7 +65,7 @@
 %10s
 %15.15s 
 %6d %-50s
-%6s %-50s %5s %5s %5s %5s %5s %5s %5s %10s\n
+%6s %-50s %5s %5s %5s %5s %5s %5s %10s\n
 %s --------------------------------\n
 %s Shader: %s attribute '%s' set in mode '%s' does not match VMatrix value set in another mode.\n
 %s Shader: %s attribute '%s' set in mode '%s' does not match Vector value set in another mode.\n
@@ -124,7 +124,6 @@
 , near %s
 --------------------------------------------------
 -Stop: 
--\tV_log2f
 -async_shader_load
 -batcherrors
 -batchwarnings
@@ -242,6 +241,7 @@
 .?AVIRuntimeShaderCreateCallbacks@@
 .?AVITextLayout@@
 .?AVITextureDictionary@@
+.\tV_log2f
 .eBVfx
 .ini
 .vcs
@@ -260,7 +260,7 @@
 4\fu44^
 9\fE94
 : lexer error %d :\n\t%s at offset %d, 
-:\tV_powd
+;\tV_powd
 <<unknown_mod>>\
 <DOWN>
 <EOR>
@@ -874,11 +874,12 @@ Couldn't create windows font '%s'\n
 Courier
 Courier New
 Create
-Currently only DXT5 GPU compression supported.
+Currently only DXT5 or BC7 GPU compression supported.
 Custom font '%s' is already registered, ignoring new registration '%s' range %d - %d\n
 Custom font file '%s' should be assocated with a font name, will be ignored on Linux and Mac\n
 DIGIT
 DXBC
+D_DISPATCH_MODE
 D_FADE_COLOR
 DefaultFontAliasGroup
 DefaultTextureBuffer
@@ -1017,6 +1018,7 @@ IS_MOBILE
 IS_PC
 IS_SM_
 IS_VULKAN
+ImageSize
 Incorrect vpk path delimiter for shader %s\n
 InfoForResourceTypeCTextureBase
 Instance field count mismatch (codegen %d vs. meta %d) for %s (should be MaterialParamBuffer_t)
@@ -1057,9 +1059,9 @@ MODES
 Malgun Gothic
 Marlett
 MatPrintShaderInfo
-MatPrintShaderInfo(3769): Error reading index!\n
-MatPrintShaders(3449): pVfx == NULL!\n
-MatPrintShaders(3498): pVfx == NULL!\n
+MatPrintShaderInfo(3772): Error reading index!\n
+MatPrintShaders(3452): pVfx == NULL!\n
+MatPrintShaders(3501): pVfx == NULL!\n
 MatUtilsRenderMesh
 MatUtilsRenderOutlinedRect
 MatUtilsRenderPrimitives
@@ -1144,6 +1146,9 @@ Not safe to 'new' this class due to alignment requirements
 OCTAL_ESC
 OSGN
 Out of range dynamic combo id %d in material "%s"\n
+OutputBC7Texture
+OutputBC7Texture_1x1
+OutputBC7Texture_2x2
 OutputDXT5Texture_1x1
 OutputDXT5Texture_2x2
 OutputDXT5Texture_4x4
@@ -1301,6 +1306,8 @@ ShadingComplexity
 Sorry! mat_reloadmaterials is currently disabled due to bugs in other systems. Talk to Alex.\n
 Spawning %d compile jobs\n
 Spew information about font manager fonts
+SrcTex_1x1
+SrcTex_2x2
 SrgbGammaToLinear
 SrgbLinearToGamma
 State( programType ).m_nGlobalsBufferDeviceAddress != 0
@@ -1406,14 +1413,14 @@ You must install a IKV3TransferInterface_ResourceLoad on your context in order t
 [Dynamic shader compile] Reloading %d material(s)\n
 [Dynamic shader compile] Warning: %d material(s) are not reloaded because they have outstanding file I/O requests\n
 [Index: 
-[\tV_strspn
+\\tV_strspn
 \error.vmat
 \n    near %s\n    
 \n   --- ---------------------- ----------------------- ---- --------------- --------------------------------\n
 \n   NOTE: Currently showing on disk format without accounting for picmip level or streaming state!\n
 \n   Options:\n
 \n   Ref        On Disk               In Memory         MSAA     Format      File
-\n%6s %-50s %5s %5s %5s %5s %5s %5s %5s %10s\n
+\n%6s %-50s %5s %5s %5s %5s %5s %5s %10s\n
 \n%s File\n
 \n*** %s "%s" in %s does not follow the 0..N format!\n\n
 \n*** %s "%s" in %s has max(%d) > 254!\n\n
@@ -1532,7 +1539,7 @@ _copy%u
 _feature
 _psrs
 _rtx
-`\tV_strtoui64
+a\tV_strtoui64
 antlr3BaseRecognizerNew
 antlr3BitsetCopy
 antlr3BitsetList
@@ -1906,6 +1913,7 @@ mat_shading_complexity_max_register_count
 mat_skip_static_const_eval
 mat_warn_bad_modes
 materials/dev/combine_colorcorrection_lut_cs.vmat
+materials/dev/cs_compress_bc7.vmat
 materials/dev/cs_compress_dxt5.vmat
 materials/dev/cs_mipgen.vmat
 materials/dev/debug_solid.vmat
@@ -1928,7 +1936,7 @@ nDynamicComboIdx != UINT32_MAX
 nFeatureComboId < (1ull << 46)
 nFirstDescriptorSetIdx + ( nLastDescriptorSetIdx - nFirstDescriptorSetIdx ) < V_ARRAYSIZE( hTmpHandles )
 nFirstSetTextureIdx + ( nLastSetTextureIdx - nFirstSetTextureIdx ) < bindList.Count()
-nFormat == IMAGE_FORMAT_DXT5
+nFormat == IMAGE_FORMAT_DXT5 || nFormat == IMAGE_FORMAT_BC7
 nIdx < 256
 nIdx >= 0
 nIndex < ( 1 << 15 )

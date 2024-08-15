@@ -16,7 +16,7 @@
  - Lost
  /*%u:0x%08X*/ "%s",
  <font color="red">Query</font>(
- AnVertexNode
+ AflSlack
  Bodies/Shapes - Static(%i/%i) Dynamic(%i/%i) Keyframed(%i/%i)\n
  CollGroup=%d;
  SIMD
@@ -130,6 +130,7 @@ $tIFeetSettings
 %s 0x%llX\n
 %s F=%d V=%d hE=%d
 %s could not allocate (pre-acquire) layer name '%s'. It was expected to be #%d. %d names already used.\n
+%s joint has anchor with very large offset (%.0f) relative to body '%s' size (%.0f)
 %s%s.traces.txt
 %s(%d traces, %d repeats) %.1f us/trace; kernel: %.0f ticks (%.1f mcs) * %lld calls\n
 %s(): Bone referenced by collision mesh not found in render skeleton. Skipping collision mesh.\n
@@ -293,11 +294,13 @@ $tIFeetSettings
 0x%08X 
 1\r%1h
 1\v%14
+2\vpL
+2\vpT
 2_BONE_IK
 3\v%34
-4\tV_modff
+5\tV_modff
 7\r%7h
-8Xm;
+80J>
 8\r%8h
 99ccff;"><b>No</b> Collision
 99ccff;">Should <b>Not</b> Collide: 
@@ -316,14 +319,12 @@ $tIFeetSettings
 <p><b>No</b> reason to hit found</p>
 <p><font color="blue">Body</font> is %s</p>
 <p><font color="blue">Shape</font>-as, <font color="red">Query</font>-with: 
-<p><font color="red">Query</font> ObjectSetMask excludes <b>dynamic</b> or <b>keyframed</b> bodies</p>
+<p><font color="red">Query</font> ObjectSetMask excludes <b>dynamic</b> bodies</p>
+<p><font color="red">Query</font> ObjectSetMask excludes <b>keyframed</b> bodies</p>
 <p><font color="red">Query</font> ObjectSetMask excludes static bodies</p>
-<p><font color="red">Query</font> ObjectSetMask includes both dynamic and keyframed - proceed</p>
-<p><font color="red">Query</font> ObjectSetMask includes dynamic (only) - proceed</p>
-<p><font color="red">Query</font> ObjectSetMask includes kinematic (only) - proceed</p>
+<p><font color="red">Query</font> ObjectSetMask includes dynamic bodies - proceed</p>
+<p><font color="red">Query</font> ObjectSetMask includes keyframed bodies - proceed</p>
 <p><font color="red">Query</font> ObjectSetMask includes static bodies - proceed</p>
-<p><font color="red">Query</font> ObjectSetMask only specifies <b>dynamic</b> bodies</p>
-<p><font color="red">Query</font> ObjectSetMask only specifies <b>keyframed</b> bodies</p>
 <p><font color="red">Query</font> ignores entity id 0x%X</p>
 <p><font color="red">Query</font> should <b>not</b> hit solid</p>
 <p><font color="red">Query</font> should <b>not</b> hit trigger</p>
@@ -1260,6 +1261,7 @@ CRnParticleRope::SetPlugProperties
 CRnParticleRope::SetSimulateOnlyOnFinalTick
 CRnParticleRope::SetSubsteps
 CRnParticleRope::SetTautLineEnabled
+CRnParticleRope::SetTrackTouchingEntities
 CRnParticleRope::SetUseAsyncSimulation
 CRnParticleRope::SetUseDirectDistanceConstraintSolver
 CRnParticleRope::~CRnParticleRope
@@ -1332,13 +1334,14 @@ CRnWorld::AddParticleRope::<lambda_3>::operator ()
 CRnWorld::AddToBodiesWithAppliedForcesList
 CRnWorld::AddVehicle::<lambda_1>::operator ()
 CRnWorld::BuildQueryTestTraceIn
-CRnWorld::Collide(), C:\buildworker\citadel_rel_win64\build\src\rubikon\world.cpp:2240
+CRnWorld::Collide(), C:\buildworker\citadel_rel_win64\build\src\rubikon\world.cpp:2273
 CRnWorld::Collide::<lambda_1>::operator ()
 CRnWorld::CollideShape
 CRnWorld::DeactivateBody
 CRnWorld::ExecuteDelayedDeletions
 CRnWorld::GetBroadphase
 CRnWorld::LinearCast
+CRnWorld::RegisterJoint
 CRnWorld::RemoveCharacterProxy::<lambda_1>::operator ()
 CRnWorld::RemoveFromBodiesWithAppliedForcesList
 CRnWorld::RemoveParticleRope::<lambda_1>::operator ()
@@ -1348,7 +1351,7 @@ CRnWorld::ReportContactLost
 CRnWorld::SetSubstepCount
 CRnWorld::ShouldHit
 CRnWorld::Solve
-CRnWorld::SolveTOI(), C:\buildworker\citadel_rel_win64\build\src\rubikon\world.cpp:2039
+CRnWorld::SolveTOI(), C:\buildworker\citadel_rel_win64\build\src\rubikon\world.cpp:2072
 CRnWorld::SweepShape
 CRnWorld::SweepShapeMultiple
 CRnWorldHelper::AddRecordedTraceResult
@@ -1430,10 +1433,20 @@ CUtlBlockMemory<float const *,int>::Init
 CUtlDict<class CAttachment,class CDefFastCaselessStringLess>::Insert
 CUtlDict<class CHitBoxSet,class CDefFastCaselessStringLess>::Insert
 CUtlLeanVector
+CUtlLeanVectorBase<class CBaseConstraint *,short>::EnsureCapacity
+CUtlLeanVectorBase<class CMaterialDrawDescriptor,short>::EnsureCapacity
 CUtlLeanVectorBase<struct CConstraintSlave,short>::EnsureCapacity
+CUtlLeanVectorFixedGrowable
+CUtlLeanVectorFixedGrowableBase<class CSceneObjectData,1,short>::EnsureCapacity
 CUtlLeanVectorFixedGrowableBase<class std::function<void __cdecl(void)>,100,short>::EnsureCapacity
 CUtlLeanVectorFixedGrowableBase<struct CJobContinuation::CPendingJob_t,4,short>::EnsureCapacity
+CUtlLeanVectorFixedGrowableBase<struct CRenderBufferBinding,2,short>::EnsureCapacity
+CUtlLeanVectorImpl<class CUtlLeanVectorBase<class CBaseConstraint *,short>,class CBaseConstraint *,short>::InsertBeforeGetPtr
+CUtlLeanVectorImpl<class CUtlLeanVectorBase<class CMaterialDrawDescriptor,short>,class CMaterialDrawDescriptor,short>::InsertBeforeGetPtr
+CUtlLeanVectorImpl<class CUtlLeanVectorBase<class CMeshletDescriptor,int>,class CMeshletDescriptor,int>::InsertBeforeGetPtr
+CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct AABB_t,int>,struct AABB_t,int>::InsertBeforeGetPtr
 CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CConstraintSlave,short>,struct CConstraintSlave,short>::InsertBeforeGetPtr
+CUtlLeanVectorImpl<class CUtlLeanVectorFixedGrowableBase<class CSceneObjectData,1,short>,class CSceneObjectData,short>::InsertBeforeGetPtr
 CUtlLinkedList<class CUtlKeyValuePair<class CEntIndexPair,class CEntPairTouchTracker>,unsigned short,0,unsigned short,class CUtlMemory<struct UtlLinkedListElem_t<class CUtlKeyValuePair<class CEntIndexPair,class CEntPairTouchTracker>,unsigned short>,unsigned short> >::AllocInternal
 CUtlLinkedList<class CUtlKeyValuePair<class CEntIndexPair,class CEntPairTouchTracker>,unsigned short,0,unsigned short,class CUtlMemory<struct UtlLinkedListElem_t<class CUtlKeyValuePair<class CEntIndexPair,class CEntPairTouchTracker>,unsigned short>,unsigned short> >::Free
 CUtlLinkedList<class CUtlKeyValuePair<class CEntIndexPair,class CEntPairTouchTracker>,unsigned short,0,unsigned short,class CUtlMemory<struct UtlLinkedListElem_t<class CUtlKeyValuePair<class CEntIndexPair,class CEntPairTouchTracker>,unsigned short>,unsigned short> >::LinkBefore
@@ -1444,9 +1457,6 @@ CUtlMemory<bool,int>::Grow::<lambda_1>::operator ()
 CUtlMemory<class CAnimFoot,int>::Grow
 CUtlMemory<class CAnimFoot,int>::Grow::<lambda_1>::operator ()
 CUtlMemory<class CAnimFoot,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<class CBaseConstraint *,int>::Grow
-CUtlMemory<class CBaseConstraint *,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<class CBaseConstraint *,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<class CFeAgglomerator::CCluster *,int>::Grow
 CUtlMemory<class CFeAgglomerator::CCluster *,int>::Grow::<lambda_1>::operator ()
 CUtlMemory<class CFeAgglomerator::CCluster *,int>::Grow::<lambda_2>::operator ()
@@ -1479,12 +1489,6 @@ CUtlMemory<class CHitBoxSet,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<class CIrrotationalVortexOnGrid,int>::Grow
 CUtlMemory<class CIrrotationalVortexOnGrid,int>::Grow::<lambda_1>::operator ()
 CUtlMemory<class CIrrotationalVortexOnGrid,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<class CMaterialDrawDescriptor,int>::Grow
-CUtlMemory<class CMaterialDrawDescriptor,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<class CMaterialDrawDescriptor,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<class CMeshletDescriptor,int>::Grow
-CUtlMemory<class CMeshletDescriptor,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<class CMeshletDescriptor,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<class CModelConfig *,int>::Grow
 CUtlMemory<class CModelConfig *,int>::Grow::<lambda_1>::operator ()
 CUtlMemory<class CModelConfig *,int>::Grow::<lambda_2>::operator ()
@@ -1546,9 +1550,6 @@ CUtlMemory<class CRnVehicle *,int>::Grow
 CUtlMemory<class CRnVehicle *,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<class CRnWheelJoint *,int>::Grow
 CUtlMemory<class CRnWheelJoint *,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<class CSceneObjectData,int>::Grow
-CUtlMemory<class CSceneObjectData,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<class CSceneObjectData,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<class CSmartPtr<class CThreadedJob,class CRefCountAccessor>,int>::Grow::<lambda_1>::operator ()
 CUtlMemory<class CSoftbodyEffect *,int>::Grow
 CUtlMemory<class CSoftbodyEffect *,int>::Grow::<lambda_2>::operator ()
@@ -2243,7 +2244,6 @@ CUtlMemory<void *,int>::Grow::<lambda_2>::operator ()
 CUtlMemoryConservative<struct VPhysXBodyPart_t const *>::ReAlloc
 CUtlMemoryConservative<unsigned short>::ReAlloc
 CUtlMemoryFixed<int,4>::Grow
-CUtlMemoryFixed<struct CRenderBufferBinding,4>::Grow
 CUtlMemoryFixed<struct Vertex,256>::Grow
 CUtlPriorityQueue<class CFeAgglomerator::CCluster *,class CFeAgglomerator::CClusterOps,class CUtlMemory<class CFeAgglomerator::CCluster *,int> >::RemoveAt
 CUtlPriorityQueue<class CFeAgglomerator::CLink,class CDefUtlPriorityQueueOps<class CFeAgglomerator::CLink,struct CFeAgglomerator::LinkLessFunc_t>,class CUtlMemory<class CFeAgglomerator::CLink,int> >::RemoveAt
@@ -2266,7 +2266,6 @@ CUtlString
 CUtlStringMap<enum ModelAspectLockType_t,class CUtlSymbolTable>::Insert
 CUtlStringMap<enum ModelAspectLockType_t,class CUtlSymbolTable>::operator []
 CUtlStringToken::TrackTokenCreation( pString, pStringEnd )
-CUtlVectorFixedGrowable
 CUtlVectorSIMDPaddedVector
 CUtlVectorSIMDPaddedVector::Count
 CUtlVectorSIMDPaddedVector::SetCount
@@ -2274,20 +2273,31 @@ CVPhys2AggregateInstance::OnReallocate( new: 0x%p, old: 0x%p )\n
 CVPhys2Spring::CVPhys2Spring
 CVPhys2World - Dumped World '%s'.
 CVPhys2World::AddConicalJoint
+CVPhys2World::AddConicalJoint::<lambda_1>::operator ()
 CVPhys2World::AddGenericJoint
+CVPhys2World::AddGenericJoint::<lambda_1>::operator ()
 CVPhys2World::AddNullJoint
+CVPhys2World::AddNullJoint::<lambda_1>::operator ()
 CVPhys2World::AddPrismaticJoint
+CVPhys2World::AddPrismaticJoint::<lambda_1>::operator ()
 CVPhys2World::AddPulleyJoint
+CVPhys2World::AddPulleyJoint::<lambda_1>::operator ()
 CVPhys2World::AddRevoluteJoint
+CVPhys2World::AddRevoluteJoint::<lambda_1>::operator ()
 CVPhys2World::AddSphericalJoint
+CVPhys2World::AddSphericalJoint::<lambda_1>::operator ()
 CVPhys2World::AddSplineJoint
+CVPhys2World::AddSplineJoint::<lambda_1>::operator ()
 CVPhys2World::AddSpringJoint
+CVPhys2World::AddSpringJoint::<lambda_1>::operator ()
 CVPhys2World::AddVehicle
 CVPhys2World::AddVehicle::<lambda_1>::operator ()
 CVPhys2World::AddVehicle::<lambda_2>::operator ()
 CVPhys2World::AddVehicle::<lambda_3>::operator ()
 CVPhys2World::AddWeldJoint
+CVPhys2World::AddWeldJoint::<lambda_1>::operator ()
 CVPhys2World::AddWheelJoint
+CVPhys2World::AddWheelJoint::<lambda_1>::operator ()
 CVPhys2World::BeginAsyncPostTickJobs
 CVPhys2World::CastBoxSingleBody
 CVPhys2World::CastRaySingleBody
@@ -2342,11 +2352,10 @@ CVertexDataBase<struct VertexUVPosColorNormalAndTangent_t>::~CVertexDataBase
 CVertexMapNodeList::operator []
 CWorldStepSharedWorker::WaitJobs::<lambda_1>::operator ()
 Can <b>Not</b> Hit: %s
-Can <b>Not</b> Hit: %s <font color="blue">body</font>
+Can <b>Not</b> Hit: Dynamic <font color="blue">body</font>
+Can <b>Not</b> Hit: Keyframed <font color="blue">body</font>
 Can <b>Not</b> Hit: Static <font color="blue">body</font>
 Can <b>Not</b> Hit: ignoring entity id 0x%X
-Can <b>Not</b> Hit: non-dynamic
-Can <b>Not</b> Hit: non-keyframed <font color="blue">body</font>
 Can Hit
 Can't restore aggregate state, different part count!!!\n
 Cannot KV3Transfer an abstract class!
@@ -2429,6 +2438,12 @@ DistanceFn != nullptr
 Dop26_t
 Dop26_t::KV3Transfer_DefaultKeys_Impl
 Dop26_t::Schema_VerifyBindingIsRegistered
+DotProduct( B, ABCxAC ) < d
+DotProduct( B, ADxADB ) < d
+DotProduct( C, ABxABC ) < d
+DotProduct( C, ACDxAD ) < d
+DotProduct( D, ACxACD ) < d
+DotProduct( D, ADBxAB ) < d
 Double add of KV3Transfer interface '%s'
 Drag
 DualHull
@@ -2714,6 +2729,17 @@ FLEX_OP_SUB
 Face %d
 Face Fit
 Face Reprojection
+Failed to add Conical Joint: "%s"
+Failed to add Generic Joint: "%s"
+Failed to add Null Joint: "%s"
+Failed to add Prismatic Joint: "%s"
+Failed to add Pulley Joint: "%s"
+Failed to add Revolute Joint: "%s"
+Failed to add Spherical Joint: "%s"
+Failed to add Spline Joint: "%s"
+Failed to add Spring Joint: "%s"
+Failed to add Weld Joint: "%s"
+Failed to add Wheel Joint: "%s"
 Failed to allocate an instance of a class
 Failed to allocate an instance of class '%s'
 Failed to apply FLC data to resource '%s': %s\n
@@ -2903,6 +2929,7 @@ FeWorldCollisionParams_t
 FeWorldCollisionParams_t::KV3TransferLoad_Impl
 FeWorldCollisionParams_t::KV3Transfer_DefaultKeys_Impl
 FeWorldCollisionParams_t::Schema_VerifyBindingIsRegistered
+Fewer than 2 control points
 FilterShapes
 FindBodyPartByHash
 FindHalfEdgeConnectingVertices( hVertexA, hVertexB ) == INVALID_MESH_COMPONENT
@@ -2942,7 +2969,6 @@ GetXSIMD( volume ) <= out.m_flShapeVolume * s_flShapeVolumeTolerance
 GetZSIMD( p0 ) <= 0 && GetZSIMD( p1 ) >= 0
 Goals
 GroupPair(group0, group1) == GroupPair(group1, group0)
-HB(d?
 HELPER_BONE
 Hierarchy id is the same on both shapes (%d)\n
 Hull
@@ -2956,7 +2982,6 @@ IPhysicsPlayerController
 IResourceTypeManager::GetNonStreamingDataLoadSize
 IResourceTypeManager::IsStreamingDataAlreadyLoaded
 IResourceTypeManager::LoadStreamingData
-IS_TYPESAFE_INTEGER
 Identity
 If enabled, surfaces with default material are highlighted in physics debug geometry.
 Ignore Entity 0x%X
@@ -3157,6 +3182,41 @@ Interact-as-with test fails: there no common interaction layers found in the sha
 Interact-as-with test passes, common layers: 
 IntersectTriangleWithPlaneBarycentric
 Invalid
+Invalid Angular Constraint Impulse %f
+Invalid Angular Damping Ratio %f
+Invalid Angular Frequency %f
+Invalid Angular Frequency %f on axis %i
+Invalid Angular Motion %i on axis %i
+Invalid Damping Ratio %f
+Invalid Elasticity %f
+Invalid Frequency %f
+Invalid Friction %f
+Invalid Linear Constraint Impulse %f
+Invalid Linear Damping Ratio %f
+Invalid Linear Frequency %f
+Invalid Linear Frequency %f on axis %i
+Invalid Linear Motion %i on axis %i
+Invalid Local Frame on Body '%s'
+Invalid Max Force %f
+Invalid Max Rest Length %f
+Invalid Max Torque %f
+Invalid Min Rest Length %f
+Invalid Min/Max Angles %f/%f
+Invalid Min/Max Offsets %f/%f
+Invalid Min/Max Twist Angle %f/%f
+Invalid Motor Damping Ratio %f
+Invalid Motor Frequency %f
+Invalid Motor Max Force %f
+Invalid Motor Max Torque %f
+Invalid Motor Target Angle %f
+Invalid Motor Target Velocity %f
+Invalid Motor Target Velocity (%f, %f, %f)
+Invalid Plasticity %f
+Invalid Reference Mass %f
+Invalid Suspension Damping Ratio %f
+Invalid Suspension Frequency %f
+Invalid Suspension Height Offset %f
+Invalid Swing Limit %f
 Invalid blob for %s (%d,%d)
 Invalid collision attr index %u, must be below %d\n, 
 Invalid collision attribute palette entry %u, expected below %d\n
@@ -3192,6 +3252,7 @@ JOINT_MOTION_COUNT
 JOINT_MOTION_FREE
 JOINT_MOTION_LOCKED
 Joint changed type from %d to %d, skipping!\n
+Joint connecting Body '%s' to itself
 JointAxis_t
 JointMotion_t
 Joints: %d
@@ -3219,6 +3280,7 @@ LoadOwningPointer failed for '%s'\n
 LoadPhysicsDebugMaterials
 LoadSurfaceProperties
 LoadUtlDict
+Local Damp
 Locked
 LookAtList
 M.IsValid()
@@ -3231,7 +3293,6 @@ MESH_DRAW_FLAGS_USE_SHADOW_FAST_PATH
 MESH_DRAW_FLAGS_USE_UNCOMPRESSED_PER_VERTEX_LIGHTING
 MESH_DRAW_INPUT_LAYOUT_IS_NOT_MATCHED_TO_MATERIAL
 MGetKV3ClassDefaults
-MIsBoxedIntegerType
 MKV3TransferName
 MODELKV3_TODO
 MODEL_BONE_FLEX_INVALID
@@ -3273,6 +3334,11 @@ Mesh-Mesh
 MeshBuilder::Run
 MeshDrawPrimitiveFlags_t
 Meshes
+Min Angle %f larger than Max Angle %f
+Min Offset %f larger than Max Offset %f
+Min Rest Length %f larger than Max Rest Length %f
+Min Twist Angle %f larger than Max Twist Angle %f
+Missing Body
 Missing animation bone %s. It is needed to drive cloth.\n
 Missing required transfer interface: %s
 ModelBoneFlexComponent_t
@@ -3429,6 +3495,7 @@ REVOLUTE_JOINT
 REVOLUTE_WELD_FUSED_JOINT
 ROTATION
 RSDSAr
+R\fpT
 Random hull inside sphere of radius %g should have volume around %g, but min volume %g may be hard to obtain using the trivial algorithm here\n
 ReAlloc(0) can cause a crash on some platforms (like Linux)
 Relax
@@ -3574,6 +3641,7 @@ SPRING
 Same EntityID=%u on both shapes
 Same body
 SavePhysicsJoint
+SavePhysicsJoint() is attempting to save a null CPhysicsJoint.\n
 Saving snapshots starting from Frame %u into '%s'\n
 SchemaEmitClassInfoHelper<class AttachmentHandle_t>::ValidateClassFieldTypes
 SchemaEmitClassInfoHelper<class AttachmentHandle_t>::ValidateStaticFieldTypes
@@ -3844,6 +3912,8 @@ TNT::Vector<float>::initialize
 TNT::Vector<int>::initialize
 TWIST
 TanFrameQuat
+Tangent In (%i) and Control Point (%i) Count mismatch
+Tangent Out (%i) and Control Point (%i) Count mismatch
 The <font color="red">Query</font> is Hitbox Query. The shape has Ignores For Hitbox Test flag. <b>No</b> Hit.
 There are common interaction flags (set on both <font color="red">red</font> and <font color="blue">blue</font></small>)\n
 There is a %s [%d]
@@ -3980,20 +4050,20 @@ You must install a IKV3TransferInterface_ResourceLoad on your context in order t
 Zd?es-8R
 [%u] comm %u.%u(%u) data %u\n
 \\symbols
-\f\tV_fseek
 \nLocal anchors: {%g,%g,%g}, {%g,%g,%g}\n
-\n\tV_frexpf
 \ng default\n
-\r\tV_fseeki64
+\r\tV_fseek
 \rtext
 \t%2d.  %16llx - %s%s\n
 \t%d. %4x - %s\n
 \tV_fread
+\tV_fseeki64
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r
 \t_V_StringAfterPrefixCaseSensitive
+\v\tV_frexpf
 _____Bytes %-30s[body]\n
-`\tV_strtoui64
 a >= 0 && a < MODEL_CONFIG_LOCK_COUNT
+a\tV_strtoui64
 android*
 angular_damping_ratio
 angular_frequency
@@ -4065,6 +4135,9 @@ cloth_guard_threshold
 cloth_interpolation_strategy
 cloth_legacy_stretch_force
 cloth_legacy_support
+cloth_local_damp0
+cloth_local_damp1
+cloth_local_damp2
 cloth_max_ticks_per_frame
 cloth_node_debug_axis_length
 cloth_quad_smooth_iterations
@@ -4103,6 +4176,7 @@ debugName
 debugphysics
 debugphysiscs
 density
+desc.IsValid( &invalidReason )
 desc.IsValid()
 desc.m_nCollisionAttributeIndex < (uint32)m_collisionAttributes.Count()
 desc.m_nSurfacePropertyIndex < (uint32)m_surfacePropertyHashes.Count()
@@ -4151,6 +4225,7 @@ flAckermannGradient1 != 0.f && flAckermannGradient2 != 0.f
 flAdvance > 0
 flAlignmentStiffness >= 0.f && !m_bInMotionControlCallback
 flAlpha
+flAnchorOffset < pBody->GetMaxMotionRadius() * 2.0f + 1000.0f
 flAnimStateAhead >= 0
 flAnimationForceAttraction
 flAnimationVertexAttraction
@@ -4206,7 +4281,6 @@ flRelaxationFactor
 flRestLengthMin >= 0.0f && flRestLengthMax >= flRestLengthMin
 flScale > 0.0f
 flScale >= 0.0f
-flSlack
 flSpringConstant
 flSpringDamping
 flSpringRestLength
@@ -4535,7 +4609,6 @@ m_bEnableTwistLimit
 m_bGravityDisabled
 m_bHasBakedLightingFromLightMap
 m_bHasBakedLightingFromVertexStream
-m_bHasHairPositionOffsets
 m_bHasShadowController
 m_bHidden
 m_bHideMaterialGroupInTools
@@ -4554,6 +4627,8 @@ m_bIsLocal
 m_bIsNotMatchedToMaterial
 m_bIsRigid
 m_bIsTautLineEnabled
+m_bNoShadow
+m_bOnlyShadow
 m_bOverrideMassCenter
 m_bPredicted
 m_bRecomputeSmoothNormalsAfterAnimation
@@ -4563,6 +4638,7 @@ m_bSpeculativeEnabled
 m_bTeleport
 m_bTeleportTick
 m_bTopLevel
+m_bTrackTouchingEntities
 m_bTranslationOnly
 m_bUseAsyncSimulation
 m_bUseBlockSolver
@@ -5344,6 +5420,7 @@ nVertBase + nSlices * i + j + 1 < vertices.Count()
 nVertexBase
 nVertexCount
 nVertexMapIndex
+nVertexNode
 nVerts >= 3
 nVirtElem
 nWasEffectsBeforeDisconnect == m_Effects.Count()
@@ -5599,6 +5676,7 @@ qAdjust
 queried.m_nEntityId == nBodyEntityId
 queried.m_nEntityId == pBody->GetEntityID()
 queue2.Count() == 1
+r\vpT
 range.m_flMax >= -FLT_EPSILON && range.m_flMin <= FLT_EPSILON
 range.m_flMin <= range.m_flMax
 recorded_forces
@@ -5631,6 +5709,7 @@ shapes
 simState.Count( ) >= int( 6 * nNodeCount + 1 )
 simplexCache.m_nVertexCount < 4
 simplexCache.m_nVertexCount == 1
+simplex_t::SolveVoronoiRegion4
 skidstop
 slime
 softbodies
@@ -5658,7 +5737,7 @@ surface
 surfacePropertyName
 surfaceproperties/surfaceproperties.vsurf
 swing_limit
-t2\fy
+t2\fY
 tangent
 tangentu_signv
 target.IsValid()
