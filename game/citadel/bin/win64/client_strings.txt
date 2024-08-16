@@ -81,11 +81,11 @@
  ' ) - 3 G M Q _ c e i w } 
  (%d)Unknown
  (%ld unused bits)\n
- (08@HPX`jP
- (08@HPXb 
- (08@HPZP
- (08@JP
- (0X`hpz 
+ (08@HPX`jp
+ (08@HPXb@
+ (08@HPZp
+ (08@Jp
+ (0X`hpz@
  (Dirty Animation)
  (INVALID PSS PARAMETERS)\n
  (Negative)
@@ -1876,13 +1876,12 @@ $hRh
 %s Could not find %s in m_GameEventDataDict. Ensure it was properly registered.\n
 %s Handling IGameEvent '%s' '%s' killed.\n
 %s Handling IGameEvent '%s', num kills '%i', is first blood '%s'.\n
-%s Handling IGameEvent '%s': '%s'.\n
 %s Handling IGameEvent: %s '%s': '%s'.\n
 %s Handling IGameEvent: '%s', '%s'.\n
 %s Handling IGameEvent: '%s'.\n
+%s Handling UserMsg_GameOver: '%s'.\n
 %s ID:%d (%d objects):\n
 %s IGameEvent cleared filter: '%s'.\n
-%s IGameEvent: '%s' changed to, '%s'.\n
 %s Interp
 %s Model '%s' doesn't have attachment '%s' to attach particle system '%s' to.\n
 %s MusicManager initialized.\n
@@ -2376,6 +2375,7 @@ $hRh
 ( ivPhase == IV_PHASE_CLIENT_AUTHORITATIVE ) || ( ivPhase == IV_PHASE_SERVER_AUTHORITATIVE )
 ( m_eRenewalPeriod >= k_ETimeUnitDay ) && ( m_eRenewalPeriod <= k_ETimeUnitYear )
 ( m_eType == Variant_Null || m_eType == eType )
+( m_eUpgradeType != EAddToScale && m_eUpgradeType != EMultiplyScale )
 ( m_flags & ECF_ANONYMOUS_ENTITY ) == 0
 ( m_nAbilityBehaviors & CITADEL_ABILITY_BEHAVIOR_DEPLOY_OBJECT ) == 0 || !m_deploymentInfo.m_previewModel.IsEmpty() || !m_deploymentInfo.m_previewParticle.IsEmpty()
 ( m_nDamageFlags & ( DFLAG_ALWAYS_GIB | DFLAG_NEVER_GIB ) ) != ( DFLAG_ALWAYS_GIB | DFLAG_NEVER_GIB )
@@ -2992,7 +2992,6 @@ $hRh
 *\n&k_UnlockStyle_Failed_NoCompendiumLevel
 *\n\vpreferences
 *`\n\fCameraAction
-*cl_anglespeedkey
 *gFBk
 *hbJ1
 *it%2
@@ -3316,7 +3315,7 @@ $hRh
 ../src/devtools/bin/certificates/game/
 ..CPlayer_GetNewSteamAnnouncementState_Response"_
 ..uR5&m
-.02a
+.0La
 .4bb
 .97yY
 .?AU?$CameraOp_Approach_t@M@@
@@ -3457,6 +3456,7 @@ $hRh
 .?AV<lambda_1>@?BA@??Dispatch@?$CGameMessageDelegateHook@VCCitadelUserMsg_Damage_t@@@@EEAA_NAEBVCCitadelUserMsg_Damage_t@@@Z@
 .?AV<lambda_1>@?BA@??Dispatch@?$CGameMessageDelegateHook@VCCitadelUserMsg_DeathReplayData_t@@@@EEAA_NAEBVCCitadelUserMsg_DeathReplayData_t@@@Z@
 .?AV<lambda_1>@?BA@??Dispatch@?$CGameMessageDelegateHook@VCCitadelUserMsg_ForceShopClosed_t@@@@EEAA_NAEBVCCitadelUserMsg_ForceShopClosed_t@@@Z@
+.?AV<lambda_1>@?BA@??Dispatch@?$CGameMessageDelegateHook@VCCitadelUserMsg_GameOver_t@@@@EEAA_NAEBVCCitadelUserMsg_GameOver_t@@@Z@
 .?AV<lambda_1>@?BA@??Dispatch@?$CGameMessageDelegateHook@VCCitadelUserMsg_HeroKilled_t@@@@EEAA_NAEBVCCitadelUserMsg_HeroKilled_t@@@Z@
 .?AV<lambda_1>@?BA@??Dispatch@?$CGameMessageDelegateHook@VCCitadelUserMsg_MapLine_t@@@@EEAA_NAEBVCCitadelUserMsg_MapLine_t@@@Z@
 .?AV<lambda_1>@?BA@??Dispatch@?$CGameMessageDelegateHook@VCCitadelUserMsg_MapPing_t@@@@EEAA_NAEBVCCitadelUserMsg_MapPing_t@@@Z@
@@ -3806,6 +3806,7 @@ $hRh
 .?AV?$CGameMessageDelegateHook@VCCitadelUserMsg_Damage_t@@@@
 .?AV?$CGameMessageDelegateHook@VCCitadelUserMsg_DeathReplayData_t@@@@
 .?AV?$CGameMessageDelegateHook@VCCitadelUserMsg_ForceShopClosed_t@@@@
+.?AV?$CGameMessageDelegateHook@VCCitadelUserMsg_GameOver_t@@@@
 .?AV?$CGameMessageDelegateHook@VCCitadelUserMsg_HeroKilled_t@@@@
 .?AV?$CGameMessageDelegateHook@VCCitadelUserMsg_MapLine_t@@@@
 .?AV?$CGameMessageDelegateHook@VCCitadelUserMsg_MapPing_t@@@@
@@ -4598,12 +4599,14 @@ $hRh
 .?AV?$CMsgIDLink@$00$0BA@$0CDPN@VCMsgClientToGCGetFriendGameStatus@@@@
 .?AV?$CMsgIDLink@$00$0BA@$0CDPP@VCMsgClientToGCUpdateHeroBuildPreference@@@@
 .?AV?$CMsgIDLink@$00$0BA@$0CEAB@VCMsgClientToGCGetOldHeroBuildData@@@@
+.?AV?$CMsgIDLink@$00$0BA@$0CEAD@VCMsgClientToGCUpdateSpectatorStatus@@@@
 .?AV?$CMsgIDLink@$02$0BA@$0BLFI@VCMsgAnyToGCReportAsserts@@@@
 .?AV?$CMsgIDLink@$0BA@$00$0KCH@VCMsgGCToClientCurrencyPricePoints@@@@
 .?AV?$CMsgIDLinkGCToGenericClient@$00$0KCH@VCMsgGCToClientCurrencyPricePoints@@@@
 .?AV?$CMsgIDLinkGenericClientToGC@$00$0BBKL@VCMsgClientToGCAggregateMetrics@@@@
 .?AV?$CMsgIDLinkGenericClientToGC@$00$0CDDP@VCMsgClientToGCDevSetMMBias@@@@
 .?AV?$CMsgIDLinkGenericClientToGC@$00$0CDJH@VCMsgClientToGCPostMatchSurveyResponse@@@@
+.?AV?$CMsgIDLinkGenericClientToGC@$00$0CEAD@VCMsgClientToGCUpdateSpectatorStatus@@@@
 .?AV?$CMsgIDLinkGenericClientToGCResponse@$00$0CDDC@VCMsgClientToGCStartMatchmaking@@$0CDDD@VCMsgClientToGCStartMatchmakingResponse@@@@
 .?AV?$CMsgIDLinkGenericClientToGCResponse@$00$0CDDE@VCMsgClientToGCStopMatchmaking@@$0CDDF@VCMsgClientToGCStopMatchmakingResponse@@@@
 .?AV?$CMsgIDLinkGenericClientToGCResponse@$00$0CDDH@VCMsgClientToGCLeaveLobby@@$0CDDI@VCMsgClientToGCLeaveLobbyResponse@@@@
@@ -4740,6 +4743,7 @@ $hRh
 .?AV?$CNetMessagePB@$0BFH@VCCitadelUserMsg_ParticipantSetSoundEventParams@@$0N@$00$00@@
 .?AV?$CNetMessagePB@$0BFI@VCCitadelUserMsg_ParticipantSetLibraryStackFields@@$0N@$00$00@@
 .?AV?$CNetMessagePB@$0BFJ@VCCitadelUserMessage_CurrencyChanged@@$0N@$00$00@@
+.?AV?$CNetMessagePB@$0BFK@VCCitadelUserMessage_GameOver@@$0N@$00$00@@
 .?AV?$CNetMessagePB@$0BJA@VCMsgTEEffectDispatch@@$04$0A@$00@@
 .?AV?$CNetMessagePB@$0BJB@VCMsgTEArmorRicochet@@$04$0A@$00@@
 .?AV?$CNetMessagePB@$0BJC@VCMsgTEBeamEntPoint@@$04$0A@$00@@
@@ -5676,6 +5680,7 @@ $hRh
 .?AV?$CUserMessagePB@$0BFH@VCCitadelUserMsg_ParticipantSetSoundEventParams@@$00@@
 .?AV?$CUserMessagePB@$0BFI@VCCitadelUserMsg_ParticipantSetLibraryStackFields@@$00@@
 .?AV?$CUserMessagePB@$0BFJ@VCCitadelUserMessage_CurrencyChanged@@$00@@
+.?AV?$CUserMessagePB@$0BFK@VCCitadelUserMessage_GameOver@@$00@@
 .?AV?$CUserMessagePB@$0BPE@VCCitadelEntityMsg_BreakablePropSpawnDebris@@$00@@
 .?AV?$CUserMessagePB@$0GG@VCUserMessageCloseCaption@@$00@@
 .?AV?$CUserMessagePB@$0GH@VCUserMessageCloseCaptionDirect@@$00@@
@@ -5975,6 +5980,7 @@ $hRh
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?BA@??Dispatch@?$CGameMessageDelegateHook@VCCitadelUserMsg_Damage_t@@@@EEAA_NAEBVCCitadelUserMsg_Damage_t@@@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?BA@??Dispatch@?$CGameMessageDelegateHook@VCCitadelUserMsg_DeathReplayData_t@@@@EEAA_NAEBVCCitadelUserMsg_DeathReplayData_t@@@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?BA@??Dispatch@?$CGameMessageDelegateHook@VCCitadelUserMsg_ForceShopClosed_t@@@@EEAA_NAEBVCCitadelUserMsg_ForceShopClosed_t@@@Z@X$$V@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_1>@?BA@??Dispatch@?$CGameMessageDelegateHook@VCCitadelUserMsg_GameOver_t@@@@EEAA_NAEBVCCitadelUserMsg_GameOver_t@@@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?BA@??Dispatch@?$CGameMessageDelegateHook@VCCitadelUserMsg_HeroKilled_t@@@@EEAA_NAEBVCCitadelUserMsg_HeroKilled_t@@@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?BA@??Dispatch@?$CGameMessageDelegateHook@VCCitadelUserMsg_MapLine_t@@@@EEAA_NAEBVCCitadelUserMsg_MapLine_t@@@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?BA@??Dispatch@?$CGameMessageDelegateHook@VCCitadelUserMsg_MapPing_t@@@@EEAA_NAEBVCCitadelUserMsg_MapPing_t@@@Z@X$$V@std@@
@@ -6462,6 +6468,7 @@ $hRh
 .?AVCCitadelUserMessage_BulletHit@@
 .?AVCCitadelUserMessage_CurrencyChanged@@
 .?AVCCitadelUserMessage_Damage@@
+.?AVCCitadelUserMessage_GameOver@@
 .?AVCCitadelUserMessage_ModifierApplied@@
 .?AVCCitadelUserMessage_ObjectiveMask@@
 .?AVCCitadelUserMsg_AbilitiesChanged@@
@@ -6492,6 +6499,7 @@ $hRh
 .?AVCCitadelUserMsg_DeathReplayData_t@@
 .?AVCCitadelUserMsg_ForceShopClosed@@
 .?AVCCitadelUserMsg_ForceShopClosed_t@@
+.?AVCCitadelUserMsg_GameOver_t@@
 .?AVCCitadelUserMsg_GetDamageStatsResponse@@
 .?AVCCitadelUserMsg_GetDamageStatsResponse_StatType@@
 .?AVCCitadelUserMsg_GoldHistory@@
@@ -9273,6 +9281,7 @@ $hRh
 .?AVCProtobufBinding@?$CNetMessagePB@$0BFH@VCCitadelUserMsg_ParticipantSetSoundEventParams@@$0N@$00$00@@
 .?AVCProtobufBinding@?$CNetMessagePB@$0BFI@VCCitadelUserMsg_ParticipantSetLibraryStackFields@@$0N@$00$00@@
 .?AVCProtobufBinding@?$CNetMessagePB@$0BFJ@VCCitadelUserMessage_CurrencyChanged@@$0N@$00$00@@
+.?AVCProtobufBinding@?$CNetMessagePB@$0BFK@VCCitadelUserMessage_GameOver@@$0N@$00$00@@
 .?AVCProtobufBinding@?$CNetMessagePB@$0BJA@VCMsgTEEffectDispatch@@$04$0A@$00@@
 .?AVCProtobufBinding@?$CNetMessagePB@$0BJB@VCMsgTEArmorRicochet@@$04$0A@$00@@
 .?AVCProtobufBinding@?$CNetMessagePB@$0BJC@VCMsgTEBeamEntPoint@@$04$0A@$00@@
@@ -9725,7 +9734,6 @@ $hRh
 .?AVCTraceFilter@@
 .?AVCTraceFilterAnimGraphSlope@AnimGraphUtils@@
 .?AVCTraceFilterEntityPush@@
-.?AVCTraceFilterNoNPCsOrPlayer@@
 .?AVCTraceFilterSkipPlayersAndNPCs@@
 .?AVCTraceFilterSkipPlayersAndNPCsAndChildren@@
 .?AVCTraceFilterSlowWithCallback@@
@@ -10677,12 +10685,12 @@ $hRh
 .GCProtoBufMsgSrc
 .HCK\v
 .MODIFIER_ENTRY_TYPE
-.P1a
 .P6A?AVCTransform@@AEBV0@0@Z
 .P6AHPEBVIUIPanelClient@panorama@@0@Z
 .P6AXPEAVCSceneObject@@@Z
 .P6A_NXZ
 .PARTICLE_MESSAGE
+.PDa
 .PEAV?$CUtlVector@ULifetimeHighScore_t@CCitadelAccountStatCache@@HV?$CUtlMemory@ULifetimeHighScore_t@CCitadelAccountStatCache@@H@@@@
 .PEAVCBaseModifier@@
 .PEAVCPanel2D@panorama@@
@@ -10999,6 +11007,7 @@ $hRh
 .dx_LV9
 .google.protobuf.ServiceOptions
 .lbN
+.pCa
 .png
 .pp@0
 .steammessages_unified_base.steamworkssdk.proto"
@@ -11073,13 +11082,14 @@ $hRh
 0.CPlayer_UpdateSteamAnnouncementLastRead_Request
 02V8[
 05=k
-08@HRP
-08@J 
-08BP
+08@HRp
+08@J@
+08Bp
 08bX
 09,h
 0;Q5[
 0<cz
+0>p.a
 0M2~@p
 0Marks latest announcement timestamp read by user
 0Name of the file to publish in the user's cloud.
@@ -11368,7 +11378,6 @@ $hRh
 488:1: POS_FLOATLITERAL : ( ( DIGIT )+ '.' ( DIGIT )* ( EXPONENT )? | '.' ( DIGIT )+ ( EXPONENT )? | ( DIGIT )+ EXPONENT );
 4<Td
 4@AA
-4B`Re
 4Ch;
 4F0I
 4Mv8
@@ -11437,7 +11446,6 @@ $hRh
 666666666666666666666666666666666666666666666666\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\.\ssl\s3_enc.c
 67-s
 6?NumberValue@Value@v8@@QEBA?AV?$Maybe@N@2@V?$Local@VContext@v8@@@2@@Z
-6@5a
 6H,N
 6O|T%
 6Qd=
@@ -11451,7 +11459,7 @@ $hRh
 6\n\tdeath_pos
 6\n\tstructure
 6_wEX
-6`8a
+6`Ga
 6afD
 6bX+
 6c&0|vvX
@@ -11508,7 +11516,7 @@ $hRh
 851Pe
 8<pl
 8= zp
-8@JP
+8@Jp
 8A6j
 8Client ID for which to count the number of issued tokens"
 8GZS
@@ -11769,7 +11777,6 @@ $hRh
 >p00<
 >yhP
 >ztq
-?( m_eUpgradeType != EAddToScale && m_eUpgradeType != EMultiplyScale )
 ?(Optional) Video Id of a YouTube video for this published file.
 ?333?
 ?333?333?
@@ -11779,12 +11786,12 @@ $hRh
 ??1HandleScope@v8@@QEAA@XZ
 ??1TryCatch@v8@@QEAA@XZ
 ??1Utf8Value@String@v8@@QEAA@XZ
-?Allows sending up a command string for the match maker to run on the server (dev only)
 ?BooleanValue@Value@v8@@QEBA_NPEAVIsolate@2@@Z
 ?C:\buildworker\citadel_rel_win64\build\src\bitmap\bitmap.cpp
 ?C_CitadelPlayerPawn
 ?CarouselNav
-?CitadelHudPersonalBest
+?CitadelHudHeroShop
+?CitadelMatchFormed
 ?CitadelPlayerAwardTooltip
 ?CreateHandle@HandleScope@v8@@KAPEA_KPEAVIsolate@internal@2@_K@Z
 ?DisposeGlobal@api_internal@v8@@YAXPEA_K@Z
@@ -11793,6 +11800,7 @@ $hRh
 ?Exit@Context@v8@@QEAAXXZ
 ?Exit@Isolate@v8@@QEAAXXZ
 ?For@Symbol@v8@@SA?AV?$Local@VSymbol@v8@@@2@PEAVIsolate@2@V?$Local@VString@v8@@@2@@Z
+?Force guide bot to talk with reason.
 ?FromJustIsNothing@api_internal@v8@@YAXXZ
 ?Get@Object@v8@@QEAA?AV?$MaybeLocal@VValue@v8@@@2@V?$Local@VContext@v8@@@2@I@Z
 ?GetCurrentContext@Isolate@v8@@QEAA?AV?$Local@VContext@v8@@@2@XZ
@@ -11815,7 +11823,7 @@ $hRh
 ?ff&?333?
 ?gwL
 ?jOb
-?r_dof_override_ranges
+?r_ao_height_map
 ?srJO
 ?tya
 ?uWS
@@ -11983,7 +11991,6 @@ AE_CL_PLAYSOUND_POSITION
 AE_CL_STOPSOUND
 AE_CL_STOP_RAGDOLL_CONTROL
 AE_DISABLE_PLATFORM
-AE_EMPTY
 AE_ENABLE_PLATFORM
 AE_FIRE_INPUT
 AE_FOOTSTEP
@@ -12385,6 +12392,7 @@ AccumulateButtonState should only be called during input processing.
 AccumulatedRelevance %.3f \n
 Achievement
 AchievementGroup
+Acitadel_payload
 Action
 Action Reload
 Activate
@@ -12575,6 +12583,7 @@ Allows for forcing MM to act like it returned the specified error for UI testing
 Allows matchmaking as a solo player onto a server
 Allows overriding persona names with this value for testing UI
 Allows rain in splitscreen
+Allows sending up a command string for the match maker to run on the server (dev only)
 Allows team members to injure other members of their team
 AllyCastDelay
 AllyDistance
@@ -12584,7 +12593,6 @@ AltCastModifier
 AltInfoContainer
 Alternate icon definition index %d must be greater than or equal to zero
 Always
-Am_nNumPushers
 Amber
 Amber Hand
 Amber base attack expire: %.03f
@@ -13073,6 +13081,7 @@ BSerializeUserMessageToSVCMSG
 BSpline
 BT5f
 BTryDeleteExitedWorkerThreads()
+BTurns off the ability to have aggressive and passive pings.
 BUCKSHOT
 BUF lib
 BUFFED
@@ -14376,7 +14385,7 @@ C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_stat_view
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_stats_shared.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_user_surveys.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_utils.cpp
-C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_utils.cpp:1620
+C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_utils.cpp:1621
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_vscriptgamesystem.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_zip_line_node.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\heroes\citadel_hero_bebop.cpp
@@ -16192,6 +16201,7 @@ CCitadelUIFindOpponentState::SetGCAcknowledged
 CCitadelUserCmdPB
 CCitadelUserMessage_BulletHit
 CCitadelUserMessage_Damage
+CCitadelUserMessage_GameOver
 CCitadelUserMsg_AbilityInterrupted_t
 CCitadelUserMsg_AbilityLateFailure_t
 CCitadelUserMsg_AbilityNotify_t
@@ -16211,6 +16221,7 @@ CCitadelUserMsg_DeathReplayData
 CCitadelUserMsg_DeathReplayData_t
 CCitadelUserMsg_ForceShopClosed"
 CCitadelUserMsg_ForceShopClosed_t
+CCitadelUserMsg_GameOver_t
 CCitadelUserMsg_GoldHistory
 CCitadelUserMsg_GoldHistory_t
 CCitadelUserMsg_HeroKilled
@@ -16435,7 +16446,6 @@ CCitadel_Ability_Ghost_BloodShards
 CCitadel_Ability_Ghost_BloodShards::Schema_VerifyBindingIsRegistered
 CCitadel_Ability_GoldenIdol
 CCitadel_Ability_GoldenIdol::Schema_VerifyBindingIsRegistered
-CCitadel_Ability_GoldenIdolVData
 CCitadel_Ability_GoldenIdolVData::KV3TransferLoad_Impl
 CCitadel_Ability_GoldenIdolVData::KV3Transfer_DefaultKeys_Impl
 CCitadel_Ability_GoldenIdolVData::Schema_VerifyBindingIsRegistered
@@ -20267,6 +20277,10 @@ CGameMessageDelegateHook<class CCitadelUserMsg_ForceShopClosed_t>::GetNetworkMes
 CGameMessageDelegateHook<class CCitadelUserMsg_ForceShopClosed_t>::Release
 CGameMessageDelegateHook<class CCitadelUserMsg_ForceShopClosed_t>::SetDelegate
 CGameMessageDelegateHook<class CCitadelUserMsg_ForceShopClosed_t>::~CGameMessageDelegateHook
+CGameMessageDelegateHook<class CCitadelUserMsg_GameOver_t>::GetNetworkMessageTypeId
+CGameMessageDelegateHook<class CCitadelUserMsg_GameOver_t>::Release
+CGameMessageDelegateHook<class CCitadelUserMsg_GameOver_t>::SetDelegate
+CGameMessageDelegateHook<class CCitadelUserMsg_GameOver_t>::~CGameMessageDelegateHook
 CGameMessageDelegateHook<class CCitadelUserMsg_HeroKilled_t>::GetNetworkMessageTypeId
 CGameMessageDelegateHook<class CCitadelUserMsg_HeroKilled_t>::Release
 CGameMessageDelegateHook<class CCitadelUserMsg_HeroKilled_t>::SetDelegate
@@ -24714,7 +24728,7 @@ CUserMsg_HudError_t
 CUserMsg_ParticleManager
 CUserMsg_ParticleManager_t
 CUtlArray<bool,1,class CSplitScreenSlot>::[]::<lambda_1>::operator ()
-CUtlArray<char const *,13,int>::[]::<lambda_1>::operator ()
+CUtlArray<char const *,9,int>::[]::<lambda_1>::operator ()
 CUtlArray<class CBaseHudWeaponSelection *,1,class CSplitScreenSlot>::[]::<lambda_1>::operator ()
 CUtlArray<class CBasePlayerController *,1,class CSplitScreenSlot>::[]::<lambda_1>::operator ()
 CUtlArray<class CCitadelCameraManager,1,class CSplitScreenSlot>::[]::<lambda_1>::operator ()
@@ -30481,6 +30495,7 @@ CitadelHudModifiers
 CitadelHudModifiers_Entry
 CitadelHudPassiveAbilities
 CitadelHudPauseMsg
+CitadelHudPersonalBest
 CitadelHudPlayerIntents
 CitadelHudPlayerIntentsPlayer
 CitadelHudPlayerIntentsTeam
@@ -30540,7 +30555,6 @@ CitadelMatchDetailsReady
 CitadelMatchDetailsRenderGraph
 CitadelMatchDetailsReplayClicked
 CitadelMatchDetailsRetry
-CitadelMatchFormed
 CitadelMatchHistoryEntryActivated
 CitadelMatchHistoryUpdated
 CitadelMatchMetaDataAccessReady
@@ -30651,6 +30665,7 @@ CitadelPlayerPersonalBest
 CitadelPlayerStatsUpdated
 CitadelPlaytestInfoUpdated
 CitadelPopupClearTeamName
+CitadelPopupConfirmMatchID
 CitadelPopupInvitationAccepted
 CitadelPopupInvitationAcceptedDone
 CitadelPopupJoinParty
@@ -30922,7 +30937,6 @@ CitadelWatchBatchLoaded
 CitadelWatchChangePage
 CitadelWatchDirty
 CitadelWatchGotoMatch
-CitadelWatchPage
 CitadelWeaponID_t
 CitadelWeaponID_t::Schema_VerifyBindingIsRegistered
 CitadelWeaponRecoilData_t
@@ -31535,7 +31549,7 @@ DBDc
 DBF-
 DBPlayerList
 DCBodyComponent
-DCitadelPopupConfirmMatchID
+DCitadelWatchPage
 DEAD
 DEBRIS
 DEFAULT
@@ -32063,7 +32077,6 @@ Dead
 Deadlock
 Deal 3,000 fire damage within a match
 Dealt
-Death
 Death Penalty Gold
 DeathImmunityDuration
 DeathImmunityPulseRateMultiplier
@@ -33100,6 +33113,7 @@ EFireMode_Primary
 EFireMode_Secondary
 EFireMode_t
 EFireRate
+EFireRateAttribute_DEPRECATED
 EFlags
 EFlags=0x%X  Effects=0x%X
 EFlashFlag_DoT
@@ -33531,7 +33545,6 @@ EStinger_BossKilled_Titan_Friendly
 EStinger_HeroDeath
 EStinger_Idol_PickedUp
 EStinger_Idol_Returned
-EStinger_LevelUp
 EStinger_MidBoss_Arrived
 EStinger_PlayerKillStreak
 EStinger_PlayerKillStreak_FirstBlood
@@ -34905,6 +34918,7 @@ F7!z
 F9q'
 F<mb
 F?ToString@Value@v8@@QEBA?AV?$MaybeLocal@VString@v8@@@2@V?$Local@VContext@v8@@@2@@Z
+FAE_EMPTY
 FALL
 FCVAR_DEMO
 FCVAR_DEVELOPMENTONLY
@@ -35032,7 +35046,6 @@ FOLIAGE_ANIMATION_PIVOT
 FORCE_CAPTION
 FORM
 FORMAT
-FP"a
 FSR Upscale
 FS_LocalToGlobal_t::Get
 FS_LocalToGlobal_t::SetMapping
@@ -35241,7 +35254,6 @@ FavoriteHeroImage
 FavoriteIcon
 Favorites
 FavoritesKV
-Fcl_ent_showonlyattachment
 FeEffectName
 FeaturedMatchSnippet
 FeetSettings
@@ -35476,7 +35488,6 @@ Force a specific lesson to be triggered
 Force all abilities to call OnUpgrade()
 Force all clients to disable their game instructors.
 Force all clients to enable their game instructors.
-Force guide bot to talk with reason.
 Force showing the botmatch warning during pause.
 Force third person camera angles
 Force-reloading resident cubemaps that were rebuilt\n
@@ -35514,6 +35525,7 @@ Found no entity at %d.\n
 FourQuaternions
 FourQuaternions::Schema_VerifyBindingIsRegistered
 FourVectors
+Fp4a
 Frame Rate, Number of Frames, Percent of Frames\n
 Frame time greater than this is considered 'poor'.
 Frame.AutoSnapRange
@@ -35931,7 +35943,6 @@ GameEvent_FireBullets_t
 GameEvent_RegisterHookupGameSystem
 GameEvent_ServerRequestedTracer_t
 GameHeader
-GameInProgress
 GameInfo
 GameInit - PreCache - Finish
 GameInit - PreCache - Start
@@ -36389,6 +36400,7 @@ H8xp
 H=`HY
 H@H9xqI
 HBJ\nTRF
+HD(a
 HDR Color Scale: %0.3f
 HDRColor
 HDRColorScale
@@ -36772,7 +36784,6 @@ HeroScalingStat_t::KV3Transfer_DefaultKeys_Impl
 HeroScalingStat_t::Schema_VerifyBindingIsRegistered
 HeroScenePanel
 HeroSelectedEvent
-HeroSelection
 HeroSnippet
 HeroStats
 HeroStatsBtn
@@ -41154,6 +41165,7 @@ N.lb
 N5dIn9
 N7CJ'
 N=Knn
+N@m_nLastFlexUpdateFrameCount
 NAME_CONSTRAINTS
 NCONF_dump_bio
 NCONF_dump_fp
@@ -42151,8 +42163,7 @@ P-224
 P-256
 P-384
 P-521
-P08@J 
-P08Jp
+P08@J@
 P1\t98"
 P2P ping to "%s". Timed out after %.2fms\n
 P2P_Messages
@@ -42968,7 +42979,6 @@ Pr"V
 PreEntityPacketReceived
 PreEntityPacketReceived(nocmds)
 PreGameBind
-PreGameWait
 PreMatch
 PreRollBulletProc
 PreSave(%d):  entity identity is missing, may cause a crash\n
@@ -44428,6 +44438,7 @@ SXNET_get_id_asc
 SXNET_get_id_ulong
 SXNetID
 SYNC_WAIT_FOR_COMPLETION
+S\pn\
 S\vQN
 Safe To Auto-Switch Away From
 Safe To Auto-Switch To
@@ -47414,7 +47425,6 @@ Stinger.Idol.PickedUp
 Stinger.Idol.Returned
 Stinger.KillStreak
 Stinger.KillStreak.FirstBlood
-Stinger.LevelUp
 Stinger.MidBoss.Arrived
 Stinger.Rejuvinator.Claimed.Enemy
 Stinger.Rejuvinator.Claimed.Friendly
@@ -47483,7 +47493,6 @@ StringToken(%08x)
 StringToken(%s)
 StringToken()
 Strong Extranet ID
-Stuck_Need_Full_Update
 StunDuration
 StunOnLand
 StunsTargets
@@ -48528,7 +48537,6 @@ Turn on to see animgraph variable changes for entities passing animgraph_debug_f
 TurnOff
 TurnOn
 TurnRateMax
-Turns off the ability to have aggressive and passive pings.
 Turns on bullet impacts and decals on world from troopers and neutrals shooting
 Turns on the absbox for all active physics objects.\n  0 : un-highlight.\n
 Turns on/off debug display of modifiers
@@ -48583,7 +48591,6 @@ UI.MapPing
 UI.MapPing_Attack
 UI.MapPing_Defend
 UI.MapPing_Warning
-UI.Match.End
 UI.Matchmake.Find
 UI.Matchmake.Made
 UI.PlayerChat.Broadcast
@@ -49183,7 +49190,6 @@ V_stricmp_fast( pExt, "mdl" )
 V_stristr_fast( m_strSource.String(), "://" ) != nullptr
 V_strlen( filename ) < MAX_PATH
 V_strnicmp_fast( label, "ACT_", 4 )
-V`2a
 VacuumRadius
 VacuumTargetMinRadius
 VacuumTime
@@ -49265,7 +49271,6 @@ VggjeK uO5n
 VguiScreen
 VictimImage
 VictimPushTime
-Victory
 VideoBandwidth
 VideoPlayerChangedRepresentation
 VideoPlayerEnded
@@ -49427,7 +49432,6 @@ W\noB
 Wait For Completion
 Wait, Resume=%s
 Waiting for rendering to complete...\n
-WaitingForPlayersToJoin
 Wake all physics objects in the Main physics up
 WakeDependentJobFinished
 WakeGotLock
@@ -49900,8 +49904,9 @@ XRJ2
 XWY]
 XYD%
 X\tQo
-X`hrP
+X`hrp
 Xd3h
+Xf 0a
 XfJ7
 XjfR
 XqgA+
@@ -50124,7 +50129,7 @@ Z~wl
 \f]ne3
 \fdhWTh
 \fiaR
-\fp\vPL
+\fp\vPl
 \ful2
 \fy&3Gl
 \l:ArR
@@ -50454,6 +50459,7 @@ Z~wl
 \n\fweaponselect
 \n\fwebapi_param
 \n\fwhat_changed
+\n\fwinning_team
 \n\fx_resolution
 \n\fy_resolution
 \n\nDiagnostic
@@ -50912,6 +50918,7 @@ Z~wl
 \n\vis_verified
 \n\vitem_count2
 \n\vitem_rarity
+\n\vjust_a_test
 \n\vk_Succeeded
 \n\vk_eDisabled
 \n\vk_eKickUser
@@ -50989,7 +50996,6 @@ Z~wl
 \r!\r+\r-\r=\r?\rO\rU\ri\ry\r
 \r@h!Aq8
 \rB6uZ
-\rEFireRateAttribute_DEPRECATED
 \rHeroBuildID_t
 \rHeroBuildID_t"
 \rKT8v
@@ -51022,6 +51028,7 @@ Z~wl
 \roKK
 \rrCj
 \rstyle_index_t
+\rtext
 \rusercmd.proto"
 \sG7tPD
 \t The lexer was matching from line %d, offset %d, which\n\t 
@@ -51184,7 +51191,6 @@ Z~wl
 \t\tScore: %u, Type: %u, Type ID: %u, Last Displayed: %u\n
 \t\t\t\t"inputTexture%i"%s\n
 \t\t\t\t\n\n\n\n\n\n\n\n\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tPl
 \t\t\t]\n\t\t}\n\t]\n\t"m_bHiddenAssetFlag" "bool" "1"\n}\n
 \t]\n\t"m_outputTypeString" "string" "%s"\n\t"m_outputFormat" "string" "%s"\n\t"m_textureOutputChannelArray" "element_array"\n\t[\n\t\t"CDmeTextureOutputChannel"\n\t\t{\n\t\t\t"m_srcChannels" "string" "rgba"\n\t\t\t"m_dstChannels" "string" "rgba"\n\t\t\t"m_mipAlgorithm" "CDmeImageProcessor"\n\t\t\t{\n\t\t\t\t"m_algorithm" "string" "%s"\n\t\t\t}\n\t\t\t"m_outputColorSpace" "string" "%s"\n\t\t\t"m_inputTextureArray" "string_array"\n\t\t\t[\n
 \t_V_FixupPathName
@@ -51281,13 +51287,13 @@ _rt_panorama_canvas_msaa.vtex
 _scale
 _set
 _set_crit
-_test
 _to_curve_
 _tools_event_desc
 _xU`u
 _}eOk
 `28)fk
 `3?New@Array@v8@@SA?AV?$Local@VArray@v8@@@2@PEAVIsolate@2@H@Z
+`60Ba
 `:zQF
 `D$daM-l
 `DZG
@@ -51303,7 +51309,6 @@ _}eOk
 `generic-method-parameter-
 `generic-type-
 `h9T~
-`ht0
 `local static destructor helper'
 `non-type-template-parameter
 `o_je
@@ -52776,6 +52781,7 @@ can_spectate
 can_stattrack_swap
 can_sticker
 can_zip_line
+cancel
 cancel_key
 candy shop id
 cannot craft
@@ -53473,7 +53479,6 @@ citadel_party_invite_in_game
 citadel_pause
 citadel_pause_event
 citadel_pause_game_pause_silently
-citadel_payload
 citadel_pending_replay_force_failure
 citadel_pending_replay_num_retries
 citadel_pending_replay_retry_seconds
@@ -53707,6 +53712,7 @@ cl: %d ===========================\n
 cl: %d: %s\n
 cl_ShowBoneSetupEnts
 cl_aggregate_particles
+cl_anglespeedkey
 cl_anim_eval_stats
 cl_animgraph_dump_update_list
 cl_animgraph_history_force_temporal_consistency
@@ -53810,6 +53816,7 @@ cl_ent_setpos used on server-authoritative entity %d\n
 cl_ent_setpos: no entity %d\n
 cl_ent_show_contexts
 cl_ent_show_damage
+cl_ent_showonlyattachment
 cl_ent_showonlyhitbox
 cl_ent_skeleton
 cl_ent_skeleton_only_ik_joints
@@ -55822,8 +55829,8 @@ f%wyLmX:
 f&dy
 f1cK%
 f45\r
+f8da
 fBB\fy
-fCRa
 fC\tc
 fChance > 0.0f && fChance <= 1.0f
 fItemWeight > 0.0f
@@ -55884,6 +55891,7 @@ fatal
 favorite_count
 favorites
 favouriteDrink
+fcda
 fdxfv%
 feop(
 fetch_id
@@ -56688,7 +56696,6 @@ game_particle_manager_dump_requeue
 game_particle_manager_list_active
 game_particle_manager_requeue_messages
 game_sensitivity
-game_state_changed
 game_ui_dialog
 gameevents.proto
 gameevents.proto""\n
@@ -56706,7 +56713,6 @@ gameinstructor_verbose
 gameinstructor_verbose_lesson
 gamematerial
 gameover_msg
-gameover_msg_test
 gameoverlayrenderer64.dll
 gamepad
 gameplay_hud
@@ -56795,6 +56801,7 @@ gifting_window_hours
 give_to_account_id
 givenName
 gives_normal_credit_in_turbo_mode
+giveunlocks 3
 gj8(
 gl_clear
 gl_clear_gray
@@ -57327,7 +57334,7 @@ hovering
 how fast to run (1 to use player max run speed).
 hows joint info for this entity
 hp_stat
-hpz 
+hpz@
 hr_H
 href="
 hscroll
@@ -59113,6 +59120,7 @@ k_EUserMsg_CurrencyChanged
 k_EUserMsg_Damage
 k_EUserMsg_DeathReplayData
 k_EUserMsg_ForceShopClosed
+k_EUserMsg_GameOver
 k_EUserMsg_GetDamageStatsResponse
 k_EUserMsg_GoldHistory
 k_EUserMsg_HeroKilled
@@ -61038,6 +61046,7 @@ m_TimeWallHitParticle
 m_TimeWallHitTimerParticle
 m_TimeWallParticle
 m_TimelineEvents
+m_TimerToSilence
 m_TornadoAura
 m_TornadoCastParticle
 m_TorrentModifier
@@ -62874,7 +62883,6 @@ m_flLastBulletConsumedTime
 m_flLastCameraSetupTime
 m_flLastDamageTaken
 m_flLastDamageTime
-m_flLastDeferredDamageApplicationTime
 m_flLastOnGroundTime
 m_flLastPhysicsInfluenceTime
 m_flLastShakeTime
@@ -64358,7 +64366,6 @@ m_nLastAddDecal
 m_nLastCommandNumberProcessed
 m_nLastExecutedCommandNumber
 m_nLastExecutedCommandTick
-m_nLastFlexUpdateFrameCount
 m_nLastGroundDashTick
 m_nLastLocalPlayerObservedTeam
 m_nLastObservedTeam
@@ -64431,6 +64438,7 @@ m_nNumPlanes
 m_nNumPlayersAffected
 m_nNumPlayersKilled
 m_nNumPrefixedContexts
+m_nNumPushers
 m_nNumStacks
 m_nNumTicks
 m_nNumTicksRemaining
@@ -65543,6 +65551,7 @@ m_vInitialPanelVertices
 m_vInitialPosition
 m_vInitialVelocity
 m_vLastCollisionOrigin
+m_vLastKnownSafePos
 m_vLastPosition
 m_vLastSafePos
 m_vLastShardPosition
@@ -67144,7 +67153,6 @@ nOffsetTL >= 0 && nOffsetTL < ( UINT16_MAX >> 1 )
 nOffsetTR >= 0 && nOffsetTR < ( UINT16_MAX >> 1 )
 nOriginalIndex != m_dictRemoteOverriddenConVars.InvalidIndex()
 nOutputIndex == nOutputLength
-nP!a
 nParam
 nParent < 0xFFFFFFFFu
 nParent < b
@@ -67525,6 +67533,7 @@ notifications_showmessages
 notifications_showonline
 notreadybehavior
 nowrap
+np3a
 npc_barrack_boss
 npc_boss_tier2
 npc_boss_tier2_sidelanes
@@ -67909,9 +67918,9 @@ p4Z3
 p5Z3
 p5\nL,
 p618
-p>$Ra
 p>?Set@Template@v8@@QEAAXV?$Local@VName@v8@@@2@V?$Local@VData@v8@@@2@W4PropertyAttribute@2@@Z
-p>ORa
+p>Dda
+p>oda
 p?BoneSetup
 p@0pqE5tsO?|1
 pAbility
@@ -69880,7 +69889,6 @@ r_JeepViewDampenFreq
 r_JeepViewZHeight
 r_RainAllowInSplitScreen
 r_RainParticleDensity
-r_ao_height_map
 r_ao_height_map_force_dirty
 r_ao_height_map_local_fade
 r_ao_height_map_local_radius
@@ -69955,6 +69963,7 @@ r_displacement_render_displacement_patches
 r_distancefield_enable
 r_dof1_d0
 r_dof1_d1
+r_dof_override_ranges
 r_dota_fxaa
 r_draw3dskybox
 r_draw_bindless_overlays
@@ -73128,6 +73137,7 @@ v_%s_target_pos
 v_LeftArmTarget
 v_angle
 v_anglePrevious
+v`La
 val > 0
 valCur
 valDelta
@@ -73437,7 +73447,6 @@ width-percentage
 width-percentage( %s )
 windradius
 winner
-winning_team
 wins
 wlLYP
 wm"h
@@ -73600,7 +73609,7 @@ z/B,9d
 z<d2
 z>Hz
 z?ff
-zDm_TimerToSilence
+zDCCitadel_Ability_GoldenIdolVData
 zF):O4
 zFar
 zG2m8
