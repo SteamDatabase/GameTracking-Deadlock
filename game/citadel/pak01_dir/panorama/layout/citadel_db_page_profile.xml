@@ -3,6 +3,7 @@
 	<styles>
 		<include src="s2r://panorama/styles/citadel_base_styles.vcss_c" />
 		<include src="s2r://panorama/styles/citadel_db_page_shared.vcss_c" />
+		<include src="s2r://panorama/styles/citadel_shared_colors.vcss_c" />
 		<include src="s2r://panorama/styles/citadel_db_page_profile.vcss_c" />
 	</styles>
 	<snippets>
@@ -16,21 +17,78 @@
 				</Panel>
 			</Panel>
 		</snippet>
+		<snippet name="MatchBlockBig">
+			<Panel class="MatchBlockBig">
+				<Panel class="teamStripe" />
+				<Panel class="gameContent">
+					<Panel class="gameInfo">
+						<Panel id="gameResultRow">
+							<Label class="gameResult" text="{s:match_outcome}" />
+						</Panel>
+						<Label class="heroName" text="{g:citadel_hero_name:hero_id}" />
+						<Label class="gameDuration" text="{g:citadel_match_time:match_duration}" />
+						<Label class="gameDate" text="{t:s:t:m:match_start_time}" />
+					</Panel>
+					<CitadelHeroImage id="HeroImage" class="heroImg" />
+					<Label class="gameNetworth" text="{s:game_networth}" />
+				</Panel>
+				<Panel id="Overlay">
+					<Panel class="viewDetails">
+						<Label text="#Citadel_Profile_MatchHistory_ViewDetails" />
+						<Panel class="arrowIcon" />
+					</Panel>
+				</Panel>
+			</Panel>
+		</snippet>
+		<snippet name="MatchBlockMini">
+			<Panel class="gameMiniBlock">
+				<Panel class="teamStripe" />
+				<Label class="gameResultShort" text="{s:match_outcome}" />
+				<CitadelHeroImage id="HeroImage" class="heroImg" />
+				<Panel id="Overlay">
+					<Panel class="viewDetails">
+						<Panel class="arrowIcon" />
+					</Panel>
+				</Panel>
+			</Panel>
+		</snippet>
+		<snippet name="HeroRow">
+			<Panel class="heroRow">
+				<Panel id="HeroRowBackground" />
+				<CitadelHeroImage id="HeroRowImage" heroimagestyle="small" />
+				<Label class="heroRowName" text="{s:hero_row_name}" />
+			</Panel>
+		</snippet>
+		<snippet name="BlockStat">
+			<Panel class="BlockStat">
+				<Panel class="blockBacker" />
+				<Panel class="StatIcon" />
+				<Label class="statValue" text="{i:stat_value}" />
+				<Panel class="labelContainer">
+					<Label class="statLabel" text="{s:stat_name}" />
+				</Panel>
+			</Panel>
+		</snippet>
 	</snippets>
 	<CitadelProfilePage class="DashboardPage" oncancel="CitadelNavigateBack();">
-		<Panel id="Title">
-			<Label text="#Citadel_Profile_Title" />
+		<ScenePanel id="HeroScenePanel" map="ui/hero_shop/abrams_shop" use_shop_map="true" sound="PORTRAIT_SOUND_MODE_ALL_SOUNDS" shop_hero_animgraph_enum="ShopBase" parent_entity_name="hero_root" camera="point_camera" rotateonhover="true" allowrotation="false" require-composition-layer="true" />
+		<Panel id="HeroFeatureArea">
+			<Label id="HeroFeatureLabel" text="#Citadel_Profile_MostPlayed" />
+			<Label id="HeroFeatureName" text="{s:current_viewing_hero}" />
 		</Panel>
 		<Panel class="MainContents">
 			<Panel class="LeftPanel">
-				<Panel class="StatsBody">
-					<Panel class="ProfileSection">
-						<CitadelAvatarImage id="SelfImage" />
+				<Panel class="ProfileSection">
+					<CitadelAvatarImage id="SelfImage" />
+					<Panel id="ProfileInfo">
 						<CitadelUserName id="SelfName" />
+						<Button id="ForumButton" onactivate="CitadelJoinForum(); CitadelPlayUISound( ESocialMenuHover )">
+							<Panel class="ForumIcon buttonIcon" />
+							<Label class="defaultText" text="#Citadel_JoinForum_ViewInfo" />
+						</Button>
 					</Panel>
-					<Panel class="StatsSectionLoading">
-						<Label text="#Citadel_Profile_Loading" />
-					</Panel>
+				</Panel>
+				<Panel class="StatsBody">
 					<Panel id="StatsSection" />
 					<Panel class="StatsFooter">
 						<CitadelHeroImage id="FavoriteHeroImage" />
@@ -39,29 +97,63 @@
 							<Label class="MostPlayedNameLabel" text="{g:citadel_hero_name:most_played_hero_id}" />
 						</Panel>
 					</Panel>
-					<Button id="ForumButton" class="SecondaryButton light hasIcon" onactivate="CitadelJoinForum(); CitadelPlayUISound( ESocialMenuHover )">
-						<Panel class="ForumIcon buttonIcon" />
-						<Label class="defaultText" text="#Citadel_JoinForum_ViewInfo" />
-					</Button>
 				</Panel>
 			</Panel>
 			<Panel class="RightPanel">
-				<Panel class="MatchHistoryTitle">
-					<Label text="#Citadel_Profile_MatchHistory" />
-				</Panel>
-				<Panel id="MatchListingLoading">
-					<Label text="#Citadel_Profile_Loading" />
-				</Panel>
-				<Panel id="MatchListing" />
-				<Panel class="MatchHistoryFooter">
-					<Panel id="PrevMatchPage" class="MatchHistoryButton" onactivate="CitadelProfileHistoryPrevPage();">
-						<Label text="Prev" />
+				<Panel id="MatchHistoryArea">
+					<Panel class="titleArea">
+						<Label class="smallTitle" text="#Citadel_Profile_MatchHistory" />
+						<Panel id="MatchHistoryButton">
+							<Label class="smallTitle" text="#Citadel_Profile_MatchHistory_ViewAll" />
+							<Panel id="allHistoryIcon" />
+						</Panel>
 					</Panel>
-					<Panel id="NextMatchPage" class="MatchHistoryButton" onactivate="CitadelProfileHistoryNextPage();">
-						<Label text="Next" />
+					<Panel id="MatchHistoryList">
+						<Panel id="MatchBlockBigContainer" />
+						<Panel id="MatchBlockMiniContainer" class="MiniMatchBlock" />
+					</Panel>
+				</Panel>
+				<Panel id="Statistics">
+					<Panel class="titleArea">
+						<Label class="smallTitle" text="#Citadel_Profile_Statistics" />
+					</Panel>
+					<Panel id="StatsContent">
+						<Panel id="HeroList" />
+						<Panel id="StatsBlock">
+							<Panel id="StatsTitle">
+								<Label class="statSectionLabel" text="#Citadel_Profile_Stats_TitleSection" />
+								<Label class="statSectionName" text="{s:stat_section_name}" />
+							</Panel>
+							<Panel id="StatsLeft">
+								<Panel class="StatRow">
+									<Panel id="GamesPlayedContainer" class="TextStat largeStat">
+										<Label class="statValue" text="{i:games_played}" />
+										<Label class="statLabel" text="#Citadel_Profile_Stats_GamesPlayed" />
+									</Panel>
+									<Panel id="GamesWonContainer" class="TextStat largeStat">
+										<Label class="statValue" text="{i:games_won}" />
+										<Label class="statLabel" text="#Citadel_Profile_Stats_GamesWon" />
+									</Panel>
+								</Panel>
+								<Panel class="StatRow">
+									<Panel id="LastHitsContainer" class="TextStat">
+										<Label class="statValue" text="{i:last_hits}" />
+										<Label class="statLabel" text="#Citadel_Profile_Stats_LastHits" />
+									</Panel>
+									<Panel id="DeniesContainer" class="TextStat">
+										<Label class="statValue" text="{i:denies}" />
+										<Label class="statLabel" text="#Citadel_Profile_Stats_Denies" />
+									</Panel>
+								</Panel>
+							</Panel>
+							<Panel id="StatsRight" />
+						</Panel>
 					</Panel>
 				</Panel>
 			</Panel>
+		</Panel>
+		<Panel class="StatsSectionLoading">
+			<Label text="#Citadel_Profile_Loading" />
 		</Panel>
 	</CitadelProfilePage>
 </root>

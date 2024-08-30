@@ -737,6 +737,7 @@ $toolgraphs
 .?AVCSosOperatorVMixInputArray@@
 .?AVCSosOperatorVMixInputIR@@
 .?AVCSosOperatorVMixNameInput@@
+.?AVCSosOperatorVMixOutput@@
 .?AVCSosOperatorValOnFirstFrame@@
 .?AVCSosOperatorVec3@@
 .?AVCSosOperatorVectorFacingPoint@@
@@ -829,7 +830,6 @@ $toolgraphs
 1e<w 
 488:1: POS_FLOATLITERAL : ( ( DIGIT )+ '.' ( DIGIT )* ( EXPONENT )? | '.' ( DIGIT )+ ( EXPONENT )? | ( DIGIT )+ EXPONENT );
 : lexer error %d :\n\t%s at offset %d, 
-:\tV_powd
 <DOWN>
 <EMPTY>
 <EOR>
@@ -845,7 +845,7 @@ $toolgraphs
 =gf0A
 >EJtM
 >fff?fff?fff?
-?P81
+?PX1
 ?amN2
 ?fff?fff?fff?fff?
 ?gUB
@@ -1626,6 +1626,10 @@ CSoundContainerReference
 CSoundContainerReference::KV3TransferLoad_Impl
 CSoundContainerReference::KV3Transfer_DefaultKeys_Impl
 CSoundContainerReference::Schema_VerifyBindingIsRegistered
+CSoundContainerReferenceArray
+CSoundContainerReferenceArray::KV3TransferLoad_Impl
+CSoundContainerReferenceArray::KV3Transfer_DefaultKeys_Impl
+CSoundContainerReferenceArray::Schema_VerifyBindingIsRegistered
 CSoundDebugVisualizer
 CSoundEvent: %s\nBase: %s\nType: %s\nFields:\n
 CSoundEventDefinition::GetStaticGroupName
@@ -1944,6 +1948,9 @@ CUtlMemory<struct CVMixMixer::VMixVoice_t,int>::Grow
 CUtlMemory<struct CVMixMixer::VMixVoice_t,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<struct CVMixNestedVoiceGraphFlattener::VMixGraphVoice_t,int>::Grow
 CUtlMemory<struct CVMixNestedVoiceGraphFlattener::VMixGraphVoice_t,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<struct CVoiceContainerBase *,int>::Grow
+CUtlMemory<struct CVoiceContainerBase *,int>::Grow::<lambda_1>::operator ()
+CUtlMemory<struct CVoiceContainerBase *,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<struct CVoiceContainerRandomSampler::CInstanceData,int>::Grow
 CUtlMemory<struct CVoiceContainerRandomSampler::CInstanceData,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<struct CVoiceContainerSetElement,int>::Grow
@@ -2051,9 +2058,6 @@ CUtlMemory<struct SoundEventSendDebugEntry_t *,int>::Grow
 CUtlMemory<struct SoundEventSendDebugEntry_t *,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<struct SoundEventStartVmixDebugEntry_t *,int>::Grow
 CUtlMemory<struct SoundEventStartVmixDebugEntry_t *,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct SoundWithProbability_t,int>::Grow
-CUtlMemory<struct SoundWithProbability_t,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<struct SoundWithProbability_t,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<struct StartVsndInfo_t,int>::Grow
 CUtlMemory<struct StartVsndInfo_t,int>::Grow::<lambda_1>::operator ()
 CUtlMemory<struct StartVsndInfo_t,int>::Grow::<lambda_2>::operator ()
@@ -2399,6 +2403,7 @@ CVoiceContainerAnalysisBase
 CVoiceContainerAnalysisBase::KV3TransferLoad_Impl
 CVoiceContainerAnalysisBase::KV3Transfer_DefaultKeys_Impl
 CVoiceContainerAnalysisBase::Schema_VerifyBindingIsRegistered
+CVoiceContainerBase
 CVoiceContainerBase::Bind
 CVoiceContainerBase::CInstanceBase::UpdateMixerState
 CVoiceContainerBase::CInstanceGenerator::GetMixerData
@@ -2461,7 +2466,6 @@ CVoiceContainerOutputStreamAttached Wrote too many samples for buffer!\n
 CVoiceContainerOutputStreamAttached::GenerateAudioBuffer
 CVoiceContainerOutputStreamAttached::WriteAudioData
 CVoiceContainerRandomSampler
-CVoiceContainerRandomSampler: Cleaning up data for %d instances.\n
 CVoiceContainerRandomSampler: Loaded %d grains into table Total of %lld samples, %f MB.\n
 CVoiceContainerRandomSampler::GenerateAudioBuffer
 CVoiceContainerRandomSampler::KV3TransferLoad_Impl
@@ -2600,6 +2604,7 @@ Currently sets a single float operator field
 Curves
 Cutoff Freq
 Cutoff Frequency
+D,HP
 DAS_SetTraceHeight
 DELAY_LINE_SAMPLES - m_nWriteStart >= MIX_BUFFER_SIZE
 DIGIT
@@ -2736,6 +2741,7 @@ Error saving default keys for CSosGroupMatchPattern: %s
 Error saving default keys for CSosSoundEventGroupListSchema: %s
 Error saving default keys for CSosSoundEventGroupSchema: %s
 Error saving default keys for CSoundContainerReference: %s
+Error saving default keys for CSoundContainerReferenceArray: %s
 Error saving default keys for CSoundEventMetaData: %s
 Error saving default keys for CSoundInfoHeader: %s
 Error saving default keys for CTestBlendContainer: %s
@@ -2764,7 +2770,6 @@ Error saving default keys for CVoiceContainerStaticAdditiveSynth::CTone: %s
 Error saving default keys for CVoiceContainerSwitch: %s
 Error saving default keys for SelectedEditItemInfo_t: %s
 Error saving default keys for SosEditItemInfo_t: %s
-Error saving default keys for SoundWithProbability_t: %s
 Error saving default keys for VMixAutoFilterDesc_t: %s
 Error saving default keys for VMixBoxverbDesc_t: %s
 Error saving default keys for VMixConvolutionDesc_t: %s
@@ -2855,6 +2860,7 @@ FIND ELEMENT: (%s)\n
 FLT_Alloc
 FREEING MATCH ENTRY:\n
 FX Mix (1.0 == wet)
+F\tV_powd
 F_Sharp
 Fade In
 Fade Out
@@ -3015,6 +3021,7 @@ Instance field count mismatch (codegen %d vs. meta %d) for %s (should be CSosGro
 Instance field count mismatch (codegen %d vs. meta %d) for %s (should be CSosSoundEventGroupListSchema)
 Instance field count mismatch (codegen %d vs. meta %d) for %s (should be CSosSoundEventGroupSchema)
 Instance field count mismatch (codegen %d vs. meta %d) for %s (should be CSoundContainerReference)
+Instance field count mismatch (codegen %d vs. meta %d) for %s (should be CSoundContainerReferenceArray)
 Instance field count mismatch (codegen %d vs. meta %d) for %s (should be CSoundEventMetaData)
 Instance field count mismatch (codegen %d vs. meta %d) for %s (should be CTestBlendContainer)
 Instance field count mismatch (codegen %d vs. meta %d) for %s (should be CVSound)
@@ -3040,7 +3047,6 @@ Instance field count mismatch (codegen %d vs. meta %d) for %s (should be CVoiceC
 Instance field count mismatch (codegen %d vs. meta %d) for %s (should be CVoiceContainerSwitch)
 Instance field count mismatch (codegen %d vs. meta %d) for %s (should be SelectedEditItemInfo_t)
 Instance field count mismatch (codegen %d vs. meta %d) for %s (should be SosEditItemInfo_t)
-Instance field count mismatch (codegen %d vs. meta %d) for %s (should be SoundWithProbability_t)
 Instance field count mismatch (codegen %d vs. meta %d) for %s (should be VMixAutoFilterDesc_t)
 Instance field count mismatch (codegen %d vs. meta %d) for %s (should be VMixBoxverbDesc_t)
 Instance field count mismatch (codegen %d vs. meta %d) for %s (should be VMixConvolutionDesc_t)
@@ -3085,7 +3091,6 @@ IsValidFieldDataType( nDataType )
 IsValidIndex( nIndex )
 KV3TransferSchema_AllocateClassInstance
 KV3TransferSchema_ClassName::<lambda_1>::operator ()
-K\tV_sinhf
 KeyValues3::FormatMemberAsString
 KeyValues3::IsArrayOfType
 KeyValues3::TransferOwnershipOfBinaryBlob
@@ -3408,8 +3413,10 @@ Recognition exception
 Reference dB at snd_refdist
 Reference distance for snd_refdb
 Reference to a vsnd file or another container.
+Reference to list of vsnd files or other containers.
 Reference to non-existent soundevent: %s\n
 Regenerate curve on compile
+Relative Weights
 Release Time MS
 Release time (ms)
 Reload soundmixers.txt file.
@@ -3534,6 +3541,7 @@ SchemaEmitClassInfoHelper<class CSosGroupMatchPattern>::ValidateClassFieldTypes
 SchemaEmitClassInfoHelper<class CSosSoundEventGroupListSchema>::ValidateClassFieldTypes
 SchemaEmitClassInfoHelper<class CSosSoundEventGroupSchema>::ValidateClassFieldTypes
 SchemaEmitClassInfoHelper<class CSoundContainerReference>::ValidateClassFieldTypes
+SchemaEmitClassInfoHelper<class CSoundContainerReferenceArray>::ValidateClassFieldTypes
 SchemaEmitClassInfoHelper<class CSoundEventMetaData>::ValidateClassFieldTypes
 SchemaEmitClassInfoHelper<class CTestBlendContainer>::ValidateClassFieldTypes
 SchemaEmitClassInfoHelper<class CVoiceContainerBlender>::ValidateClassFieldTypes
@@ -3568,7 +3576,6 @@ SchemaEmitClassInfoHelper<struct CVoiceContainerStaticAdditiveSynth::CTone>::Val
 SchemaEmitClassInfoHelper<struct CVoiceContainerStaticAdditiveSynth>::ValidateClassFieldTypes
 SchemaEmitClassInfoHelper<struct SelectedEditItemInfo_t>::ValidateClassFieldTypes
 SchemaEmitClassInfoHelper<struct SosEditItemInfo_t>::ValidateClassFieldTypes
-SchemaEmitClassInfoHelper<struct SoundWithProbability_t>::ValidateClassFieldTypes
 SchemaEmitClassInfoHelper<struct VMixAutoFilterDesc_t>::ValidateClassFieldTypes
 SchemaEmitClassInfoHelper<struct VMixBoxverbDesc_t>::ValidateClassFieldTypes
 SchemaEmitClassInfoHelper<struct VMixConvolutionDesc_t>::ValidateClassFieldTypes
@@ -3655,6 +3662,7 @@ SosOpFieldInfo_t::ValueToString: Unable to find ENUM match for %i on %s\n
 SosOpFieldInfo_t::ValueToString: Unable to find ENUM tokenset on %s\n
 SosOpFieldInfo_t::WriteValueToKV3
 Sound
+Sound Array 
 Sound DSP: Failed to lock.\n
 Sound DSP: preset failed to init.\n
 Sound Disabled
@@ -3687,10 +3695,6 @@ SoundSystem/WaveDataCacheSizeMB
 SoundSystem/WaveDataCacheSizeMB_LowFragmentation
 SoundSystemDebug
 SoundSystemLowLevel
-SoundWithProbability_t
-SoundWithProbability_t::KV3TransferLoad_Impl
-SoundWithProbability_t::KV3Transfer_DefaultKeys_Impl
-SoundWithProbability_t::Schema_VerifyBindingIsRegistered
 Soundevent %s is set to not read or contribute a priority value, but is in a group with a CSosGroupActionSoundeventPriority action type.\n
 Soundevent %s sending negative value (%.2f) to track %s\n
 Soundevent Cluster
@@ -4059,7 +4063,6 @@ Voice volume
 Voices
 Volume (in Decibels)
 Volume of sounds in tools (e.g. Hammer, SFM)
-Vsnd
 Vsnd Container
 Vsnd File
 Vsnd Reference
@@ -4073,6 +4076,7 @@ WARNING: KV3 failed to parse legacy vsound header for %s\n
 WARNING: Stack %s Operator %s, opvar field %s overwriting existing parameter of the same name. THERE IS NO TYPE OR SIZE CHECKING IN PLACE, IT IS UP TO YOU TO MAKE SURE THEY ARE THE SAME.\n
 WARNING: Stack %s had %i stack field overwrite warnings. Set "snd_sos_show_parameter_overwrite_warnings 1" and recompile for details.\n
 WARNING: snd_sos_soundevent_profile disabled - ignoring!\n
+W\tV_sinhf
 Wait: elapsed time: %f, next sync time: %f, local elapsed: %f, local sync: %f, length: %f, num loops: %i\n
 Warning: %s (error %s)!\n
 Warning: Attempting to add an addition field: %s %s\n
@@ -4086,9 +4090,8 @@ Warning: cannot sync to soundevent %s on track %s, because it has no start/end p
 Warning: sos_start_soundevent unable to read opvar %s for passing \n
 Warning: sos_start_soundevent unable to read opvar %s for passing from event %s\n
 Warning: track_queue: No track name specified on %s, playing without track features\n
-Warning: vsnd %s is not yet loaded, queueing for load on next play.\n
+Warning: vsnd %s is not yet loaded, queueing for load.\n
 Waveform
-Weight
 When a source has source-specific DSP, this can be used as an additional mix stage for the listener reverb amount.
 When on, silences all DSP mixes.
 Width Reflectivity
@@ -4102,13 +4105,11 @@ Wrong arg count for '%s' %d, expected 3
 Wt<c
 X<"wP
 You must install a IKV3TransferInterface_ResourceLoad on your context in order to unserialize a non-empty resource handle
-Z\tV_strnchr
 [ 0.005714, 0.3, 1.083, 1.083, 2.0, 3.0 ]
 [ 1.0, 1.0, 0.227125, 0.227125, 2.0, 3.0 ]
 [%f,%f,%f,%f,%f,%f]
 [%s] %s : src %d : vol %.2f : time %.3f\n
 [Index: 
-\f\tV_fseek
 \n    near %s\n    
 \n%*sName: %s\n
 \n%*sName: %s\n%*sNameSpace: %s\n
@@ -4117,8 +4118,6 @@ Z\tV_strnchr
 \nSOS PRINT STRING: %s: %s\n
 \nType Name: %s\n
 \nUpdate SoundEvent: %s\n
-\n\tV_frexpf
-\rCVoiceContainerBase
 \t The lexer was matching from line %d, offset %d, which\n\t 
 \t dspmix %1.2f : lvol %1.2f : cvol %1.2f : rvol %1.2f : rlvol %1.2f : rrvol %1.2f\n
 \t x: %4f y: %4f z: %4f\n
@@ -4126,6 +4125,8 @@ Z\tV_strnchr
 \tTrack: %s\n
 \tVOL: %f\n\tLVL: %f\n\tDSP: %f\n\tMUTE: %f\n\tSOLO: %f\n\n
 \tV_fread
+\tV_frexpf
+\tV_fseek
 \t[%2d] %16.16s : %s (%d) priority: %d\n
 \t\tInstrument: %s\n
 \t\t\tBeat:\t%f\n
@@ -4133,7 +4134,6 @@ Z\tV_strnchr
 \t_V_wcsncpy_bytes
 _CustomCommand
 _CustomCommand%d
-_\tV_strtok
 __current_metadata_table_stack
 __customstack
 __customstack_components
@@ -4168,7 +4168,7 @@ _editor_
 _field_properties
 _fixed
 _include
-_localization_path_english
+_localization_path
 _multibase
 _not_pickable
 _operator_properties
@@ -4285,7 +4285,6 @@ biased
 blend_ratio
 block_equal_priority
 cO~j
-c\tV_tand
 calc_angles_facing
 calc_audibility
 calc_closest_point_on_capsule
@@ -4443,7 +4442,7 @@ execute_once
 exit_if_blocked
 expr
 expression
-f\tV_tanhf
+f\tV_strnchr
 facing
 fade
 fade_type
@@ -4609,6 +4608,7 @@ input_count
 input_curve_amount
 input_data1
 input_data2
+input_default
 input_default_local_position
 input_default_world_position
 input_delay
@@ -4922,6 +4922,7 @@ itemPos
 itemType
 itemTypeName
 k8y<=
+k\tV_strtok
 key_groups
 left_front
 left_front1
@@ -5037,7 +5038,7 @@ m_dspName
 m_effectName
 m_effectsPreview
 m_encodedHeader
-m_fProbabilityWeight
+m_fProbabilityWeights
 m_feedbackFilter
 m_filter
 m_filterType
@@ -5297,6 +5298,7 @@ m_pCurrentPlayer && m_pCurrentPlayer->GetSequence()
 m_pData
 m_pData != nullptr
 m_pData == nullptr
+m_pEnvelopeAnalyzer
 m_pFileIDs && m_pFileIDs->GetArrayElementCount() == m_nTotalRecordCount
 m_pFileList
 m_pGraph->GetOutputChannelCount() == nMixChannels
@@ -5314,6 +5316,7 @@ m_pSchema->m_flClusterEpsilon > 0
 m_pSchema->m_nMinNearby > 0
 m_pSfx->m_hCache != 0
 m_pSound
+m_pSounds
 m_pStack
 m_pStack->IsValidIndex( nGotoOperatorIndex )
 m_pStack->IsValidIndex( nOpIndex )
@@ -5564,6 +5567,7 @@ note out of sampler range
 null_container.vsnd
 nullfield
 numerator
+o\tV_tand
 occlusion
 occlusion_db_loss
 on_first_frame
@@ -5696,6 +5700,7 @@ output_max_index
 output_mid
 output_mix
 output_mixgroups
+output_name
 output_normalized
 output_not_selected
 output_occlusion
@@ -5889,6 +5894,7 @@ quad
 quantize_multiplier
 quantize_type
 rAb<
+r\tV_tanhf
 random
 random_exclusive
 random_weighted
@@ -6341,6 +6347,7 @@ vmix_voicegraph_input
 vmix_voicegraph_input_steamaudio_ir
 vmix_voicegraph_inputarray
 vmix_voicegraph_name_input
+vmix_voicegraph_output_float
 vmix_vsnd_info
 voice.m_hMouth != MOUTH_HANDLE_INVALID
 voiceA

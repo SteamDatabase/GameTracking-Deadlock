@@ -1,27 +1,32 @@
  %02d. %-30s  %s\n
+ @NavMesh
  took %0.3f sec, produced %d polys\n
 !IsConnected()
 !V_isempty( m_pNotifyGroupID )
 !V_isempty( pPathID )
 !a.IsZero() && ( !b.IsZero() )
 !bBackFound
+!bCheckLOS || m_pPhysicsInterface
 !bOnlyTris || m_nVerts == 3
 !m_pClusters->m_nClusters
 !m_pPhysicsInterface
 !multilist || ML
 !pFilter
 !pIgnore
+!pMergeInto->m_vecNavAreas.HasElement( navID )
 !pNavHullsPreset->m_vecNavHulls.IsEmpty()
 !rCon.m_bDummyConnection || !rOtherCon.m_bDummyConnection
 !rConn.m_bRemovedConnection
 !vecSeen.HasElement( v.m_nRawContourVertexIdx )
 !voxels.IsEmpty()
+%0.2f
 &rPolys[ nThisPoly ] == this
 ( nErr == ERROR_FILE_NOT_FOUND )
 ( nFlags & KEYVALUES3_AS_STRING_APPEND ) == 0
 ( pDerivedClassName != nullptr ) == ( (KV3TransferClassBehavior_t)TClass::KV3TRANSFER_BEHAVIOR == KV3TRANSFER_CLASS_AS_POLYMORPHIC_TABLE )
 (Output drawable)
 -> Success (%d attempts)\n
+... and no start position
 .?AU?$default_delete@VCNavGenPolyProcessorStageBase@@@std@@
 .?AUVDataInitInfo_t@@
 .?AV<lambda_1>@?1??BlockCustom@CNavTree@@QEAAXAEBV?$function@$$A6A_NAEBUAABB_t@@@Z@std@@@Z@
@@ -41,6 +46,7 @@
 .?AV<lambda_1>@?4??CutTreeToPhysics@@YAXAEAVCNavTree@@HM_NMAEBV?$function@$$A6A_NAEBUAABB_t@@@Z@std@@@Z@
 .?AV<lambda_1>@?9??RunPolyClipInternal@CNavGenPolyProcessor@@AEAAXAEBVCNavGenInput@@AEAV?$CUtlVector@V?$Vec3D@M@@HV?$CUtlMemory@V?$Vec3D@M@@H@@@@AEAV?$CUtlVector@IHV?$CUtlMemory@IH@@@@AEAV?$CUtlVector@UNavGenProcessorMovableMeshInput_t@@HV?$CUtlMemory@UNavGenProcessorMovableMeshInput_t@@H@@@@AEAVCNavGenDebugData@@_NHPEAV?$shared_ptr@VCNavGenPolyProcessorStageBase@@@std@@H6@Z@
 .?AV<lambda_1>@?BG@??SplitPolysByMarkup@CNavGenPolyProcessor@@QEAAXAEAV?$CUtlVector@VCNavGenPoly@@HV?$CUtlMemory@VCNavGenPoly@@H@@@@0AEBVCNavGenParams@@_NNNN@Z@
+.?AV<lambda_1>@?DO@??CollectAdjacentNodes@?$CNavAdjacencyList@VCNavArea@@@@QEAAXAEBVCNavArea@@I@Z@
 .?AV<lambda_2>@?1??CalcClusters_C@CNavTree@@QEAAXAEBV?$function@$$A6A_NHPEBV?$Vec3D@M@@@Z@std@@@Z@
 .?AV<lambda_2>@?1??GetOutput@CNavGenOrientedMeshTile@@QEAAXAEAV?$CUtlVector@VVecDouble3@@HV?$CUtlMemory@VVecDouble3@@H@@@@AEAV?$CUtlVector@_NHV?$CUtlMemory@_NH@@@@AEAV?$CUtlVector@VCNavGenPoly@@HV?$CUtlMemory@VCNavGenPoly@@H@@@@PEAV?$CUtlVector@UNavGenRecastDebugStage_t@@HV?$CUtlMemory@UNavGenRecastDebugStage_t@@H@@@@@Z@
 .?AV<lambda_2>@?1??RunBuildTree@@YAXAEAVCNavTree@@HAEBUAABB_t@@AEBVIVPhysics2World@@PEAV?$CUtlHashtable@PEBVIPhysicsBody@@Uempty_t@@U?$DefaultHashFunctor@PEBVIPhysicsBody@@@@U?$DefaultEqualFunctor@PEBVIPhysicsBody@@@@Uundefined_t@@V?$CUtlMemory@V?$CUtlHashtableEntry@PEBVIPhysicsBody@@Uempty_t@@@@H@@$00@@@Z@
@@ -91,6 +97,7 @@
 .?AV?$_Func_base@XHAEBUAABB_t@@I@std@@
 .?AV?$_Func_base@XHHHAEBUVoxelSparseIndex_t@CNavOrientedMesh@@AEBUAABB_t@@AEBW4OrientedMeshSparseVoxelState_t@@@std@@
 .?AV?$_Func_base@XHHHAEBUVoxelSparseIndex_t@CNavOrientedMesh@@_NAEBUAABB_t@@@std@@
+.?AV?$_Func_base@XU?$NavIndirectDst_t@VCNavArea@@@@@std@@
 .?AV?$_Func_base@_NAEBUAABB_t@@@std@@
 .?AV?$_Func_base@_NAEBV?$Vec3D@H@@@std@@
 .?AV?$_Func_base@_NAEBVCNavGenPoly@@@std@@
@@ -113,6 +120,7 @@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?4??CutTreeToPhysics@@YAXAEAVCNavTree@@HM_NMAEBV?$function@$$A6A_NAEBUAABB_t@@@Z@std@@@Z@_NAEBUAABB_t@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?9??RunPolyClipInternal@CNavGenPolyProcessor@@AEAAXAEBVCNavGenInput@@AEAV?$CUtlVector@V?$Vec3D@M@@HV?$CUtlMemory@V?$Vec3D@M@@H@@@@AEAV?$CUtlVector@IHV?$CUtlMemory@IH@@@@AEAV?$CUtlVector@UNavGenProcessorMovableMeshInput_t@@HV?$CUtlMemory@UNavGenProcessorMovableMeshInput_t@@H@@@@AEAVCNavGenDebugData@@_NHPEAV?$shared_ptr@VCNavGenPolyProcessorStageBase@@@std@@H6@Z@VVecDouble3@@AEBVVecDouble3@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?BG@??SplitPolysByMarkup@CNavGenPolyProcessor@@QEAAXAEAV?$CUtlVector@VCNavGenPoly@@HV?$CUtlMemory@VCNavGenPoly@@H@@@@0AEBVCNavGenParams@@_NNNN@Z@_NAEBVCNavGenPoly@@@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_1>@?DO@??CollectAdjacentNodes@?$CNavAdjacencyList@VCNavArea@@@@QEAAXAEBVCNavArea@@I@Z@XU?$NavIndirectDst_t@VCNavArea@@@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_2>@?1??CalcClusters_C@CNavTree@@QEAAXAEBV?$function@$$A6A_NHPEBV?$Vec3D@M@@@Z@std@@@Z@XAEBUTreeIter_t@3@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_2>@?1??GetOutput@CNavGenOrientedMeshTile@@QEAAXAEAV?$CUtlVector@VVecDouble3@@HV?$CUtlMemory@VVecDouble3@@H@@@@AEAV?$CUtlVector@_NHV?$CUtlMemory@_NH@@@@AEAV?$CUtlVector@VCNavGenPoly@@HV?$CUtlMemory@VCNavGenPoly@@H@@@@PEAV?$CUtlVector@UNavGenRecastDebugStage_t@@HV?$CUtlMemory@UNavGenRecastDebugStage_t@@H@@@@@Z@XHHHAEBUVoxelSparseIndex_t@CNavOrientedMesh@@AEBUAABB_t@@AEBW4OrientedMeshSparseVoxelState_t@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_2>@?1??RunBuildTree@@YAXAEAVCNavTree@@HAEBUAABB_t@@AEBVIVPhysics2World@@PEAV?$CUtlHashtable@PEBVIPhysicsBody@@Uempty_t@@U?$DefaultHashFunctor@PEBVIPhysicsBody@@@@U?$DefaultEqualFunctor@PEBVIPhysicsBody@@@@Uundefined_t@@V?$CUtlMemory@V?$CUtlHashtableEntry@PEBVIPhysicsBody@@Uempty_t@@@@H@@$00@@@Z@_NAEBU4@@std@@
@@ -157,26 +165,30 @@
 .?AVCNavGenRecastTile@@
 .?AVCNavHullPresetVDataFileManager@@
 .?AVCNavHullVDataFileManager@@
+.?AVCNavPathCost@@
 .?AVCNavSystem@@
 .?AVCNavToolsPhysicsInterface@@
 .?AVCThreadedJobFunc@@
 .?AVIBaseSequence@@
+.?AVINavPathCost@@
 .?AVINavPhysicsInterface@@
 .?AVINavSystem@@
 .?AVISequence@@
 .?AVIVDataResourceListener@@
 .?AVrcContext@@
-0pF\n
-2\vp0
-2\vphT\n
-2\vppF\n
-5%llu
 ;1#INF
+=33s?
 >0 = watershed, 1 = monotone, 2 = layers
->33s?
 >>>>NAVGEN Oriented - Region has invalid bounds ( region %d ) - skipping\n
 >>>>NAVGEN Oriented - Region was not processed ( region %d ) - skipping\n
 >>>>NAVGEN Oriented - Unable to find outer contour for region %d
+>>FLOWMAP: %d iter %zu bytes in compact connection maps (%zu per node)\n
+>>FLOWMAP: %d super nodes (%.0f%%)\n
+>>FLOWMAP: Calc All Paths %d%%\n
+>>FLOWMAP: Calculating Adjacency Graph\n
+>>FLOWMAP: Merge Complete %d nodes\n
+>>FLOWMAP: Merging %d nodes\n
+>>FLOWMAP: Too many nodes %d after merge - increasing bounding sphere %g->%g and retrying\n
 >>NAVGEN MOVABLE: Skipping movable mesh... no polys present\n
 >>NAVGEN: -- End --\n
 >>NAVGEN: -- Start --\n
@@ -194,6 +206,8 @@
 >>NAVGEN: stage %02d / %02d: 
 >>NAVGEN: stage %02d / %02d: %s, disabled\n
 ?ffffff
+@%llu
+@NavGravity_t
 AVOID
 AddJumps
 Always false
@@ -204,6 +218,7 @@ C:\buildworker\citadel_rel_win64\build\_build_\navlib\_vpc_navlib\default\win64\
 C:\buildworker\citadel_rel_win64\build\_build_\navsystem\_vpc_navsystem\default\win64\_msvc_\Retail\navsystem.pdb
 C:\buildworker\citadel_rel_win64\build\src\meshutils\triangulatepolygon.cpp
 C:\buildworker\citadel_rel_win64\build\src\navlib\nav_gen_common.cpp
+C:\buildworker\citadel_rel_win64\build\src\navlib\nav_gen_flow_map.cpp
 C:\buildworker\citadel_rel_win64\build\src\navlib\nav_gen_oriented_mesh.cpp
 C:\buildworker\citadel_rel_win64\build\src\navlib\nav_gen_poly.cpp
 C:\buildworker\citadel_rel_win64\build\src\navlib\nav_gen_polyclip.cpp
@@ -211,6 +226,7 @@ C:\buildworker\citadel_rel_win64\build\src\navlib\nav_gen_processor.cpp
 C:\buildworker\citadel_rel_win64\build\src\navlib\nav_gen_recast.cpp
 C:\buildworker\citadel_rel_win64\build\src\navlib\nav_gen_types.cpp
 C:\buildworker\citadel_rel_win64\build\src\navlib\nav_mesh.cpp
+C:\buildworker\citadel_rel_win64\build\src\navlib\nav_pathfind.cpp
 C:\buildworker\citadel_rel_win64\build\src\navlib\nav_space_clusters.cpp
 C:\buildworker\citadel_rel_win64\build\src\navlib\nav_space_tree.cpp
 C:\buildworker\citadel_rel_win64\build\src\navlib\nav_utils.cpp
@@ -225,6 +241,8 @@ C:\buildworker\citadel_rel_win64\build\src\public\navlib\nav_gen_poly.h
 C:\buildworker\citadel_rel_win64\build\src\public\navlib\nav_gen_poly_simple.h
 C:\buildworker\citadel_rel_win64\build\src\public\navlib\nav_gen_space.h
 C:\buildworker\citadel_rel_win64\build\src\public\navlib\nav_gen_types.h
+C:\buildworker\citadel_rel_win64\build\src\public\navlib\nav_mesh.h
+C:\buildworker\citadel_rel_win64\build\src\public\navlib\nav_pathcost.h
 C:\buildworker\citadel_rel_win64\build\src\public\navlib\nav_space_tree.h
 C:\buildworker\citadel_rel_win64\build\src\public\resourcefile\vdataresource_helpers.h
 C:\buildworker\citadel_rel_win64\build\src\public\rubikon\intersection.h
@@ -242,6 +260,13 @@ CKV3MemberIndexIteratorView<1>::iterator::iterator
 CKV3MemberIndexIteratorView<1>::iterator::operator *
 CKV3TransferLoadContext::LoadOwningPointer
 CKV3TransferLoadContext::LoadValueFromMemberOrDefaultKeys::<lambda_1>::operator ()
+CNavAreaMarker::CNavAreaMarker
+CNavFlowMapGenerator::CompactConnectionMap
+CNavFlowMapGenerator::Generate
+CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar
+CNavFlowMapGenerator::MergeFlowMapNodes
+CNavFlowMapGenerator::Serialize
+CNavFlowMapGenerator::SetFlowMapNavPathTarget
 CNavGenEdge::GetEdgeVtxIdxInPoly
 CNavGenEdge::GetPoly
 CNavGenEdge::GetPolyVertIdxInEdge
@@ -277,6 +302,9 @@ CNavHullPresetVData::KV3Transfer_DefaultKeys_Impl
 CNavHullVData
 CNavHullVData::KV3TransferLoad_Impl
 CNavHullVData::KV3Transfer_DefaultKeys_Impl
+CNavMesh::GetGroundHeight
+CNavMesh::GetNearestNav
+CNavMesh::GetNearestNavArea
 CNavMesh::RegisterPhysicsInterface
 CNavOrientedMesh::ComputeOrientationEntryFace
 CNavOrientedMesh::SimplifiedContourToTriangulationCoord::<lambda_1>::operator ()
@@ -285,6 +313,8 @@ CNavOrientedMesh::TraceRegionContours::<lambda_1>::operator ()
 CNavOrientedMesh::TraceRegionRawContourLocalSpace::<lambda_1>::operator ()
 CNavOrientedMesh::TraceRegionRawContourLocalSpace::<lambda_2>::operator ()
 CNavOrientedMesh::ValidateAdjacency
+CNavPathCost::SetNavLinkEnabled
+CNavPathCost::TraversalCost
 CNavSpaceData::InitAndOwnClusters
 CNavSystem::LoadNavGenParamsFromGameInfo::<lambda_1>::operator ()
 CNavToolsPhysicsInterface::Nav_CheckAreaOverlappingEntity
@@ -398,6 +428,11 @@ CUtlMemory<struct CConvexClustering::Connection_t,int>::Grow
 CUtlMemory<struct CConvexClustering::Connection_t,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<struct CConvexClustering::Node_t,int>::Grow
 CUtlMemory<struct CConvexClustering::Node_t,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<struct CNavArea::Adj_t,int>::Grow
+CUtlMemory<struct CNavArea::Adj_t,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<struct CNavArea::PathfindInfo_t,int>::Grow
+CUtlMemory<struct CNavArea::PathfindInfo_t,int>::Grow::<lambda_1>::operator ()
+CUtlMemory<struct CNavArea::PathfindInfo_t,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<struct CNavGenParams::HullParams,int>::Grow
 CUtlMemory<struct CNavGenParams::HullParams,int>::Grow::<lambda_1>::operator ()
 CUtlMemory<struct CNavGenParams::HullParams,int>::Grow::<lambda_2>::operator ()
@@ -441,8 +476,39 @@ CUtlMemory<struct CNavOrientedMesh::VoxelSparseIndex_t,int>::Grow
 CUtlMemory<struct CNavOrientedMesh::VoxelSparseIndex_t,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<struct CNavTree::SpaceTreeNode_t,int>::Grow
 CUtlMemory<struct CNavTree::SpaceTreeNode_t,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<struct CUtlHashMap<unsigned int,struct FlowMapNode_t *,class CDefEquals<unsigned int>,struct HashMapFunctor_t<unsigned int>,int>::HashBucket_t,int>::Grow
+CUtlMemory<struct CUtlHashMap<unsigned int,struct FlowMapNode_t *,class CDefEquals<unsigned int>,struct HashMapFunctor_t<unsigned int>,int>::HashBucket_t,int>::Grow::<lambda_1>::operator ()
+CUtlMemory<struct CUtlHashMap<unsigned int,struct FlowMapNode_t *,class CDefEquals<unsigned int>,struct HashMapFunctor_t<unsigned int>,int>::HashBucket_t,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<struct CUtlHashMap<unsigned int,struct FlowMapNode_t *,class CDefEquals<unsigned int>,struct HashMapFunctor_t<unsigned int>,int>::Node_t,int>::Grow
+CUtlMemory<struct CUtlHashMap<unsigned int,struct FlowMapNode_t *,class CDefEquals<unsigned int>,struct HashMapFunctor_t<unsigned int>,int>::Node_t,int>::Grow::<lambda_1>::operator ()
+CUtlMemory<struct CUtlHashMap<unsigned int,struct FlowMapNode_t *,class CDefEquals<unsigned int>,struct HashMapFunctor_t<unsigned int>,int>::Node_t,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<struct CUtlHashMap<unsigned int,struct empty_t,class CDefEquals<unsigned int>,struct HashMapFunctor_t<unsigned int>,int>::HashBucket_t,int>::Grow
+CUtlMemory<struct CUtlHashMap<unsigned int,struct empty_t,class CDefEquals<unsigned int>,struct HashMapFunctor_t<unsigned int>,int>::HashBucket_t,int>::Grow::<lambda_1>::operator ()
+CUtlMemory<struct CUtlHashMap<unsigned int,struct empty_t,class CDefEquals<unsigned int>,struct HashMapFunctor_t<unsigned int>,int>::HashBucket_t,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<struct CUtlHashMap<unsigned int,struct empty_t,class CDefEquals<unsigned int>,struct HashMapFunctor_t<unsigned int>,int>::Node_t,int>::Grow
+CUtlMemory<struct CUtlHashMap<unsigned int,struct empty_t,class CDefEquals<unsigned int>,struct HashMapFunctor_t<unsigned int>,int>::Node_t,int>::Grow::<lambda_1>::operator ()
+CUtlMemory<struct CUtlHashMap<unsigned int,struct empty_t,class CDefEquals<unsigned int>,struct HashMapFunctor_t<unsigned int>,int>::Node_t,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<struct CUtlHashMap<void *,struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::SearchNode_t *,class CDefEquals<void *>,struct HashMapFunctor_t<void *>,int>::HashBucket_t,int>::Grow
+CUtlMemory<struct CUtlHashMap<void *,struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::SearchNode_t *,class CDefEquals<void *>,struct HashMapFunctor_t<void *>,int>::HashBucket_t,int>::Grow::<lambda_1>::operator ()
+CUtlMemory<struct CUtlHashMap<void *,struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::SearchNode_t *,class CDefEquals<void *>,struct HashMapFunctor_t<void *>,int>::HashBucket_t,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<struct CUtlHashMap<void *,struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::SearchNode_t *,class CDefEquals<void *>,struct HashMapFunctor_t<void *>,int>::Node_t,int>::Grow
+CUtlMemory<struct CUtlHashMap<void *,struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::SearchNode_t *,class CDefEquals<void *>,struct HashMapFunctor_t<void *>,int>::Node_t,int>::Grow::<lambda_1>::operator ()
+CUtlMemory<struct CUtlHashMap<void *,struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::SearchNode_t *,class CDefEquals<void *>,struct HashMapFunctor_t<void *>,int>::Node_t,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<struct CUtlHashMap<void *,struct empty_t,class CDefEquals<void *>,struct HashMapFunctor_t<void *>,int>::HashBucket_t,int>::Grow
+CUtlMemory<struct CUtlHashMap<void *,struct empty_t,class CDefEquals<void *>,struct HashMapFunctor_t<void *>,int>::HashBucket_t,int>::Grow::<lambda_1>::operator ()
+CUtlMemory<struct CUtlHashMap<void *,struct empty_t,class CDefEquals<void *>,struct HashMapFunctor_t<void *>,int>::HashBucket_t,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<struct CUtlHashMap<void *,struct empty_t,class CDefEquals<void *>,struct HashMapFunctor_t<void *>,int>::Node_t,int>::Grow
+CUtlMemory<struct CUtlHashMap<void *,struct empty_t,class CDefEquals<void *>,struct HashMapFunctor_t<void *>,int>::Node_t,int>::Grow::<lambda_1>::operator ()
+CUtlMemory<struct CUtlHashMap<void *,struct empty_t,class CDefEquals<void *>,struct HashMapFunctor_t<void *>,int>::Node_t,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<struct ConnectionCandidate_t,int>::Grow
 CUtlMemory<struct ConnectionCandidate_t,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<struct FlowMapNodeConnection_t,int>::Grow
+CUtlMemory<struct FlowMapNodeConnection_t,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<struct FlowMapNode_t *,int>::Grow
+CUtlMemory<struct FlowMapNode_t *,int>::Grow::<lambda_1>::operator ()
+CUtlMemory<struct FlowMapNode_t *,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<struct FlowMapNode_t::FlowMapNodeIDToConnectIndex_t,int>::Grow
+CUtlMemory<struct FlowMapNode_t::FlowMapNodeIDToConnectIndex_t,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<struct GenericConvexHull_t,int>::Grow
 CUtlMemory<struct GenericConvexHull_t,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<struct NavGenAreaDebug_t,int>::Grow
@@ -461,12 +527,24 @@ CUtlMemory<struct NavGenRecastDebugStage_t,int>::Grow
 CUtlMemory<struct NavGenRecastDebugStage_t,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<struct NavGenRecastDebugStage_t::Vertex_t,int>::Grow
 CUtlMemory<struct NavGenRecastDebugStage_t::Vertex_t,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<struct NearTest_t,int>::Grow
+CUtlMemory<struct NearTest_t,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<struct OpenListElement_t<class CNavArea>,int>::Grow
+CUtlMemory<struct OpenListElement_t<class CNavArea>,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<struct UtlLinkedListElem_t<struct CNavOrientedMesh::VoxelGrid::VoxelSpan_t,int>,int>::Grow
 CUtlMemory<struct UtlLinkedListElem_t<struct CNavOrientedMesh::VoxelGrid::VoxelSpan_t,int>,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<float,struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::SearchNode_t *,class CDefLess<float>,int>::Node_t,int>,int>::Grow
+CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<float,struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::SearchNode_t *,class CDefLess<float>,int>::Node_t,int>,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<int,class CNavHullPresetVData *,class CDefLess<int>,int>::Node_t,int>,int>::Grow
 CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<int,class CNavHullPresetVData *,class CDefLess<int>,int>::Node_t,int>,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<int,class CNavHullVData *,class CDefLess<int>,int>::Node_t,int>,int>::Grow
 CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<int,class CNavHullVData *,class CDefLess<int>,int>::Node_t,int>,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<struct FlowMapNode_t *,short,class CDefLess<void *>,int>::Node_t,int>,int>::Grow
+CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<struct FlowMapNode_t *,short,class CDefLess<void *>,int>::Node_t,int>,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<struct UtlRBTreeNode_t<struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::OpenSearch_t,int>,int>::Grow
+CUtlMemory<struct UtlRBTreeNode_t<struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::OpenSearch_t,int>,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<struct UtlRBTreeNode_t<struct `public: void __cdecl CNavFlowMapGenerator::Generate(void)'::`2'::Scan_t,int>,int>::Grow
+CUtlMemory<struct UtlRBTreeNode_t<struct `public: void __cdecl CNavFlowMapGenerator::Generate(void)'::`2'::Scan_t,int>,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<struct `private: bool __cdecl CNavOrientedMesh::Regions_Stage_FindSplits(class CUtlVector<unsigned short,int,class CUtlMemory<unsigned short,int> > const &,class CUtlVector<unsigned int,int,class CUtlMemory<unsigned int,int> > const &,unsigned int,struct CNavOrientedMesh::RegionSplitResult_t &)'::`2'::RegionHalfSplit_t,int>::Grow
 CUtlMemory<struct `private: bool __cdecl CNavOrientedMesh::Regions_Stage_FindSplits(class CUtlVector<unsigned short,int,class CUtlMemory<unsigned short,int> > const &,class CUtlVector<unsigned int,int,class CUtlMemory<unsigned int,int> > const &,unsigned int,struct CNavOrientedMesh::RegionSplitResult_t &)'::`2'::RegionHalfSplit_t,int>::Grow::<lambda_1>::operator ()
 CUtlMemory<struct `private: bool __cdecl CNavOrientedMesh::Regions_Stage_FindSplits(class CUtlVector<unsigned short,int,class CUtlMemory<unsigned short,int> > const &,class CUtlVector<unsigned int,int,class CUtlMemory<unsigned int,int> > const &,unsigned int,struct CNavOrientedMesh::RegionSplitResult_t &)'::`2'::RegionHalfSplit_t,int>::Grow::<lambda_2>::operator ()
@@ -501,12 +579,29 @@ CUtlMemory<struct std::pair<void *,void *>,int>::Grow::<lambda_2>::operator ()
 CUtlMemoryFixed<class Vec3D<float>,8>::Grow
 CUtlMemoryFixed<class qhPlane,6>::Grow
 CUtlMemoryFixed<int,3>::Grow
+CUtlRBTree<struct CUtlOrderedMapBase<float,struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::SearchNode_t *,class CDefLess<float>,int>::Node_t,class CUtlOrderedMapBase<float,struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::SearchNode_t *,class CDefLess<float>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<float,struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::SearchNode_t *,class CDefLess<float>,int>::Node_t,int>,int> >::FreeNode
+CUtlRBTree<struct CUtlOrderedMapBase<float,struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::SearchNode_t *,class CDefLess<float>,int>::Node_t,class CUtlOrderedMapBase<float,struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::SearchNode_t *,class CDefLess<float>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<float,struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::SearchNode_t *,class CDefLess<float>,int>::Node_t,int>,int> >::NewNode
+CUtlRBTree<struct CUtlOrderedMapBase<float,struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::SearchNode_t *,class CDefLess<float>,int>::Node_t,class CUtlOrderedMapBase<float,struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::SearchNode_t *,class CDefLess<float>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<float,struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::SearchNode_t *,class CDefLess<float>,int>::Node_t,int>,int> >::RemoveAll
+CUtlRBTree<struct CUtlOrderedMapBase<float,struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::SearchNode_t *,class CDefLess<float>,int>::Node_t,class CUtlOrderedMapBase<float,struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::SearchNode_t *,class CDefLess<float>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<float,struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::SearchNode_t *,class CDefLess<float>,int>::Node_t,int>,int> >::RemoveAt
 CUtlRBTree<struct CUtlOrderedMapBase<int,class CNavHullPresetVData *,class CDefLess<int>,int>::Node_t,class CUtlOrderedMapBase<int,class CNavHullPresetVData *,class CDefLess<int>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<int,class CNavHullPresetVData *,class CDefLess<int>,int>::Node_t,int>,int> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<int,class CNavHullPresetVData *,class CDefLess<int>,int>::Node_t,class CUtlOrderedMapBase<int,class CNavHullPresetVData *,class CDefLess<int>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<int,class CNavHullPresetVData *,class CDefLess<int>,int>::Node_t,int>,int> >::NewNode
 CUtlRBTree<struct CUtlOrderedMapBase<int,class CNavHullPresetVData *,class CDefLess<int>,int>::Node_t,class CUtlOrderedMapBase<int,class CNavHullPresetVData *,class CDefLess<int>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<int,class CNavHullPresetVData *,class CDefLess<int>,int>::Node_t,int>,int> >::RemoveAll
 CUtlRBTree<struct CUtlOrderedMapBase<int,class CNavHullVData *,class CDefLess<int>,int>::Node_t,class CUtlOrderedMapBase<int,class CNavHullVData *,class CDefLess<int>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<int,class CNavHullVData *,class CDefLess<int>,int>::Node_t,int>,int> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<int,class CNavHullVData *,class CDefLess<int>,int>::Node_t,class CUtlOrderedMapBase<int,class CNavHullVData *,class CDefLess<int>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<int,class CNavHullVData *,class CDefLess<int>,int>::Node_t,int>,int> >::NewNode
 CUtlRBTree<struct CUtlOrderedMapBase<int,class CNavHullVData *,class CDefLess<int>,int>::Node_t,class CUtlOrderedMapBase<int,class CNavHullVData *,class CDefLess<int>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<int,class CNavHullVData *,class CDefLess<int>,int>::Node_t,int>,int> >::RemoveAll
+CUtlRBTree<struct CUtlOrderedMapBase<struct FlowMapNode_t *,short,class CDefLess<void *>,int>::Node_t,class CUtlOrderedMapBase<struct FlowMapNode_t *,short,class CDefLess<void *>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<struct FlowMapNode_t *,short,class CDefLess<void *>,int>::Node_t,int>,int> >::Insert
+CUtlRBTree<struct CUtlOrderedMapBase<struct FlowMapNode_t *,short,class CDefLess<void *>,int>::Node_t,class CUtlOrderedMapBase<struct FlowMapNode_t *,short,class CDefLess<void *>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<struct FlowMapNode_t *,short,class CDefLess<void *>,int>::Node_t,int>,int> >::NewNode
+CUtlRBTree<struct CUtlOrderedMapBase<struct FlowMapNode_t *,short,class CDefLess<void *>,int>::Node_t,class CUtlOrderedMapBase<struct FlowMapNode_t *,short,class CDefLess<void *>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<struct FlowMapNode_t *,short,class CDefLess<void *>,int>::Node_t,int>,int> >::RemoveAll
+CUtlRBTree<struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::OpenSearch_t,class CDefLess<struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::OpenSearch_t>,int,class CUtlMemory<struct UtlRBTreeNode_t<struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::OpenSearch_t,int>,int> >::FreeNode
+CUtlRBTree<struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::OpenSearch_t,class CDefLess<struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::OpenSearch_t>,int,class CUtlMemory<struct UtlRBTreeNode_t<struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::OpenSearch_t,int>,int> >::Insert
+CUtlRBTree<struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::OpenSearch_t,class CDefLess<struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::OpenSearch_t>,int,class CUtlMemory<struct UtlRBTreeNode_t<struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::OpenSearch_t,int>,int> >::NewNode
+CUtlRBTree<struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::OpenSearch_t,class CDefLess<struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::OpenSearch_t>,int,class CUtlMemory<struct UtlRBTreeNode_t<struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::OpenSearch_t,int>,int> >::RemoveAll
+CUtlRBTree<struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::OpenSearch_t,class CDefLess<struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::OpenSearch_t>,int,class CUtlMemory<struct UtlRBTreeNode_t<struct `public: class Vec3D<float> __cdecl CNavFlowMapGenerator::GetPathPointTowardsTarget_AStar(class Vec3D<float> const &,class Vec3D<float> const &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > &,class CUtlVector<struct FlowMapNode_t *,int,class CUtlMemory<struct FlowMapNode_t *,int> > *)'::`2'::OpenSearch_t,int>,int> >::RemoveAt
+CUtlRBTree<struct `public: void __cdecl CNavFlowMapGenerator::Generate(void)'::`2'::Scan_t,class CDefLess<struct `public: void __cdecl CNavFlowMapGenerator::Generate(void)'::`2'::Scan_t>,int,class CUtlMemory<struct UtlRBTreeNode_t<struct `public: void __cdecl CNavFlowMapGenerator::Generate(void)'::`2'::Scan_t,int>,int> >::FreeNode
+CUtlRBTree<struct `public: void __cdecl CNavFlowMapGenerator::Generate(void)'::`2'::Scan_t,class CDefLess<struct `public: void __cdecl CNavFlowMapGenerator::Generate(void)'::`2'::Scan_t>,int,class CUtlMemory<struct UtlRBTreeNode_t<struct `public: void __cdecl CNavFlowMapGenerator::Generate(void)'::`2'::Scan_t,int>,int> >::Insert
+CUtlRBTree<struct `public: void __cdecl CNavFlowMapGenerator::Generate(void)'::`2'::Scan_t,class CDefLess<struct `public: void __cdecl CNavFlowMapGenerator::Generate(void)'::`2'::Scan_t>,int,class CUtlMemory<struct UtlRBTreeNode_t<struct `public: void __cdecl CNavFlowMapGenerator::Generate(void)'::`2'::Scan_t,int>,int> >::NewNode
+CUtlRBTree<struct `public: void __cdecl CNavFlowMapGenerator::Generate(void)'::`2'::Scan_t,class CDefLess<struct `public: void __cdecl CNavFlowMapGenerator::Generate(void)'::`2'::Scan_t>,int,class CUtlMemory<struct UtlRBTreeNode_t<struct `public: void __cdecl CNavFlowMapGenerator::Generate(void)'::`2'::Scan_t,int>,int> >::RemoveAll
+CUtlRBTree<struct `public: void __cdecl CNavFlowMapGenerator::Generate(void)'::`2'::Scan_t,class CDefLess<struct `public: void __cdecl CNavFlowMapGenerator::Generate(void)'::`2'::Scan_t>,int,class CUtlMemory<struct UtlRBTreeNode_t<struct `public: void __cdecl CNavFlowMapGenerator::Generate(void)'::`2'::Scan_t,int>,int> >::RemoveAt
 CVDataFileManager<class CNavHullPresetVData>::FindEntry
 CVDataFileManager<class CNavHullVData>::FindEntry
 Cannot allocate abstract class
@@ -516,6 +611,7 @@ ClipPolysToHullClearanceInternal - too many non-reducing passes\n
 Close the group automatically after a short wait (good for 'success' messages)
 Close the group automatically when the associated parent process exits (good for sticky 'error' messages)
 Compact Heightfield
+ComputeBoundingSphere
 ConvertPhysicsTraceToGameTrace
 CopyNavGenPolyConnections
 Dense voxels
@@ -526,6 +622,7 @@ ERROR: Unable to compute distance to poly %d from point at ( %g, %g, %g )\n
 ERROR: Unconnected ladder bottom at ( %g, %g, %g )\n
 ERROR: Unconnected ladder top at ( %g, %g, %g )\n
 Enable/disable overhang detection
+Enabling/disabling nav links not supported in CNavPathCost
 EnumHelpers_t<enum VNotifyGroupLifespan_t>::List
 EnumHelpers_t<enum VNotifyMessageType_t>::List
 EnumHelpers_t<enum VNotifyPriority_t>::List
@@ -538,10 +635,36 @@ FeetSettings
 FindOverlaps
 FindPolyMultiConnectedVert
 Follow user preference
+Found a terminus nav link completely disconnected.
+Found a terminus nav link with in connections on both sides.
+Found a terminus nav link with out connections on both sides.
 Found contour with less than 3 vertices for region %d even after multiple iterations. This might turn into a crack.\n
 GenerateConnections
 GenerateEdgeList
 GetGenInfo() == rOtherPoly.GetGenInfo()
+GetNearestNav: Area[%d] Found valid area!
+GetNearestNav: Area[%d] accept function rejected this area
+GetNearestNav: Area[%d] attributes to exclude don't match
+GetNearestNav: Area[%d] attributes to include don't match
+GetNearestNav: Area[%d] blocked
+GetNearestNav: Area[%d] completely disconnected
+GetNearestNav: Area[%d] failed LOS to original point
+GetNearestNav: Area[%d] failed LOS to original point above the area
+GetNearestNav: Area[%d] is terminus
+GetNearestNav: Area[%d] only has incoming connections
+GetNearestNav: Area[%d] only outside connections
+GetNearestNav: Area[%d] pending destruction
+GetNearestNav: Area[%d] split
+GetNearestNav: Area[%d] too far
+GetNearestNav: Area[%d] too far above us
+GetNearestNav: Area[%d] too far below us
+GetNearestNav: Area[%d] too far to the side
+GetNearestNav: Area[%d] too short
+GetNearestNav: Empty Grid
+GetNearestNav: Invalid Ground Height
+GetNearestNav: Pos Invalid
+GetNearestNav: Returning area [%d]
+GetNearestNav: [%d] Areas that failed poly test
 Hide unless error/warning occurs
 IsConnected()
 IsPowerOfTwo( nAlignOf )
@@ -560,6 +683,7 @@ LoadKV3Object error: %s\n
 LookAtList
 MatchPolysToGround
 Max abrupt orientation difference an NPC can tolerate when moving through the mesh (degrees).
+Max detour specified but no goal area.  Should use the maximum area radius here instead.\n
 Max orientation range allowed within a region before it gets further split.
 MergePolys
 Minimum edge overlap required for jump connection consideration as a percentage of agent radius
@@ -583,6 +707,10 @@ NavAgentNumHulls
 NavAgentRadius_%d
 NavAgentShortHeightEnabled_%d
 NavAgentShortHeight_%d
+NavAreaBuildPath - failed
+NavAreaBuildPath - failed with no pGoalArea and no pGoalPos
+NavAreaBuildPath - failed with no pStartArea
+NavAreaBuildPath - start area %d(%d), stat pos (%0.3f, %0.3f, %0.3f), goal area %d(%d), goal pos (%0.3f, %0.3f, %0.3f)\n
 NavCellHeight
 NavCellSize
 NavDetailSampleDistance
@@ -597,7 +725,6 @@ NavGenSplit::SplitWithConnections_VertToEdge
 NavGenSplit::SplitWithConnections_VertToVert
 NavGenSplit::Split_Edge
 NavGenWriteOutput
-NavGravity_t
 NavHullsPreset
 NavRegionMergeSize
 NavRegionMinSize
@@ -613,6 +740,7 @@ Oriented Mesh Weld Tiles [merge sets]: %d / %d\n
 Oriented Mesh Weld Tiles [segments]: %d / %d\n
 Oriented Mesh: %d / %d\n
 OverlayProjectionDirection
+PathFind_NavAreaBuildPath
 PerVertexLighting
 Physics
 Physics shape '%s'/'%s' generated invalid verts\n
@@ -626,7 +754,6 @@ PolygonIsDegen
 Populating debug stage (%s): unable to add poly with more than 4 vertices.
 PropWorldOrigin
 RSDScf-bpoSH
-R\fppF\n
 Raw Contours
 Recast
 Recast: 
@@ -707,13 +834,13 @@ WeldVerticesInternal
 [Default] Determine a lifespan based on the warning/error state of the group
 [Default] General information
 [Navgen] Vertical range of input polygons (%0.2f,  %0.2f) with cell height %0.2f may exceed nav gen maximums (%d cells).\n[Verts with extreme z-values at (%0.2f, %0.2f, %0.2f) and (%0.2f, %0.2f, %0.2f).]
-\n\tV_frexpf
 \tV_fpclassifyd
+\tV_frexpf
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r
 \tg_flConfigMaxCoord
 _base
 _include
-_localization_path_english
+_localization_path
 _multibase
 _not_pickable
 addEdge: Too many edges (%d/%d).
@@ -745,7 +872,10 @@ buildPolyDetail: Could not triangulate polygon (%d verts).
 canRemoveVertex: Out of memory 'edges' (%d).
 clear_group
 compressedtangentframe
+connection != -1
+connections
 content/
+cost
 curvature
 delaunayHull: Removing dangling face %d [%d,%d,%d].
 edges[ j ].NumPolys() == 1
@@ -753,6 +883,7 @@ end_as_info
 end_group
 erodeWalkableArea: Out of memory 'dist / relX / relY' (%d).
 flMinDist != FLT_MAX
+flow_map
 forever
 g_pApplication
 g_pFullFileSystem
@@ -763,7 +894,10 @@ group_title
 hNavHulls.HasData()
 hNavHullsPresets.HasData()
 hResource.IsLoaded()
+hull_index
+hulls
 i < NumVerts()
+iConnection != -2
 idx != m_Entries.InvalidIndex()
 info
 lifespan
@@ -792,6 +926,8 @@ m_bNoShadow
 m_bOnlyShadow
 m_bUseCompressedNormalTangent
 m_bUseShadowFastPath
+m_flowMapGenerationEnabled
+m_flowMapNodeMaxRadius
 m_nGenParamIdx < m_genParams.NumAgentHulls()
 m_nGenParamsIndex >= 0 && m_nGenParamsIndex < m_GenParams.NumAgentHulls()
 m_nIndex >= 0 && m_nIndex < m_nMemberCount
@@ -805,7 +941,10 @@ m_pClusters->m_vecClusterIsOnBoundary.IsEmpty()
 m_pMesh
 m_vGravity
 m_vecClusters.IsEmpty()
+m_vecFlowMapNodes.Count() < INT16_MAX
+m_vecFlowMapNodes.Count()+1 < k_nMaxFlowMapNodes
 m_vecNavHulls
+mapOpenSearches.Remove( OpenSearch_t { pSearch->pNode, pSearch } )
 medianFilterWalkableArea: Out of memory 'areas' (%d).
 mergeAndFilterLayerRegions: Out of memory 'regions' (%d).
 mergeAndFilterRegions: Out of memory 'regions' (%d).
@@ -821,6 +960,7 @@ ms_NavGenParamsDefault.LoadAgentDefaultsFromGameInfo( preset.String() )
 nBaseEdge >= 0 && nBaseEdge < pBasePoly->m_nVerts
 nCellContentsIndex < CellContentsCount( x, y )
 nCellsVertically < RC_SPAN_MAX_HEIGHT
+nCount < MAX_NUM_NAV_AREAS
 nCurrentIndex <= nMaxIndices
 nDstEdge >= 0 && nDstEdge < rDstPoly.m_nVerts
 nEdge >= 0 && nEdge < m_nVerts
@@ -882,15 +1022,30 @@ nav_gen_split_multi_connection_polys
 nav_gen_split_multi_connection_polys_tol
 nav_gen_true
 nav_gen_vertical_limit
+nav_id
+nav_ids
 nav_max_vis_delta_list_length
+nav_pathfind_debug_log
+nav_pathfind_draw
+nav_pathfind_draw_blocked
+nav_pathfind_draw_costs
+nav_pathfind_draw_fail
+nav_pathfind_draw_total_costs
+nav_pathfind_inadmissable_heuristic_factor
 nav_pathfind_multithread
 nav_show_potentially_visible
 nav_validate
 navsystem
 navsystem.dll
+node_index
+nodes
 not approved\n
 optionallycompressedtangentframe
+out of order flow map entry %d  %d/%d (prior %d/%d)
+pArea->GetAdjacentAreas( 0 ).IsEmpty() || pArea->GetAdjacentAreas( 2 ).IsEmpty()
+pArea->GetIncomingConnections( 0 ).IsEmpty() || pArea->GetIncomingConnections( 2 ).IsEmpty()
 pDefaultKeys
+pFlowMap->m_mapFlowMapNodeToConnection.Count() == m_vecFlowMapNodes.Count()
 pKV3 && ( pKV3->GetBasicType() == KV3_BTYPE_TABLE || pKV3->GetBasicType() == KV3_BTYPE_NULL )
 pLoadFromMember
 pLoadFromValue != nullptr
@@ -900,7 +1055,6 @@ pNumAdded && pNumRemoved
 pTrace->IsWorldHit() || pTrace->m_pEnt
 poly.HasVertIdx( nVertIdx )
 posxyz
-ppF\n
 process
 quiet
 rCandidate.m_flExpand > 0.0f
@@ -912,6 +1066,7 @@ rCon0.m_nOtherEdge != rCon1.m_nOtherEdge
 rEdge.NumPolys() >= 1
 rGenParams.m_HullParams[ nGenParamsIndex ].m_flAgentMaxJumpDownDist >= rGenParams.m_HullParams[ nGenParamsIndex ].m_flAgentMaxJumpUpDist
 rIndices.Count() < NAV_GEN_COMBINED_MAX_VERTS
+rOpenList.IsEmpty()
 rOtherPoly.m_pConnections
 rPoly.HasVertIdx( rEdge.GetVert( 0 ) )
 rPoly.HasVertIdx( rEdge.GetVert( 1 ) )
@@ -921,7 +1076,6 @@ rPolys[ rPolyCon.m_nThisPoly ].GetGenInfo() == rPolys[ rPolyCon.m_nOtherPoly ].G
 rThisPoly.GetGenInfo() == rOtherPoly.GetGenInfo()
 rV.IsValid_Force()
 rVert.IsValid_Force()
-r\vppF\n
 radius used to raise/lower corners in nearby areas when raising/lowering corners.
 rcBuildCompactHeightfield: Heightfield has too many layers %d (max: %d)
 rcBuildCompactHeightfield: Out of memory 'chf.areas' (%d)

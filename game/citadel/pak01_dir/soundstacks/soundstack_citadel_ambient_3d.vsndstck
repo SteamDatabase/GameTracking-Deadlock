@@ -21,6 +21,16 @@
 						"citadel_soundevent_block",
 						"citadel_default_3d",
 					]
+					position_offset = 
+					{
+						data_type = "float3"
+						value = "[0.0, 0.0, 0.0]"
+						_system_properties = 
+						{
+							property_group = "Position"
+							display_group = "normal"
+						}
+					}
 					volume_falloff_min = 
 					{
 						data_type = "float"
@@ -50,7 +60,105 @@
 							property_help = "Don't play a voice if it's initial volume is less than this param."
 						}
 					}
+					enable_retrigger = 
+					{
+						data_type = "bool"
+						value = "false"
+						_system_properties = 
+						{
+							display_group = "normal"
+							property_group = "Retrigger"
+						}
+					}
+					retrigger_interval_min = 
+					{
+						data_type = "float"
+						value = "1.000000"
+						_system_properties = 
+						{
+							display_group = "normal"
+							property_group = "Retrigger"
+						}
+					}
+					retrigger_interval_max = 
+					{
+						data_type = "float"
+						value = "1.000000"
+						_system_properties = 
+						{
+							display_group = "normal"
+							property_group = "Retrigger"
+						}
+					}
+					retrigger_radius = 
+					{
+						data_type = "float"
+						value = "1000.000000"
+						_system_properties = 
+						{
+							display_group = "normal"
+							property_group = "Retrigger"
+						}
+					}
+					retrigger_count = 
+					{
+						data_type = "float"
+						value = "-1"
+						_system_properties = 
+						{
+							display_group = "normal"
+							property_group = "Retrigger"
+						}
+					}
+					randomize_position_min_radius = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							display_group = "normal"
+							property_group = "Position"
+						}
+					}
+					randomize_position_max_radius = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							display_group = "normal"
+							property_group = "Position"
+						}
+					}
+					randomize_position_hemisphere = 
+					{
+						data_type = "bool"
+						value = "false"
+						_system_properties = 
+						{
+							display_group = "normal"
+							property_group = "Position"
+						}
+					}
 				}
+			},
+			
+			{
+				name = "randomize_position_input"
+				input_execute = "1"
+				execute_once = "1"
+				operator = "math_random_float3"
+				input_force_positive_z = "@public.randomize_position_hemisphere"
+				input_radius_min = "@public.randomize_position_min_radius"
+				input_radius_max = "@public.randomize_position_max_radius"
+			},
+			
+			{
+				name = "randomize_position"
+				operator = "math_float3"
+				apply = "add"
+				input1 = "@public.position_offset"
+				input2 = "@randomize_position_input.output"
 			},
 			
 			{
@@ -60,7 +168,206 @@
 				auto_connect_public_fields = "true"
 				operator_variables = 
 				{
+					position_offset = 
+					{
+						data_type = "float3"
+						value = "@randomize_position.output"
+					}
 				}
+			},
+			
+			{
+				name = "is_retrigger_enabled"
+				operator = "math_float"
+				apply = "less_than"
+				input1 = "@public.enable_retrigger"
+				input2 = "0.500000"
+			},
+			
+			{
+				name = "in_retrigger_radius"
+				input_execute = "@public.enable_retrigger"
+				operator = "math_float"
+				apply = "less_than"
+				input1 = "@distance_to_source.output"
+				input2 = "@public.retrigger_radius"
+			},
+			
+			{
+				name = "retrigger_finite"
+				operator = "math_float"
+				execute_once = "1"
+				apply = "greater_than_or_equal"
+				input1 = "@public.retrigger_count"
+				input2 = "0"
+			},
+			
+			{
+				name = "retrigger_count_reached"
+				operator = "math_float"
+				apply = "greater_than_or_equal"
+				input1 = "@retrigger_count.output"
+				input2 = "@public.retrigger_count"
+			},
+			
+			{
+				name = "retrigger_count_stop"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@retrigger_count_reached.output"
+				input2 = "@retrigger_finite.output"
+			},
+			
+			{
+				name = "out_of_retrigger_radius"
+				input_execute = "@public.enable_retrigger"
+				operator = "math_float"
+				apply = "less_than_or_equal"
+				input1 = "@public.retrigger_radius"
+				input2 = "0.000000"
+			},
+			
+			{
+				name = "does_not_retrigger_sound"
+				input_execute = "@public.enable_retrigger"
+				operator = "math_float"
+				apply = "add"
+				input1 = "@out_of_retrigger_radius.output"
+				input2 = "@retrigger_count_stop.output"
+			},
+			
+			{
+				name = "time_since_last_trigger"
+				input_execute = "@public.enable_retrigger"
+				operator = "math_float"
+				apply = "sub"
+				input1 = "@citadel_default_3d::citadel_base_3d::get_event_info.output_elapsed_time"
+				input2 = "@last_trigger_time.output"
+			},
+			
+			{
+				name = "retrigger_interval_execute"
+				input_execute = "@public.enable_retrigger"
+				operator = "math_float"
+				apply = "add"
+				input1 = "@retrigger_interval_is_zero.output"
+				input2 = "@retrigger_sound.output"
+			},
+			
+			{
+				name = "retrigger_interval_random"
+				operator = "math_random_float"
+				input_execute = "@retrigger_interval_execute.output"
+				input_min = "@public.retrigger_interval_min"
+				input_max = "@public.retrigger_interval_max"
+			},
+			
+			{
+				name = "retrigger_interval_calc"
+				input_execute = "@public.enable_retrigger"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@retrigger_interval_random.output"
+				input2 = "1.000000"
+				__remap_input2 = "retrigger_interval"
+			},
+			
+			{
+				name = "retrigger_interval_is_zero"
+				input_execute = "@public.enable_retrigger"
+				operator = "math_float"
+				apply = "equal"
+				input1 = "@retrigger_interval_random.output"
+				input2 = "0.000000"
+				output = "1.000000"
+			},
+			
+			{
+				name = "retrigger_sound"
+				input_execute = "@public.enable_retrigger"
+				operator = "math_float"
+				apply = "greater_than"
+				input1 = "@time_since_last_trigger.output"
+				input2 = "@retrigger_interval_calc.output"
+			},
+			
+			{
+				name = "retrigger_count"
+				input_execute = "@retrigger_sound.output"
+				operator = "math_float"
+				apply = "add"
+				input1 = "@retrigger_count.output"
+				input2 = "1"
+				output = "0"
+			},
+			
+			{
+				name = "last_trigger_time"
+				operator = "math_float"
+				apply = "add"
+				input1 = "@citadel_default_3d::citadel_base_3d::get_event_info.output_elapsed_time"
+				input2 = "0.000000"
+				input_execute = "@retrigger_sound.output"
+			},
+			
+			{
+				name = "start_retrigger"
+				operator = "soundevent_start"
+				input_execute = "@in_retrigger_radius.output"
+				input_start = "@retrigger_sound.output"
+				input_use_parent_seed = "0"
+				retrigger_current_event = "true"
+				input_spawn_oneshots = "1"
+				spawn_orphans = "0"
+				pass_opvar_args = "true"
+				input_update_opvar_args = "true"
+				operator_variables = 
+				{
+					public.position = 
+					{
+						operator_arg_field = "true"
+						data_type = "float3"
+						value = "@public.position"
+					}
+					public.enable_retrigger = 
+					{
+						operator_arg_field = "true"
+						data_type = "bool"
+						value = "false"
+					}
+					public.source_soundscape = 
+					{
+						operator_arg_field = "true"
+						data_type = "int"
+						value = "@public.source_soundscape"
+					}
+				}
+			},
+			
+			{
+				name = "calc_event_finished"
+				input_execute = "@public.enable_retrigger"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@does_not_retrigger_sound.output"
+				input2 = "@start_vsnd.output_voice_finished"
+			},
+			
+			{
+				name = "calc_event_finished_or_stopped"
+				input_execute = "@public.enable_retrigger"
+				operator = "math_float"
+				apply = "add"
+				input1 = "@calc_event_finished.output"
+				input2 = "@citadel_default_3d::citadel_base_3d::get_event_info.output_stopped"
+			},
+			
+			{
+				name = "event_terminator"
+				input_execute = "@public.enable_retrigger"
+				operator = "soundevent_control"
+				input_add_dependent = "1.000000"
+				input_clear_dependencies = "@calc_event_finished_or_stopped.output"
 			},
 		]
 		_system_properties = 

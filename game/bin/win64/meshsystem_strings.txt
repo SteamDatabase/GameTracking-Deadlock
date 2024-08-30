@@ -14,6 +14,8 @@
 %s (Color)
 %s (Material)
 %s_color
+%s_group%d_groom_ao
+%s_group%d_groom_density
 %s_hair_ao
 %s_hair_density
 %s_hairsim_PosVelQuat
@@ -95,6 +97,7 @@
 .?AVCPointConstraint@@
 .?AVCRenderMesh@@
 .?AVCRenderMeshManager@@
+.?AVCSceneAnimatableObject@@
 .?AVCSceneObject@@
 .?AVCSceneSkeletonObject@@
 .?AVCSceneSkeletonObjectDesc@@
@@ -120,8 +123,8 @@
 .?AVIShaderReloadListener@@
 .?AVIVPhysicsLegacyKeyHandler@@
 .vmdl
-2\vpd
-2\vpl
+2\vpD
+2\vpL
 2_BONE_IK
 8\r%8h
 =3vmdlkeys4
@@ -445,14 +448,15 @@ CMeshInstance::UpdateCachedData
 CMeshInstance_Imp::AppendDrawCallMeshHelper
 CMeshInstance_Imp::DestroyOwnedVBAndIB
 CMeshRayTrace::GetMeshTraceData
+CMeshSystem::CreateMeshInstance
 CMeshSystem::CreateProjectedDecal
 CMeshSystem::CreateSceneObjectForDecal
-CMeshSystem::CreateSceneObjectForDecal(1379): 
+CMeshSystem::CreateSceneObjectForDecal(1422): 
 CMeshSystem::DeleteSceneWorldInfo
 CMeshSystem::DestroyProjectedDecal
 CMeshSystem::DestroyProjectedDecals
 CMeshSystem::FindAllMeshInstancesWithMesh
-CMeshSystem::GetDecalIB(1632): 
+CMeshSystem::GetDecalIB(1675): 
 CMeshSystem::LoadModelSyncNoExtrefs
 CMeshSystem::RemoveDecalDrawDataRefCounted::<lambda_1>::operator ()
 CMeshSystem::SetLegacyModelLoadEventHandler
@@ -534,7 +538,7 @@ CModelSkeletonSorter::RemapBones
 CModelSkeletonSorter::ReorderArray
 CModelTypeManager::AllocateResource
 CModelTypeManager::FinalizeResource
-CModelTypeManager::GetErrorResource(169): GetErrorModel() called before error model exists!\n
+CModelTypeManager::GetErrorResource(170): GetErrorModel() called before error model exists!\n
 CModelTypeManager::OnReallocateTypesafe
 CModel_Imp::AddEmbeddedAnimData
 CModel_Imp::AddEmbeddedPhysData
@@ -663,8 +667,10 @@ CUtlHash<struct CUtlHashDict<struct UserDataElement_t,1,0>::Entry_t,class CUtlHa
 CUtlLeanVector
 CUtlLeanVectorBase<class CBaseConstraint *,short>::EnsureCapacity
 CUtlLeanVectorBase<class CMaterialDrawDescriptor,short>::EnsureCapacity
+CUtlLeanVectorBase<class CMeshInstance const *,short>::EnsureCapacity
 CUtlLeanVectorBase<float,short>::EnsureCapacity
 CUtlLeanVectorBase<struct CConstraintSlave,short>::EnsureCapacity
+CUtlLeanVectorBase<struct GroomRenderGroup_t,short>::EnsureCapacity
 CUtlLeanVectorBase<struct RuntimeBuffersInfo_t::BufferInfo_t,short>::EnsureCapacity
 CUtlLeanVectorFixedGrowable
 CUtlLeanVectorFixedGrowableBase<class CSceneObjectData,1,short>::EnsureCapacity
@@ -1579,7 +1585,7 @@ RESOURCE_TYPE_MORPHSET_INTERNAL
 RESOURCE_TYPE_RENDERMESH_INTERNAL
 ROTATION
 RSDS
-R\fpl
+R\fpL
 RayTracingEnvironment::RefineNode
 RayTracingEnvironment::RefineNodeJob
 RayTracingEnvironment::SetTexcoord0::<lambda_1>::operator ()
@@ -1802,7 +1808,7 @@ X24_TYPELESS_G8_UINT
 X32_TYPELESS_G8X24_UINT
 You must install a IKV3TransferInterface_ResourceLoad on your context in order to unserialize a non-empty resource handle
 [idx=%d] "%s"
-\n\tV_frexpf
+\tV_frexpf
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r
 a >= 0 && a < MODEL_CONFIG_LOCK_COUNT
 aabb.m_vMaxBounds.IsValid()
@@ -1953,6 +1959,7 @@ m_CtrlOsOffsets
 m_CtrlSoftOffsets
 m_CullingData
 m_Data
+m_Distances
 m_DynNodeFriction
 m_DynNodeVertexSet
 m_DynNodeWindBases
@@ -2037,6 +2044,7 @@ m_Ropes
 m_RunTimeMeshes.Count() == 0
 m_RunTimePhysicsData.IsValid() == false
 m_RuntimeAnimGroups.Count() == 0
+m_SDFRigids
 m_SimStateBones
 m_SimdAnimStrayRadii
 m_SimdNodeBases
@@ -2221,6 +2229,7 @@ m_flInternalPressure
 m_flLinearDamping
 m_flLinearDampingRatio
 m_flLinearFrequency
+m_flLocalDrag1
 m_flLocalForce
 m_flLocalRotation
 m_flMass
@@ -2356,6 +2365,7 @@ m_nCollisionMask
 m_nCollisionPlaneIndex
 m_nDebugFlags
 m_nDefaultMeshGroupMask
+m_nDepth
 m_nDynamicNodeFlags
 m_nEntIndex
 m_nEntParent
@@ -2408,6 +2418,7 @@ m_nRodVelocitySmoothIterations
 m_nRopeCount
 m_nRotLockStaticNodes
 m_nRotateMotion
+m_nSDFRigidIndex
 m_nSegmentsPerHairStrand
 m_nShapeType
 m_nSimdQuadCount1
@@ -2670,11 +2681,14 @@ pConfig->m_bStateKeysInitialized
 pDefaultKeys
 pDefaultKeys != &g_NullKV3
 pEnumInfo
+pGroomMat
 pHeader->m_nHeaderVersion == RESOURCE_FILE_HEADER_VERSION
 pInstance->m_pSceneObject
 pLoadFromMember
 pLoadFromValue != nullptr
 pMeshInstance != nullptr
+pMeshInstance->m_pAnimatableData->m_hGroomAoVolume != RENDER_TEXTURE_HANDLE_INVALID
+pMeshInstance->m_pAnimatableData->m_hGroomDensityVolume != RENDER_TEXTURE_HANDLE_INVALID
 pObject
 pOldModel->m_ExtParts.Count() == 0
 pOldModel->m_refPhysicsData.Count() <= 1
@@ -2712,7 +2726,7 @@ print_model_bind_pose
 projectedDecal
 pushoff
 qAdjust
-r\vpl
+r\vpL
 reload_model
 resourcesystem
 rolling
@@ -2741,6 +2755,8 @@ tools.light_volume_boundary
 userAnimationData.m_nType == FIELD_FLOAT32
 vCenter
 vCenterOfMass
+vLocalMax
+vLocalMin
 vOffset
 vShape
 vSize

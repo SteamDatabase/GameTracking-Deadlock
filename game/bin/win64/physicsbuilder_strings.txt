@@ -241,6 +241,7 @@ $prefix_element$
 %s_clothBox
 %s_clothCapsule
 %s_clothNode
+%s_clothSDF
 %s_clothSphere
 %s_color
 %s_crouch
@@ -318,7 +319,6 @@ $prefix_element$
 ( pEdge->m_NextEdge != INVALID_MESH_COMPONENT ) || ( bAssert == false )
 ( pEdge->m_Vertex != INVALID_MESH_COMPONENT ) || ( bAssert == false )
 ( pEdge->m_Vertex != pOppositeEdge->m_Vertex ) || ( bAssert == false )
-( pFaces != nullptr ) && ( nNumFaces > 0 )
 ( pFrom->GetDocument() == GetDocument() ) || ( GetDocument() == nullptr ) || ( pFrom->GetDocument() == nullptr )
 ( pInOutNormals == nullptr ) || ( pInOutNormals->Count() == nNumPoints )
 ( pInOutTangents == nullptr ) || ( pInOutTangents->Count() == nNumPoints )
@@ -397,7 +397,6 @@ $prefix_element$
 ---- dmxconvert cmdline ----\n
 ---- dmxconvert output ----\n
 ---------------------------\n
--\tV_log2f
 -physdebugdata
 -rgb
 -rgba
@@ -524,6 +523,7 @@ $prefix_element$
 .?AUCAttr_m_PrefixToMatch@?1??GetStaticAttributes@CModelDocMeshModifier_RenameBonePrefix@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_PrimaryAssociatedEntity@?1??GetStaticAttributes@CModelDocRoot@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_PrimaryRootBone@?1??GetStaticAttributes@CModelDocBoneMarkupList@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
+.?AUCAttr_m_RenderMeshList@?1??GetStaticAttributes@CModelDocClothShapeSDF@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_RenderMeshList@?1??GetStaticAttributes@CModelDocPhysicsHullFromRender@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_RenderMode@?1??GetStaticAttributes@CModelDocRenderMeshMarkup@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_ReplaceStr@?1??GetStaticAttributes@CModelDocModelModifier_ReplaceResourceReferenceSubstring@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
@@ -645,6 +645,7 @@ $prefix_element$
 .?AUCAttr_m_bClothCollisionLayer3@?1??GetStaticAttributes@CModelDocJiggleBone@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_bCollisionEnabled@?1??GetStaticAttributes@CModelDocBasePhysicsJoint@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_bComputeDynamicMeshTensionAfterAnimation@?1??GetStaticAttributes@CModelDocDynamicMeshDeformParams@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
+.?AUCAttr_m_bConvexify@?1??GetStaticAttributes@CModelDocClothShapeSDF@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_bCopositionalVertices@?1??GetStaticAttributes@CModelDocMeshModifier_MeshOpSelectionGrowOrShrink@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_bCreateLeft@?1??GetStaticAttributes@CModelDocAnimGesture@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_bCreateRight@?1??GetStaticAttributes@CModelDocAnimGesture@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
@@ -804,6 +805,7 @@ $prefix_element$
 .?AUCAttr_m_bSelectUnweighted@?1??GetStaticAttributes@CModelDocMeshModifier_MeshOpSelectVerticesByWeight@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_bSelectVertices@?1??GetStaticAttributes@CModelDocMeshModifier_MeshOpSelectAll@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_bSelectVertices@?1??GetStaticAttributes@CModelDocMeshModifier_MeshOpSelectInBox@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
+.?AUCAttr_m_bSergiysDistanceField@?1??GetStaticAttributes@CModelDocClothShapeSDF@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_bSkewNormals@?1??GetStaticAttributes@CModelDocMeshModifier_MeshOpVertexTransform@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_bSkinParentedTransforms@?1??GetStaticAttributes@CModelDocRenderMeshMarkup@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_bSkinToBones@?1??GetStaticAttributes@CModelDocVSNAPFile@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
@@ -963,6 +965,7 @@ $prefix_element$
 .?AUCAttr_m_flFrictionBias@?1??GetStaticAttributes@CModelDocClothProxyMeshFile@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_flFrictionScale@?1??GetStaticAttributes@CModelDocClothProxyMeshFile@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_flFrondTimeOffset@?1??GetStaticAttributes@CModelDocSpeedtreeMeshFile@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
+.?AUCAttr_m_flGlobalScale@?1??GetStaticAttributes@CModelDocAnimSkeletonFile@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_flGoalDamping@?1??GetStaticAttributes@CModelDocClothNode@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_flGoalStrength@?1??GetStaticAttributes@CModelDocClothNode@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_flGoalStrengthBias@?1??GetStaticAttributes@CModelDocClothParams@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
@@ -989,6 +992,7 @@ $prefix_element$
 .?AUCAttr_m_flLinearDampingRatio@?1??GetStaticAttributes@CModelDocPhysicsJoint_Wheel@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_flLinearFrequency@?1??GetStaticAttributes@CModelDocPhysicsJoint_Weld@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_flLinearFrequency@?1??GetStaticAttributes@CModelDocPhysicsJoint_Wheel@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
+.?AUCAttr_m_flLocalDrag1@?1??GetStaticAttributes@CModelDocClothParams@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_flLocalForce@?1??GetStaticAttributes@CModelDocClothParams@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_flLocalRotation@?1??GetStaticAttributes@CModelDocClothParams@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_flLoop@?1??GetStaticAttributes@CModelDocPoseParam@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
@@ -1000,13 +1004,11 @@ $prefix_element$
 .?AUCAttr_m_flMaxAngle@?1??GetStaticAttributes@CModelDocClothStiffHinge@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_flMaxAngle@?1??GetStaticAttributes@CModelDocFingerBone@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_flMaxAngle@?1??GetStaticAttributes@CModelDocPhysicsJoint_Revolute@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
-.?AUCAttr_m_flMaxForce@?1??GetStaticAttributes@CModelDocPhysicsJoint_Weld@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_flMaxLength@?1??GetStaticAttributes@CModelDocClothSpring@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_flMaxOffset@?1??GetStaticAttributes@CModelDocPhysicsJoint_Prismatic@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_flMaxPitch@?1??GetStaticAttributes@CModelDocJiggleBone@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_flMaxSteeringAngle@?1??GetStaticAttributes@CModelDocPhysicsJoint_Wheel@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_flMaxSuspensionOffset@?1??GetStaticAttributes@CModelDocPhysicsJoint_Wheel@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
-.?AUCAttr_m_flMaxTorque@?1??GetStaticAttributes@CModelDocPhysicsJoint_Weld@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_flMaxTwistAngle@?1??GetStaticAttributes@CModelDocPhysicsJoint_Conical@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_flMaxU@?1??GetStaticAttributes@CModelDocRenderPrimitive@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_flMaxV@?1??GetStaticAttributes@CModelDocRenderPrimitive@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
@@ -1212,6 +1214,7 @@ $prefix_element$
 .?AUCAttr_m_nFramesFromStart@?1??GetStaticAttributes@CModelDocAnimSmoothLoop@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_nFramesFromStartOfB@?1??GetStaticAttributes@CModelDocAnimCrossfade@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_nGestureType@?1??GetStaticAttributes@CModelDocAnimGesture@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
+.?AUCAttr_m_nGroomGroupID@?1??GetStaticAttributes@CModelDocGroomMeshFile@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_nGroupID@?1??GetStaticAttributes@CModelDocHitboxBase@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_nGrowOrShrink@?1??GetStaticAttributes@CModelDocMeshModifier_MeshOpSelectionGrowOrShrink@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_nHealthOverride@?1??GetStaticAttributes@CModelDocBreakPieceExternal@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
@@ -1283,6 +1286,7 @@ $prefix_element$
 .?AUCAttr_m_nRenderColorMode@?1??GetStaticAttributes@CModelDocBaseBreakPiece@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_nRes@?1??GetStaticAttributes@CModelDocDistanceField@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_nRes@?1??GetStaticAttributes@CModelDocPrecomputedTransmission@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
+.?AUCAttr_m_nResolution@?1??GetStaticAttributes@CModelDocClothShapeSDF@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_nScreenHeightForAspect@?1??GetStaticAttributes@CModelDocAttachmentCamera@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_nScreenWidthForAspect@?1??GetStaticAttributes@CModelDocAttachmentCamera@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_nSeed@?1??GetStaticAttributes@CModelDocMeshModifier_MeshOpPrimitiveVoronoiPlane@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
@@ -1579,6 +1583,7 @@ $prefix_element$
 .?AV?$CArrayAttributeWrapper@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocAnimModifier_DiscardChannels@@@@
 .?AV?$CArrayAttributeWrapper@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocAnimOrder@@@@
 .?AV?$CArrayAttributeWrapper@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocAnimSkeletonFile@@@@
+.?AV?$CArrayAttributeWrapper@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocClothShapeSDF@@@@
 .?AV?$CArrayAttributeWrapper@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocDistanceField@@@@
 .?AV?$CArrayAttributeWrapper@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocMeshDrawOrder@@@@
 .?AV?$CArrayAttributeWrapper@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocMeshModifier_MeshOpSelectFacesByMaterial@@@@
@@ -1628,6 +1633,7 @@ $prefix_element$
 .?AV?$CBaseConcreteToolAttr@HVCModelDocClothRigidCloudCluster@@@@
 .?AV?$CBaseConcreteToolAttr@HVCModelDocClothSelfCollisionCluster@@@@
 .?AV?$CBaseConcreteToolAttr@HVCModelDocClothShape@@@@
+.?AV?$CBaseConcreteToolAttr@HVCModelDocClothShapeSDF@@@@
 .?AV?$CBaseConcreteToolAttr@HVCModelDocClothSpring@@@@
 .?AV?$CBaseConcreteToolAttr@HVCModelDocClothTri@@@@
 .?AV?$CBaseConcreteToolAttr@HVCModelDocConfigElement_SetBodygroup@@@@
@@ -1687,6 +1693,7 @@ $prefix_element$
 .?AV?$CBaseConcreteToolAttr@MVCModelDocAnimGameplayTiming@@@@
 .?AV?$CBaseConcreteToolAttr@MVCModelDocAnimIkLockLocal@@@@
 .?AV?$CBaseConcreteToolAttr@MVCModelDocAnimModifier_DiscardChannels@@@@
+.?AV?$CBaseConcreteToolAttr@MVCModelDocAnimSkeletonFile@@@@
 .?AV?$CBaseConcreteToolAttr@MVCModelDocAnimatedMaterialAttributeValue@@@@
 .?AV?$CBaseConcreteToolAttr@MVCModelDocAttachmentBase@@@@
 .?AV?$CBaseConcreteToolAttr@MVCModelDocAttachmentCamera@@@@
@@ -1775,6 +1782,7 @@ $prefix_element$
 .?AV?$CBaseConcreteToolAttr@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocAnimModifier_DiscardChannels@@@@
 .?AV?$CBaseConcreteToolAttr@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocAnimOrder@@@@
 .?AV?$CBaseConcreteToolAttr@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocAnimSkeletonFile@@@@
+.?AV?$CBaseConcreteToolAttr@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocClothShapeSDF@@@@
 .?AV?$CBaseConcreteToolAttr@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocDistanceField@@@@
 .?AV?$CBaseConcreteToolAttr@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocMeshDrawOrder@@@@
 .?AV?$CBaseConcreteToolAttr@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocMeshModifier_MeshOpSelectFacesByMaterial@@@@
@@ -1917,6 +1925,7 @@ $prefix_element$
 .?AV?$CBaseConcreteToolAttr@VCUtlString@@VCModelDocClothQuad@@@@
 .?AV?$CBaseConcreteToolAttr@VCUtlString@@VCModelDocClothRigidCloudCluster@@@@
 .?AV?$CBaseConcreteToolAttr@VCUtlString@@VCModelDocClothShape@@@@
+.?AV?$CBaseConcreteToolAttr@VCUtlString@@VCModelDocClothShapeSDF@@@@
 .?AV?$CBaseConcreteToolAttr@VCUtlString@@VCModelDocClothSpring@@@@
 .?AV?$CBaseConcreteToolAttr@VCUtlString@@VCModelDocClothStiffHinge@@@@
 .?AV?$CBaseConcreteToolAttr@VCUtlString@@VCModelDocClothTri@@@@
@@ -2138,6 +2147,7 @@ $prefix_element$
 .?AV?$CBaseConcreteToolAttr@_NVCModelDocClothParams@@@@
 .?AV?$CBaseConcreteToolAttr@_NVCModelDocClothProxyMeshFile@@@@
 .?AV?$CBaseConcreteToolAttr@_NVCModelDocClothShape@@@@
+.?AV?$CBaseConcreteToolAttr@_NVCModelDocClothShapeSDF@@@@
 .?AV?$CBaseConcreteToolAttr@_NVCModelDocClothSpring@@@@
 .?AV?$CBaseConcreteToolAttr@_NVCModelDocConfigElement_AttachedModel@@@@
 .?AV?$CBaseConcreteToolAttr@_NVCModelDocDistanceField@@@@
@@ -2242,6 +2252,7 @@ $prefix_element$
 .?AV?$CBaseConcreteToolAttrValue@HVCModelDocClothRigidCloudCluster@@@@
 .?AV?$CBaseConcreteToolAttrValue@HVCModelDocClothSelfCollisionCluster@@@@
 .?AV?$CBaseConcreteToolAttrValue@HVCModelDocClothShape@@@@
+.?AV?$CBaseConcreteToolAttrValue@HVCModelDocClothShapeSDF@@@@
 .?AV?$CBaseConcreteToolAttrValue@HVCModelDocClothSpring@@@@
 .?AV?$CBaseConcreteToolAttrValue@HVCModelDocClothTri@@@@
 .?AV?$CBaseConcreteToolAttrValue@HVCModelDocConfigElement_SetBodygroup@@@@
@@ -2301,6 +2312,7 @@ $prefix_element$
 .?AV?$CBaseConcreteToolAttrValue@MVCModelDocAnimGameplayTiming@@@@
 .?AV?$CBaseConcreteToolAttrValue@MVCModelDocAnimIkLockLocal@@@@
 .?AV?$CBaseConcreteToolAttrValue@MVCModelDocAnimModifier_DiscardChannels@@@@
+.?AV?$CBaseConcreteToolAttrValue@MVCModelDocAnimSkeletonFile@@@@
 .?AV?$CBaseConcreteToolAttrValue@MVCModelDocAnimatedMaterialAttributeValue@@@@
 .?AV?$CBaseConcreteToolAttrValue@MVCModelDocAttachmentBase@@@@
 .?AV?$CBaseConcreteToolAttrValue@MVCModelDocAttachmentCamera@@@@
@@ -2511,6 +2523,7 @@ $prefix_element$
 .?AV?$CBaseConcreteToolAttrValue@VCUtlString@@VCModelDocClothQuad@@@@
 .?AV?$CBaseConcreteToolAttrValue@VCUtlString@@VCModelDocClothRigidCloudCluster@@@@
 .?AV?$CBaseConcreteToolAttrValue@VCUtlString@@VCModelDocClothShape@@@@
+.?AV?$CBaseConcreteToolAttrValue@VCUtlString@@VCModelDocClothShapeSDF@@@@
 .?AV?$CBaseConcreteToolAttrValue@VCUtlString@@VCModelDocClothSpring@@@@
 .?AV?$CBaseConcreteToolAttrValue@VCUtlString@@VCModelDocClothStiffHinge@@@@
 .?AV?$CBaseConcreteToolAttrValue@VCUtlString@@VCModelDocClothTri@@@@
@@ -2732,6 +2745,7 @@ $prefix_element$
 .?AV?$CBaseConcreteToolAttrValue@_NVCModelDocClothParams@@@@
 .?AV?$CBaseConcreteToolAttrValue@_NVCModelDocClothProxyMeshFile@@@@
 .?AV?$CBaseConcreteToolAttrValue@_NVCModelDocClothShape@@@@
+.?AV?$CBaseConcreteToolAttrValue@_NVCModelDocClothShapeSDF@@@@
 .?AV?$CBaseConcreteToolAttrValue@_NVCModelDocClothSpring@@@@
 .?AV?$CBaseConcreteToolAttrValue@_NVCModelDocConfigElement_AttachedModel@@@@
 .?AV?$CBaseConcreteToolAttrValue@_NVCModelDocDistanceField@@@@
@@ -2836,6 +2850,7 @@ $prefix_element$
 .?AV?$CConcreteToolAttr@HVCModelDocClothRigidCloudCluster@@X@@
 .?AV?$CConcreteToolAttr@HVCModelDocClothSelfCollisionCluster@@X@@
 .?AV?$CConcreteToolAttr@HVCModelDocClothShape@@X@@
+.?AV?$CConcreteToolAttr@HVCModelDocClothShapeSDF@@X@@
 .?AV?$CConcreteToolAttr@HVCModelDocClothSpring@@X@@
 .?AV?$CConcreteToolAttr@HVCModelDocClothTri@@X@@
 .?AV?$CConcreteToolAttr@HVCModelDocConfigElement_SetBodygroup@@X@@
@@ -2895,6 +2910,7 @@ $prefix_element$
 .?AV?$CConcreteToolAttr@MVCModelDocAnimGameplayTiming@@X@@
 .?AV?$CConcreteToolAttr@MVCModelDocAnimIkLockLocal@@X@@
 .?AV?$CConcreteToolAttr@MVCModelDocAnimModifier_DiscardChannels@@X@@
+.?AV?$CConcreteToolAttr@MVCModelDocAnimSkeletonFile@@X@@
 .?AV?$CConcreteToolAttr@MVCModelDocAnimatedMaterialAttributeValue@@X@@
 .?AV?$CConcreteToolAttr@MVCModelDocAttachmentBase@@X@@
 .?AV?$CConcreteToolAttr@MVCModelDocAttachmentCamera@@X@@
@@ -2983,6 +2999,7 @@ $prefix_element$
 .?AV?$CConcreteToolAttr@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocAnimModifier_DiscardChannels@@X@@
 .?AV?$CConcreteToolAttr@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocAnimOrder@@X@@
 .?AV?$CConcreteToolAttr@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocAnimSkeletonFile@@X@@
+.?AV?$CConcreteToolAttr@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocClothShapeSDF@@X@@
 .?AV?$CConcreteToolAttr@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocDistanceField@@X@@
 .?AV?$CConcreteToolAttr@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocMeshDrawOrder@@X@@
 .?AV?$CConcreteToolAttr@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocMeshModifier_MeshOpSelectFacesByMaterial@@X@@
@@ -3125,6 +3142,7 @@ $prefix_element$
 .?AV?$CConcreteToolAttr@VCUtlString@@VCModelDocClothQuad@@X@@
 .?AV?$CConcreteToolAttr@VCUtlString@@VCModelDocClothRigidCloudCluster@@X@@
 .?AV?$CConcreteToolAttr@VCUtlString@@VCModelDocClothShape@@X@@
+.?AV?$CConcreteToolAttr@VCUtlString@@VCModelDocClothShapeSDF@@X@@
 .?AV?$CConcreteToolAttr@VCUtlString@@VCModelDocClothSpring@@X@@
 .?AV?$CConcreteToolAttr@VCUtlString@@VCModelDocClothStiffHinge@@X@@
 .?AV?$CConcreteToolAttr@VCUtlString@@VCModelDocClothTri@@X@@
@@ -3346,6 +3364,7 @@ $prefix_element$
 .?AV?$CConcreteToolAttr@_NVCModelDocClothParams@@X@@
 .?AV?$CConcreteToolAttr@_NVCModelDocClothProxyMeshFile@@X@@
 .?AV?$CConcreteToolAttr@_NVCModelDocClothShape@@X@@
+.?AV?$CConcreteToolAttr@_NVCModelDocClothShapeSDF@@X@@
 .?AV?$CConcreteToolAttr@_NVCModelDocClothSpring@@X@@
 .?AV?$CConcreteToolAttr@_NVCModelDocConfigElement_AttachedModel@@X@@
 .?AV?$CConcreteToolAttr@_NVCModelDocDistanceField@@X@@
@@ -3661,6 +3680,7 @@ $prefix_element$
 .?AV?$CModelDocAttr@HVCModelDocClothRigidCloudCluster@@@@
 .?AV?$CModelDocAttr@HVCModelDocClothSelfCollisionCluster@@@@
 .?AV?$CModelDocAttr@HVCModelDocClothShape@@@@
+.?AV?$CModelDocAttr@HVCModelDocClothShapeSDF@@@@
 .?AV?$CModelDocAttr@HVCModelDocClothSpring@@@@
 .?AV?$CModelDocAttr@HVCModelDocClothTri@@@@
 .?AV?$CModelDocAttr@HVCModelDocConfigElement_SetBodygroup@@@@
@@ -3718,6 +3738,7 @@ $prefix_element$
 .?AV?$CModelDocAttr@MVCModelDocAnimGameplayTiming@@@@
 .?AV?$CModelDocAttr@MVCModelDocAnimIkLockLocal@@@@
 .?AV?$CModelDocAttr@MVCModelDocAnimModifier_DiscardChannels@@@@
+.?AV?$CModelDocAttr@MVCModelDocAnimSkeletonFile@@@@
 .?AV?$CModelDocAttr@MVCModelDocAnimatedMaterialAttributeValue@@@@
 .?AV?$CModelDocAttr@MVCModelDocAttachmentBase@@@@
 .?AV?$CModelDocAttr@MVCModelDocAttachmentCamera@@@@
@@ -3803,6 +3824,7 @@ $prefix_element$
 .?AV?$CModelDocAttr@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocAnimModifier_DiscardChannels@@@@
 .?AV?$CModelDocAttr@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocAnimOrder@@@@
 .?AV?$CModelDocAttr@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocAnimSkeletonFile@@@@
+.?AV?$CModelDocAttr@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocClothShapeSDF@@@@
 .?AV?$CModelDocAttr@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocDistanceField@@@@
 .?AV?$CModelDocAttr@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocMeshDrawOrder@@@@
 .?AV?$CModelDocAttr@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocMeshModifier_MeshOpSelectFacesByMaterial@@@@
@@ -4149,6 +4171,7 @@ $prefix_element$
 .?AV?$CModelDocAttr@_NVCModelDocClothParams@@@@
 .?AV?$CModelDocAttr@_NVCModelDocClothProxyMeshFile@@@@
 .?AV?$CModelDocAttr@_NVCModelDocClothShape@@@@
+.?AV?$CModelDocAttr@_NVCModelDocClothShapeSDF@@@@
 .?AV?$CModelDocAttr@_NVCModelDocClothSpring@@@@
 .?AV?$CModelDocAttr@_NVCModelDocConfigElement_AttachedModel@@@@
 .?AV?$CModelDocAttr@_NVCModelDocDistanceField@@@@
@@ -4234,6 +4257,7 @@ $prefix_element$
 .?AV?$CToolAttrGetForModifyAccess@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocAnimModifier_DiscardChannels@@@@
 .?AV?$CToolAttrGetForModifyAccess@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocAnimOrder@@@@
 .?AV?$CToolAttrGetForModifyAccess@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocAnimSkeletonFile@@@@
+.?AV?$CToolAttrGetForModifyAccess@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocClothShapeSDF@@@@
 .?AV?$CToolAttrGetForModifyAccess@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocDistanceField@@@@
 .?AV?$CToolAttrGetForModifyAccess@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocMeshDrawOrder@@@@
 .?AV?$CToolAttrGetForModifyAccess@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocMeshModifier_MeshOpSelectFacesByMaterial@@@@
@@ -4282,6 +4306,7 @@ $prefix_element$
 .?AV?$CToolAttrGetSetAccess@HVCModelDocClothRigidCloudCluster@@@@
 .?AV?$CToolAttrGetSetAccess@HVCModelDocClothSelfCollisionCluster@@@@
 .?AV?$CToolAttrGetSetAccess@HVCModelDocClothShape@@@@
+.?AV?$CToolAttrGetSetAccess@HVCModelDocClothShapeSDF@@@@
 .?AV?$CToolAttrGetSetAccess@HVCModelDocClothSpring@@@@
 .?AV?$CToolAttrGetSetAccess@HVCModelDocClothTri@@@@
 .?AV?$CToolAttrGetSetAccess@HVCModelDocConfigElement_SetBodygroup@@@@
@@ -4340,6 +4365,7 @@ $prefix_element$
 .?AV?$CToolAttrGetSetAccess@MVCModelDocAnimGameplayTiming@@@@
 .?AV?$CToolAttrGetSetAccess@MVCModelDocAnimIkLockLocal@@@@
 .?AV?$CToolAttrGetSetAccess@MVCModelDocAnimModifier_DiscardChannels@@@@
+.?AV?$CToolAttrGetSetAccess@MVCModelDocAnimSkeletonFile@@@@
 .?AV?$CToolAttrGetSetAccess@MVCModelDocAnimatedMaterialAttributeValue@@@@
 .?AV?$CToolAttrGetSetAccess@MVCModelDocAttachmentBase@@@@
 .?AV?$CToolAttrGetSetAccess@MVCModelDocAttachmentCamera@@@@
@@ -4762,6 +4788,7 @@ $prefix_element$
 .?AV?$CToolAttrGetSetAccess@_NVCModelDocClothParams@@@@
 .?AV?$CToolAttrGetSetAccess@_NVCModelDocClothProxyMeshFile@@@@
 .?AV?$CToolAttrGetSetAccess@_NVCModelDocClothShape@@@@
+.?AV?$CToolAttrGetSetAccess@_NVCModelDocClothShapeSDF@@@@
 .?AV?$CToolAttrGetSetAccess@_NVCModelDocClothSpring@@@@
 .?AV?$CToolAttrGetSetAccess@_NVCModelDocConfigElement_AttachedModel@@@@
 .?AV?$CToolAttrGetSetAccess@_NVCModelDocDistanceField@@@@
@@ -4827,6 +4854,7 @@ $prefix_element$
 .?AV?$CToolAttrGetSetAccess@_NVCModelDocVSNAPBase@@@@
 .?AV?$CToolAttrGetSetAccess@_NVCModelDocVSNAPFile@@@@
 .?AV?$CToolAttrKV3FGDProvider@VCModelDocAnimEvent@@@@
+.?AV?$CToolAttrKV3FGDProvider@VCModelDocAnimEvent_Legacy@@@@
 .?AV?$CToolAttrKV3FGDProvider@VCModelDocGenericGameData@@@@
 .?AV?$CTypedLogLayerSampleData@E@@
 .?AV?$CTypedLogLayerSampleData@H@@
@@ -5025,6 +5053,7 @@ $prefix_element$
 .?AV?$CValueAttributeWrapper@HVCModelDocClothRigidCloudCluster@@@@
 .?AV?$CValueAttributeWrapper@HVCModelDocClothSelfCollisionCluster@@@@
 .?AV?$CValueAttributeWrapper@HVCModelDocClothShape@@@@
+.?AV?$CValueAttributeWrapper@HVCModelDocClothShapeSDF@@@@
 .?AV?$CValueAttributeWrapper@HVCModelDocClothSpring@@@@
 .?AV?$CValueAttributeWrapper@HVCModelDocClothTri@@@@
 .?AV?$CValueAttributeWrapper@HVCModelDocConfigElement_SetBodygroup@@@@
@@ -5082,6 +5111,7 @@ $prefix_element$
 .?AV?$CValueAttributeWrapper@MVCModelDocAnimGameplayTiming@@@@
 .?AV?$CValueAttributeWrapper@MVCModelDocAnimIkLockLocal@@@@
 .?AV?$CValueAttributeWrapper@MVCModelDocAnimModifier_DiscardChannels@@@@
+.?AV?$CValueAttributeWrapper@MVCModelDocAnimSkeletonFile@@@@
 .?AV?$CValueAttributeWrapper@MVCModelDocAnimatedMaterialAttributeValue@@@@
 .?AV?$CValueAttributeWrapper@MVCModelDocAttachmentBase@@@@
 .?AV?$CValueAttributeWrapper@MVCModelDocAttachmentCamera@@@@
@@ -5497,6 +5527,7 @@ $prefix_element$
 .?AV?$CValueAttributeWrapper@_NVCModelDocClothParams@@@@
 .?AV?$CValueAttributeWrapper@_NVCModelDocClothProxyMeshFile@@@@
 .?AV?$CValueAttributeWrapper@_NVCModelDocClothShape@@@@
+.?AV?$CValueAttributeWrapper@_NVCModelDocClothShapeSDF@@@@
 .?AV?$CValueAttributeWrapper@_NVCModelDocClothSpring@@@@
 .?AV?$CValueAttributeWrapper@_NVCModelDocConfigElement_AttachedModel@@@@
 .?AV?$CValueAttributeWrapper@_NVCModelDocDistanceField@@@@
@@ -5692,6 +5723,7 @@ $prefix_element$
 .?AVCArrayElementAccess@?$CConcreteToolAttr@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocAnimModifier_DiscardChannels@@X@@
 .?AVCArrayElementAccess@?$CConcreteToolAttr@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocAnimOrder@@X@@
 .?AVCArrayElementAccess@?$CConcreteToolAttr@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocAnimSkeletonFile@@X@@
+.?AVCArrayElementAccess@?$CConcreteToolAttr@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocClothShapeSDF@@X@@
 .?AVCArrayElementAccess@?$CConcreteToolAttr@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocDistanceField@@X@@
 .?AVCArrayElementAccess@?$CConcreteToolAttr@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocMeshDrawOrder@@X@@
 .?AVCArrayElementAccess@?$CConcreteToolAttr@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@VCModelDocMeshModifier_MeshOpSelectFacesByMaterial@@X@@
@@ -6006,6 +6038,7 @@ $prefix_element$
 .?AVCModelDocClothShapeBox@@
 .?AVCModelDocClothShapeCapsule@@
 .?AVCModelDocClothShapeList@@
+.?AVCModelDocClothShapeSDF@@
 .?AVCModelDocClothShapeSphere@@
 .?AVCModelDocClothSpring@@
 .?AVCModelDocClothStiffHinge@@
@@ -6322,7 +6355,6 @@ $prefix_element$
 .?AVIUndoElement@@
 .?AVIUndoListener@@
 .?AVIUndoable@@
-.\tV_logd
 .exr
 .fgd
 .pfm
@@ -6347,6 +6379,7 @@ $prefix_element$
 // \t\t\t\t\t\t"BA_INT_DANGER"\t\tbreak out of this anim only if threatened\n
 // \t\t\t\t\t\t"BA_INT_NONE"\t\tbreak out only when time runs out. No external influence will break me out.\n
 // \t\t\t\t\t\t"BA_INT_PLAYER"\t\tbreak out of this anim if I can see the player, or I'm threatened\n
+0>M\rr
 0\fE04'
 0x%llx
 16-byte data pool
@@ -6359,7 +6392,7 @@ $prefix_element$
 2DBlend
 2DBlendEditor
 2DBlendFromAnimation
-2\vp(9q
+2\vp8
 2_BONE_IK
 4-byte data pool
 5;FJ$,XEK4<
@@ -6373,18 +6406,19 @@ $prefix_element$
 8-byte data pool
 8\r%8h
 969p
+9\tV_log2f
 :: <NO TARGET BONE>
-:\tV_powd
+:\tV_logd
 ; tris:
 ;ffLB
 ;sfm_v2
 <!-- DMXVersion
-<FeetSettings
 <INVALID_RBF_TYPE>
 <NONE>
 <font color="red">Face is connected to itself, cannot dissolve</font>
 <font color='darkred'><strong>Off:</strong></font> Maintain the relative translation and rotation between the source file origin and the parent bone's bind pose.<br><font color='darkgreen'><strong>On:</strong></font> Realign the translation and rotation of the source file to match the parent bone exactly.<br><br><em>(NOTE: The 'Offset Origin' and 'Offset Angle' are applied in either case.)</em>
 <font color='red'>(WARNING: Performance risk!)</font><br>Indicates this breakpiece is essential for gameplay or other reasons.<br>Forces the piece to always spawn, potentially suppressing other breakpieces to stay in-budget.
+<model_default_preview_sequence_name
 <p>Loads a content file containing animation keyframe data and resolves into animation data which plays in reverse, i.e. backwards.</p><p>Works the same as AnimFile except the direction of the animation data.</p><p>When specifying a sub frame range, the frame range is pulled from the animation file before reversal.</p><p>For a typical walk style animation with extracted motion, likely an AnimAlign to first frame of the original forward animation will be required.</p>
 <unnamed>
 <unset>
@@ -6440,6 +6474,7 @@ A sphere shape which cloth collides with.
 A sphere shaped hit box within a hitbox set.
 A transform which was the parent of a mesh without explicit skinning defined in the source geometry file
 A transition animation event.
+A8_UNORM
 AABB_t
 AE_CL_CLOTH_EFFECT
 ATTACHMENT_INFLUENCE_FLAGS_NONE
@@ -6524,6 +6559,7 @@ Ambient Occlusion Map Power
 Amplitude
 An ID animation event.
 An IK chain describes a section of a model that you wan't to control procedurally.
+An SDF shape which cloth collides with.
 An animation event track.
 An animation event.
 An animation to composite over top of this animation.  The cycle of the composited animation will be the same as this animation.
@@ -6703,7 +6739,7 @@ Assign a material to faces.
 Assign a secondary vertex data channel with each vertex element origin assigned per vertex.
 Assign color values to face vertices.
 Assign to All Faces
-AssignClusters(), C:\buildworker\citadel_rel_win64\build\src\modeldoc_lib\modeldoc_groommeshfile.cpp:322
+AssignClusters(), C:\buildworker\citadel_rel_win64\build\src\modeldoc_lib\modeldoc_groommeshfile.cpp:326
 Assigns a color value to a material attribute over a frame range.
 Assigns a floating point value to a material attribute over a frame range.
 Assigns all vertex weights to the specified bone.
@@ -6761,8 +6797,27 @@ B channel
 B channel not found!\n
 B-Spline
 B.f?y
+B5G5R5A1_UNORM
+B5G6R5_UNORM
+B8G8R8A8_UNORM
+B8G8R8X8_UNORM
 BAD TYPE
 BA_INT_NONE
+BC1_TYPELESS
+BC1_UNORM
+BC1_UNORM_SRGB
+BC2_TYPELESS
+BC2_UNORM
+BC2_UNORM_SRGB
+BC3_TYPELESS
+BC3_UNORM
+BC3_UNORM_SRGB
+BC4_SNORM
+BC4_TYPELESS
+BC4_UNORM
+BC5_SNORM
+BC5_TYPELESS
+BC5_UNORM
 BLEND_PREALIGNED
 BSpline
 BTools
@@ -7282,6 +7337,8 @@ CBaseConcreteToolAttr<bool,class CModelDocClothProxyMeshFile>::ExecuteCustomComm
 CBaseConcreteToolAttr<bool,class CModelDocClothProxyMeshFile>::SetOverlayState::<lambda_1>::operator ()
 CBaseConcreteToolAttr<bool,class CModelDocClothShape>::ExecuteCustomCommand
 CBaseConcreteToolAttr<bool,class CModelDocClothShape>::SetOverlayState::<lambda_1>::operator ()
+CBaseConcreteToolAttr<bool,class CModelDocClothShapeSDF>::ExecuteCustomCommand
+CBaseConcreteToolAttr<bool,class CModelDocClothShapeSDF>::SetOverlayState::<lambda_1>::operator ()
 CBaseConcreteToolAttr<bool,class CModelDocClothSpring>::ExecuteCustomCommand
 CBaseConcreteToolAttr<bool,class CModelDocClothSpring>::SetOverlayState::<lambda_1>::operator ()
 CBaseConcreteToolAttr<bool,class CModelDocConfigElement_AttachedModel>::ExecuteCustomCommand
@@ -7560,6 +7617,8 @@ CBaseConcreteToolAttr<class CUtlString,class CModelDocClothRigidCloudCluster>::E
 CBaseConcreteToolAttr<class CUtlString,class CModelDocClothRigidCloudCluster>::SetOverlayState::<lambda_1>::operator ()
 CBaseConcreteToolAttr<class CUtlString,class CModelDocClothShape>::ExecuteCustomCommand
 CBaseConcreteToolAttr<class CUtlString,class CModelDocClothShape>::SetOverlayState::<lambda_1>::operator ()
+CBaseConcreteToolAttr<class CUtlString,class CModelDocClothShapeSDF>::ExecuteCustomCommand
+CBaseConcreteToolAttr<class CUtlString,class CModelDocClothShapeSDF>::SetOverlayState::<lambda_1>::operator ()
 CBaseConcreteToolAttr<class CUtlString,class CModelDocClothSpring>::ExecuteCustomCommand
 CBaseConcreteToolAttr<class CUtlString,class CModelDocClothSpring>::SetOverlayState::<lambda_1>::operator ()
 CBaseConcreteToolAttr<class CUtlString,class CModelDocClothStiffHinge>::ExecuteCustomCommand
@@ -7772,6 +7831,8 @@ CBaseConcreteToolAttr<class CUtlVector<class CUtlString,int,class CUtlMemory<cla
 CBaseConcreteToolAttr<class CUtlVector<class CUtlString,int,class CUtlMemory<class CUtlString,int> >,class CModelDocAnimOrder>::SetOverlayState::<lambda_1>::operator ()
 CBaseConcreteToolAttr<class CUtlVector<class CUtlString,int,class CUtlMemory<class CUtlString,int> >,class CModelDocAnimSkeletonFile>::ExecuteCustomCommand
 CBaseConcreteToolAttr<class CUtlVector<class CUtlString,int,class CUtlMemory<class CUtlString,int> >,class CModelDocAnimSkeletonFile>::SetOverlayState::<lambda_1>::operator ()
+CBaseConcreteToolAttr<class CUtlVector<class CUtlString,int,class CUtlMemory<class CUtlString,int> >,class CModelDocClothShapeSDF>::ExecuteCustomCommand
+CBaseConcreteToolAttr<class CUtlVector<class CUtlString,int,class CUtlMemory<class CUtlString,int> >,class CModelDocClothShapeSDF>::SetOverlayState::<lambda_1>::operator ()
 CBaseConcreteToolAttr<class CUtlVector<class CUtlString,int,class CUtlMemory<class CUtlString,int> >,class CModelDocDistanceField>::ExecuteCustomCommand
 CBaseConcreteToolAttr<class CUtlVector<class CUtlString,int,class CUtlMemory<class CUtlString,int> >,class CModelDocDistanceField>::SetOverlayState::<lambda_1>::operator ()
 CBaseConcreteToolAttr<class CUtlVector<class CUtlString,int,class CUtlMemory<class CUtlString,int> >,class CModelDocMeshDrawOrder>::ExecuteCustomCommand
@@ -8124,6 +8185,8 @@ CBaseConcreteToolAttr<float,class CModelDocAnimIkLockLocal>::ExecuteCustomComman
 CBaseConcreteToolAttr<float,class CModelDocAnimIkLockLocal>::SetOverlayState::<lambda_1>::operator ()
 CBaseConcreteToolAttr<float,class CModelDocAnimModifier_DiscardChannels>::ExecuteCustomCommand
 CBaseConcreteToolAttr<float,class CModelDocAnimModifier_DiscardChannels>::SetOverlayState::<lambda_1>::operator ()
+CBaseConcreteToolAttr<float,class CModelDocAnimSkeletonFile>::ExecuteCustomCommand
+CBaseConcreteToolAttr<float,class CModelDocAnimSkeletonFile>::SetOverlayState::<lambda_1>::operator ()
 CBaseConcreteToolAttr<float,class CModelDocAnimatedMaterialAttributeValue>::ExecuteCustomCommand
 CBaseConcreteToolAttr<float,class CModelDocAnimatedMaterialAttributeValue>::SetOverlayState::<lambda_1>::operator ()
 CBaseConcreteToolAttr<float,class CModelDocAttachmentBase>::ExecuteCustomCommand
@@ -8360,6 +8423,8 @@ CBaseConcreteToolAttr<int,class CModelDocClothSelfCollisionCluster>::ExecuteCust
 CBaseConcreteToolAttr<int,class CModelDocClothSelfCollisionCluster>::SetOverlayState::<lambda_1>::operator ()
 CBaseConcreteToolAttr<int,class CModelDocClothShape>::ExecuteCustomCommand
 CBaseConcreteToolAttr<int,class CModelDocClothShape>::SetOverlayState::<lambda_1>::operator ()
+CBaseConcreteToolAttr<int,class CModelDocClothShapeSDF>::ExecuteCustomCommand
+CBaseConcreteToolAttr<int,class CModelDocClothShapeSDF>::SetOverlayState::<lambda_1>::operator ()
 CBaseConcreteToolAttr<int,class CModelDocClothSpring>::ExecuteCustomCommand
 CBaseConcreteToolAttr<int,class CModelDocClothSpring>::SetOverlayState::<lambda_1>::operator ()
 CBaseConcreteToolAttr<int,class CModelDocClothTri>::ExecuteCustomCommand
@@ -8511,6 +8576,8 @@ CBaseConcreteToolAttrValue<bool,class CModelDocClothProxyMeshFile>::AttrValue_Ge
 CBaseConcreteToolAttrValue<bool,class CModelDocClothProxyMeshFile>::AttrValue_GetIntRange::<lambda_1>::operator ()
 CBaseConcreteToolAttrValue<bool,class CModelDocClothShape>::AttrValue_GetFloatRange::<lambda_1>::operator ()
 CBaseConcreteToolAttrValue<bool,class CModelDocClothShape>::AttrValue_GetIntRange::<lambda_1>::operator ()
+CBaseConcreteToolAttrValue<bool,class CModelDocClothShapeSDF>::AttrValue_GetFloatRange::<lambda_1>::operator ()
+CBaseConcreteToolAttrValue<bool,class CModelDocClothShapeSDF>::AttrValue_GetIntRange::<lambda_1>::operator ()
 CBaseConcreteToolAttrValue<bool,class CModelDocClothSpring>::AttrValue_GetFloatRange::<lambda_1>::operator ()
 CBaseConcreteToolAttrValue<bool,class CModelDocClothSpring>::AttrValue_GetIntRange::<lambda_1>::operator ()
 CBaseConcreteToolAttrValue<bool,class CModelDocConfigElement_AttachedModel>::AttrValue_GetFloatRange::<lambda_1>::operator ()
@@ -8783,6 +8850,8 @@ CBaseConcreteToolAttrValue<class CUtlString,class CModelDocClothRigidCloudCluste
 CBaseConcreteToolAttrValue<class CUtlString,class CModelDocClothRigidCloudCluster>::AttrValue_GetIntRange::<lambda_1>::operator ()
 CBaseConcreteToolAttrValue<class CUtlString,class CModelDocClothShape>::AttrValue_GetFloatRange::<lambda_1>::operator ()
 CBaseConcreteToolAttrValue<class CUtlString,class CModelDocClothShape>::AttrValue_GetIntRange::<lambda_1>::operator ()
+CBaseConcreteToolAttrValue<class CUtlString,class CModelDocClothShapeSDF>::AttrValue_GetFloatRange::<lambda_1>::operator ()
+CBaseConcreteToolAttrValue<class CUtlString,class CModelDocClothShapeSDF>::AttrValue_GetIntRange::<lambda_1>::operator ()
 CBaseConcreteToolAttrValue<class CUtlString,class CModelDocClothSpring>::AttrValue_GetFloatRange::<lambda_1>::operator ()
 CBaseConcreteToolAttrValue<class CUtlString,class CModelDocClothSpring>::AttrValue_GetIntRange::<lambda_1>::operator ()
 CBaseConcreteToolAttrValue<class CUtlString,class CModelDocClothStiffHinge>::AttrValue_GetFloatRange::<lambda_1>::operator ()
@@ -9287,6 +9356,7 @@ CBaseConcreteToolAttrValue<float,class CModelDocAnimForceMorphValueRange>::AttrV
 CBaseConcreteToolAttrValue<float,class CModelDocAnimGameplayTiming>::AttrValue_GetIntRange::<lambda_1>::operator ()
 CBaseConcreteToolAttrValue<float,class CModelDocAnimIkLockLocal>::AttrValue_GetIntRange::<lambda_1>::operator ()
 CBaseConcreteToolAttrValue<float,class CModelDocAnimModifier_DiscardChannels>::AttrValue_GetIntRange::<lambda_1>::operator ()
+CBaseConcreteToolAttrValue<float,class CModelDocAnimSkeletonFile>::AttrValue_GetIntRange::<lambda_1>::operator ()
 CBaseConcreteToolAttrValue<float,class CModelDocAnimatedMaterialAttributeValue>::AttrValue_GetIntRange::<lambda_1>::operator ()
 CBaseConcreteToolAttrValue<float,class CModelDocAttachmentBase>::AttrValue_GetIntRange::<lambda_1>::operator ()
 CBaseConcreteToolAttrValue<float,class CModelDocAttachmentCamera>::AttrValue_GetIntRange::<lambda_1>::operator ()
@@ -9429,6 +9499,8 @@ CBaseConcreteToolAttrValue<int,class CModelDocClothQuad>::AttrValue_GetFloatRang
 CBaseConcreteToolAttrValue<int,class CModelDocClothRigidCloudCluster>::AttrValue_GetFloatRange::<lambda_1>::operator ()
 CBaseConcreteToolAttrValue<int,class CModelDocClothSelfCollisionCluster>::AttrValue_GetFloatRange::<lambda_1>::operator ()
 CBaseConcreteToolAttrValue<int,class CModelDocClothShape>::AttrValue_GetFloatRange::<lambda_1>::operator ()
+CBaseConcreteToolAttrValue<int,class CModelDocClothShapeSDF>::AttrValue_GetFloatRange::<lambda_1>::operator ()
+CBaseConcreteToolAttrValue<int,class CModelDocClothShapeSDF>::SetMinMaxInt::<lambda_2>::operator ()
 CBaseConcreteToolAttrValue<int,class CModelDocClothSpring>::AttrValue_GetFloatRange::<lambda_1>::operator ()
 CBaseConcreteToolAttrValue<int,class CModelDocClothTri>::AttrValue_GetFloatRange::<lambda_1>::operator ()
 CBaseConcreteToolAttrValue<int,class CModelDocConfigElement_SetBodygroup>::AttrValue_GetFloatRange::<lambda_1>::operator ()
@@ -9533,6 +9605,9 @@ CConcreteToolAttr<class CUtlVector<class CUtlString,int,class CUtlMemory<class C
 CConcreteToolAttr<class CUtlVector<class CUtlString,int,class CUtlMemory<class CUtlString,int> >,class CModelDocAnimSkeletonFile,void>::AttrArray_InsertNewItem
 CConcreteToolAttr<class CUtlVector<class CUtlString,int,class CUtlMemory<class CUtlString,int> >,class CModelDocAnimSkeletonFile,void>::AttrArray_InsertNewItemFromFactory::<lambda_1>::operator ()
 CConcreteToolAttr<class CUtlVector<class CUtlString,int,class CUtlMemory<class CUtlString,int> >,class CModelDocAnimSkeletonFile,void>::AttrArray_InsertNewItemFromFactory::<lambda_2>::operator ()
+CConcreteToolAttr<class CUtlVector<class CUtlString,int,class CUtlMemory<class CUtlString,int> >,class CModelDocClothShapeSDF,void>::AttrArray_InsertNewItem
+CConcreteToolAttr<class CUtlVector<class CUtlString,int,class CUtlMemory<class CUtlString,int> >,class CModelDocClothShapeSDF,void>::AttrArray_InsertNewItemFromFactory::<lambda_1>::operator ()
+CConcreteToolAttr<class CUtlVector<class CUtlString,int,class CUtlMemory<class CUtlString,int> >,class CModelDocClothShapeSDF,void>::AttrArray_InsertNewItemFromFactory::<lambda_2>::operator ()
 CConcreteToolAttr<class CUtlVector<class CUtlString,int,class CUtlMemory<class CUtlString,int> >,class CModelDocDistanceField,void>::AttrArray_InsertNewItem
 CConcreteToolAttr<class CUtlVector<class CUtlString,int,class CUtlMemory<class CUtlString,int> >,class CModelDocDistanceField,void>::AttrArray_InsertNewItemFromFactory::<lambda_1>::operator ()
 CConcreteToolAttr<class CUtlVector<class CUtlString,int,class CUtlMemory<class CUtlString,int> >,class CModelDocDistanceField,void>::AttrArray_InsertNewItemFromFactory::<lambda_2>::operator ()
@@ -10851,6 +10926,7 @@ CMaterialDrawDescriptor::KV3TransferLoad_Impl
 CMaterialDrawDescriptor::KV3Transfer_DefaultKeys_Impl
 CMaterialDrawDescriptor::Schema_VerifyBindingIsRegistered
 CMaterialDrawDescriptor::TransferPostLoadFn
+CMesh Cannot create packed input layout, because the bone indices are out of range (0x%X)\n
 CMesh::AddAttributes
 CMesh::AllocateAndCopyMesh
 CMesh::AppendMesh
@@ -11031,6 +11107,7 @@ CModelDocAnimEventBase::SetDuration
 CModelDocAnimEventTrack::GetEventColor
 CModelDocAnimEventTrack::ItemType_t
 CModelDocAnimEvent_ID::PerformValidation
+CModelDocAnimEvent_Legacy::CopyFrom
 CModelDocAnimEvent_Legacy::PerformValidation
 CModelDocAnimEvent_OrientationWarp::PerformValidation
 CModelDocAnimEvent_RootMotion::PerformValidation
@@ -11272,10 +11349,9 @@ CModelMeshDeltaSet<struct CModelMesh::Face_t>::AddDelta
 CModelMeshDeltaSet<struct CModelMesh::Vertex_t>::AddDelta
 CModelMeshPrimitives::CreateBox
 CModelMeshRenderData::BuildMaterialGroups
-CModelMeshRenderData::BuildVertexBuffer
-CModelMeshRenderData::BuildVertexBuffer(644): 
+CModelMeshRenderData::BuildVertexBuffersForMaterialGroups
+CModelMeshRenderData::BuildVertexBuffersForMaterialGroups(618): 
 CModelMeshRenderData::ClearMeshData
-CModelMeshRenderData::GetTriangleIndicesForFaces
 CModelMeshRenderData::TriangulateMesh
 CModelMeshStreamSet::AddStream
 CModelMeshStreamSet::AppendStreamSet
@@ -11505,6 +11581,7 @@ CToolAttrGetSetAccess<bool,class CModelDocClothNode>::Access_MaybeGetDirectPtr
 CToolAttrGetSetAccess<bool,class CModelDocClothParams>::Access_MaybeGetDirectPtr
 CToolAttrGetSetAccess<bool,class CModelDocClothProxyMeshFile>::Access_MaybeGetDirectPtr
 CToolAttrGetSetAccess<bool,class CModelDocClothShape>::Access_MaybeGetDirectPtr
+CToolAttrGetSetAccess<bool,class CModelDocClothShapeSDF>::Access_MaybeGetDirectPtr
 CToolAttrGetSetAccess<bool,class CModelDocClothSpring>::Access_MaybeGetDirectPtr
 CToolAttrGetSetAccess<bool,class CModelDocConfigElement_AttachedModel>::Access_MaybeGetDirectPtr
 CToolAttrGetSetAccess<bool,class CModelDocDistanceField>::Access_MaybeGetDirectPtr
@@ -11897,6 +11974,7 @@ CToolAttrGetSetAccess<float,class CModelDocAnimForceMorphValueRange>::Access_May
 CToolAttrGetSetAccess<float,class CModelDocAnimGameplayTiming>::Access_MaybeGetDirectPtr
 CToolAttrGetSetAccess<float,class CModelDocAnimIkLockLocal>::Access_MaybeGetDirectPtr
 CToolAttrGetSetAccess<float,class CModelDocAnimModifier_DiscardChannels>::Access_MaybeGetDirectPtr
+CToolAttrGetSetAccess<float,class CModelDocAnimSkeletonFile>::Access_MaybeGetDirectPtr
 CToolAttrGetSetAccess<float,class CModelDocAnimatedMaterialAttributeValue>::Access_MaybeGetDirectPtr
 CToolAttrGetSetAccess<float,class CModelDocAttachmentBase>::Access_MaybeGetDirectPtr
 CToolAttrGetSetAccess<float,class CModelDocAttachmentCamera>::Access_MaybeGetDirectPtr
@@ -12015,6 +12093,7 @@ CToolAttrGetSetAccess<int,class CModelDocClothQuad>::Access_MaybeGetDirectPtr
 CToolAttrGetSetAccess<int,class CModelDocClothRigidCloudCluster>::Access_MaybeGetDirectPtr
 CToolAttrGetSetAccess<int,class CModelDocClothSelfCollisionCluster>::Access_MaybeGetDirectPtr
 CToolAttrGetSetAccess<int,class CModelDocClothShape>::Access_MaybeGetDirectPtr
+CToolAttrGetSetAccess<int,class CModelDocClothShapeSDF>::Access_MaybeGetDirectPtr
 CToolAttrGetSetAccess<int,class CModelDocClothSpring>::Access_MaybeGetDirectPtr
 CToolAttrGetSetAccess<int,class CModelDocClothTri>::Access_MaybeGetDirectPtr
 CToolAttrGetSetAccess<int,class CModelDocConfigElement_SetBodygroup>::Access_MaybeGetDirectPtr
@@ -12055,6 +12134,10 @@ CToolAttrKV3FGDProvider<class CModelDocAnimEvent>::Resolver_GetClass
 CToolAttrKV3FGDProvider<class CModelDocAnimEvent>::Resolver_GetGD
 CToolAttrKV3FGDProvider<class CModelDocAnimEvent>::Resolver_GetKV3Ex
 CToolAttrKV3FGDProvider<class CModelDocAnimEvent>::Resolver_GetKV3ForModify
+CToolAttrKV3FGDProvider<class CModelDocAnimEvent_Legacy>::Resolver_GetClass
+CToolAttrKV3FGDProvider<class CModelDocAnimEvent_Legacy>::Resolver_GetGD
+CToolAttrKV3FGDProvider<class CModelDocAnimEvent_Legacy>::Resolver_GetKV3Ex
+CToolAttrKV3FGDProvider<class CModelDocAnimEvent_Legacy>::Resolver_GetKV3ForModify
 CToolAttrKV3FGDProvider<class CModelDocGenericGameData>::Resolver_GetClass
 CToolAttrKV3FGDProvider<class CModelDocGenericGameData>::Resolver_GetGD
 CToolAttrKV3FGDProvider<class CModelDocGenericGameData>::Resolver_GetKV3Ex
@@ -12417,6 +12500,8 @@ CUtlMemory<class CConcreteToolAttr<class CUtlString,class CModelDocAnimOrder,voi
 CUtlMemory<class CConcreteToolAttr<class CUtlString,class CModelDocAnimOrder,void> *,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<class CConcreteToolAttr<class CUtlString,class CModelDocAnimSkeletonFile,void> *,int>::Grow
 CUtlMemory<class CConcreteToolAttr<class CUtlString,class CModelDocAnimSkeletonFile,void> *,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<class CConcreteToolAttr<class CUtlString,class CModelDocClothShapeSDF,void> *,int>::Grow
+CUtlMemory<class CConcreteToolAttr<class CUtlString,class CModelDocClothShapeSDF,void> *,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<class CConcreteToolAttr<class CUtlString,class CModelDocDistanceField,void> *,int>::Grow
 CUtlMemory<class CConcreteToolAttr<class CUtlString,class CModelDocDistanceField,void> *,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<class CConcreteToolAttr<class CUtlString,class CModelDocMeshDrawOrder,void> *,int>::Grow
@@ -12441,6 +12526,8 @@ CUtlMemory<class CConcreteToolAttr<class CUtlVector<class CUtlString,int,class C
 CUtlMemory<class CConcreteToolAttr<class CUtlVector<class CUtlString,int,class CUtlMemory<class CUtlString,int> >,class CModelDocAnimOrder,void>::CArrayElementAccess *,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<class CConcreteToolAttr<class CUtlVector<class CUtlString,int,class CUtlMemory<class CUtlString,int> >,class CModelDocAnimSkeletonFile,void>::CArrayElementAccess *,int>::Grow
 CUtlMemory<class CConcreteToolAttr<class CUtlVector<class CUtlString,int,class CUtlMemory<class CUtlString,int> >,class CModelDocAnimSkeletonFile,void>::CArrayElementAccess *,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<class CConcreteToolAttr<class CUtlVector<class CUtlString,int,class CUtlMemory<class CUtlString,int> >,class CModelDocClothShapeSDF,void>::CArrayElementAccess *,int>::Grow
+CUtlMemory<class CConcreteToolAttr<class CUtlVector<class CUtlString,int,class CUtlMemory<class CUtlString,int> >,class CModelDocClothShapeSDF,void>::CArrayElementAccess *,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<class CConcreteToolAttr<class CUtlVector<class CUtlString,int,class CUtlMemory<class CUtlString,int> >,class CModelDocDistanceField,void>::CArrayElementAccess *,int>::Grow
 CUtlMemory<class CConcreteToolAttr<class CUtlVector<class CUtlString,int,class CUtlMemory<class CUtlString,int> >,class CModelDocDistanceField,void>::CArrayElementAccess *,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<class CConcreteToolAttr<class CUtlVector<class CUtlString,int,class CUtlMemory<class CUtlString,int> >,class CModelDocMeshDrawOrder,void>::CArrayElementAccess *,int>::Grow
@@ -12722,6 +12809,8 @@ CUtlMemory<class CModelMeshDelta<struct CModelMesh::Face_t> *,int>::Grow::<lambd
 CUtlMemory<class CModelMeshDelta<struct CModelMesh::Vertex_t> *,int>::Grow
 CUtlMemory<class CModelMeshDelta<struct CModelMesh::Vertex_t> *,int>::Grow::<lambda_1>::operator ()
 CUtlMemory<class CModelMeshDelta<struct CModelMesh::Vertex_t> *,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<class CModelMeshRenderData::CMaterialGroup,int>::Grow
+CUtlMemory<class CModelMeshRenderData::CMaterialGroup,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<class CModelStream *,int>::Grow
 CUtlMemory<class CModelStream *,int>::Grow::<lambda_1>::operator ()
 CUtlMemory<class CModelStream *,int>::Grow::<lambda_2>::operator ()
@@ -13162,9 +13251,6 @@ CUtlMemory<struct CModelMesh::FaceGroup_t,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<struct CModelMesh::VertexStreamIndex_t,int>::Grow
 CUtlMemory<struct CModelMesh::VertexStreamIndex_t,int>::Grow::<lambda_1>::operator ()
 CUtlMemory<struct CModelMesh::VertexStreamIndex_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CModelMeshRenderData::MaterialGroup_t,int>::Grow
-CUtlMemory<struct CModelMeshRenderData::MaterialGroup_t,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<struct CModelMeshRenderData::MaterialGroup_t,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<struct CMorphBundleData,int>::Grow
 CUtlMemory<struct CMorphBundleData,int>::Grow::<lambda_1>::operator ()
 CUtlMemory<struct CMorphBundleData,int>::Grow::<lambda_2>::operator ()
@@ -13284,6 +13370,7 @@ CUtlMemory<struct RenderHairStrandInfo_t,int>::Grow
 CUtlMemory<struct RenderHairStrandInfo_t,int>::Grow::<lambda_1>::operator ()
 CUtlMemory<struct RenderHairStrandInfo_t,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<struct RenderInputLayoutField_t,int>::Grow
+CUtlMemory<struct RenderInputLayoutField_t,int>::Grow::<lambda_1>::operator ()
 CUtlMemory<struct RenderInputLayoutField_t,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<struct RenderSkeletonBone_t,int>::Grow
 CUtlMemory<struct RenderSkeletonBone_t,int>::Grow::<lambda_1>::operator ()
@@ -13651,6 +13738,9 @@ CUtlMemory<struct VPhysXConstraint2_t,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<struct VPhysXJoint_t,int>::Grow
 CUtlMemory<struct VPhysXJoint_t,int>::Grow::<lambda_1>::operator ()
 CUtlMemory<struct VPhysXJoint_t,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<struct VsInputSignatureElement_t,int>::Grow
+CUtlMemory<struct VsInputSignatureElement_t,int>::Grow::<lambda_1>::operator ()
+CUtlMemory<struct VsInputSignatureElement_t,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<struct `protected: int __cdecl CEdgeToFoliageAnimation::WalkAndClearEdges(class CModelMesh *,float,class Vec3D<float> *,struct CHalfEdgeComponentList<struct CModelMesh::FaceVertex_t,27>::ComponentHandleWithListPointer_t,bool)'::`2'::Queue_t,int>::Grow
 CUtlMemory<struct `protected: int __cdecl CEdgeToFoliageAnimation::WalkAndClearEdges(class CModelMesh *,float,class Vec3D<float> *,struct CHalfEdgeComponentList<struct CModelMesh::FaceVertex_t,27>::ComponentHandleWithListPointer_t,bool)'::`2'::Queue_t,int>::Grow::<lambda_1>::operator ()
 CUtlMemory<struct `protected: int __cdecl CEdgeToFoliageAnimation::WalkAndClearEdges(class CModelMesh *,float,class Vec3D<float> *,struct CHalfEdgeComponentList<struct CModelMesh::FaceVertex_t,27>::ComponentHandleWithListPointer_t,bool)'::`2'::Queue_t,int>::Grow::<lambda_2>::operator ()
@@ -14037,6 +14127,8 @@ Cloth Node 2
 Cloth Node 3
 Cloth Per-Bone Constraint Scale
 Cloth Rigidly solved Point Cloud Cluster
+Cloth SDF
+Cloth SDF: %s
 Cloth Skinned Collision Effect node.
 Cloth Sleep Enabled
 Cloth Slow Drag Effect node.
@@ -14099,6 +14191,7 @@ ClothSelfCollisionCluster
 ClothShape
 ClothShapeBox
 ClothShapeReplacements
+ClothShapeSDF
 ClothSpring
 ClothStiffHinge
 ClothTri
@@ -14204,6 +14297,7 @@ ConvertPNGToRGBA
 ConvertSkinBindToPivotPaint
 ConvertV1MeshFlags
 Convex Hull
+Convexify
 Copy bone positions into vertex stream for use in foliage animation shader
 Copy skinning information from one rendermesh to another, based on a simple heuristic.
 CopyBlendWeightData
@@ -14237,7 +14331,7 @@ Create Right
 CreateBoolChannel
 CreateControlAndFloatChannel
 CreateElementWithFallback
-CreateIndexBufferFromIndexArray(68): 
+CreateIndexBufferFromIndexArray(60): 
 CreateMeshNodeForMesh::<lambda_1>::operator ()
 CreatePassThruColorChannel
 CreateStaticPropShapesForPropInstance
@@ -14258,6 +14352,10 @@ Cut Min
 Cycle Start Frame
 Cycle Type
 D(None)
+D16_UNORM
+D24_UNORM_S8_UINT
+D32_FLOAT
+D32_FLOAT_S8X24_UINT
 DBM&(
 DMX 'model' file but no DmeModel value found
 DMX Model
@@ -14944,6 +15042,8 @@ FLEX_OP_REMAPVALCLAMPED
 FLEX_OP_SIN
 FLEX_OP_SQRT
 FLEX_OP_SUB
+FORCE_UINT
+F\tV_powd
 F_BLOOD_USE_UV2
 Face %d
 Face Fit
@@ -15012,6 +15112,7 @@ FaxRecvTime
 FaxSubAddress
 FeEffectName
 Feet
+FeetSettings
 FieldOfViewCotangent
 Fields of type ivPolymorphicThisClass must be named '_class'
 File not open for reading
@@ -15121,6 +15222,7 @@ FrondPivotPaint
 Full Frame Range
 G channel
 G channel not found!\n
+G8R8_G8B8_UNORM
 GDIVItemSet::AddChoiceItem
 GDIVItemSet::AddFlagItem_Deprecated
 GDIVItemSet::AddTagItem
@@ -15224,6 +15326,7 @@ GetValueAtTime
 Gf95)1&!\ry9I
 Given a face selection, select all faces using those materials.
 Global Prefab List
+Global Scale
 Global: Affects All Cloth
 GlobalAlloc
 GlobalLock
@@ -15240,6 +15343,7 @@ GrayResponseCurve
 GrayResponseUnit
 Greater than
 Greater than or equal to
+Groom Group ID
 GroomInfo
 GroomMeshFile
 GroomMetaData
@@ -15752,6 +15856,7 @@ Lifetime from Time to Impact
 LightmapScaleBias
 LightmapUV
 LightmapUVW
+Limit SDF to a subset of RenderMesh nodes (otherwise use all RenderMesh nodes)
 Line length mismatch
 Linear
 Linear Damping
@@ -15774,6 +15879,7 @@ LoadMesh
 LoadUtlDict
 Local Angles
 Local Attachment Offset
+Local Drag
 Local Force
 Local Gravity CP
 Local Hierarchy controls the space in which sub-frame interpolation occurs. Normally each bone will use parent space (local space) for sub-frame interpolation between two keyframes. Local Hierarchy allows the interpolation to occur in the space of a different bone or model space (world space). The space of a different bone is useful for switching the hand which is holding an objects, for example. Specifying no bone as the New Parent Bone will result in the interpolation occuring in model space (world space). This is useful if the bone becomes detached from the model, e.g. dropping a weapon. Local Hierarchy only affects how sub-frame interpolation between two key frames occurs. Local Hierarchy does not encode the bone differently at compile time. 
@@ -15876,7 +15982,6 @@ Max Angle
 Max Bend Angle
 Max BodyGroup count
 Max Bone count
-Max Force
 Max Length
 Max MaterialGroup count 
 Max Morph Shape
@@ -15885,7 +15990,6 @@ Max Pitch
 Max Range/Radius
 Max Steering Angle
 Max Suspension Offset
-Max Torque
 Max Twist Angle
 Max U
 Max V
@@ -15923,6 +16027,7 @@ Mesh  Min/Max :: %8.4f, %8.4f R :: %8.4f %8.4f C :: %8.4f %8.4f\n
 Mesh %s has poylgonal faces defined which have bad vertex counts, these will be ignored\n
 Mesh Filter Affects Duplicate Input Mesh Names, %s -> %s
 Mesh Operation Stack
+Mesh contains %d blend weights per vertex;  truncating to %d\n
 Mesh has %i > %i floats of attributes, unable to apply all weightings.
 Mesh node name
 MeshDrawOrder
@@ -16494,9 +16599,62 @@ R channel
 R channel not found!\n
 R.num_cols() == nSampleCount
 R.num_rows() == nSampleCount
+R10G10B10A2_TYPELESS
+R10G10B10A2_UINT
+R10G10B10A2_UNORM
+R11G11B10_FLOAT
+R16G16B16A16_FLOAT
+R16G16B16A16_SINT
+R16G16B16A16_SNORM
+R16G16B16A16_TYPELESS
+R16G16B16A16_UINT
+R16G16B16A16_UNORM
+R16G16_FLOAT
+R16G16_SINT
+R16G16_SNORM
+R16G16_TYPELESS
+R16G16_UNORM
+R16_FLOAT
+R16_SINT
+R16_SNORM
+R16_TYPELESS
+R16_UNORM
+R1_UNORM
+R24G8_TYPELESS
+R24_UNORM_X8_TYPELESS
+R32G32B32A32_FLOAT
+R32G32B32A32_SINT
+R32G32B32A32_TYPELESS
+R32G32B32A32_UINT
+R32G32B32_FLOAT
+R32G32B32_SINT
+R32G32B32_TYPELESS
+R32G32B32_UINT
+R32G32_FLOAT
+R32G32_SINT
+R32G32_TYPELESS
+R32G8X24_TYPELESS
+R32_FLOAT
+R32_FLOAT_X8X24_TYPELESS
+R32_TYPELESS
+R8G8B8A8_SINT
+R8G8B8A8_SNORM
+R8G8B8A8_TYPELESS
+R8G8B8A8_UINT
+R8G8B8A8_UNORM
+R8G8B8A8_UNORM_SRGB
+R8G8_B8G8_UNORM
+R8G8_SINT
+R8G8_SNORM
+R8G8_TYPELESS
+R8G8_UNORM
+R8_SINT
+R8_SNORM
+R8_TYPELESS
+R8_UNORM
+R9G9B9E5_SHAREDEXP
 ROTATION
 RSDS
-R\vp0
 R_T5Y
 Radial Basis Function Type
 Radius
@@ -16702,7 +16860,6 @@ SSAORadius
 SSAOStrength
 STSDKWindA
 STSDKWindB
-S\tV_sscanf_s
 Safeguard against producing a model outside budgetary limits.
 Sample Count
 Sample bitmap data using input UV channel and bake it to the output face vertex data channel.
@@ -16889,6 +17046,7 @@ Selects faces whose UVs overlap. Note that neighboring faces are not considered 
 Sequence %d out of order (@position %d).\n
 Sequence Random
 Sequence Two Random
+Sergiy's distance field
 Serialize: File encoding %s is undefined!\n
 Serialize: File encoding '%s' is undefined!\n
 Serialize: Format %s expects to be written to a binary format, but the buffer is a text-format buffer\n
@@ -17449,6 +17607,7 @@ User-Specified Color
 User-Specified MaterialGroup
 User-picks require a name
 User-specified color/materialgroup requires a node name
+Using 16-bit blend indices\n
 Using deprecated 'base=prefix' syntax for adding a prefix to a base class
 VDataModelVersion001
 VDmElementFrameworkVersion001
@@ -17544,6 +17703,8 @@ VeryFast
 Vgui editor file
 Viewing All Source Meshes
 Viewing Animation Data
+Viewing ClothShapeSDF: (%i inputs)
+Viewing ClothShapeSDF: (all inputs)
 Viewing File: %s
 Viewing PhysicsFile: %s
 Viewing PhysicsHullFromRender: (%i inputs)
@@ -17630,6 +17791,8 @@ WriteResourceManifestToFile failed: "%s"\n
 Wrote symbol stats to file: %s
 X (Red   / Forward)
 X - Forward
+X24_TYPELESS_G8_UINT
+X32_TYPELESS_G8X24_UINT
 XClipPathUnits
 XMLPacket
 XPosition
@@ -17654,20 +17817,20 @@ ZIPPostEncode
 ZIPSetupDecode
 ZIPSetupEncode
 ZIPVSetField
-Z\tV_strnchr
 [%d] Aborting undo '%s'\n
 [%d] Popping undo '%s'\n
 [%d] Pushing undo '%s'\n
 [%f %f %f %f]
 [%s] Forced dmxconvert - Finished [%s] in %0.2f secs. Please re-save or upconvert this asset!\n
 [choices
-\n\tV_frexpf
 \nclass 
 \ng default\n
 \nprop 
 \t@@@@@@@@@@@@@@@@{N{N{N{N{N{N{N{N
 \tNAN encountered in element '%s' guid %s attribute '%s'!\n
+\tV_expd
 \tV_fpclassifyd
+\tV_frexpf
 _CustomCommand
 _CustomCommand%d
 _InFrameSpine
@@ -17680,6 +17843,7 @@ _TIFFMergeFieldInfo
 _TIFFSetupFieldInfo
 _TIFFVGetField
 _TIFFVSetField
+_\tV_sscanf_s
 __autoskinned
 __bone_%d
 __current_metadata_table_stack
@@ -18259,6 +18423,7 @@ controlpoint_light
 controls
 controls.IsValid()
 conversion_method
+convexify
 coordSys
 copositional_vertices
 corner%d
@@ -18545,7 +18710,9 @@ f4Slack
 f4Weight0
 f4Weights
 fRecursiveNotifyFlags == ECN_RECURSIVE_VALUE || fRecursiveNotifyFlags == ECN_RECURSIVE_TOPOLOGICAL
+f\tV_strnchr
 faceSets
+faceTriangleCounts.Count() == nNumFaces
 faceVertexGroupAssignments.Count() == nNumFaceVertices
 faceVertexHandles.Count() == vertexHandlesForFaces.Count()
 faceVertexIndices.Count() == nNumFaceVertices
@@ -18744,6 +18911,7 @@ gesture_type
 global
 globalState
 global_default_material
+global_scale
 global_skeleton_transform
 glow_alpha
 glow_rgb
@@ -18762,6 +18930,7 @@ green: Modulate movement by normal dot wind (0-1)
 gridnav
 gridspacing
 groom
+groom_group_id
 groupColor
 group_id
 group_name
@@ -19033,6 +19202,7 @@ light_sun
 lightgroup
 lightmap
 lightmapScaleBias
+lightmapuv
 lights
 lightsourceradius
 lineOrder
@@ -19045,6 +19215,7 @@ linear_interp
 local_attach_point_offset
 local_attachment_offset_name
 local_axis_rotation_offset
+local_drag1
 local_force
 local_gravity_cp
 local_point
@@ -19151,6 +19322,7 @@ m_DefaultTargetSettings.m_TargetSource
 m_DestFinalVertOrder.Count() == m_pOutResults->m_nNumVertsKept
 m_DestMesh.GetNumVertices() == m_pOutResults->m_nNumVertsKept
 m_Dict[h].m_bRoot
+m_Distances
 m_DocumentManager.GetNumDocuments() == 0
 m_DynNodeFriction
 m_DynNodeVertexSet
@@ -19164,7 +19336,6 @@ m_EndEffectorFixedOffsetAttachment
 m_EntityClass
 m_EnumArray
 m_ExtParts
-m_FaceTriangleCounts.Count() == nNumFaces
 m_Faces
 m_FeModelAnims
 m_FeModelInitPose
@@ -19209,6 +19380,7 @@ m_InteractExcludeStrings
 m_InteractWith
 m_InteractWithStrings
 m_JiggleBones
+m_KV
 m_KelagerBends
 m_Layers.Count() == 1
 m_Layers.Count() >= 1
@@ -19256,6 +19428,7 @@ m_ReverseOffsets
 m_RigidColliderPriorities
 m_Rods
 m_Ropes
+m_SDFRigids
 m_SimStateBones
 m_SimdAnimStrayRadii
 m_SimdNodeBases
@@ -19306,6 +19479,7 @@ m_WorldCollisionParams
 m_aAngOffset
 m_algorithm
 m_anchor
+m_animEventClassName
 m_ankleBoneIndex
 m_ankleBoneName
 m_attachments
@@ -19464,6 +19638,7 @@ m_flInternalPressure
 m_flLinearDamping
 m_flLinearDampingRatio
 m_flLinearFrequency
+m_flLocalDrag1
 m_flLocalForce
 m_flLocalRotation
 m_flMass
@@ -19538,7 +19713,6 @@ m_hLog->GetNumLayers() == m_nNumOriginalLayers
 m_hLog->GetNumLayers() >= 1
 m_hModel
 m_hSimParamsMat
-m_hVertexBuffer == VERTEX_BUFFER_HANDLE_INVALID
 m_hairPositionOffsets
 m_hairs
 m_hardThreshold
@@ -19616,6 +19790,7 @@ m_nCount >= 1
 m_nDataType[nSrcAttributeIndex] == m_nDataType[nDestAttributeIndex]
 m_nDebugFlags
 m_nDefaultMeshGroupMask
+m_nDepth
 m_nDynamicNodeFlags
 m_nEntIndex
 m_nEntParent
@@ -19677,6 +19852,7 @@ m_nRodVelocitySmoothIterations
 m_nRopeCount
 m_nRotLockStaticNodes
 m_nRotateMotion
+m_nSDFRigidIndex
 m_nSegmentsPerHairStrand
 m_nShapeType
 m_nSimdQuadCount1
@@ -19945,7 +20121,6 @@ maxMeshVertices
 maxSpringTension
 maxThrust
 max_degrees
-max_force
 max_key
 max_length
 max_offset
@@ -19956,7 +20131,6 @@ max_steering_angle
 max_suspension_offset
 max_thrust
 max_time
-max_torque
 max_twist_angle
 max_u
 max_v
@@ -20020,11 +20194,11 @@ model_breakpiece
 model_cloth_effect
 model_cloth_node
 model_cloth_vertex_map
-model_default_preview_sequence_name
 model_morphchannel
 model_path
 model_physics_shape
 model_runtime_cloth_node
+model_scale
 model_subkey
 modelanimevent
 modelbreakcommand
@@ -20397,7 +20571,7 @@ pAttribute->GetType() == valueType
 pBoneStreamInfoList->Count() == nBone
 pBoneStreamInfoList->IsEmpty()
 pBuffer->IsText()
-pBufferData == pBaseBufferData + ( nNumFaceVertices * ( nVertexSize / sizeof( uint32 ) ) )
+pBufferData == pBaseBufferData + ( nNumVertices * ( nVertexSize / sizeof( uint32 ) ) )
 pCategories[MEMORY_CATEGORY_OUTER] >= 0
 pChannelsClip == FindChannelsClipForChannel( pFilmClip, pBalanceChannel )
 pChild->IsClone() == false
@@ -20715,6 +20889,7 @@ peak_cycle
 peaktailend
 per_material_options
 permuteList.Count() == nNumValues
+pervertexlighting
 pflOutWeights
 pfmscale
 phase
@@ -20846,7 +21021,6 @@ quadratic
 quaternion log
 quaternion_array
 queue2.Count() == 1
-r\fp0
 radius0_key
 radius1_key
 radiusScale
@@ -20905,6 +21079,7 @@ replacedSoundEvents
 replacedVsnds
 replacement
 report
+res_width
 resampledTimes.Count() <= 1 || resampledTimes[ 0 ] != resampledTimes[ 1 ]
 resampledTimes.Count() <= 1 || resampledTimes[ resampledTimes.Count()-1 ] != resampledTimes[ resampledTimes.Count()-2 ]
 resampledTimes[ 0 ] == tBegin
@@ -21027,6 +21202,7 @@ sequence_random
 sequencenumber
 sequences
 sequential position along path
+sergiys_distance_field
 sessionSettings
 set_array_attr_from_pick_type
 set_as_cycles
@@ -21729,6 +21905,8 @@ v %f %f %f\n#%d ComponentIndex %d, queue %d, angle %.1f; ring:
 vCenter
 vCenterOfMass
 vIK \f3
+vLocalMax
+vLocalMin
 vOffset
 vShape
 vSize

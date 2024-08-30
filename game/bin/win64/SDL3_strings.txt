@@ -22,12 +22,14 @@
  (timestamp=%u windowid=%u text='%s' start=%d length=%d)
  (timestamp=%u windowid=%u text='%s')
  (timestamp=%u windowid=%u which=%u button=%u state=%s clicks=%u x=%g y=%g)
- (timestamp=%u windowid=%u which=%u state=%08x x=%g y=%g [%g, %g, %g, %g, %g, %g])
+ (timestamp=%u windowid=%u which=%u pen_state=%u x=%g y=%g axis=%s value=%g)
+ (timestamp=%u windowid=%u which=%u pen_state=%u x=%g y=%g button=%u state=%s)
+ (timestamp=%u windowid=%u which=%u pen_state=%u x=%g y=%g eraser=%s state=%s)
+ (timestamp=%u windowid=%u which=%u pen_state=%u x=%g y=%g)
  (timestamp=%u windowid=%u which=%u state=%s repeat=%s scancode=%u keycode=%u mod=0x%x)
  (timestamp=%u windowid=%u which=%u state=%u x=%g y=%g xrel=%g yrel=%g)
- (timestamp=%u windowid=%u which=%u tip=%u state=%s x=%g y=%g axes=[%g, %g, %g, %g, %g, %g])
- (timestamp=%u windowid=%u which=%u tip=%u state=%s x=%g y=%g)
  (timestamp=%u windowid=%u which=%u x=%g y=%g direction=%s)
+ (timestamp=%u windowid=%u which=%u)
  (timestamp=%u)
  )19AJRZbjs{
  0x%x
@@ -46,7 +48,6 @@
 #ifdef GL_FRAGMENT_PRECISION_HIGH\n#define SDL_TEXCOORD_PRECISION highp\n#else\n#define SDL_TEXCOORD_PRECISION mediump\n#endif\n\nprecision mediump float;\n\n
 $$XK7
 $`C0M
-%.2x-%.2x-%.2x-%.2x-%.2x-%.2x
 %02hhX
 %02x 
 %I64d
@@ -106,6 +107,8 @@ $`C0M
 . In Drop, Supported format is %08x, Predefined\n
 .SV_Position
 .dx.countersS
+.rdata$00
+.text$mn$21
 /MND
 000000000000
 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0
@@ -432,6 +435,7 @@ $`C0M
 8859-1
 8powf
 9>expf
+:%.2x-%.2x-%.2x-%.2x-%.2x-%.2x
 :dx.entryPointsS
 :dx.viewIdStateS
 :tonemap_method
@@ -441,6 +445,7 @@ $`C0M
 =v<y5
 >jC4
 ?sofile
+@@VK_KHR_sampler_ycbcr_conversion
 @dst
 @entryPointOutput
 @entryPointOutput.color
@@ -467,7 +472,6 @@ AC Refresh
 AC Save
 AC Search
 AC Stop
-AES Pen
 ASSERT
 ASTRO
 ASTRO Gaming
@@ -482,7 +486,6 @@ AdjustWindowRectEx()
 AdjustWindowRectExForDpi
 AdjustWindowRectExForDpi()
 Again
-Airbrush Pen
 All SDL assertions between last init/quit:\n\n
 AltErase
 Amazon Luna Controller
@@ -495,7 +498,6 @@ Aon9l
 Application
 Application didn't initialize properly, did you include SDL_main.h in the file containing your main() function?
 AreDpiAwarenessContextsEqual
-Art Pen
 Assertion failure at %s (%s:%d), triggered %u %s:\r\n  '%s'
 AttachThreadInput
 Audio device in use
@@ -506,7 +508,7 @@ Audio target '%s' not available
 AvRevertMmThreadCharacteristics
 AvSetMmThreadCharacteristicsW
 BMP file with bad dimensions (%dx%d)
-BPS4 Controller
+BSDL_JOYSTICK_HIDAPI_PS4
 BT\vA\f
 B\fp\v0
 Backbone One
@@ -519,8 +521,13 @@ BeginScene()
 Bensussen Deutsch & Associates,Inc.(BDA)
 BitBlt
 Blit combination not supported
-Brects
 Button name too large: %s
+Bwidth
+C:\buildworker\sdl3_win32\build\dev\VisualC\x64\Release\SDL3.pdb
+C:\buildworker\sdl3_win32\build\dev\src\render\opengl\SDL_render_gl.c
+C:\buildworker\sdl3_win32\build\dev\src\render\opengles2\SDL_render_gles2.c
+C:\buildworker\sdl3_win32\build\dev\src\render\software\SDL_render_sw.c
+C:\buildworker\sdl3_win32\build\dev\src\video\windows\SDL_windowswindow.c
 CF_BITMAP
 CF_DIB
 CF_DIBV5
@@ -661,10 +668,8 @@ Could not retrieve EGL function eglTerminate
 Could not retrieve EGL function eglWaitGL
 Could not retrieve EGL function eglWaitNative
 Could not retrieve OpenGL functions
-Could not seek data of WAVE data chunk
 Could not seek in file
 Could not seek to WAVE chunk data
-Could not seek to WAVE chunk header
 Couldn't convert image to %d bpp
 Couldn't convert text from UTF-8
 Couldn't copy path
@@ -851,6 +856,7 @@ DISP_CHANGE_BADFLAGS
 DISP_CHANGE_BADMODE
 DISP_CHANGE_BADPARAM
 DISP_CHANGE_FAILED
+DISTANCE
 DRIVERINTERNALERROR
 DRIVERINVALIDCALL
 DXBC
@@ -905,7 +911,6 @@ DragFinish
 DragQueryFileW
 DrawTextW
 Dropping back to a slower method.
-DualSense Edge Wireless Controller
 DualSense Wireless Controller
 DwmEnableBlurBehindWindow
 DwmGetWindowAttribute
@@ -970,6 +975,7 @@ F6A
 F77%
 F77A 
 F>64
+FHIDAPI Rumble
 Failed loading 
 Failed to compile shader:\n%s%s\n%s
 Failed to create message window for joystick autodetect
@@ -1120,11 +1126,8 @@ GlobalLock()
 GlobalSize
 GlobalUnlock
 Google Stadia Controller
-Grip Pen
 Guangzhou Chicken Run Network Technology Co., Ltd.
 HASH
-HDR_headroom
-HIDAPI Rumble
 HIDAPI Wii: Motion Plus CONNECTED (stage %d)\n
 HIDAPI Wii: Motion Plus DISCONNECTED (stage %d)\n
 HIDAPI Wii: Resetting report mode to %d\n
@@ -1188,7 +1191,7 @@ HidP_GetCaps
 Home
 Hs0Q4
 HygonGenuine
-I@SDL_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT
+I@unknown
 IDirect3DDevice9_SetPixelShader()
 IDirect3DDevice9_SetPixelShaderConstantF()
 IDirectInput::CreateDevice
@@ -1239,7 +1242,6 @@ ImmSetCompositionWindow
 ImmUnlockIMC
 ImmUnlockIMCC
 Initializing DirectInput device
-Inking Pen
 Insert
 Installed Vulkan doesn't implement the VK_EXT_headless_surface extension
 Installed Vulkan doesn't implement the VK_KHR_surface extension
@@ -1254,7 +1256,6 @@ Invalid MS ADPCM block size (nBlockAlign)
 Invalid MS ADPCM coefficient index in block header
 Invalid MS ADPCM format header (too small)
 Invalid SDL_Folder: %d
-Invalid SDL_PenID
 Invalid WAVE fmt chunk length (too small)
 Invalid audio device instance ID
 Invalid axis index
@@ -1303,7 +1304,7 @@ Joystick only has %d axes
 Joystick only has %d balls
 Joystick only has %d buttons
 Joystick only has %d hats
-KCalways_on_top
+KCSDL.window.create.always_on_top
 K\n2R
 K\n2b
 Keypad !
@@ -1579,7 +1580,9 @@ PEAD
 PF333
 PINTLGNT.IME
 POSITION
+PRESSURE
 PS3 Controller
+PS4 Controller
 PSV0
 PSV0D
 P\fEP
@@ -1587,7 +1590,6 @@ PageDown
 PageUp
 Palettized textures are not supported
 Parameter '%s' is invalid
-Passed mutex is not locked or locked recursively
 Paste
 Path too long or invalid character in path
 Path too long.
@@ -1608,11 +1610,6 @@ PowerA Xbox Series X Controller
 Present()
 PrintScreen
 Prior
-Pro Pen
-Pro Pen 2
-Pro Pen 3
-Pro Pen 3D
-Pro Pen Slim
 PtInRect
 Public share unavailable on Windows
 QANBA USA, LLC
@@ -1626,7 +1623,8 @@ RDEF\
 RENDER
 RIFF form type is not WAVE (not a Waveform file)
 RIFF size truncates chunk
-RSDS
+ROTATION
+RSDS[e"
 RTS0
 RTS00
 RTS0H
@@ -1648,7 +1646,6 @@ RegisterWindowMessageA
 ReleaseCapture
 ReleaseDC
 ReleaseSRWLockShared
-ReleaseSemaphore() failed
 ReleaseStgMedium
 RemovePropW
 Removing HIDAPI device '%s' VID 0x%.4x, PID 0x%.4x, bluetooth %d, version %d, serial %s, interface %d, interface_class %d, interface_subclass %d, interface_protocol %d, usage page 0x%.4x, usage 0x%.4x, path = %s, driver = %s (%s)\n
@@ -1660,6 +1657,7 @@ Renderer doesn't support querying output size
 Renderer's window has been destroyed, can't use further
 Reset()
 Resetting device
+Retro-bit Controller
 Retry
 Return
 RevokeDragDrop
@@ -1690,7 +1688,7 @@ SDL failed to get a vertex buffer for this Direct3D 9 rendering batch!
 SDL generic title storage driver
 SDL generic user storage driver
 SDL offscreen video driver
-SDL-prerelease-3.1.2-1340-g78b1e0e29
+SDL-prerelease-3.1.2-1445-gace6920d4
 SDL.app.metadata.copyright
 SDL.app.metadata.creator
 SDL.app.metadata.identifier
@@ -1714,6 +1712,17 @@ SDL.joystick.cap.trigger_rumble
 SDL.renderer.HDR_enabled
 SDL.renderer.HDR_headroom
 SDL.renderer.SDR_white_point
+SDL.renderer.create.name
+SDL.renderer.create.output_colorspace
+SDL.renderer.create.present_vsync
+SDL.renderer.create.surface
+SDL.renderer.create.vulkan.device
+SDL.renderer.create.vulkan.graphics_queue_family_index
+SDL.renderer.create.vulkan.instance
+SDL.renderer.create.vulkan.physical_device
+SDL.renderer.create.vulkan.present_queue_family_index
+SDL.renderer.create.vulkan.surface
+SDL.renderer.create.window
 SDL.renderer.d3d11.device
 SDL.renderer.d3d11.swap_chain
 SDL.renderer.d3d12.command_queue
@@ -1741,6 +1750,28 @@ SDL.texture.HDR_headroom
 SDL.texture.SDR_white_point
 SDL.texture.access
 SDL.texture.colorspace
+SDL.texture.create.HDR_headroom
+SDL.texture.create.SDR_white_point
+SDL.texture.create.access
+SDL.texture.create.colorspace
+SDL.texture.create.d3d11.texture
+SDL.texture.create.d3d11.texture_u
+SDL.texture.create.d3d11.texture_v
+SDL.texture.create.d3d12.texture
+SDL.texture.create.d3d12.texture_u
+SDL.texture.create.d3d12.texture_v
+SDL.texture.create.format
+SDL.texture.create.height
+SDL.texture.create.opengl.texture
+SDL.texture.create.opengl.texture_u
+SDL.texture.create.opengl.texture_uv
+SDL.texture.create.opengl.texture_v
+SDL.texture.create.opengles2.texture
+SDL.texture.create.opengles2.texture_u
+SDL.texture.create.opengles2.texture_uv
+SDL.texture.create.opengles2.texture_v
+SDL.texture.create.vulkan.texture
+SDL.texture.create.width
 SDL.texture.d3d11.texture
 SDL.texture.d3d11.texture_u
 SDL.texture.d3d11.texture_v
@@ -1762,9 +1793,32 @@ SDL.texture.opengles2.texture_u
 SDL.texture.opengles2.texture_uv
 SDL.texture.opengles2.texture_v
 SDL.texture.width
+SDL.thread.create.entry_function
+SDL.thread.create.name
+SDL.thread.create.stacksize
+SDL.thread.create.userdata
 SDL.window.HDR_enabled
 SDL.window.HDR_headroom
 SDL.window.SDR_white_level
+SDL.window.create.borderless
+SDL.window.create.external_graphics_context
+SDL.window.create.focusable
+SDL.window.create.fullscreen
+SDL.window.create.hidden
+SDL.window.create.high_pixel_density
+SDL.window.create.maximized
+SDL.window.create.menu
+SDL.window.create.metal
+SDL.window.create.minimized
+SDL.window.create.modal
+SDL.window.create.mouse_grabbed
+SDL.window.create.opengl
+SDL.window.create.parent
+SDL.window.create.resizable
+SDL.window.create.tooltip
+SDL.window.create.transparent
+SDL.window.create.utility
+SDL.window.create.win32.pixel_format_hwnd
 SDL.window.shape
 SDL.window.win32.hdc
 SDL.window.win32.instance
@@ -1983,10 +2037,13 @@ SDL_EVENT_MOUSE_BUTTON_UP
 SDL_EVENT_MOUSE_MOTION
 SDL_EVENT_MOUSE_REMOVED
 SDL_EVENT_MOUSE_WHEEL
+SDL_EVENT_PEN_AXIS
 SDL_EVENT_PEN_BUTTON_DOWN
 SDL_EVENT_PEN_BUTTON_UP
 SDL_EVENT_PEN_DOWN
 SDL_EVENT_PEN_MOTION
+SDL_EVENT_PEN_PROXIMITY_IN
+SDL_EVENT_PEN_PROXIMITY_OUT
 SDL_EVENT_PEN_UP
 SDL_EVENT_QUEUE_STATISTICS
 SDL_EVENT_QUIT
@@ -2021,8 +2078,6 @@ SDL_EVENT_WINDOW_MOUSE_ENTER
 SDL_EVENT_WINDOW_MOUSE_LEAVE
 SDL_EVENT_WINDOW_MOVED
 SDL_EVENT_WINDOW_OCCLUDED
-SDL_EVENT_WINDOW_PEN_ENTER
-SDL_EVENT_WINDOW_PEN_LEAVE
 SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED
 SDL_EVENT_WINDOW_RESIZED
 SDL_EVENT_WINDOW_RESTORED
@@ -2053,6 +2108,7 @@ SDL_GAMECONTROLLERCONFIG_FILE
 SDL_GAMECONTROLLERTYPE
 SDL_GAMECONTROLLER_ALLOW_STEAM_VIRTUAL_GAMEPAD
 SDL_GAMECONTROLLER_IGNORE_DEVICES
+SDL_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT
 SDL_GAMECONTROLLER_SENSOR_FUSION
 SDL_GAMECONTROLLER_USE_BUTTON_LABELS
 SDL_GL_CreateContext
@@ -2235,13 +2291,6 @@ SDL_GetNumRenderDrivers
 SDL_GetNumVideoDrivers
 SDL_GetOriginalMemoryFunctions
 SDL_GetPathInfo
-SDL_GetPenCapabilities
-SDL_GetPenFromGUID
-SDL_GetPenGUID
-SDL_GetPenName
-SDL_GetPenStatus
-SDL_GetPenType
-SDL_GetPens
 SDL_GetPerformanceCounter
 SDL_GetPerformanceFrequency
 SDL_GetPixelFormatDetails
@@ -2422,7 +2471,6 @@ SDL_JOYSTICK_HIDAPI_LUNA
 SDL_JOYSTICK_HIDAPI_NINTENDO_CLASSIC
 SDL_JOYSTICK_HIDAPI_PS3
 SDL_JOYSTICK_HIDAPI_PS3_SIXAXIS_DRIVER
-SDL_JOYSTICK_HIDAPI_PS4
 SDL_JOYSTICK_HIDAPI_PS4_REPORT_INTERVAL
 SDL_JOYSTICK_HIDAPI_PS4_RUMBLE
 SDL_JOYSTICK_HIDAPI_PS5
@@ -2531,8 +2579,6 @@ SDL_OpenTitleStorage
 SDL_OpenURL
 SDL_OpenUserStorage
 SDL_OutOfMemory
-SDL_PEN_DELAY_MOUSE_BUTTON
-SDL_PEN_NOT_MOUSE
 SDL_PIXELFORMAT_ABGR128_FLOAT
 SDL_PIXELFORMAT_ABGR1555
 SDL_PIXELFORMAT_ABGR2101010
@@ -2601,7 +2647,6 @@ SDL_POLL_SENTINEL
 SDL_PREFERRED_LOCALES
 SDL_PauseAudioStreamDevice
 SDL_PauseHaptic
-SDL_PenConnected
 SDL_PremultiplyAlpha
 SDL_PremultiplySurfaceAlpha
 SDL_QUIT_ON_LAST_WINDOW_CLOSE
@@ -2882,6 +2927,7 @@ SDL_WriteU32LE
 SDL_WriteU64BE
 SDL_WriteU64LE
 SDL_WriteU8
+SDL_XINPUT_ENABLED
 SDL_abs
 SDL_acos
 SDL_acosf
@@ -3050,7 +3096,6 @@ SDL_wcsnstr
 SDL_wcsstr
 SDL_wcstol
 SDL_window%u-%8.8d.bmp
-SDR_white_point
 SETUPAPI.dll
 SET_SETTINGS failed for controller %p\n
 SFI0
@@ -3062,6 +3107,7 @@ SHEX
 SHGetFolderPathW
 SHGetKnownFolderPath
 SHGetPathFromIDListW
+SLIDER
 STAT
 STAT,
 STATP
@@ -3137,8 +3183,6 @@ ShanWan
 ShellExecuteW
 ShowReadingWindow
 Size too large for scaling
-SleepConditionVariableCS() failed
-SleepConditionVariableSRW() failed
 SoftLeft
 SoftRight
 Software renderer doesn't have an output surface
@@ -3147,7 +3191,6 @@ Source rate is too high
 Source rate is too low
 Space
 Speed values must be in ascending order
-Stale SDL_PenID
 Steam Controller
 Steam Deck
 Steam cloud is disabled for this application
@@ -3175,10 +3218,8 @@ Stream #%d is NULL
 Stream #%d is already bound to a device
 Stream has no destination format
 Stream has no source format
-Stroke Pen
 Surface already associated with window
 Surface doesn't have a colorkey
-Surface was not acquired from this camera, or was already released
 Surfaces must not be locked during blit
 SwapBuffers
 SwapBuffers()
@@ -3189,6 +3230,7 @@ System audio recording device
 SystemParametersInfoA
 SystemParametersInfoW
 System\CurrentControlSet\Control\MediaCategories\{%02X%02X%02X%02X-%02X%02X-%02X%02X-%02X%02X-%02X%02X%02X%02X%02X%02X}
+TANGENTIAL_PRESSURE
 TEST
 TEXCOORD
 TINTLGNT.IME
@@ -3288,7 +3330,6 @@ Unexpected internal pixel format
 Unexpected overflow in IMA ADPCM decoder
 Unexpected overflow in MS ADPCM decoder
 Unexpected read length when reading extension type: %d
-Unexpected value for pen hint: '%s'
 UnhookWindowsHookEx
 Unknown 
 Unknown DirectSound error
@@ -3374,7 +3415,6 @@ VK_KHR_bind_memory2
 VK_KHR_get_memory_requirements2
 VK_KHR_get_physical_device_properties2
 VK_KHR_maintenance1
-VK_KHR_sampler_ycbcr_conversion
 VK_KHR_surface
 VK_KHR_swapchain
 VK_KHR_win32_surface
@@ -3457,9 +3497,7 @@ WGL_EXT_swap_control
 WGL_EXT_swap_control_tear
 WIN_AdjustWindowRectWithStyle
 WRONGTEXTUREFORMAT
-WaitForSingleObject() failed
 WaitOnAddress
-WaitOnAddress() failed
 Wake
 WakeByAddressSingle
 Why!
@@ -3490,6 +3528,7 @@ XInputGetCapabilities
 XInputGetState
 XInputSetState
 XInputSetState() failed
+XTILT
 X\f=1=IM
 Xbox
 Xbox 360 Controller
@@ -3504,6 +3543,7 @@ Xbox360
 XboxOne
 Y + U + V would overflow
 Y + U would overflow
+YTILT
 YUY2!
 YV12!
 YV12, IYUV, NV12, NV21 textures only support full surface locks
@@ -3515,6 +3555,7 @@ You must pass a set of {speed, scale} values
 You probably don't have a working Vulkan driver installed. %s %s %s(%d)
 Ypitch
 Yplane
+[UNKNOWN]
 [Vulkan] Could not allocate new memory for constant buffer
 [Vulkan] Failed to allocate buffer for readback
 [Vulkan] Unable to allocate descriptor pool vkCreateDescrptorPool: %s
@@ -3565,7 +3606,6 @@ a_position
 a_texCoord
 a`2n
 abxy
-access
 adapterIndex
 aligning pitch would overflow
 altivec
@@ -3582,14 +3622,8 @@ back
 back:b4,dpdown:h0.4,dpleft:h0.8,dpright:h0.2,dpup:h0.1,leftshoulder:b9,leftstick:b7,lefttrigger:a4,leftx:a0,lefty:a1,misc1:b11,paddle2:b13,paddle4:b15,
 bayx
 blendMode
-borderless
 break
 c!s!n,q
-c:\buildslave\sdl3_win32\build\dev\VisualC\x64\Release\SDL3.pdb
-c:\buildslave\sdl3_win32\build\dev\src\render\opengl\SDL_render_gl.c
-c:\buildslave\sdl3_win32\build\dev\src\render\opengles2\SDL_render_gles2.c
-c:\buildslave\sdl3_win32\build\dev\src\render\software\SDL_render_sw.c
-c:\buildslave\sdl3_win32\build\dev\src\video\windows\SDL_windowswindow.c
 cXk-
 calloc_func
 camera
@@ -3597,18 +3631,10 @@ candidates
 cfgmgr32.dll
 chrome
 color_scale
-colorspace
 composition
-cond
 context
 crc:
 d3d11.dll
-d3d11.texture
-d3d11.texture_u
-d3d11.texture_v
-d3d12.texture
-d3d12.texture_u
-d3d12.texture_v
 d3dcompiler_43.dll
 d3dcompiler_46.dll
 d3dcompiler_47.dll
@@ -3630,7 +3656,6 @@ driver
 dropblock
 dropframe
 dsound
-dst does not have a palette set
 dst_data
 dst_len
 dst_pitch
@@ -3672,8 +3697,6 @@ eglTerminate
 eglWaitGL
 eglWaitNative
 eglWaitSyncKHR
-entry_function
-external_graphics_context
 f!v!k,l,J
 f0P18d 
 fW&7%0
@@ -3688,12 +3711,10 @@ flipped
 float4
 floats,
 fmt chunk after data chunk in WAVE file
-focusable
 folder
 fp\v00
 free_func
 french_numbers
-fullscreen
 gain
 gameinput.dll
 gamepad
@@ -3824,7 +3845,6 @@ hidapi device
 hidapi joystick
 hidapi,*,a:b0,b:b1,back:b4,dpdown:b12,dpleft:b13,dpright:b14,dpup:b11,guide:b5,leftshoulder:b9,leftstick:b7,lefttrigger:a4,leftx:a0,lefty:a1,rightshoulder:b10,rightstick:b8,righttrigger:a5,rightx:a2,righty:a3,start:b6,x:b2,y:b3,
 hide_numpad
-high_pixel_density
 hint:
 hint:SDL_GAMECONTROLLER_USE_BUTTON_LABELS
 i9>7
@@ -3869,17 +3889,13 @@ malloc_func
 mappingString
 max_h
 max_w
-maximized
 maximum
 mediafoundation
 medium
-menu
 messageboxdata
-metal
 mime_type
 min_h
 min_w
-minimized
 misc1
 misc1:b11,
 misc1:b11,misc2:b12
@@ -3889,11 +3905,8 @@ misc3
 misc4
 misc5
 misc6
-modal
-mouse_grabbed
 mouse_input
 n/zX
-n5SDL_XINPUT_ENABLED
 ncolors
 neon
 newpath
@@ -3912,18 +3925,9 @@ nvagipman:%llx:%u:%u:%u
 offscreen
 oldpath
 opengl
-opengl.texture
-opengl.texture_u
-opengl.texture_uv
-opengl.texture_v
 opengl32.dll
 opengles2
-opengles2.texture
-opengles2.texture_u
-opengles2.texture_uv
-opengles2.texture_v
 outputIndex
-output_colorspace
 paddle1
 paddle1:b11,paddle2:b13,paddle3:b12,paddle4:b14,
 paddle1:b12,paddle2:b11,
@@ -3932,7 +3936,6 @@ paddle2
 paddle3
 paddle4
 palette
-parent
 permonitor
 permonitorv2
 physicalDevice
@@ -3941,7 +3944,6 @@ plane * 4 would overflow
 platform
 platform:
 points
-present_vsync
 pressed
 projectionAndView
 ps_2_0
@@ -3960,9 +3962,9 @@ quiet
 r,s,d
 realloc_func
 rect
+rects
 released
 renderer
-resizable
 result
 retry
 rightshoulder
@@ -3996,7 +3998,6 @@ sse2
 sse3
 sse41
 sse42
-stacksize
 standard
 steam
 stream
@@ -4005,6 +4006,7 @@ strict
 surface
 switchpro
 system
+t:DualSense Edge Wireless Controller
 tex%d
 text/plain;charset=utf-8
 text/uri-list
@@ -4025,13 +4027,11 @@ timeEndPeriod
 tonemap_factor1
 tonemap_factor2
 tonemap_method
-tooltip
 touch
 touchpad
 touchpad:b11,
 touchpad:b11,misc1:b12,
 touchpad:b12,misc2:b13,misc3:b14
-transparent
 triangle area overflow
 truncate
 type:
@@ -4060,8 +4060,6 @@ uniform sampler2D u_texture;\nvarying mediump vec4 v_color;\nvarying SDL_TEXCOOR
 uniform samplerExternalOES u_texture;\nvarying mediump vec4 v_color;\nvarying SDL_TEXCOORD_PRECISION vec2 v_texCoord;\n\nvoid main()\n{\n    gl_FragColor = texture2D(u_texture, v_texCoord);\n    gl_FragColor *= v_color;\n}\n
 unknown object
 unused_pad0
-userdata
-utility
 v<y5
 varying mediump vec4 v_color;\n\nvoid main()\n{\n    gl_FragColor = v_color;\n}\n
 varying vec4 v_color;\n\nvoid main()\n{\n    gl_FragColor = v_color;\n}
@@ -4307,14 +4305,8 @@ vkUnmapMemory
 vkUpdateDescriptorSets
 vkWaitForFences
 vkWaitForFences(): %s\n
+vulkan
 vulkan-1.dll
-vulkan.device
-vulkan.graphics_queue_family_index
-vulkan.instance
-vulkan.physical_device
-vulkan.present_queue_family_index
-vulkan.surface
-vulkan.texture
 w0_row
 w1_row
 w2_row
@@ -4336,7 +4328,6 @@ width * 4 would overflow
 width * bpp would overflow
 width * height would overflow
 width + 1 would overflow
-win32.pixel_format_hwnd
 windows_file_seek
 windows_file_seek: Unknown value for 'whence'
 windows_file_size

@@ -185,7 +185,7 @@
 					spread_value_victim = 
 					{
 						data_type = "float"
-						value = ".8"
+						value = ".1"
 						_system_properties = 
 						{
 							display_group = "Normal"
@@ -208,6 +208,17 @@
 					{
 						data_type = "float3"
 						value = "[0.0, 0.0, 0.0]"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_damage"
+							property_help = "Set by code."
+						}
+					}
+					position_force_from_input = 
+					{
+						data_type = "bool"
+						value = "false"
 						_system_properties = 
 						{
 							display_group = "locked"
@@ -313,19 +324,37 @@
 			},
 			
 			{
-				name = "logic_is_viewing_victim_or_hit_world"
-				operator = "math_float"
-				apply = "or"
-				input1 = "@public.hit_world"
-				input2 = "@citadel_damage_info::output.is_viewing_victim"
-			},
-			
-			{
 				name = "logic_is_viewing_victim_or_attacker_and_not_hit_world"
 				operator = "math_float"
 				apply = "and_not"
 				input1 = "@citadel_damage_info::output.is_viewing_attacker_or_vicitim"
 				input2 = "@public.hit_world"
+			},
+			
+			{
+				name = "accumulate_force_position_input"
+				operator = "math_accumulate12_float"
+				apply = "add"
+				input1 = "@public.hit_world"
+				input2 = "0.0"
+				input3 = "@citadel_damage_info::output.is_viewing_attacker_or_vicitim"
+				input4 = "@public.position_force_from_input"
+				input5 = "0.0"
+				input6 = "0.0"
+				input7 = "0.0"
+				input8 = "0.0"
+				input9 = "0.0"
+				input10 = "0.0"
+				input11 = "0.0"
+				input12 = "0.0"
+			},
+			
+			{
+				name = "check_force_position_input"
+				operator = "math_float"
+				apply = "greater_than"
+				input1 = "@accumulate_force_position_input.output"
+				input2 = "0.0"
 			},
 			
 			{
@@ -353,7 +382,7 @@
 					position_force_from_input = 
 					{
 						data_type = "float"
-						value = "@logic_is_viewing_victim_or_hit_world.output"
+						value = "@check_force_position_input.output"
 					}
 					distance_hpf_on = 
 					{

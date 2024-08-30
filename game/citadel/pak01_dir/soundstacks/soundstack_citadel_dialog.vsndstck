@@ -137,6 +137,28 @@
 							property_help = "The minimum scaled priority value when at max distance."
 						}
 					}
+					enable_combat_blocking = 
+					{
+						data_type = "bool"
+						value = "false"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "citadel_dialog"
+							property_help = "Cull dialog lines below a given priority during combat."
+						}
+					}
+					combat_blocking_priority_threshold = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "citadel_dialog"
+							property_help = "The priority equal or below that will be blocked by combat."
+						}
+					}
 				}
 			},
 			
@@ -151,6 +173,18 @@
 						value = "-1.000000"
 					}
 				}
+			},
+			
+			{
+				name = "get_event_info"
+				operator = "soundevent_get_info"
+			},
+			
+			{
+				name = "convar_get_debug_enabled"
+				operator = "convar_get"
+				input_execute = "1.0"
+				convar = "audio_display_soundstack_debug_dialog"
 			},
 			
 			{
@@ -186,6 +220,120 @@
 			},
 			
 			{
+				name = "get_dealt_recent_damage"
+				operator = "opvar_get_float"
+				input_execute = "1.0"
+				execute_once = "1.0"
+				input_stack_name = "citadel_dialog_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "dealt_recent_damage"
+			},
+			
+			{
+				name = "get_received_recent_damage"
+				operator = "opvar_get_float"
+				input_execute = "1.0"
+				execute_once = "1.0"
+				input_stack_name = "citadel_dialog_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "received_recent_damage"
+			},
+			
+			{
+				name = "get_enemy_is_in_proximity"
+				operator = "opvar_get_float"
+				input_execute = "1.0"
+				execute_once = "1.0"
+				input_stack_name = "citadel_dialog_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "is_enemy_in_proximity"
+			},
+			
+			{
+				name = "test_priority_below_combat_blocking_threshold"
+				operator = "math_float"
+				execute_once = "1.0"
+				input_execute = "1.0"
+				apply = "less_than_or_equal"
+				input1 = "@public.dialog_mix_priority"
+				input2 = "@public.combat_blocking_priority_threshold"
+			},
+			
+			{
+				name = "math_add_combat_criteria"
+				operator = "math_accumulate12_float"
+				execute_once = "1.0"
+				apply = "add"
+				input1 = "@get_dealt_recent_damage.output"
+				input2 = "@get_received_recent_damage.output"
+				input3 = "@get_enemy_is_in_proximity.output"
+				input4 = "0.0"
+				input5 = "0.0"
+				input6 = "0.0"
+				input7 = "0.0"
+				input8 = "0.0"
+				input9 = "0.0"
+				input10 = "0.0"
+				input11 = "0.0"
+				input12 = "0.0"
+			},
+			
+			{
+				name = "test_is_in_combat"
+				operator = "math_float"
+				execute_once = "1.0"
+				input_execute = "1.0"
+				apply = "greater_than"
+				input1 = "@math_add_combat_criteria.output"
+				input2 = "0.0"
+			},
+			
+			{
+				name = "test_should_block_low_priority_dialog"
+				operator = "math_accumulate12_float"
+				execute_once = "1.0"
+				apply = "mult"
+				input1 = "@test_is_in_combat.output"
+				input2 = "1.0"
+				input3 = "1.0"
+				input4 = "@public.enable_combat_blocking"
+				input5 = "@test_priority_below_combat_blocking_threshold.output"
+				input6 = "1.0"
+				input7 = "1.0"
+				input8 = "1.0"
+				input9 = "1.0"
+				input10 = "1.0"
+				input11 = "1.0"
+				input12 = "1.0"
+			},
+			
+			{
+				name = "priority_blocking_message"
+				operator = "math_string"
+				input_execute = "@test_should_block_low_priority_dialog.output"
+				execute_once = "1.0"
+				apply = "add"
+				input1 = "@get_event_info.output_soundevent_name"
+				input2 = " - blocked, below at or below threshold."
+			},
+			
+			{
+				name = "print_priority_blocking"
+				operator = "util_print_string"
+				execute_once = "1.0"
+				input_execute = "@test_should_block_low_priority_dialog.output"
+				input = "@priority_blocking_message.output_string"
+			},
+			
+			{
+				name = "block_priority"
+				operator = "sos_goto"
+				execute_once = "1.0"
+				input_goto_end = "true"
+				input_execute = "@test_should_block_low_priority_dialog.output"
+			},
+			
+			{
 				name = "distance_to_source"
 				operator = "calc_distance"
 				input_position1 = "@get_entity_info.output_position"
@@ -211,24 +359,12 @@
 			},
 			
 			{
-				name = "get_event_info"
-				operator = "soundevent_get_info"
-			},
-			
-			{
 				name = "blocking_message"
 				operator = "math_string"
 				input_execute = "@blocking_enabled.output"
 				apply = "add"
 				input1 = "@get_event_info.output_soundevent_name"
 				input2 = " - blocked, outside max distance (citadel_dialog)."
-			},
-			
-			{
-				name = "convar_get_debug_enabled"
-				operator = "convar_get"
-				input_execute = "1.0"
-				convar = "audio_display_soundstack_debug_dialog"
 			},
 			
 			{

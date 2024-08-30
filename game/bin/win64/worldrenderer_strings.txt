@@ -112,8 +112,6 @@ AllocateAndLoad failed for '%s'\n
 AllocateResource: Cannot find DATA block in resource %s!\n
 AllocateResource: Cannot find VXVS data in resource %s!\n
 Amodellib
-Attempted to set attribute %s as if it was a non-attribute key!\n
-Attempted to set non-attribute value %s as if it was an attribute!\n
 Bad KV3 data for resource '%s': %s\n
 BakedLightingInfo_t
 BakedLightingInfo_t::KV3TransferLoad_Impl
@@ -159,16 +157,16 @@ CConCommandMemberAccessor<class CWorldRendererMgr>::CommandCallback
 CConCommandMemberAccessor<class CWorldRendererMgr>::CommandCompletionCallback
 CEntityKeyValues::AddConnectionDesc
 CEntityKeyValues::CEntityKeyValues
-CEntityKeyValues::FindOrAddKey
+CEntityKeyValues::FindOrAddKeyOrAttributeImpl
+CEntityKeyValues::LegacyUnserialize
+CEntityKeyValues::LegacyUnserialize: Unable to read from a text-based utlbuffer!\n
+CEntityKeyValues::LegacyUnserializeKeys
+CEntityKeyValues::LegacyUnserializeKeys::<lambda_1>::operator ()
 CEntityKeyValues::LoadFromContext
 CEntityKeyValues::LoadFromContext: Invalid version! Expected %d, encountered %d!\n
 CEntityKeyValues::RemoveAllKeys
-CEntityKeyValues::Unserialize
 CEntityKeyValues::Unserialize: Invalid version! Expected %d, encountered %d!\n
-CEntityKeyValues::Unserialize: Unable to read from a text-based utlbuffer!\n
 CEntityKeyValues::Unserialize: Unsupported keyvalue variant type (%d)!\n
-CEntityKeyValues::UnserializeKeys
-CEntityKeyValues::UnserializeKeys::<lambda_1>::operator ()
 CEntityKeyValues::~CEntityKeyValues
 CEntitySystem::ReleaseEntitySpawnDataMemory
 CGrassTileObjectDesc
@@ -532,6 +530,7 @@ IResourceTypeManager::GetNonStreamingDataLoadSize
 IResourceTypeManager::IsStreamingDataAlreadyLoaded
 IResourceTypeManager::LoadStreamingData
 ISceneObjectDesc::GetCustomOpaqueFade
+Inconsistent treatment of '%s' (existing key is %s)!\n
 InfoForResourceTypeCEntityLump
 InfoForResourceTypeCModel
 InfoForResourceTypeCRenderMesh
@@ -594,6 +593,7 @@ Missing required transfer interface: %s
 Model conversion: %d conversions in %.3fsec (%.3fms each)\n
 MountWorldVPK() ++%s is at refcount %d\n
 MovementSettings
+NOT an attr
 No DATA block for resource '%s'\n
 No DATA block for resource\n
 No schema binding info for enum '%s'\n
@@ -633,6 +633,7 @@ RESOURCE_TYPE_WORLD
 RESOURCE_TYPE_WORLD_NODE
 RESOURCE_TYPE_WORLD_VIS
 RSDS
+R\vpd
 Render the world.
 Render world node bounds
 RenderGrassTextureJob
@@ -734,9 +735,9 @@ You must install a IKV3TransferInterface_ResourceLoad on your context in order t
 \tWorld: %s
 \t\t\tNodes Loaded: %d / %d\n
 aggregateWorldBounds.IsValid()
+an attr
 ati_compress_wrapper.dll
 attributes
-bCreated
 bSameOrigin || info.m_handle == SPAWN_GROUP_HANDLE_INVALID
 background
 bentnormal
@@ -964,6 +965,7 @@ pTraversal->m_nodeIdsToRender.Count() == nCurrentNodeCount
 pWorldNode
 pWorldRep->m_refCount == 0
 posxyz
+r\fpd
 r_drawworld
 r_grass_allow_flattening
 r_grass_alpha_test
