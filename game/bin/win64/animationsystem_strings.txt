@@ -16,14 +16,15 @@
  %s : Animations loaded but no animation data found\n
  %s : animtable hash too small: %d elements / %d buckets\n
  %s : seqtable hash too small: %d elements / %d buckets\n
+ (08@HPX`j`t
  (08@HPXb
+ (08@HPZ`t
  (08@HR
  (0X`hpz
  (Start: 
  * %d WeightLists\n
  * ScaleSet[%d] :: %s\n
  * WeightList[%d] :: %s\n
- .0EQ
  : Extraneous input - expected %s ...\n
  : Extraneous input - expected <EOF>\n
  : Extraneous input...
@@ -43,6 +44,7 @@
  LinePos:
  \t\n\r@()[]{}=&,:*|;'!
 !"Invalid Rbf Function Specified"
+!DoesTaskSystemNeedUpdate()
 !IsEmpty()
 !IsPostUpdatePending( context )
 !IsRecording()
@@ -56,12 +58,14 @@
 !m_bDidTransfer
 !m_bIsComplete
 !m_bIsReading
+!m_bNeedsUpdate
 !m_basePath.IsEmpty()
 !m_cachedPoseBufferID.IsValid()
 !m_pAllocator
 !m_pContext->IsPredicted()
 !m_pMemory || sz > 0
 !m_pRootMotionDebugger->HasDebugBasePathSet()
+!m_pRootNode->IsInitialized()
 !m_pSampledEventsBuffer->HasDebugBasePathSet()
 !m_pTaskSystem->HasDebugBasePathSet()
 !m_pool[ nMaskIdx ].m_bIsUsed
@@ -71,6 +75,7 @@
 !pDerivedType->IsSchemaAbstractClass()
 !pDstWeightList->m_nonZeroBoneWeightList.IsValidIndex( nSparseIndex )
 !pNode->IsPostUpdatePending( context )
+!slot.m_bIsUsed
 #################################\n
 #Angle
 #Position
@@ -101,6 +106,7 @@
 %d.Transform( %s, Vector( %.2f, %.2f, %.2f ), DegreeEuler( %.2f %.2f %.2f ) )\n
 %d.Worldspace( %s, %d, %.2f )
 %d.Worldspace( %s, %d, %.2f )\n
+%generic
 %s (%.2f, %.2f, %.2f)
 %s (Color)
 %s (Material)
@@ -121,35 +127,53 @@
 ( m_pAnimGraphChangeListener == nullptr ) || ( pListener == nullptr )
 ( nFlags & KEYVALUES3_AS_STRING_APPEND ) == 0
 ( pDerivedClassName != nullptr ) == ( (KV3TransferClassBehavior_t)TClass::KV3TRANSFER_BEHAVIOR == KV3TRANSFER_CLASS_AS_POLYMORPHIC_TABLE )
-(1zi
-(5Ui
+( reinterpret_cast<uintptr_t>( m_nodeMemory.Base() ) % pGraphDef->m_instanceRequiredAlignment ) == 0
+(1Wj
+(1Xj
+(1fj
+(58j
+(5Vj
+(5tj
+(94j
+(9Cj
+(9Sj
 (Additive)
-(Ari
-(Axi
+(Adj
 (Blend1D):m_flBlendValue
 (Blend1D):m_resetCount
+(EZj
 (Expecting %s)
 (Expecting EOF)
-(Mii
-(Mli
+(IUj
+(Ijj
+(Irj
+(Mbj
+(Mmj
+(Q1j
+(Q7j
+(Qwj
+(U5j
 (Visit( pPart->GetCondition(), pOutResult, pOutError )) == (GenericExprResult_t::OK)
 (Visit( pPart->GetFalseValue(), pOutResult, pOutError )) == (GenericExprResult_t::OK)
 (Visit( pPart->GetInner(), pOutResult, pOutError )) == (GenericExprResult_t::OK)
 (Visit( pPart->GetLHS(), pOutResult, pOutError )) == (GenericExprResult_t::OK)
 (Visit( pPart->GetRHS(), pOutResult, pOutError )) == (GenericExprResult_t::OK)
 (Visit( pPart->GetTrueValue(), pOutResult, pOutError )) == (GenericExprResult_t::OK)
-(YXi
-(Yhi
-(aPi
+(a9j
+(aDj
+(aWj
 (channel = 
 (end of input).\n\t This indicates a poorly specified lexer RULE\n\t or unterminated input element such as: "STRING["]\n
 (flStanceCycle <= animCycle.GetValue()) && (animCycle <= flNextStanceCycle)
-(iMi
-(isi
-(mTi
-(qpi
-(uQi
-(uki
+(iom
+(mej
+(mnj
+(q6j
+(qPj
+(qqj
+(qzj
+(uBj
+(ytj
 ***\nShared activity collision with private activity! %s<->%s [%i]\n***\n
 ***\nShared activity collision! %s<->%s\n***\n
 ***\nShared<->Private Activity collision!\n***\n
@@ -164,14 +188,9 @@
 - Scripted Sequence: 
 -1 1000
 -Stop: 
--\npMQ
 -end of input-(
 -unknown source-
 -unknown source-(
-.0GQ
-.0HQ
-.0XQ
-.0ZQ
 .?AU?$ArrayWrapper@V?$CUtlVector@UCWeightPreview@@HV?$CUtlMemory@UCWeightPreview@@H@@@@@Detail@Reflection@@
 .?AU?$ArrayWrapper@V?$CUtlVector@V?$CSmartPtr@VCAnimComponentInstance@@VCRefCountAccessor@@@@HV?$CUtlMemory@V?$CSmartPtr@VCAnimComponentInstance@@VCRefCountAccessor@@@@H@@@@@Detail@Reflection@@
 .?AU?$ArrayWrapper@V?$CUtlVector@V?$CSmartPtr@VCAnimMotorInstance@@VCRefCountAccessor@@@@HV?$CUtlMemory@V?$CSmartPtr@VCAnimMotorInstance@@VCRefCountAccessor@@@@H@@@@@Detail@Reflection@@
@@ -901,6 +920,8 @@
 .?AVCAnimComponentUpdater@@
 .?AVCAnimContainer@@
 .?AVCAnimContainer_Imp@@
+.?AVCAnimGraph2Instance@@
+.?AVCAnimGraph2Parameter@@
 .?AVCAnimGraphDebugReplay@@
 .?AVCAnimGraphModelBinding@@
 .?AVCAnimGraphNetworkSettings@@
@@ -1447,19 +1468,6 @@
 .?AVUseReflectionEditor@AnimGraph@Attribute@@
 .?AVUsesCustomCurrentValue@MotionMatching@Attribute@@
 .?AVUsesCustomSampleInterpolation@MotionMatching@Attribute@@
-.PGQ
-.PHQ
-.PLQ
-.PSQ
-.PXQ
-.PYQ
-.PZQ
-.PdQ
-.PrQ
-.pHQ
-.pYQ
-.phQ
-.pwQ
 .vagrp_c/.vanim_c mismatch :: %s :: %s\n
 0 30
 0 <= flPrevCycle && flPrevCycle <= 1.f
@@ -1467,30 +1475,18 @@
 0 <= lowerRow && lowerRow <= 3
 0 <= rightColumn && rightColumn <= 2
 0 <= upperRow && upperRow <= 3
-0,GN
 0.f <= flCycle && flCycle <= 1.f
+08@HR`t
 08@J
-0p`N
+08B`t
 180_recovery
 1:1: Tokens : ( T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | TOK_COLON | OPEN_BRACE | CLOSE_BRACE | OPEN_PAREN | CLOSE_PAREN | OPEN_BRACKET | CLOSE_BRACKET | SEMICOLON | OP_EQUAL | COMMA | DOUBLE_AND | NEGATIVE_TOK | DOUBLE_OR | LITERAL_TRUE | LITERAL_FALSE | POS_INTLITERAL | POS_FLOATLITERAL | ID | DOUBLE_QUOTED_STRING | SINGLE_QUOTED_STRING | SINGLE_LINE_COMMENT | ML_COMMENT | WS | UNRECOGNIZED );
-2\vp,GN
-2\vpp`N
+2\vpD
 2_BONE_IK
 488:1: POS_FLOATLITERAL : ( ( DIGIT )+ '.' ( DIGIT )* ( EXPONENT )? | '.' ( DIGIT )+ ( EXPONENT )? | ( DIGIT )+ EXPONENT );
-6 QQ
-6 mQ
-60JQ
-60]Q
-60dQ
-60}Q
-6@DQ
-6@yQ
-6`gQ
-6`hQ
-6pnQ
+8@J`t
+8B`t
 8\r%8h
-8mmi
-8uZi
 9\tV_log2f
 : lexer error %d :\n\t%s at offset %d, 
 ::embedded_animation
@@ -1526,17 +1522,19 @@
 ========================================\nNew Pose Recipe Max Size\nNumOps: %i\nBuffer Used: %i\nPose Operations:\n
 =m_nNodeIdx
 >-memory-
->pqQ
+?0pf
 ?BoneMaskBlendSpace
 ?Move Direction
 ?m_flEntitySimTime
-@08N
+@08NP
+@HPX`hvP
 @SequenceData
 @\tV_modff
 @const char *__cdecl Reflection::Internal::GetFuncName<class CInputStreamPoseOperation>(void)
 @const char *__cdecl Reflection::Internal::GetFuncName<class IPairedSequenceComponentInstance>(void)
 @m_vCenter
 A master convar that effectively disables the entire footlock node.
+AA:0
 AABB_t
 ACT_NEUTRAL_REF_POSE
 AE_ACTION_ALLOW_COMBO
@@ -1714,6 +1712,7 @@ AnimGraph Slope Component was given a corrupted slope normal
 AnimGraph was given a corrupted entity transform; update will be skipped
 AnimGraph was given a corrupted next timestamp; update will be skipped
 AnimGraph was given a corrupted previous timestamp; update will be skipped
+AnimGraph2: Model or skeleton not valid. Failed to create bone map\n
 AnimGraphInstance
 AnimLayer:m_flCycle
 AnimLayer:m_flWeight
@@ -2180,6 +2179,8 @@ C:\buildworker\citadel_rel_win64\build\src\animationsystem\animationblendlist.cp
 C:\buildworker\citadel_rel_win64\build\src\animationsystem\animationgroupresource.cpp
 C:\buildworker\citadel_rel_win64\build\src\animationsystem\animationsystem.cpp
 C:\buildworker\citadel_rel_win64\build\src\animationsystem\animationsystemutils.cpp
+C:\buildworker\citadel_rel_win64\build\src\animationsystem\animgraph2instance.cpp
+C:\buildworker\citadel_rel_win64\build\src\animationsystem\animgraph2parameter.cpp
 C:\buildworker\citadel_rel_win64\build\src\animationsystem\animresource_imp.cpp
 C:\buildworker\citadel_rel_win64\build\src\animationsystem\eventlist.cpp
 C:\buildworker\citadel_rel_win64\build\src\animationsystem\sequence_imp.cpp
@@ -2286,6 +2287,7 @@ C:\buildworker\citadel_rel_win64\build\src\animlib\animpose.cpp
 C:\buildworker\citadel_rel_win64\build\src\animlib\animserializer.cpp
 C:\buildworker\citadel_rel_win64\build\src\animlib\animsynctrack.cpp
 C:\buildworker\citadel_rel_win64\build\src\animlib\animtarget.cpp
+C:\buildworker\citadel_rel_win64\build\src\animlib\graph\animgraph_context.cpp
 C:\buildworker\citadel_rel_win64\build\src\animlib\graph\animgraph_definition.cpp
 C:\buildworker\citadel_rel_win64\build\src\animlib\graph\animgraph_instance.cpp
 C:\buildworker\citadel_rel_win64\build\src\animlib\graph\animgraph_node.cpp
@@ -2427,6 +2429,7 @@ C:\buildworker\citadel_rel_win64\build\src\resourcefile\resourcefile.cpp
 C:\buildworker\citadel_rel_win64\build\src\schemalib\schemaclassinfo.cpp
 C:\buildworker\citadel_rel_win64\build\src\thirdparty\tnt\tnt_matrix.h
 C:\buildworker\citadel_rel_win64\build\src\thirdparty\tnt\tnt_vector.h
+C@kX
 CActionComponentUpdater
 CActionComponentUpdater::KV3TransferLoad_Impl
 CActionComponentUpdater::KV3Transfer_DefaultKeys_Impl
@@ -2549,6 +2552,10 @@ CAnimFrameSegment
 CAnimFrameSegment::KV3TransferLoad_Impl
 CAnimFrameSegment::KV3Transfer_DefaultKeys_Impl
 CAnimFrameSegment::Schema_VerifyBindingIsRegistered
+CAnimGraph2Instance::CAnimGraph2Instance
+CAnimGraph2Instance::Serialize
+CAnimGraph2Parameter::GetValue
+CAnimGraph2Parameter::SetValue
 CAnimGraphDebugReplay
 CAnimGraphDebugReplay::AddNewFrame
 CAnimGraphDebugReplay::KV3TransferLoad_Impl
@@ -3552,6 +3559,9 @@ CNmBitFlags
 CNmBitFlags::KV3TransferLoad_Impl
 CNmBitFlags::KV3Transfer_DefaultKeys_Impl
 CNmBitFlags::Schema_VerifyBindingIsRegistered
+CNmBitSerializer::CNmBitSerializer
+CNmBitSerializer::GetNumSerializedTasks
+CNmBitSerializer::GetWrittenData
 CNmBitSerializer::ReadBool
 CNmBitSerializer::ReadDependencyIndex
 CNmBitSerializer::ReadNormalizedFloat16Bit
@@ -3608,6 +3618,8 @@ CNmBoneMaskNode::CDefinition::KV3TransferLoad_Impl
 CNmBoneMaskNode::CDefinition::KV3Transfer_DefaultKeys_Impl
 CNmBoneMaskNode::CDefinition::Schema_VerifyBindingIsRegistered
 CNmBoneMaskPool::AcquireMask
+CNmBoneMaskPool::CNmBoneMaskPool
+CNmBoneMaskPool::PerformValidation
 CNmBoneMaskPool::ReleaseMask
 CNmBoneMaskPool::operator []
 CNmBoneMaskSelectorNode::CDefinition
@@ -3753,6 +3765,7 @@ CNmCurrentSyncEventPercentageThroughNode::InitializeInternal
 CNmDebugPathTracker::Clear
 CNmDebugPathTracker::PopBasePath
 CNmDebugPathTracker::RemoveTrackedPath
+CNmDebugPathTracker::~CNmDebugPathTracker
 CNmDurationScaleNode::CDefinition
 CNmDurationScaleNode::CDefinition::KV3TransferLoad_Impl
 CNmDurationScaleNode::CDefinition::KV3Transfer_DefaultKeys_Impl
@@ -3883,7 +3896,11 @@ CNmFrameSnapEvent::KV3TransferLoad_Impl
 CNmFrameSnapEvent::KV3Transfer_DefaultKeys_Impl
 CNmFrameSnapEvent::Schema_VerifyBindingIsRegistered
 CNmFrameTime::CNmFrameTime
+CNmGraphContext::CNmGraphContext
+CNmGraphContext::Initialize
+CNmGraphContext::SetDebugSystems
 CNmGraphContext::TrackActiveNode
+CNmGraphContext::~CNmGraphContext
 CNmGraphDataSet
 CNmGraphDataSet::GetWeakHandle
 CNmGraphDataSet::KV3TransferLoad_Impl
@@ -3902,13 +3919,22 @@ CNmGraphDefinition::KV3TransferLoad_Impl
 CNmGraphDefinition::KV3TransferPostLoadFn
 CNmGraphDefinition::KV3Transfer_DefaultKeys_Impl
 CNmGraphDefinition::Schema_VerifyBindingIsRegistered
+CNmGraphInstance::CNmGraphInstance
+CNmGraphInstance::DeserializeTaskList
+CNmGraphInstance::DoesTaskSystemNeedUpdate
+CNmGraphInstance::EnableTaskSystemSerialization
 CNmGraphInstance::EvaluateGraph
 CNmGraphInstance::GetControlParameterID
 CNmGraphInstance::GetControlParameterType
+CNmGraphInstance::GetControlParameterValue
+CNmGraphInstance::GetPrimaryPose
+CNmGraphInstance::GetSampledEvents
 CNmGraphInstance::RecordPreGraphEvaluateState
 CNmGraphInstance::ResetGraphState
+CNmGraphInstance::SerializeTaskList
 CNmGraphInstance::SetControlParameterValue
 CNmGraphInstance::SetToRecordedState
+CNmGraphInstance::~CNmGraphInstance
 CNmGraphNode::CDefinition
 CNmGraphNode::CDefinition::CreateNode
 CNmGraphNode::CDefinition::KV3TransferLoad_Impl
@@ -3920,6 +3946,7 @@ CNmGraphNode::~CNmGraphNode
 CNmGraphVariation
 CNmGraphVariation::GetDataSet
 CNmGraphVariation::GetDefinition
+CNmGraphVariation::GetPrimarySkeleton
 CNmGraphVariation::KV3TransferLoad_Impl
 CNmGraphVariation::KV3Transfer_DefaultKeys_Impl
 CNmGraphVariation::Schema_VerifyBindingIsRegistered
@@ -4063,11 +4090,13 @@ CNmPassthroughNode::CDefinition::Schema_VerifyBindingIsRegistered
 CNmPassthroughNode::InitializeInternal
 CNmPassthroughNode::Update
 CNmPose::CNmPose
+CNmPose::CalculateModelSpaceTransforms
 CNmPose::DrawDebug
 CNmPose::GetModelSpaceTransform
 CNmPose::GetTransform
 CNmPose::SetTransform
 CNmPoseBuffer::CopyFrom
+CNmPoseBufferPool::CNmPoseBufferPool
 CNmPoseBufferPool::CreateCachedPoseBuffer
 CNmPoseBufferPool::DestroyCachedPoseBuffer
 CNmPoseBufferPool::GetBuffer
@@ -4075,6 +4104,7 @@ CNmPoseBufferPool::GetCachedPoseBuffer
 CNmPoseBufferPool::RecordPose
 CNmPoseBufferPool::ReleasePoseBuffer
 CNmPoseBufferPool::RequestPoseBuffer
+CNmPoseBufferPool::ValidateSetOfSecondarySkeletons
 CNmPoseNode::CDefinition
 CNmRecordedGraphState::CreateChildGraphStateRecording
 CNmRecordedGraphState::GetChildGraphRecording
@@ -4086,6 +4116,7 @@ CNmReferencePoseNode::CDefinition::Schema_VerifyBindingIsRegistered
 CNmReferencePoseNode::Update
 CNmReferencePoseTask
 CNmReferencePoseTask::Schema_VerifyBindingIsRegistered
+CNmResourceMappings_t::Generate
 CNmResourceMappings_t::GetResourceHandle
 CNmResourceMappings_t::GetResourceIndex
 CNmResourceTypeManagers::Register
@@ -4095,6 +4126,7 @@ CNmRootMotionData::KV3TransferLoad_Impl
 CNmRootMotionData::KV3Transfer_DefaultKeys_Impl
 CNmRootMotionData::SamplingMode_t
 CNmRootMotionData::Schema_VerifyBindingIsRegistered
+CNmRootMotionDebugger::EndCharacterUpdate
 CNmRootMotionDebugger::RecordBlend
 CNmRootMotionDebugger::RecordModification
 CNmRootMotionDebugger::RecordSampling
@@ -4280,8 +4312,16 @@ CNmTask::ReleasePoseBuffer
 CNmTask::Schema_VerifyBindingIsRegistered
 CNmTask::Serialize
 CNmTask::TransferDependencyPoseBuffer
+CNmTaskSystem::AddTaskChainToPrePhysicsList
+CNmTaskSystem::CNmTaskSystem
+CNmTaskSystem::DeserializeTasks
+CNmTaskSystem::EnableSerialization
+CNmTaskSystem::ExecuteTasks
 CNmTaskSystem::RegisterTask
 CNmTaskSystem::RollbackToTaskIndexMarker
+CNmTaskSystem::SerializeTasks
+CNmTaskSystem::UpdatePostPhysics
+CNmTaskSystem::UpdatePrePhysics
 CNmTimeConditionNode::CDefinition
 CNmTimeConditionNode::CDefinition::KV3TransferLoad_Impl
 CNmTimeConditionNode::CDefinition::KV3Transfer_DefaultKeys_Impl
@@ -4885,6 +4925,7 @@ CUtlLeanVectorBase<class CNmBoneMask,short>::EnsureCapacity
 CUtlLeanVectorBase<struct CAnimScriptRunner::CompiledExpression_t,short>::EnsureCapacity
 CUtlLeanVectorBase<struct CConstraintSlave,short>::EnsureCapacity
 CUtlLeanVectorBase<struct CNmBoneMaskPool::Slot_t,short>::EnsureCapacity
+CUtlLeanVectorBase<struct CNmRootMotionDebugger::RecordedAction_t,short>::EnsureCapacity
 CUtlLeanVectorBase<struct CNmSampledEvent,short>::EnsureCapacity
 CUtlLeanVectorBase<struct ElementRequestPattern_t,short>::EnsureCapacity
 CUtlLeanVectorBase<struct NetVarRegInfo<bool>,short>::EnsureCapacity
@@ -4913,8 +4954,10 @@ CUtlLeanVectorFixedGrowableBase<class CNmValueNode *,10,short>::EnsureCapacity
 CUtlLeanVectorFixedGrowableBase<class CSceneObjectData,1,short>::EnsureCapacity
 CUtlLeanVectorFixedGrowableBase<class CTransform,200,short>::EnsureCapacity
 CUtlLeanVectorFixedGrowableBase<class CTransform,256,short>::EnsureCapacity
+CUtlLeanVectorFixedGrowableBase<class CUtlHashtable<class ResourceId_t,class CWeakHandleVoid,struct DefaultHashFunctor<class ResourceId_t>,struct DefaultEqualFunctor<class ResourceId_t>,struct undefined_t,class CUtlMemory<class CUtlHashtableEntry<class ResourceId_t,class CWeakHandleVoid>,int>,0> const *,10,short>::EnsureCapacity
 CUtlLeanVectorFixedGrowableBase<class CUtlLeanVectorFixedGrowable<__int64,5,short>,5,short>::EnsureCapacity
 CUtlLeanVectorFixedGrowableBase<float,5,short>::EnsureCapacity
+CUtlLeanVectorFixedGrowableBase<short,2,short>::EnsureCapacity
 CUtlLeanVectorFixedGrowableBase<short,4,short>::EnsureCapacity
 CUtlLeanVectorFixedGrowableBase<short,5,short>::EnsureCapacity
 CUtlLeanVectorFixedGrowableBase<signed char,128,short>::EnsureCapacity
@@ -5084,6 +5127,12 @@ CUtlMemory<class CNmBoolValueNode *,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<class CNmEvent const *,int>::Grow
 CUtlMemory<class CNmEvent const *,int>::Grow::<lambda_1>::operator ()
 CUtlMemory<class CNmEvent const *,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<class CNmGraphInstance *,int>::Grow
+CUtlMemory<class CNmGraphInstance *,int>::Grow::<lambda_1>::operator ()
+CUtlMemory<class CNmGraphInstance *,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<class CNmGraphNode *,int>::Grow
+CUtlMemory<class CNmGraphNode *,int>::Grow::<lambda_1>::operator ()
+CUtlMemory<class CNmGraphNode *,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<class CNmGraphNode::CDefinition *,int>::Grow
 CUtlMemory<class CNmGraphNode::CDefinition *,int>::Grow::<lambda_1>::operator ()
 CUtlMemory<class CNmGraphNode::CDefinition *,int>::Grow::<lambda_2>::operator ()
@@ -5262,6 +5311,12 @@ CUtlMemory<class Reflection::CConstant *,int>::Grow
 CUtlMemory<class Reflection::CConstant *,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<class Reflection::CField *,int>::Grow
 CUtlMemory<class Reflection::CField *,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<class ResourceId_t,int>::Grow
+CUtlMemory<class ResourceId_t,int>::Grow::<lambda_1>::operator ()
+CUtlMemory<class ResourceId_t,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<class SchemaMetaInfoHandle_t<class CSchemaClassInfo>,int>::Grow
+CUtlMemory<class SchemaMetaInfoHandle_t<class CSchemaClassInfo>,int>::Grow::<lambda_1>::operator ()
+CUtlMemory<class SchemaMetaInfoHandle_t<class CSchemaClassInfo>,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<class Vec2D<float>,int>::Grow::<lambda_1>::operator ()
 CUtlMemory<class Vec3D<float>,int>::Swap
 CUtlMemory<class VectorAligned,int>::Grow
@@ -5436,12 +5491,15 @@ CUtlMemory<struct CNmGraphDefinition::ChildGraphSlot_t,int>::Grow::<lambda_2>::o
 CUtlMemory<struct CNmGraphDefinition::ExternalGraphSlot_t,int>::Grow
 CUtlMemory<struct CNmGraphDefinition::ExternalGraphSlot_t,int>::Grow::<lambda_1>::operator ()
 CUtlMemory<struct CNmGraphDefinition::ExternalGraphSlot_t,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<struct CNmGraphInstance::ChildGraph_t,int>::Grow
+CUtlMemory<struct CNmGraphInstance::ChildGraph_t,int>::Grow::<lambda_1>::operator ()
+CUtlMemory<struct CNmGraphInstance::ChildGraph_t,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<struct CNmRecordedGraphState::ChildGraphState_t,int>::Grow
 CUtlMemory<struct CNmRecordedGraphState::ChildGraphState_t,int>::Grow::<lambda_1>::operator ()
 CUtlMemory<struct CNmRecordedGraphState::ChildGraphState_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CNmRootMotionDebugger::RecordedAction_t,int>::Grow
-CUtlMemory<struct CNmRootMotionDebugger::RecordedAction_t,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<struct CNmRootMotionDebugger::RecordedAction_t,int>::Grow::<lambda_2>::operator ()
+CUtlMemory<struct CNmRootMotionDebugger::RecordedPosition_t,int>::Grow
+CUtlMemory<struct CNmRootMotionDebugger::RecordedPosition_t,int>::Grow::<lambda_1>::operator ()
+CUtlMemory<struct CNmRootMotionDebugger::RecordedPosition_t,int>::Grow::<lambda_2>::operator ()
 CUtlMemory<struct CNmStateEventConditionNode::Condition_t,int>::Grow
 CUtlMemory<struct CNmStateEventConditionNode::Condition_t,int>::Grow::<lambda_1>::operator ()
 CUtlMemory<struct CNmStateEventConditionNode::Condition_t,int>::Grow::<lambda_2>::operator ()
@@ -5884,6 +5942,7 @@ Couldn't find IK Chain description
 Couldn't find bone mask with ID: %s
 Couldn't find enum value %s in our list of valid enum values, returning the default.
 Couldn't load KV3 for resource: %s
+CreateAnimGraphBoneMap
 CriticallyDampedSpring
 CriticallyDampedSpring: negative timestep supplied.
 Cubic
@@ -5927,6 +5986,7 @@ Demo Settings Component
 Destroy
 Detach From Owner
 DetermineAnimEventOccurrences
+Different skeleton for child graph detected, this is not allowed. Trying to use '%s' within '%s'
 DirBlend:m_flCycleZeroTime
 DirBlend:m_flPlaybackRate
 DirBlend:m_resetCount
@@ -6448,8 +6508,6 @@ Expo
 Expression
 ExtraSeqFlags
 Extraneous token
-F eQ
-F@cQ
 FABRIK
 FIELD_BOOLEAN
 FIELD_COLOR32
@@ -6592,6 +6650,7 @@ Failed to create animation sample KV3 data
 Failed to determine polymorphic class name
 Failed to load Animation Graph Resource: %s\n
 Failed to select a valid option!
+Failed to serialze animgraph2 instance\n
 Failed to transfer KV3 data for resource '%s' - %s\n
 Fallback hinge
 Fallback hinge is not unit length!
@@ -6726,7 +6785,6 @@ GetTotalTranslation_SourceState
 GetTotalTranslation_TargetState
 GetValueShortArray
 Global Blend
-GlobalSpace
 GlobalSymbol
 Goal Distance
 Goal Position
@@ -7558,6 +7616,7 @@ ModelSkeletonData_t
 ModelSkeletonData_t::BoneFlags_t
 ModelSkeletonData_t::KV3Transfer_DefaultKeys_Impl
 ModelSkeletonData_t::Schema_VerifyBindingIsRegistered
+ModelSpace
 MoodAnimationLayer_t
 MoodAnimationLayer_t::KV3Transfer_DefaultKeys_Impl
 MoodAnimationLayer_t::Schema_VerifyBindingIsRegistered
@@ -7728,10 +7787,9 @@ Overlay Blend (Masked): %.2f%%
 Overlay Blend: %.2f%%
 OverlayProjectionDirection
 Override Sound
-P,GN
 P08@J
-P08N
-P6pNQ
+P08NP
+P2`t
 PARENT
 PATTACH_ABSORIGIN
 PATTACH_ABSORIGIN_FOLLOW
@@ -7815,6 +7873,7 @@ PhysSoftbodyDesc_t
 PhysSoftbodyDesc_t::KV3Transfer_DefaultKeys_Impl
 PhysSoftbodyDesc_t::Schema_VerifyBindingIsRegistered
 Physics
+Pj`t
 Plane normal
 Plane normal is not unit length!
 Play on Client
@@ -7824,7 +7883,6 @@ Playback:m_currentSequence
 Playback:m_flForcedCycle
 PlayerInputAnimMotorInstance
 PlayerInputMotorInstanceData_t
-PnPQQ
 Pole vector (raw dir: {%.2f, %.2f, %.2f})
 Pose
 Pose Control
@@ -7861,8 +7919,6 @@ RESOURCE_TYPE_NM_SKELETON
 RESOURCE_TYPE_SEQUENCE_GROUP_INTERNAL
 ROTATION
 RSDS
-R\fpp`N
-R\vp,GN
 Ragdoll Component
 Ragdoll Tag
 RagdollPoseControl
@@ -8775,6 +8831,7 @@ World space tilt normal
 WorldSpace
 Write Cached Pose
 X (Red   / Forward)
+X`hr`t
 Y (Green / Left)
 You must install a IKV3TransferInterface_ResourceLoad on your context in order to unserialize a non-empty resource handle
 Z (Blue  / Up)
@@ -8782,7 +8839,6 @@ Zero Pose Task
 Zero input vector for info node!
 [Index: 
 [Unknown]
-\fp,GN
 \n    near %s\n    
 \rRESOURCE_TYPE_ANIMGRAPH
 \t The lexer was matching from line %d, offset %d, which\n\t 
@@ -8796,18 +8852,9 @@ Zero input vector for info node!
 \tV_frexpf
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r
 \tnexttoken
-\vp,GN
-\vpp`N
-^0JQ
 _autoreset
-`60IQ
-`60vQ
-`60wQ
-`6@IQ
-`6pXQ
-`iji
-`yLi
 a >= 0 && a < MODEL_CONFIG_LOCK_COUNT
+aBvP
 activity
 always_run
 anim_data_block
@@ -8905,6 +8952,7 @@ boneBitVec.IsAllClear()
 boneMaskTaskList.HasTasks()
 break
 bulletimpact
+c@8|f
 cachedPoseID.IsValid()
 characters/models/shared/animsets/animset_ct.vmdl
 characters/models/shared/animsets/animset_t.vmdl
@@ -9222,6 +9270,7 @@ context.IsValid() && pDefinition != nullptr
 context.IsValid() && pOutValue != nullptr
 context.m_nCurrentTaskIdx != -1 && m_bufferIdx != -1
 context.m_pSampledEventsBuffer->IsValidRange( result.m_sampledEventRange )
+creationSettings.m_hAnimGraphVar.HasData() && !creationSettings.m_hAnimGraphVar.IsError()
 criteria
 curvature
 curve_tangent_mode_t
@@ -9366,7 +9415,6 @@ hSeq != GetSequenceHandle()
 hSequence != SEQUENCE_HANDLE_INVALID
 helper
 hsequence
-huQi
 i < ( uint32 ) m_weights.Count()
 i >= 0 && i < m_sampledEvents.Count()
 iActivityIndex > g_FirstPrivateActivity
@@ -9416,6 +9464,7 @@ instantly
 is also the end of the line, so you must check your lexer rules\n
 itemIdx >= 0 && itemIdx < m_itemPaths.Count()
 iv_debugbone
+j0O\v
 k\tV_strtok
 keyvalues
 labelled_debug_helper_arc_segments
@@ -9734,6 +9783,7 @@ m_bGoalAssist
 m_bGoalChanged
 m_bHasBakedLightingFromLightMap
 m_bHasBakedLightingFromVertexStream
+m_bHasCodependentPhysicsTasks == false
 m_bHasDecodeDump
 m_bHasMorphBitArray
 m_bHasMovement
@@ -9771,8 +9821,10 @@ m_bIsReading
 m_bIsReferenced
 m_bIsRotationStatic
 m_bIsScaleStatic
+m_bIsSerializationEnabled
 m_bIsSet
 m_bIsSet && m_bIsBoneTarget
+m_bIsStandaloneGraph
 m_bIsStartState
 m_bIsStateMachineLayer
 m_bIsSynchronized
@@ -10070,6 +10122,7 @@ m_executeEvents
 m_exitEvents
 m_expressionString
 m_externalGraphSlots
+m_externalGraphs.IsEmpty()
 m_fDefaultValue
 m_fMaxValue
 m_fMinValue
@@ -10415,6 +10468,7 @@ m_goalAngularVelocity
 m_goalOrientation
 m_goalPosition
 m_goalWayPointPos
+m_graphContext.IsValid()
 m_graphDefinition
 m_group
 m_groups.IsValidIndex( nGroup )
@@ -10428,6 +10482,7 @@ m_hBasePoseCacheHandle
 m_hBlendParameter
 m_hBuffer
 m_hFrameRangeSequence != GetSequenceHandle()
+m_hGraphVariation.IsLoaded()
 m_hInstData.IsValid()
 m_hIsActiveScript
 m_hLookDirection
@@ -10676,6 +10731,7 @@ m_nFacingMode
 m_nFalseValueNodeIdx
 m_nFirstFreePoolIdx < 127
 m_nFirstFreePoolIdx < nCurrentPoolSize
+m_nFirstFreePoolIdx == 0
 m_nFirstMeshlet
 m_nFirstPositionDrivenNode
 m_nFixedBoneIndex
@@ -10691,7 +10747,9 @@ m_nFrameCount
 m_nFrameRangeSequence
 m_nFrames
 m_nFramesPerBlock
+m_nFreeBufferIdx < s_recordingBufferSize
 m_nFuncIndex == -1
+m_nGraphUserID != 0
 m_nGroomGroupID
 m_nGroup
 m_nGroupId
@@ -10735,6 +10793,10 @@ m_nLocalElementMasks
 m_nLocalPose
 m_nLocalReference
 m_nLocalWeightlist
+m_nMaxBitsForBoneMask <= 8
+m_nMaxBitsForDependencies <= 8
+m_nMaxBitsForResourceIDs > 0 && m_nMaxBitsForResourceIDs <= 16
+m_nMaxBitsForTaskTypeID <= 8
 m_nMaxUniqueFrameIndex
 m_nMiddleBoneIndex
 m_nMoodType
@@ -10872,6 +10934,8 @@ m_outputRange
 m_outputTransformList
 m_outputWeightList
 m_overrideFlags
+m_pActiveNodes != nullptr
+m_pActiveNodes == nullptr
 m_pActiveTransition->IsInitialized()
 m_pAnimationGroupResourceData == nullptr
 m_pAnimationGroupResourceData->m_localHAnimArray.Count() == 1
@@ -10905,6 +10969,8 @@ m_pInputParameterValueNode != nullptr && m_sourceNodes.Count() > 1
 m_pInputValueNode != nullptr
 m_pInstanceData != nullptr
 m_pLineDeltas && m_pLineDeltas->GetArrayElementCount() == m_nTotalRecordCount
+m_pLog != nullptr
+m_pLog == nullptr
 m_pModel
 m_pModel->GetAnimContainer()
 m_pModelConfigList
@@ -10915,7 +10981,10 @@ m_pNmGraphVariationTypeManager == nullptr
 m_pNmSkeletonTypeManager == nullptr
 m_pParamListUpdater
 m_pPoseUpdateResources->m_parallelOpEvaluationJobs.Count() == 0 && m_pPoseUpdateResources->m_parallelEvaluatedPoses.Count() == 0
+m_pPrimarySkeleton != nullptr
 m_pRegionSVM
+m_pRootMotionDebugger != nullptr
+m_pRootMotionDebugger == nullptr
 m_pRootNode
 m_pSequenceResourceData == nullptr
 m_pSharedData
@@ -10931,6 +11000,9 @@ m_pSymbolTable->GetVariable( nIndex.GetRaw() )->m_eVarType == GetFuseVariableTyp
 m_pTagManagerUpdater
 m_pTarget->m_pRoot == nullptr
 m_pTargetValueNode != nullptr
+m_pTaskSystem == nullptr
+m_pTaskSystem == nullptr && m_pSampledEventsBuffer == nullptr
+m_pTaskSystem->IsSerializationEnabled()
 m_pTextureAtlas
 m_paramHandles
 m_paramIndex
@@ -10966,6 +11038,7 @@ m_phase
 m_phaseCondition
 m_physics
 m_playbackSpeed
+m_pool.IsEmpty() && m_pSkeleton != nullptr
 m_pool[ nMaskIdx ].m_bIsUsed
 m_pos
 m_posError
@@ -11165,6 +11238,9 @@ m_targets
 m_tasks.Count() < 0xFF
 m_tasks.Count() < 128
 m_tasks.Count() < s_nMaxTasks
+m_tasks.IsEmpty()
+m_tasks[ DepTaskIdx ]->IsComplete()
+m_tasks[ depTaskIdx ]->IsComplete()
 m_tasks[ i ].IsValid()
 m_thickness
 m_timeStamp
@@ -11328,9 +11404,6 @@ modellib
 models/hostage/v_hostage_arm.vmdl
 motion.IsValid()
 motionflags
-n pQ
-n rQ
-n0lQ
 nAfterColor != -1
 nAnimGraphBone < nGraphBoneCount
 nAnimStateCount == pPose->GetBoneCount()
@@ -11428,11 +11501,13 @@ nParentBone < 0 || BitVec_IsBitSet( m_pReadableBones, nParentBone )
 nParentBone >= -1
 nParentBoneIndex >= 0
 nParentIdx < i
+nParentIdx < nBoneIdx
 nParentNode
 nPosIndex > 0 && nRotIndex > 0 && nScaleIndex > 0
 nRbfType >= 0 && nRbfType < CInterpolateRbf::RBF_NUM_TYPES
 nReserved
 nResourceIdx < (uint32_t) m_resourceIDToIdxMap.Count()
+nResourceIdx == uint32( m_uniqueResourceIDs.Count() )
 nResult < m_usedResultSlots.Count()
 nRootMostDestBone < nDestTransformCount
 nSampleCount > 0
@@ -11457,7 +11532,6 @@ newValue.GetType() == m_pParamSettings->GetParameterType()
 next
 no samples
 nodeResult.m_sampledEventRange.m_nEndIdx <= layerEventRange.m_nStartIdx
-npcQ
 numPoses > 1
 numframes
 occlusionFactor
@@ -11469,9 +11543,8 @@ optionallycompressedtangentframe
 options == NmInstantiationOptions_t::NodeAlreadyCreated
 orderedLayers[nOrder] == kMaxChoreoLayers
 otherVec.GetNumBits() == STORAGE::GetNumBits()
-p,GN
-p08@H^
-p60jQ
+p08@H^P
+p2`t
 pAdditivePose != nullptr && pResultPose != nullptr
 pAdditivePose->IsAdditivePose()
 pAnimData != nullptr
@@ -11509,8 +11582,13 @@ pDstWeightList->m_linearBoneWeightArray[indexWeightPair.m_nIndex] == indexWeight
 pDstWeightList->m_nonZeroBoneWeightList.IsValidIndex( nSparseIndex )
 pEnumInfo
 pEvent != nullptr
+pFinalRootMotionDebugger != nullptr
+pFinalSampledEventsBuffer != nullptr
+pFinalTask->IsComplete()
+pFinalTaskSystem != nullptr
 pFoundCachedPoseBuffer != nullptr
 pFoundState != nullptr
+pGraphDef->m_nodeDefinitions.Count() == numNodes
 pGroupImp->m_localBone.Count() == 0
 pGroupImp->m_masterBone.Count() == 0
 pHeader->m_nHeaderVersion == RESOURCE_FILE_HEADER_VERSION
@@ -11540,14 +11618,17 @@ pParentTransforms
 pPose
 pPose != nullptr
 pPoseBuffer->IsPoseSet()
+pPrimarySkeleton != nullptr
 pQuaternions
 pRagdollNode
 pResourceIdx != nullptr
 pResourceLoadInterface != nullptr
 pResult->m_pKV3Root != nullptr
 pRootNode->IsInitialized()
+pSampledEventsBuffer != nullptr
 pSeqDesc
 pSimWorldTransformsIn
+pSkeleton != nullptr
 pSourceAndResultLayerContext != nullptr && pTargetLayerContext != nullptr
 pSourceBoneMaskTaskList != nullptr
 pSourceMask != nullptr
@@ -11562,6 +11643,9 @@ pSrcTransforms[nBone].m_orientation.IsValid()
 pSrcValue
 pTargetMask != nullptr
 pTargetPose != nullptr && pResultPose != nullptr
+pTask->AllowsSerialization()
+pTask->IsComplete()
+pTaskSystem != nullptr
 pVecMaxs
 pVecMins
 p\rP\f0
@@ -11571,6 +11655,7 @@ parameters
 params.Count() == m_pMotionGraph->GetParameterCount()
 parent to constrained
 parentIndices.Count() >= nNumBones
+pb`t
 percentageThrough >= 0 && percentageThrough <= 1.0f
 percentageThroughEvent <= 1.0f
 percentageThroughSyncTrack >= 0.0f && percentageThroughSyncTrack <= 1.0f
@@ -11582,7 +11667,6 @@ poseCount > 1
 poseCount >= 1
 poses[ i ] != nullptr
 posxyz
-pp`N
 program.GetTempVariableCount() <= EXPR_TEMP_VAR_SIZE
 pushoff
 pxWsDefaultTarget && pxWsDefaultTarget->IsValid()
@@ -11590,7 +11674,6 @@ q.IsValid()
 qAdjust
 qValue.IsValid()
 r\tV_tanhf
-r\vpp`N
 rad2deg
 recordedState.m_graphID == graphID
 recordedState.m_variationID == m_hGraphVariation->m_dataSet.m_variationID
@@ -11619,7 +11702,11 @@ scrapeRoughThreshold
 scraperough
 scrapesmooth
 scriptsToRun
+secondarySkeletons[ i ] != nullptr
+secondarySkeletons[ i ] != pPrimarySkeleton
+secondarySkeletons[ j ] != secondarySkeletons[ i ]
 sequence_tag_spans
+serializedTypeID != 0xFF
 settings.m_vAcceleration.IsValid()
 settings.m_vVelocity.IsValid()
 sign
@@ -11654,6 +11741,7 @@ targetArray || count == 0
 targetBoneToWorld[ nBone ].IsValid()
 targetQ.IsValid()
 targetVector.IsValid()
+taskIdx >= 0 && taskIdx < m_tasks.Count()
 texcoord
 thickness
 time.m_nEventIdx != -1
@@ -11700,7 +11788,6 @@ vTarget.IsValid()
 vVOnPlane1
 vValue.IsValid()
 vVelocity.IsValid()
-v`zQ
 val < 4
 value >= 0 && value <= 1.0f
 value.IsValid()
@@ -11718,4 +11805,3 @@ xLocalToWorld.IsValid()
 xform.IsValid()
 zDconst char *__cdecl Reflection::Internal::GetFuncName<class CFootPinningPoseOperation>(void)
 zero dir
-~0YQ
