@@ -30,7 +30,8 @@
 						<Button id="Option_Matchmaking" class="playoption" onactivate="CitadelPlayMenuMatchmaking(); CitadelPlayUISound( EMainMenuActivate )" onmouseover="CitadelPlayUISound( EMainMenuHover )" onmouseout="">
 							<Label text="#menu_play_normal" class="menuButtonLabel" />
 							<Label text="#menu_play_normal_count" class="queueNumber unrankedQueueNumber" />
-							<Label text="#menu_play_matchmaking" class="playModeDesc" />
+							<Label id="play_matchmaking_description" text="#menu_play_matchmaking" class="playModeDesc" />
+							<Label id="play_low_priority_matchmaking_description" text="#menu_play_low_priority_matchmaking" class="playModeDesc" />
 						</Button>
 						<Button id="Option_HeroTesting" class="playoption" onactivate="CitadelPlayMenuHeroTesting(); CitadelPlayUISound( EMainMenuActivate )" onmouseover="CitadelPlayUISound( EMainMenuHover )" onmouseout="">
 							<Label text="#menu_sandbox" class="menuButtonLabel" />
@@ -155,7 +156,10 @@
 							<Panel class="menu_divider" />
 						</Panel>
 					</Panel>
-					<Label id="BuildNumber" text="#Citadel_Dashboard_BuildVersion" />
+					<Panel id="BuildInfo">
+						<Label class="region_label" text="#Citadel_Playtest_Region" />
+						<Label id="BuildNumber" text="#Citadel_Dashboard_BuildVersion" />
+					</Panel>
 				</Panel>
 				<Panel id="Library" onactivate="CitadelShowBookLibraryPage(); CitadelPlayUISound( EMainMenuActivate )" onmouseover="CitadelPlayUISound( EMainMenuHover )" onmouseout="">
 					<Panel id="BookBacker" />
@@ -170,7 +174,10 @@
 					<Panel class="ProfileBacker" />
 					<CitadelParty id="party" />
 				</Panel>
-				<DBPlayerList id="PlayerList" />
+				<Panel id="SocialContainer">
+					<DBPlayerList id="PlayerList" />
+					<CitadelPrivilegedFeatures id="PrivilegedFeatures" />
+				</Panel>
 				<Panel id="StatusIcons">
 					<Panel class="newBadge" />
 					<Panel id="Announcements" onmouseover="CitadelPlayUISound( EMainMenuHover )" onmouseout="UIHideTextTooltip()" onactivate="CitadelToggleViewAnnouncements()">
@@ -197,31 +204,7 @@
 						<Panel id="playtest_status">
 							<Label class="status_label" text="#Citadel_Playtest_Status" />
 							<Label class="match_queue_text server_count" text="{s:server_count}" />
-							<Label id="playtest_upcoming" class="playtest_upcoming_time" text="#Citadel_Playtest_Upcoming" />
-							<Label class="playtest_active_time" text="#Citadel_Playtest_MatchmakingOpen" />
 							<Label class="match_queue_text unranked_mm_paused" text="#Citadel_Playtest_MatchmakingPaused" />
-						</Panel>
-						<Panel id="new_playtest_schedule">
-							<Panel id="playtest_schedule_info">
-								<Label class="schedule_label" text="#Citadel_Playtest_Schedule" />
-								<Label class="region_label" text="#Citadel_Playtest_Region" />
-							</Panel>
-							<Panel id="playtest_schedule_times">
-								<Panel id="playtest_weekday" class="playtest_date_box">
-									<Label class="playtest_days" text="#Citadel_Playtest_Weekdays" />
-									<Panel class="playtest_date_time">
-										<Label class="playtest_time" text="{t:t:weekday_start} - {t:t:weekday_end}" />
-										<Label class="local_time" text="#Citadel_Playtest_LocalTime" />
-									</Panel>
-								</Panel>
-								<Panel id="playtest_weekend" class="playtest_date_box">
-									<Label class="playtest_days" text="#Citadel_Playtest_Weekends" />
-									<Panel class="playtest_date_time">
-										<Label class="playtest_time" text="{t:t:weekend_start} - {t:t:weekend_end}" />
-										<Label class="local_time" text="#Citadel_Playtest_LocalTime" />
-									</Panel>
-								</Panel>
-							</Panel>
 						</Panel>
 					</Panel>
 					<Panel id="DiscordForumInvite">

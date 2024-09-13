@@ -1,12 +1,44 @@
 <!-- xml reconstructed by Source 2 Viewer 10.1.0.0 - https://valveresourceformat.github.io -->
 <root>
 	<styles>
+		<include src="s2r://panorama/styles/citadel_shared_colors.vcss_c" />
 		<include src="s2r://panorama/styles/hud_minimap.vcss_c" />
 	</styles>
+	<snippets>
+		<snippet name="MinimapPlayerSnippet">
+			<Panel class="map_button player">
+				<Panel id="HoverPanel" class="hover_panel" />
+				<Image id="MainImage" />
+				<Image id="DeathImage" />
+				<Image id="HeldIdolImage" class="held_idol_image" />
+				<Panel id="BackgroundImage" />
+				<Panel id="ArrowImage" />
+			</Panel>
+		</snippet>
+		<snippet name="MinimapBossSnippet">
+			<Panel class="map_button">
+				<Panel id="HoverPanel" class="hover_panel" />
+				<Image id="BossHealth" class="boss_health" />
+			</Panel>
+		</snippet>
+	</snippets>
 	<Panel class="HudMinimap" hittest="true">
-		<GlobalClassListener classes="gDetailView" />
+		<GlobalClassListener classes="gScoreboardOpen" />
 		<HudMinimapRender id="map_render" hittest="false" />
-		<Panel class="Backdrop" hittest="false" />
-		<UICanvas id="canvas" hittest="false" />
+		<Panel class="NewMinimapBackgroundsContainer" hittest="false" hittestchildren="false">
+			<Panel class="newMinimapBackground backgroundImage" />
+			<ParticleScenePanel id="MinimapParticleScenePanel" particleonly="true" particleName="particles/ui/ui_minimap.vpcf" fov="65" lookAt="0 0 0" squarePixels="true" cameraOrigin="0 0 40" />
+			<Panel class="NewMinimapZiplinesContainer" hittest="false" hittestchildren="false">
+				<Panel class="newMinimapBackground ziplineYellowLane" />
+				<Panel class="newMinimapBackground ziplineGreenLane" />
+				<Panel class="newMinimapBackground ziplineBlueLane" />
+				<Panel class="newMinimapBackground ziplinePurpleLane" />
+			</Panel>
+			<Panel class="newMinimapBackground midImage" />
+			<UICanvas id="canvas" hittest="false" />
+			<Panel class="newMinimapBackground neutralsImage" />
+			<Panel id="NeturalImagesContainer" />
+			<Panel class="newMinimapBackground upperImage" />
+		</Panel>
 	</Panel>
 </root>

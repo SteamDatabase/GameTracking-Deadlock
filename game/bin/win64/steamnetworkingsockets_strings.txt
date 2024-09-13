@@ -5,6 +5,7 @@
   ##%%&&))**,,//1122447788;;==>>@@CCEEFFIIJJLLOOQQRRTTWWXX[[]]^^aabbddgghhkkmmnnppssuuvvyyzz||
   %s: %d (est)
   %s: %d (est, opt %d  pess %d)
+  %s=0x%02x[DSCP%d ECN%d]
   (Penalty:
   Connection gap %.0fms.
   Local routes: %s\n
@@ -17,8 +18,11 @@
  !"#$%&'()*+,-./0123NULL output buffer with non-zero size passed to Base64Decode
  %4[^ =\t] =%d
  ' ) - 3 G M Q _ c e i w } 
- (08@HPX`hpz
+ (08@HPX`hpzp
+ (08@HPX`jp
+ (08@HPZp
  (08@HR
+ (08@Jp
  (BGP MDT)
  (MPLS)
  (MPLS-labeled VPN)
@@ -29,6 +33,7 @@
  (Unicast/Multicast)
  (Unknown SAFI %u)
  (VPLS)
+ (first measurement to %s, estimate was %d)
  GMT
  \vjpF
  a protocol 
@@ -70,13 +75,13 @@
  } routes:{
 ! !K+hcF&db
 !5!A!I!O!Y![!_!s!}!
+!BUG!
 !H88p
 !hcK+dbF&
 !tI)i
 !tX)i
 "!"%"+"1"9"K"O"c"g"s"u"
 "3ii
-"A\n(CMsgSteamDatagramClientPingSampleRequest
 "J\n'CMsgSteamDatagramSessionCryptInfoSigned
 "`bB303
 "cs73KI
@@ -244,6 +249,13 @@ $d`D-laM
 %sConnection quality distribution:\n
 %sConnection quality histogram: (%d measurement intervals)\n
 %sCurrent rates:\n
+%sDSCP0
+%sDSCP45
+%sDSCPOther
+%sECN0
+%sECN1
+%sECN2
+%sECN3
 %sEst avail bandwidth: %.1fKB/s  \n
 %sLatency variance histogram not available\n
 %sLatency variance histogram: (%d total measurements)\n
@@ -280,7 +292,6 @@ $d`D-laM
 '\n#k_ESteamDatagramMsg_RouterPingReply
 'id' or 'name' missing
 'prB2
-( 8PX
 (!(1(=(?(I(Q([(](a(g(u(
 (0'yX
 (INVALID PSS PARAMETERS)\n
@@ -296,6 +307,7 @@ $d`D-laM
 (\n$k_ESteamNetworkingSocketsCipher_NULL
 (\n\radd_candidate
 (\r"Y\n!CMsgSteamSockets_UDP_NoConnection
+(\t"A\n(CMsgSteamDatagramClientPingSampleRequest
 (\t"x\n"CMsgSteamDatagramP2PSessionRequest
 (\v2!.CMsgSteamDatagramP2PRoutes.Route
 (\v2".CGameNetworkingUI_ConnectionState"
@@ -547,6 +559,7 @@ $d`D-laM
 .?AVCMsgSteamSockets_UDP_ConnectionClosed@@
 .?AVCMsgSteamSockets_UDP_NoConnection@@
 .?AVCMsgSteamSockets_UDP_Stats@@
+.?AVCMsgTOSTreatment@@
 .?AVCP2PConnectionSignaling_SteamBackend@SteamNetworkingSocketsLib@@
 .?AVCPacketLagger@SteamNetworkingSocketsLib@@
 .?AVCPacketLaggerRecv@SteamNetworkingSocketsLib@@
@@ -599,13 +612,12 @@ $d`D-laM
 .?AVIThinker@SteamNetworkingSocketsLib@@
 .?AVRemoteHost@CSharedSocket@SteamNetworkingSocketsLib@@
 .?AVSymmetricCryptContextBase@@
-.?AVstl_condition_variable_vista@details@Concurrency@@
-.?AVstl_critical_section_vista@details@Concurrency@@
 .CMsgICECandidate
 .CMsgICERendezvous
 .CMsgICERendezvous.Auth
 .CMsgSteamDatagramCertificateB
 .CMsgSteamNetworkingIPAddress
+.CMsgTOSTreatment
 .ESteamNetworkingSocketsCipher"'\n
 .HCK\v
 .cnf
@@ -613,6 +625,8 @@ $d`D-laM
 .include
 .lbN
 .pp@0
+.rdata$00
+.text$mn$21
 .x7B
 /'/)/A/E/K/M/Q/W/o/u/}/
 /+ep+eqU
@@ -625,10 +639,12 @@ $d`D-laM
 0123456789.:abcdefABCDEF
 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz./
 08@HPX`hpx
+08@HRp
 08@J
 08bX
 0F2R0P4
 0Z@q
+0\f504
 0\n(legacy_authorized_client_identity_binary
 0\n,k_ESteamDatagramMsg_GameserverSessionRequest
 0\r0#0)070;0U0Y0[0g0q0y0}0
@@ -640,7 +656,6 @@ $d`D-laM
 14 (default)
 1H@H
 1\n-k_ESteamDatagramMsg_SetSecondaryAddressResult
-1\r%1h
 1\v5#d
 1bS1
 2&.CMsgSteamDatagramCertificate.EKeyType
@@ -653,6 +668,7 @@ $d`D-laM
 27;C
 2Ht\l
 2\n.k_ESteamDatagramMsg_SetSecondaryAddressRequest
+2\vp8
 2bT~
 2dV2:tN:\n
 2prB
@@ -686,7 +702,6 @@ $d`D-laM
 6#6165676;6M6O6S6Y6a6k6m6
 6(8 :*<*>(@
 6-nn
-60b/
 64CK\vH
 6666666666666666\\\\\\\\\\\\\\\\crypto\evp\pmeth_gn.c
 6H4M
@@ -698,7 +713,6 @@ $d`D-laM
 6tpD4
 6yy_&
 7,gm;
-700WP
 75th
 77\nGJ
 7?7E7I7O7]7a7u7
@@ -707,9 +721,10 @@ $d`D-laM
 82\n:XPH
 88pH
 8@HP*
+8@Jp
 8A6j
-8Fp}/
 8GZS
+8I3<
 8\n\vp2p_routing
 8\n\vquality_e2e
 8\v8!83858A8G8K8S8W8_8e8o8q8}8
@@ -773,7 +788,7 @@ $d`D-laM
 @0pp
 @?33s?H
 @HPX&9
-@HPXf`t/
+@HPXf
 @\n\nAltAddress
 @n2w
 A connection with that ID already exists.
@@ -783,6 +798,7 @@ A!A3A5A;A?AYAeAkAwA{A
 A2VPD
 A:3,]VOHyrkd
 AA Compromise
+AA:p
 AACompromise
 ACCESS_DESCRIPTION
 ACK_REQUEST_E2E
@@ -1092,6 +1108,7 @@ Assertion Failed: (&src < Base()) || (&src >= (Base() + Count()))
 Assertion Failed: (elem == Count()) || IsValidIndex(elem)
 Assertion Failed: (int)cbEncrypted <= k_cbSteamNetworkingSocketsMaxEncryptedPayloadSend
 Assertion Failed: (int)cbEncrypted >= cbPlainText
+Assertion Failed: (int64)usecTimeSinceSentLast >= 0
 Assertion Failed: (links.m_pNext->*pMbrLinks).m_pPrev == this
 Assertion Failed: (links.m_pPrev->*pMbrLinks).m_pNext == this
 Assertion Failed: (pPrev->*pMbrLinks).m_pNext == pSuccessor
@@ -1126,7 +1143,6 @@ Assertion Failed: GetState() == k_ESteamNetworkingConnectionState_FindingRoute
 Assertion Failed: GetState() == k_ESteamNetworkingConnectionState_None
 Assertion Failed: GetState() == k_ESteamNetworkingConnectionState_None || GetState() == k_ESteamNetworkingConnectionState_Connecting
 Assertion Failed: GetState() == k_ESteamNetworkingConnectionState_ProblemDetectedLocally
-Assertion Failed: IsInList(after)
 Assertion Failed: IsInList(before)
 Assertion Failed: IsPrimaryTransport()
 Assertion Failed: IsText()
@@ -1224,7 +1240,9 @@ Assertion Failed: eFakeIPType == k_ESteamNetworkingFakeIPType_LocalIPv4
 Assertion Failed: eFakeIPType > k_ESteamNetworkingFakeIPType_NotFake
 Assertion Failed: eMode == k_eFindClient_Other
 Assertion Failed: eOldState == k_ESteamNetworkingConnectionState_Connected
+Assertion Failed: eProbeTOSCase == ClassifyTOSCase( send_ecn, hdr.m_request_reply_tos )
 Assertion Failed: eReason > k_ESteamNetConnectionEnd_AppException_Max
+Assertion Failed: ecn < 0x4
 Assertion Failed: expiry > 0
 Assertion Failed: fakeIPLocal.m_unIP
 Assertion Failed: fakeIPLocal.m_unPorts[0]
@@ -1885,6 +1903,7 @@ Assertion Failed: usecNextThinkRelay > usecNow
 Assertion Failed: usecNextThinkSession > usecNow
 Assertion Failed: usecNow > 0x20000*k_usecAckDelayPrecision
 Assertion Failed: usecPing > 0
+Assertion Failed: usecRecvTimeSincePrev >= 0
 Assertion Failed: usecReliableRTO <= usecNow
 Assertion Failed: usecTimeoutDuration > 0
 Assertion Failed: usecWhen > 0
@@ -2049,6 +2068,7 @@ BUG_network_config_mismatch
 BUG_no_ping_data
 BWQP
 B\n\fextra_fields
+B\r%Bh
 Backup router %s going offline in %d seconds; seeking replacement
 Backup router: %s  Ping = %d+%d=%d (front+back=total)\n
 Bad FakeIP type %d
@@ -2095,6 +2115,67 @@ C3ps
 C77nYmm
 C:\Program Files\Common Files\SSL
 C:\Program Files\OpenSSL\lib\engines-1_1
+C:\buildworker\sdr_public_win64\build\obj\steamnetworkingsockets_Release_x642022\steamnetworkingsockets.pdb
+C:\buildworker\sdr_public_win64\build\src\common\crypto_25519_openssl.cpp
+C:\buildworker\sdr_public_win64\build\src\common\crypto_digest_opensslevp.cpp
+C:\buildworker\sdr_public_win64\build\src\common\crypto_openssl.cpp
+C:\buildworker\sdr_public_win64\build\src\common\crypto_symmetric_opensslevp.cpp
+C:\buildworker\sdr_public_win64\build\src\common\crypto_textencode.cpp
+C:\buildworker\sdr_public_win64\build\src\common\keypair.cpp
+C:\buildworker\sdr_public_win64\build\src\common\opensslwrapper.cpp
+C:\buildworker\sdr_public_win64\build\src\common\percentile_generator.h
+C:\buildworker\sdr_public_win64\build\src\common\urlhelper_webapihost.cpp
+C:\buildworker\sdr_public_win64\build\src\external\vjson\vjson.cpp
+C:\buildworker\sdr_public_win64\build\src\external\vjson\vjson.h
+C:\buildworker\sdr_public_win64\build\src\public\tier1\netadr.h
+C:\buildworker\sdr_public_win64\build\src\public\tier1\utlbuffer.h
+C:\buildworker\sdr_public_win64\build\src\public\tier1\utlhashmap.h
+C:\buildworker\sdr_public_win64\build\src\public\tier1\utllinkedlist.h
+C:\buildworker\sdr_public_win64\build\src\public\tier1\utlmemory.h
+C:\buildworker\sdr_public_win64\build\src\public\tier1\utlpriorityqueue.h
+C:\buildworker\sdr_public_win64\build\src\public\tier1\utlvector.h
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\csteamnetworkingmessages.cpp
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\csteamnetworkingsockets.cpp
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\csteamnetworkingsockets.h
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\sdr\csteamnetworkingsockets_sdr.cpp
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\sdr\csteamnetworkingsockets_sdr_standalone.cpp
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\sdr\steamnetworkingsockets_sdr_client.cpp
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\sdr\steamnetworkingsockets_sdr_common.cpp
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\sdr\steamnetworkingsockets_sdr_common.h
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\sdr\steamnetworkingsockets_sdr_hostedserver.cpp
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\sdr\steamnetworkingsockets_sdr_p2p.cpp
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\steam\csteamnetworkingsockets_steam.cpp
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\steam\csteamnetworkingsockets_steam.h
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\steam\csteamnetworkingsockets_steampartner.cpp
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\steamnetworkingsockets_connections.cpp
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\steamnetworkingsockets_connections.h
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\steamnetworkingsockets_lowlevel.cpp
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\steamnetworkingsockets_lowlevel.h
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\steamnetworkingsockets_p2p.cpp
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\steamnetworkingsockets_p2p.h
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\steamnetworkingsockets_p2p_ice.cpp
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\steamnetworkingsockets_snp.cpp
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\steamnetworkingsockets_snp.h
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\steamnetworkingsockets_stun.cpp
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\steamnetworkingsockets_udp.cpp
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\sdr\steamdatagram_internal.h
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\sdr\steamdatagram_network_config.cpp
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\sdr\steamdatagram_network_config.h
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\sdr\steamdatagram_pinglocation.cpp
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\sdr\steamdatagram_tickets.cpp
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\steamnetworking_statsutils.h
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\steamnetworkingsockets_certs.cpp
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\steamnetworkingsockets_certstore.cpp
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\steamnetworkingsockets_certstore.h
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\steamnetworkingsockets_internal.h
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\steamnetworkingsockets_shared.cpp
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\steamnetworkingsockets_stats.cpp
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\steamnetworkingsockets_thinker.cpp
+C:\buildworker\sdr_public_win64\build\src\steamnetworkingsockets\steamnetworkingsockets_thinker.h
+C:\buildworker\sdr_public_win64\build\src\tier1\netadr.cpp
+C:\buildworker\sdr_public_win64\build\src\tier1\utlbuffer.cpp
+C:\buildworker\sdr_public_win64\build\src\tier1\utlmemory.cpp
+C:\buildworker\sdr_public_win64\build\src\vstdlib\strtools.cpp
 C@gw
 CA Compromise
 CA Issuers
@@ -2300,6 +2381,7 @@ CMsgSteamSockets_UDP_ConnectRequest
 CMsgSteamSockets_UDP_ConnectionClosed
 CMsgSteamSockets_UDP_NoConnection
 CMsgSteamSockets_UDP_Stats
+CMsgTOSTreatment
 CONF_dump_fp
 CONF_load
 CONF_load_fp
@@ -2485,8 +2567,6 @@ CloseChannelWithUser
 CloseConnection
 CloseListenSocket
 CloseSessionWithUser
-CloseThreadpoolTimer
-CloseThreadpoolWait
 Closed secondary dual Wifi socket directly?
 Closing SDR hosted server UDP socket on port %d\n
 Cluster %s not previously sent, needed for route to %s priority %d
@@ -2536,7 +2616,6 @@ ConvertInterfaceLuidToIndex failed 0x%x
 Could not bind to %s.  %s\n
 Could not find secondary wifi adapter, even though wlan_intf_opcode_secondary_sta_synchronized_connections returned %u items
 CreateEvent() call failed.  Error code 0x%08x.
-CreateEventExW
 CreateFakeUDPPort
 CreateHostedDedicatedServerListenSocket
 CreateListenSocketIP
@@ -2544,15 +2623,11 @@ CreateListenSocketP2P
 CreateListenSocketP2PFakeIP
 CreateListenSocketP2PFakeIP: Invalid fake port index %d (%d requested)
 CreatePollGroup
-CreateSemaphoreExW
-CreateSemaphoreW
 CreateServerDataForCluster
 CreateSharedClusterData
 CreateSocketPair
 CreateSteamNetworkingMessages
 CreateSteamNetworkingUtils
-CreateThreadpoolTimer
-CreateThreadpoolWait
 Created %sdual Wifi secondary socket OK.  Primary local address is %s, secondary is %s\n
 Created Fake IP session for outbound communications to %s\n
 CrlID
@@ -2979,6 +3054,7 @@ Extended OCSP Status
 Extension
 Extension Request
 Extension factory's GetPrototype() returned NULL for extension: 
+Extra control data returned besides TOS?  0x%x/0x%x
 Extra text starting with character 0x%02x='%c'
 F6tr
 FDA~i
@@ -3109,9 +3185,10 @@ File exists
 File too large
 Filename too long
 FinalizeLocalCrypto
+FindServerDataForCluster
 Fingerprint check failed: %x vs. %x
+Flags indicate presence of TimeSincePrev, but no room for it.  Stats message size %d, packet size %d
 FlushMessagesOnConnection
-FlushProcessWriteBuffers
 For best results, preload the config.  (See SDR_NETWORK_CONFIG env var)\n
 Found existing connection [%s].  Only one symmetric connection can be active at a time.
 Function not implemented
@@ -3177,11 +3254,9 @@ GetConnectionInfo
 GetConnectionName
 GetConnectionRealTimeStatus
 GetConnectionUserData
-GetConsoleCP
 GetDetailedConnectionStatus
 GetFakeIP
 GetFakeIP returned %d trying to send connect signal
-GetFileInformationByHandleEx
 GetGameCoordinatorServerLogin
 GetHTTPResponseBodyData failed
 GetIdentity
@@ -3189,7 +3264,6 @@ GetListenSocketAddress
 GetLocalPingLocation
 GetRemoteFakeIPForConnection
 GetSessionConnectionInfo
-GetTickCount64
 Giving up on %s after %d consecutive ping timeouts
 Giving up waiting for DualWifi adapter to be ready for secondary address access to %s.  (We waited ~%.1fs)\n
 Got %s expected %s\n
@@ -3336,7 +3410,6 @@ Inherit all
 Inhibit Policy Mapping
 Init
 InitAuthentication
-InitOnceExecuteOnce
 Initial ICE auth
 Initial attempt to contact %s failed.  Giving up after %d consecutive failures
 Initialized low level socket/threading support.\n
@@ -3444,6 +3517,7 @@ KxPSK
 KxRSA
 KxRSA_PSK
 KxSRP
+L4S detection: %s.  up_ecn1=%s  down_dscp45=%s
 L8-\rHO
 LAM\rhaI)|pL<
 LBN6
@@ -3650,6 +3724,7 @@ No certs?
 No child processes
 No client identity\n
 No configured STUN servers
+No control data returned even though we asked for TOS?
 No data
 No dropped packets, pkt num %lld, dup bit not set?  recvseq=%lld inorder=%lld, dup=%lld, lurch=%lld, ooo=%lld, %s.  (%s)
 No error
@@ -3871,7 +3946,6 @@ P2P_Transport_ICE_Enable
 P2P_Transport_ICE_Implementation
 P2P_Transport_ICE_Penalty
 P2P_Transport_SDR_Penalty
-P6@d/
 P<xD<
 P@HPX`h\f
 PARAMETERS
@@ -4075,8 +4149,9 @@ Ping location: %s\n
 Ping measurement completed in %.1fs.  Relays: %d valid, %d great, %d good+, %d ok+, %d ignored\n
 Ping request has my_ips list, but from address isn't present.  Could be spoofed / replay attack.  Dropping!
 Ping timed out to %s\n
-Pinging %s (%s).
+Pinging %s (%s).  ECN%d  reply_tos=0x%02x[DSCP%d ECN%d]
 Pkt number lurch by %lld; %04x->%04x
+PnL\r-
 Policy Qualifier CPS
 Policy Qualifier User Notice
 Poll group handle bookkeeping bug!
@@ -4219,6 +4294,7 @@ RSA_verify
 RSA_verify_ASN1_OCTET_STRING
 RSA_verify_PKCS1_PSS_mgf1
 RSDS
+R\vp8
 Rank=%d 
 Rbg.E
 Read-only file system
@@ -4325,7 +4401,7 @@ Router network: %s\n
 RouterPingReply
 RouterPingReply from %s latency lists not the same length.  %d vs %d.  Ignoring message
 RouterPingReply from %s, %dms
-RouterPingReply from %s, %dms (first measurement to %s, estimate was %d)
+RouterPingReply from %s, can't classify TOS probe case, request_echo_sent=0x%02x, reply_sent0x%02x
 RouterPingReply from %s; dropping due to override
 Routing Domain Identifiers
 Running in anonymous mode, can't get cert from Steam.
@@ -4366,6 +4442,7 @@ SDR shared socket listening on local address %s\n
 SDRClient_ConsecutitivePingTimeoutsFail
 SDRClient_ConsecutitivePingTimeoutsFailInitial
 SDRClient_DevTicket
+SDRClient_EnableTOSProbes
 SDRClient_FakeClusterPing
 SDRClient_ForceProxyAddr
 SDRClient_ForceRelayCluster
@@ -4509,6 +4586,7 @@ SendMessages
 SendRateMax
 SendRateMin
 SendServerBrowserPacket
+SendTimeSincePreviousPacket
 SendUDPacket
 Sender sent abs latest recv pkt number using %llx mod %llx, next send %llx\n
 Sender sent abs unreliable message number using %llx mod %llx, highest seen %llx\n
@@ -4542,13 +4620,10 @@ SetConnectionName
 SetConnectionPollGroup
 SetConnectionUserData
 SetConsoleMode
-SetFileInformationByHandle
 SetNetworkConfig
 SetPollGroup
 SetSecondaryAddressResult
 SetSteamDatagramHostedAddressCipherContext failed!?
-SetThreadpoolTimer
-SetThreadpoolWait
 Should be called through a gameserver's ISteamSocketNetworking
 Should not be called before calling SteamDatagramServer_Init.
 Shouldn't be receiving this unless on accepted connections, only connections initiated locally.
@@ -4823,6 +4898,7 @@ Unauthenticated connections not allowed.
 Unencrypted
 Unencrypted addresses only allowed to 'dev' POPID
 Unexpected AvailAnyRouterCommunication %d
+Unexpected IP_TOS cmsg_len %lld
 Unexpected NoConnection
 Unexpected P2PSessionError %d
 Unexpected auth avail %d (%s)
@@ -4872,6 +4948,7 @@ WSAEnumNetworkEvents
 WSAEnumNetworkEvents failed.  Error code %08x
 WSAEventSelect
 WSAEventSelect() failed.  Error code 0x%08X.
+WSAIoctl
 WSASendMsg
 WSASendTo %s failed, returned %d, last error=0x%x %s
 WSASendTo %s failed, returned %d, last error=0x%x\n
@@ -4882,7 +4959,6 @@ WTLS curve over a 112 bit prime field
 WTLS curve over a 113 bit binary field
 WTLS curve over a 160 bit prime field
 WTLS curve over a 224 bit prime field
-WaitForThreadpoolTimerCallbacks
 Waited %.1fms for SteamNetworkingSockets lock
 Waited %.1fms for SteamNetworkingSockets lock [%s]
 Waiting
@@ -4907,6 +4983,7 @@ We shouldn't be asking about sending packets when not fully connected
 We shouldn't be trying to think SNP when not fully connected
 We shouldn't get this callback after being canceled!
 We think universe is %d, but our identity %s is from universe %d?
+We will send ECN=%d (ECN config value=%d)
 We're not logged into Steam
 WebRTC support not enabled
 Weird RouterPingReply timestamps from %s.  Reply contained %u, current is %u (elapsed %d)
@@ -5188,7 +5265,7 @@ ZiKw
 [%s] Peer acked our routes for revision %u, but our latest revision is %u!
 [%s] Peer appears to be using '%s' transport as primary\n
 [%s] Peer sent hosted_server_ticket.  Switching to SDR client transport\n
-[%s] Pinging %s (%s).
+[%s] Pinging %s (%s).  ECN%d  reply_tos=0x%02x[DSCP%d ECN%d]
 [%s] Posting SteamNetworkingMessagesSessionFailed_t\n
 [%s] Primary router %s going offline in %d seconds; seeking replacement
 [%s] Protobuf failed to parse CMsgSteamDatagramP2PRoutes routes\n
@@ -5319,6 +5396,8 @@ ZiKw
 [%s] stats are in activity level %d, but in state %d?
 [%s] too many segments, aborting packert decode\n
 [%s] unexpected connection state %d
+[Relay %s only] L4S detection: %s.  up_ecn1=%s  down_dscp45=%s.
+[Relay %s only] We will send ECN=%d (ECN config value %d)
 [TRACE %s] Recv %s (0x%02x):\n%s\n
 [TRACE %s] Send %s (0x%02x):\n%s\n
 [Trace Recv] %s <- %s | %d bytes\n
@@ -5395,6 +5474,7 @@ ZiKw
 \n\fClosedByPeer
 \n\fca_signature
 \n\fclose_reason
+\n\fdummy_varint
 \n\finitial_ping
 \n\fip_addresses
 \n\flegacy_score
@@ -5415,12 +5495,14 @@ ZiKw
 \n\nend_to_end
 \n\nfront_ping
 \n\nkludge_pad
+\n\nl4s_detect
 \n\nsdr_routes
 \n\nstart_time
 \n\rbest_dc_score
 \n\rclient_cookie
 \n\rclose_message
 \n\rconnection_id
+\n\recho_sent_tos
 \n\rfixed64_value
 \n\rfrom_identity
 \n\rfront_ping_ms
@@ -5446,7 +5528,7 @@ ZiKw
 \n\tdummy_pad
 \n\tfrom_port
 \n\tmy_pop_id
-\n\vNetworkNext
+\n\vdown_dscp45
 \n\vfrom_fakeip
 \n\vice_enabled
 \n\vint64_value
@@ -5505,7 +5587,6 @@ _jbF~T
 _xU`u
 `3QbE
 `3SbE
-`6pX/
 `D$daM-l
 `H(hqA1p
 `P00
@@ -5520,6 +5601,7 @@ a2i_GENERAL_NAME
 a5<p
 a5j_5W
 a8Bk
+aBvL\r-
 aI)h
 aRecord
 a\n\rRouterQuality
@@ -5548,6 +5630,7 @@ ad_timestamping
 add signer error
 addProfessionInfo
 add_cert_dir
+add_dscp45
 adding object
 additional input too long
 additional verification
@@ -5825,6 +5908,8 @@ bits too small
 bitstr_cb
 blake2b512
 blake2s256
+bleach_dscp45
+bleach_ecn1
 block type is not 01
 block type is not 02
 blockSize
@@ -5890,67 +5975,6 @@ c2tnb239v2
 c2tnb239v3
 c2tnb359v1
 c2tnb431r1
-c:\buildslave\sdr_public_win64\build\obj\steamnetworkingsockets_Release_x642019\steamnetworkingsockets.pdb
-c:\buildslave\sdr_public_win64\build\src\common\crypto_25519_openssl.cpp
-c:\buildslave\sdr_public_win64\build\src\common\crypto_digest_opensslevp.cpp
-c:\buildslave\sdr_public_win64\build\src\common\crypto_openssl.cpp
-c:\buildslave\sdr_public_win64\build\src\common\crypto_symmetric_opensslevp.cpp
-c:\buildslave\sdr_public_win64\build\src\common\crypto_textencode.cpp
-c:\buildslave\sdr_public_win64\build\src\common\keypair.cpp
-c:\buildslave\sdr_public_win64\build\src\common\opensslwrapper.cpp
-c:\buildslave\sdr_public_win64\build\src\common\percentile_generator.h
-c:\buildslave\sdr_public_win64\build\src\common\urlhelper_webapihost.cpp
-c:\buildslave\sdr_public_win64\build\src\external\vjson\vjson.cpp
-c:\buildslave\sdr_public_win64\build\src\external\vjson\vjson.h
-c:\buildslave\sdr_public_win64\build\src\public\tier1\netadr.h
-c:\buildslave\sdr_public_win64\build\src\public\tier1\utlbuffer.h
-c:\buildslave\sdr_public_win64\build\src\public\tier1\utlhashmap.h
-c:\buildslave\sdr_public_win64\build\src\public\tier1\utllinkedlist.h
-c:\buildslave\sdr_public_win64\build\src\public\tier1\utlmemory.h
-c:\buildslave\sdr_public_win64\build\src\public\tier1\utlpriorityqueue.h
-c:\buildslave\sdr_public_win64\build\src\public\tier1\utlvector.h
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\csteamnetworkingmessages.cpp
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\csteamnetworkingsockets.cpp
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\csteamnetworkingsockets.h
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\sdr\csteamnetworkingsockets_sdr.cpp
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\sdr\csteamnetworkingsockets_sdr_standalone.cpp
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\sdr\steamnetworkingsockets_sdr_client.cpp
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\sdr\steamnetworkingsockets_sdr_common.cpp
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\sdr\steamnetworkingsockets_sdr_common.h
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\sdr\steamnetworkingsockets_sdr_hostedserver.cpp
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\sdr\steamnetworkingsockets_sdr_p2p.cpp
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\steam\csteamnetworkingsockets_steam.cpp
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\steam\csteamnetworkingsockets_steam.h
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\steam\csteamnetworkingsockets_steampartner.cpp
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\steamnetworkingsockets_connections.cpp
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\steamnetworkingsockets_connections.h
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\steamnetworkingsockets_lowlevel.cpp
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\steamnetworkingsockets_lowlevel.h
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\steamnetworkingsockets_p2p.cpp
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\steamnetworkingsockets_p2p.h
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\steamnetworkingsockets_p2p_ice.cpp
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\steamnetworkingsockets_snp.cpp
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\steamnetworkingsockets_snp.h
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\steamnetworkingsockets_stun.cpp
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\clientlib\steamnetworkingsockets_udp.cpp
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\sdr\steamdatagram_internal.h
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\sdr\steamdatagram_network_config.cpp
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\sdr\steamdatagram_network_config.h
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\sdr\steamdatagram_pinglocation.cpp
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\sdr\steamdatagram_tickets.cpp
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\steamnetworking_statsutils.h
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\steamnetworkingsockets_certs.cpp
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\steamnetworkingsockets_certstore.cpp
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\steamnetworkingsockets_certstore.h
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\steamnetworkingsockets_internal.h
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\steamnetworkingsockets_shared.cpp
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\steamnetworkingsockets_stats.cpp
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\steamnetworkingsockets_thinker.cpp
-c:\buildslave\sdr_public_win64\build\src\steamnetworkingsockets\steamnetworkingsockets_thinker.h
-c:\buildslave\sdr_public_win64\build\src\tier1\netadr.cpp
-c:\buildslave\sdr_public_win64\build\src\tier1\utlbuffer.cpp
-c:\buildslave\sdr_public_win64\build\src\tier1\utlmemory.cpp
-c:\buildslave\sdr_public_win64\build\src\vstdlib\strtools.cpp
 cACertificate
 cNAMERecord
 cRLSign
@@ -6684,6 +6708,7 @@ drbg not initialised
 drbg_bytes
 drbg_get_entropy
 drbg_setup
+dropped
 dsa routines
 dsaEncryption
 dsaEncryption-old
@@ -6809,6 +6834,7 @@ ecdsa_with_SHA3-384
 ecdsa_with_SHA3-512
 echo_console
 echo_relay_unix_time
+echo_request_reply_tos
 eckey_param2type
 eckey_param_decode
 eckey_priv_decode
@@ -6991,7 +7017,6 @@ flushing
 fopen
 fopen('
 forward_target_revision
-fpW/
 fqi\tH
 fread
 freeaddrinfo
@@ -7062,6 +7087,7 @@ ggencrypto\dsa\dsa_gen.c
 givenName
 global
 gnames_from_sectname
+good
 gost-mac
 gost-mac-12
 gost2001
@@ -7087,6 +7113,7 @@ group=
 h2Wl
 h8,4$
 hHpX
+hM2<
 h\44Q
 h\f90
 hash
@@ -7783,7 +7810,7 @@ legacy_your_public_ip
 legacy_your_public_port
 length too long
 level_add_node
-lib Jun 26 2024 13:40:17
+lib Sep  7 2024 14:42:43
 lib(%lu)
 lifetime
 linebuffer_ctrl
@@ -7802,6 +7829,7 @@ local_candidate_types_allowed
 localhost/
 localityName
 locator
+lock held
 lock wait
 log conf invalid
 log conf invalid key
@@ -7975,6 +8003,7 @@ nested too deep
 network_config_changed_different_cluster
 network_config_changed_removed
 network_config_version
+neutral
 new CSteamNetworkConnectionPipe failed
 new failed
 new_dir
@@ -8052,6 +8081,7 @@ no value
 no:7
 noCheck
 noRevAvail
+no_comms
 noecho_console
 nomask
 non hex characters
@@ -8208,12 +8238,11 @@ p.other
 p.ppBasis
 p.prime
 p.tpBasis
-p08@H^
+p08@H^L\r-
 p2p_routing_summary
 p2p_share_ip
 p2p_via_peer_relay_pop_id
 p5Z3
-p6@z/
 p@0pqE5tsO?|1
 pD4t
 pH88
@@ -8247,6 +8276,8 @@ partially overlapping buffers
 partyName
 pass
 pass phrase
+pass_dscp45
+pass_ecn1
 passed a null parameter
 passed null parameter
 passphrase callback error
@@ -8384,7 +8415,9 @@ pkey_tls1_prf_derive
 pkey_tls1_prf_init
 pkeyalg
 pkparameters2group failure
+plain_extra
 platform
+pnL\r-
 point arithmetic failure
 point at infinity
 point coordinates blind failure
@@ -8447,6 +8480,7 @@ privateKey
 privateKeyUsagePeriod
 private_key_data
 privilegeWithdrawn
+probes_disabled
 problem detected locally
 problems getting password
 process_include
@@ -8557,6 +8591,7 @@ recipientInfos
 recipientinfo
 recommended-private-length: %d bits\n
 recursive directory include
+recv_tos
 registeredAddress
 registrationNumber
 reject
@@ -8576,6 +8611,8 @@ remote_candidate_types
 removeFromCRL
 reqCert
 req_info
+req_recv_tos
+req_sent_tos
 request not signed
 request too large for drbg
 requestExtensions
@@ -8618,6 +8655,9 @@ router_backhaul_latencies %s
 routes
 routing
 routing_secret
+rpl_echo_req_tos
+rpl_recv_tos
+rpl_sent_tos
 rsa operations not supported
 rsa routines
 rsaEncryption
@@ -8748,6 +8788,7 @@ sendOwner
 sendProxiedOwner
 sendProxiedRouter
 sendRouter
+sent_tos
 sequence length mismatch
 sequence not constructed
 sequence or set needs config
@@ -8965,6 +9006,7 @@ smimesign
 snmpv2
 socket
 socket() call failed.  Error code 0x%08x.
+sockopt(IPPROTO_IP, IP_RECVTOS, 1) failed (0x%x), will not be able to read TOS\n
 sockopt(IPPROTO_IPV6, IPV6_UNICAST_IF, %d) OK\n
 sockopt(IPPROTO_IPV6, IPV6_UNICAST_IF, %d) failed with error code 0x%08X.
 sockopt(IP_PROTO_IP, IP_UNICAST_IF, %d) OK\n
@@ -9281,8 +9323,10 @@ unsupported signature type
 unsupported type
 unsupported version
 unused
+unusual
 unwrap error
 unwrap failure
+up_ecn1
 uri authority unsupported
 user data duplication unsupported
 user too long
@@ -9376,6 +9420,7 @@ win32_splitter
 win32_unload
 wlan_intf_opcode_secondary_sta_synchronized_connections succeeded, but wlan_intf_opcode_secondary_sta_interfaces failed 0x%x?
 wlanapi.dll
+working...
 wrap error
 wrap mode not allowed
 write to read only BIO
@@ -9408,7 +9453,6 @@ xUN'
 xboxpwid:
 xboxpwid:%s
 xpH8
-xpxxxx
 xqI9
 xrJ:DCG
 xsK;

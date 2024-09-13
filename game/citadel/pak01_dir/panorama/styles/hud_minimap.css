@@ -41,15 +41,111 @@
 	transform: scaleY(-1) scaleX(-1);
 }
 
-#map_render,#canvas
+#map_render
 {
 	width: 100%;
 	height: 100%;
+	blur: gaussian( 0 );
+	z-index: 9;
 }
 
-#map_render
+#canvas
 {
-	blur: gaussian( 0 );
+	horizontal-align: center;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+	opacity: 1;
+}
+
+.NewMinimapBackgroundsContainer,.HideOldZiplines #canvas,#MinimapParticleScenePanel
+{
+	visibility: collapse;
+}
+
+.ShowNewMinimap .NewMinimapBackgroundsContainer,.ShowNewZiplines #MinimapParticleScenePanel
+{
+	visibility: visible;
+}
+
+.NewMinimapBackgroundsContainer,#MinimapParticleScenePanel
+{
+	height: 100%;
+	width: 100%;
+}
+
+#MinimapParticleScenePanel
+{
+	transform: rotateZ( 180deg );
+	z-index: -1;
+}
+
+.newMinimapBackground
+{
+	height: 100%;
+	width: 100%;
+	background-size: 100% 100%;
+}
+
+.backgroundImage
+{
+	background-image: url("s2r://panorama/images/minimap/base/minimap_bg_psd.vtex");
+	z-index: -3;
+}
+
+.midImage
+{
+	background-image: url("s2r://panorama/images/minimap/base/minimap_mid_psd.vtex");
+	z-index: -2;
+}
+
+.neutralsImage
+{
+	opacity: 0.3;
+}
+
+.topImage
+{
+	background-image: url("s2r://panorama/images/minimap/base/minimap_frame_psd.vtex");
+}
+
+.NewMinimapZiplinesContainer
+{
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+}
+
+.ziplineYellowLane
+{
+	background-image: url("s2r://panorama/images/minimap/base/minimap_lane_1_psd.vtex");
+	wash-color: laneYellowColor;
+	wash-color: #B6AC3C;
+	opacity: 0.2;
+}
+
+.ziplineGreenLane
+{
+	background-image: url("s2r://panorama/images/minimap/base/minimap_lane_2_psd.vtex");
+	wash-color: laneGreenColor;
+	wash-color: #61C579;
+	opacity: 0.2;
+}
+
+.ziplineBlueLane
+{
+	background-image: url("s2r://panorama/images/minimap/base/minimap_lane_3_psd.vtex");
+	wash-color: laneBlueColor;
+	wash-color: #2DA0CA;
+	opacity: 0.2;
+}
+
+.ziplinePurpleLane
+{
+	background-image: url("s2r://panorama/images/minimap/base/minimap_lane_4_psd.vtex");
+	wash-color: lanePurpleColor;
+	wash-color: #A05ED7;
+	opacity: 0.2;
 }
 
 .is_underground #map_render,.is_underground #canvas
@@ -61,8 +157,6 @@
 {
 	vertical-align: center;
 	horizontal-align: center;
-	transition-property: wash-color;
-	transition-duration: 0.1s;
 }
 
 .invert_map .button_image
@@ -80,17 +174,12 @@
 	ui-scale: 100%;
 	z-index: 98;
 	overflow: noclip;
+	background-color: none;
 }
 
 .map_button.active
 {
 	opacity: 1;
-}
-
-.map_button.created
-{
-	transition: none;
-	transition-duration: 0s;
 }
 
 .map_button.neutral_spawn
@@ -127,8 +216,8 @@
 
 .map_button.boss.boss_t2
 {
-	width: 36px;
-	height: 36px;
+	width: 30px;
+	height: 30px;
 }
 
 .map_button.idol_spawn
@@ -150,8 +239,8 @@
 
 .map_button.powerup_spawn
 {
-	width: 20px;
-	height: 20px;
+	width: 16px;
+	height: 16px;
 	background-repeat: no-repeat;
 	background-image: url("s2r://panorama/images/minimap/gold_crate_marker_psd.vtex");
 	background-size: 100% 100%;
@@ -297,10 +386,10 @@
 	background-image: url("s2r://panorama/images/minimap/soul_jar_marker_return_psd.vtex");
 	background-size: 150% 150%;
 	background-position: 50% 50%;
-	background-color: rgba(68, 132, 129, 0.5);
+	background-color: rgba(142, 198, 196, 0.2);
 	background-img-opacity: 0.2;
 	border-radius: 3px;
-	border: 2px solid rgba(42, 204, 199, 0.5);
+	border: 2px solid rgba(189, 231, 229, 0.3);
 }
 
 .map_button.idol_return_friendly
@@ -448,6 +537,32 @@
 	z-index: ZIndexDeadPlayer;
 }
 
+#DeathImage
+{
+	background-image: url("s2r://panorama/images/hud/icons/skull.vsvg");
+	background-size: cover;
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+	opacity: 0.8;
+	visibility: collapse;
+}
+
+.PlayerDead #DeathImage
+{
+	visibility: visible;
+}
+
+.PlayerDead #BackgroundImage
+{
+	opacity: 0.6;
+}
+
+.localplayer #DeathImage
+{
+	visibility: collapse;
+}
+
 .map_button.npc
 {
 	transition-property: position;
@@ -495,133 +610,6 @@
 	visibility: collapse;
 }
 
-.team1.player .hero_button_image
-{
-	background-color: ColorTeam1;
-	border-radius: 50%;
-	border: 3px solid ColorTeam1;
-}
-
-.team1.player.arrowUp .hero_button_image
-{
-	background-color: ColorTeam1High;
-	border: 3px solid ColorTeam1High;
-}
-
-.team1.player.arrowDown .hero_button_image
-{
-	background-color: ColorTeam1Low;
-	border: 3px solid ColorTeam1Low;
-}
-
-.team2.player .hero_button_image
-{
-	background-color: ColorTeam2;
-	border-radius: 50%;
-	border: 3px solid ColorTeam2;
-}
-
-.team2.player.arrowUp .hero_button_image
-{
-	background-color: ColorTeam2High;
-	border: 3px solid ColorTeam2High;
-}
-
-.team2.player.arrowDown .hero_button_image
-{
-	background-color: ColorTeam2Low;
-	border: 3px solid ColorTeam2Low;
-}
-
-.friend.player .hero_button_image
-{
-	background-color: ColorFriendly;
-	border-radius: 50%;
-}
-
-.friend.standup.player .hero_button_image
-{
-	background-color: ColorFriendly;
-}
-
-.friend.standup.player.arrowUp .hero_button_image
-{
-	background-color: ColorFriendlyHigh;
-}
-
-.friend.standup.player.arrowDown .hero_button_image
-{
-	background-color: ColorFriendlyLow;
-}
-
-.enemy.player .hero_button_image
-{
-	background-color: ColorEnemy;
-	border-radius: 50%;
-}
-
-.enemy.standup.player .hero_button_image
-{
-	background-color: rgba (255, 255, 255, 1);
-}
-
-.enemy.standup.player .hero_button_image
-{
-	background-color: ColorEnemy;
-}
-
-.enemy.player.arrowUp .hero_button_image
-{
-	background-color: ColorEnemyHigh;
-}
-
-.enemy.player.arrowDown .hero_button_image
-{
-	background-color: ColorEnemyLow;
-}
-
-.friend.team1.player .hero_button_image,.friend.team1.player.arrowUp .hero_button_image,.friend.team1.player.arrowDown .hero_button_image,.friend.team2.player .hero_button_image,.friend.team2.player.arrowUp .hero_button_image,.friend.team2.player.arrowDown .hero_button_image
-{
-	border: 3px solid ColorFriendly;
-}
-
-.friend.team1.player.arrowUp .hero_button_image,.friend.team2.player.arrowUp .hero_button_image
-{
-	border: 3px solid ColorFriendlyHigh;
-}
-
-.friend.team1.player.arrowDown .hero_button_image,.friend.team2.player.arrowDown .hero_button_image
-{
-	border: 3px solid ColorFriendlyLow;
-}
-
-.enemy.team1.player .hero_button_image,.enemy.team1.player.arrowUp .hero_button_image,.enemy.team1.player.arrowDown .hero_button_image,.enemy.team2.player .hero_button_image,.enemy.team2.player.arrowUp .hero_button_image,.enemy.team2.player.arrowDown .hero_button_image
-{
-	border: 3px solid ColorEnemy;
-}
-
-.enemy.team1.player.arrowUp .hero_button_image,.enemy.team2.player.arrowUp .hero_button_image
-{
-	border: 3px solid ColorEnemyHigh;
-}
-
-.enemy.team1.player.arrowDown .hero_button_image,.enemy.team2.player.arrowDown .hero_button_image
-{
-	border: 3px solid ColorEnemyLow;
-}
-
-.localplayer .hero_button_image
-{
-	background-color: none;
-	border: 0px solid #00000000;
-}
-
-.team1.player.localplayer .hero_button_image,.team2.player.localplayer .hero_button_image,.team1.player.localplayer.arrowUp .hero_button_image,.team1.player.localplayer.arrowDown .hero_button_image,.team2.player.localplayer.arrowUp .hero_button_image,.team2.player.localplayer.arrowDown .hero_button_image
-{
-	background-color: #00000000;
-	border: 3px solid #00000000;
-}
-
 .map_button.friend.spectate,.map_button.enemy.spectate,.map_button.friend.spectate.arrowUp,.map_button.enemy.spectate.arrowUp,.map_button.friend.spectate.arrowDown,.map_button.enemy.spectate.arrowDown,.map_button.localplayer.spectate
 {
 	z-index: ZIndexSpectatedPlayer;
@@ -653,24 +641,50 @@
 	animation-iteration-count: infinite;
 }
 
-.button_image
+.button_image,.NeutralCampImage,#NeturalImagesContainer
 {
 	width: 100%;
 	height: 100%;
 }
 
-.player .button_image
+#NeturalImagesContainer
 {
-	width: 40px;
-	height: 40px;
-	width: 95%;
-	height: 95%;
+	z-index: 9999;
+}
+
+#NeturalImagesContainer .CampHidden
+{
+	opacity: 0;
+}
+
+.SmallNeutralCamp
+{
+	opacity: 0.3;
+}
+
+.MediumNeutralCamp
+{
+	opacity: 0.4;
+}
+
+.StrongNeutralCamp
+{
+	opacity: 0.7;
+}
+
+.player #MainImage
+{
+	width: 85%;
+	height: 85%;
+	vertical-align: middle;
+	horizontal-align: middle;
+	img-shadow: 0px 0px 3px red;
 }
 
 .player.localplayer .button_image
 {
-	width: 85%;
-	height: 85%;
+	width: 100%;
+	height: 100%;
 	wash-color: white;
 	background-color: none;
 }
@@ -681,12 +695,75 @@
 	height: 100%;
 }
 
-.spectate:not(.localplayer) .hero_button_image,.arrowUp.spectate:not(.localplayer) .hero_button_image,.arrowDown.spectate:not(.localplayer) .hero_button_image
+.player #BackgroundImage
 {
-	border: 2px solid white;
-	border-radius: 50%;
-	background-color: rgba(200, 255, 200, 0);
-	z-index: ZIndexSpectatedPlayer;
+	width:100%;
+	height: 100%;
+	background-color: none;
+	background-position: center center;
+	background-size: 80% 80%;
+	background-repeat: no-repeat;
+	opacity: 0.9;
+	border-radius: 50px;
+}
+
+.player.team1 #BackgroundImage
+{
+	background-color: team1Color;
+}
+
+.player.team2 #BackgroundImage
+{
+	background-color: team2Color;
+}
+
+.friend.player #BackgroundImage
+{
+	background-color: offWhite;
+}
+
+.enemy.player #BackgroundImage
+{
+	background-color: colorEnemy;
+}
+
+#ArrowImage
+{
+	background-image: url("s2r://panorama/images/minimap/player_arrow_enemy_psd.vtex");
+	background-size: contain;
+	width: 100%;
+	height: 100%;
+	visibility: collapse;
+}
+
+.player.team1 #ArrowImage
+{
+	background-image: url("s2r://panorama/images/minimap/player_arrow_team1_psd.vtex");
+}
+
+.player.team2 #ArrowImage
+{
+	background-image: url("s2r://panorama/images/minimap/player_arrow_team2_psd.vtex");
+}
+
+.friend.player #ArrowImage
+{
+	background-image: url("s2r://panorama/images/minimap/player_arrow_friend_psd.vtex");
+}
+
+.enemy.player #ArrowImage
+{
+	background-image: url("s2r://panorama/images/minimap/player_arrow_enemy_psd.vtex");
+}
+
+.player.localplayer #ArrowImage
+{
+	opacity: 0;
+}
+
+.spectate:not(.localplayer) .hero_button_image
+{
+	brightness: 1.5;
 }
 
 .precache
@@ -741,18 +818,14 @@
 .held_idol_image
 {
 	z-index: 98;
-	width: 20%;
-	height: 20%;
-	background-size: 100% 100%;
-	background-position: right -10px top -5px;
-	background-image: url("s2r://panorama/images/minimap/soul_jar_marker_psd.vtex");
+	width: 15px;
+	horizontal-align: right;
+	vertical-align: bottom;
+	transform: translateX(5px);
+	height: 25px;
+	background-size: cover;
+	background-image: url("s2r://panorama/images/minimap/soul_jar_marker_noglow_psd.vtex");
 	visibility: collapse;
-}
-
-.localplayer .held_idol_image
-{
-	background-position: center;
-	background-size: 70% 70%;
 }
 
 .speaking_button_image
@@ -779,12 +852,12 @@
 	z-index: 100;
 }
 
-.gDetailView .map_button.player
+.gScoreboardOpen .map_button.player
 {
 	transform: scaleY(1.3) scaleX(1.3);
 }
 
-.gDetailView .map_button.player.enlarge_entry
+.gScoreboardOpen .map_button.player.enlarge_entry
 {
 	transform: scaleY(1.5) scaleX(1.5);
 	z-index: 100;

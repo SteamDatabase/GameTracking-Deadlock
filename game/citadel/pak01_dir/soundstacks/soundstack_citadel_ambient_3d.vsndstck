@@ -70,6 +70,16 @@
 							property_group = "Retrigger"
 						}
 					}
+					first_trigger_use_delay = 
+					{
+						data_type = "bool"
+						value = "true"
+						_system_properties = 
+						{
+							display_group = "normal"
+							property_group = "Retrigger"
+						}
+					}
 					retrigger_interval_min = 
 					{
 						data_type = "float"
@@ -162,6 +172,16 @@
 			},
 			
 			{
+				name = "calc_delay"
+				operator = "math_randomize_float"
+				input_execute = "@public.first_trigger_use_delay"
+				execute_once = "true"
+				output = "0.00"
+				input_rand_min = "0"
+				input_rand_max = "@public.retrigger_interval_min"
+			},
+			
+			{
 				name = "citadel_default_3d"
 				operator = "sos_import_stack"
 				import_stack = "citadel_default_3d"
@@ -172,6 +192,11 @@
 					{
 						data_type = "float3"
 						value = "@randomize_position.output"
+					}
+					delay = 
+					{
+						data_type = "float"
+						value = "@calc_delay.output"
 					}
 				}
 			},
@@ -242,7 +267,7 @@
 				operator = "math_float"
 				apply = "sub"
 				input1 = "@citadel_default_3d::citadel_base_3d::get_event_info.output_elapsed_time"
-				input2 = "@last_trigger_time.output"
+				input2 = "@last_trigger_time_with_delay.output"
 			},
 			
 			{
@@ -311,6 +336,14 @@
 			},
 			
 			{
+				name = "last_trigger_time_with_delay"
+				operator = "math_float"
+				apply = "max"
+				input1 = "@last_trigger_time.output"
+				input2 = "@calc_delay.output"
+			},
+			
+			{
 				name = "start_retrigger"
 				operator = "soundevent_start"
 				input_execute = "@in_retrigger_radius.output"
@@ -340,6 +373,12 @@
 						operator_arg_field = "true"
 						data_type = "int"
 						value = "@public.source_soundscape"
+					}
+					public.first_trigger_use_delay = 
+					{
+						operator_arg_field = "true"
+						data_type = "bool"
+						value = "false"
 					}
 				}
 			},

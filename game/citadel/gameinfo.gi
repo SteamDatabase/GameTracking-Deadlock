@@ -292,8 +292,8 @@
 	SceneSystem
 	{
 		GpuLightBinner 1
-		FogCachedShadowAtlasWidth 3072
-		FogCachedShadowAtlasHeight 3072
+		FogCachedShadowAtlasWidth 1024
+		FogCachedShadowAtlasHeight 1024
 		FogCachedShadowTileSize 256
 		GpuLightBinnerSunLightFastPath 1
 		CSMCascadeResolution 2048

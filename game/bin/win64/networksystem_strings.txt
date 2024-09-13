@@ -17,9 +17,10 @@
   version max  : %u.%u\n
   version used : %u.%u\n
  %dms faster than direct ping of %dms
- (08@HPXb
- (08@HR
- (0X`hpz
+ (08@HPXb0
+ (08@HR0
+ (08@J0
+ (0X`hpz0
  - keeping around as cacheable shared connection
  [+add recip %d]
  [COMPLEX]
@@ -66,6 +67,8 @@
 !pField->m_bNetworkVarEmbeddedNotFlattened
 !pList->m_bExcludedFromSerializerRegistry
 !pSerializer->m_bExcludedFromSerializerRegistry
+!pUpdateFrame->out_of_order
+!pcurr->dropped
 !s.IsOpen()
 !s.IsTryAny()
 !send.IsOverflowed()
@@ -143,12 +146,10 @@
 %s:  (%d bits/%d bytes):\n
 %s:  CNetChan::Transmit( %s ) while suppressing transmit\n
 %s:  CNetChan::Transmit(%s) SinceLastSend=%.1fs, Sent=%d, pending R/U=%d/%d, queueTime=%.1fms\n
-%s:  NetChan QoS flow %s: %4dms engine latency, %5d/%5d dropped (%.1f%%)\n
 %s:  NetChan Setting Timeout to %4.2f seconds\n
 %s:  couldn't find serializer %s in %s\n
 %s:  encodeded data mismatched %d bits\n
 %s:  encoding mismatched %d vs. %d bits\n
-%s:  high packet loss detected flow %s: %4dms engine latency, %5d/%5d dropped (%.1f%%)\n
 %s:  in serializer '%s' couldn't find field %s::%s, possibly already marked MNetworkExclude\n
 %s:  metadata( %d: '% -10s' %s = %u )
 %s:  specified different usergroup proxy functions for '%s'\n
@@ -221,20 +222,8 @@
 - total: in %.1f, out %.1f MB\n\n
 --- %s has duplicate fields\n
 -FLT_MAX
--dti
--net_no_parallel_build
 -networkprofile_fsbuild
--networkspew
 -networkspewcreate
--networkspewentity
--networkspewentity_readfieldlist
--networkspeweverything
--networkspewexcludes
--networkspewfakefields
--networkvar_validate
--noip
--steamnetworkingsockets_use_steamclient
--use_valve_ice
 .?AV?$CBaseAppSystem@VINetworkSystem@@@@
 .?AV?$CConCommandMemberAccessor@VCNetworkMessages@@@@
 .?AV?$CNetMessagePB@$02VCNETMsg_SplitScreenUser@@$0L@$00$0A@@@
@@ -307,13 +296,13 @@
 0 bit issue, spot 2
 0 bit issue, spot 3
 0 bit issue, spot 4
-08@J
+08@J0
 2tx!2dw!24v!2
-8Af&
+8ec&
+8yo&
 <classname> <fieldname>:  spew why field was excluded from networking for classname.
 @ inf
 @08N
-@HPX`hv@)
 A network serializer attempted to use an undefined network context data type "%s"!\n
 Accepting Steam Net connection %s\n
 AckSeqNum
@@ -496,9 +485,9 @@ CNetChan::ClearCheckpoint
 CNetChan::FinishRegisteringMessageHandlers
 CNetChan::FlowIncomingAck
 CNetChan::FlowNewPacket
+CNetChan::FlowUpdate
 CNetChan::GetAvgLoss
 CNetChan::GetBuffer
-CNetChan::GetLatencyBreakdown
 CNetChan::GetNumBitsWritten
 CNetChan::InternalSetCheckpoint
 CNetChan::InternalTransmitUpToCheckpoint
@@ -631,9 +620,6 @@ CUtlDict<class CSchemaClassField_Dynamic *,class CDefFastCaselessStringLess>::In
 CUtlDict<struct CWriteSerializersStableVersionDatabase::OrderedVariants_t *,class CDefFastCaselessStringLess>::Insert
 CUtlDict<struct NetworkFieldSerializerGroup_t *,class CDefFastCaselessStringLess>::Insert
 CUtlDict<struct empty_t,class CDefFastCaselessStringLess>::Insert
-CUtlLeanVectorFixedGrowableBase<class CEncodeSerializerStack,6,short>::EnsureCapacity
-CUtlLeanVectorFixedGrowableBase<struct ChangeCallback_t const *,2,short>::EnsureCapacity
-CUtlLeanVectorFixedGrowableBase<struct std::pair<class CFlattenedSerializer const *,void const *>,6,short>::EnsureCapacity
 CUtlLeanVectorImpl<class CUtlLeanVectorFixedGrowableBase<struct CFieldPath::Path_t,6,int>,struct CFieldPath::Path_t,int>::AddMultipleToTail
 CUtlLeanVectorImpl<class CUtlLeanVectorFixedGrowableBase<unsigned int,3,int>,unsigned int,int>::AddMultipleToTail
 CUtlLinkedList<class CNetChan *,int,0,int,class CUtlMemory<struct UtlLinkedListElem_t<class CNetChan *,int>,int> >::AllocInternal
@@ -1305,13 +1291,13 @@ Opened Steam Net Connection on socket '%s' to %s, connection %s\n
 Order,'From','To',Bits\n
 OutSeqNumAck
 Overrides IP for multihomed hosts
-P08@J
-P08J0
+P08@J0
+P08J
 P08N
-P60D
 PACKET_STATUS_DROPPED
 PACKET_STATUS_INVALID
 PACKET_STATUS_NORMAL
+PACKET_STATUS_OUT_OF_ORDER
 PackedFieldMetadataListIterator_t::operator []
 PackedFieldMetadataList_t::Release
 PackedFieldOffsets_t::Release
@@ -1512,6 +1498,8 @@ WriteMsgSizeAndBodyToBuffer
 WriteToBuffer Message %s is not initialized! Probably missing required fields!\n
 Writing %d bits for path %s of serializer %s entity %d, this will fail to parse\n
 [ Net Message Info: %s ]\n
+[%s] high frame misdelivery %.1f%%, %d/%d of %d frames dropped/reordered, %.0fms ping\n
+[%s] misdelivery %.1f%%, %d/%d of %d frames dropped/reordered, %.0fms ping\n
 [%s] sequence number flow %d jumping back by a large amount %d -> %d!
 [%s] setting extremely high timeout\n
 [GroupID]
@@ -1520,6 +1508,7 @@ Writing %d bits for path %s of serializer %s entity %d, this will fail to parse\
 [Type]
 [context entity 0x%p]
 [opaque]
+\fp\vPX
 \rBytes
 \tCannotBeNetworked        = %s\n
 \tCategory Mask            = %08X\n
@@ -1529,7 +1518,6 @@ Writing %d bits for path %s of serializer %s entity %d, this will fail to parse\
 \tGroup ID                 = %u\n
 \tID                       = %u\n
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t
-`60A
 activated
 added
 address.GetIP() == 0
@@ -1636,9 +1624,8 @@ fixed array
 flConnectionQualityForFlow <= 1.0f
 flags=%d, 
 flow == FLOW_INCOMING
+flow == FLOW_OUTGOING
 fp_trace
-frame.engine_latency >= 0.0f
-frame.local_latency >= 0.0f
 from == to
 from.GetDepth() == to.GetDepth()
 fs_spew_readfieldlist
@@ -1660,13 +1647,13 @@ hConnection == s_listSteamNetConnections[ idxList ].m_hSteamNetConn
 hSteamNetConn != k_HSteamNetConnection_Invalid
 has_network_encoding_data
 hostip
+hpz0
 iNumSourceFields <= iNumLocalFields || bAllowMismatches
 iThreadIndex < m_perThreadState.Count()
 identified %d entity related c++ field shadowing issues:\n
 idxMap == s_mapSteamNetConnectionsByConnHandle.InvalidIndex()
 include
 including
-incoming
 incoming_data_bytespersecond
 incoming_sequence
 incoming_sequence_start
@@ -1683,6 +1670,7 @@ invalid!
 invalid_address
 lDelta >= 0
 latency_seconds
+loss >= 0.0f && loss <= 1.0f
 m <= UINT32_MAX
 m_FieldFlattenedSerializers.Find( pFieldFlattenedSerializer ) == m_FieldFlattenedSerializers.InvalidIndex()
 m_LastField.IsSentinel()
@@ -1772,7 +1760,6 @@ nTraversalOffset == 0
 nUnreliableBytesSent <= pMessage->m_cbSize
 nUserData == -1
 nValueToPush <= 31
-net.m_flAvg >= 0.0f && net.m_flAvg < 1000*1000*10.0f
 net_captureculldata
 net_channels
 net_compresspackets_minsize
@@ -1834,11 +1821,12 @@ nullptr != pFieldOwnerStruct
 nullptr != pStructBase
 oldIter.GetIndex() >= nSkipStartIndex
 org(%g,%g,%g) ang(%g,%g,%g)
-outgoing
+out-of-order
 outgoing_data_bytespersecond
 outgoing_sequence
 outgoing_sequence_start
 p08@H^
+p6@2
 pArrayContext
 pArrayContext->m_nFieldIndex >= 0
 pBase->GetAssociatedSerializer() == hSerializer
@@ -1863,6 +1851,7 @@ pFieldFlattenedSerializer
 pFieldFlattenedSerializer->m_bExcludedFromSerializerRegistry
 pFieldInfo->m_pChangeCallbacks->Count() == 1
 pFieldSerializer
+pFrame->time == 0
 pFrameOut->time <= usecPacketTime
 pFrameOut->time > 0
 pHdr->nContainedBitDataBits == (uint32)OutPropData.GetNumBitsWritten()
@@ -1894,8 +1883,9 @@ pathPacked >= m_LowerBoundChild
 pathUnpacked.GetElement( i )->m_nValue >= m_LowerBoundPath.GetElement( i )->m_nValue
 pathUnpacked.GetElement( nOriginalRootPathDepth )->m_nValue >= m_LowerBoundPath.GetElement( nOriginalRootPathDepth )->m_nValue
 paths
-peer_latency >= 0.0f
 pending data
+pflow->frames[ pflow->currentindex & NET_FRAMES_MASK ].time != 0 || pflow->currentindex == 0
+pflow->latencyStats.framesdropped >= 0
 pmInfoDest.m_pFlattenedSerializer
 pmInfoDest.m_unPolymorphicTypeId == pmInfoSource.m_unPolymorphicTypeId
 pmInfoSource.m_pFlattenedSerializer
