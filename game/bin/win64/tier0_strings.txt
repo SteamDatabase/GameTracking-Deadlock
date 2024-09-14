@@ -53,50 +53,8 @@
  nZL
  new
  with base 
-!"CUtlMemoryPoolBase::AddNewBlob: mode == UTLMEMORYPOOL_GROW_NONE"
-!"CUtlMemoryPoolBase::Alloc: ran out of memory"
-!"Plat_SetWindowTitleW SDL_iconv_string failed."
-!( convarData.m_nFlags & FCVAR_CHANGE_CALLBACK_OCCURRING )
-!( nMetaFlags & k_EFioMetadataFollowSymbolicLinks )
-!( var->m_pInfo->m_nFlags & FCVAR_CHANGE_CALLBACK_OCCURRING )
-!((IAssertionFailureListener_Tier0Manipulator *)pListener)->GetRegisteredVar()
 !AxU
-!ContainsExistingWatch( linkScope )
-!HasMissedChanges()
-!IsExternallyAllocated() && !mem.IsExternallyAllocated()
-!IsInChangeCallback()
-!IsInitialized()
-!IsInternalTypeShortArray( Internal_Type() )
-!IsText()
 !TdM
-!bAllAccess
-!bChildIsPlaceholder
-!bErrorDecoding
-!bNeedToKeepBookmark
-!convarData.m_pDefaultValue
-!g_bEnforceLoggingSystemSingleton
-!g_bVProfLiteEnabled
-!m_Memory.IsReadOnly()
-!m_bAlive.Load()
-!m_bInInstance
-!m_bInInstance && m_bFreeBuffer && m_pBuffer
-!m_bIsHibernating
-!m_bIsProcessingCommands
-!m_bSearchAllBlocks
-!m_bStoredSubKey
-!m_pBase
-!m_pCurrentJobFunc && m_StackMemoryRange.pLow
-!m_pInt
-!m_valueTable.Defined( pConVarName )
-!pData->HasAnyFlags()
-!pExternalAllocation
-!pFileInfo->IsOpen()
-!pListener->m_bRegistered
-!pLogical[nLogicalIndex].IsProcessorGroupSet() && !pLogical[nLogicalIndex].IsProcessorGroupRelIndexSet()
-!pOutBuffer->IsText() || pOutBuffer->ContainsCRLF()
-!pStderrPipe || pStderrPipe->IsConnected()
-!s_bAssertOnMainThreadFailures || (GETLOCAL( s_nSDLMainThreadBlocks ) != 0)
-!s_pTempAllocator
 "%s" = "%s"
 "%s","%s",%s,"%s"\n
 "0x%llX"
@@ -118,6 +76,7 @@
 #include is NULL 
 #int#
 #nyf
+#vpulse1
 $Ib?s
 $eax
 $ebp
@@ -238,7 +197,6 @@ $xmm9
 %llu
 %llu,%u,%u,%s\r\n
 %ls [wstring, len = %d]
-%p is outside range %p-%p\ncmd: %s
 %s %s %s %s\n
 %s %s -nominidumps
 %s %s has conflicting %s flags (child: %s%s, parent: %s%s, parent wins)\n
@@ -246,15 +204,11 @@ $xmm9
 %s (%d) : %s
 %s (%d) : %s\n
 %s (before "%s")
-%s - Calling a table API on '%s'%s
-%s - Calling an array API on '%s'%s
 %s -contextstart %d -codefile "%s" -codeline %d
 %s allocation count overflow
 %s allocation count overflow( add %llu + current %llu > max %llu )\n
 %s bytes used out of %s bytes available (%.2f%%)
-%s is not a valid CThreadCrossProcessMutex name
 %s is out of range for KeyValues, which doesn't support signed 64-bit numbers
-%s not expected here.  A valid JSON document should be a single object, which begins with '{' and ends with '}'
 %s not expected here.  Missing ',' or ']'?
 %s not expected here.  Missing ',' or '}'?
 %s not expected here.  Missing ':'?
@@ -278,20 +232,15 @@ $xmm9
 %s: Invalid capacity %u\n
 %s: Invalid grow amount %d\n
 %s: Invalid lock state %d\n
-%s: Perf set logical CPUs cross %u groups, missing SetThreadSelectedCpuSetMasks so no affinity can be set\n
 %s: Start\n
-%s: Unable to find any logical processors to affinitize to\n
 %s: Unable to get executable filename (%d byte buffer).
 %s: Unable to load SDL\n
 %s: Unable to progress %d jobs to finished state (%llums elapsed)\n
-%s: Unknown raw allocator type %u\n
 %s: Unsupported raw allocator type %u\n
 %s: added string size %d overflows (added to %d)\n
 %s: capacity request for %d can't be satisfied (max %d)\n
-%s: current length (%u) exceeds buffer maximum (%u)\n
 %s: different number of names and flags\n
 %s: different number of names and pointers\n
-%s: invalid allocation request (%llu bytes)\n
 %s: invalid capacity %d requested\n
 %s: invalid flag byte count\n
 %s: invalid nBeforeIndex %d\n
@@ -304,24 +253,15 @@ $xmm9
 %s: invalid nOldChars %d (string %d)\n
 %s: invalid nSize %d\n
 %s: invalid nStart %d (string %d)\n
-%s: invalid nStringChars %d (buffer %d)\n
 %s: invalid pointer byte count\n
-%s: invalid request, in post-guard\n
-%s: invalid request, in pre-guard\n
-%s: invalid request, memory not allocated\n
-%s: invalid request, not in allocator\n
 %s: invalid string pointer (string chars %d)\n
 %s: out of memory, falling back to regular allocators\n
-%s: please provide a thread pool name\n
 %s: requested conversion of %d chars\n
 %s: string format requested %d chars\n
 %s: string length overflows (is %d, adding %d)\n
 %s: string length overflows (is %d, need %d unused)\n
-%s: unable to decommit\n
 %s: unable to find %s in '%s'\n
 %s: unable to load '%s', error %d\n
-%s: unhandled basic type %u\n
-%s: unrecognized severity %u\n
 %s\DefaultIcon
 %s\Shell\Open\Command
 %s_singleton_mutex
@@ -331,7 +271,7 @@ $xmm9
 %u MB memory used assuming maximum PageHeap overhead.\n
 %u lifetime allocations (%u delta).\n
 %u outstanding allocations (%d delta).\n
-%vmdlkeys2
+%vmdlkeys0
 &?PPPPPPP?
 &AElig;
 &Aacute;
@@ -450,85 +390,23 @@ $xmm9
 ( %s ) * %f
 ( %u: group %u, mask 0x%llx )
 ( %u: max procs %u, active proc %u, active mask 0x%llx )
-( (m_alignment-1) & (uintp)m_pBase ) == 0
-( alignment >= 4 ) && ( m_alignment == alignment )
 ( cubGap & 15 ) == 0
-( kv != nullptr ) || ( bOptional && !bDelete )
-( linkTargetInfo.nFileFlags & k_EFioFileInfoSymbolicLink ) == 0
-( m_conVars[ h ]->m_nFlags & ( FCVAR_PLACEHOLDER | FCVAR_PER_USER ) ) == 0
-( m_nAllocHeadExtra & ( MEMSTD_IMPLICIT_ALIGNMENT - 1 ) ) == 0
-( m_nBufferChars > 0 && (uint32)nStringChars < m_nBufferChars ) || ( m_nBufferChars == 0 && m_nStringChars == 0 )
-( m_nCurrDataOffset & 0x7 ) == 0
-( n - 1 ) * nBlockSize < num
-( nFileFlags & VSymbolDebugFileFlag_ForPrefixMatch ) == 0
-( nFileFlags & VSymbolDebugFileFlag_TrySubpaths ) == 0
-( nMatchDist - 1 ) < ( 1 << BLOCK_COMPRESS_DIST_BITS )
-( nMatchLen - BLOCK_COMPRESS_MIN_MATCH_LEN ) < ( 1 << BLOCK_COMPRESS_MATCH_BITS )
-( nNameSymbol == -1 ) == V_isempty( pName )
-( nOffset % m_BlockSize ) == 0
-( ndxBucket >= 0 ) && ( ndxBucket < 65536 )
-( ndxKeyData >= 0 ) && ( ndxKeyData < 65536 )
-( pDestBuffer->TellPut() % 8 ) == 0
-( pFileInfo->nFileFlags & k_EFioFileInfoSymbolicLink ) == 0
-( pKV3->GetBasicType() == KV3_BTYPE_ARRAY && m_pArrayElements != nullptr ) || ( pKV3->GetBasicType() == KV3_BTYPE_NULL )
-( saveContext.m_2ByteBuffer.TellPut() % 2 ) == 0
-( saveContext.m_4ByteBuffer.TellPut() % 4 ) == 0
-( saveContext.m_8ByteBuffer.TellPut() % 8 ) == 0
-( split.x <= nodeRect.width ) && ( split.y <= nodeRect.height ) && ( split.z <= nodeRect.depth )
-( uintptr_t( m_p2ByteValues ) % sizeof( int16 ) ) == 0
-( uintptr_t( m_p4ByteValues ) % sizeof( int32 ) ) == 0
-( uintptr_t( m_p8ByteValues ) % sizeof( double ) ) == 0
-( uintptr_t( m_p8ByteValues ) % sizeof( float64 ) ) == 0
-( uintptr_t( pSrcData ) % 8 ) == 0
-(((uintp)pNew & 0x3) == 0)
-((IAssertionFailureListener_Tier0Manipulator *)pListener)->GetRegisteredVar()
-((m_pchUTF8Path == nullptr) || (m_pchUTF8Path == (decltype(m_pchUTF8Path))m_pStackBuffer)) && ((m_pwchWideCharPathPrepended == nullptr) || (m_pwchWideCharPathPrepended == (decltype(m_pwchWideCharPathPrepended))m_pStackBuffer))
-(*pOutResult)[ pOutResult->Length() - 1 ] == '\n'
-(*pOutResult)[0] == '\n'
-(++pFiber->m_nRefCount) == (1)
-(GetChar()) == (0)
 (Missing)
 (None)
 (Unaccounted)
 (Unknown Cause)
-(V_UChar32ToUTF8( ch32, pAppend )) == (nOutBytes)
 (d$5V
 (deleted)
-(extra.AddToTail()) == (nTail)
-(intp)this % 8 == 0
-(m_StackMemoryRange.pLow == nullptr) && (m_StackMemoryRange.pHigh == nullptr)
-(m_nAllocatedFlags & 0x8000000000000000) == 0
-(m_nFlags & DELETE_MEMORY_ON_ZERO_REFCOUNT) == 0
-(m_nFlags & IS_USING_POOL_MEMORY) == 0
-(m_nFlags.GetRaw() & JOB_ABORTED) == 0
-(m_nRefCount & (uint32)(INTERNAL_IS_CONSTRUCTED | INTERNAL_CONSTRUCTOR_ALLOWED)) == (uint32)INTERNAL_CONSTRUCTOR_ALLOWED
-(m_nRefCount & (uint32)INTERNAL_REFCOUNT_MASK) > 0
-(m_nRefCount & INTERNAL_LOCKED) != 0
-(m_nTier0ThreadID != 0) || (this == s_MainThreadThreadLocalConstructionScope.CastPointer())
 (m_pCurMem=%p, m_nNumOutstanding=%d, m_pCurMemEnd=%p (avail=%d), m_nCurMemBlockIndex=%d, m_memoryBlocks=%[*]?)
-(m_pFirstBlob == nullptr) || (m_GrowMode == UTLMEMORYPOOL_GROW_POOLING_DISABLED)
 (m_pMemory=%p, m_nNumBytesAvailable=%d)
 (m_pMemory=%p, m_nNumBytesAvailable=%d, NONPOOLED)
-(m_pReleaseInstance == pReleaseInstance) && (m_pFN_Release == pFN_Release) && (dependant.m_pDependencyLL == m_pNext)
-(m_pchUTF8Path == (decltype(m_pchUTF8Path))m_pStackBuffer) && ((m_pwchWideCharPathPrepended == nullptr) || (m_pwchWideCharPathPrepended == (decltype(m_pwchWideCharPathPrepended))m_pStackBuffer))
-(m_pchUTF8Path == (decltype(m_pchUTF8Path))m_pStackBuffer) && (m_pwchWideCharPathPrepended == nullptr)
 (main)
-(nContainedQuotes != 1) || (argv[i][j -1] != '\"')
-(nIndex >= 0) && (nIndex < m_nParmCount)
 (no name set)
 (no subprocess output produced)\n
 (none)
 (null)
 (omitted %u following lines...)\n
 (omitted %u previous lines...)\n
-(pHigh >= m_StackMemoryRange.pLow) && (pHigh <= m_StackMemoryRange.pHigh)
-(pInsert->m_pParent == nullptr) && (registry.pListHead != pInsert)
-(pPool->Release()) == (0)
-(pWrite - pWithoutComments) <= (intp)nTotalStringLen
-(size_t)pNode % TSLIST_NODE_ALIGNMENT == 0
-(static_cast<CONTAINER_TYPE *>(pPushNode)->*LINKED_LIST_PTR) == nullptr
-(uint)mark.m_nBytesFree >= m_pFirstBlock->m_nBytesFree
-(uint8*)in != (uint8*)out
 (unknown)
 (wPu@
 (yaX
@@ -539,8 +417,6 @@ $xmm9
 )EVs
 )n/h%fPn
 )yIx
-*(void **)pSwap->m_pParkedThreadMemory == pSwap
-*(void **)parkedThreadMemory == this
 ***** OUT OF MEMORY! /+/ attempted allocation size: %llu ****\n
 ******** BEGIN VPROF REPORT ********\n
 ******** END VPROF REPORT ********\n
@@ -548,13 +424,7 @@ $xmm9
 *StO9>T
 *Vc>L
 *fj\rv
-*info.m_pHandlePointer == CONVAR_HANDLE_INVALID
 *nullptr*
-*pCurrentFormat == pStep->m_FromFormat
-*pCurrentFormat == toFormat
-*pMarker == THREAD_INIT_ONCE_IN_INIT
-*pMemIter == 0xFFEEFFEE
-*pPtr != nullptr
 +i9O
 +inf
 +tPOu
@@ -585,7 +455,6 @@ $xmm9
 --------------------------------\n
 --------------\n%3i convars/concommands for [%s]\n
 --------------\n%3i total convars/concommands\n
---m_nWritingThreadLockCount == 0
 -. +0123456789.
 -9D\t/9a
 -BH>t
@@ -860,8 +729,6 @@ $xmm9
 0 0 0
 0 0 0 0
 0 0 0 255
-0 < flPct && flPct < 1.0f
-0 == m_nItems
 0.0.0-0-g000000missing_version_try_git_fetch_tags
 00010203040506070809101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899
 0123456789
@@ -869,29 +736,27 @@ $xmm9
 0123456789abcdef
 0123456789abcdefghijklmnopqrstuvwxyz
 0E>X
+0PO(
 0U@H
 0X8b?~
 0iN>/
 0x%016llX
 0x%p
-1 == nLogProcsPerPkg
 1#IND
 1#INF
 1#QNAN
 1#SNAN
-1.2.11
 11UT
 11Y@
 11eU%
 127.0.0.1
 1A26b
 1DBlend
-1Iax
-1\fe14
 1icl
 1wsHp
 2,THh
 28~v
+2\vpl
 2aNuE
 3 FB
 3+5<t
@@ -901,6 +766,7 @@ $xmm9
 3?tr
 3Pzr)
 3R`w
+3\r53h&
 3o=q
 3wl'
 4JpI?=
@@ -911,19 +777,19 @@ $xmm9
 5+eS
 51>W
 52F*
-52h\t
 5Bt)
 5U]_n
+5\fE5d
 5m8>8=t
 5nsfZ
 64-bit DWARF format is not supported\n
 67VW
-6>`x4
 6A_p
 6HK*\n
 6NK>
 6\fXO>
 6\fXO>\ntA
+6\fe64
 6l3o
 7>I0
 7?GX
@@ -955,9 +821,7 @@ $xmm9
 ::<lambda_
 ::string literal
 ::{ default arg#
-:Py4
 :R;uD
-:`A0y4
 :iEF
 ;1cb
 ;BIb?
@@ -978,7 +842,6 @@ $xmm9
 <dS\fH\t\nFE
 <g9;c
 <img src="
-<invalid>
 <jemalloc>: %s: %.*s:%.*s\n
 <jemalloc>: -- Set conf value: %.*s:%.*s\n
 <jemalloc>: Abort (abort_conf:true) on invalid conf value (see above).\n
@@ -1022,6 +885,7 @@ $xmm9
 <unknown KV3 basic type '%s' (%d)>
 <unknown>
 =1cb
+=3(Y0
 =87M
 =9tau
 =cQ6
@@ -1037,6 +901,7 @@ $xmm9
 >logf
 >vf,U
 ?!5WOo
+?1.2.11
 ?1cb
 ?3Fx
 ?456789:;<=
@@ -1171,7 +1036,6 @@ $xmm9
 ??0KeyValues@@QEAA@PEBV0@_N@Z
 ??0KeyValuesJSONParser@@QEAA@AEBVCUtlBuffer@@@Z
 ??0KeyValuesJSONParser@@QEAA@PEBDH@Z
-??0_BlockRequiresSDLMainThread_t@@QEAA@XZ
 ??1CBufferStringFormatOutputStream@@UEAA@XZ
 ??1CCharBufferFormatOutputStream@@UEAA@XZ
 ??1CCircularBuffer@@QEAA@XZ
@@ -1222,7 +1086,6 @@ $xmm9
 ??1IFormatOutputStream@@UEAA@XZ
 ??1KeyValues@@QEAA@XZ
 ??1KeyValuesJSONParser@@QEAA@XZ
-??1_BlockRequiresSDLMainThread_t@@QEAA@XZ
 ??2KeyValues@@SAPEAX_K@Z
 ??2KeyValues@@SAPEAX_KHPEBDH@Z
 ??3KeyValues@@SAXPEAX@Z
@@ -1411,7 +1274,6 @@ $xmm9
 ?BuildMidpoint@CVertexKDTree@@QEAAXPEBMHH@Z
 ?BuildMidpointFromVertexSubSet@CVertexKDTree@@QEAAXPEBMHPEBHH@Z
 ?BuildNode@CVertexKDTree@@AEAAHHH@Z
-?C:\buildworker\citadel_rel_win64\build\src\tier0_perproject\bitbuf.cpp
 ?CalcBudgetGroupTimes_Recursive@CVProfile@@QEAAXPEAVCVProfNode@@PEAIHM@Z
 ?CalcStackDepth@CThread@@QEAA_KPEAX@Z
 ?Capture@CCallStackCapture@@QEAAXP6AHIPEAPEAXHH@ZII@Z
@@ -1836,7 +1698,7 @@ $xmm9
 ?GetVarValue@CEnvironmentBlock@@QEBAPEBDH@Z
 ?GetWinLevelRevision@CPUInformation@@SA_NPEAG0@Z
 ?GrowByChunks@CBufferString@@QEAAHHH@Z
-?HEAP WARNING: memory block at %p appears to be corrupt\n
+?HEAP WARNING: memory pointer %p is invalid\n
 ?HandleFirstWriteLockTransition@CEventRWLock@@IEAAXAEAVCEventListNode@@@Z
 ?HandleToString@CCountedStringPool_CI@@QEBAPEBDG@Z
 ?HandlerQueueHeartBeat@MiniDumpStandardData_t@@QEBAXXZ
@@ -2553,11 +2415,6 @@ $xmm9
 ?\rz0w
 ?\vxMW
 ?_FooHacked_DontEverCallMe@Hack_WatchWindow_t@@SAPEBU1@PEBX@Z
-?_assertionConstants@?8??GetVParent@CVProfNode@@QEAAPEAV2@XZ@4U_AssertCompileTimeConstantStruct_t@@B
-?_assertionConstants@?8??GetVParent@CVProfNode@@QEBAPEBV2@XZ@4U_AssertCompileTimeConstantStruct_t@@B
-?_assertionConstants@?8??PopGroup@CVProfile@@QEAAXXZ@4U_AssertCompileTimeConstantStruct_t@@B
-?_assertionConstants@?8??PushGroup@CVProfile@@QEAAXH@Z@4U_AssertCompileTimeConstantStruct_t@@B
-?_assertionConstants@?BD@??PushGroup@CVProfile@@QEAAXH@Z@4U_AssertCompileTimeConstantStruct_t@@B
 ?base64_decode@@YA_NAEAVCUtlBuffer@@AEBV1@@Z
 ?base64_encode@@YA_NAEAVCUtlBuffer@@AEBV1@@Z
 ?f`Y4
@@ -2571,7 +2428,6 @@ $xmm9
 @^8U)zj
 @aQY
 @pn>6
-A process is already running\n
 A>pP&
 AA40J6
 ABCDEFGHIJKLMNOPQRSTUVWXYZ
@@ -2638,12 +2494,9 @@ AddVectoredExceptionHandler
 Address range refers to non-existent CU at 0x%llx\n
 Alert
 Align
-AlignValue( m_pFirstBlock->m_nBytesFree, 16 ) == m_pFirstBlock->m_nBytesFree
 AlignedByteArray not properly aligned\n
-All instances of a ConVar must have the same setting for FCVAR_PER_USER (%s)\n
 AllocConsole
 AllocateAndInitializeSid
-Allocation freed with %s but allocated with %s\n
 AllowGameDVR
 Always Ignore
 An assertion has failed!\r\n\r\nTo help diagnose the problem:\r\n    -type up a short description of what you were doing\r\n    -press "Broadcast Minidump"\r\n\r\nTo do nothing, press "Ignore For This Session"\r\n\r\n\r\nThe full assertion description is...\r\n\r\n%s
@@ -2692,15 +2545,11 @@ Another copy of this program is already running on this machine.  Only one insta
 AppCaptureEnabled
 AppPolicyGetProcessTerminationMethod
 AppPolicyGetThreadInitializationType
-ApplyConVarOverrides
 ApplyDiffs
 April
 AreFileApisANSI
 Arenas
-Assert
-AssertCast
 AssertDlgThread
-AssertMsg_ConditionFailed_Internal
 Assertion Dialog could not be created. Breaking in debugger.\n
 Assertion Dialog could not be created. Ignoring assertion. Run under the debugger to break instead.\n
 Assertion Failed
@@ -2720,17 +2569,13 @@ AssignProcessToJobObject
 AssignRangeMultipler with bitcount=32!\n
 AsyncScheduledFunctions
 AttachConsole
-Attempted resume when not suspended
 Attempted to add job to job queue that has already been completed\n
-Attempted to register ConVar %s with the same name as a command!
-Attempted to register command %s with the same name as a ConVar!
 August
 AuthenticAMD
 AutoLayer
 Available flags to search for: \n
 Average %.2f fps, %.2f ms per frame\n
 B,fK
-B@x4
 BC1%M
 BC?>6t9^\tc:>
 BF>^G
@@ -2758,7 +2603,6 @@ Bad header: invalid compression header
 Bad header: unrecognized encoding id
 Bad keyname: '%s'
 Bad node link detected\n
-Bad translation type: %d
 Bad value
 BakedLODBuilderMgr001
 BaseIKRig
@@ -2777,7 +2621,6 @@ Block
 BodyGroup
 BodyGroupChoice
 Bone
-Both ConVars must be marked FCVAR_REPLICATED for linkage to work (%s)\n
 Boundary_Radius
 Break
 Break on unknown stall cause
@@ -2785,7 +2628,6 @@ BreakCommand
 BreakPieceEmbedded
 BreakPieceExternal
 BroadcastAssertionMiniDumpContext_t
-BroadcastAssertionMiniDumpHandler
 BroadcastAssertionMiniDumpHandler - [Invoking crashdumpmailer]\n
 Build ID too large, %d bytes\n
 Build ID too large\n
@@ -2795,148 +2637,42 @@ C-Yn
 C5R?\t
 C5yr
 C:\buildworker\citadel_rel_win64\build\_build_\tier0\_vpc_tier0\default\win64\_msvc_\Retail\tier0.pdb
-C:\buildworker\citadel_rel_win64\build\src\common\dwarf_file.cpp
-C:\buildworker\citadel_rel_win64\build\src\common\dwarf_symbols.cpp
-C:\buildworker\citadel_rel_win64\build\src\common\dwarf_undecorate.cpp
-C:\buildworker\citadel_rel_win64\build\src\common\utlstringtokendatabasehelpers.h
-C:\buildworker\citadel_rel_win64\build\src\common\vdebug.cpp
-C:\buildworker\citadel_rel_win64\build\src\common\virtrangemap.cpp
-C:\buildworker\citadel_rel_win64\build\src\common\vsymbolmodule.cpp
-C:\buildworker\citadel_rel_win64\build\src\common\vsymbolmodule.h
-C:\buildworker\citadel_rel_win64\build\src\common\vwinminidumpwriter.cpp
-C:\buildworker\citadel_rel_win64\build\src\public\mathlib\percentile_generator.h
-C:\buildworker\citadel_rel_win64\build\src\public\ordered_constructor.h
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\bitbuf.h
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\bitstring.h
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\byteswap.h
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\check_cast.h
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\concommand.h
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\convarref.h
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\crtoverride.cpp
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\globallist.h
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\keyvalues3.h
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\keyvalues3.inl
 C:\buildworker\citadel_rel_win64\build\src\public\tier0\memstack.h
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\platform_extra.h
 C:\buildworker\citadel_rel_win64\build\src\public\tier0\quantizedfloatencoder.h
 C:\buildworker\citadel_rel_win64\build\src\public\tier0\threadmutex.h
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\threadmutex_base.h
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\threadspinrwlock_base.h
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\tsfastpushqueue.h
 C:\buildworker\citadel_rel_win64\build\src\public\tier0\tslist.h
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\utlblockmemory.h
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\utlbuffer.h
 C:\buildworker\citadel_rel_win64\build\src\public\tier0\utldict.h
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\utlfixedmemory.h
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\utlhash.h
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\utlhashmap.h
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\utlintrusivelist.h
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\utllinkedlist.h
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\utlmemory.h
 C:\buildworker\citadel_rel_win64\build\src\public\tier0\utlrbtree.h
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\utlstringmap.h
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\utlstringtoken.h
 C:\buildworker\citadel_rel_win64\build\src\public\tier0\utlsymboltable.h
 C:\buildworker\citadel_rel_win64\build\src\public\tier0\utltshash.h
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\vertexkdtree.h
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\vprof_profile.h
-C:\buildworker\citadel_rel_win64\build\src\tier0\appinstance.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\assert_dialog.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\bitstring.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\blockcompress.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\buffer_string.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\byteswap.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\checksum_md5.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\circularbuffer.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\commandbuffer.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\commandline.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\coroutine.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\cpu.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\cputopology.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\cvar.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\dbg.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\eventdispatcher.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\eventutils.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\fibertools.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\fileio.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\filenamesymboltable.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\hibernate.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\jobthread.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\keyvalues.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\keyvalues3_binary.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\keyvalues3_binaryreader_v0.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\keyvalues3_binaryreader_v1.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\keyvalues3_binaryreader_v2_to_v4.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\keyvalues3_binarywriter.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\keyvalues3_jsonreader.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\keyvalues3_jsonwriter.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\keyvalues3_kv1textreader.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\keyvalues3_kv1textwriter.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\keyvalues3_oldschematext.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\keyvalues3_text.h
 C:\buildworker\citadel_rel_win64\build\src\tier0\keyvalues3_textreader.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\keyvalues3_textwriter.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\keyvaluesjson.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\keyvaluessystem.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\kv3format_manager.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\kv3formats_animgraph.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\kv3formats_modeldoc.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\kv3formats_smartprop.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\kv3formats_vcd.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\kv3formats_vpcf.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\kv3formats_vpulse.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\kv3loadsave.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\logging.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\loggingsystem.h
-C:\buildworker\citadel_rel_win64\build\src\tier0\lzmadecoder.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\lzss.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\mem_helpers.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\memfunctions.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\mempool.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\memprocessheap.cpp(341):***** OUT OF MEMORY! attempted allocation size: %I64d ****\n
 C:\buildworker\citadel_rel_win64\build\src\tier0\memstack.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\memstd.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\minidump.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\modlist_utils.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\netadr.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\platform.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\platform_sdl.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\platwindow.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\processutils.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\quantizedfloatencoderregistry.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\random.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\raw_alloc.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\restartself.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\stackcontext.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\stackhelpers_windows_dbghelp.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\stacktools.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\stringparse.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\stringpool.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\testscriptmgr.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\threadtools.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\tier0_stdlib.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\tier0_strtools.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\tier0_strtools_fastfloat.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\tier0_unicode.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\tools_stall_monitor.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\tslist.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\uniqueid.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\utl3dallocator.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\utlbinaryblock.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\utlbuffer.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\utllocalmemstack.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\utlmemory.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\utlmemoryarena.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\utlobjectregistry.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\utlstring.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\utlstringtokensystem.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\utlsymboltable.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\vprof.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0_perproject\concommand.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0_perproject\convarref.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0_perproject\keyvalues3.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0_perproject\singletons.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0_perproject\utltokenizer.cpp
 CAddAnimNode
 CAimMatrixAnimNode
 CAndCondition
@@ -3192,45 +2928,31 @@ CAnimationSubGraph
 CAssertGlobals::AssertDisableMutex
 CAssertGlobals::assertLock
 CAsyncScheduledFunctionManager::Init
-CAsyncScheduledFunctionManager::RescheduleFunction
-CAsyncScheduledFunctionManager::UnregisterScheduledFunction
 CAsyncScheduledFunctionManager::m_callMutex
 CAuthPhysBody
 CAuthPhysJoint
 CBindPoseAnimNode
-CBitStringT<class CVariableBitStringBase>::GetBit
-CBitStringT<class CVariableBitStringBase>::SetBit
 CBlend2DAnimNode
 CBlend2DItem
 CBlend2DItemBase
 CBlend2DItemBaseConstPtr
 CBlend2DItemBasePtr
 CBlendAnimNode
-CBlockCompress::FastCompress
 CBlockSelectionMetric
 CBoneMaskAnimNode
 CBonePositionMetric
 CBoneVelocityMetric
 CBoolAnimParameter
-CBottomMemoryManager::Init
-CBottomMemoryManager::Reserve
-CBottomMemoryManager::Reserve::<lambda_1>::operator ()
-CBottomMemoryManager::Reserve::<lambda_2>::operator ()
-CBudgetGroup::AccumulateTime
 CBufferString::%s: unsafe self pointer provided as a modification input\n
 CBufferString::AppendConcat
 CBufferString::AppendFormatV
-CBufferString::ConvertIn
 CBufferString::EnsureAddedCapacity
 CBufferString::EnsureCapacity
-CBufferString::EnsureOwnedAllocation
 CBufferString::GetInsertPtr
 CBufferString::GetReplacePtr
 CBufferString::GrowByChunks
-CBufferString::Purge
 CBufferString::RemoveAt
 CBufferString::RemoveAtUTF8
-CBufferString::RemovePartialUTF8Tail
 CBufferString::ReplaceAt
 CBufferString::ReverseChars
 CBufferString::SetPtr
@@ -3238,32 +2960,10 @@ CBufferString::ToLowerFast
 CBufferString::ToUpperFast
 CBufferString::TruncateAt
 CBufferString::UnicodeCaseConvert
-CByteswap::SwapBufferToTargetEndian
-CByteswap::SwapFieldToTargetEndian
-CCheck_IsAnimGraphFormat::CCheck_IsAnimGraphFormat
-CCheck_IsModelDocFormat::CCheck_IsModelDocFormat
-CCheck_IsVCDFormat::CCheck_IsVCDFormat
 CChoiceAnimNode
 CChoreoAnimNode
-CCircularBuffer::AssertValid
-CCircularBuffer::Read
-CCommand::Tokenize
 CCommand::Tokenize: Encountered command which overflows the tokenizer buffer.. Skipping!\n
-CCommandBuffer::AddText
-CCommandBuffer::BeginProcessingCommands
-CCommandBuffer::DequeueNextCommand
-CCommandBuffer::EndProcessingCommands
-CCommandBuffer::EndProcessingCommands() called before all appropriate commands were dequeued.\n
-CCommandBuffer::GetNextCommandHandle
-CCommandBuffer::ParseArgV0
-CCommandBuffer::SetWaitDelayTime
-CCommandLine::CreateCmdLine
-CCommandLine::GetParm
-CCommandLine::OpenParameterFile
 CCommentAnimNode
-CConCommandMemberAccessor<class CCvar>::CommandCallback
-CConCommandMemberAccessor<class CCvar>::CommandCompletionCallback
-CConVarSnapshot::AddConVar
 CConditionBase
 CConditionBaseConstPtr
 CConditionBasePtr
@@ -3273,63 +2973,17 @@ CControlValueCondition
 CCoroutine::RestoreStack
 CCoroutine::SaveStack
 CCoroutineMgr::PopCoroutineStack
-CCountedStringPool_CI::ReferenceStringHandle
 CCurrentRotationVelocityMetric
 CCurrentVelocityMetric
 CCvar
-CCvar::AddConCommandCallback
-CCvar::AddConVarCallback
-CCvar::AllocDataMemory
-CCvar::AllocNameMemory
-CCvar::ApplyConVarOverrides::<lambda_1>::operator ()
-CCvar::ApplyConVarOverrides::<lambda_2>::operator ()
-CCvar::AreConVarsLinkable
-CCvar::CCvar
-CCvar::CallGlobalChangeCallbacks
-CCvar::Con_LogFunctionHelper
-CCvar::Con_LogLevelCallback
-CCvar::Con_LogVerbosityCallback
-CCvar::Init
-CCvar::InstallConVarListener
-CCvar::InstallGlobalChangeCallback
-CCvar::InvokeChangeCallbacks
-CCvar::RegisterConCommand
-CCvar::RegisterConVar
-CCvar::RemoveGlobalChangeCallback
-CCvar::ResetConVarsToSnapshot::<lambda_1>::operator ()
-CCvar::SetCompletionCallback
-CCvar::SetFlags
-CCvar::SetMaxSplitScreenSlots
-CCvar::SetOptions
 CCycleCondition
 CCycleControlAnimNode
 CCycleControlClipAnimNode
 CDampedPathAnimMotor
-CDirTreeWatchManager doesn't support k_EFioMetadataFollowSymbolicLinks, link transitions are already handled automatically.
-CDirTreeWatchManager::AddLinkTransition::<lambda_1>::operator ()
 CDirTreeWatchManager::AddWatch called on '%s' which is contained in existing watch of '%s'\n
-CDirTreeWatchManager::CDirTreeWatchManager
-CDirTreeWatchManager::SetMonitoringThreadInfo
-CDirWatcher::GetChangedFile
-CDirWatcher::GetChangedFiles
-CDirWatcher::SetDirToWatch::<lambda_1>::()::<lambda_1>::operator ()
 CDirectPlaybackAnimNode
 CDirectionalBlendAnimNode
 CDistanceRemainingMetric
-CDwarfCfiState::SetInitRuleState
-CDwarfCfiState::UpdateRule
-CDwarfFile::ReadAllKnownSectionData
-CDwarfFile::SeekFile
-CDwarfModule::AddDebugInfoSymbols
-CDwarfModule::AddSymbol
-CDwarfModule::ExecuteCfi
-CDwarfModule::OpenAndParse
-CDwarfModule::OpenFile
-CDwarfModule::OpenSplitFileOnPath
-CDwarfModule::ParseCie
-CDwarfModule::ParseDebugInfoEntry
-CDwarfUndecorateName::AppendExistingRange
-CDwarfUnwindTable::AddRow
 CDwarfVector capacity overflow\n
 CDwarfVector<char *>::GetInsertPtr
 CDwarfVector<char>::GetInsertPtr
@@ -3356,17 +3010,6 @@ CDwarfVector<unsigned char>::GetInsertPtr
 CDwarfVector<unsigned int>::GetInsertPtr
 CEmitTagAction
 CEnumAnimParameter
-CEnvironmentBlock::Copy
-CEnvironmentBlock::GetVarKeyAndValue
-CEnvironmentBlock::RebaseEntries
-CEnvironmentBlock::Set
-CEnvironmentBlock::ValidateStorage
-CEventDispatcher_Base::IterateListeners_End
-CEventDispatcher_Base::RegisterEventListener_Base
-CEventRWLock::UnlockWrite_LockForRead::<lambda_1>::operator ()
-CEventRWLock_Debuggable<1>::DuplicateReadLock
-CExecMultiWorkerJob::CExecMultiWorkerJob
-CExecMultiWorkerJob::Release
 CExpressionAction
 CFA advance has a zero size\n
 CFA advances off the end of the FDE\n
@@ -3383,24 +3026,9 @@ CFI expression not supported\n
 CFI restore_state without pushed state\n
 CFI val_expression not supported\n
 CFacingHeadingCondition
-CFiber::AllocPooledFiber
-CFiber::AllocPooledFiber::<lambda_1>::operator ()
-CFiber::ClearUnusedSpaceToFFEEFFEE
-CFiber::ConstructThreadFiber
-CFiber::DetachFromStackContext
-CFiber::InitStackContext
-CFiber::InternalResumeJob
-CFiber::InternalSetFiberJob
-CFiber::ReachedZeroReferences
-CFiber::ResumeJob
-CFiber::YieldJmp
-CFiberJobPool::Shutdown::<lambda_1>::()::<lambda_1>::operator ()
-CFiberJobPool::Shutdown::<lambda_2>::()::<lambda_1>::operator ()
-CFiberJobPool::~CFiberJobPool
 CFinishedCondition
 CFloatAnimParameter
 CFloatAnimValue
-CFloatEncoderRegistry::FindOrCreateQuantizedFloatEncoder
 CFloatEncoderRegistry::GetQuantizedFloatEncoderByReg
 CFollowAttachmentAnimNode
 CFollowPathAnimNode
@@ -3413,9 +3041,6 @@ CFootStepTriggerAnimNode
 CForceFacingCondition
 CFutureFacingMetric
 CFutureVelocityMetric
-CGlobalConCommandRegistry::AddToList
-CGlobalConVarRegistry::AddToList
-CGlobalConVarRegistry::HookUpConVar
 CGraphMotionItem
 CGroundCondition
 CGroundIKSolveAnimNode
@@ -3435,95 +3060,17 @@ CIE return register (%llu) too large\n
 CInputStreamAnimNode
 CIntAnimParameter
 CJiggleBoneAnimNode
-CJobThread::CJobThread
 CJumpHelperAnimNode
-CKV3ArrayIteratorView<0>::CKV3ArrayIteratorView
-CKV3ArrayIteratorView<0>::iterator::operator *
-CKV3ArrayIteratorView<1>::CKV3ArrayIteratorView
-CKV3ArrayIteratorView<1>::iterator::operator *
-CKV3BinaryLoadContextV2ToV4::CKV3BinaryLoadContextV2ToV4
-CKV3BinaryLoadContextV2ToV4::DecompressBinaryBlobs
-CKV3BinaryLoadContextV2ToV4::DecompressBinaryBlobs::<lambda_2>::operator ()
-CKV3BinaryLoadContextV2ToV4::LoadCompactArray
-CKV3ClusterAlloc<class CKeyValues3Array,63>::Free
-CKV3ClusterAlloc<class CKeyValues3Table,63>::Free
-CKV3ClusterAlloc<class KeyValues3,63>::Free
-CKV3ClusterAlloc<class KeyValues3,63>::GetIndexForEntry::<lambda_1>::operator ()
-CKV3ClusterAlloc<class KeyValues3,63>::GetIndexForEntry::<lambda_2>::operator ()
-CKV3ClusterAlloc<class KeyValues3,63>::GetParentContext
-CKV3FormatManager::Convert
-CKeyValues3Array::GetElement
-CKeyValues3Cluster::GetMetadataForKV3::<lambda_1>::operator ()
 CKeyValues3Context::Root
-CKeyValues3ContextImpl::FreeToCluster
-CKeyValues3ContextImpl::FreeToCluster::<lambda_1>::operator ()
-CKeyValues3Iterator::Advance
-CKeyValues3Table::Free
-CKeyValues3Table::IsIdenticalTo
-CKeyValues3Table::IsIdenticalTo failure!
-CKeyValues3Table::MemberData
-CKeyValues3Table::MemberName
-CKeyValues3Table::MemberNameHash
-CKeyValues3Table::Remove
-CKeyValues3Table::RenameMember
-CKeyValuesErrorStack::Pop
-CKeyValuesErrorStack::Reset
 CKeyValuesSystem::m_Strings
-CKeyValuesSystem::~CKeyValuesSystem
-CKeyValuesSystemBase::FindOrInsertSharedString
-CKeyValuesSystemBase::GetCaseInsensitiveSymbolFromCaseSensitiveSymbol
-CKeyValuesSystemBase::GetStringForSymbol
 CKeyValuesSystemBase::GetSymbolForStringCaseSensitiveInternal
-CKeyValuesSystemBase::ReferenceMap_t::RemoveReference
-CKeyValuesSystemBase::ReleaseSharedString
-CKeyValuesTokenReader::ReadQuotedString
-CKeyValuesTokenReader::SeekBackOneToken
-CKeyValuesTokenReader::SeekBackOneToken: It is only possible to seek back one token at a time
-CKeyValues_Data::Internal_ClearData
-CKeyValues_Data::Internal_CopyData
-CKeyValues_Data::Internal_GetFloat
-CKeyValues_Data::Internal_GetInt
-CKeyValues_Data::Internal_GetPtr
-CKeyValues_Data::Internal_GetString
-CKeyValues_Data::Internal_GetUint64
-CKeyValues_Data::Internal_GetWString
-CKeyValues_Data::Internal_IsEqual
-CKeyValues_Data::Internal_SetFromString
-CKeyValues_Data::Internal_SetFromString::<lambda_1>::operator ()
-CKeyValues_Data::Internal_SetSubKey::<lambda_1>::operator ()
 CL:>8
 CLIENTCMD_CAN_EXECUTE
 CLIENTDLL
-CLZMA::Uncompress
-CLZSS::CompressNoAlloc
-CLZSS::SafeUncompress
-CLZSS::Uncompress
 CLeanMatrixAnimNode
-CLoadKV3FromDynData::CLoadKV3FromDynData
-CLoadKV3FromDynData::ReadObject
-CLoadKV3FromDynData::ResolveUnresolvedReferences
-CLoadKV3FromDynData::~CLoadKV3FromDynData
-CLoadKV3FromJSON::ReadObject
-CLoadKV3FromJSON::UnescapeJSONString
-CLoadKV3FromKV1Text::ReadSubkeys
-CLoadKV3FromText::ReadArrayValue::<lambda_1>::operator ()
-CLoadKV3FromText::ReadArrayValue::<lambda_2>::operator ()
 CLoadKV3FromText::ReadLiteralValue
-CLoadKV3FromText::ReadTable
-CLoggingSystem::AllocTag
 CLoggingSystem::AllocTag overflowed!\n
-CLoggingSystem::CLoggingSystem
-CLoggingSystem::EnableLogCapture
-CLoggingSystem::GetChannel
-CLoggingSystem::GetCurrentState
-CLoggingSystem::GetVerbosityForSeverity
-CLoggingSystem::LogDirect
-CLoggingSystem::PopLoggingState
-CLoggingSystem::PushLoggingState
-CLoggingSystem::RegisterBackdoorLoggingListener
 CLoggingSystem::RegisterLoggingChannel
-CLoggingSystem::RegisterLoggingListener
-CLoggingSystem::SetChannelIndent
 CLookAtAnimNode
 CLookComponent
 CLookComponentUpdater
@@ -3531,14 +3078,7 @@ CMOV
 CMemAllocSystemInitialize
 CMemoryStack %s in %s\n
 CMemoryStack %s ran out of reserved memory (%u/%ukb committed) when attempting to commit %ukb additional\n
-CMemoryStack::Alloc
-CMemoryStack::FreeToAllocPoint
-CMemoryStack::Init
-CMemoryStack::RegisterAllocation
 CMemoryStack::ReportOutOfMemory
-CMetadataParseHelper::AddMetatext::<lambda_1>::operator ()
-CModuleListSnapshot::AddEntry
-CModuleListSnapshot::GetNextModule
 CMotionBase
 CMotionClip
 CMotionClipBase
@@ -3578,114 +3118,8 @@ COMPARISONVALUETYPE_FIXEDVALUE
 COMPARISONVALUETYPE_PARAMETER
 COM_TimestampedLog
 CONTENT
-COneTimeEvent::Allocate
 COrCondition
-COrderedConstructor_Create<class CAssertGlobals,class COrderedResolve_NoResolve,1>::AddRef
-COrderedConstructor_Create<class CAssertGlobals,class COrderedResolve_NoResolve,1>::AddRef::<lambda_1>::operator ()
-COrderedConstructor_Create<class CBufferStringN<200>,class COrderedResolve_NoResolve,0>::AddRef
-COrderedConstructor_Create<class CBufferStringN<200>,class COrderedResolve_NoResolve,0>::AddRef::<lambda_1>::operator ()
-COrderedConstructor_Create<class CCommandLine,class COrderedResolve_NoResolve,0>::AddRef
-COrderedConstructor_Create<class CCommandLine,class COrderedResolve_NoResolve,0>::AddRef::<lambda_1>::operator ()
-COrderedConstructor_Create<class CConstructedMainThreadID,class COrderedResolve_NoResolve,0>::AddRef
-COrderedConstructor_Create<class CConstructedMainThreadID,class COrderedResolve_NoResolve,0>::AddRef::<lambda_1>::operator ()
-COrderedConstructor_Create<class CDbgHelpFunctionsLoader,class CResolveOrderedFunc<class CDbgHelpFunctionsLoader,&void __cdecl ResolveOrderedConstructor_DbgHelperFunctions(class COrderedConstructor_DependencyManagement<class CDbgHelpFunctionsLoader> &)>,1>::AddRef
-COrderedConstructor_Create<class CDbgHelpFunctionsLoader,class CResolveOrderedFunc<class CDbgHelpFunctionsLoader,&void __cdecl ResolveOrderedConstructor_DbgHelperFunctions(class COrderedConstructor_DependencyManagement<class CDbgHelpFunctionsLoader> &)>,1>::AddRef::<lambda_1>::operator ()
-COrderedConstructor_Create<class CFiber,class COrderedResolve_NoResolve,0>::AddRef
-COrderedConstructor_Create<class CFiber,class COrderedResolve_NoResolve,0>::AddRef::<lambda_1>::operator ()
-COrderedConstructor_Create<class CFiberJobPool,class CResolveOrderedFunc<class CFiberJobPool,&void __cdecl s_FiberJobPool_ResolveFunc(class COrderedConstructor_DependencyManagement<class CFiberJobPool> &)>,0>::AddRef
-COrderedConstructor_Create<class CFiberJobPool,class CResolveOrderedFunc<class CFiberJobPool,&void __cdecl s_FiberJobPool_ResolveFunc(class COrderedConstructor_DependencyManagement<class CFiberJobPool> &)>,0>::AddRef::<lambda_1>::operator ()
-COrderedConstructor_Create<class CImageHlpFunctionsLoader,class COrderedResolve_NoResolve,1>::AddRef
-COrderedConstructor_Create<class CImageHlpFunctionsLoader,class COrderedResolve_NoResolve,1>::AddRef::<lambda_1>::operator ()
-COrderedConstructor_Create<class CLoggingSystem,class CResolveOrderedFunc<class CLoggingSystem,&void __cdecl ResolveGlobalLoggingSystem(class COrderedConstructor_DependencyManagement<class CLoggingSystem> &)>,0>::AddRef
-COrderedConstructor_Create<class CLoggingSystem,class CResolveOrderedFunc<class CLoggingSystem,&void __cdecl ResolveGlobalLoggingSystem(class COrderedConstructor_DependencyManagement<class CLoggingSystem> &)>,0>::AddRef::<lambda_1>::operator ()
-COrderedConstructor_Create<class CMaximumWaitQueue,class COrderedResolve_NoResolve,1>::AddRef
-COrderedConstructor_Create<class CMaximumWaitQueue,class COrderedResolve_NoResolve,1>::AddRef::<lambda_1>::operator ()
-COrderedConstructor_Create<class COrderedInitShutdownRefWrapper<&void __cdecl OrderedInit_FileIO(bool,class COrderedConstructor_DependencyManagement<void> &)>,class CResolveOrderedFunc<class COrderedInitShutdownRefWrapper<&void __cdecl OrderedInit_FileIO(bool,class COrderedConstructor_DependencyManagement<void> &)>,&void __cdecl _ORDERED_INIT_SHUTDOWN_WRAPPER_RESOLVEFUNC<&void __cdecl OrderedInit_FileIO(bool,class COrderedConstructor_DependencyManagement<void> &)>(class COrderedConstructor_DependencyManagement<class COrderedInitShutdownRefWrapper<&void __cdecl OrderedInit_FileIO(bool,class COrderedConstructor_DependencyManagement<void> &)> > &)>,0>::AddRef
-COrderedConstructor_Create<class COrderedInitShutdownRefWrapper<&void __cdecl OrderedInit_FileIO(bool,class COrderedConstructor_DependencyManagement<void> &)>,class CResolveOrderedFunc<class COrderedInitShutdownRefWrapper<&void __cdecl OrderedInit_FileIO(bool,class COrderedConstructor_DependencyManagement<void> &)>,&void __cdecl _ORDERED_INIT_SHUTDOWN_WRAPPER_RESOLVEFUNC<&void __cdecl OrderedInit_FileIO(bool,class COrderedConstructor_DependencyManagement<void> &)>(class COrderedConstructor_DependencyManagement<class COrderedInitShutdownRefWrapper<&void __cdecl OrderedInit_FileIO(bool,class COrderedConstructor_DependencyManagement<void> &)> > &)>,0>::AddRef::<lambda_1>::operator ()
-COrderedConstructor_Create<class COrderedInitShutdownRefWrapper<&void __cdecl OrderedInit_Platform_First(bool,class COrderedConstructor_DependencyManagement<void> &)>,class CResolveOrderedFunc<class COrderedInitShutdownRefWrapper<&void __cdecl OrderedInit_Platform_First(bool,class COrderedConstructor_DependencyManagement<void> &)>,&void __cdecl _ORDERED_INIT_SHUTDOWN_WRAPPER_RESOLVEFUNC<&void __cdecl OrderedInit_Platform_First(bool,class COrderedConstructor_DependencyManagement<void> &)>(class COrderedConstructor_DependencyManagement<class COrderedInitShutdownRefWrapper<&void __cdecl OrderedInit_Platform_First(bool,class COrderedConstructor_DependencyManagement<void> &)> > &)>,0>::AddRef
-COrderedConstructor_Create<class COrderedInitShutdownRefWrapper<&void __cdecl OrderedInit_Platform_First(bool,class COrderedConstructor_DependencyManagement<void> &)>,class CResolveOrderedFunc<class COrderedInitShutdownRefWrapper<&void __cdecl OrderedInit_Platform_First(bool,class COrderedConstructor_DependencyManagement<void> &)>,&void __cdecl _ORDERED_INIT_SHUTDOWN_WRAPPER_RESOLVEFUNC<&void __cdecl OrderedInit_Platform_First(bool,class COrderedConstructor_DependencyManagement<void> &)>(class COrderedConstructor_DependencyManagement<class COrderedInitShutdownRefWrapper<&void __cdecl OrderedInit_Platform_First(bool,class COrderedConstructor_DependencyManagement<void> &)> > &)>,0>::AddRef::<lambda_1>::operator ()
-COrderedConstructor_Create<class COrderedInitShutdownRefWrapper<&void __cdecl OrderedInit_Platform_Last(bool,class COrderedConstructor_DependencyManagement<void> &)>,class CResolveOrderedFunc<class COrderedInitShutdownRefWrapper<&void __cdecl OrderedInit_Platform_Last(bool,class COrderedConstructor_DependencyManagement<void> &)>,&void __cdecl _ORDERED_INIT_SHUTDOWN_WRAPPER_RESOLVEFUNC<&void __cdecl OrderedInit_Platform_Last(bool,class COrderedConstructor_DependencyManagement<void> &)>(class COrderedConstructor_DependencyManagement<class COrderedInitShutdownRefWrapper<&void __cdecl OrderedInit_Platform_Last(bool,class COrderedConstructor_DependencyManagement<void> &)> > &)>,0>::AddRef
-COrderedConstructor_Create<class COrderedInitShutdownRefWrapper<&void __cdecl OrderedInit_Platform_Last(bool,class COrderedConstructor_DependencyManagement<void> &)>,class CResolveOrderedFunc<class COrderedInitShutdownRefWrapper<&void __cdecl OrderedInit_Platform_Last(bool,class COrderedConstructor_DependencyManagement<void> &)>,&void __cdecl _ORDERED_INIT_SHUTDOWN_WRAPPER_RESOLVEFUNC<&void __cdecl OrderedInit_Platform_Last(bool,class COrderedConstructor_DependencyManagement<void> &)>(class COrderedConstructor_DependencyManagement<class COrderedInitShutdownRefWrapper<&void __cdecl OrderedInit_Platform_Last(bool,class COrderedConstructor_DependencyManagement<void> &)> > &)>,0>::AddRef::<lambda_1>::operator ()
-COrderedConstructor_Create<class CPSApiFunctionsLoader,class COrderedResolve_NoResolve,1>::AddRef
-COrderedConstructor_Create<class CPSApiFunctionsLoader,class COrderedResolve_NoResolve,1>::AddRef::<lambda_1>::operator ()
-COrderedConstructor_Create<class CTSFastPushQueue_Base<struct LoadingModuleTracking_t,struct LoadingModuleTracking_t,struct LoadingModuleTracking_t,0,class _CTSFastPushQueue_BlockedPopHandler_SpinWithYield<100> >,class COrderedResolve_NoResolve,0>::AddRef
-COrderedConstructor_Create<class CTSFastPushQueue_Base<struct LoadingModuleTracking_t,struct LoadingModuleTracking_t,struct LoadingModuleTracking_t,0,class _CTSFastPushQueue_BlockedPopHandler_SpinWithYield<100> >,class COrderedResolve_NoResolve,0>::AddRef::<lambda_1>::operator ()
-COrderedConstructor_Create<class CTSListBase,class COrderedResolve_NoResolve,1>::AddRef
-COrderedConstructor_Create<class CTSListBase,class COrderedResolve_NoResolve,1>::AddRef::<lambda_1>::operator ()
-COrderedConstructor_Create<class CThreadLocalScope,class CResolveOrderedFunc<class CThreadLocalScope,&void __cdecl ResolveOrderedConstructor_MainThreadThreadLocalConstructionScope(class COrderedConstructor_DependencyManagement<class CThreadLocalScope> &)>,0>::AddRef
-COrderedConstructor_Create<class CThreadLocalScope,class CResolveOrderedFunc<class CThreadLocalScope,&void __cdecl ResolveOrderedConstructor_MainThreadThreadLocalConstructionScope(class COrderedConstructor_DependencyManagement<class CThreadLocalScope> &)>,0>::AddRef::<lambda_1>::operator ()
-COrderedConstructor_Create<class CThreadLocalScope::CScopeCreatedOrDestroyedHandler,class CResolveOrderedFunc<class CThreadLocalScope::CScopeCreatedOrDestroyedHandler,&void __cdecl ResolveOrderedConstructor_ThreadCreationEventHandler_ThreadID(class COrderedConstructor_DependencyManagement<class CThreadLocalScope::CScopeCreatedOrDestroyedHandler> &)>,0>::AddRef
-COrderedConstructor_Create<class CThreadLocalScope::CScopeCreatedOrDestroyedHandler,class CResolveOrderedFunc<class CThreadLocalScope::CScopeCreatedOrDestroyedHandler,&void __cdecl ResolveOrderedConstructor_ThreadCreationEventHandler_ThreadID(class COrderedConstructor_DependencyManagement<class CThreadLocalScope::CScopeCreatedOrDestroyedHandler> &)>,0>::AddRef::<lambda_1>::operator ()
-COrderedConstructor_Create<class CThreadRWLock,class COrderedResolve_NoResolve,1>::AddRef
-COrderedConstructor_Create<class CThreadRWLock,class COrderedResolve_NoResolve,1>::AddRef::<lambda_1>::operator ()
-COrderedConstructor_Create<class CThreadSpinMutex,class COrderedResolve_NoResolve,0>::AddRef
-COrderedConstructor_Create<class CThreadSpinMutex,class COrderedResolve_NoResolve,0>::AddRef::<lambda_1>::operator ()
-COrderedConstructor_Create<class CThreadSpinMutex,class COrderedResolve_NoResolve,1>::AddRef
-COrderedConstructor_Create<class CThreadSpinMutex,class COrderedResolve_NoResolve,1>::AddRef::<lambda_1>::operator ()
-COrderedConstructor_Create<struct FiberToolsOrderedConstructionGlobals_t,class COrderedResolve_NoResolve,0>::AddRef
-COrderedConstructor_Create<struct FiberToolsOrderedConstructionGlobals_t,class COrderedResolve_NoResolve,0>::AddRef::<lambda_1>::operator ()
-COrderedConstructor_Create<struct NonPseudoHandleHolder_t,class COrderedResolve_NoResolve,1>::AddRef
-COrderedConstructor_Create<struct NonPseudoHandleHolder_t,class COrderedResolve_NoResolve,1>::AddRef::<lambda_1>::operator ()
-COrderedConstructor_Create<void,class CResolveOrderedFunc<void,&void __cdecl ResolveOrderedSystem_CommandLine(class COrderedConstructor_DependencyManagement<void> &)>,0>::AddRef
-COrderedConstructor_Create<void,class CResolveOrderedFunc<void,&void __cdecl ResolveOrderedSystem_EarlyInitTier0(class COrderedConstructor_DependencyManagement<void> &)>,0>::AddRef
-COrderedConstructor_Create<void,class CResolveOrderedFunc<void,&void __cdecl ResolveOrderedSystem_FiberTools(class COrderedConstructor_DependencyManagement<void> &)>,0>::AddRef
-COrderedConstructor_Create<void,class CResolveOrderedFunc<void,&void __cdecl ResolveOrderedSystem_LoggingSystem(class COrderedConstructor_DependencyManagement<void> &)>,0>::AddRef
-COrderedConstructor_Create<void,class CResolveOrderedFunc<void,&void __cdecl ResolveOrderedSystem_MemorySystem(class COrderedConstructor_DependencyManagement<void> &)>,0>::AddRef
-COrderedConstructor_Create<void,class CResolveOrderedFunc<void,&void __cdecl ResolveOrderedSystem_StackTools(class COrderedConstructor_DependencyManagement<void> &)>,0>::AddRef
-COrderedConstructor_Create<void,class CResolveOrderedFunc<void,&void __cdecl ResolveOrderedSystem_ThreadTools(class COrderedConstructor_DependencyManagement<void> &)>,0>::AddRef
-COrderedConstructor_DependencyManagement<class CAssertGlobals>::InternalLock
-COrderedConstructor_DependencyManagement<class CAssertGlobals>::Release
-COrderedConstructor_DependencyManagement<class CBufferStringN<200> >::InternalLock
-COrderedConstructor_DependencyManagement<class CBufferStringN<200> >::Release
-COrderedConstructor_DependencyManagement<class CCommandLine>::InternalLock
-COrderedConstructor_DependencyManagement<class CCommandLine>::Release
-COrderedConstructor_DependencyManagement<class CConstructedMainThreadID>::InternalLock
-COrderedConstructor_DependencyManagement<class CConstructedMainThreadID>::Release
-COrderedConstructor_DependencyManagement<class CDbgHelpFunctionsLoader>::InternalLock
-COrderedConstructor_DependencyManagement<class CDbgHelpFunctionsLoader>::Release
-COrderedConstructor_DependencyManagement<class CFiber>::InternalLock
-COrderedConstructor_DependencyManagement<class CFiber>::Release
-COrderedConstructor_DependencyManagement<class CFiberJobPool>::InternalLock
-COrderedConstructor_DependencyManagement<class CFiberJobPool>::Release
-COrderedConstructor_DependencyManagement<class CImageHlpFunctionsLoader>::InternalLock
-COrderedConstructor_DependencyManagement<class CImageHlpFunctionsLoader>::Release
-COrderedConstructor_DependencyManagement<class CLoggingSystem>::InternalLock
-COrderedConstructor_DependencyManagement<class CLoggingSystem>::Release
-COrderedConstructor_DependencyManagement<class CMaximumWaitQueue>::InternalLock
-COrderedConstructor_DependencyManagement<class CMaximumWaitQueue>::Release
-COrderedConstructor_DependencyManagement<class COrderedInitShutdownRefWrapper<&void __cdecl OrderedInit_FileIO(bool,class COrderedConstructor_DependencyManagement<void> &)> >::InternalConstruct::<lambda_1>::operator ()
-COrderedConstructor_DependencyManagement<class COrderedInitShutdownRefWrapper<&void __cdecl OrderedInit_FileIO(bool,class COrderedConstructor_DependencyManagement<void> &)> >::InternalLock
-COrderedConstructor_DependencyManagement<class COrderedInitShutdownRefWrapper<&void __cdecl OrderedInit_FileIO(bool,class COrderedConstructor_DependencyManagement<void> &)> >::Release
-COrderedConstructor_DependencyManagement<class COrderedInitShutdownRefWrapper<&void __cdecl OrderedInit_Platform_First(bool,class COrderedConstructor_DependencyManagement<void> &)> >::InternalConstruct::<lambda_1>::operator ()
-COrderedConstructor_DependencyManagement<class COrderedInitShutdownRefWrapper<&void __cdecl OrderedInit_Platform_First(bool,class COrderedConstructor_DependencyManagement<void> &)> >::InternalLock
-COrderedConstructor_DependencyManagement<class COrderedInitShutdownRefWrapper<&void __cdecl OrderedInit_Platform_First(bool,class COrderedConstructor_DependencyManagement<void> &)> >::Release
-COrderedConstructor_DependencyManagement<class COrderedInitShutdownRefWrapper<&void __cdecl OrderedInit_Platform_Last(bool,class COrderedConstructor_DependencyManagement<void> &)> >::InternalConstruct::<lambda_1>::operator ()
-COrderedConstructor_DependencyManagement<class COrderedInitShutdownRefWrapper<&void __cdecl OrderedInit_Platform_Last(bool,class COrderedConstructor_DependencyManagement<void> &)> >::InternalLock
-COrderedConstructor_DependencyManagement<class COrderedInitShutdownRefWrapper<&void __cdecl OrderedInit_Platform_Last(bool,class COrderedConstructor_DependencyManagement<void> &)> >::Release
-COrderedConstructor_DependencyManagement<class CPSApiFunctionsLoader>::InternalLock
-COrderedConstructor_DependencyManagement<class CPSApiFunctionsLoader>::Release
-COrderedConstructor_DependencyManagement<class CTSFastPushQueue_Base<struct LoadingModuleTracking_t,struct LoadingModuleTracking_t,struct LoadingModuleTracking_t,0,class _CTSFastPushQueue_BlockedPopHandler_SpinWithYield<100> > >::InternalLock
-COrderedConstructor_DependencyManagement<class CTSFastPushQueue_Base<struct LoadingModuleTracking_t,struct LoadingModuleTracking_t,struct LoadingModuleTracking_t,0,class _CTSFastPushQueue_BlockedPopHandler_SpinWithYield<100> > >::Release
-COrderedConstructor_DependencyManagement<class CTSListBase>::InternalLock
-COrderedConstructor_DependencyManagement<class CTSListBase>::Release
-COrderedConstructor_DependencyManagement<class CThreadLocalScope::CScopeCreatedOrDestroyedHandler>::InternalConstruct::<lambda_1>::operator ()
-COrderedConstructor_DependencyManagement<class CThreadLocalScope::CScopeCreatedOrDestroyedHandler>::InternalLock
-COrderedConstructor_DependencyManagement<class CThreadLocalScope::CScopeCreatedOrDestroyedHandler>::Release
-COrderedConstructor_DependencyManagement<class CThreadLocalScope>::InternalLock
-COrderedConstructor_DependencyManagement<class CThreadLocalScope>::Release
-COrderedConstructor_DependencyManagement<class CThreadRWLock>::InternalLock
-COrderedConstructor_DependencyManagement<class CThreadRWLock>::Release
-COrderedConstructor_DependencyManagement<class CThreadSpinMutex>::InternalLock
-COrderedConstructor_DependencyManagement<class CThreadSpinMutex>::Release
-COrderedConstructor_DependencyManagement<struct FiberToolsOrderedConstructionGlobals_t>::InternalLock
-COrderedConstructor_DependencyManagement<struct FiberToolsOrderedConstructionGlobals_t>::Release
-COrderedConstructor_DependencyManagement<struct NonPseudoHandleHolder_t>::InternalLock
-COrderedConstructor_DependencyManagement<struct NonPseudoHandleHolder_t>::Release
-COrderedConstructor_DependencyManagement<void>::InternalLock
-COrderedConstructor_DependencyManagement<void>::Release
 CPageAllocator::AllocUnlocked
-CPageAllocator::FreeUnlocked
-CPageAllocator::GetAllocBytes
 CParameterAnimCondition
 CParameterCondition
 CParticleSystemDefinition
@@ -3694,27 +3128,7 @@ CPathAnimMotorBase
 CPathHelperAnimNode
 CPathMetric
 CPathStatusCondition
-CPathStringStack::PopulateWCharPath
-CPathStringStack::Reset
-CPathStringStack::Set
-CPathStringStack::Set::<lambda_1>::operator ()
-CPathStringStack::~CPathStringStack
 CPlayerInputAnimMotor
-CProcess::Abort
-CProcess::GetExitCode
-CProcess::IsComplete
-CProcess::SetPriority
-CProcess::WaitForExit
-CProcess::WriteStdin
-CProcessPipeRead::CacheOutput
-CProcessPipeRead::GetActualProcessOutput
-CProcessPipeRead::GetBytesToRead
-CProcessPipeRead::PeekOutput
-CProcessPipeRead::Read
-CProcessPipeRead::ReadAvailable
-CProcessPipeRead::WaitForOutput
-CProcessUtils::Shutdown
-CProcessUtils::StartProcess
 CProxyAnimNodeBase
 CPulseCell_
 CPulseCell_Inflow_Wait
@@ -3723,27 +3137,16 @@ CPulseCell_Outflow_NPCScriptedMoveTo
 CPulseCell_Outflow_NPCUseScriptedAbility
 CPulseDocNodeDynamicOutflowsAttr
 CPulseNode_
-CQuantizedFloatEncoder::AssignMultipliers
 CQuantizedFloatEncoder::AssignRangeMultiplier
-CQuantizedFloatEncoder::GetExactEncodeTestCase
-CQuantizedFloatEncoder::Init
-CQuantizedFloatEncoder::QuantizeFloat
 CQuaternionAnimParameter
 CRC32_GetTableEntry
 CRC32_ProcessBuffer
 CRC64_ProcessBuffer
 CRagdollAnimNode
-CRawAllocator::Alloc
-CRawAllocator::Free
 CRigidBodyWeightList
 CRigidBodyWeightListConstPtr
 CRigidBodyWeightListPtr
 CRootAnimNode
-CRunProcess::Run
-CRunProcess::RunWait
-CSaveKV3AsKV1Text::Save::<lambda_1>::operator ()
-CSaveKV3AsKV1Text::Save::<lambda_2>::operator ()
-CSaveKV3AsKV1Text::Save_R
 CSaveKV3AsKV1Text::TranslationForPath
 CScriptEditManager
 CScriptEditManagerConstPtr
@@ -3760,8 +3163,6 @@ CSequenceMotionItem
 CSequenceMotionVariant
 CSetFacingAnimNode
 CSetParameterAction
-CSingleAppInstance::CSingleAppInstance
-CSingleAppInstance::CheckForRunningInstance
 CSingleFrameAnimNode
 CSkeletalInputAnimNode
 CSlopeComponent
@@ -3829,13 +3230,7 @@ CStanceScaleAnimNode
 CStateAction
 CStateMachineAnimNode
 CStateStatusCondition
-CStdMemAlloc<struct MemConfig_t>::Alloc_Typed
-CStdMemAlloc<struct MemConfig_t>::CStdMemAlloc
-CStdMemAlloc<struct MemConfig_t>::Free_Typed
 CStdMemAlloc<struct MemConfig_t>::NoteAlloc
-CStdMemAlloc<struct MemConfig_t>::NoteFree
-CStdMemAlloc<struct MemConfig_t>::NoteReallocFree
-CStdMemAlloc<struct MemConfig_t>::Realloc_Typed
 CStepsRemainingMetric
 CStopAtGoalAnimNode
 CSubGraphAnimNode
@@ -3843,24 +3238,13 @@ CSubGraphManager
 CSubGraphManagerConstPtr
 CSubGraphManagerPtr
 CSubtractAnimNode
-CTSFastPushQueue_Base<class CEventListNode,class CEventListNode,class CEventListNode,0,class _CTSFastPushQueue_BlockedPopHandler_SpinWithYield<100> >::Push
-CTSFastPushQueue_Base<class CFiber,class CFiber,class CFiber,0,class _CTSFastPushQueue_BlockedPopHandler_SpinWithYield<100> >::Push
-CTSFastPushQueue_Base<class CThreadSwap_Base,class CThreadSwap_Base,class CThreadSwap_Base,0,class _CTSFastPushQueue_BlockedPopHandler_SpinWithYield<100> >::Push
-CTSFastPushQueue_Base<struct CEventRWLock_Debuggable<1>::TrackedReadLock_t,struct CEventRWLock_Debuggable<1>::TrackedReadLock_t,struct CEventRWLock_Debuggable<1>::TrackedReadLock_t,0,class _CTSFastPushQueue_BlockedPopHandler_SpinWithYield<100> >::Push
-CTSFastPushQueue_Base<struct LoadingModuleTracking_t,struct LoadingModuleTracking_t,struct LoadingModuleTracking_t,0,class _CTSFastPushQueue_BlockedPopHandler_SpinWithYield<100> >::Push
 CTSList
 CTSListBase: Misaligned list\n
 CTSQueue
-CTSQueue corrupt
 CTSQueue corruption
-CTSQueue: Misaligned node
 CTSQueue: Misaligned queue\n
-CTSQueue<class std::function<void __cdecl(void)> *,0>::Pop
 CTSQueue<class std::function<void __cdecl(void)> *,0>::Push
-CTSQueue<int,1>::Pop
-CTSQueue<int,1>::Purge
 CTSQueue<int,1>::Push
-CTSQueue<int,1>::~CTSQueue
 CTagCondition
 CTestScriptMgr: not initialized.
 CTestScriptMgr::InsertCommandsBeforeCheckpoint() adding to tail\n
@@ -3869,438 +3253,33 @@ CTestScriptMgr::InsertCommandsBeforeCheckpoint() currently waiting on checkpoint
 CTestScriptMgr::InsertCommandsBeforeCheckpoint()\n
 CTestScriptMgr::LoopCount( %s ): no loop with this name exists.
 CTestScriptMgr::LoopForNumSeconds( %s ): no loop with this name exists.
-CTestScriptMgr::RunCommands
 CTestScriptMgr::StartLoop( %s ): loop already exists.
-CTestScriptMgr::StartTestScript
 CThread
-CThread::Join
-CThread::Start
-CThread::Stop
-CThread::Suspend
-CThread::WaitForCreateComplete
-CThreadCrossProcessMutex::CThreadCrossProcessMutex
-CThreadEvent::CThreadEvent
-CThreadLocalScope::CThreadLocalScope
-CThreadLocalScope::{ctor}::<lambda_1>::operator ()
-CThreadLocalScope::~CThreadLocalScope
-CThreadLocalScopeIter::ScopeHandlerChange
-CThreadMultiWaitObject::Signal
-CThreadMutex::AssertOwnedByCurrentThread::<lambda_1>::operator ()
 CThreadNullVerificationMutex: Thread %llu acquiring null-mutex while thread %llu is still holding it, indicates unexpected thread-safety issue
 CThreadNullVerificationMutex::Lock
-CThreadNullVerificationMutex::Unlock
-CThreadPool::GetJobFromQueue
-CThreadPool::QueueMultipleAndWait
-CThreadPool::ResumeExecution
-CThreadPool::Start
 CThreadPool::Start called and it was already initialized.
-CThreadPool::Stop
-CThreadPool::SuspendExecution
 CThreadPool::YieldWait
-CThreadPool::YieldWait::<lambda_1>::operator ()
 CThreadPool::m_PerFrameJobListMutex
 CThreadPool::m_SuspendMutex
-CThreadSemaphore::CThreadSemaphore
-CThreadSpinMutex::AssertOwnedByCurrentThread::<lambda_1>::operator ()
-CThreadSpinRWLock::CThreadSpinRWLock
-CThreadSwapTarget::OwnerThreadRun
-CThreadSwapTarget::OwnerThreadRun::<lambda_1>::operator ()
-CThreadSwapTarget::OwnerThreadRun::<lambda_2>::operator ()
-CThreadSwapTarget_Impl::SwapContextEnd
-CThreadSwapTarget_Impl::SwapContextEnd::<lambda_1>::operator ()
-CThreadSwapTarget_Impl::SwapContextStart
-CThreadSwapTarget_Impl::SwapContextStart::ParkedContextVars_t::SubContextFunction
-CThreadSyncObject::AssertUseable
 CThreadedJob
-CThreadedJob::Abort
-CThreadedJob::Execute
 CThreadedTraverseJobSync::WaitForAllDone
 CThreadedTraverseJob_FastWin32::CThreadedTraverseJob_FastWin32
-CThreadedTraverseJob_FastWin32::DoExecute
-CThreadedTraverseJob_FastWin32::DoExecute::<lambda_1>::()::<lambda_1>::operator ()
-CTier0MasterMobileEventListener::OnEnterHibernationState
-CTier0MasterMobileEventListener::OnExitHibernationState
-CTier0MasterMobileEventListener::RegisterMobileEventListener
-CTier0MasterMobileEventListener::UnregisterMobileEventListener
 CTimeCondition
 CTimeRemainingMetric
 CToggleComponentAction
-CToolsStallMonitorThread::M_EndStallScope
-CToolsStallMonitorThread::T_CreateWatchdogWindow
 CTurnHelperAnimNode
 CTwoBoneIKAnimNode
 CURVE_TANGENT_LINEAR
-CUnicodeConvertAndCaseStr<char,unsigned int,100>::Convert
-CUnicodeConvertAndCaseStr<char,wchar_t,100>::Convert
-CUnicodeConvertAndCaseStr<unsigned int,unsigned int,100>::Convert
-CUnicodeConvertAndCaseStr<wchar_t,unsigned int,100>::Convert
-CUtl3DAllocator2::Allocate3D_R
-CUtl3DAllocator2::FindBestNodeFittingRect_R
-CUtl3DAllocator2::Free3D_R
-CUtl3DAllocator2::SplitNode
-CUtl3DAllocator::FreeRegion_t::GetBucket
-CUtlBinaryBlock::Get
-CUtlBinaryBlock::Set
-CUtlBinaryBlock::SetLength
-CUtlBinaryBlock::operator =
 CUtlBlockMemory overflow!\n
-CUtlBlockMemory<float const *,int>::ChangeSize
-CUtlBlockMemory<float const *,int>::operator []
-CUtlBuffer::AccessForDirectRead
-CUtlBuffer::AccessGet
-CUtlBuffer::AccessPut
-CUtlBuffer::AddNullTermination
-CUtlBuffer::AlignBuffer
-CUtlBuffer::AssumeMemory
-CUtlBuffer::CUtlBuffer
-CUtlBuffer::ConvertCRLF
-CUtlBuffer::Get
-CUtlBuffer::GetLine
-CUtlBuffer::GetString
-CUtlBuffer::GetString::<lambda_1>::operator ()
-CUtlBuffer::GetToken
-CUtlBuffer::GetUpTo
-CUtlBuffer::ParseToken
-CUtlBuffer::PeekGet
-CUtlBuffer::Put
-CUtlBuffer::PutJSONString
-CUtlBuffer::PutZeros
-CUtlBuffer::SetBufferType
-CUtlBuffer::SetExternalBuffer
-CUtlBuffer::VaScanf
-CUtlCharConversion::CUtlCharConversion
 CUtlDict<class CThreadEvent *,class CDefFastCaselessStringLess>::Insert
 CUtlDict<int,class CDefFastCaselessStringLess>::Insert
 CUtlFixedMemory overflow!\n
-CUtlFixedMemory<struct UtlLinkedListElem_t<class CProcess *,__int64> >::GetIndex
-CUtlFixedMemory<struct UtlLinkedListElem_t<class CProcess *,__int64> >::Grow
-CUtlFixedMemory<struct UtlLinkedListElem_t<class CProcess *,__int64> >::IsIdxAfter
-CUtlFixedMemory<struct UtlLinkedListElem_t<class CProcess *,__int64> >::Next
-CUtlFixedMemory<struct UtlLinkedListElem_t<class CProcess *,__int64> >::operator []
-CUtlFixedMemory<struct UtlLinkedListElem_t<struct CCommandBuffer::Command_t,__int64> >::GetIndex
-CUtlFixedMemory<struct UtlLinkedListElem_t<struct CCommandBuffer::Command_t,__int64> >::Grow
-CUtlFixedMemory<struct UtlLinkedListElem_t<struct CCommandBuffer::Command_t,__int64> >::IsIdxAfter
-CUtlFixedMemory<struct UtlLinkedListElem_t<struct CCommandBuffer::Command_t,__int64> >::Next
-CUtlFixedMemory<struct UtlLinkedListElem_t<struct CCommandBuffer::Command_t,__int64> >::operator []
-CUtlHash<struct CUtlHashDict<void *,1,1>::Entry_t,class CUtlHashDict<void *,1,1>::CCompare<1>,class CUtlHashDict<void *,1,1>::CHash<1> >::BuildHandle
-CUtlHash<struct CUtlHashDict<void *,1,1>::Entry_t,class CUtlHashDict<void *,1,1>::CCompare<1>,class CUtlHashDict<void *,1,1>::CHash<1> >::Remove
-CUtlHashMap<unsigned int,struct CThreadMonitorData::ThreadRecord_t,class CDefEquals<unsigned int>,struct HashMapFunctor_t<unsigned int>,int>::RemoveAt
-CUtlInplaceBuffer::InplaceGetLinePtr
 CUtlLeanVectorImpl<class CUtlLeanVectorFixedGrowableBase<class KeyValues3 *,4,int>,class KeyValues3 *,int>::InsertBeforeGetPtr
 CUtlLinkedList overflow! (exhausted index range)\n
 CUtlLinkedList overflow! (exhausted memory allocator)\n
-CUtlLinkedList<class CCoroutine,int,0,int,class CUtlMemory<struct UtlLinkedListElem_t<class CCoroutine,int>,int> >::AllocInternal
-CUtlLinkedList<class CCoroutine,int,0,int,class CUtlMemory<struct UtlLinkedListElem_t<class CCoroutine,int>,int> >::Free
-CUtlLinkedList<class CCoroutine,int,0,int,class CUtlMemory<struct UtlLinkedListElem_t<class CCoroutine,int>,int> >::LinkBefore
-CUtlLinkedList<class CCoroutine,int,0,int,class CUtlMemory<struct UtlLinkedListElem_t<class CCoroutine,int>,int> >::Unlink
-CUtlLinkedList<class CLoopInfo *,int,0,int,class CUtlMemory<struct UtlLinkedListElem_t<class CLoopInfo *,int>,int> >::AllocInternal
-CUtlLinkedList<class CLoopInfo *,int,0,int,class CUtlMemory<struct UtlLinkedListElem_t<class CLoopInfo *,int>,int> >::Free
-CUtlLinkedList<class CLoopInfo *,int,0,int,class CUtlMemory<struct UtlLinkedListElem_t<class CLoopInfo *,int>,int> >::LinkBefore
-CUtlLinkedList<class CLoopInfo *,int,0,int,class CUtlMemory<struct UtlLinkedListElem_t<class CLoopInfo *,int>,int> >::RemoveAll
-CUtlLinkedList<class CLoopInfo *,int,0,int,class CUtlMemory<struct UtlLinkedListElem_t<class CLoopInfo *,int>,int> >::Unlink
-CUtlLinkedList<class CProcess *,__int64,1,__int64,class CUtlFixedMemory<struct UtlLinkedListElem_t<class CProcess *,__int64> > >::AllocInternal
-CUtlLinkedList<class CProcess *,__int64,1,__int64,class CUtlFixedMemory<struct UtlLinkedListElem_t<class CProcess *,__int64> > >::Free
-CUtlLinkedList<class CProcess *,__int64,1,__int64,class CUtlFixedMemory<struct UtlLinkedListElem_t<class CProcess *,__int64> > >::LinkBefore
-CUtlLinkedList<class CProcess *,__int64,1,__int64,class CUtlFixedMemory<struct UtlLinkedListElem_t<class CProcess *,__int64> > >::RemoveAll
-CUtlLinkedList<class CProcess *,__int64,1,__int64,class CUtlFixedMemory<struct UtlLinkedListElem_t<class CProcess *,__int64> > >::Unlink
-CUtlLinkedList<class CUtlString,int,0,int,class CUtlMemory<struct UtlLinkedListElem_t<class CUtlString,int>,int> >::AllocInternal
-CUtlLinkedList<class CUtlString,int,0,int,class CUtlMemory<struct UtlLinkedListElem_t<class CUtlString,int>,int> >::Free
-CUtlLinkedList<class CUtlString,int,0,int,class CUtlMemory<struct UtlLinkedListElem_t<class CUtlString,int>,int> >::LinkBefore
-CUtlLinkedList<class CUtlString,int,0,int,class CUtlMemory<struct UtlLinkedListElem_t<class CUtlString,int>,int> >::RemoveAll
-CUtlLinkedList<class CUtlString,int,0,int,class CUtlMemory<struct UtlLinkedListElem_t<class CUtlString,int>,int> >::Unlink
-CUtlLinkedList<class CUtlString,unsigned int,0,unsigned int,class CUtlMemory<struct UtlLinkedListElem_t<class CUtlString,unsigned int>,unsigned int> >::AllocInternal
-CUtlLinkedList<class CUtlString,unsigned int,0,unsigned int,class CUtlMemory<struct UtlLinkedListElem_t<class CUtlString,unsigned int>,unsigned int> >::Free
-CUtlLinkedList<class CUtlString,unsigned int,0,unsigned int,class CUtlMemory<struct UtlLinkedListElem_t<class CUtlString,unsigned int>,unsigned int> >::LinkBefore
-CUtlLinkedList<class CUtlString,unsigned int,0,unsigned int,class CUtlMemory<struct UtlLinkedListElem_t<class CUtlString,unsigned int>,unsigned int> >::RemoveAll
-CUtlLinkedList<class CUtlString,unsigned int,0,unsigned int,class CUtlMemory<struct UtlLinkedListElem_t<class CUtlString,unsigned int>,unsigned int> >::Unlink
-CUtlLinkedList<struct CCommandBuffer::Command_t,__int64,1,__int64,class CUtlFixedMemory<struct UtlLinkedListElem_t<struct CCommandBuffer::Command_t,__int64> > >::AllocInternal
-CUtlLinkedList<struct CCommandBuffer::Command_t,__int64,1,__int64,class CUtlFixedMemory<struct UtlLinkedListElem_t<struct CCommandBuffer::Command_t,__int64> > >::Free
-CUtlLinkedList<struct CCommandBuffer::Command_t,__int64,1,__int64,class CUtlFixedMemory<struct UtlLinkedListElem_t<struct CCommandBuffer::Command_t,__int64> > >::LinkBefore
-CUtlLinkedList<struct CCommandBuffer::Command_t,__int64,1,__int64,class CUtlFixedMemory<struct UtlLinkedListElem_t<struct CCommandBuffer::Command_t,__int64> > >::RemoveAll
-CUtlLinkedList<struct CCommandBuffer::Command_t,__int64,1,__int64,class CUtlFixedMemory<struct UtlLinkedListElem_t<struct CCommandBuffer::Command_t,__int64> > >::Unlink
-CUtlLinkedList<struct CCvar::CommandCallbackData_t,unsigned short,1,unsigned short,class CUtlMemory<struct UtlLinkedListElem_t<struct CCvar::CommandCallbackData_t,unsigned short>,unsigned short> >::AllocInternal
-CUtlLinkedList<struct CCvar::CommandCallbackData_t,unsigned short,1,unsigned short,class CUtlMemory<struct UtlLinkedListElem_t<struct CCvar::CommandCallbackData_t,unsigned short>,unsigned short> >::Free
-CUtlLinkedList<struct CCvar::CommandCallbackData_t,unsigned short,1,unsigned short,class CUtlMemory<struct UtlLinkedListElem_t<struct CCvar::CommandCallbackData_t,unsigned short>,unsigned short> >::LinkBefore
-CUtlLinkedList<struct CCvar::CommandCallbackData_t,unsigned short,1,unsigned short,class CUtlMemory<struct UtlLinkedListElem_t<struct CCvar::CommandCallbackData_t,unsigned short>,unsigned short> >::RemoveAll
-CUtlLinkedList<struct CCvar::CommandCallbackData_t,unsigned short,1,unsigned short,class CUtlMemory<struct UtlLinkedListElem_t<struct CCvar::CommandCallbackData_t,unsigned short>,unsigned short> >::Unlink
-CUtlLinkedList<struct CCvar::ConVarChangeCallbackData_t,unsigned short,1,unsigned short,class CUtlMemory<struct UtlLinkedListElem_t<struct CCvar::ConVarChangeCallbackData_t,unsigned short>,unsigned short> >::AllocInternal
-CUtlLinkedList<struct CCvar::ConVarChangeCallbackData_t,unsigned short,1,unsigned short,class CUtlMemory<struct UtlLinkedListElem_t<struct CCvar::ConVarChangeCallbackData_t,unsigned short>,unsigned short> >::Free
-CUtlLinkedList<struct CCvar::ConVarChangeCallbackData_t,unsigned short,1,unsigned short,class CUtlMemory<struct UtlLinkedListElem_t<struct CCvar::ConVarChangeCallbackData_t,unsigned short>,unsigned short> >::LinkBefore
-CUtlLinkedList<struct CCvar::ConVarChangeCallbackData_t,unsigned short,1,unsigned short,class CUtlMemory<struct UtlLinkedListElem_t<struct CCvar::ConVarChangeCallbackData_t,unsigned short>,unsigned short> >::RemoveAll
-CUtlLinkedList<struct CCvar::ConVarChangeCallbackData_t,unsigned short,1,unsigned short,class CUtlMemory<struct UtlLinkedListElem_t<struct CCvar::ConVarChangeCallbackData_t,unsigned short>,unsigned short> >::Unlink
-CUtlLinkedList<struct CCvar::SharedCommandData_t,unsigned short,0,unsigned short,class CUtlMemory<struct UtlLinkedListElem_t<struct CCvar::SharedCommandData_t,unsigned short>,unsigned short> >::AllocInternal
-CUtlLinkedList<struct CCvar::SharedCommandData_t,unsigned short,0,unsigned short,class CUtlMemory<struct UtlLinkedListElem_t<struct CCvar::SharedCommandData_t,unsigned short>,unsigned short> >::LinkBefore
-CUtlLinkedList<struct CCvar::SharedCommandData_t,unsigned short,0,unsigned short,class CUtlMemory<struct UtlLinkedListElem_t<struct CCvar::SharedCommandData_t,unsigned short>,unsigned short> >::RemoveAll
-CUtlLinkedList<struct CCvar::SharedCommandData_t,unsigned short,0,unsigned short,class CUtlMemory<struct UtlLinkedListElem_t<struct CCvar::SharedCommandData_t,unsigned short>,unsigned short> >::Unlink
-CUtlLinkedList<struct ConVarInfo_t *,unsigned short,0,unsigned short,class CUtlMemory<struct UtlLinkedListElem_t<struct ConVarInfo_t *,unsigned short>,unsigned short> >::AllocInternal
-CUtlLinkedList<struct ConVarInfo_t *,unsigned short,0,unsigned short,class CUtlMemory<struct UtlLinkedListElem_t<struct ConVarInfo_t *,unsigned short>,unsigned short> >::LinkBefore
-CUtlLinkedList<struct ConVarInfo_t *,unsigned short,0,unsigned short,class CUtlMemory<struct UtlLinkedListElem_t<struct ConVarInfo_t *,unsigned short>,unsigned short> >::RemoveAll
-CUtlLinkedList<struct ConVarInfo_t *,unsigned short,0,unsigned short,class CUtlMemory<struct UtlLinkedListElem_t<struct ConVarInfo_t *,unsigned short>,unsigned short> >::Unlink
-CUtlLocalStackAllocator::AllocateGuts
-CUtlLocalStackAllocator::FreeGuts
-CUtlMemory<__int64,int>::Grow
-CUtlMemory<__int64,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<char *,int>::Grow
-CUtlMemory<char *,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<char *,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<char const *,int>::Grow
-CUtlMemory<char const *,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<char const *,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<char,int>::Grow
-CUtlMemory<char,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<char,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<class CBufferStringN<200>,int>::Grow
-CUtlMemory<class CBufferStringN<200>,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<class CBufferStringPair,int>::Grow
-CUtlMemory<class CBufferStringPair,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<class CConVarDetail,int>::Grow
-CUtlMemory<class CConVarDetail,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<class CExecMultiWorkerJob *,int>::Grow
-CUtlMemory<class CExecMultiWorkerJob *,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<class CJobThread *,int>::Grow
-CUtlMemory<class CJobThread *,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<class CKV3MemberName,int>::Grow
-CUtlMemory<class CKV3MemberName,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<class CKV3MemberName,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<class CLoadKV3FromKV1Text::CTranslationPath *,int>::Grow
-CUtlMemory<class CLoadKV3FromKV1Text::CTranslationPath *,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<class CQuantizedFloatEncoder *,int>::Grow
-CUtlMemory<class CQuantizedFloatEncoder *,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<class CThreadedJob *,int>::Grow
-CUtlMemory<class CThreadedJob *,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<class CThreadedJob *,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<class CTraversedDirectory *,int>::Grow
-CUtlMemory<class CTraversedDirectory *,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<class CTypeErasedFormattingWrapper,int>::Grow
-CUtlMemory<class CTypeErasedFormattingWrapper,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<class CUtlString,int>::Grow
-CUtlMemory<class CUtlString,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<class CUtlString,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<class CUtlStringToken,int>::Grow
-CUtlMemory<class CUtlStringToken,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<class CUtlStringToken,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<class CUtlSymbolLarge,int>::Grow
-CUtlMemory<class CUtlSymbolLarge,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<class CUtlTokenReference,int>::Grow
-CUtlMemory<class CUtlTokenReference,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<class CUtlVector<class CUtlSymbolLarge,int,class CUtlMemory<class CUtlSymbolLarge,int> >,int>::Grow
-CUtlMemory<class CUtlVector<class CUtlSymbolLarge,int,class CUtlMemory<class CUtlSymbolLarge,int> >,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<class CUtlVector<struct CUtlHashDict<void *,1,1>::Entry_t,int,class CUtlMemory<struct CUtlHashDict<void *,1,1>::Entry_t,int> >,int>::Grow
-CUtlMemory<class CUtlVector<struct CUtlHashDict<void *,1,1>::Entry_t,int,class CUtlMemory<struct CUtlHashDict<void *,1,1>::Entry_t,int> >,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<class CUtlVector<struct CUtlHashDict<void *,1,1>::Entry_t,int,class CUtlMemory<struct CUtlHashDict<void *,1,1>::Entry_t,int> >,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<class CVProfNode *,int>::Grow
-CUtlMemory<class CVProfNode *,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<class CVertexKDNode,int>::Grow
-CUtlMemory<class CVertexKDNode,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<class IConVarListener *,int>::Grow
-CUtlMemory<class IConVarListener *,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<class KeyValues *,int>::Grow
-CUtlMemory<class KeyValues *,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<class KeyValues3 *,int>::Grow
-CUtlMemory<class KeyValues3 *,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<class KeyValues3 *,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<class KeyValues3,int>::Grow
-CUtlMemory<class KeyValues3,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<class ThreadPoolTest::CCountJob,int>::Grow
-CUtlMemory<class ThreadPoolTest::CCountJob,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<class ThreadPoolTest::CCountJob,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<double,int>::Grow
-CUtlMemory<double,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<enum ConVarPrintColumn_t,int>::Grow
-CUtlMemory<enum ConVarPrintColumn_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<float const *,int>::Grow
-CUtlMemory<float const *,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<float,int>::Grow
-CUtlMemory<float,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<int,int>::Grow
-CUtlMemory<int,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<int,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CAsyncScheduledFunctionManager::scheduled_call_t,int>::Grow
-CUtlMemory<struct CAsyncScheduledFunctionManager::scheduled_call_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CConVarSnapshot::StringMemoryReference_t,int>::Grow
-CUtlMemory<struct CConVarSnapshot::StringMemoryReference_t,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<struct CConVarSnapshot::StringMemoryReference_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CCountedStringPool_CI::hash_item_t,int>::Grow
-CUtlMemory<struct CCountedStringPool_CI::hash_item_t,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<struct CCountedStringPool_CI::hash_item_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CCvar::QueuedConVarChanges_t,int>::Grow
-CUtlMemory<struct CCvar::QueuedConVarChanges_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CEventDispatcher_Base::EventListenerInfo_t,int>::Grow
-CUtlMemory<struct CEventDispatcher_Base::EventListenerInfo_t,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<struct CEventDispatcher_Base::EventListenerInfo_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CFilterString::MatchString_t,int>::Grow
-CUtlMemory<struct CFilterString::MatchString_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CFilterString::OrGroup_t,int>::Grow
-CUtlMemory<struct CFilterString::OrGroup_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CFloatEncoderRegistry::quantizedfloatencoderkey_t,int>::Grow
-CUtlMemory<struct CFloatEncoderRegistry::quantizedfloatencoderkey_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CGridStringPrinter::ColText_t,int>::Grow
-CUtlMemory<struct CGridStringPrinter::ColText_t,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<struct CGridStringPrinter::ColText_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CGridStringPrinter::ColumnHeader_t,int>::Grow
-CUtlMemory<struct CGridStringPrinter::ColumnHeader_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CKV3FormatManager::Conversion_t *,int>::Grow
-CUtlMemory<struct CKV3FormatManager::Conversion_t *,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CKV3FormatManager::Conversion_t const *,int>::Grow
-CUtlMemory<struct CKV3FormatManager::Conversion_t const *,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CKeyValues3Iterator::StackEntry_t,int>::Grow
-CUtlMemory<struct CKeyValues3Iterator::StackEntry_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CKeyValuesSystemBase::IndexedString_t,int>::Grow
-CUtlMemory<struct CKeyValuesSystemBase::IndexedString_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CKeyValuesSystemBase::hash_item_t,int>::Grow
-CUtlMemory<struct CKeyValuesSystemBase::hash_item_t,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<struct CKeyValuesSystemBase::hash_item_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CLoadKV3FromDynData::LoadedObject_t,int>::Grow
-CUtlMemory<struct CLoadKV3FromDynData::LoadedObject_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CLoadKV3FromDynData::UnresolvedElementReference_t,int>::Grow
-CUtlMemory<struct CLoadKV3FromDynData::UnresolvedElementReference_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CThreadMonitorData::ThreadRecord_t,int>::Grow
-CUtlMemory<struct CThreadMonitorData::ThreadRecord_t,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<struct CThreadMonitorData::ThreadRecord_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CTraversedDirectory::LinkTransition_t const *,int>::Grow
-CUtlMemory<struct CTraversedDirectory::LinkTransition_t const *,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CTraversedDirectory::LinkTransition_t,int>::Grow
-CUtlMemory<struct CTraversedDirectory::LinkTransition_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CUtl3DAllocator2::Node3D_t,int>::Grow
-CUtlMemory<struct CUtl3DAllocator2::Node3D_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CUtlHashDict<void *,1,1>::Entry_t,int>::Grow
-CUtlMemory<struct CUtlHashDict<void *,1,1>::Entry_t,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<struct CUtlHashDict<void *,1,1>::Entry_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CUtlHashMap<struct CallRecordKey_t,struct CallRecordParam_t,class CDefEquals<struct CallRecordKey_t>,struct HashMapFunctor_t<struct CallRecordKey_t>,int>::HashBucket_t,int>::Grow
-CUtlMemory<struct CUtlHashMap<struct CallRecordKey_t,struct CallRecordParam_t,class CDefEquals<struct CallRecordKey_t>,struct HashMapFunctor_t<struct CallRecordKey_t>,int>::HashBucket_t,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<struct CUtlHashMap<struct CallRecordKey_t,struct CallRecordParam_t,class CDefEquals<struct CallRecordKey_t>,struct HashMapFunctor_t<struct CallRecordKey_t>,int>::HashBucket_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CUtlHashMap<struct CallRecordKey_t,struct CallRecordParam_t,class CDefEquals<struct CallRecordKey_t>,struct HashMapFunctor_t<struct CallRecordKey_t>,int>::Node_t,int>::Grow
-CUtlMemory<struct CUtlHashMap<struct CallRecordKey_t,struct CallRecordParam_t,class CDefEquals<struct CallRecordKey_t>,struct HashMapFunctor_t<struct CallRecordKey_t>,int>::Node_t,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<struct CUtlHashMap<struct CallRecordKey_t,struct CallRecordParam_t,class CDefEquals<struct CallRecordKey_t>,struct HashMapFunctor_t<struct CallRecordKey_t>,int>::Node_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CUtlHashMap<unsigned int,struct CThreadMonitorData::ThreadRecord_t,class CDefEquals<unsigned int>,struct HashMapFunctor_t<unsigned int>,int>::HashBucket_t,int>::Grow
-CUtlMemory<struct CUtlHashMap<unsigned int,struct CThreadMonitorData::ThreadRecord_t,class CDefEquals<unsigned int>,struct HashMapFunctor_t<unsigned int>,int>::HashBucket_t,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<struct CUtlHashMap<unsigned int,struct CThreadMonitorData::ThreadRecord_t,class CDefEquals<unsigned int>,struct HashMapFunctor_t<unsigned int>,int>::HashBucket_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CUtlHashMap<unsigned int,struct CThreadMonitorData::ThreadRecord_t,class CDefEquals<unsigned int>,struct HashMapFunctor_t<unsigned int>,int>::Node_t,int>::Grow
-CUtlMemory<struct CUtlHashMap<unsigned int,struct CThreadMonitorData::ThreadRecord_t,class CDefEquals<unsigned int>,struct HashMapFunctor_t<unsigned int>,int>::Node_t,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<struct CUtlHashMap<unsigned int,struct CThreadMonitorData::ThreadRecord_t,class CDefEquals<unsigned int>,struct HashMapFunctor_t<unsigned int>,int>::Node_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CUtlLocalStackAllocator::MemoryBlockInfo_t,int>::Grow
-CUtlMemory<struct CUtlLocalStackAllocator::MemoryBlockInfo_t,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<struct CUtlLocalStackAllocator::MemoryBlockInfo_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CUtlStringTokenSystem::TokenPairing_t,int>::Grow
-CUtlMemory<struct CUtlStringTokenSystem::TokenPairing_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CVDebugModule::ModuleSection_t,int>::Grow
-CUtlMemory<struct CVDebugModule::ModuleSection_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CVSymbolModuleCache::CacheEntry_t,int>::Grow
-CUtlMemory<struct CVSymbolModuleCache::CacheEntry_t,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<struct CVSymbolModuleCache::CacheEntry_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct CVprofLiteHistoricalData::BudgetGroup_t,int>::Grow
-CUtlMemory<struct CVprofLiteHistoricalData::BudgetGroup_t,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<struct CVprofLiteHistoricalData::BudgetGroup_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct ConVarOrConCommand,int>::Grow
-CUtlMemory<struct ConVarOrConCommand,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct Elf64_Phdr,int>::Grow
-CUtlMemory<struct Elf64_Phdr,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<struct Elf64_Phdr,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct KVJSONParserStackEntry_t,int>::Grow
-CUtlMemory<struct KVJSONParserStackEntry_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct ThreadPoolThreadSet_t,int>::Grow
-CUtlMemory<struct ThreadPoolThreadSet_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct TokenWarning_t,int>::Grow
-CUtlMemory<struct TokenWarning_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct UtlLinkedListElem_t<class CCoroutine,int>,int>::Grow
-CUtlMemory<struct UtlLinkedListElem_t<class CCoroutine,int>,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct UtlLinkedListElem_t<class CLoopInfo *,int>,int>::Grow
-CUtlMemory<struct UtlLinkedListElem_t<class CLoopInfo *,int>,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct UtlLinkedListElem_t<class CUtlString,int>,int>::Grow
-CUtlMemory<struct UtlLinkedListElem_t<class CUtlString,int>,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct UtlLinkedListElem_t<class CUtlString,unsigned int>,unsigned int>::Grow
-CUtlMemory<struct UtlLinkedListElem_t<class CUtlString,unsigned int>,unsigned int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct UtlLinkedListElem_t<struct CCvar::CommandCallbackData_t,unsigned short>,unsigned short>::Grow
-CUtlMemory<struct UtlLinkedListElem_t<struct CCvar::CommandCallbackData_t,unsigned short>,unsigned short>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct UtlLinkedListElem_t<struct CCvar::ConVarChangeCallbackData_t,unsigned short>,unsigned short>::Grow
-CUtlMemory<struct UtlLinkedListElem_t<struct CCvar::ConVarChangeCallbackData_t,unsigned short>,unsigned short>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct UtlLinkedListElem_t<struct CCvar::SharedCommandData_t,unsigned short>,unsigned short>::Grow
-CUtlMemory<struct UtlLinkedListElem_t<struct CCvar::SharedCommandData_t,unsigned short>,unsigned short>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct UtlLinkedListElem_t<struct ConVarInfo_t *,unsigned short>,unsigned short>::Grow
-CUtlMemory<struct UtlLinkedListElem_t<struct ConVarInfo_t *,unsigned short>,unsigned short>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct UtlRBTreeNode_t<char const *,unsigned short>,unsigned short>::Grow
-CUtlMemory<struct UtlRBTreeNode_t<char const *,unsigned short>,unsigned short>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<char const *,class CThreadEvent *,class CDefFastCaselessStringLess,int>::Node_t,int>,int>::Grow
-CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<char const *,class CThreadEvent *,class CDefFastCaselessStringLess,int>::Node_t,int>,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<char const *,int,class CDefFastCaselessStringLess,int>::Node_t,int>,int>::Grow
-CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<char const *,int,class CDefFastCaselessStringLess,int>::Node_t,int>,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class HKeySymbol,bool,class CDefLess<class HKeySymbol>,int>::Node_t,int>,int>::Grow
-CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class HKeySymbol,bool,class CDefLess<class HKeySymbol>,int>::Node_t,int>,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::Node_t,int>,int>::Grow
-CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::Node_t,int>,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::Node_t,int>,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<struct CVirtRangeMap::VirtRange_t,struct CVirtRangeMap::VirtDesc_t,class CDefLess<struct CVirtRangeMap::VirtRange_t>,int>::Node_t,int>,int>::Grow
-CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<struct CVirtRangeMap::VirtRange_t,struct CVirtRangeMap::VirtDesc_t,class CDefLess<struct CVirtRangeMap::VirtRange_t>,int>::Node_t,int>,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct UtlRBTreeNode_t<struct ConVarOrConCommand,int>,int>::Grow
-CUtlMemory<struct UtlRBTreeNode_t<struct ConVarOrConCommand,int>,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct UtlRBTreeNode_t<struct ConVarOrConCommand,unsigned short>,unsigned short>::Grow
-CUtlMemory<struct UtlRBTreeNode_t<struct ConVarOrConCommand,unsigned short>,unsigned short>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct UtlRBTreeNode_t<void *,int>,int>::Grow
-CUtlMemory<struct UtlRBTreeNode_t<void *,int>,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct VProfDataReportItem_t,int>::Grow
-CUtlMemory<struct VProfDataReportItem_t,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct _GROUP_AFFINITY,int>::Grow
-CUtlMemory<struct _GROUP_AFFINITY,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct _IMAGE_SECTION_HEADER,int>::Grow
-CUtlMemory<struct _IMAGE_SECTION_HEADER,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<struct _IMAGE_SECTION_HEADER,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct _PlatModule_t *,int>::Grow
-CUtlMemory<struct _PlatModule_t *,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<struct _PlatModule_t *,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct _VWMD_MINIDUMP_DIRECTORY,int>::Grow
-CUtlMemory<struct _VWMD_MINIDUMP_DIRECTORY,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<struct _VWMD_MINIDUMP_DIRECTORY,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct _VWMD_MINIDUMP_MEMORY_DESCRIPTOR,int>::Grow
-CUtlMemory<struct _VWMD_MINIDUMP_MEMORY_DESCRIPTOR,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct _VWMD_MINIDUMP_MODULE,int>::Grow
-CUtlMemory<struct _VWMD_MINIDUMP_MODULE,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<struct _VWMD_MINIDUMP_MODULE,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct _VWMD_MINIDUMP_THREAD,int>::Grow
-CUtlMemory<struct _VWMD_MINIDUMP_THREAD,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<struct _VWMD_MINIDUMP_THREAD,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct std::pair<class CBufferString,struct FioBaseFileInfo_t>,int>::Grow
-CUtlMemory<struct std::pair<class CBufferString,struct FioBaseFileInfo_t>,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct std::pair<class CUtlString,struct FioBaseFileInfo_t>,int>::Grow
-CUtlMemory<struct std::pair<class CUtlString,struct FioBaseFileInfo_t>,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct std::pair<unsigned char *,unsigned int>,int>::Grow
-CUtlMemory<struct std::pair<unsigned char *,unsigned int>,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<struct std::pair<unsigned char *,unsigned int>,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<struct std::pair<void const *,unsigned int>,int>::Grow
-CUtlMemory<struct std::pair<void const *,unsigned int>,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<unsigned __int64,int>::Grow
-CUtlMemory<unsigned __int64,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<unsigned char *,int>::Grow
-CUtlMemory<unsigned char *,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<unsigned char,int>::CUtlMemory
-CUtlMemory<unsigned char,int>::Grow
-CUtlMemory<unsigned char,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<unsigned char,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<unsigned char,int>::Swap
-CUtlMemory<unsigned int,int>::CUtlMemory
-CUtlMemory<unsigned int,int>::Grow
-CUtlMemory<unsigned int,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<unsigned short,int>::Grow
-CUtlMemory<unsigned short,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<unsigned short,int>::Grow::<lambda_2>::operator ()
-CUtlMemory<void (__cdecl*)(class ConVarRefAbstract *,class CSplitScreenSlot,char const *,char const *),int>::Grow
-CUtlMemory<void (__cdecl*)(class ConVarRefAbstract *,class CSplitScreenSlot,char const *,char const *),int>::Grow::<lambda_2>::operator ()
-CUtlMemory<wchar_t,int>::Grow
-CUtlMemory<wchar_t,int>::Grow::<lambda_1>::operator ()
-CUtlMemory<wchar_t,int>::Grow::<lambda_2>::operator ()
 CUtlMemoryArena::CUtlMemoryArena
 CUtlMemoryArena::Free
-CUtlMemoryBlockAllocator::Alloc
-CUtlMemoryFixed<float const *,64>::Grow
-CUtlMemoryFixed<struct ThreadMultiWaitExtra_t,64>::Grow
-CUtlMemoryFixed<void *,64>::Grow
 CUtlMemoryPoolBase: Cannot specify 0 elements to grow each time!\n
-CUtlMemoryPoolBase::AddNewBlob
-CUtlMemoryPoolBase::Alloc
-CUtlMemoryPoolBase::Free::<lambda_1>::operator ()
-CUtlMemoryPoolBase::Init
-CUtlMemoryPoolBase::InternalInit
-CUtlMemoryPoolBase::IsAllocationWithinPool
-CUtlMemoryPoolBase::ResetAllocationCounts
 CUtlMemory_RawAllocator<class CUtlHashtableEntry<unsigned int,struct empty_t> >::EnsureCapacity
 CUtlMemory_RawAllocator<struct CUtlMemoryBlockAllocator::MemPage_t>::EnsureCapacity
 CUtlMemory_RawAllocator<struct CUtlMemoryBlockAllocator::MemPage_t>::Grow
@@ -4309,97 +3288,21 @@ CUtlMemory_RawAllocator<unsigned int>::EnsureCapacity
 CUtlMemory_RawAllocator<unsigned int>::Grow
 CUtlRBTree overflow with %u elements!\n
 CUtlRBTree<char const *,class CDefFastCaselessStringLess,unsigned short,class CUtlMemory<struct UtlRBTreeNode_t<char const *,unsigned short>,unsigned short> >::Insert
-CUtlRBTree<char const *,class CDefFastCaselessStringLess,unsigned short,class CUtlMemory<struct UtlRBTreeNode_t<char const *,unsigned short>,unsigned short> >::NewNode
-CUtlRBTree<char const *,class CDefFastCaselessStringLess,unsigned short,class CUtlMemory<struct UtlRBTreeNode_t<char const *,unsigned short>,unsigned short> >::RemoveAll
-CUtlRBTree<struct CUtlOrderedMapBase<char const *,class CThreadEvent *,class CDefFastCaselessStringLess,int>::Node_t,class CUtlOrderedMapBase<char const *,class CThreadEvent *,class CDefFastCaselessStringLess,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<char const *,class CThreadEvent *,class CDefFastCaselessStringLess,int>::Node_t,int>,int> >::NewNode
-CUtlRBTree<struct CUtlOrderedMapBase<char const *,class CThreadEvent *,class CDefFastCaselessStringLess,int>::Node_t,class CUtlOrderedMapBase<char const *,class CThreadEvent *,class CDefFastCaselessStringLess,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<char const *,class CThreadEvent *,class CDefFastCaselessStringLess,int>::Node_t,int>,int> >::RemoveAll
-CUtlRBTree<struct CUtlOrderedMapBase<char const *,int,class CDefFastCaselessStringLess,int>::Node_t,class CUtlOrderedMapBase<char const *,int,class CDefFastCaselessStringLess,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<char const *,int,class CDefFastCaselessStringLess,int>::Node_t,int>,int> >::NewNode
-CUtlRBTree<struct CUtlOrderedMapBase<char const *,int,class CDefFastCaselessStringLess,int>::Node_t,class CUtlOrderedMapBase<char const *,int,class CDefFastCaselessStringLess,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<char const *,int,class CDefFastCaselessStringLess,int>::Node_t,int>,int> >::RemoveAll
 CUtlRBTree<struct CUtlOrderedMapBase<class HKeySymbol,bool,class CDefLess<class HKeySymbol>,int>::Node_t,class CUtlOrderedMapBase<class HKeySymbol,bool,class CDefLess<class HKeySymbol>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class HKeySymbol,bool,class CDefLess<class HKeySymbol>,int>::Node_t,int>,int> >::Insert
-CUtlRBTree<struct CUtlOrderedMapBase<class HKeySymbol,bool,class CDefLess<class HKeySymbol>,int>::Node_t,class CUtlOrderedMapBase<class HKeySymbol,bool,class CDefLess<class HKeySymbol>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class HKeySymbol,bool,class CDefLess<class HKeySymbol>,int>::Node_t,int>,int> >::NewNode
-CUtlRBTree<struct CUtlOrderedMapBase<class HKeySymbol,bool,class CDefLess<class HKeySymbol>,int>::Node_t,class CUtlOrderedMapBase<class HKeySymbol,bool,class CDefLess<class HKeySymbol>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class HKeySymbol,bool,class CDefLess<class HKeySymbol>,int>::Node_t,int>,int> >::RemoveAll
-CUtlRBTree<struct CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::Node_t,class CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::Node_t,int>,int> >::FreeNode
 CUtlRBTree<struct CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::Node_t,class CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::Node_t,int>,int> >::Insert
-CUtlRBTree<struct CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::Node_t,class CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::Node_t,int>,int> >::NewNode
-CUtlRBTree<struct CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::Node_t,class CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::Node_t,int>,int> >::RemoveAll
-CUtlRBTree<struct CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::Node_t,class CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::Node_t,int>,int> >::RemoveAt
 CUtlRBTree<struct CUtlOrderedMapBase<struct CVirtRangeMap::VirtRange_t,struct CVirtRangeMap::VirtDesc_t,class CDefLess<struct CVirtRangeMap::VirtRange_t>,int>::Node_t,class CUtlOrderedMapBase<struct CVirtRangeMap::VirtRange_t,struct CVirtRangeMap::VirtDesc_t,class CDefLess<struct CVirtRangeMap::VirtRange_t>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<struct CVirtRangeMap::VirtRange_t,struct CVirtRangeMap::VirtDesc_t,class CDefLess<struct CVirtRangeMap::VirtRange_t>,int>::Node_t,int>,int> >::Insert
-CUtlRBTree<struct CUtlOrderedMapBase<struct CVirtRangeMap::VirtRange_t,struct CVirtRangeMap::VirtDesc_t,class CDefLess<struct CVirtRangeMap::VirtRange_t>,int>::Node_t,class CUtlOrderedMapBase<struct CVirtRangeMap::VirtRange_t,struct CVirtRangeMap::VirtDesc_t,class CDefLess<struct CVirtRangeMap::VirtRange_t>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<struct CVirtRangeMap::VirtRange_t,struct CVirtRangeMap::VirtDesc_t,class CDefLess<struct CVirtRangeMap::VirtRange_t>,int>::Node_t,int>,int> >::NewNode
-CUtlRBTree<struct CUtlOrderedMapBase<struct CVirtRangeMap::VirtRange_t,struct CVirtRangeMap::VirtDesc_t,class CDefLess<struct CVirtRangeMap::VirtRange_t>,int>::Node_t,class CUtlOrderedMapBase<struct CVirtRangeMap::VirtRange_t,struct CVirtRangeMap::VirtDesc_t,class CDefLess<struct CVirtRangeMap::VirtRange_t>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<struct CVirtRangeMap::VirtRange_t,struct CVirtRangeMap::VirtDesc_t,class CDefLess<struct CVirtRangeMap::VirtRange_t>,int>::Node_t,int>,int> >::RemoveAll
 CUtlRBTree<struct ConVarOrConCommand,class CLessFunc<&bool __cdecl ConCommandBaseLessFunc(struct ConVarOrConCommand const &,struct ConVarOrConCommand const &)>,unsigned short,class CUtlMemory<struct UtlRBTreeNode_t<struct ConVarOrConCommand,unsigned short>,unsigned short> >::Insert
-CUtlRBTree<struct ConVarOrConCommand,class CLessFunc<&bool __cdecl ConCommandBaseLessFunc(struct ConVarOrConCommand const &,struct ConVarOrConCommand const &)>,unsigned short,class CUtlMemory<struct UtlRBTreeNode_t<struct ConVarOrConCommand,unsigned short>,unsigned short> >::NewNode
-CUtlRBTree<struct ConVarOrConCommand,class CLessFunc<&bool __cdecl ConCommandBaseLessFunc(struct ConVarOrConCommand const &,struct ConVarOrConCommand const &)>,unsigned short,class CUtlMemory<struct UtlRBTreeNode_t<struct ConVarOrConCommand,unsigned short>,unsigned short> >::RemoveAll
 CUtlRBTree<struct ConVarOrConCommand,class CLessFunc<&bool __cdecl ConVarSortFunc(struct ConVarOrConCommand const &,struct ConVarOrConCommand const &)>,int,class CUtlMemory<struct UtlRBTreeNode_t<struct ConVarOrConCommand,int>,int> >::Insert
-CUtlRBTree<struct ConVarOrConCommand,class CLessFunc<&bool __cdecl ConVarSortFunc(struct ConVarOrConCommand const &,struct ConVarOrConCommand const &)>,int,class CUtlMemory<struct UtlRBTreeNode_t<struct ConVarOrConCommand,int>,int> >::NewNode
-CUtlRBTree<struct ConVarOrConCommand,class CLessFunc<&bool __cdecl ConVarSortFunc(struct ConVarOrConCommand const &,struct ConVarOrConCommand const &)>,int,class CUtlMemory<struct UtlRBTreeNode_t<struct ConVarOrConCommand,int>,int> >::RemoveAll
-CUtlRBTree<void *,class CDefLess<void *>,int,class CUtlMemory<struct UtlRBTreeNode_t<void *,int>,int> >::FreeNode
 CUtlRBTree<void *,class CDefLess<void *>,int,class CUtlMemory<struct UtlRBTreeNode_t<void *,int>,int> >::Insert
-CUtlRBTree<void *,class CDefLess<void *>,int,class CUtlMemory<struct UtlRBTreeNode_t<void *,int>,int> >::NewNode
-CUtlRBTree<void *,class CDefLess<void *>,int,class CUtlMemory<struct UtlRBTreeNode_t<void *,int>,int> >::RemoveAll
-CUtlRBTree<void *,class CDefLess<void *>,int,class CUtlMemory<struct UtlRBTreeNode_t<void *,int>,int> >::RemoveAt
-CUtlScratchMemoryPool::FreeAll
-CUtlScratchMemoryPool::FreeToAllocPoint
-CUtlScratchMemoryPool::GetCurrentAllocPoint
-CUtlScratchMemoryPool::Init
 CUtlString::FormatV
-CUtlString::SetDirect
-CUtlString::SetDirect does not support resizing strings in place.
-CUtlStringMap inserted a string and got index %d, but there are only %d entries already inside.
-CUtlStringMap<class CUtlString,class CUtlSymbolTable>::Insert
-CUtlStringMap<struct CConVarSnapshot::StringMemoryReference_t,class CUtlSymbolTable>::operator []
-CUtlStringMap<struct CVSymbolModuleCache::CacheEntry_t,class CUtlSymbolTable>::Count
-CUtlStringToken::TrackTokenCreation( pString, nullptr )
-CUtlStringTokenHash_DatabaseFormat::CUtlStringTokenHash_DatabaseFormat
 CUtlStringTokenSystem could not open database file "%s" for writing. Aborting update operation\n
 CUtlStringTokenSystem could not update token database "%s" because the file is read-only.\n
 CUtlStringTokenSystem: Encountered string token collision: "%s" and "%s" both hash to %X!\n
-CUtlStringTokenSystem::RegisterStringToken
-CUtlStringTokenSystem::WriteDatabaseFileUpdates
-CUtlSymbolTable::AddString
-CUtlSymbolTable::RestoreFromBuffer
 CUtlSymbolTableLargeBase
-CUtlTSHashBase::HashBucket_t
-CUtlTokenizer::GetLineColumnForSourcePosition::<lambda_1>::operator ()
 CV@@R
 CVAR_
-CVBinaryModule::Release
-CVBinaryModule::~CVBinaryModule
-CVDbgHelpSymbolModule::AddSourceIndexEntry
-CVDbgHelpSymbolModule::VisitAllSymbols
 CVDbgHelpSymbolModule::WriteBreakpadCfiInfo
-CVDbgHelpSymbolModule::~CVDbgHelpSymbolModule
-CVDebugModule::LoadBinaryFileImpl
-CVDwarfSymbolModule::ResolveSymbolInfoImpl::<lambda_1>::operator ()
-CVDwarfSymbolModule::SetSourceIndex
-CVProfNode::CVProfNode
-CVProfNode::GetVParent
-CVProfile::EnterScopeNode
-CVProfile::FindOrCreateCounter
-CVProfile::GetBudgetGroupFlags
-CVProfile::GetBudgetGroupName
-CVProfile::GetCounterGroup
-CVProfile::GetCounterName
-CVProfile::GetCounterNameAndValue
-CVProfile::GetCounterValue
-CVProfile::PopGroup
-CVProfile::PushGroup
-CVSymbolModule::Release
-CVSymbolModule::~CVSymbolModule
-CVSymbolModuleCache::CacheEntry_t::AcquireForLoad
-CVSymbolModuleCache::CacheEntry_t::ReleaseAfterLoad
-CVSymbolModuleCache::FindOrCreateEntry
-CVSymbolModuleCache::RequestBaseAddress
-CVSymbolModuleCache::UnlinkLRU
-CVSymbolModuleCache::UpdateEntry
-CVWMDWriter::AddMemory
-CVariableBitStringBase::AllocInts
-CVariableBitStringBase::ReallocInts
-CVariableBitStringBase::Resize
-CVariableBitStringBase::ValidateOperand
 CVectorAnimParameter
-CVertexKDNode::GetLeafVertCount
-CVertexKDNode::GetLeafVertStart
-CVirtRangeMap::AddRange
 CWD>~3
 CWayPointHelperAnimNode
 CZeroPoseAnimNode
@@ -4542,13 +3445,9 @@ C_OP_SetSingleControlPointPosition
 C_OP_StopAfterCPDuration
 C_OP_TwistAroundAxis
 C_OP_WorldTraceConstraint
-CallPostConnect
 Called Resume() on a thread that is not suspended!\n
 Called realloc(non-null-ptr, 0) with zero_realloc:abort set\n
-Calling GetValueString on a table - you probably meant to call GetMemberString!%s
 Can't allocate %d elements, will overflow.  Current count %d elements\n
-Can't call GetBinaryBlobBase() on a non-blob.%s
-Can't call GetBinaryBlobLength() on a non-blob.%s
 Can't convert an empty string to bool\n
 Can't convert an empty string to float64\n
 Can't convert an empty string to int64\n
@@ -4559,29 +3458,16 @@ Can't specify both a CPU architecture and slice index\n
 Can't write binary data to a text buffer.
 CancelIo
 Cannot Start Process '%s'
-Cannot call CThread::Suspend from outside thread
 Cannot copy '%s' to '%s'. 
 Cannot flush timstamped event log with no listener!
 Cannot mix and match tag specifiers with channel name specifiers.\n
 Cannot register same format from/to a KV3 conversion (from '%s' to '%s')
 Cannot register two timestamped event listeners!
-Cannot save KV3 EHANDLE to JSON.
-Cannot save KV3 EHANDLE to KV1.
 Cannot save KV3 JSON to a non-text buffer!
-Cannot save KV3 array to KV1.
-Cannot save KV3 binary blob to JSON.
-Cannot save KV3 binary blob to KV1.
-Cannot save KV3 flags to JSON. (0x%X)
-Cannot save KV3 flags to KV1. (0x%X)
-Cannot save KV3 pointer to JSON.
-Cannot save KV3 pointer to KV1.
-Cannot save KV3 specific types to JSON. (0x%X)
-Cannot save KV3 specific types to KV1. (0x%X)
 Cannot save KV3 text to a non-text buffer!
 Cannot save as KV3_FORMAT_LOAD_WITH_NO_UPCONVERSION.
 Capture
 Captures data about the assertion failure and sends it out to the team for diagnosis.\r\n\r\nYou should do this for any new assertions you see. (Distinguished by "Location" and "Assert" above)\r\n\r\nBroadcasting a minidump will also stop bothering you about this assertion for 24 hours.
-Cast of %s loses value information (returning %s) in %s on %s:%u\n
 CatchAndWriteContext_t::Invoke with bogus argc/argv
 CatchAndWriteContext_t::Invoke with bogus void *ptr
 CatchAndWriteContext_t::Set w/o a function pointer!
@@ -4592,13 +3478,11 @@ CatchAndWriteMiniDumpExReturnsInt
 CatchAndWriteMiniDumpForVoidPtrFn
 Cb.2
 Ccoshf
-Changes were missed. We need to bring back missed change handling
 Channel
 Channel Name
 CharacterSetBuild
 CheckForUnsafeInputString
 CheckTokenMembership
-CkeyValuesTokenReader::SeekBackOneToken: No tokens read yet
 Client Input/Output
 Client Physics
 Client Rendering
@@ -4608,7 +3492,6 @@ Client_Animation
 ClipIndex
 CloseClipboard
 CloseHandle
-CloseHandle( hFile )
 ClothEffectAnimEvent
 ClothShapeCapsule
 ClothShapeList
@@ -4639,39 +3522,16 @@ Compilation units ran off the end of .debug_info\n
 Compressed entry encoding index out of range (%u)\n
 Compressed entry table is not sorted\n
 Compression unsupported for format %u\n
-ConCommand %s has conflicting command completion callbacks!\n
-ConCommandRef::GetInfo
-ConCommand_PrintDescription
 ConDMsg
 ConVar
-ConVar %s cannot convert to requested type (%s -> %s)!\n
-ConVar %s is marked FCVAR_PER_USER, but was instantiated before the number of splitscreen players was set, which is illegal!\n
-ConVar %s: Attempted to access data for a splitscreen player when the ConVar is not marked with FCVAR_PER_USER!\n
-ConVar '%s' is visible to both server and client but is not marked FCVAR_REPLICATED\n
-ConVarRef for %s is using the wrong data type! Needs %s\n
-ConVarRefAbstract::ConVarRefAbstract
-ConVarRefAbstract::GetAtomicNumeric
-ConVarRefAbstract::GetInfo
-ConVarRefAbstract::GetRawValuePtr
-ConVarRefAbstract::GetTypeInfo
-ConVarRefAbstract::GetUndefinedInfo
-ConVarRefAbstract::GetValue
-ConVarRefAbstract::Revert::<lambda_1>::operator ()
-ConVarRefAbstract::SetValueAbstract
-ConVarRefs cannot be copied until after they have been registered!\n
-ConVar_PrintDescription
 Conditional Error: %s\n
 ConfigAttachedModel
 Conflicting range base values given for compile_unit\n
 Connection_Inparam
 Connection_Outflow
 Console
-ConstructMemStdInstance
-Construction is only allowed from the resolve function
 Constructor/destructor index ('%c%c') out of range\n
 Constructor/destructor name extraction failed\n
-ContainsCRLF()
-ContainsCRLF() == bContainsCRLF
 Content Assertion Failed
 Contents
 ContinueDebugEvent
@@ -4714,8 +3574,6 @@ ControlValue_TotalTranslation_TargetState
 ControlValue_WayPointDistance
 ControlValue_WayPointHeading
 ConvertKV3Format
-Converting a KV3 from one specific type (%s) to another (%s) - this is usually a bug!\nIf intended, call ClearSpecificType first to discard the old value.%s
-Converting a KV3 from one type (%s) to another (%s) - this is usually a bug!\nIf intended, call SetToNull() first to discard the old value.%s
 Copy failed.
 CopyDependencyToAlternateLocation
 CopyFileA
@@ -4733,7 +3591,6 @@ Could not execute the command:\n   %s\nOS error message:\n   "%s"\n
 Could not read from pipe associated with command %s\nWindows gave the error message:\n   "%s"\n
 Couldn't open '%s' for writing!\n
 Couldn't window icon! %s\n
-Cpuid::IsVendor( AuthenticAMD )
 CreateCommandLine
 CreateCompatibleDC
 CreateDIBSection
@@ -4826,9 +3683,7 @@ DeleteObject
 DeleteProcThreadAttributeList
 DemoUpconverterVersion001
 Dependency Copy Error
-DependencyClass::m_pDependencyLL == nullptr
 DestroyThreadPool
-DestroyThreadPool::<lambda_1>::operator ()
 DestroyWindow
 DevMsg
 DevWarning
@@ -4839,7 +3694,6 @@ DeviceIoControl
 DialogBoxParamA
 Diff
 DirectFileTest( %s ) - 
-DisconnectInterfaceSingletons
 DispatchMessageA
 Dk(s
 DmeC
@@ -4848,12 +3702,10 @@ DoAssertDialog: invalid Assert response returned from dialog/vxconsole - breakin
 Double-register of KV3 conversion (from '%s' to '%s')
 Download process succeeded but didn't write a local file
 DrawTextA
-Drive-relative path ('%s') cannot be expanded\n
 Ds~E
 Dumps information about all logging channels.
 Duplicate abbrev code 0x%x at 0x%x\n
 DuplicateHandle
-DuplicateHandle( GetCurrentProcess(), GetCurrentThread(), GetCurrentProcess(), &hDuplicatedThreadHandle, 0, TRUE, DUPLICATE_SAME_ACCESS )
 Dv missing '_' ending\n
 Dvlo
 Dw`z
@@ -4896,7 +3748,6 @@ EmptyClipboard
 EnableWindow
 Enabling flag '%s' on channel '%s'.\n
 EncodePointer
-Encountered two different types used with the same ConVar "%s" ( %s vs %s )! Make these types match...\n
 End of input was reached and '[' was not matched by ']'
 End of input was reached and '{' was not matched by '}'
 EndDialog
@@ -4910,8 +3761,6 @@ EnumSystemLocalesEx
 EnumSystemLocalesW
 EnumerateLoadedModulesW64
 Error
-Error decoding string1: %s
-Error decoding string2: %s
 Error parsing string '%s' as double, parsed to: '%s'\n
 Error parsing string '%s' as float64\n
 Error parsing string '%s' as int, parsed to: '%s'\n
@@ -4928,7 +3777,6 @@ EventUnregister
 EventWriteTransfer
 Exceeded blob count
 Exception
-Executing supposedly unreachable code\n
 Exit Process
 ExitProcess
 ExitThread
@@ -4958,7 +3806,6 @@ Expected value or ']'
 Expected value.
 Expected {
 Expected }
-ExternalNameForInternalType
 E}aj
 F#47
 F/M/S %u/%u/%u 
@@ -4966,8 +3813,6 @@ F>qUxv
 FAIL: !IsEmpty()\n
 FAIL: !Validate()\n
 FAIL: Not all items popped\n
-FAILURE: Test timed out\n
-FAILURE: Thread pool was always fully idle (threads %u, jobs %u, sleep %d, interleave %d, prioritized %d, cur count %u, goal count %u) time %.3f\n
 FATAL
 FATAL ERROR
 FATAL ERROR: 
@@ -4982,7 +3827,6 @@ FCVAR_CHEAT
 FCVAR_DONTRECORD
 FCVAR_PER_USER
 FCVAR_REPLICATED
-FCVAR_REPLICATED can't also be FCVAR_PROTECTED (%s)\n
 FDE aug data too large (%llu bytes)\n
 FDE encoded pointer 0x%llx out of range (base 0x%llx)\n
 FDE size 0x%llx out of range (start RVA 0x%x)\n
@@ -4996,15 +3840,9 @@ FaceTo
 Facing_Heading
 Failed during call to CDirWatcher::SetDirToWatch for directory '%s'\n
 Failed to CreateFileW for '%s'
-Failed to allocate CUtlMemoryPoolBase blob of size %d ( blob count = %d)
 Failed to assign bool literal value
 Failed to convert KV3 to string; error: %s\n
-Failed to create event (error 0x%x)
-Failed to create mutex (error 0x%x)
-Failed to create semaphore (error 0x%x)
-Failed to create thread (error 0x%x)
 Failed to get symsrv indices\n
-Failed to parse default for ConVarType_t '%s' from string '%s'
 Failed to parse initial ConVar '%s'[%d] from string '%s'\n
 Failed to write
 Fatal Error
@@ -5013,7 +3851,6 @@ FfW?
 FiYW
 Fiber Job
 Fiber Pool Default Worker
-Fiber touched the edge of it's stack memory. And possibly beyond
 Field %s has inverted min/max values![%f->%f]\n
 Field %s tried to quantize an out-of-range value (%f, range is %f->%f) clamping.\n
 Field %s tried to quantize an out-of-range value (%f, range is %f->%f), clamping.\n
@@ -5027,7 +3864,6 @@ Fill result "%s"\n
 Filling szExecutableImageFileOut\n
 Filling szSymbolFileOut\n
 Final compact unwind index entry is not a last-address marker\n
-FinalizeCPUInformation
 Find concommands by flags.
 Find concommands with the specified string in their name/help text.
 Find help about a convar/concommand.
@@ -5042,7 +3878,6 @@ FindGlobalSymbolByHash
 FindNextFileW
 FindOrCreateQuantizedFloatEncoder
 FindRegisteredGlobalObjectInternal
-FindXMLReplacementChar
 Finger_Curl_Index
 Finger_Curl_Middle
 Finger_Curl_Pinky
@@ -5053,8 +3888,6 @@ Finger_Splay_MiddleRing
 Finger_Splay_RingPinky
 Finger_Splay_ThumbIndex
 FioGetFileType
-FioReadFileTo
-FioWrite
 First character of flag specifier must be + or -.\n
 Flags
 FlattenedSerializersVersion001
@@ -5071,11 +3904,7 @@ FlushFileBuffers
 Folder
 FontManager_001
 Force compiler to keep computations alive: %g\n
-Forgot to add new VCD format to IsVCDFormat!
-Forgot to add new animgraph format to IsAnimGraphFormat!
-Forgot to add new modeldoc format to IsModelDocFormat!
 FormatMessageA
-FormatTime
 Found Application AutoArgs file '%s'\n
 Found a '%s' token implying the start of a conditional.  KV3 doesn't support this - use bIgnoreConditionals or modify the source file.
 Found duplicate member '%s'
@@ -5089,7 +3918,6 @@ FreeCommandLine
 FreeEnvironmentStringsW
 FreeLibrary
 FreeLibraryAndExitThread
-FreeMinidumpContext(): AssertionMiniDumpContext_t instance not created by AllocateAssertionMinidumpContext()\n
 FreeSid
 Friday
 G>US
@@ -5101,7 +3929,6 @@ GCoroutineMgr().IsValidCoroutine( hCoroutine )
 GDI32.dll
 GENERAL_INTERRUPTABILITY
 GERMAN
-GETLOCAL( s_nSDLMainThreadBlocks ) > 0
 GL7LH
 GQlN
 GameDVR_Enabled
@@ -5117,12 +3944,6 @@ GetActiveAssertDialogHwnd
 GetAddressInlineCallData
 GetAddressTranslationData
 GetAlternateLaunchLocation
-GetAsNumeric() - unsupported type '%s' (%d)!
-GetAssertionResponseFlags
-GetBaseFileInfo
-GetBasicType() == KV3_BTYPE_TABLE
-GetBasicTypeForBinaryType
-GetBinaryTypeForKV3
 GetCPInfo
 GetCPUFrequencyResults
 GetCPUInformation
@@ -5135,7 +3956,6 @@ GetComputerNameExW
 GetConsoleMode
 GetConsoleOutputCP
 GetConsoleScreenBufferInfo
-GetCurrentCThread() != this
 GetCurrentDirectoryA
 GetCurrentDirectoryW
 GetCurrentPackageId
@@ -5169,8 +3989,6 @@ GetFileSizeEx
 GetFileType
 GetForegroundWindow
 GetFullPathNameW
-GetFunctionPointers( &pGlpiEx )
-GetInts()
 GetJSONCharConversion
 GetJobManualEventFromPool
 GetLastError
@@ -5209,11 +4027,8 @@ GetProcessUserModeExceptionPolicy
 GetQuantizedFloatEncoderByReg
 GetQuantizedFloatEncoderNameByReg
 GetQuantizedFloatEncodersSharingReg
-GetRefCount() == 1
-GetSeverityDescriptionString
 GetStartupInfoW
 GetStdHandle
-GetStringFromDatabase
 GetStringTypeW
 GetSymbolNameFromAddress
 GetSystemInfo
@@ -5221,7 +4036,6 @@ GetSystemMetrics
 GetSystemTimeAsFileTime
 GetSystemTimePreciseAsFileTime
 GetSystemTimes
-GetTable() != nullptr
 GetTempPath2W
 GetTempPathW
 GetThreadDescription
@@ -5235,7 +4049,6 @@ GetTimeZoneInformation
 GetTopWindow
 GetTotalTranslation_SourceState()
 GetTotalTranslation_TargetState()
-GetTypeInfo( nType ).m_nSizeInBytes <= sizeof( s_pUndefinedValue )
 GetUserDefaultLCID
 GetUserDefaultLocaleName
 GetUserNameA
@@ -5252,7 +4065,6 @@ GlobalFree
 GlobalLock
 GlobalMemoryStatusEx
 GlobalUnlock
-Global\
 Global\UtlStringTokenSystemDataBaseWriteMutex
 Goal_Distance
 Got symsrv indices
@@ -5263,16 +4075,15 @@ H$BQ
 H(VVH
 H*0"ZOW
 H>r1
+HEAP WARNING: memory block at %p appears to be corrupt\n
 HEAP WARNING: memory block at %p is unexpectedly allocated\n
 HEAP WARNING: memory block at %p is unexpectedly free\n
 HEAP WARNING: memory block at %p is unexpectedly unrecognized\n
-HEAP WARNING: memory pointer %p is invalid\n
 HH:MM:SS.z
 HH:mm:ss
 HIGHDPI
 HOME
 HammerMapLoader001
-HandleAsStringFailure
 HasExpandedResources
 Heap: process heap\n
 Heap: standard allocator
@@ -5408,13 +4219,7 @@ IKRuleDebug
 IKRuleFollowAnimation
 IKRuleGround
 ILookComponent
-IMemAlloc::Alloc
-IMemAlloc::AllocAligned
-IMemAlloc::AllocAligned (emulated)
 IMemAlloc::DumpStats: could not open output file %s
-IMemAlloc::Free
-IMemAlloc::FreeAligned
-IMemAlloc::FreeAligned (emulated)
 IMobileEventListener::OnEnterHibernationState()\n
 IMobileEventListener::OnExitHibernationState()\n
 IMobileEventListener::OnLowMemoryNotification()\n
@@ -5454,7 +4259,6 @@ ISubGraphAnimNode
 ISubGraphManager
 ITALIAN
 I\zH6
-I\zH6X
 Ignore
 Ignore All Asserts
 Ignore For 24 Hours
@@ -5474,7 +4278,6 @@ ImageRvaToVa
 ImageUnload
 Import_GetICVarFactory
 InDefault
-InTargetThread()
 Incomplete binary block: blob %i/%i, ret=%zx, input %u/%u\n
 Incomplete binary block: output %u/%u bytes, input %u/%u bytes\n
 Indicate to a test script that a checkpoint has been reached
@@ -5484,29 +4287,6 @@ Inflow_Generic
 Inflow_Method
 InitMiniDumpReportOptions
 InitWin32ConsoleColorContext
-InitWrappedSDLFunctions::_SDL_CreateWindowWithProperties::SDLWrapper_SDL_CreateWindowWithProperties
-InitWrappedSDLFunctions::_SDL_DestroyCursor::SDLWrapper_SDL_DestroyCursor
-InitWrappedSDLFunctions::_SDL_DestroyWindow::SDLWrapper_SDL_DestroyWindow
-InitWrappedSDLFunctions::_SDL_Init::SDLWrapper_SDL_Init
-InitWrappedSDLFunctions::_SDL_InitSubSystem::SDLWrapper_SDL_InitSubSystem
-InitWrappedSDLFunctions::_SDL_PollEvent::SDLWrapper_SDL_PollEvent
-InitWrappedSDLFunctions::_SDL_PumpEvents::SDLWrapper_SDL_PumpEvents
-InitWrappedSDLFunctions::_SDL_Quit::SDLWrapper_SDL_Quit
-InitWrappedSDLFunctions::_SDL_RaiseWindow::SDLWrapper_SDL_RaiseWindow
-InitWrappedSDLFunctions::_SDL_SetCursor::SDLWrapper_SDL_SetCursor
-InitWrappedSDLFunctions::_SDL_SetWindowBordered::SDLWrapper_SDL_SetWindowBordered
-InitWrappedSDLFunctions::_SDL_SetWindowFullscreen::SDLWrapper_SDL_SetWindowFullscreen
-InitWrappedSDLFunctions::_SDL_SetWindowIcon::SDLWrapper_SDL_SetWindowIcon
-InitWrappedSDLFunctions::_SDL_SetWindowMouseGrab::SDLWrapper_SDL_SetWindowMouseGrab
-InitWrappedSDLFunctions::_SDL_SetWindowPosition::SDLWrapper_SDL_SetWindowPosition
-InitWrappedSDLFunctions::_SDL_SetWindowSize::SDLWrapper_SDL_SetWindowSize
-InitWrappedSDLFunctions::_SDL_SetWindowTitle::SDLWrapper_SDL_SetWindowTitle
-InitWrappedSDLFunctions::_SDL_ShowMessageBox::SDLWrapper_SDL_ShowMessageBox
-InitWrappedSDLFunctions::_SDL_StartTextInput::SDLWrapper_SDL_StartTextInput
-InitWrappedSDLFunctions::_SDL_StopTextInput::SDLWrapper_SDL_StopTextInput
-InitWrappedSDLFunctions::_SDL_SyncWindow::SDLWrapper_SDL_SyncWindow
-InitWrappedSDLFunctions::_SDL_WaitEvent::SDLWrapper_SDL_WaitEvent
-InitWrappedSDLFunctions::_SDL_WaitEventTimeout::SDLWrapper_SDL_WaitEventTimeout
 Initial CFA instructions advance location\n
 InitializeConditionVariable
 InitializeCriticalSection
@@ -5517,11 +4297,11 @@ InitializeSListHead
 InitializeSRWLock
 InitializeSecurityDescriptor
 Inline attr without data1 value\n
+Input contains no data
 InputService_001
 InputStackSystemVersion001
 InputSystemVersion001
 InstallProgressReportHandler
-InstanceName != nullptr && V_strlen( InstanceName ) > 0 && V_strlen( InstanceName ) < MAX_PATH
 Int array has extra '%s' after values\n
 Int array only parsed %u value(s) when expecting %u\n
 Int value %lld above maximum %lld\n
@@ -5530,12 +4310,7 @@ Intentionally vague touch behavior for %p\n
 InterlockedFlushSList
 Internal error reading fat arch header\n
 Internal_Coroutine_Continue
-Internal_ExpandCompactArray: unhandled compact array type %d%s
-Internal_GetSubKey() != nullptr
-Internal_GetSubKey() == dat
-Internal_GetSubKey() == nullptr
 Interpolation
-IntrusiveList::RemoveFromDList
 Invalid CIE address size %u (ptr size %u)\n
 Invalid CIE segment size %u\n
 Invalid CU-relative offset 0x%llx (form 0x%x)\n
@@ -5549,14 +4324,8 @@ Invalid LSDA index offset (0x%x)\n
 Invalid Mach-O header\n
 Invalid Mach-O program header %d\n
 Invalid Mach-O segment %d\n
-Invalid UTF-16 string given for conversion\n
-Invalid UTF-32 string given for conversion\n
-Invalid UTF-8 CPathString string\n
-Invalid UTF-8 string given for conversion\n
 Invalid WCharPath synthesized for '%s'
 Invalid abbrev children setting %d\n
-Invalid access of CConVarRef for '%s'\n
-Invalid access of ConCommandRef prior to registration!\n
 Invalid alignment value %llu, must be a power of two\n
 Invalid arange debug info offset\n
 Invalid arange header address size\n
@@ -5584,11 +4353,8 @@ Invalid high PC value 0x%llx (base 0x%llx)\n
 Invalid include directory index\n
 Invalid index block location (0x%x : 0x%x)\n
 Invalid indirect form 0x%llx\n
-Invalid initial value for semaphore
-Invalid iterator pointer used\n
 Invalid line header size\n
 Invalid low PC value 0x%llx (base 0x%llx)\n
-Invalid max value for semaphore
 Invalid member name '%s'
 Invalid number (%u) of fat binary architectures\n
 Invalid number starting with '%s'
@@ -5611,7 +4377,6 @@ Invalid settings for bin_shards
 Invalid settings for slab_sizes
 Invalid statement list line info offset %llx\n
 Invalid substitution seq-id\n
-Invalid symbol kind %d\n
 Invalid template-param index\n
 Invalid uniform array count
 Invalid use of KV3 specific type %s with basic type %s, must be basic type %s
@@ -5623,34 +4388,13 @@ InvalidateUniqueId
 InvokeCrashDumpMailer
 InvokeMiniDumpHandler
 InvokeMiniDump\n
-IsAllocAction( action ) && bAligned == IsAlignedAction( action )
-IsAnimGraphFormat( ANIMGRAPH_FORMAT_CURRENT )
-IsArrayUniform: unhandled internal type %d%s
 IsDebuggerPresent
-IsFreeAction( action ) && bAligned == IsAlignedAction( action )
-IsGrowable()
-IsIdxValid(i)
-IsInList(before)
-IsInitted()
-IsLeaf()
 IsModelDocFormat
-IsModelDocFormat( MODELDOC_FORMAT_CURRENT )
-IsPowerOfTwo( nAlignment )
 IsProcessorFeaturePresent
 IsRunningFromAlternateLocation
-IsSupported()
-IsText()
-IsText() && !ContainsCRLF()
 IsUniqueIdEqual
 IsUniqueIdValid
-IsVCDFormat( VCD_FORMAT_CURRENT )
-IsValid()
 IsValidCodePage
-IsValidHandle( handle )
-IsValidIndex(elem)
-IsValidIndex(elem) && IndexInRange( elem )
-IsValidIndex(i) && (i != InvalidIndex())
-IsValidIterator( it )
 IsValidLocale
 IsValidLocaleName
 IterateCapturedStackAnnotations
@@ -5663,7 +4407,6 @@ JanFebMarAprMayJunJulAugSepOctNovDec
 January
 Jjw[Sc
 JmpToAlternateStack
-Job count (%d) higher than limit (%d)\n
 Jobs/Coroutines
 July
 June
@@ -5679,94 +4422,12 @@ KV Conditional: Unknown symbol %s\n
 KV3 EHANDLEs cannot be serialized
 KV3 instances cannot be set to an unspecified specific type
 KV3 pointers cannot be serialized
-KV3BinaryLoadContextV1_t::KV3BinaryLoadContextV1_t
-KV3BinaryLoadContextV1_t::LoadValue
-KV3Convert_KV3_FORMAT_ANIMGRAPH18_To_KV3_FORMAT_ANIMGRAPH19::<lambda_1>::operator ()
-KV3Convert_KV3_FORMAT_MODELDOC29_To_KV3_FORMAT_MODELDOC30
-KV3Convert_KV3_FORMAT_MODELDOC29_To_KV3_FORMAT_MODELDOC30::<lambda_1>::operator ()
-KV3Convert_KV3_FORMAT_MODELDOC34_To_KV3_FORMAT_MODELDOC35::<lambda_1>::operator ()
-KV3Convert_KV3_FORMAT_MODELDOC34_To_KV3_FORMAT_MODELDOC35::<lambda_2>::operator ()
-KV3Convert_KV3_FORMAT_VCD1_To_KV3_FORMAT_VCD2
-KV3Convert_VPULSE_DOCUMENT_FORMAT_11_To_VPULSE_DOCUMENT_FORMAT_12::<lambda_1>::operator ()
-KV3Helper_CheckValueNumericCast
 Kernel32.dll
 KeyValueCache001
 KeyValues Error: %s in file %s\n
-KeyValues3::ArrayAddToTail
-KeyValues3::ArrayInsertMultipleBefore
-KeyValues3::ArrayRemoveMultiple
-KeyValues3::CopyFrom
-KeyValues3::CopyFrom::<lambda_1>::operator ()
-KeyValues3::FindOrCreateMember
-KeyValues3::FormatValueAsString
-KeyValues3::GetArrayElement
-KeyValues3::GetArrayElementCount
-KeyValues3::GetBasicTypeString
-KeyValues3::GetBinaryBlobBase
-KeyValues3::GetBinaryBlobSize
-KeyValues3::GetElement - Bad index %d (count = %d)
-KeyValues3::GetSpecificTypeForBasicType
-KeyValues3::GetSpecificTypeString
-KeyValues3::GetValueAsNumeric
-KeyValues3::GetValueFloatArray
-KeyValues3::GetValueIntArray
-KeyValues3::GetValueString
-KeyValues3::Internal_AssertIsArray
-KeyValues3::Internal_AssertIsTable
-KeyValues3::Internal_CheckSpecificTypeChange
-KeyValues3::Internal_ExpandCompactArray
-KeyValues3::Internal_FindOrCreateMemberAimedAtExternalName::<lambda_1>::operator ()
-KeyValues3::Internal_FreeAllocation
-KeyValues3::Internal_GetArrayElementsArray
-KeyValues3::Internal_PrepareForInternalTypeAndNewData
-KeyValues3::Internal_SetValueAnyArray
-KeyValues3::Internal_SetValueUint8Array
-KeyValues3::IsArrayUniform
-KeyValues3::IsIdenticalTo
-KeyValues3::IsIdenticalTo - unknown type '%s' (%d)%s
-KeyValues3::IsIdenticalTo failure (basic %s vs. %s)!%s
-KeyValues3::IsIdenticalTo failure (flags are 0x%llx vs. 0x%llx)!%s
-KeyValues3::IsIdenticalTo failure (specific type is %s vs. %s)!%s
-KeyValues3::IsIdenticalTo failure (value mismatch)!%s
-KeyValues3::IsValidTypeCombination
-KeyValues3::Metadata_Clear::<lambda_1>::operator ()
-KeyValues3::Metadata_GetAllFlags::<lambda_1>::operator ()
-KeyValues3::Metadata_GetFilename::<lambda_1>::operator ()
-KeyValues3::Metadata_GetLineColumn::<lambda_1>::operator ()
-KeyValues3::Metadata_GetMetatext::<lambda_1>::operator ()
-KeyValues3::Metadata_SetAllFlags::<lambda_1>::operator ()
-KeyValues3::Metadata_SetFileLineColumn::<lambda_1>::operator ()
-KeyValues3::Metadata_SetMetatext::<lambda_1>::operator ()
-KeyValues3::ParseValueFromString
-KeyValues3::SetMemberFloatArray
-KeyValues3::SetValueIntFromString
-KeyValues3::SetValueIntFromString called with string value that doesn't fit into a 64-bit integer: %lld vs '%s'%s
-KeyValues3::SetValueIntFromString called with string value that doesn't fit into a 64-bit integer: %llu vs '%s'%s
-KeyValues::AddKey
-KeyValues::AddSubKey
-KeyValues::AddSubkeyUsingKnownLastChild
-KeyValues::AppendIncludedKeys
-KeyValues::ElideSubKey
-KeyValues::FindKeyAndParent
-KeyValues::InsertSubKey
-KeyValues::KeyValues
-KeyValues::LoadFromBuffer
-KeyValues::LoadFromFile
-KeyValues::MergeBaseKeys
-KeyValues::ParseIncludedKeys
 KeyValues::ParseIncludedKeys: Couldn't load included keyvalue file %s\n
-KeyValues::ReadAsBinaryInternal
-KeyValues::ReadAsBinaryInternal::<lambda_1>::operator ()
-KeyValues::RecursiveLoadFromBuffer
-KeyValues::RecursiveMergeKeyValues
-KeyValues::RemoveSubKey
 KeyValues::SaveToFile: couldn't open file "%s" in path "%s".\n
-KeyValues::SwapSubKey
 KeyValuesFromJSON
-KeyValuesJSONParser::GetTokenDebugText
-KeyValuesJSONParser::ParseArray
-KeyValuesJSONParser::ParseObject
-KeyValuesJSONParserCallback
 KeyValuesSystem
 KeyValuesToJSON
 Kp0qb
@@ -5828,15 +4489,10 @@ LoadCursorA
 LoadFromBuffer: expected '{', found '%s'
 LoadIconA
 LoadImageA
-LoadKV3
-LoadKV3BinaryV0
-LoadKV3BinaryV1
-LoadKV3BinaryValue
 LoadLibraryA
 LoadLibraryExW
 Loading multi-line string literals with metadata support enabled is not currently supported.
 LocalFree
-Local\
 LocaleNameToLCID
 Localize_001
 Lock Body Facing
@@ -5955,7 +4611,6 @@ MailMiniDump
 MainThrd
 MakeGlobalSymbol
 MakeGlobalSymbolCaseSensitive
-MakeStringToken
 Malformed attribute list terminator\n
 MapListService_001
 March
@@ -5991,7 +4646,6 @@ MinidumpUnhandledExceptionFilter\n
 MinidumpUserStreamInfoAppend
 MinidumpUserStreamInfoGet
 MinidumpUserStreamInfoSetHeader
-Missing compact array type %u\n
 Missing file '%s'
 ModelDocUtils001
 Module %s is a debug build\n
@@ -6027,9 +4681,6 @@ Multiple specific types given, '%s' and also '%s'
 Multiple specification attrs\n
 Multiple statement lists\n
 MurmurHash3_32
-Must call SetMetadataEnabled on the root KV3 context to track metadata
-Mutex Should have protected use while processing
-N < nFrames
 N3`d?
 N5pB
 N>O=I9
@@ -6067,16 +4718,12 @@ Nl9\
 No Buffer
 No THP support
 No closing */ before end of file
-No existing cache entry for '%s', caller should have set it up with Find
 No samples\n
 No unwind info found in FDE\n
 No valid CFA rule defined by FDE (op %u, refreg 0x%x)\n
 No valid format conversion from '%s' to '%s'
 No%>M
 NoPoseControl
-Non-default or mismatched color specified in logging channel re-registration!
-Non-default or mismatched verbosity specified in logging channel re-registration!
-Non-zero or mismatched flags specified in logging channel re-registration!
 Not enough data for 1-byte element array
 Not enough data for 2-byte element array
 Not enough data for 4-byte element array
@@ -6095,7 +4742,6 @@ NtDelayExecution
 NtQueryDirectoryFile
 NtQueryInformationThread
 NtQuerySystemInformation
-NumIdleThreads() == 0
 Number contains invalid character 0x%02x
 Number contains invalid character 0x%02x ('%c')
 Number of bin size classes
@@ -6114,20 +4760,14 @@ October
 Offset
 Ole32.dll
 OnCanceled
-OnEndLoadingModule::<lambda_1>::operator ()
-OnEndUnloadingModule::<lambda_1>::operator ()
 OnFailedToPerform
 OnFinished
-Only thread can stop self: Use a higher-level protocol
 OpenClipboard
 OpenEventA
 OpenFileMappingA
 OpenProcess
 OpenThread
 Ordered constructor wrapped type has no default constructor.\n\tYou must construct it with ORDERED_CONSTRUCT macro in the dependency resolution function.\n
-Ordered object did not begin in a zeroed state
-Ordered object's memory was modified prior to construction
-OrderedDependency_t::LinkDependency::<lambda_1>::operator ()
 Out of keyvalue string space
 Out of logging channels.\n
 Out of memory allocation hash_item_t
@@ -6146,9 +4786,7 @@ Outflow_NPCScriptedMoveTo
 Outflow_NPCUseScriptedAbility
 Outflow_Simultaneous
 OutputDebugStringA
-Overflow.
-OwnedByCurrentThread()
-P(YX0
+P(YX
 P4_EXTRACT_CMD=p4.exe print -o %srcsrvtrg% -q "//%var3%#%var4%"\n
 P4_EXTRACT_TARGET=%targ%\%var2%\%fnbksl%(%var3%)\%var4%\%fnfile%(%var1%)\n
 PARTICLE_DEPTH_FEATHERING_OFF
@@ -6227,8 +4865,6 @@ PVEC_TYPE_LITERAL
 PVEC_TYPE_LITERAL_COLOR
 PVEC_TYPE_RANDOM_UNIFORM
 PVEC_TYPE_RANDOM_UNIFORM_OFFSET
-Package scan %u: first logical index %u of processor group %u is out of range (%u max) (mask 0x%llx)\n
-Package scan %u: logical processor %u of %u (group %u:%u) already has processor group info (%u, %u)\n
 Page size
 PageHeap is off. Memory use will be normal.\n
 PageHeap is on. Memory use will be larger than normal.\n
@@ -6238,8 +4874,6 @@ PanoramaUIClient001
 PanoramaUIEngine001
 Parameter file '%s' not found, skipping...\n
 Parent and child ConVars with different default values! %s child: %s parent: %s (parent wins)\n
-Parent and child ConVars with different maximum values! %s child: %s parent: %s (parent wins)\n
-Parent and child ConVars with different minimum values! %s child: %s parent: %s (parent wins)\n
 Particle Simulation
 Particle/Effect_Rendering
 ParticleSystemMgr003
@@ -6254,8 +4888,6 @@ Peak total virtual bytes: %s\n
 Peak working set: %s\n
 PeekMessageA
 PeekNamedPipe
-PercentileGenerator<float,500>::GetMaxSample
-PercentileGenerator<float,500>::GetPercentile
 PhysicsBodyMarkup
 PhysicsBoneMarkup
 PhysicsBuilderMgr001
@@ -6292,7 +4924,6 @@ Plat_CreateTempDirectory
 Plat_CreateUUIDImpl
 Plat_CreateWindow
 Plat_CreateWindow:  Could not create SDL window: %s\n
-Plat_CreateWindow::<lambda_1>::operator ()
 Plat_DebugPrint
 Plat_DebugPrintV
 Plat_DebugString
@@ -6305,7 +4936,6 @@ Plat_EnableHeadlessMode
 Plat_EnableHighQoSExecutionSpeed
 Plat_EndWatchdogTimer
 Plat_EnsureDirectory
-Plat_EnsureRaiseWindow::<lambda_1>::operator ()
 Plat_EnumerateModuleImportLibraries
 Plat_EventActivityIdControl
 Plat_EventRegister
@@ -6451,7 +5081,6 @@ Plat_OsSpecificHandleToPlatWindow
 Plat_Printf
 Plat_QueueSteamLoginWithAccessCode
 Plat_ReconfigureWindow
-Plat_ReconfigureWindow::<lambda_1>::operator ()
 Plat_RefreshDPI
 Plat_RegisterModule
 Plat_RegistryDirectoryClose
@@ -6462,7 +5091,6 @@ Plat_RegistryWriteInt
 Plat_RegistryWriteString
 Plat_RelativeTickFrequency
 Plat_RelativeTicks
-Plat_RelativeTicks running in reverse
 Plat_ReleaseMouseCapture
 Plat_RemoveDirectory
 Plat_RemoveDirectoryTree
@@ -6506,7 +5134,6 @@ Plat_SetWindowIcon
 Plat_SetWindowPos
 Plat_SetWindowSize
 Plat_SetWindowTitle
-Plat_SetWindowTitle::<lambda_1>::operator ()
 Plat_SetWindowTitleW
 Plat_SetupFPUControlWord
 Plat_ShouldCollectMiniDumpsForFatalErrors
@@ -6535,9 +5162,7 @@ Plat_UnloadOleAut
 Plat_UnloadSDL
 Plat_VirtualAccessFlags
 Plat_VirtualAlloc
-Plat_VirtualAlloc( pNewChunk, sizeof( AllocationChunkLL_t ), PLAT_VIRTUAL_COMMIT, PLAT_VIRTUAL_ACCESS_READ | PLAT_VIRTUAL_ACCESS_WRITE )
 Plat_VirtualFree
-Plat_VirtualFree( pIter, sizeof( AllocationChunkLL_t ), PLAT_VIRTUAL_DECOMMIT )
 Plat_VirtualProtect
 Plat_WindowToOsSpecificHandle
 Plat_WindowToScreenCoords
@@ -6549,9 +5174,7 @@ Plat_mktime64
 Plat_timegm64
 PnN%
 Po5H
-Pointers cannot be used as numeric values
 PopThread
-PopulateWCharPathFromUTF8Impl
 PostProcessingSystem_001
 PostQuitMessage
 PowerGetActiveScheme
@@ -6564,8 +5187,6 @@ PreviewPreset
 PreviewPresetList
 Primary_Handler_Crashed
 Print the current number of FDs reported by getrlimit
-Probably deadlock or failure waiting for thread to initialize.
-ProcessCpuTopology
 ProductName
 Program launched from bad shortcut. Please delete this shortcut or unpin from the taskbar.
 PropVariantClear
@@ -6602,7 +5223,8 @@ RPCRT4.dll
 RSDSvE
 RUSSIAN
 RVfQp
-RWLockHelper.GetHeldLockType() == HLT_WRITELOCK
+R\fpl
+R\vpl
 RaiseException
 RandomFloat
 RandomFloatExp
@@ -6643,13 +5265,10 @@ Read off the end of the compilation unit debug info (depth %u, %u byte overflow)
 Read off the end of the file name table\n
 Read off the end of the include path table\n
 Read off the end of the opcode size table\n
-ReadBuffer()[m_nStringChars] == 0
 ReadConsoleW
 ReadDirectoryChangesW
 ReadFile
-ReadKV3TextHeader
 ReadProcessMemory
-ReconnectInterface
 RecursiveLoadFromBuffer:  got EOF instead of keyname
 RecursiveLoadFromBuffer:  got NULL key
 RecursiveLoadFromBuffer:  got conditional between key and value
@@ -6670,7 +5289,6 @@ RegisterClassExA
 RegisterConCommand: Unknown error registering con command "%s"!\n
 RegisterConVar: Unknown error registering convar "%s"!\n
 RegisterGlobalObject
-RegisterInterface
 RegisterMobileEventListener
 RegisterStringToken
 Regular entry table is not sorted\n
@@ -6682,7 +5300,6 @@ ReleaseThreadHandle
 RemoveAssertionCallback
 RemoveBoneAndChildren
 RemoveDirectoryW
-RemoveKV3NodesOfClass_R::<lambda_1>::operator ()
 RemoveVectoredExceptionHandler
 Removing string token database entry "%s" for reason "%s"\n
 RenderDevice003
@@ -6691,9 +5308,7 @@ RenderHardwareConfig002
 RenderMeshFile
 RenderService_001
 RenderUtils_001
-ReportInvalidStringConversion
 ReportProgress
-ReserveOwnership()
 ResetEvent
 Resident virtual bytes: %s\n
 ResourceCompilerSystem001
@@ -6704,8 +5319,6 @@ Resources
 Restart Error
 RestartSelfFromAlternateLocation
 RestartSelf_FixTaskbarPinShortcut
-RestartSelf_FixTaskbarPinShortcut::<lambda_1>::operator ()
-RestartSelf_FixTaskbarPinShortcut::<lambda_3>::operator ()
 RestartSelf_ShowGenericRestartErrorForBadShortcut
 RestartSelf_TestIfInternalArg
 RestoreWin32ConsoleColor
@@ -6950,17 +5563,10 @@ STUB_GetStatStructName
 SUBMODEL_AS_BODYGROUP_SUBMODEL
 SUBMODEL_AS_MESHGROUP_MASK
 SUBPROCESS CRASH: exception 0x%08X at 0x%llx\n
-SUCCEEDED( hr )
-SUCCEEDED( pPropertyStore->Commit() )
 SYSTEM
 SaR|
 Saturday
 SaveBitString
-SaveKV3AsJSON_R
-SaveKV3Binary
-SaveKV3BinaryUniformArray
-SaveKV3BinaryValue
-SaveKV3Text_R
 SceneSystem_002
 SceneUtils_001
 SchemaSystem_001
@@ -6979,7 +5585,6 @@ SendMiniDumpReport
 September
 SequenceMarkup
 SequenceMarkupList
-Sergiy: apparently I didn't fix some CPU detection code completely. Let me know and I'll do my best to fix it soon.
 Serialize
 SerializedEntitiesVersion001
 SeriousWarning
@@ -7017,13 +5622,9 @@ SetFileAttributesW
 SetFilePointer
 SetFilePointerEx
 SetFileTime
-SetFloatInputMap_Mult
-SetFloatInputMap_Remap
-SetFloatInputMap_RemapPowerCurve
 SetForegroundWindow
 SetInformationJobObject
 SetLastError
-SetOptions
 SetPriorityClass
 SetProcessAffinityMask
 SetProcessInformation
@@ -7040,7 +5641,6 @@ SetThreadSelectedCpuSetMasks
 SetThreadedLoadLibraryFunc
 SetTimer
 SetUnhandledExceptionFilter
-SetValueFromString( nSlot, str.Get() )
 SetWin32ConsoleColor
 SetWindowLongPtrA
 SetWindowPos
@@ -7056,7 +5656,6 @@ Show the list of convars/concommands.
 ShowWindow
 Sibling attr value (0x%llx) out of range\n
 Sibling attr without reference value (form 0x%x)\n
-Size() == operand.Size()
 SkipBlanks
 Skuz
 Sleep
@@ -7068,12 +5667,10 @@ Slope_Angle
 Slope_Angle_Forward
 Slope_Angle_Sideways
 Slope_Heading
-SmoothApproachZero
 SmoothLoop
 Software\Classes\%s
 Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\%s
 Sorry -- no stats saved to file memstats.txt when the heap allocator is enabled.\n
-Sort Check Failure: %s
 SortCheck_Failure
 SoundMix
 SoundOpSystem001
@@ -7144,7 +5741,6 @@ Stall detected.\n
 Standard memory allocator initialized with non-pass-through options\n
 Start a test script running..
 StartLoop
-Starting dir drive ('%s') doesn't match path drive ('%s'), failing\n
 StateComparisonValue_FixedValue
 StateComparisonValue_Parameter
 StateComparisonValue_StateValue
@@ -7168,7 +5764,6 @@ String value for Quaternion only had %u components\n
 String value for Vector only had %u components\n
 String value for Vector2D only had %u components\n
 String value for Vector4D only had %u components\n
-StringTokenDataBaseFormatToHash( m_nDatabaseFormat ) == nHash
 Subprocess '%s' failed with exit code %d\n
 Substitution (%u) out of range (%u)\n
 Subtract
@@ -7225,23 +5820,19 @@ TCHINESE
 TEMP
 TESTSCRIPT: CheckPoint -> '%s'.\n
 TESTSCRIPT: waiting for checkpoint '%s'%s\n
-TODO
 TSList cannot hold more that %d nodes\n
-TSListTests::TestEnd
 TUUU
 TUUUU
 TX\rH
 Table has potentially invalid member names and cannot be persisted
 Tags
 Tahoma
-Target buffer for V_URLEncode needs to be 3 times larger than source to guarantee enough space\n
 TargetStateBlendWeight
 Target_Move_Speed
 Template parameter (%u) out of range (%u)\n
 TerminateProcess
 TerminateThread
 Test bucket %d has an invalid value %d\n
-Test failure\n
 TestFormatA
 TestFormatB
 TestFormatC
@@ -7282,16 +5873,12 @@ TextLayout_001
 TfAX
 The specific type '%s' cannot be persisted
 The specific type '%u' cannot be persisted
-This SDL operation requires the main thread. Please place the macro BLOCK_REQUIRES_SDL_MAIN_THREAD() in a parent stack frame that encapsulates most of the SDL calls nearby.
 This convar is being accessed prior to ConVar_Register being called
-Thread cannot be joined with self
 Thread failed to initialize\n
 Thread pool %s requested %d threads, using %u\n
-Thread synchronization object is unuseable
 Thread(%p/%p)
 ThreadCloseProcess
 ThreadGetCurrentHandle
-ThreadGetCurrentId() == (ThreadId_t)m_threadId
 ThreadGetCurrentProcessHandle
 ThreadGetCurrentProcessId
 ThreadGetDebugNameForThreadHandle
@@ -7311,7 +5898,6 @@ ThreadMultiWait
 ThreadMultiWaitObjectSetCreate
 ThreadMultiWaitObjectSetDestroy
 ThreadMultiWaitObjectSetGetCount
-ThreadMultiWaitObjectSetGetCount( pWaitSet ) == nWaitItems
 ThreadNanoSleep
 ThreadOpenProcess
 ThreadPoolTest:         %d threads -- %d (%d) jobs processed in %fms, %fms to suspend (%f/%f)\n
@@ -7320,8 +5906,6 @@ ThreadPoolTest:   NOT to completion\n
 ThreadPoolTest:   To completion\n
 ThreadPoolTest: Job distribution speed\n
 ThreadPoolTest: Jobs doing work, %s main thread\n
-ThreadPoolTest::Test
-ThreadProcInfo_t::Release
 ThreadProcWrapped
 ThreadReadProcessMemory
 ThreadSetDebugNameS2
@@ -7376,8 +5960,6 @@ Tools stall monitor thread was requested, but is being suppressed due to the '-t
 ToolsStallMonitor
 ToolsStallMonitorInternal_BeginScope
 ToolsStallMonitorInternal_EndScope
-ToolsStallMonitorInternal_InMainThread
-ToolsStallMonitorInternal_InMainThread()
 ToolsStallMonitor_IndicateActivity
 ToolsStallMonitor_Initialize
 ToolsStallMonitor_SetDisplayImageRGBA
@@ -7392,7 +5974,6 @@ TransferMemory
 Transform
 TranslateMessage
 TranslateStackInfo
-Tried to create a thread that has already been created!
 TrimRight
 Truncated data
 TryAcquireSRWLockExclusive
@@ -7403,7 +5984,6 @@ Two KV3 format GUIDs with the same human-friendly name ('%s')
 U1(\Q
 UA>N0Wl
 UCS-2
-UINT64_MAX - nBase >= nSize
 UNLOGGED
 UNhkk%
 UPDATE_STRING_TOKEN_DATABASE
@@ -7421,7 +6001,6 @@ UUUUUU
 Uint value %llu above maximum %llu\n
 Uint value %llu below minimum %llu\n
 UnRegisterGlobalObject
-Unable to add text to the command buffer while it is locked!\nText attempted to add: "%s"\n
 Unable to convert value type and flags 0x%x
 Unable to create a pipe, %d\n
 Unable to create event, error %d\n
@@ -7430,9 +6009,7 @@ Unable to create thread in %s\n
 Unable to determine CPU Frequency\n
 Unable to determine ELF default base address\n
 Unable to determine Mach-O default base address\n
-Unable to determine buffer encoding.
 Unable to find CPU arch %u slice in Mach-O fat binary\n
-Unable to format KV3 instance as a string\n
 Unable to load COM\n
 Unable to load SDL\n
 Unable to load oleaut32\n
@@ -7475,13 +6052,9 @@ Unexpected end of file
 Unexpected high PC attr in addition to ranges\n
 Unexpected high PC attr without a low PC attr\n
 Unexpected nested comp dir\n
-Unexpected severity value %u\n
 Unhandled DWARF CFI 0x%x\n
 Unhandled DWARF attribute form 0x%x\n
 Unhandled WAIT_ABANDONED in WaitForMultipleObjects
-Unhandled case.
-Unhandled copy compact array type %u\n
-Unhandled external compact array type %u\n
 Unhandled unresolved name\n
 UnhandledExceptionFilter
 UniqueIdFromString
@@ -7489,23 +6062,15 @@ UniqueIdToString
 Unknown
 Unknown (invalid)
 Unknown CIE version %u\n
-Unknown KEYVALUES3_TYPE: %i
-Unknown KV3 basic type %u\n
-Unknown KV3 basic type '%s' (%d).%s
 Unknown KV3 specific type %u
-Unknown KV3 specific type %u\n
 Unknown arange header version\n
-Unknown binary type %u\n
 Unknown compilation unit abbrev code\n
 Unknown compilation unit header version %u\n
 Unknown exception
 Unknown extended instruction 0x%x\n
-Unknown job state
 Unknown line header version\n
-Unknown multi-wait object type 0x%x\n
 Unknown pointer encoding relation 0x%x\n
 Unknown pointer encoding representation 0x%x\n
-Unknown priority class!\n
 Unknown reader format version %u
 Unknown return value (%lu) from WaitForMultipleObjects
 Unknown standard instruction 0x%x\n
@@ -7514,10 +6079,8 @@ UnknownOS
 Unrecognized ELF class\n
 Unrecognized ELF data layout or version\n
 Unrecognized Mach-O header magic\n
-Unrecognized escape sequence character %c (0x%X)
 Unrecognized flag name '%s'
 Unrecognized flag: %s.\n
-Unrecognized member name quote: %s
 Unrecognized module magic\n
 Unrecognized severity: %s.\n
 Unrecognized type '%d'
@@ -7534,14 +6097,11 @@ Unsupported binary encoding id.
 Unsupported compact unwind version %u (expected %u)\n
 Unsupported define_file instruction\n
 Unsupported escape character '\%c'
-Unsupported key type for KeyValues3::ParseValueFromString - %s%s
 Unsupported maximum number of instruction operations %d\n
 Unsupported primitive value type %u
 Unsupported text encoding id.
 Unused augmentation data, %llu bytes\n
-UpconversionV0::FindOrCreateElementList
 UpdateProcThreadAttribute
-UpdateStringChars
 UpdateWindow
 Usage:  find <string> [<string>...]\n
 Usage:  findflags <string>\n
@@ -7551,8 +6111,6 @@ UtlMemory_Alloc
 UtlMemory_AllocAligned
 UtlMemory_CalcNewAllocationCount
 UtlMemory_FailedAllocation
-UtlStringMap is inconsistent: vector has %d entries but symbol table has %d
-UtlTokenizer_UnqescapeOrUnquoteString
 UuidCreate
 UuidFromStringA
 UuidToStringA
@@ -7588,15 +6146,8 @@ VMOD
 VMaterialSystem2_001
 VMediaFoundation001
 VP4003
-VPCF29/30: No match for value %d (%s.%s)
-VPCF29: Unexpected string (%s.%s)
-VPCF_ConvertIntToEnum
 VPLATFORM
 VPROJECT
-VPULSE_12_ParseLegacyDomainValue::<lambda_1>::operator ()
-VPULSE_12_ParseLegacyDomainValue::<lambda_2>::operator ()
-VPULSE_12_ParseLegacyDomainValue::<lambda_3>::operator ()
-VPULSE_12_ParseLegacyDomainValue::<lambda_4>::operator ()
 VPhysics2_Handle_Interface_001
 VPhysics2_Interface_001
 VProcessUtils002
@@ -7604,22 +6155,17 @@ VProf
 VProf spike "%s" from %f to %f ms\n
 VProfLite started.\n
 VProfLite stopped.\n
-VProfLite_AccumulateTimeOnAllActiveGroups
 VProfLite_Clear
 VProfLite_DedicatedServerSleepBegin
 VProfLite_DedicatedServerSleepEnd
 VProfLite_GetBudgetGroupCurrentFrameTime
 VProfLite_GetEnabled
 VProfLite_GetHistoricalData
-VProfLite_GetHistoricalData::<lambda_2>::operator ()
 VProfLite_NextFrame
 VProfLite_SetEnabled
-VProfLite_Stop
-VProfReportSettings_t::GetTimeUnitsAsString
 VProfService_001
 VProf_AssignNextTimespanId
 VProf_EnterScopeAdHoc
-VProf_ExitLite
 VProf_ExitScope
 VProf_FindOrCreateCounter
 VRenderDeviceSetupV001
@@ -7634,7 +6180,6 @@ V\rD8
 V_AbbreviatePathInPlace
 V_AddBackSlashesToSpecialChars
 V_AppearsToBeANumber
-V_AppendSlash: ran out of space on %s.
 V_AreFileNamesEqual
 V_AreSlashesCorrect
 V_BBCodeToHTML
@@ -7664,7 +6209,6 @@ V_GetVPKPathForm
 V_Get_stderr
 V_Get_stdin
 V_Get_stdout
-V_HasDriveColon( pOut->String() ) && PATHSEPARATOR( (*pOut)[2] )
 V_HtmlEntityDecodeToUTF8
 V_IndexAfterPrefix
 V_InitJSONConfig
@@ -7673,13 +6217,10 @@ V_Int32ToString_Unsafe
 V_Int64ToString_Unsafe
 V_Int8ToString_Unsafe
 V_IsAbsolutePath
-V_IsAbsolutePath( pFoundAtPathOut )
-V_IsAbsolutePath( szReferencedFromFile )
 V_IsDeprecatedW
 V_IsFakePath
 V_IsMeanSpaceW
 V_IsValidDomainNameCharacter
-V_IsValidUChar32( ch32 )
 V_IsValidURLCharacter
 V_LZ4_attach_HC_dictionary
 V_LZ4_attach_dictionary
@@ -7719,7 +6260,6 @@ V_ReadLine
 V_RemoveDotSlashes
 V_RemoveFormatSpecifications
 V_SetErrno
-V_SplitString2InPlace
 V_StrTrim
 V_StringParseError
 V_StringToBool
@@ -7766,11 +6306,8 @@ V_UInt64ToString_Unsafe
 V_UInt8ToString_Unsafe
 V_URLContainsDomain
 V_URLDecode
-V_URLDecode needs a dest buffer at least as large as the source
-V_URLDecodeInternal
 V_URLDecodeRaw
 V_URLEncode
-V_URLEncodeInternal
 V_URLEncodeRaw
 V_UTF16CharsToUTF32
 V_UTF16CharsToUTF8
@@ -7793,8 +6330,6 @@ V_UTF8ToUTF32
 V_UnqualifiedFileName
 V_ValidatePathConcat
 V_XMLDecode
-V_XMLDecodeEntities
-V_XMLDecodeEntities::<lambda_1>::operator ()
 V_XMLEncode
 V_XXH64
 V_XXH64_copyState
@@ -7844,7 +6379,6 @@ V_exp2d
 V_exp2f
 V_expd
 V_expf
-V_fabsf( flVerifyTimeToZero - flTimeToZero ) < 0.001f
 V_fclose
 V_fdopen
 V_feof
@@ -7904,7 +6438,6 @@ V_logd
 V_logf
 V_longjmp
 V_mkostemps
-V_mkostemps::<lambda_1>::operator ()
 V_mkstemps
 V_modfd
 V_modff
@@ -7940,17 +6473,10 @@ V_snwprintf_cch
 V_sscanf
 V_sscanf_s
 V_stat
-V_strchr( pKey, '=' ) == nullptr
-V_strchr( pNamePattern, '!' ) == nullptr
 V_strchr32
-V_strcmp( groupTotal.m_pName, VPROF_BUDGETGROUP_FRAMETOTAL ) == 0
-V_strcmp( groupUnaccounted.m_pName, VPROF_BUDGETGROUP_OTHER_UNACCOUNTED ) == 0
-V_strcmp( primaryFile, pDebugFile ) == 0
-V_strcmp( separateFile, pDebugFile ) == 0
 V_strcmp32
 V_stricmp_fast
 V_stricmp_fast_NegativeForUnequal
-V_stristr_fast
 V_strlower_fast
 V_strnchr
 V_strspn
@@ -8003,7 +6529,6 @@ V_vfprintf
 V_vscprintf
 V_vsnprintf
 V_vsnprintf truncated to %u without QUIET_TRUNCATION specified! String: "%s"\n
-V_vsnprintf truncated without QUIET_TRUNCATION specified!\n
 V_vsnprintfRet
 V_vsnprintfSize
 V_vsnprintfWarnTrunc
@@ -8011,7 +6536,6 @@ V_vsnprintfcat
 V_vsnwprintfRet_cch
 V_vsnwprintf_cch
 V_wcsicmp
-V_wcsistr
 V_wcsnicmp_cch
 V_wcstod
 V_wcstoi64
@@ -8026,7 +6550,6 @@ VariantIndex
 VariantInit
 Vc0a
 VerSetConditionMask
-VerifyFileIndexes
 VerifyFileIndexes( %s ) - 
 VerifyVersionInfoA
 VerifyVersionInfoW
@@ -8046,7 +6569,7 @@ Vrad3_001
 Vtube
 VtuneApi32e.dll
 W 7x
-W)lQ
+W)lQH
 W/q#IX
 W4vC
 WARNING: %s Denied a request to load '%s'\n
@@ -8088,13 +6611,9 @@ Wak>E
 WakeAllConditionVariable
 WakeConditionVariable
 Warning
-Warning! String token name collision between ConCommand names %s and %s! Rename one of them...\n
-Warning! String token name collision between ConVar names %s and %s! Rename one of them...\n
 Warning: Failed to initialize COM! HRESULT = 0x%X %s\n
 Warning: Found a reparse point (ntfs symlink) for %s but CreateFile failed\n
 Warning: Skipping command %s\n
-Watchdog Thread: Window Creation Failed!
-Watchdog Thread: Window Registration Failed!
 Watchdog Window
 WatchdogThreadWndClass
 Waypoint_Distance
@@ -8127,17 +6646,14 @@ Windows NT
 Windows Unknown
 Windows Vista
 Windows XP
-Windows may be augmenting the command line
 Working set: %s\n
 WorldRendererMgr001
 Worldsize_Init
 WriteConsoleW
 WriteFile
-WriteSBitLong: 0x%08x does not fit in %d bits
 Wrote
 X 843"8
 X/4B
-X0y4
 X360
 X360GUEST
 X360HIDEF
@@ -8148,8 +6664,8 @@ X>0S
 X?fff?;
 XS&Y+
 XXXXXX: found leading plus sign while parsing string '%s' as float64, ignoring it\n
-X`x4
 Xi#/H
+Xp^0
 XsBI
 Y5us
 Y8a:
@@ -8159,11 +6675,10 @@ YBJ\t
 Y\trH5
 Z.xgU
 Z>w_F
-ZSTD_decompressStream( dctx, &output, &input ) == 0
 ZSq>
 Z\>z8
 Zjz\v
-Zvpcf3
+Zvpcf1
 ZwSetTimerResolution
 [   func+child         func ]
 [   func+child       func ]
@@ -8205,12 +6720,13 @@ ZwSetTimerResolution
 \nCwf\r
 \nLightweight verifier:\n
 \nOS memory stats:\n
+\nPPO(
 \n\nCMiniDumpComment encountered an error while generating the comment
 \nh?oT
 \nk>oB
+\r%s not expected here.  A valid JSON document should be a single object, which begins with '{' and ends with '}'
 \r00000000-0000-0000-0000-000000000000
-\r0A2
-\rInput contains no data
+\rAssert
 \r\f\v\v\n\n\t\t\t\t\t
 \rmj>zjZ
 \sdktools\bin
@@ -8231,7 +6747,6 @@ ZwSetTimerResolution
 \tkE>fvw
 \ttier0.dll
 \u must be followed by exactly 4 hex digits
-\u00
 \u0000
 \vA03>A|
 \v_dbghelp_home_linked
@@ -8247,13 +6762,11 @@ ZwSetTimerResolution
 ^p8G
 _%d_%02d%02d_%02d%02d%02d_%d
 _-report-_
-_BlockRequiresSDLMainThread_t::~_BlockRequiresSDLMainThread_t
 _CCallStackStatsGatherer_GetSharedGlobalInstance
 _CCallStackStatsGatherer_Internal_DumpStatsToFile
 _CCallStackStatsGatherer_ReleaseSharedGlobalInstance
 _Error_AlwaysSpewCallStack_Enable
 _Error_AlwaysSpewCallStack_Length
-_GlobalListHelpers::AddToSortedRegistry::<lambda_1>::operator ()
 _H^zvd
 _NT_ALTERNATE_SYMBOL_PATH
 _NT_SYMBOL_PATH
@@ -8324,7 +6837,6 @@ _f>PH
 _hypot
 _logb
 _macho_
-_mktemp_s( szTemplate, nTemplateLength + 1 ) == 0
 _nextafter
 _oD>Kg
 _root_keyname
@@ -8332,23 +6844,6 @@ _test_conversion_counter
 _wWT+
 `RTTI
 `anonymous namespace'
-`anonymous-namespace'::CpuidImpl::AddUniquePkgCoreId_
-`anonymous-namespace'::CpuidImpl::AddUniquePkgId_
-`anonymous-namespace'::CpuidImpl::CoreAffinityMask
-`anonymous-namespace'::CpuidImpl::CpuidImpl
-`anonymous-namespace'::CpuidImpl::FirstLogicalProcessorOfProcessorGroup
-`anonymous-namespace'::CpuidImpl::PackageAffinityMask
-`anonymous-namespace'::DefaultImpl::PackageAffinityMask
-`anonymous-namespace'::GlpiExImpl::FirstLogicalProcessorOfProcessorGroup
-`anonymous-namespace'::GlpiExImpl::GlpiExImpl
-`anonymous-namespace'::GlpiExImpl::Iterate
-`anonymous-namespace'::GlpiExImpl::{ctor}::<lambda_1>::operator ()
-`anonymous-namespace'::GlpiImpl::FirstLogicalProcessorOfProcessorGroup
-`anonymous-namespace'::GlpiImpl::GlpiImpl
-`anonymous-namespace'::GlpiImpl::PackageAffinityMask
-`anonymous-namespace'::GlpiImpl::VerifyGlpiFn_
-`anonymous-namespace'::UnicodeCaseConvertT
-`anonymous-namespace'::UnicodeConvertT
 `copy constructor closure'
 `default constructor closure'
 `dynamic atexit destructor for '
@@ -8383,7 +6878,7 @@ _wWT+
 `vector vbase copy constructor iterator'
 `vftable'
 `virtual displacement map'
-a4000
+a0^0
 a6>r
 a?y#c?sIe?
 aC.B
@@ -8404,7 +6899,6 @@ address in use
 address not available
 advapi32.dll
 ai_model_info
-allClusters.FindAndFastRemove( pCluster )
 alloc
 alloc_dump
 alloc_max
@@ -8491,15 +6985,11 @@ auto
 auto_unragdoll_duration
 autoargs
 b9AU
-bAllocationCanFit
-bContainsCRLF
 bForceLookAtPath
-bFound
 bKill
-bNonDegenerate
 bReacquireAfterBreak
 bUpdate
-bValidName
+b\vp\nP
 background_thread
 bad address
 bad allocation
@@ -8515,10 +7005,6 @@ base64_decode
 base64_encode
 batch_alloc
 batch_query
-bf_read::SetOverflowFlag
-bf_write::SetOverflowFlag
-bf_write::WriteSBitLong
-bf_write::WriteUBitLong
 bin\stringtokendatabase.txt
 bin\win64
 bin\win64\tier0.dll
@@ -8530,7 +7016,6 @@ binary_blob
 binary_lz4
 binary_zstd
 bins
-bitNum >= 0 && bitNum < this->Size()
 blendamount
 blockLOS
 block_inflow_always
@@ -8555,13 +7040,9 @@ breakpoint
 broadcast
 broken pipe
 bt3V
-budgetGroupID >= 0 && budgetGroupID < s_nBudgetGroups
-buffer
-buffer.IsValid()
 buildid/
 burst_randomize
 burst_scale
-c <= 0xffff
 c:\source2_minidump_log.txt
 c>F2
 c>v\tk
@@ -8570,19 +7051,12 @@ cO^c
 cable
 cache*
 cache_oblivious
-cached_fp == invalid_function_sentinel()
-cached_fp == new_fp
-cached_handle == ((HANDLE)(LONG_PTR)-1)
-cached_handle == new_handle
-callback
-callback && m_GlobalChangeCallbacks.Find( callback ) < 0
 cannot switch from automatic to manual argument indexing
 cannot switch from manual to automatic argument indexing
 cantdie
 carry_type
 ceil
 center
-channelID >= 0 && channelID < m_nChannelCount
 channels
 char
 char16_t
@@ -8629,14 +7103,11 @@ const
 constrainedEventID
 construction virtual table for derived 
 content_assertion
-context.m_vecStack.Count() <= 1
 control_point
-convarData.m_nType == CONVAR_TYPE_INVALID || convarData.m_nType == info.m_opt.m_nType
 coroutine.m_pStackHigh <= coroutinePrev.m_pStackHigh
 corrupted entry
 cosf
 cosh
-count >= 0
 covariant virtual thunk to 
 cpsr
 crash
@@ -8648,11 +7119,10 @@ curlextents
 curregs
 curslabs
 curve
-cv.SetValueFromString( pSnapshotValue )
 cvar list\n--------------\n
 cvarlist
 cvarlist:  [log logfile] [ partial ]\n
-d/0PZ\f
+d/0p
 d4[I
 d8-t
 d8L2
@@ -8663,9 +7133,6 @@ dX%g
 damage
 darwin
 darwin\
-dat != nullptr
-dat->Internal_GetDataType() == TYPE_NONE
-dat->m_pPeer == nullptr
 datatypemisalignment
 dbghelp .sym symbols
 dbghelp COFF symbols
@@ -8701,14 +7168,10 @@ decltype
 decltype(auto)
 default
 default-arg doesn't end with '_'\n
-defaultFlags == 0 || defaultFlags == m_RegisteredChannels[i].m_DefaultFlags
-defaultVerbosity == LV_DEFAULT || defaultVerbosity == m_RegisteredChannels[i].m_DefaultVerbosity
 delay
 delete
 delta
 demo
-desc.m_nFileRva > 0
-destSize >= 1
 destination address required
 destroy
 detailed
@@ -8796,7 +7259,6 @@ explosive_damage
 explosive_radius
 expression assumed to be operator but no matching operator found\n
 expression_value
-extension
 extent_avail
 extent_grow
 extent_hooks
@@ -8821,17 +7283,14 @@ file exists
 file index mismatch\n
 file too large
 filename too long
-filetoinclude
 fill
 find
 findflags
 findflags 
 fixedlength
 flDurationSec
-flLateWake == 0.0
 flMaxDistance
 flMinDistance
-flRate > 0.f
 flStopRadius
 flYawTolerance
 flags
@@ -8862,7 +7321,6 @@ format
 format specifier requires numeric argument
 format specifier requires signed argument
 found at %s\n
-foundKey.m_nEndVa >= key.m_nStartVa
 fp>x
 fqUn
 frame
@@ -8885,31 +7343,18 @@ g_BitStringEndMasks
 g_Mathlib_GammaToLinearByteTable
 g_TSPointerListNodes
 g_VProfCurrentProfile
-g_VProfCurrentProfile.InTargetThread()
 g_VProfNodeSpikeMinimumMs
 g_VProfNodeSpikeMultiplier
 g_VProfNodeSpikeReporting
 g_VProfSignalSpike
-g_arVProfLiteGroupStack[ 0 ] == VPROF_BUDGETGROUPID_FRAMETOTAL
-g_arVProfLiteGroupStack[ 1 ] == VPROF_BUDGETGROUPID_OTHER_UNACCOUNTED
 g_bPlatCPUTicksAreReliable
 g_bUpdateStringTokenDatabase
 g_flConfigMaxCoord
-g_nVprofLiteStackDepth == 2
-g_nVprofLiteStackDepth > 1 && g_nVprofLiteStackDepth <= k_nMaxVprofLiteStackDepth
-g_pCVar
-g_pCurrentFiberTL == (CFiber *)nullptr
-g_pCurrentFiberTL == (CFiber *)this
 g_pFiberJobPool
 g_pMemAlloc
-g_pMemAlloc != nullptr
 g_pPerfTraceDepot
 g_pScheduledFunctions
-g_pShellExecuteExW
 g_pThreadPool
-g_pWatchdogThread != nullptr
-g_pWatchdogThread || !ToolsStallMonitor_ShouldRun()
-g_pWatchdogThread->m_ScopeStack[ nPrevScopeIndex ] == pScope
 game
 game\
 game\..\autoargs
@@ -8926,25 +7371,19 @@ gfFeEaAG
 glow
 gqr<
 gravity
-groupAffinities[0].Group == 0
 guard after
 guard before
 guard both
 guard for static 
 h0'D
 h>1my
-hCaseSensitiveSymbol <= INVALID_KEY_SYMBOL
-hElem != m_SharedStrings.Hash.InvalidHandle()
 hEntity
 hEntityNPC
 hEntityTarget
 hPU3
 hTarget
-hThread
 handindex
 has 
-hashlen <= 32
-head->m_pPrev==which
 header crc mismatch
 headtype
 health
@@ -8980,11 +7419,9 @@ hurt_them
 i&Ma.
 i91k
 i>VF
-iThread > 0
 i]Wb
 identifier removed
 idle
-idx < m_nItems
 ieg!
 ignored_assertions.txt
 ih0sUr
@@ -8999,15 +7436,10 @@ incorrect data check
 incorrect header check
 incorrect length check
 incremental_shapes
-index >= 0 && index < m_NumCounters
-info.m_pReplacementString == 0
-initialCommit <= m_maxSize
-initialValue >= 0 && initialValue <= maxValue
 initialized
 inity
 install
 int( %d = 0x%X )
-int( nSym ) == i
 int16
 int32
 int64
@@ -9030,10 +7462,8 @@ invalid fill
 invalid fill character '{'
 invalid format specifier for char
 invalid format string
-invalid input pointer
 invalid literal/length code
 invalid literal/lengths set
-invalid nChunkChars (%d)\n
 invalid seek
 invalid stored block lengths
 invalid type specifier
@@ -9056,9 +7486,6 @@ k=yI
 k>4\tF
 k>RU
 kernel32.dll
-key.m_nEndVa >= foundKey.m_nStartVa
-key.m_nStartVa <= key.m_nEndVa
-kv->m_pPeer != nullptr
 l6qnk
 l<}2l
 lDa>
@@ -9071,7 +7498,6 @@ last_sniff
 lazy_lock
 lcQe
 ldexp
-len < maxlen
 length
 lerp_curve
 lextent
@@ -9091,9 +7517,6 @@ linux*
 linux\
 list too long
 literal
-loadedEncodingUUID != KV3_ENCODING_BINARY_AUTO_COMPRESSED.m_UUID
-loadedObject.m_bReferenceResolved
-loadedObject.m_pObject->IsNull()
 local-name doesn't contain an 'E'\n
 local-name doesn't start with 'Z'\n
 localhost
@@ -9148,10 +7571,8 @@ m_Class
 m_Color
 m_ColorChoices
 m_ColorScale
-m_ConVarListeners.Find( pConVarListener ) < 0
 m_Constraints
 m_ControlRigData
-m_Count == 0
 m_Curve
 m_DataType
 m_DefaultSolverSettings
@@ -9165,22 +7586,13 @@ m_DisallowedSurfaceProperties
 m_DisplayName
 m_DomainValue
 m_EHandle
-m_ElementCount == 0
 m_Elements
-m_Elements.Count() < UINT16_MAX
-m_Elements.IsValidIterator( it )
-m_Elements.IsValidIterator( m_LastAlloc )
-m_Elements.IsValidIterator( m_LastAlloc ) || m_NumElements == I( 0 )
 m_Emitters
 m_EndEffectorBone
 m_EndEffectorTargetBone
 m_Ent
 m_EntityNPC
 m_EntityTarget
-m_Entries.Count() == other.m_Entries.Count() && m_Text.Count() == other.m_Text.Count()
-m_Entries.Count() > 0
-m_Entries[0] == m_Text.Base()
-m_Entries[m_Entries.Count() - 1] == nullptr
 m_EventName
 m_ExpectedArg0Name
 m_ExpectedArg0Type
@@ -9189,25 +7601,14 @@ m_ExpectedArg1Type
 m_ExpectedArgs
 m_ExpectedRuntimeType
 m_Expression
-m_FirstFree == InvalidIndex()
 m_FloatComponentX
 m_FloatComponentY
 m_FloatComponentZ
 m_ForceGenerators
-m_FreeList.IsEmpty()
-m_FreeList.IsEmpty() && m_pFirstBlob == nullptr
 m_FullType
 m_GenericNodeType
 m_GenericPorts
-m_Get == 0 && m_Put == 0 && m_nMaxPut == 0
-m_GroupIDStackDepth < MAX_GROUP_STACK_DEPTH
-m_GroupIDStackDepth > 0
-m_Head == InvalidIndex()
-m_Head.value.pNode != End()
-m_Head.value.pNode == m_Tail.value.pNode
-m_Head.value.pNode->pNext == End()
 m_IKChains
-m_IdToSymbol.Count() < ( UINT16_MAX - 1 )
 m_IkChain
 m_IkChains
 m_Initializers
@@ -9222,12 +7623,6 @@ m_LiteralValue
 m_LocalCoordinateSystemSpeedMax
 m_LocalCoordinateSystemSpeedMin
 m_LocalSpaceTransform
-m_Memory.IsIdxValid( Index )
-m_Memory.IsIdxValid( Index ) && m_Memory.IsIdxValid( Index + nMaxSize - 1 )
-m_Memory.IsIdxValid( Index ) && m_Memory.IsIdxValid( Index + nSize - 1 )
-m_Memory.IsIdxValid( Index ) && m_Memory.IsIdxValid( Index + size - 1 )
-m_Memory.IsValidIterator( it )
-m_Memory.IsValidIterator( m_LastAlloc ) || m_ElementCount == 0
 m_Message
 m_MethodID
 m_Mode
@@ -9235,13 +7630,6 @@ m_Modifiers
 m_MotorList
 m_Name
 m_NodeID
-m_Nodes.IsValidIndex( m_Nodes[ nNode ].m_ChildNodes[0] )
-m_Nodes.IsValidIndex( nFirstOctantChild )
-m_Nodes.IsValidIndex( nNode )
-m_Nodes[ nFirstOctantChild ].IsFree()
-m_Nodes[ nNode ].IsFree()
-m_NumCounters+1 < VPROF_MAXCOUNTERS
-m_NumElements == 0
 m_OnCanceled
 m_OnFailedToPerform
 m_OnFinished
@@ -9254,33 +7642,23 @@ m_ParamStopRadius
 m_ParameterName
 m_Parameters
 m_PreEmissionOperators
-m_Processes.Count() == 0
 m_Renderers
 m_RequiredAttributes
 m_ReturnValue
-m_Root == InvalidIndex()
 m_SelectionCriteria
-m_SharedStrings.bHasHashEverCollided
 m_SolverSettingSource
 m_SolverType
 m_SourceName
 m_SourceOutflowName
 m_SourceOutparamName
-m_StackMemoryRange.pHigh == nullptr
-m_StackMemoryRange.pLow == nullptr
 m_SwitchValue
-m_Tail == InvalidIndex()
 m_Target
 m_TargetHandle
 m_TargetName
 m_TargetSettingSource
 m_TargetSource
-m_Text.Count() > 0
-m_Text[m_Text.Count() - 1] == 0
 m_TextureControls
 m_ThisInparamName
-m_Tokenizer.ConsumeAtomicToken( KV3_TOKEN_ARRAY_SEPARATOR )
-m_Tokenizer.ConsumeAtomicToken( KV3_TOKEN_CLOSE_SQUARE )
 m_TraceSpace
 m_TraceString
 m_TransformEnd
@@ -9293,7 +7671,6 @@ m_VariableName
 m_VariableValue
 m_Variables
 m_VecCoroutineStack.Count() > 1
-m_Vector.Count() == m_SymbolTable.GetNumStrings()
 m_WakeResume
 m_actions
 m_additiveChildID
@@ -9326,10 +7703,7 @@ m_bIgnoreTranslucent
 m_bInheritParentRotation
 m_bInheritParentScale
 m_bInitFromKilledParentParticles
-m_bInitialized
 m_bInternal
-m_bIsHibernating || !s_bHasExitedBefore
-m_bIsProcessingCommands
 m_bKill
 m_bLightenMode
 m_bLocalSpace
@@ -9374,7 +7748,6 @@ m_children
 m_clipGroups
 m_clipIndex
 m_clips
-m_commitIncrement <= m_maxSize && pageSize % m_alignment == 0
 m_comparisonControlValue
 m_comparisonFixedValue
 m_comparisonOp
@@ -9388,15 +7761,10 @@ m_conditionList
 m_conditions
 m_constValue
 m_cubSavedStack < ( 64 * 1024 )
-m_currentScopeStartTime > 0
 m_data
 m_eBehavior
 m_eMode
 m_eNetworkSetting
-m_eToken == '['
-m_eToken == '{'
-m_enabled
-m_errorIndex>=0
 m_fAngleIncrement
 m_fForceAmount
 m_fForceAmountMin
@@ -9529,19 +7897,12 @@ m_flZoomMax
 m_flZoomScale
 m_groups
 m_hAlyx
-m_hDbgHelpProcess
-m_hDefaultWorkerThread == nullptr || !ThreadJoin( m_hDefaultWorkerThread, 100 )
 m_hMaterial
 m_hMotionVectorsTexture
-m_hMutex != 0
 m_hNormalTexture
-m_hProcess != INVALID_PROCESS_HANDLE
 m_hProjectedMaterial
-m_hRunningThreadID == (ThreadId_t)-1
 m_hSnapshot
-m_hSyncObject
 m_hTexture
-m_iDataType == TYPE_NONE
 m_id
 m_inputConnection
 m_inputConnection1
@@ -9550,31 +7911,21 @@ m_items
 m_localParameters
 m_localTags
 m_managers
-m_maxSize > 0
-m_memoryBlocks[m_nCurMemBlockIndex].m_nNumBytesAvailable == nBlockSize
 m_modelInput
 m_modelName
 m_motions
 m_motors
-m_mutexBlobs.IsLocked()
 m_nActive == 0
-m_nAllocStatsId == INVALID_ALLOC_STATS_ID
 m_nAlphaMax
 m_nAlphaMin
 m_nAnimationType
-m_nArgv0Size != 0
-m_nAsUint64 == 0
 m_nAttributeToWrite
 m_nBehaviorVersion
 m_nBiasType
-m_nBitCount != 32
-m_nBufferChars > 0
 m_nCP
 m_nCPField
 m_nCPInput
 m_nCPin
-m_nCaptureEnables > 0
-m_nChannelTagCount < MAX_LOGGING_TAG_COUNT
 m_nClusterSizeMax
 m_nClusterSizeMin
 m_nCollisionMode
@@ -9584,12 +7935,7 @@ m_nControlPointLocal
 m_nControlPointNumber
 m_nControlPointNumberMax
 m_nControlPointRangeMax
-m_nCount <= m_nSize
-m_nCount == 0 || m_nCount == m_nSize
-m_nCount >= 0
-m_nCurMemBlockIndex >= 0
 m_nDeltaControlPoint
-m_nDetectionDisableCount >= 0
 m_nElementID
 m_nEndCP
 m_nFeatheringMode
@@ -9599,18 +7945,11 @@ m_nFieldOutput
 m_nFireMode
 m_nFirstMultipleOverride_BackwardCompat
 m_nFogType
-m_nGlobalStateIndex >= 0 && m_nGlobalStateIndex < MAX_LOGGING_STATE_COUNT
 m_nHand
 m_nHeadLocation
-m_nIdleThreads == 0
 m_nIncomingTangent
 m_nIncrement
-m_nIndex >= 0 && m_nIndex < m_nArrayElementCount
-m_nItems <= V_ARRAYSIZE(m_apicIds)
-m_nItems > 0
 m_nLightType
-m_nLoadingRefs == 0
-m_nLoadingThread == ThreadGetCurrentId() && m_nLoadingRefs >= 1
 m_nLocalSpaceCP
 m_nMapType
 m_nMax
@@ -9634,11 +7973,7 @@ m_nParamInterruptability
 m_nParticleNumber
 m_nParticleSelection
 m_nParticlesToEmit
-m_nPrimaryBuildIdSize <= sizeof( m_primaryBuildId )
 m_nRandomMode
-m_nRefCount == 0
-m_nRefCount.GetRaw() > 0
-m_nSamples > 0
 m_nScalarAttribute
 m_nScaleCP
 m_nScaleCPComponent
@@ -9647,21 +7982,15 @@ m_nScaleControlPoint
 m_nScaleControlPointField
 m_nSequenceCombineMode
 m_nSetMethod
-m_nSize > 0
 m_nSkin
 m_nSkinCP
 m_nSortMethod
 m_nStartCP
 m_nSubModelFieldType
-m_nSuspend >= 1
 m_nSwitchValue
 m_nTextureChannels
 m_nTextureType
-m_nTier0ThreadID == INT_MIN
-m_nTotalBytes == 0
 m_nTraceMissBehavior
-m_nTrackedDepth == 0
-m_nTrackedDepth > 0
 m_nTranslations == 1
 m_nType
 m_nValue
@@ -9669,57 +7998,24 @@ m_nVarOrConstID
 m_nVectorAttribute
 m_nVectorComponent
 m_nViewModelEffect
-m_nWrite < m_nSize
 m_nodeID
 m_nodeManager
 m_nodes
 m_optionToCheck
 m_outputID
 m_pAction
-m_pActiveIterators == &iterationStruct
-m_pBase
 m_pBody
-m_pContext
-m_pCurrentJobContext == nullptr
-m_pCurrentJobFunc != nullptr
-m_pCurrentJobFunc == nullptr
-m_pDebugFile != nullptr
-m_pDwarfSymbols->FindInlineFrame( &pIterator, nRelAddr + GetBase(), &frameInfo, nullptr, &nDisp, &bIsOutermost )
-m_pFirstBlock
-m_pFirstBlock->m_nBytesAllocated > 0
-m_pGroup == nullptr
-m_pGroup->Group.GroupInfo[nGroupIndex].ActiveProcessorMask == ( UINT64_MAX >> ( 64 - m_pGroup->Group.GroupInfo[nGroupIndex].ActiveProcessorCount ) )
-m_pInitRuleState == nullptr
-m_pJmpBuf_IN != nullptr
-m_pJmpBuf_IN == nullptr
-m_pJmpBuf_OUT != nullptr
-m_pJmpBuf_OUT == nullptr
 m_pJointConstraintData
-m_pMemory
-m_pMemory[ i ]
 m_pMovementManager
-m_pOwner && m_CompletionFunc
-m_pOwner && m_Func
 m_pParameterList
 m_pParent
-m_pPrimaryRoot->FindMember( CKV3MemberName( KV3_TEMP_UNSERIALIZATION_MEMBER ) ) == nullptr
-m_pProcess->IsComplete()
-m_pPtr == nullptr
 m_pResult
-m_pResumeHint == nullptr
-m_pResumeHintContext == nullptr
-m_pRuleState->ruleStorage.Count() < UINT16_MAX
 m_pSavedStack
-m_pScratchBuffer->TellPut() == 0
 m_pSettingsManager
-m_pStackBuffer
-m_pStackContextStartData == nullptr
 m_pStackHigh
 m_pTagManager
 m_pTranslations[0].m_pPath == nullptr
-m_pWatchers == nullptr
 m_paramID
-m_pchUTF8Path == (decltype(m_pchUTF8Path))m_pStackBuffer
 m_previewModels
 m_pszSnapshotName
 m_sampleToClipMap
@@ -9731,7 +8027,6 @@ m_sourceControlValue
 m_sourceValue
 m_speedFunction
 m_spline
-m_status.Load() < JOB_OK
 m_subtractChildID
 m_subtractInputConnection
 m_tag
@@ -9781,16 +8076,12 @@ materials/particle/base_projected.vmat
 materials/particle/base_sprite.vtex
 matrix3x4
 maxHullVertices
-maxLenInChars > 0
-maxValue > 0
 maxVerticesPerHull
 max_angle
 max_background_threads
 max_num_thds
 max_per_bg_thd
 max_wait_time
-maxlen >= 1
-memberName.m_pString
 memstats_%d.txt
 menubar_item
 merged next to file paths %s\n
@@ -9854,115 +8145,18 @@ muzzy_decay_ms
 muzzy_nmadvise
 muzzy_npurge
 muzzy_purged
-n * nBlockSize >= num
 n03>Pu
 n>log2
-nActualAllocSize <= UINT_MAX
-nActualWritten != 0
-nAlignment > 0 && nAlignment < UINT16_MAX
-nArgIter <= nNewArgCount
-nArrayCount > 0 && nSkipCount >= 0
-nBitCount >= 0 && nBitCount <= UINT8_MAX
 nBits != 32
-nBlockSize % 16 == 0
-nBlockSize >= 16 * sizeof( MemoryBlock_t )
-nBufLen > 0
-nBytesDecompressed == m_binaryBlobs[ i ].second
-nBytesGotten == nToRead
-nBytesReserved == 0
-nBytesWritten <= nDstBufSize
-nCallbackIndex != 0
-nCallbackIndex == 0
-nChars <= 0
-nChars <= Min( V_strnlen(pValue, nChars) + 1, nChars )
-nChars <= m_undecBuf.Count()
-nChars == V_strlen(m_pString)
-nCoreIdx < V_ARRAYSIZE(pkgCoreIds)
-nCores == nPhysicalProcs
-nCount <= UINT8_MAX
-nCount > 0
-nCurrentState > 0
-nDataSize < CONVAR_DATA_BLOCK_SIZE
-nDelegateParamCount < (1 << EventListenerInfo_t::PARAMETER_COUNT_BITS)
-nDestSize == 0 || pDest != nullptr
-nDirectoryCount == 1
-nEltBytes == nOtherEltBytes
-nEnd > nStart
-nEntrySize <= UINT32_MAX
-nExternalMemBlockSize != 0
-nExternalMemBlockSize == 0
-nExtraInstanceChars >= 0
-nFileSize < INT_MAX
-nFlags >= 0 && nFlags <= UINT8_MAX
-nFreeBlockSize > 0
-nFullLen == V_strlen( pBuf )
-nFullLogicalProcessors > 0 && nFullLogicalProcessors <= k_cMaxLogicalProcessors
-nFullPhysicalProcessors > 0 && nFullPhysicalProcessors <= k_cMaxLogicalProcessors
-nGrowSize >= 0
-nHandle == INVALID_ASYNC_FUNCTION_HANDLE
-nHandle.GetRaw() >= 0
-nIndex != -1
-nIndex != pDisabledBlob->m_DisabledModeAllocations.InvalidIndex()
-nIndex != uint16( -1 )
-nIndex < 128
-nIndex < V_ARRAYSIZE(m_Values)
-nIndex >= 0
-nIndex >= 0 && nIndex < GetNumVars()
-nIndex >= 0 && nIndex < nMemberCount
 nInterruptability
-nLen > 0
-nLineLen >= 1
-nLogicalIndex < nLogicalProcs
-nLogicalMax <= V_ARRAYSIZE( sortedProcs )
-nMatchCode <= UINT16_MAX
 nMax
-nMaxBytes >= 0
-nMaxChars > 0
-nMaxLen > 0
-nMaxLenInBytes == 0 || nMaxLenInBytes >= sizeof(*pDest)
-nMaxLenInBytes >= 0
-nMaxLenInChars >= 0
 nMin
-nNameSize < CONVAR_NAME_BLOCK_SIZE
-nNewCount >= 0
-nNewRefCount >= 0
-nNewState != -1
 nOffset < m_nAllocationSize
-nOffset <= INT64_MAX
-nPackageIdx < V_ARRAYSIZE(pkgIds)
-nPortNum >= 0 && nPortNum <= UINT16_MAX
-nProcGroup == 0
-nProcMask != 0
-nPut + nPutDelta <= outBuf.TellMaxPut()
-nRead == nPeeked
-nReqBytes > 0
-nRet >= 1
-nSeqLen > 1
-nSize != 0
-nSize > 0
-nSizeCopy == nBytes
-nSlot == INVALID_SPLITSCREENSLOT || nSlot.GetRaw() == 0
-nState == THREAD_INIT_ONCE_INIT_DONE
-nState > 0 && nState < MAX_LOGGING_STATE_COUNT
-nStringLen >= 0
-nStringLen >= 1 && *pString == '&'
 nSwitchValue
-nTickDelay >= 0
-nTicksLateWake == 0
-nTotal == 0
 nTries < 10000000
-nType != CONVAR_TYPE_INVALID
-nType == CONVAR_TYPE_INVALID || nType == m_pInfo->m_nType
-nType == m_pInfo->m_nType || nType == CONVAR_TYPE_INVALID
-nType >= 0 && nType <= CONVAR_TYPE_COUNT
-nUTF8Chars > 1
-nVa < nRangeEnd
-nValue == data
-nValues <= KEYVALUES3_SHORT_UINT8_ARRAY_LENGTH && nElementSpecificType == KV3_STYPE_UINT8
-nWaste >= 0
-nWideChars <= 0
-n\f"pA3Q y4
-n\f"pA3Qpw4
+nUnable to determine buffer encoding.
+n\f"pA3Q
+n\f"pA3Q ^0
 n]?iJ
 nactive_huge
 nactive_nonhuge
@@ -9983,9 +8177,6 @@ negative precision
 negative width
 nested-name doesn't start with 'N'\n
 nested-name ran out of qualifier slots\n
-netadr_t::Serialize
-netadr_t::SetFromString
-netadr_t::Unserialize
 network down
 network reset
 network unreachable
@@ -10045,7 +8236,6 @@ ntdll
 ntdll.dll
 nthreads
 null
-num > 0
 num_ops
 num_owner_switch
 num_runs
@@ -10053,8 +8243,6 @@ num_spin_acq
 num_threads
 num_wait
 number is too big
-numbits >= 0 && numbits <= 32
-numchars >= 2
 numsegments
 o21o
 o9sp
@@ -10075,14 +8263,6 @@ operation would block
 operator
 operator "" 
 operator co_await
-operator delete
-operator delete (aligned)
-operator delete[]
-operator delete[] (aligned)
-operator new
-operator new (aligned)
-operator new[]
-operator new[] (aligned)
 operator<=>
 opt.abort
 opt.abort_conf
@@ -10143,19 +8323,13 @@ opt.xmalloc
 opt.zero
 opt.zero_realloc
 opt_safety_checks
-options.IsPurePassThrough()
-options.m_completionCallback.m_pCommandCompletionCallback == nullptr
 origin_max_delta
 origin_relative
 osx*
 out of order
-outStrings.Count() == 0
-outputBuffer
-outsize >= 1
 oversize_threshold
 owM&
 owner dead
-ownership == KV3_COPY_EXTERNAL
 p,xj
 p4 add -t binary "%s"
 p4 edit -t binary "%s"
@@ -10164,149 +8338,27 @@ p4.exe print -o "
 p>.G1
 p>Y3
 pAbilityName
-pAllocPoint >= m_pBase && pAllocPoint <= m_pNextAlloc
-pBlob
-pBuffer
-pBuffer[nChars] == 0
-pCallback == nullptr
-pCfiState->IsDirty()
-pChannel->m_nIndent >= 0
 pClass
-pCmd
-pContext
-pCurrentKey
-pData->GetArrayElement( i )->GetBasicType() == pElement0->GetBasicType()
-pDbgHelp == pSymbolCache->GetDbgHelp()
-pDest
-pDst
-pDst <= ( pDstBuf + nDstBufSize )
-pDst == pBitBufDst
-pDstIncShapes
-pDstSuppressedShape
-pDwarfSymbols
-pDwarfSymbols->GetBaseAddress() == nBase
-pEndPtr == nullptr
-pEndingDelim && pEndingDelim[0]
-pEntry != nullptr
-pEntry >= m_Values
-pEntry->GetNextRaw() <= m_pWriteAddress
-pEntry->GetNextRaw() == m_pWriteAddress
-pEntry->IsInLRU()
-pEntry->m_nCacheAddrSize == nVirtualSize
-pEntry->m_nCuInfoOffset > m_pDieRefs[m_pDieRefs.Count() - 1].nInfoOffset
-pEventKeys
-pEventKeys->HasMember( "Speed" )
-pExistingSubkey != nullptr && pNewSubKey != nullptr
-pExternalMem == nullptr || nExternalMemBlockSize % 16 == 0
-pExternalMem == nullptr || uintptr_t( pExternalMem ) % 16 == 0
-pFiber->m_StackMemoryRange.pHigh == nullptr
-pFiber->m_StackMemoryRange.pLow == nullptr
-pFiber->m_pCurrentJobContext == nullptr
-pFiber->m_pCurrentJobFunc == nullptr
-pFiber->m_pJmpBuf_IN == nullptr
-pFiber->m_pJmpBuf_OUT == nullptr
-pFiber->m_pResumeHint == nullptr
-pFiber->m_pResumeHintContext == nullptr
-pFiber->m_pStackContextStartData == nullptr
-pFileContents[0] == UTLSTRINGTOKEN_DATABASE_VERSION
-pFileContents[nFileSize - 1] == '\n'
-pFileSystem
-pFinal && nActual > 0
-pFmt
-pFoundAtPathOut
 pFrameBottom > m_pStackHigh || pFrameTop < m_pStackLow
-pGlpi
-pHeader->GetAction() == allocAction
-pHeader->GetPayloadSize() == nPayloadSize
-pHeader->IsValidLiveHeader()
-pIter->AbortJob()
-pIterData < m_pGlpiExData + m_nGlpiExDataBytes
-pIterData == m_pGlpiExData + m_nGlpiExDataBytes
-pJob->GetRefCount() == 2
-pJobSemaphore != nullptr
-pKV3
-pKV3->IsTable()
-pKeyValues3->RemoveMember( i )
 pKp\nZ
-pLastChild == nullptr || pLastChild->m_pPeer == dat
-pLastChild->m_pPeer == dat
-pLastChild->m_pPeer == nullptr
-pList->IsArray()
-pListener->m_bRegistered
-pLogical[nLogicalIndex].IsPhysicalIDSet() && !pLogical[nLogicalIndex].IsCoreIDSet()
-pLogical[nLogicalIndex].m_nProcessorGroup == nProcGroup && pLogical[nLogicalIndex].m_nProcessorGroupRelIndex == nLogicalRelIndex
-pMember
-pMemory == blockInfo.m_pMemory
-pMemoryStatus
-pMemory[i] == 0
 pMessage
-pMeta
 pName
-pNewSubKey->m_pPeer == nullptr
-pNewSymbols->GetBase() == pEntry->m_nCacheAddrBase && pNewSymbols->GetSize() == pEntry->m_nCacheAddrSize
-pNextTable <= pTable + nAugDataBytes
-pObject != nullptr
-pOldBase != nullptr
-pOldHeader->GetAction() == action
-pOpcodeTable->m_nDstPointerIndex < nNumDstPointers
-pOpcodeTable->m_nSrcPointerIndex < nNumSrcPointers
-pOther->Internal_GetSubKey() == nullptr
-pOutError
-pOutLoadedFormatName
-pOutLoadedFormatUUID
-pOutNameValuePairs
-pP4File[0] == '/' && pP4File[1] == '/'
 pParam
-pParent
-pPrevClusterInFreeList != nullptr
-pReadStop >= (pData + sizeof( CUtlStringTokenHash_DatabaseFormat ))
-pResult->width == size.x && pResult->height == size.y && pResult->depth == size.z
-pRet->m_nRefCount == 0
-pSDLFuncs->pSDL_WasInit( SDL_INIT_VIDEO ) != 0
-pScratchBuffer->TellPut() == 0
-pSearch
-pSection->pData == nullptr
-pShortenToSlash != nullptr
-pSpecifier[0] != '\0'
-pSrcPosition >= m_pSrcStart && pSrcPosition <= m_pSrcEnd
-pSrcRow->nNumRules < (int32)UINT16_MAX - m_ruleStorage.Count()
-pSrcRow->nRulesIndex == 0
-pStackMemory && nStackMemorySize
-pStartOfShortendString >= pPath
-pStdoutPipe->IsConnected()
-pStr
-pStr == result.ptr
-pSubKey && pSubKey->m_pPeer == nullptr
-pSubkey != nullptr
-pSubkey->m_pPeer == nullptr
-pSubtypeStrEnd
 pSwitchValue
 pTarget
-pTargetKV3->GetParentContext() == nullptr || pTargetKV3->GetParentContext()->Root() == pTargetKV3
-pThis->PostDirWatch()
-pThreadLocalScope->IsLocalThreadScope() && REFERENCE_ORDERED_THREADLOCAL( g_nThreadID ) > 0
-pToken
-pTokenString != nullptr
 pTraceString
-pTypeStrEnd
-pTypeStrStart
 pV }S
-pValue
-pVscm
-pWrite == (pFileContents + nFileSize)
+p\r0\fP
 pactive
 pactivep
 page
 panorama
 param
 param2
-parent.nEntryIndex >= 0
 parent_bone
 particle
 particles/
 pass\n
-path
-pathStringLength >= 1
 pb>pAf>
 pdbstr -r -p:"%s" -s:srcsrv
 pdbstr -w -p:"%s" -s:srcsrv -i:"%s"
@@ -10319,12 +8371,9 @@ percpu
 percpu_arena
 permission denied
 persistent
-pflOutValue
 phycpu
 physgun_interactions
 physicsmode
-pi.m_nEfficiencyCores + pi.m_nPerformanceCores == pi.m_nPhysicalProcessors
-pi.m_nEfficiencyCores > 0 && pi.m_nPerformanceCores > 0
 pitch
 place high
 place low
@@ -10339,9 +8388,6 @@ point1
 pointer
 pose_control
 pose_control_type
-ppJobs[ i ]->IsFinished()
-ppath
-ppline
 precision is not integer
 precision not allowed for this argument type
 preferred_carryangles
@@ -10379,8 +8425,6 @@ prot
 protocol error
 protocol not supported
 psapi.dll
-pszLine[ nLineLen ] == 0
-pszMetatext
 ptr( 0x%p )
 purecall
 purge
@@ -10408,7 +8452,6 @@ range check failure
 read
 read only file system
 recenter_on_parent_bone
-ref.m_pInfo->m_nType == CONVAR_TYPE_INVALID || ref.m_pInfo != GetUndefinedInfo( nType )
 reference temporary for 
 reg.m_unEncoder < m_QFEList.Count()
 relative_angles
@@ -10421,17 +8464,13 @@ reopening cached debug file
 replicated
 reset
 resident
-resizeNumBits >= 0
 resource
 resource deadlock would occur
 resource unavailable try again
-resourceName
 resource_name
 restrict(
-result >= 0
 result out of range
 resumecondition
-ret == LR_DEBUGGER
 retain
 retain_grow_limit
 retained
@@ -10446,25 +8485,12 @@ rtree
 ru&o
 rucG
 run_interval
-s1 != nullptr && s2 != nullptr
 s1Y3JrMH]
 s3o\
 sHF'
 sK9gh
-sTemp.Length() == nToRead
 sVwES
-s_CRTTempFiber.GetRefCount() == 2
-s_CurrentlyLoadingModules.GetRaw().Remove( &tracking )
-s_ThreadScopeMutex.IsConstructed() && s_ThreadScopeMutex.GetRaw().OwnedByCurrentThread()
-s_fnEnumProcessModules
 s_hModule != INVALID_HANDLE_VALUE
-s_nConnectionCount > 0
-s_nDedicatedServerSleep_SaveStackDepth == 0
-s_nDedicatedServerSleep_SaveStackDepth == g_nVprofLiteStackDepth
-s_nDedicatedServerSleep_SaveTicksSleeping == 0
-s_nLoadingLibraryCount >= 0
-s_nNextEventID >= 0
-s_nRegistrationCount < V_ARRAYSIZE(s_pConnectionRegistration)
 s_pNtQueryDirectoryFile
 safety_check_abort
 san_guard_large
@@ -10490,11 +8516,8 @@ singleplayer
 singlestep
 sinh
 size
-size < 1024 * 1024
-size >= 0
 slab_size
 slab_sizes
-sm_pConfigRegistry->m_nCount >= 0 && sm_pConfigRegistry->m_nCount < V_ARRAYSIZE( sm_pConfigRegistry->m_pInfo )
 small
 smartprop0
 smartprop1
@@ -10508,13 +8531,11 @@ sourcemappings
 spawn_entity
 spawn_motion_disabled
 speed
-spewColor == UNSPECIFIED_LOGGING_COLOR || spewColor == m_RegisteredChannels[i].m_SpewColor || (m_RegisteredChannels[i].m_nModifiedFields & (uint8)LoggingChannel_t::MODIFIED_SPEWCOLOR)
 sqrt
 srv*
 srv*http:
 srv*https:
 stack buffer overrun (/GS failure)
-stackLevel >= 0 && stackLevel < m_errorIndex
 start_frame
 start_scale
 start_time
@@ -10557,12 +8578,11 @@ success
 suppress
 suppressed_shapes
 surface_prop
-symId <= QFE_ENCODER_NAME_INDEX_MAX
 symbol
-symbol <= INVALID_KEY_SYMBOL
 symsrv.dll
 symtab
 t#tvI
+t.0p
 table
 tail_frame
 tanf
@@ -10584,13 +8604,11 @@ template-arg doesn't end with an 'E'\n
 template-args doesn't start with 'I' or 'J'\n
 template-param doesn't start with a 'T'\n
 template-param index doesn't end with a '_'\n
-testCount == m_nCount
 test_angles_relative
 testscript_debug
 text
 text file busy
 texturescale
-this != pOther
 thread
 thread_active_init
 tier0
@@ -10607,22 +8625,14 @@ tooltips_class32
 total_wait_time
 transaction clone for 
 transform
-translation.m_pPath == nullptr
 true
 trust_madvise
-try_get_function
-try_get_module
 trying split debug file
 tsd_nominal_tsds_lock
 turn_rate
 type
-type == dat->Internal_GetDataType()
 type info for 
 type info name for 
-typeInfo.m_ParseFunc( pszNewDefaultValue, info.m_pDefaultValue )
-typeInfo.m_ParseFunc( pszNewDefaultValue, pTemp )
-typeInfo.m_nSizeInBytes <= MAX_CONVAR_DATA_SIZE
-typeStr.IsEqual_CaseSensitive( "PVAL_EHANDLE" ) || typeStr.IsEqual_CaseSensitive( "PVAL_ENTITY_NAME" )
 u64( %lld = 0x%llX )
 uO]O<I
 uRDZZ
@@ -10636,7 +8646,6 @@ uint64
 uint8
 ujGs?
 ujQD
-ulVal < ( uint32 ) ( 1 << m_nBitCount )
 unable to get file indexes\n
 unholsterweapon
 unknown
@@ -10696,14 +8705,13 @@ virtual-table number doesn't end with '_'\n
 visualstudioautomation.exe -appverifier_setup %d
 visualstudioautomation.exe -attachtoprocessid %d
 vmdl;vmdl_prefab
-vmdlkeys0
 vmdlkeys1
+vmdlkeys2
 vmdlkeys3
 vmdlkeys4
 void
 volatile
 vpcf
-vpcf1
 vpcf10
 vpcf11
 vpcf12
@@ -10725,6 +8733,7 @@ vpcf26
 vpcf27
 vpcf28
 vpcf29
+vpcf3
 vpcf30
 vpcf31
 vpcf32
@@ -10765,7 +8774,6 @@ vpcf8
 vpcf9
 vpk:
 vpulse
-vpulse1
 vpulse10
 vpulse11
 vpulse12
@@ -10795,19 +8803,14 @@ wait
 wakeup job
 warning
 wchar_t
-which->m_pNext->m_pPrev==which
-which->m_pPrev->m_pNext==which
 width
 width is not integer
 win64
-window
-window || CommandLine()->HasParm_Public("-empty")
 windows
 winhttp.dll
 without
 wn>Jj
 wo=N
-wpw4
 wqBv/?
 wrong protocol type
 wsbdp

@@ -445,5 +445,7 @@
 		"panorama_joystick_enabled" "0"
 
 		"snd_event_browser_focus_events" "true"
+
+		"cl_max_particle_pvs_aabb_edge_length" "1024"
 	}
 }
