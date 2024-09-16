@@ -446,6 +446,6 @@
 
 		"snd_event_browser_focus_events" "true"
 
-		"cl_max_particle_pvs_aabb_edge_length" "1024"
+		"cl_max_particle_pvs_aabb_edge_length" "100"
 	}
 }
