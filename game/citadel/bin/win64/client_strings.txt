@@ -120,7 +120,6 @@
  <-- Retval '%s'
  <b>@import</b> 
  ACTIVE GROUP
- Ah3w
  CBuildCubemaps
  C_PhysPropClientside::Spawn: SetupPhysicsAsModel() failed for %s.\n
  FLK
@@ -2885,7 +2884,7 @@ $hRh
 ../src/devtools/bin/certificates/game/
 ..CPlayer_GetNewSteamAnnouncementState_Response"_
 ..uR5&m
-.01I
+.03I
 .4bb
 .97yY
 .?AU?$CameraOp_Approach_t@M@@
@@ -3494,6 +3493,7 @@ $hRh
 .?AV?$CGameSystemStaticFactory@VCCitadelHintSystem@@V1@@@
 .?AV?$CGameSystemStaticFactory@VCCitadelHudGameSystem@@V1@@@
 .?AV?$CGameSystemStaticFactory@VCCitadelInventoryManager@@V1@@@
+.?AV?$CGameSystemStaticFactory@VCCitadelMapPrewarmSystem@@V1@@@
 .?AV?$CGameSystemStaticFactory@VCCitadelMatchMetadataManager@@V1@@@
 .?AV?$CGameSystemStaticFactory@VCCitadelMusicEntitySystem@@V1@@@
 .?AV?$CGameSystemStaticFactory@VCCitadelMusicManager@@V1@@@
@@ -6010,6 +6010,7 @@ $hRh
 .?AVCCitadelItemSystem@@
 .?AVCCitadelKeyBindingManager@@
 .?AVCCitadelLobby@@
+.?AVCCitadelMapPrewarmSystem@@
 .?AVCCitadelMatchMetadataManager@@
 .?AVCCitadelModIcon@@
 .?AVCCitadelModeManager@@
@@ -10338,6 +10339,7 @@ $hRh
 .GCProtoBufMsgSrc
 .HCK\v
 .MODIFIER_ENTRY_TYPE
+.P0I
 .P6A?AVCTransform@@AEBV0@0@Z
 .P6AHPEBVIUIPanelClient@panorama@@0@Z
 .P6AXPEAVCSceneObject@@@Z
@@ -10731,10 +10733,10 @@ $hRh
 08@J
 08bX
 09,h
-0:0c
+0:0e
 0;Q5[
 0<cz
-0>`EI
+0>`GI
 0M2~@p
 0Marks latest announcement timestamp read by user
 0Name of the file to publish in the user's cloud.
@@ -10767,7 +10769,7 @@ $hRh
 0\r0#0)070;0U0Y0[0g0q0y0}0
 0\tV_iswspace
 0e\r8
-0p C
+0p"C
 0pp@5tqE?|sO541
 0tU+xc:
 0x%4.4x 
@@ -10960,7 +10962,7 @@ $hRh
 2\r.CameraAction
 2\rlhp
 2\vpH
-2\vpp C
+2\vpp"C
 2\vpt
 2^pV
 2a"l
@@ -11088,10 +11090,10 @@ $hRh
 65535"
 65535"j\n
 65535B$
+6666666666666666
 666666666666666666666666666666666666666666666666\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\.\ssl\s3_enc.c
-6666666666666666`l
 67-s
-6:EI
+6:GI
 6?NumberValue@Value@v8@@QEBA?AV?$Maybe@N@2@V?$Local@VContext@v8@@@2@@Z
 6H,N
 6O|T%
@@ -11114,8 +11116,8 @@ $hRh
 6l13
 6lkc
 6myY;
-6p'I
-6p+I
+6p)I
+6p-I
 6qo~
 6r-m_v
 6r1ij
@@ -11166,7 +11168,7 @@ $hRh
 8<pl
 8= zp
 8A6j
-8Bp&
+8Bp(
 8Client ID for which to count the number of issued tokens"
 8GZS
 8Gets the list of nicknames this user has for other users
@@ -11438,7 +11440,6 @@ $hRh
 ?CEntityIOOutput
 ?C_CitadelPlayerPawn
 ?CarouselNav
-?CitadelTipClicked
 ?CitadelWatchPage
 ?CreateHandle@HandleScope@v8@@KAPEA_KPEAVIsolate@internal@2@_K@Z
 ?DisposeGlobal@api_internal@v8@@YAXPEA_K@Z
@@ -11449,6 +11450,7 @@ $hRh
 ?Exit@Isolate@v8@@QEAAXXZ
 ?Far field
 ?For@Symbol@v8@@SA?AV?$Local@VSymbol@v8@@@2@PEAVIsolate@2@V?$Local@VString@v8@@@2@@Z
+?Force showing the botmatch warning during pause.
 ?FromJustIsNothing@api_internal@v8@@YAXXZ
 ?Get@Object@v8@@QEAA?AV?$MaybeLocal@VValue@v8@@@2@V?$Local@VContext@v8@@@2@I@Z
 ?GetCurrentContext@Isolate@v8@@QEAA?AV?$Local@VContext@v8@@@2@XZ
@@ -11459,7 +11461,7 @@ $hRh
 ?HasCaught@TryCatch@v8@@QEBA_NXZ
 ?NEUTRAL_TROOPER_WEAK
 ?ParticleEffect
-?QuickResponse
+?Responds to the last ping message received
 ?ScrollBar
 ?TestCheckpoint: %s
 ?The most recent last-played time the client already knows about"
@@ -11535,7 +11537,7 @@ A<fP
 A>x8
 AA Compromise
 AA->Output
-AA: b
+AA: d
 AABBDirection
 AABB_t
 AACompromise
@@ -12485,6 +12487,7 @@ BC_EMPTY
 BC_PARTICLE_SYSTEM_OVERRIDE
 BC_PROP_GROUP_OVERRIDE
 BCanSeeInParentScroll
+BCitadelTVCamera
 BEAM_ENTPOINT
 BEAM_ENTS
 BEAM_HOSE
@@ -12613,7 +12616,6 @@ BReadyForDisplay
 BScrollParentToFitWhenFocused
 BSecureAllowed
 BT5f
-BToggles the spectator mode: 0=Directed - 1=Free Cam - 2=Hero Chase - 3=PlayerView
 BUCKSHOT
 BUF lib
 BUFFED
@@ -13714,6 +13716,7 @@ CCitadelKeyBindingManager::FindOrAddUnitSpecificKeysForUnit
 CCitadelKeyBindingManager::FindOrAddUnitSpecificKeysForUnit called with null pUnitName!!!\n
 CCitadelKeyBindingManager::InitUnitSpecificBindings encountered null pUnitName!!!\n
 CCitadelLobby
+CCitadelMapPrewarmSystem
 CCitadelMatchHistoryStore::RequestMatchDetails
 CCitadelMinimapBoundary
 CCitadelModelEntity
@@ -17379,7 +17382,6 @@ CWorkThreadPool::~CWorkThreadPool: work processing queue not empty: %d items dis
 CWorld
 CWorldCompositionChunkReferenceElement_t
 CWorldTextSceneObjectDesc
-CXpe
 C[L6
 C\lVQ
 C\n?k_EGCMsgInitiateTradeResponse_Free_Account_Initiator_DEPRECATED
@@ -18413,7 +18415,6 @@ CitadelPostGameScoreboardPlayerHovered
 CitadelPostGameScoreboardPlayerUnhovered
 CitadelPostGameScoreboardPlayerUnhoveredAsync
 CitadelPostHud
-CitadelPrecacheMap
 CitadelPrevTipText
 CitadelPrewarmPanorama
 CitadelPriceSheetUpdated
@@ -18617,7 +18618,6 @@ CitadelStatsSpiritDisplay_t
 CitadelStatsVitalityDisplay_t
 CitadelStatsWeaponDisplay_t
 CitadelStopEditingProfileCard
-CitadelStopMapPrecache
 CitadelStreamlinedMicChanged
 CitadelSubmitPlaytestUser
 CitadelSurveyHighlightStars
@@ -18626,8 +18626,8 @@ CitadelSurveySubmitValue
 CitadelSwitchSpectatorCameraToSlot
 CitadelSwitchSpectatorCameraToTopBarIndex
 CitadelTV: could not find entity with entindex: %d\n
-CitadelTVCamera
 CitadelTierBonusTooltip
+CitadelTipClicked
 CitadelTogglePrivilegedFeatures
 CitadelToggleViewAnnouncements
 CitadelTooltipAbilityDetails
@@ -20758,6 +20758,8 @@ EDelayReason_WraithSpinUp
 EDemoCommands
 EDeniedFromEnemy
 EDenyDistributionType
+EDenyInLaningPhase
+EDenyInLaningPhaseDuo
 EDenyToDenier
 EDenyToDenierNearbyTeammates
 EDenyToDenierTeam
@@ -22275,13 +22277,13 @@ For how long after starting to slide on flat ground we apply 'Flat Ground Fricti
 Force Display:
 Force Reload Cubemaps
 Force Spawn
+Force a assigned number of players per lane for laning orb testing
 Force a resolution change even if it's not supported on your monitor. [h] [w] [refresh rate]
 Force a specific lesson to be triggered
 Force all abilities to call OnUpgrade()
 Force all clients to disable their game instructors.
 Force all clients to enable their game instructors.
 Force guide bot to talk with reason.
-Force showing the botmatch warning during pause.
 Force third person camera angles
 Force-reloading resident cubemaps that were rebuilt\n
 ForceFieldThinkRate
@@ -23006,6 +23008,7 @@ H8xp
 H=`HY
 H@H9xqI
 HBJ\nTRF
+HDHU
 HDR Color Scale: %0.3f
 HDRColor
 HDRColorScale
@@ -27049,7 +27052,7 @@ P1\t98"
 P2P ping to "%s". Timed out after %.2fms\n
 P2P_Messages
 P5[1
-P6`'I
+P6`)I
 PAGN_4
 PANEL_ID
 PANORAMA_LAYOUTFILE
@@ -28097,6 +28100,7 @@ QuickGuideNewVersion
 QuickGuideViewed
 QuickHide
 QuickMute
+QuickResponse
 Quit generating Sparse Shadow Tree - no valid sunlight\n
 Q{qk
 R %.03f
@@ -28300,7 +28304,7 @@ RUMBLE_SHOTGUN_DOUBLE
 RUMBLE_SHOTGUN_SINGLE
 RUMBLE_SMG1
 RUMBLE_STOP_ALL
-R\fpp C
+R\fpp"C
 R\n\nBookReward
 R\n\rincludekvtags
 R\r1>Vp
@@ -28625,7 +28629,6 @@ Respawn time
 Respawn time is set to this fixed duration after dying.
 Respawn time is set to this percent (0-1) of the normal respawn time.
 RespawnTimeChanged
-Responds to the last ping message received
 ResponseFollowup
 ResponseGroup
 ResponseHeader
@@ -31421,6 +31424,7 @@ Toggles input/output message display for the selected entity(ies).  The name of 
 Toggles muting/unmuting the audio.
 Toggles recording of animgraph replay of the given entity(s)\n\tArguments:   \t{entity_name} / {class_name} / {entity_index} / {no argument = pick what player is looking at}
 Toggles showing which blocks are pending/loaded async.
+Toggles the spectator mode: 0=Directed - 1=Free Cam - 2=Hero Chase - 3=PlayerView
 Toggles visibility of the debug overlay system.
 Token Table Save/Restore overflow on token [%d]!\n
 Tonemap
@@ -32253,7 +32257,7 @@ VolumetricFog
 VolumetricFogView
 VoteData
 VoxManager
-Vp!I
+Vp#I
 Vp>u
 Vt_9
 VulnerabilityPerStack
@@ -34117,7 +34121,7 @@ Z~wl
 \v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r
 \vj0k
 \vjC7
-\vpp C
+\vpp"C
 ]1h=bfz
 ]FhSD}
 ]GT7]
@@ -36349,6 +36353,7 @@ citadel_player_slide_breakable_radius
 citadel_player_slide_min_percent
 citadel_player_starting_hero
 citadel_player_starting_team
+citadel_players_per_orb_lane_test
 citadel_playtest_fake_coopbot_player_count
 citadel_playtest_fake_schedule
 citadel_playtest_fake_unranked_player_count
@@ -37588,7 +37593,6 @@ dead
 deadlock_early_development_warning_disabled
 deadlock_get_old_builds
 deadlock_post_match_survey_disabled
-deadlock_preload_map
 deadlock_retries
 dealer_player_slot
 dealt_recent_damage
@@ -48134,6 +48138,8 @@ mapline
 mapload
 mapping
 maps/%s/%s
+maps/%s/entities/%s
+maps/%s/entities/*.vmdl_c
 maps/personal/gurjeets/animgraph2_test_prop_default.vnmvar
 maps\
 margin
@@ -49876,7 +49882,7 @@ p.other
 p.ppBasis
 p.prime
 p.tpBasis
-p2p&
+p2p(
 p2p_FightingGame_Connection
 p2p_FightingGame_GameData
 p2p_Ping
@@ -50775,7 +50781,7 @@ posz
 powderblue
 powerup_spawn
 pp == NULL || *pp != NULL
-pp C
+pp"C
 pp&c
 ppBasis
 pqualid
@@ -51051,7 +51057,7 @@ rZ1VwGf5
 rZPM
 r\n\vstart_index
 r\vDi
-r\vpp C
+r\vpp"C
 r_AirboatViewDampenDamp
 r_AirboatViewDampenFreq
 r_AirboatViewZHeight
