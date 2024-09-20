@@ -120,8 +120,8 @@
  <-- Retval '%s'
  <b>@import</b> 
  ACTIVE GROUP
+ CBuildCubemaps
  C_PhysPropClientside::Spawn: SetupPhysicsAsModel() failed for %s.\n
- Clight_*
  FLK
  FWa
  Failed to pack %s\n
@@ -2599,6 +2599,7 @@ $hRh
 *\n&k_UnlockStyle_Failed_NoCompendiumLevel
 *\n\vpreferences
 *`\n\fCameraAction
+*cl_glow_item_far_g
 *gFBk
 *hbJ1
 *it%2
@@ -5427,6 +5428,7 @@ $hRh
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??SetPartyRegion@CCitadel_PlayController@@QEAAXW4ECitadelRegionMode@@@Z@@GCSDK@@
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??SetPartyRole@CCitadel_PlayController@@QEAAXW4CSOCitadelParty_EPlayerType@@@Z@@GCSDK@@
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??SetPartyTeam@CCitadel_PlayController@@QEAAXW4ECitadelLobbyTeam@@@Z@@GCSDK@@
+.?AV?$GCClientJobLambda@V<lambda_1>@?1??SetPrivateLobbRandomizeLanes@CCitadel_PlayController@@QEAAX_N@Z@@GCSDK@@
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??SetPrivateLobbyBotDifficulty@CCitadel_PlayController@@QEAAXW4ECitadelBotDifficulty@@@Z@@GCSDK@@
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??SpectateLobby@CCitadel_PlayController@@QEAAXVCitadelLobbyID_t@@VMatchID_t@@@Z@@GCSDK@@
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??SpectateUser@CCitadel_PlayController@@QEAAXI@Z@@GCSDK@@
@@ -10952,7 +10954,6 @@ $hRh
 2\r%2h
 2\r.CameraAction
 2\rlhp
-2\vpx
 2^pV
 2a"l
 2bT~
@@ -11074,6 +11075,7 @@ $hRh
 6(Optional) Type of game the published file represents.
 6,2K
 6-zeZ
+60)I
 62$|S)6f
 64CK\vH
 65535
@@ -11086,6 +11088,8 @@ $hRh
 6?NumberValue@Value@v8@@QEBA?AV?$Maybe@N@2@V?$Local@VContext@v8@@@2@@Z
 6H,N
 6O|T%
+6P,I
+6P2I
 6Qd=
 6Returns the URL of the proper cloud server for a user.
 6True if the operation was successful, false otherwise.
@@ -11102,10 +11106,10 @@ $hRh
 6bX+
 6c&0|vvX
 6i$R\nQ
-6j?I
 6l13
 6lkc
 6myY;
+6p\fI
 6qo~
 6r-m_v
 6r1ij
@@ -11423,11 +11427,12 @@ $hRh
 ??1Utf8Value@String@v8@@QEAA@XZ
 ?BooleanValue@Value@v8@@QEBA_NPEAVIsolate@2@@Z
 ?CBreakableStageHelper
+?CCitadelItemPickupRejuvVData
 ?CEntityIOOutput
 ?C_CitadelPlayerPawn
 ?CarouselNav
-?CitadelLearnPage
 ?CitadelTipClicked
+?CitadelWatchPage
 ?CreateHandle@HandleScope@v8@@KAPEA_KPEAVIsolate@internal@2@_K@Z
 ?DisposeGlobal@api_internal@v8@@YAXPEA_K@Z
 ?EncodeBC7Blocks
@@ -11445,8 +11450,9 @@ $hRh
 ?HAI\t81\t9dcG'
 ?HP4
 ?HasCaught@TryCatch@v8@@QEBA_NXZ
+?NEUTRAL_TROOPER_WEAK
 ?ParticleEffect
-?Responds to the last ping message received
+?QuickResponse
 ?ScrollBar
 ?TestCheckpoint: %s
 ?The most recent last-played time the client already knows about"
@@ -11457,7 +11463,6 @@ $hRh
 ?\n\ncurrencies
 ?\n\rmatch_outcome
 ?actor
-?citadel_item_pickup_rejuv
 ?d86L
 ?dt]X
 ?ff&?333?
@@ -11469,12 +11474,13 @@ $hRh
 ?uWS
 ?x29
 @!@%@+@1@?@C@E@]@a@g@m@
+@08N$
 @0pp
+@6p I
 @?SlowGetInternalField@Object@v8@@AEAA?AV?$Local@VData@v8@@@2@H@Z
 @BH]f
 @BoneSetup
 @DebugIndividualStyle
-@HPX`hv`
 @MfKZ
 @Pgl
 @Pu\rm
@@ -11523,7 +11529,6 @@ A<fP
 A>x8
 AA Compromise
 AA->Output
-AA:P\
 AABBDirection
 AABB_t
 AACompromise
@@ -13025,7 +13030,6 @@ BuildCacheSubscribed(CEconGameAccountClient)
 BuildCacheSubscribed(CEconItem)
 BuildCategoryHeader
 BuildContextMenu
-BuildCubemaps
 BuildCubemapsGameSystem
 BuildCustomFields_R( %s ) -- \n
 BuildDescriptionTextEntry
@@ -13699,7 +13703,6 @@ CCitadelItemMetal
 CCitadelItemPickup
 CCitadelItemPickupIdol
 CCitadelItemPickupRejuv
-CCitadelItemPickupRejuvVData
 CCitadelKeyBindingManager::FindOrAddUnitSpecificKeysForUnit
 CCitadelKeyBindingManager::FindOrAddUnitSpecificKeysForUnit called with null pUnitName!!!\n
 CCitadelKeyBindingManager::InitUnitSpecificBindings encountered null pUnitName!!!\n
@@ -18245,6 +18248,7 @@ CitadelItemVData
 CitadelJoinForum
 CitadelJoinPartyCode
 CitadelJoinTeam
+CitadelLearnPage
 CitadelLeaveMatchmaking
 CitadelLeftGameLobby
 CitadelLevelReward
@@ -18412,6 +18416,7 @@ CitadelPrivateLobbyPage
 CitadelPrivateLobbyReadyUp
 CitadelPrivateLobbySetBotDifficulty
 CitadelPrivateLobbySetPartySlot
+CitadelPrivateLobbySetRandomizeLanes
 CitadelPrivateLobbySetRegion
 CitadelPrivateLobbyStartMatch
 CitadelPrivateLobbyStartMatch( 0 )
@@ -18657,7 +18662,6 @@ CitadelWatchBatchLoaded
 CitadelWatchChangePage
 CitadelWatchDirty
 CitadelWatchGotoMatch
-CitadelWatchPage
 CitadelWeaponID_t
 CitadelWeaponRecoilData_t
 CitadelWelcomeMessageReceived
@@ -20746,6 +20750,7 @@ EDelayReason_WraithSpinUp
 EDemoCommands
 EDeniedFromEnemy
 EDenyDistributionType
+EDenyInLaningPhase
 EDenyToDenier
 EDenyToDenierNearbyTeammates
 EDenyToDenierTeam
@@ -22002,6 +22007,7 @@ Failed to set chat mode for party: %s\n
 Failed to set match mode for party: %s\n
 Failed to set player role for party: %s\n
 Failed to set player slot for party: %s\n
+Failed to set randomized lanes for party: %s\n
 Failed to set region mode for party: %s\n
 Failed to set team for party: %s\n
 Failed to sign VPK; RSA failure.\n
@@ -22262,6 +22268,7 @@ For how long after starting to slide on flat ground we apply 'Flat Ground Fricti
 Force Display:
 Force Reload Cubemaps
 Force Spawn
+Force a assigned number of players per lane for laning orb testing
 Force a resolution change even if it's not supported on your monitor. [h] [w] [refresh rate]
 Force a specific lesson to be triggered
 Force all abilities to call OnUpgrade()
@@ -24496,6 +24503,7 @@ L0fO*'
 L4Eud
 L4uGv~;6
 L5^x|S
+L=P9
 L@4T
 LAM\rhaI)|pL<
 LARGE_CENTERED_HULL
@@ -24570,6 +24578,7 @@ LaneGreen
 LaneNum
 LaneNum%i
 LanePurple
+LaneSeparator
 LaneStat
 LaneStatBarracks
 LaneStatDamage
@@ -25243,7 +25252,6 @@ MODIFIER_VALUE_AIR_DRAG
 MODIFIER_VALUE_AIR_JUMPS
 MODIFIER_VALUE_AIR_MOVE_DISTANCE_INCREASE_PERCENT
 MODIFIER_VALUE_AIR_SPEED_MAX
-MODIFIER_VALUE_AIR_SPEED_VERTICAL_MOVE
 MODIFIER_VALUE_AMMO_CLIP_SIZE
 MODIFIER_VALUE_AMMO_CLIP_SIZE_OVERRIDE
 MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT
@@ -26202,7 +26210,6 @@ NEUTRAL_SUPER_HEROTEST
 NEUTRAL_TRASHBUG
 NEUTRAL_TROOPER_NORMAL
 NEUTRAL_TROOPER_STRONG
-NEUTRAL_TROOPER_WEAK
 NEUTRAL_VAULT
 NEUTRAL_WHACK_A_GHOST
 NEVERGIB
@@ -27032,7 +27039,8 @@ P-256
 P-384
 P-521
 P08@J
-P08J
+P08J0
+P08N$
 P1\t98"
 P2P ping to "%s". Timed out after %.2fms\n
 P2P_Messages
@@ -28084,7 +28092,6 @@ QuickGuideNewVersion
 QuickGuideViewed
 QuickHide
 QuickMute
-QuickResponse
 Quit generating Sparse Shadow Tree - no valid sunlight\n
 Q{qk
 R %.03f
@@ -28291,7 +28298,7 @@ RUMBLE_STOP_ALL
 R\n\nBookReward
 R\n\rincludekvtags
 R\r1>Vp
-R\vpx
+R\vp0
 R]Di
 Radiant
 RadioBox
@@ -28321,12 +28328,14 @@ RampToDefaultFadeScale
 Ran out of %snetworkable entities! (See console spew for entity list summary)\n
 Random Integer
 Random Sound %s:Unknown command %s\n
+RandomLanes
 RandomNormalAndJitterSS
 RandomNormalSS
 RandomNormalWS
 RandomPointTexture_%dx%dx%d
 RandomReflection
 RandomTexture_%dx%dx%d
+RandomizeLanesDropdown
 Randomly taken half of the time
 Range
 Range to check for nearby troopers (in units). Once troopers are within range, backdoor protection is removed. 0 range means disabled
@@ -28609,6 +28618,7 @@ Respawn time
 Respawn time is set to this fixed duration after dying.
 Respawn time is set to this percent (0-1) of the normal respawn time.
 RespawnTimeChanged
+Responds to the last ping message received
 ResponseFollowup
 ResponseGroup
 ResponseHeader
@@ -31336,6 +31346,7 @@ Timed out while attempting to leave party\n
 Timed out while attempting to ready up for the party\n
 Timed out while attempting to send an invite\n
 Timed out while attempting to set bot difficulty on party\n
+Timed out while attempting to set search key on party\n
 Timed out while attempting to set team for party\n
 Timed out while attempting to set the player role for party\n
 Timed out while attempting to set the player slot for party\n
@@ -32088,6 +32099,7 @@ VOTE_FAILED_TEAM_CANT_CALL
 VOTE_FAILED_TRANSITIONING_PLAYERS
 VOTE_FAILED_WAITINGFORPLAYERS
 VOTE_FAILED_YES_MUST_EXCEED_NO
+VP&I
 VPK directory for '%s' corrupt
 VPK: Check file %s Length %d MD5 %s \n
 VPK: Wrote file %s Length %d MD5 %s \n
@@ -32791,8 +32803,6 @@ XWY]
 XYD%
 X\tQo
 Xd3h
-Xf \nI
-Xf@\vI
 XfJ7
 XjfR
 XqgA+
@@ -34174,6 +34184,7 @@ _xU`u
 _}eOk
 `28)fk
 `3?New@Array@v8@@SA?AV?$Local@VArray@v8@@@2@PEAVIsolate@2@H@Z
+`6p!I
 `:zQF
 `D$daM-l
 `DZG
@@ -34213,6 +34224,7 @@ a5<p
 a;Tg
 a@XZ
 aA0k
+aBv$
 aD/x
 aDSS
 aECDH
@@ -36203,6 +36215,7 @@ citadel_item_metal
 citadel_item_name
 citadel_item_pickup
 citadel_item_pickup_idol
+citadel_item_pickup_rejuv
 citadel_item_price
 citadel_item_rarity
 citadel_item_rejuvenator_label_offset
@@ -36330,6 +36343,7 @@ citadel_player_slide_breakable_radius
 citadel_player_slide_min_percent
 citadel_player_starting_hero
 citadel_player_starting_team
+citadel_players_per_orb_lane_test
 citadel_playtest_fake_coopbot_player_count
 citadel_playtest_fake_schedule
 citadel_playtest_fake_unranked_player_count
@@ -36680,7 +36694,6 @@ cl_fasttempentcollision
 cl_frametime_summary_report_detailed
 cl_glow_brightness
 cl_glow_item_far_b
-cl_glow_item_far_g
 cl_glow_item_far_r
 cl_graphics_driver_warning_dont_show_again
 cl_groups
@@ -38588,6 +38601,7 @@ f#9i\n
 f%wyLmX:
 f&dy
 f1cK%
+f3FI
 f45\r
 fBB\fy
 fC\tc
@@ -41936,6 +41950,7 @@ k_eSetNewPlayerProgress
 k_eSetPermission
 k_eSetPlayerSlot
 k_eSetPlayerType
+k_eSetRandomizedLanes
 k_eSetRegionMode
 k_eSetSearchKey
 k_eSilver
@@ -42148,6 +42163,7 @@ laneColor
 laneTesting
 lane_color
 lane_creep_orb
+lane_id
 lane_info
 lane_node
 lane_number
@@ -42254,6 +42270,7 @@ lifetime_followers
 lifetime_subscriptions
 lifetime_value
 light
+light_*
 light_barn
 light_capsule
 light_directional
@@ -42720,7 +42737,6 @@ m_DashBurstSound
 m_DashImpactEffect
 m_DashJumpParticle
 m_DashLineEffect
-m_DashModifier
 m_DashParticle
 m_DashSwingEffect
 m_DashTrailParticle
@@ -45358,6 +45374,7 @@ m_flLagMaxSpeed
 m_flLagMinDuration
 m_flLagSpringStrength
 m_flLagTime
+m_flLandHoldTime
 m_flLandedFlatGroundFrictionGraceTime
 m_flLandedTime
 m_flLandingSlopeScaleBias
@@ -46025,7 +46042,7 @@ m_flVerticalCameraOffset
 m_flVerticalCameraOffsetBias
 m_flVerticalCameraOffsetLerpTime
 m_flVerticalFOV
-m_flVerticalMoveSpeedTarget
+m_flVerticalMoveSpeedPercent
 m_flVerticalOffset
 m_flVerticalPunch
 m_flVerticalTime
@@ -49204,6 +49221,7 @@ nIndex
 nLastValidEntryIdx
 nLevelKey == m_vecLevelToInfo.Count() + 1
 nObjects
+nP0I
 nParam
 nPriority != NETWORK_FIELD_CHANGE_DEFAULT_PRIORITY
 nRetValue
@@ -49855,7 +49873,8 @@ p.other
 p.ppBasis
 p.prime
 p.tpBasis
-p0j0;
+p08@H^$
+p0jpB
 p2p_FightingGame_Connection
 p2p_FightingGame_GameData
 p2p_Ping
@@ -49873,9 +49892,10 @@ p4Z3
 p5Z3
 p5\nL,
 p618
+p>?FI
 p>?Set@Template@v8@@QEAAXV?$Local@VName@v8@@@2@V?$Local@VData@v8@@@2@W4PropertyAttribute@2@@Z
 p@0pqE5tsO?|1
-pAm_flLandHoldTime
+pAm_DashModifier
 pAsyncRet2
 pCheckpointName
 pD4t
@@ -51027,6 +51047,7 @@ rRfKR
 rX&O0
 rZ1VwGf5
 rZPM
+r\fp0
 r\n\vstart_index
 r\vDi
 r_AirboatViewDampenDamp
@@ -51258,6 +51279,7 @@ random_attibutes_add_all_if_picked
 random_attibutes_only_pick_one
 random_attributes
 random_spawn_chance
+randomize_lanes
 randomizecycle
 randomnum
 range
@@ -54125,6 +54147,7 @@ uxX/
 v axis
 v'A>M6
 v)56
+v0.I
 v0o/5
 v1(0)
 v1GZ
