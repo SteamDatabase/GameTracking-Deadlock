@@ -35,9 +35,11 @@
  0x%x
  \nr0b
 !"Blit destination texture must be created with the COLOR_TARGET usage flag"
-!"Blit source and destination textures must be non-NULL"
+!"Blit destination texture must be non-NULL"
 !"Blit source texture cannot have a depth format"
 !"Blit source texture must be created with the SAMPLER usage flag"
+!"Blit source texture must be non-NULL"
+!"Blit source texture must have a sample count of 1"
 !"Blit source/destination regions must have non-zero width, height, and depth"
 !"Cannot acquire a swapchain texture during a pass!"
 !"Cannot begin compute pass during another pass!"
@@ -49,6 +51,7 @@
 !"Cannot generate mipmaps during a pass!"
 !"Cannot generate mipmaps for texture with num_levels <= 1!"
 !"Cannot submit command buffer while a pass is in progress!"
+!"Color target descriptions array pointer cannot be NULL if num_color_targets is greater than zero!"
 !"Color target formats cannot be a depth format!"
 !"Command buffer already submitted!"
 !"Compute pass not in progress!"
@@ -57,8 +60,13 @@
 !"Compute pipeline write-only buffer count cannot be higher than 8!"
 !"Compute pipeline write-only texture count cannot be higher than 8!"
 !"Copy pass not in progress!"
+!"Depth target must have been created with the DEPTH_STENCIL_TARGET usage flag!"
 !"Depth-stencil target format must be a depth format!"
-!"For 2D textures: if sample_count is >= SDL_GPU_SAMPLECOUNT_1, then num_levels must be 1"
+!"Destination buffer cannot be NULL!"
+!"Destination texture cannot be NULL!"
+!"Destination transfer buffer cannot be NULL!"
+!"Each vertex attribute location in a vertex input state must be unique!"
+!"For 2D multisample textures: num_levels must be 1"
 !"For 2D textures: the format is unsupported for the given usage"
 !"For 3D textures: sample_count must be SDL_GPU_SAMPLECOUNT_1"
 !"For 3D textures: the format is unsupported for the given usage"
@@ -68,22 +76,46 @@
 !"For any texture: usage cannot contain SAMPLER for textures with an integer format"
 !"For any texture: usage cannot contain both GRAPHICS_STORAGE_READ and SAMPLER"
 !"For any texture: width, height, and layer_count_or_depth must be >= 1"
-!"For array textures: sample_count must be SDL_GPU_SAMPLECOUNT_1"
 !"For array textures: usage must not contain DEPTH_STENCIL_TARGET"
+!"For cube array textures: layer_count_or_depth must be a multiple of 6"
+!"For cube array textures: sample_count must be SDL_GPU_SAMPLECOUNT_1"
+!"For cube array textures: the format is unsupported for the given usage"
+!"For cube array textures: width and height must be <= 16384"
+!"For cube array textures: width and height must be identical"
 !"For cube textures: layer_count_or_depth must be 6"
 !"For cube textures: sample_count must be SDL_GPU_SAMPLECOUNT_1"
 !"For cube textures: the format is unsupported for the given usage"
 !"For cube textures: width and height must be <= 16384"
 !"For cube textures: width and height must be identical"
 !"For depth textures: usage cannot contain any flags except for DEPTH_STENCIL_TARGET and SAMPLER"
+!"For multisample textures: usage cannot contain SAMPLER or STORAGE flags"
 !"GenerateMipmaps texture must be created with SAMPLER and COLOR_TARGET usage flags!"
 !"Graphics pipeline not bound!"
 !"Incompatible shader format for GPU backend"
+!"Invalid blend factor enum!"
+!"Invalid blend op enum!"
+!"Invalid compare op enum!"
 !"Invalid present mode enum!"
+!"Invalid stencil op enum!"
 !"Invalid swapchain composition enum!"
 !"Invalid texture format enum!"
+!"Invalid vertex format enum!"
+!"RESOLVE store ops are not supported for depth-stencil targets!"
 !"Render pass not in progress!"
+!"Resolve texture must have a sample count of 1!"
+!"Resolve texture must have the same format as its corresponding color target!"
+!"Resolve texture must not be of TEXTURETYPE_3D!"
+!"Shader format cannot be INVALID!"
+!"Source buffer cannot be NULL!"
+!"Source texture cannot be NULL!"
+!"Source transfer buffer cannot be NULL!"
+!"Store op is RESOLVE or RESOLVE_AND_STORE but resolve_texture is NULL!"
+!"Store op is RESOLVE or RESOLVE_AND_STORE but texture is not multisample!"
+!"The number of vertex attributes in a vertex input state must not exceed 16!"
+!"The number of vertex buffer descriptions in a vertex input state must not exceed 16!"
 !"Unrecognized TextureFormat!"
+!"Vertex attributes array pointer cannot be NULL!"
+!"Vertex buffer descriptions array pointer cannot be NULL!"
 !(CCx
 !)@:F,@zj/@\G1@|
 !UTF-8
@@ -102,12 +134,15 @@
 $$XK7
 $E4A(
 $`C0M
+%.2x-%.2x-%.2x-%.2x-%.2x-%.2x
 %02hhX
 %02x 
 %I64d
 %d,%d,%d,%d
 %s (call to %s failed, reporting an error of %s)
 %s (timestamp=%u windowid=%u code=%d data1=%p data2=%p)
+%s doesn't have SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER available
+%s is not set
 %s is not supported!
 %s not available
 %s support is either not configured in SDL or not available in current SDL video driver (%s) or platform
@@ -175,7 +210,7 @@ $`C0M
 0 \t1A
 0 \t1AX
 000000000000
-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0
+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ%s%s
 0300000000050000289b000000000000,Saturn_Adapter_2.0,a:b1,b:b2,leftshoulder:b6,lefttrigger:b4,leftx:a0,lefty:a1,rightshoulder:b7,righttrigger:b5,start:b9,x:b0,y:b3,
 0300000000f000000300000000000000,RetroUSB.com RetroPad,a:b1,b:b5,back:b2,leftshoulder:b6,leftx:a0,lefty:a1,rightshoulder:b7,start:b3,x:b0,y:b4,
 0300000000f00000f100000000000000,RetroUSB.com Super RetroPort,a:b1,b:b5,back:b2,leftshoulder:b6,leftx:a0,lefty:a1,rightshoulder:b7,start:b3,x:b0,y:b4,
@@ -484,6 +519,7 @@ $`C0M
 22"POSITION
 2<U0
 2>X94>
+2\vpP
 2dX`G
 2dx.resourcesS
 2texture_type
@@ -501,11 +537,13 @@ $`C0M
 504944564944
 5G7A 
 5G7A ,"tex_norm
+6 H7
 67&WV
 67A 
 6G77A 
 6G77A (
 6P18
+6T'V
 6\rE6t
 79"POSITION
 7Dc\nf\t
@@ -515,18 +553,17 @@ $`C0M
 8]W5#
 8powf
 9>expf
-:%.2x-%.2x-%.2x-%.2x-%.2x-%.2x
+:333?
 :dx.entryPointsS
 :dx.shaderModelS
 :dx.viewIdStateS
 :tonemap_method
-;333?
 <&UVLeftTop
-<ASCII
+<env
 =@zj?@L~@@\GA@l
 =v<y5
 >jC4
-?Setting fence event failed
+?Failed to map temporary buffer!
 ?sofile
 @dst
 @entryPointOutput
@@ -557,6 +594,7 @@ AC Refresh
 AC Save
 AC Search
 AC Stop
+ASCII
 ASSERT
 ASTRO
 ASTRO Gaming
@@ -595,10 +633,8 @@ Audio target '%s' not available
 AvRevertMmThreadCharacteristics
 AvSetMmThreadCharacteristicsW
 BMP file with bad dimensions (%dx%d)
-BSDL_JOYSTICK_HIDAPI_PS4
 BT\vA\f
 B\fp\v0
-B\vP\n0
 Backbone One
 Backspace
 Bad GET_ATTRIBUTES_VALUES response for controller %p\n
@@ -610,6 +646,7 @@ Bensussen Deutsch & Associates,Inc.(BDA)
 BindResourceMemory must be given either a VulkanBuffer or a VulkanTexture
 BitBlt
 Blit combination not supported
+Bpoweroff
 Buffer has no default usage mode!
 Button name too large: %s
 Bwidth
@@ -701,8 +738,6 @@ CoInitialize failed
 CoInitialize() failed
 CoInitialize() failed: 0x%.8x, using fallback drag-n-drop functionality\n
 Coinitialize
-Color attachment texture was not designated as a target!
-Color target texture was not designated as a color target!
 CombineRgn
 CommDlgExtendedError
 Command data exceeds HID report size
@@ -727,8 +762,6 @@ Could not create EGL context (context attributes are not supported)
 Could not create GL context
 Could not create GLES window surface
 Could not create IDXGISwapChain3
-Could not create MSAA RTV!
-Could not create MSAA texture!
 Could not create RTV!
 Could not create SRV for 2D texture
 Could not create SRV for 3D texture
@@ -767,7 +800,7 @@ Could not find d3d11.dll
 Could not find d3d12.dll
 Could not find dxgi.dll
 Could not find dxgidebug.dll
-Could not find vertex binding %u!
+Could not find vertex buffer slot %u!
 Could not finish command list recording!
 Could not get EGL display
 Could not get ID3D11Device1 interface
@@ -887,6 +920,7 @@ Couldn't rename path
 Couldn't reset controller
 Couldn't send LED packet
 Couldn't send command packet
+Couldn't send disconnect packet
 Couldn't send rumble packet
 Couldn't send rumble, size %d is greater than %d
 Couldn't set clipboard data
@@ -915,6 +949,7 @@ CreateIconIndirect
 CreateIconIndirect()
 CreateOffscreenPlainSurface()
 CreatePixelShader()
+CreateProcess
 CreateRectRgn
 CreateSemaphoreW
 CreateSystemCursor is not currently supported
@@ -1047,9 +1082,10 @@ DXBC%
 DXBC*
 DXBC+
 DXBC3
-DXBCJ
+DXBC;
 DXBCN
 DXBC\
+DXBC\nw
 DXBClq
 DXBCr
 DXBCt^
@@ -1061,14 +1097,13 @@ DXGIGetDebugInterface
 DXGIGetDebugInterface1
 DXIL
 DXIL8
+DXILL
 Data of WAVE fmt chunk too big
 Date out of range for SDL_Time representation; SDL_Time value clamped
 Day out of range [1-%i], requested: %i
 DecimalSeparator
 DefWindowProcW
 Delete
-Depth stencil attachment texture was not designated as a target!
-Depth stencil target texture was not designated as a depth target!
 DescribePixelFormat
 Destination pitch is too small, expected at least %d\n
 Destination rate is too high
@@ -1109,13 +1144,14 @@ DrawTextW
 Dropping back to a slower method.
 DualSense Edge Wireless Controller
 DualSense Wireless Controller
+DuplicateHandle()
 DwmEnableBlurBehindWindow
 DwmGetWindowAttribute
 DwmSetWindowAttribute
 E2A(
 E5A(
-EAtB
 EC1b
+EDtr
 EGL context already created
 EGL context attribute callback returned NULL pointer
 EGL context attribute callback returned too many attributes
@@ -1193,6 +1229,7 @@ Failed to compile BlitFrom2D pixel shader!
 Failed to compile BlitFrom2DArray pixel shader!
 Failed to compile BlitFrom3D pixel shader!
 Failed to compile BlitFromCube pixel shader!
+Failed to compile BlitFromCubeArray pixel shader!
 Failed to compile shader:\n%s%s\n%s
 Failed to compile vertex shader for blit!
 Failed to convert ID3D12Device to ID3D12InfoQueue
@@ -1202,6 +1239,7 @@ Failed to create BlitFrom2D pipeline!
 Failed to create BlitFrom2DArray pipeline!
 Failed to create BlitFrom3D pipeline!
 Failed to create BlitFromCube pipeline!
+Failed to create BlitFromCubeArray pipeline!
 Failed to create ID3D12CommandAllocator
 Failed to create ID3D12CommandList
 Failed to create ID3D12CommandList. Out of Memory
@@ -1229,7 +1267,6 @@ Failed to create register class for joystick autodetect
 Failed to create shader module!
 Failed to create temporary download buffer!
 Failed to create temporary upload buffer.
-Failed to create texture container!
 Failed to create texture download structure!
 Failed to create texture image view
 Failed to create texture!
@@ -1252,7 +1289,6 @@ Failed to load vkGetInstanceProcAddr from Vulkan Portability library
 Failed to map buffer pool!
 Failed to map destination buffer!
 Failed to map staging buffer
-Failed to map temporary buffer!
 Failed to map uniform buffer
 Failed to map upload buffer!
 Failed to obtain XInput device capabilities. Device disconnected?
@@ -1310,7 +1346,6 @@ GL_TABLE_TOO_LARGE
 GL_UpdateTexture
 GL_UpdateTextureNV
 GL_UpdateTextureYUV
-Ga=UU
 GameInputCreate
 GameInputCreate failure with HRESULT of %08X
 GameSir
@@ -1659,6 +1694,7 @@ LC_MESSAGES
 LOAD_DEFAULT_SETTINGS failed for controller %p\n
 LY}A
 LY}Q
+L\tsP
 Late swap tearing currently unsupported
 LayerOrDepth
 Leaked %s (%p)\n
@@ -1918,6 +1954,10 @@ Present mode not supported!
 Present()
 PrintScreen
 Prior
+Process isn't running
+Process not created with I/O enabled
+Process not created with standard input available
+Process not created with standard output available
 PtInRect
 Public share unavailable on Windows
 QANBA USA, LLC
@@ -1938,10 +1978,11 @@ RENDER
 RIFF form type is not WAVE (not a Waveform file)
 RIFF size truncates chunk
 ROTATION
-RSDSj
+RSDSgH
 RTS0
 RTS00
 RTS0H
+R\fpP
 Rcoeff
 Read timed out
 Reading from
@@ -2006,7 +2047,7 @@ SDL failed to get a vertex buffer for this Direct3D 9 rendering batch!
 SDL generic title storage driver
 SDL generic user storage driver
 SDL offscreen video driver
-SDL-prerelease-3.1.2-1616-g1d59be67f
+SDL-prerelease-3.1.2-1827-g34c601136
 SDL.app.metadata.copyright
 SDL.app.metadata.creator
 SDL.app.metadata.identifier
@@ -2031,6 +2072,7 @@ SDL.gpu.device.create.shaders.metallib
 SDL.gpu.device.create.shaders.msl
 SDL.gpu.device.create.shaders.private
 SDL.gpu.device.create.shaders.spirv
+SDL.internal.process
 SDL.internal.texture.parent
 SDL.internal.window.renderer
 SDL.internal.window.surface
@@ -2043,6 +2085,21 @@ SDL.joystick.cap.player_led
 SDL.joystick.cap.rgb_led
 SDL.joystick.cap.rumble
 SDL.joystick.cap.trigger_rumble
+SDL.process.background
+SDL.process.create.args
+SDL.process.create.background
+SDL.process.create.environment
+SDL.process.create.stderr_option
+SDL.process.create.stderr_source
+SDL.process.create.stderr_to_stdout
+SDL.process.create.stdin_option
+SDL.process.create.stdin_source
+SDL.process.create.stdout_option
+SDL.process.create.stdout_source
+SDL.process.pid
+SDL.process.stderr
+SDL.process.stdin
+SDL.process.stdout
 SDL.renderer.HDR_enabled
 SDL.renderer.HDR_headroom
 SDL.renderer.SDR_white_point
@@ -2190,6 +2247,7 @@ SDL_AcquireCameraFrame
 SDL_AcquireGPUCommandBuffer
 SDL_AcquireGPUSwapchainTexture
 SDL_AcquireGPUSwapchainTexture_REAL
+SDL_AddAtomicInt
 SDL_AddEventWatch
 SDL_AddGamepadMapping
 SDL_AddGamepadMappingsFromFile
@@ -2199,13 +2257,6 @@ SDL_AddSurfaceAlternateImage
 SDL_AddTimer
 SDL_AddTimerNS
 SDL_AddVulkanRenderSemaphores
-SDL_AtomicAdd
-SDL_AtomicCompareAndSwap
-SDL_AtomicCompareAndSwapPointer
-SDL_AtomicGet
-SDL_AtomicGetPointer
-SDL_AtomicSet
-SDL_AtomicSetPointer
 SDL_AttachVirtualJoystick
 SDL_BMP_SAVE_LEGACY_FORMAT
 SDL_BORDERLESS_RESIZABLE_STYLE
@@ -2220,6 +2271,8 @@ SDL_BindAudioStream
 SDL_BindAudioStreams
 SDL_BindGPUComputePipeline
 SDL_BindGPUComputePipeline_REAL
+SDL_BindGPUComputeSamplers
+SDL_BindGPUComputeSamplers_REAL
 SDL_BindGPUComputeStorageBuffers
 SDL_BindGPUComputeStorageBuffers_REAL
 SDL_BindGPUComputeStorageTextures
@@ -2275,6 +2328,9 @@ SDL_CloseIO
 SDL_CloseJoystick
 SDL_CloseSensor
 SDL_CloseStorage
+SDL_CompareAndSwapAtomicInt
+SDL_CompareAndSwapAtomicPointer
+SDL_CompareAndSwapAtomicU32
 SDL_ComposeCustomBlendMode
 SDL_ConvertAudioSamples
 SDL_ConvertEventToRenderCoordinates
@@ -2289,11 +2345,14 @@ SDL_ConvertSurface
 SDL_ConvertSurfaceAndColorspace
 SDL_CopyFile
 SDL_CopyGPUBufferToBuffer
+SDL_CopyGPUBufferToBuffer_REAL
 SDL_CopyGPUTextureToTexture
+SDL_CopyGPUTextureToTexture_REAL
 SDL_CopyProperties
 SDL_CopyStorageFile
 SDL_CreateCondition
 SDL_CreateDirectory
+SDL_CreateEnvironment
 SDL_CreateGPUBuffer
 SDL_CreateGPUComputePipeline
 SDL_CreateGPUComputePipeline_REAL
@@ -2311,6 +2370,8 @@ SDL_CreateHapticEffect
 SDL_CreateMutex
 SDL_CreatePalette
 SDL_CreatePopupWindow
+SDL_CreateProcess
+SDL_CreateProcessWithProperties
 SDL_CreateRWLock
 SDL_CreateRenderer
 SDL_CreateRendererWithProperties
@@ -2334,10 +2395,12 @@ SDL_DateTimeToTime
 SDL_Delay
 SDL_DelayNS
 SDL_DestroyCondition
+SDL_DestroyEnvironment
 SDL_DestroyGPUDevice
 SDL_DestroyHapticEffect
 SDL_DestroyMutex
 SDL_DestroyPalette
+SDL_DestroyProcess
 SDL_DestroyRWLock
 SDL_DestroyRenderer
 SDL_DestroySemaphore
@@ -2350,7 +2413,9 @@ SDL_DispatchGPUComputeIndirect
 SDL_DispatchGPUComputeIndirect_REAL
 SDL_DispatchGPUCompute_REAL
 SDL_DownloadFromGPUBuffer
+SDL_DownloadFromGPUBuffer_REAL
 SDL_DownloadFromGPUTexture
+SDL_DownloadFromGPUTexture_REAL
 SDL_DrawGPUIndexedPrimitives
 SDL_DrawGPUIndexedPrimitivesIndirect
 SDL_DrawGPUIndexedPrimitivesIndirect_REAL
@@ -2506,6 +2571,7 @@ SDL_FilterEvents
 SDL_FlipSurface
 SDL_FlushEvent
 SDL_FlushEvents
+SDL_FlushIO
 SDL_FlushRenderer
 SDL_GAMECONTROLLERCONFIG
 SDL_GAMECONTROLLERCONFIG_FILE
@@ -2532,6 +2598,8 @@ SDL_GPU Driver: D3D12
 SDL_GPU Driver: Vulkan
 SDL_GPUD3D11WindowPropertyData
 SDL_GPUD3D12WindowPropertyData
+SDL_GPUSupportsProperties
+SDL_GPUSupportsShaderFormats
 SDL_GPUTextureFormatTexelBlockSize
 SDL_GPUTextureFormatTexelBlockSize_REAL
 SDL_GPUTextureSupportsFormat
@@ -2553,6 +2621,9 @@ SDL_GenerateMipmapsForGPUTexture_REAL
 SDL_GetAppMetadataProperty
 SDL_GetAssertionHandler
 SDL_GetAssertionReport
+SDL_GetAtomicInt
+SDL_GetAtomicPointer
+SDL_GetAtomicU32
 SDL_GetAudioDeviceChannelMap
 SDL_GetAudioDeviceGain
 SDL_GetAudioDriver
@@ -2565,7 +2636,6 @@ SDL_GetAudioStreamProperties
 SDL_GetBasePath
 SDL_GetBooleanProperty
 SDL_GetCPUCacheLineSize
-SDL_GetCPUCount
 SDL_GetCameraDriver
 SDL_GetCameraFormat
 SDL_GetCameraID
@@ -2593,9 +2663,14 @@ SDL_GetDisplayForPoint
 SDL_GetDisplayForRect
 SDL_GetDisplayProperties
 SDL_GetDisplayUsableBounds
+SDL_GetEnvironment
+SDL_GetEnvironmentVariable
+SDL_GetEnvironmentVariables
 SDL_GetEventFilter
 SDL_GetFloatProperty
+SDL_GetGPUDeviceDriver
 SDL_GetGPUDriver
+SDL_GetGPUShaderFormats
 SDL_GetGPUSwapchainTextureFormat
 SDL_GetGamepadAppleSFSymbolsNameForAxis
 SDL_GetGamepadAppleSFSymbolsNameForButton
@@ -2699,6 +2774,7 @@ SDL_GetNaturalDisplayOrientation
 SDL_GetNumAllocations
 SDL_GetNumAudioDrivers
 SDL_GetNumCameraDrivers
+SDL_GetNumGPUDrivers
 SDL_GetNumGamepadTouchpadFingers
 SDL_GetNumGamepadTouchpads
 SDL_GetNumHapticAxes
@@ -2706,6 +2782,7 @@ SDL_GetNumJoystickAxes
 SDL_GetNumJoystickBalls
 SDL_GetNumJoystickButtons
 SDL_GetNumJoystickHats
+SDL_GetNumLogicalCPUCores
 SDL_GetNumRenderDrivers
 SDL_GetNumVideoDrivers
 SDL_GetOriginalMemoryFunctions
@@ -2720,6 +2797,9 @@ SDL_GetPrefPath
 SDL_GetPreferredLocales
 SDL_GetPrimaryDisplay
 SDL_GetPrimarySelectionText
+SDL_GetProcessInput
+SDL_GetProcessOutput
+SDL_GetProcessProperties
 SDL_GetRGB
 SDL_GetRGBA
 SDL_GetRealGamepadType
@@ -2893,6 +2973,7 @@ SDL_JOYSTICK_HIDAPI_LUNA
 SDL_JOYSTICK_HIDAPI_NINTENDO_CLASSIC
 SDL_JOYSTICK_HIDAPI_PS3
 SDL_JOYSTICK_HIDAPI_PS3_SIXAXIS_DRIVER
+SDL_JOYSTICK_HIDAPI_PS4
 SDL_JOYSTICK_HIDAPI_PS4_REPORT_INTERVAL
 SDL_JOYSTICK_HIDAPI_PS4_RUMBLE
 SDL_JOYSTICK_HIDAPI_PS5
@@ -2903,6 +2984,7 @@ SDL_JOYSTICK_HIDAPI_STADIA
 SDL_JOYSTICK_HIDAPI_STEAM
 SDL_JOYSTICK_HIDAPI_STEAMDECK
 SDL_JOYSTICK_HIDAPI_STEAMXBOX
+SDL_JOYSTICK_HIDAPI_STEAM_HORI
 SDL_JOYSTICK_HIDAPI_SWITCH
 SDL_JOYSTICK_HIDAPI_SWITCH_HOME_LED
 SDL_JOYSTICK_HIDAPI_SWITCH_PLAYER_LED
@@ -2926,6 +3008,7 @@ SDL_Joystick
 SDL_JoystickConnected
 SDL_JoystickEventsEnabled
 SDL_KEYCODE_OPTIONS
+SDL_KillProcess
 SDL_LOGGING
 SDL_LoadBMP
 SDL_LoadFile
@@ -2951,6 +3034,7 @@ SDL_LogError
 SDL_LogInfo
 SDL_LogMessage
 SDL_LogMessageV
+SDL_LogTrace
 SDL_LogVerbose
 SDL_LogWarn
 SDL_MAIN_CALLBACK_RATE
@@ -3068,6 +3152,7 @@ SDL_PIXELFORMAT_YV12
 SDL_PIXELFORMAT_YVYU
 SDL_POLL_SENTINEL
 SDL_PREFERRED_LOCALES
+SDL_PROP_PROCESS_CREATE_ARGS_POINTER
 SDL_PauseAudioStreamDevice
 SDL_PauseHaptic
 SDL_PopGPUDebugGroup
@@ -3097,6 +3182,7 @@ SDL_RENDER_VULKAN_DEBUG
 SDL_ROG_GAMEPAD_MICE
 SDL_ROG_GAMEPAD_MICE_EXCLUDED
 SDL_ReadIO
+SDL_ReadProcess
 SDL_ReadS16BE
 SDL_ReadS16LE
 SDL_ReadS32BE
@@ -3186,6 +3272,9 @@ SDL_Sensor
 SDL_SetAppMetadata
 SDL_SetAppMetadataProperty
 SDL_SetAssertionHandler
+SDL_SetAtomicInt
+SDL_SetAtomicPointer
+SDL_SetAtomicU32
 SDL_SetAudioDeviceGain
 SDL_SetAudioPostmixCallback
 SDL_SetAudioStreamFormat
@@ -3197,6 +3286,7 @@ SDL_SetAudioStreamOutputChannelMap
 SDL_SetAudioStreamPutCallback
 SDL_SetBooleanProperty
 SDL_SetClipboardData
+SDL_SetEnvironmentVariable
 SDL_SetError
 SDL_SetEventEnabled
 SDL_SetEventFilter
@@ -3329,6 +3419,7 @@ SDL_UnlockSurface
 SDL_UnlockTexture
 SDL_UnmapGPUTransferBuffer
 SDL_UnregisterApp
+SDL_UnsetEnvironmentVariable
 SDL_UpdateGamepads
 SDL_UpdateHapticEffect
 SDL_UpdateNVTexture
@@ -3338,6 +3429,7 @@ SDL_UpdateWindowSurface
 SDL_UpdateWindowSurfaceRects
 SDL_UpdateYUVTexture
 SDL_UploadToGPUBuffer
+SDL_UploadToGPUBuffer_REAL
 SDL_UploadToGPUTexture
 SDL_UploadToGPUTexture_REAL
 SDL_VIDEO_DUMMY_SAVE_FRAMES
@@ -3376,6 +3468,7 @@ SDL_WaitCondition
 SDL_WaitConditionTimeout
 SDL_WaitForGPUFences
 SDL_WaitForGPUIdle
+SDL_WaitProcess
 SDL_WaitSemaphore
 SDL_WaitSemaphoreTimeout
 SDL_WaitThread
@@ -3439,6 +3532,7 @@ SDL_floorf
 SDL_fmod
 SDL_fmodf
 SDL_getenv
+SDL_getenv_unsafe
 SDL_hid_ble_scan
 SDL_hid_close
 SDL_hid_device_change_count
@@ -3553,7 +3647,7 @@ SDL_truncf
 SDL_uitoa
 SDL_ulltoa
 SDL_ultoa
-SDL_unsetenv
+SDL_unsetenv_unsafe
 SDL_utf8strlcpy
 SDL_utf8strlen
 SDL_utf8strnlen
@@ -3620,9 +3714,13 @@ SetCursorPos
 SetDrawState
 SetEnvironmentVariableA
 SetFocus
+SetHandleInformation
+SetHandleInformation()
 SetLED failed, device disconnected
 SetLayeredWindowAttributes
 SetLayeredWindowAttributes()
+SetNamedPipeHandleState
+SetNamedPipeHandleState()
 SetParent
 SetPixelFormat
 SetPixelFormat()
@@ -3650,6 +3748,7 @@ SetWindowsHookExW
 Setting autocenter
 Setting cooperative level to exclusive
 Setting data format
+Setting fence event failed
 Setting gain
 Setting the swap interval is not supported
 SetupDiDestroyDeviceInfoList
@@ -3677,6 +3776,7 @@ SourceTexture2D
 SourceTexture2DArray
 SourceTexture3D
 SourceTextureCube
+SourceTextureCubeArray
 Space
 Speed values must be in ascending order
 Staging texture creation failed
@@ -3726,7 +3826,9 @@ TEST
 TEXCOORD
 TINTLGNT.IME
 TOOMANYOPERATIONS
+TRACE
 TaskDialogIndirect
+TerminateProcess failed
 Texture dimensions are limited to %dx%d
 Texture dimensions can't be 0
 Texture format %s not supported by OpenGL
@@ -3865,7 +3967,6 @@ Unsupported SDL_Folder on Windows before Vista: %d
 Unsupported YUV colorspace
 Unsupported YUV conversion
 Unsupported YUV destination format: %s
-Unsupported YUV format
 Unsupported audio format
 Unsupported backbuffer format
 Unsupported block alignment
@@ -3882,6 +3983,7 @@ Upitch
 Uplane
 Use of OpenGL without a window is not supported on this platform
 V'7V&Uv
+V'7V6
 V'7V67%
 V'7V67%p*
 V'7V67%x
@@ -4024,6 +4126,7 @@ WGL_EXT_swap_control
 WGL_EXT_swap_control_tear
 WIN_AdjustWindowRectWithStyle
 WRONGTEXTUREFORMAT
+WaitForSingleObject(hProcess) returned WAIT_FAILED
 WaitOnAddress
 Wake
 WakeByAddressSingle
@@ -4036,6 +4139,7 @@ Window must have a parent to enable the modal state; use SDL_SetWindowParent() t
 Window surface is invalid, please call SDL_GetWindowSurface() to get a new surface
 Windows error, CommDlgExtendedError: %ld
 Wireless Gamepad
+Wireless HORIPAD For Steam
 Write memory failed: %u
 Writing to
 Wrong format
@@ -4106,12 +4210,14 @@ ZvfkJ
 [slot %d]
 \\?\HID#VID_28DE&PID_11FF&IG_0%d
 \f6,CWY
+\f<3h>2LayerOrDepth
 \fB0K
 \fG4w
 \fc=Ac
 \n\nSDL assertion report.\n
 \nlC@L
 \nw0b
+\rA5A
 \rA5A(
 \rBUmX
 \tBAM
@@ -4167,6 +4273,7 @@ audio_buf
 audio_len
 avx2
 avx512f
+ay^3b
 b!r!o,P
 b0$0
 bW&7
@@ -4427,6 +4534,7 @@ hide_numpad
 hint:
 hint:SDL_GAMECONTROLLER_USE_BUTTON_LABELS
 i9>7
+i>"MipLevel
 iH|f\t
 icon
 iface
@@ -4435,7 +4543,9 @@ ignorezero
 image
 image/bmp
 imm32.dll
+index
 index must be in the range of 0 - %d
+info
 initial
 input.color
 input.pos
@@ -4471,7 +4581,6 @@ mEC5
 mJ@4!
 m[2b
 main
-main0
 mainD
 malloc_func
 mappingString
@@ -4521,9 +4630,11 @@ opengl
 opengl32.dll
 opengles2
 outputIndex
+pT@hQ
 paddle1
 paddle1:b11,paddle2:b13,paddle3:b12,paddle4:b14,
 paddle1:b12,paddle2:b11,
+paddle1:b13,paddle2:b12,paddle3:b15,paddle4:b14,misc2:b11,misc3:b16,misc4:b17
 paddle1:b16,paddle2:b15,paddle3:b14,paddle4:b13,
 paddle2
 paddle3
@@ -4538,6 +4649,7 @@ platform
 platform:
 points
 pressed
+process
 projectionAndView
 ps_2_0
 pulse
@@ -4545,6 +4657,7 @@ pulseaudio
 pushConstants
 qDSOUND.DLL
 qIYUV
+qJ|f\t
 qNV12
 qNV21
 qUYVY
@@ -4553,6 +4666,7 @@ qYV12
 qYVYU
 quiet
 r,s,d
+r\vpP
 read size overflow
 realloc_func
 rect
@@ -4666,6 +4780,7 @@ unknown object
 unused_pad0
 update size overflow
 v<y5
+v@Unsupported YUV format
 varying mediump vec4 v_color;\n\nvoid main()\n{\n    gl_FragColor = v_color;\n}\n
 varying vec4 v_color;\n\nvoid main()\n{\n    gl_FragColor = v_color;\n}
 varying vec4 v_color;\n\nvoid main()\n{\n    gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;\n    v_color = gl_Color;\n}
@@ -4968,7 +5083,6 @@ width * bpp would overflow
 width * height would overflow
 width + 1 would overflow
 window
-windows_file_seek
 windows_file_seek: Unknown value for 'whence'
 windows_file_size
 x0P18v 
