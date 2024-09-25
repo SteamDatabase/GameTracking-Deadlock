@@ -81,9 +81,12 @@
  ' ) - 3 G M Q _ c e i w } 
  (%d)Unknown
  (%ld unused bits)\n
- (08@HPXb
- (08@HR
- (0X`hpz
+ (08@HPX`j0
+ (08@HPXb0;
+ (08@HPZ0
+ (08@HR0;
+ (08@J0
+ (0X`hpz0;
  (Dirty Animation)
  (INVALID PSS PARAMETERS)\n
  (Negative)
@@ -119,6 +122,7 @@
  <-- Arg '%s'
  <-- Retval '%s'
  <b>@import</b> 
+ A8-w
  ACTIVE GROUP
  CBuildCubemaps
  C_PhysPropClientside::Spawn: SetupPhysicsAsModel() failed for %s.\n
@@ -2001,6 +2005,7 @@ $hRh
 '\n#STEAMLEARN_INFERENCE_METADATA_ERROR
 '\n#k_EGCMsgUseItemResponse_ServerError
 '\n#k_EServerSignoutData_Disconnections
+'\n#k_EServerSignoutData_ReportCheaters
 '\n#k_ESignout_Success_AlreadySignedOut
 '\n#k_PackBundle_Failed_BadItemQuantity
 '\n#k_PackBundle_Failed_ItemIsNotBundle
@@ -2167,6 +2172,7 @@ $hRh
 (\t"#\n\tEAwardIDs
 (\t")\n'CPlayer_GetPerFriendPreferences_Request"
 (\t")\n\rCMsgSOIDOwner
+(\t"6\n#CMsgServerToGCReportCheaterResponse
 (\t"7\n&CMsgSteamLearn_GetAccessTokens_Request
 (\t"8\n%CMsgGCToServerSetServerConVarResponse
 (\t"9\n\nEOperation
@@ -2581,6 +2587,7 @@ $hRh
 *\n%k_EMsgClientToGCUpdateSpectatorStatus
 *\n%k_EMsgGCRequestStoreSalesDataResponse
 *\n%k_EMsgGCStorePurchaseFinalizeResponse
+*\n%k_EMsgServerToGCReportCheaterResponse
 *\n%k_EUserMsg_ParticipantStartSoundEvent
 *\n&CITADEL_CHAT_MESSAGE_PREGAME_COUNTDOWN
 *\n&CITADEL_CHAT_MESSAGE_UNPAUSE_COUNTDOWN
@@ -8612,6 +8619,8 @@ $hRh
 .?AVCMsgServerToGCMatchSignoutPermission@@
 .?AVCMsgServerToGCMatchSignoutPermissionResponse@@
 .?AVCMsgServerToGCMatchSignoutResponse@@
+.?AVCMsgServerToGCReportCheater@@
+.?AVCMsgServerToGCReportCheaterResponse@@
 .?AVCMsgServerToGCTestConnection@@
 .?AVCMsgServerToGCTestConnectionResponse@@
 .?AVCMsgServerToGCUpdateLobbyServerState@@
@@ -10341,7 +10350,6 @@ $hRh
 .P6AHPEBVIUIPanelClient@panorama@@0@Z
 .P6AXPEAVCSceneObject@@@Z
 .P6A_NXZ
-.P6I
 .PARTICLE_MESSAGE
 .PEAV?$CUtlVector@ULifetimeHighScore_t@CCitadelAccountStatCache@@HV?$CUtlMemory@ULifetimeHighScore_t@CCitadelAccountStatCache@@H@@@@
 .PEAVCBaseModifier@@
@@ -10658,7 +10666,7 @@ $hRh
 .dx_LV9
 .google.protobuf.ServiceOptions
 .lbN
-.p3I
+.p7I
 .png
 .pp@0
 .steammessages_unified_base.steamworkssdk.proto"
@@ -10729,15 +10737,17 @@ $hRh
 0.CPlayer_UpdateSteamAnnouncementLastRead_Request
 02V8[
 05=k
-08@J
+08@HR0
+08@J0;
+08B0
 08bX
 09,h
-0:Ph
 0;Q5[
 0<cz
 0M2~@p
 0Marks latest announcement timestamp read by user
 0Name of the file to publish in the user's cloud.
+0P&C
 0W/5
 0Z@q
 0\f504P
@@ -10769,6 +10779,7 @@ $hRh
 0e\r8
 0pp@5tqE?|sO541
 0tU+xc:
+0vD.C
 0x%4.4x 
 0x%X
 0x%X 
@@ -10958,7 +10969,6 @@ $hRh
 2\r%2h
 2\r.CameraAction
 2\rlhp
-2\vph
 2^pV
 2a"l
 2bT~
@@ -11079,23 +11089,23 @@ $hRh
 6(Optional) Type of game the published file represents.
 6,2K
 6-zeZ
-606I
 62$|S)6f
 64CK\vH
 65535
 65535"
 65535"j\n
 65535B$
-66666666666666660p
+6666666666666666
 666666666666666666666666666666666666666666666666\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\.\ssl\s3_enc.c
 67-s
 6?NumberValue@Value@v8@@QEBA?AV?$Maybe@N@2@V?$Local@VContext@v8@@@2@@Z
 6H,N
 6O|T%
+6P I
+6P8I
 6Qd=
 6Returns the URL of the proper cloud server for a user.
 6True if the operation was successful, false otherwise.
-6ZJI
 6\n1k_EMsgClientToGCUpdateHeroBuildPreferenceResponse
 6\n2GAME_PARTICLE_MANAGER_EVENT_UPDATE_ENTITY_POSITION
 6\n2k_EGCMsgInitiateTradeResponse_VAC_Banned_Initiator
@@ -11112,6 +11122,9 @@ $hRh
 6l13
 6lkc
 6myY;
+6p!I
+6p;I
+6pAI
 6qo~
 6r-m_v
 6r1ij
@@ -11161,6 +11174,7 @@ $hRh
 851Pe
 8<pl
 8= zp
+8@J0
 8A6j
 8Client ID for which to count the number of issued tokens"
 8GZS
@@ -11475,12 +11489,13 @@ $hRh
 ?uWS
 ?x29
 @!@%@+@1@?@C@E@]@a@g@m@
+@08ND.C
 @0pp
 @?SlowGetInternalField@Object@v8@@AEAA?AV?$Local@VData@v8@@@2@H@Z
 @BH]f
 @BoneSetup
 @DebugIndividualStyle
-@HPX`hvP
+@HV0
 @MfKZ
 @Pgl
 @Pu\rm
@@ -11493,11 +11508,13 @@ $hRh
 @\n<STEAMLEARN_SNAPSHOT_PROJECT_ERROR_INTERNAL_DATA_SOURCE_ERROR
 @\n\fSingleObject
 @dKb]
+@fD.C
 @fff>fff>fff>fff>
 @i1V
 @keyframes 
 @keyframes '%s'\r\n{\r\n
 @n2w
+@nD.C
 A bias on the lerp
 A capsule light entity
 A comma separated list of hero IDs that hold the currently high priority roster heroes
@@ -11529,7 +11546,6 @@ A<fP
 A>x8
 AA Compromise
 AA->Output
-AA:@g
 AABBDirection
 AABB_t
 AACompromise
@@ -11830,6 +11846,7 @@ A\n\tent_index
 A\n\vdescriptors
 A\n\vdiagnostics
 A\rjW
+A\v:05
 A_txt
 AbW_
 Abandoned
@@ -16366,6 +16383,7 @@ CMsgServerToGCAbandonMatch
 CMsgServerToGCEnterMatchmaking
 CMsgServerToGCIdlePing
 CMsgServerToGCMatchSignout
+CMsgServerToGCReportCheater
 CMsgServerToGCTestConnection"G\n$CMsgServerToGCTestConnectionResponse
 CMsgServerToGCUpdateMatchInfo
 CMsgServerUseItem
@@ -23004,10 +23022,10 @@ H8xp
 H=`HY
 H@H9xqI
 HBJ\nTRF
-HDHU
 HDR Color Scale: %0.3f
 HDRColor
 HDRColorScale
+HDXv
 HEAD 
 HEIGHT
 HH&a
@@ -27044,9 +27062,11 @@ P-224
 P-256
 P-384
 P-521
-P08@J
-P08J
+P08@J0;
+P08JP
+P08ND.C
 P1\t98"
+P20;
 P2P ping to "%s". Timed out after %.2fms\n
 P2P_Messages
 P5[1
@@ -27329,6 +27349,7 @@ POST
 POST 
 POS_FLOATLITERAL
 POS_INTLITERAL
+PP&C
 PPz\v=
 PRB+
 PRECIPITATION
@@ -27709,6 +27730,7 @@ Plots
 Plots view angles yaw at various stages of the frame/tick in Tracy.
 Pm8A?
 PmR"H?
+PnD.C
 Point entity.
 Point under crosshair
 PointTemplateClientOnlyEntityBehavior_t
@@ -28302,7 +28324,7 @@ RUMBLE_STOP_ALL
 R\n\nBookReward
 R\n\rincludekvtags
 R\r1>Vp
-R\vph
+R\vpP&C
 R]Di
 Radiant
 RadioBox
@@ -32017,7 +32039,6 @@ Ut]<E
 UtilRemoveDefferalSystem
 Uv1t
 Uz_G3=
-V0&I
 V07;m
 V2I_ASIDENTIFIERS
 V2I_AUTHORITY_INFO_ACCESS
@@ -32249,6 +32270,7 @@ VolumetricFog
 VolumetricFogView
 VoteData
 VoxManager
+Vp5I
 Vp>u
 Vt_9
 VulnerabilityPerStack
@@ -32804,6 +32826,7 @@ XRJ2
 XWY]
 XYD%
 X\tQo
+X`hr0
 Xd3h
 XfJ7
 XjfR
@@ -33018,7 +33041,6 @@ Z~wl
 \f]ne3
 \fdhWTh
 \fiaR
-\fp\vPL
 \ful2
 \fy&3Gl
 \l:ArR
@@ -33198,6 +33220,7 @@ Z~wl
 \nGameTime_t*
 \nNo old builds found for %s\n\n
 \nOld builds for %s:\n\n
+\nPP&C
 \nSimulating Entities:\n\n
 \n\fAnnouncement
 \n\fCMsgItemAges
@@ -34113,6 +34136,7 @@ Z~wl
 \v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r
 \vj0k
 \vjC7
+\vpP&C
 ]1h=bfz
 ]FhSD}
 ]GT7]
@@ -34120,7 +34144,6 @@ Z~wl
 ]MSd
 ][LK~lO
 ^.om5r
-^00I
 ^DnJ
 ^DqPt
 ^J_spY
@@ -34188,6 +34211,7 @@ _xU`u
 _}eOk
 `28)fk
 `3?New@Array@v8@@SA?AV?$Local@VArray@v8@@@2@PEAVIsolate@2@H@Z
+`6 3I
 `:zQF
 `D$daM-l
 `DZG
@@ -34197,12 +34221,14 @@ _}eOk
 `VX:H
 `\n\rvector_values
 `adjustor{
+`fD.C
 `fPw.\vM
 `generic-class-parameter-
 `generic-method-parameter-
 `generic-type-
 `h9T~
 `local static destructor helper'
+`nD.C
 `non-type-template-parameter
 `o_je
 `template static data member constructor helper'
@@ -34227,6 +34253,7 @@ a5<p
 a;Tg
 a@XZ
 aA0k
+aBvD.C
 aD/x
 aDSS
 aECDH
@@ -38601,12 +38628,15 @@ eyj5yR
 f#9i\n
 f%wyLmX:
 f&dy
+f(UI
 f1cK%
 f45\r
 fBB\fy
 fC\tc
+fD.C
 fL\ri
 fP;y
+fSUI
 fUnh\
 f\trixZ
 f_%s_weight
@@ -39975,6 +40005,7 @@ hovering
 how fast to run (1 to use player max run speed).
 hows joint info for this entity
 hp_stat
+hpz0;
 hr_H
 href="
 hscroll
@@ -41599,6 +41630,8 @@ k_EMsgServerToGCMatchSignout
 k_EMsgServerToGCMatchSignoutPermission
 k_EMsgServerToGCMatchSignoutPermissionResponse
 k_EMsgServerToGCMatchSignoutResponse
+k_EMsgServerToGCReportCheater
+k_EMsgServerToGCReportCheaterResponse
 k_EMsgServerToGCTestConnection
 k_EMsgServerToGCTestConnectionResponse
 k_EMsgServerToGCUpdateLobbyServerState
@@ -41663,6 +41696,7 @@ k_EServerSignoutData_Disconnections
 k_EServerSignoutData_PenalizedPlayers
 k_EServerSignoutData_PerfData
 k_EServerSignoutData_PlayerChat
+k_EServerSignoutData_ReportCheaters
 k_EServerSignoutData_ServerPerfStats
 k_ESignout_Failed_InFlight
 k_ESignout_Failed_NoRetry
@@ -49217,6 +49251,7 @@ nChangeOffset > 0
 nClipRemaining
 nCompressedSize == nUncompressedSize
 nCursorID
+nD.C
 nDataSize > 0
 nEditorID
 nGeneratedMips == nMips
@@ -49531,6 +49566,7 @@ notifications_showmessages
 notifications_showonline
 notreadybehavior
 nowrap
+np?I
 npc_barrack_boss
 npc_boss_tier2
 npc_boss_tier2_sidelanes
@@ -49876,7 +49912,8 @@ p.other
 p.ppBasis
 p.prime
 p.tpBasis
-p0j F
+p08@H^D.C
+p20;
 p2p_FightingGame_Connection
 p2p_FightingGame_GameData
 p2p_Ping
@@ -49894,8 +49931,10 @@ p4Z3
 p5Z3
 p5\nL,
 p618
-p6`\tI
+p>4UI
 p>?Set@Template@v8@@QEAAXV?$Local@VName@v8@@@2@V?$Local@VData@v8@@@2@W4PropertyAttribute@2@@Z
+p>D.C
+p>_UI
 p@0pqE5tsO?|1
 pAmodifier_wrecker_salvage
 pAsyncRet2
@@ -49910,6 +49949,7 @@ pHitEntity
 pIp 
 pLocationEntity
 pO0h
+pP&C
 pRTH
 pRetName
 pSPo
@@ -50673,6 +50713,7 @@ playtime_2weeks
 playtime_forever
 plum
 pm_flOldModelScale
+pnD.C
 point
 point arithmetic failure
 point at infinity
@@ -51049,6 +51090,7 @@ rRfKR
 rX&O0
 rZ1VwGf5
 rZPM
+r\fpP&C
 r\n\vstart_index
 r\vDi
 r_AirboatViewDampenDamp
@@ -54163,7 +54205,9 @@ v<d2}
 vAj}
 vAr>
 vAu&
+vD.C
 vF'l
+vP=I
 vW3N&
 v\n,associated_workshop_file_for_direct_payments
 v\v$m8

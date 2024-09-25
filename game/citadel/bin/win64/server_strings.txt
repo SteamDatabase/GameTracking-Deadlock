@@ -148,10 +148,10 @@
  %s%lu (%s0x%lx)\n
  ' ) - 3 G M Q _ c e i w } 
  (%ld unused bits)\n
- (08@HPXbp
- (08@HRp
- (08@Jp
- (0X`hpzp
+ (08@HPXbP
+ (08@HRP
+ (08@JP
+ (0X`hpzP
  (Dirty Animation)
  (Eluded)
  (INVALID PSS PARAMETERS)\n
@@ -1100,6 +1100,7 @@ $light_emissive
 '\n#STEAMLEARN_INFERENCE_METADATA_ERROR
 '\n#k_EGCMsgUseItemResponse_ServerError
 '\n#k_EServerSignoutData_Disconnections
+'\n#k_EServerSignoutData_ReportCheaters
 '\n#k_ESignout_Success_AlreadySignedOut
 '\n#k_PackBundle_Failed_BadItemQuantity
 '\n#k_PackBundle_Failed_ItemIsNotBundle
@@ -1261,6 +1262,7 @@ $light_emissive
 (\r"y\n\tEResponse
 (\t"#\n\tEAwardIDs
 (\t")\n\rCMsgSOIDOwner
+(\t"6\n#CMsgServerToGCReportCheaterResponse
 (\t"7\n&CMsgSteamLearn_GetAccessTokens_Request
 (\t"8\n%CMsgGCToServerSetServerConVarResponse
 (\t">\n+CClientMsg_DevPaletteVisibilityChangedEvent
@@ -1631,6 +1633,7 @@ $light_emissive
 *\n%k_EMsgClientToGCRemoveItemDescription
 *\n%k_EMsgGCRequestStoreSalesDataResponse
 *\n%k_EMsgGCStorePurchaseFinalizeResponse
+*\n%k_EMsgServerToGCReportCheaterResponse
 *\n%k_EUserMsg_ParticipantStartSoundEvent
 *\n&CITADEL_CHAT_MESSAGE_PREGAME_COUNTDOWN
 *\n&CITADEL_CHAT_MESSAGE_UNPAUSE_COUNTDOWN
@@ -3054,6 +3057,7 @@ $light_emissive
 .?AV?$CMsgIDLink@$01$0BA@$0CHCK@VCMsgServerToGCAbandonMatch@@@@
 .?AV?$CMsgIDLink@$01$0BA@$0CHCM@VCMsgServerToGCTestConnection@@@@
 .?AV?$CMsgIDLink@$01$0BA@$0CHDJ@VCMsgServerToGCUpdateMatchInfo@@@@
+.?AV?$CMsgIDLink@$01$0BA@$0CHDK@VCMsgServerToGCReportCheater@@@@
 .?AV?$CMsgIDLink@$02$0BA@$0BLFI@VCMsgAnyToGCReportAsserts@@@@
 .?AV?$CMsgIDLinkGenericClientToGC@$01$0CHCC@VCMsgServerToGCIdlePing@@@@
 .?AV?$CMsgIDLinkGenericClientToGC@$01$0CHCH@VCMsgServerToGCEnterMatchmaking@@@@
@@ -3063,11 +3067,13 @@ $light_emissive
 .?AV?$CMsgIDLinkGenericClientToGCResponse@$01$0CHBO@VCMsgServerToGCMatchSignout@@$0CHBP@VCMsgServerToGCMatchSignoutResponse@@@@
 .?AV?$CMsgIDLinkGenericClientToGCResponse@$01$0CHCK@VCMsgServerToGCAbandonMatch@@$0CHCL@VCMsgServerToGCAbandonMatchResponse@@@@
 .?AV?$CMsgIDLinkGenericClientToGCResponse@$01$0CHCM@VCMsgServerToGCTestConnection@@$0CHCN@VCMsgServerToGCTestConnectionResponse@@@@
+.?AV?$CMsgIDLinkGenericClientToGCResponse@$01$0CHDK@VCMsgServerToGCReportCheater@@$0CHDL@VCMsgServerToGCReportCheaterResponse@@@@
 .?AV?$CMsgIDLinkGenericClientToGCResponse@$02$0BLFI@VCMsgAnyToGCReportAsserts@@$0BLFJ@VCMsgAnyToGCReportAssertsResponse@@@@
 .?AV?$CMsgIDLinkResponse@$01$0BA@$0CHBM@VCMsgServerToGCMatchSignoutPermission@@$0CHBN@VCMsgServerToGCMatchSignoutPermissionResponse@@@@
 .?AV?$CMsgIDLinkResponse@$01$0BA@$0CHBO@VCMsgServerToGCMatchSignout@@$0CHBP@VCMsgServerToGCMatchSignoutResponse@@@@
 .?AV?$CMsgIDLinkResponse@$01$0BA@$0CHCK@VCMsgServerToGCAbandonMatch@@$0CHCL@VCMsgServerToGCAbandonMatchResponse@@@@
 .?AV?$CMsgIDLinkResponse@$01$0BA@$0CHCM@VCMsgServerToGCTestConnection@@$0CHCN@VCMsgServerToGCTestConnectionResponse@@@@
+.?AV?$CMsgIDLinkResponse@$01$0BA@$0CHDK@VCMsgServerToGCReportCheater@@$0CHDL@VCMsgServerToGCReportCheaterResponse@@@@
 .?AV?$CMsgIDLinkResponse@$02$0BA@$0BLFI@VCMsgAnyToGCReportAsserts@@$0BLFJ@VCMsgAnyToGCReportAssertsResponse@@@@
 .?AV?$CMutableRefCountBase@VCRefMT@@@@
 .?AV?$CMutableRefCounted@V?$CMutableRefCountBase@VCRefMT@@@@@@
@@ -3998,6 +4004,7 @@ $light_emissive
 .?AV?$CVDataFileManager@VCNavHullPresetVData@@@@
 .?AV?$CVDataFileManager@VCNavHullVData@@@@
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??PostInit@CSteamLearnManager@@UEAAXXZ@@GCSDK@@
+.?AV?$GCClientJobLambda@V<lambda_1>@?1??ReportAsCheater@CCitadelPlayerController@@QEAAXPEBD@Z@@GCSDK@@
 .?AV?$ISchemaAttributeTypeBase@I@@
 .?AV?$ISchemaAttributeTypeBase@M@@
 .?AV?$ISchemaAttributeTypeBase@V?$Vec3D@M@@@@
@@ -6954,6 +6961,8 @@ $light_emissive
 .?AVCMsgServerToGCMatchSignoutPermission@@
 .?AVCMsgServerToGCMatchSignoutPermissionResponse@@
 .?AVCMsgServerToGCMatchSignoutResponse@@
+.?AVCMsgServerToGCReportCheater@@
+.?AVCMsgServerToGCReportCheaterResponse@@
 .?AVCMsgServerToGCTestConnection@@
 .?AVCMsgServerToGCTestConnectionResponse@@
 .?AVCMsgServerToGCUpdateLobbyServerState@@
@@ -8705,10 +8714,9 @@ $light_emissive
 0 = no debug, 1 = draw waypoint path
 0 = none, 1 = non-autosave, 2 = always, 3 = bug_only
 0 == ( pInstance->GetOwnerEntity()->GetEntityIdentity()->GetFlags() & EF_IN_STAGING_LIST )
-00_5
 02V8[
 05=k
-08@Jp
+08@JP
 08bX
 09,h
 0: Draw nothing at waypoints; 1: Draw a tick mark at waypoints; 2: Draw a shape around waypoints.
@@ -8815,7 +8823,6 @@ $light_emissive
 2-.CMsgClientToGCSetItemStyleResponse.ESetStyle"a\n\tESetStyle
 2-.CMsgGCToServerAddSpectatorResponse.EResponse
 2/.CMsgGameServerToClientConnectionStatus.EStatus
-200\v
 20t\f
 21.CMsgClientToGCUnpackBundleResponse.EUnpackBundle
 22.CMsgServerToGCMatchSignoutResponse.ESignoutResult"
@@ -8861,8 +8868,7 @@ $light_emissive
 2\r%2h
 2\r.CameraAction
 2\rlhp
-2\vpH
-2\vpt
+2\vpT
 2^pV
 2_tasks_left
 2a"l
@@ -8920,7 +8926,6 @@ $light_emissive
 4Ch;
 4F0I
 4Mv8
-4Y\.sn
 4Zis
 4\fPl
 4\n/k_EMsgClientToGCPurchaseChargeCostItemsResponse
@@ -8972,6 +8977,7 @@ $light_emissive
 6,2K
 6-zeZ
 60000
+60G;
 62$|S)6f
 64CK\vH
 65535
@@ -8979,11 +8985,10 @@ $light_emissive
 65535"j\n
 65535B$
 666666666666666666666666666666666666666666666666\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\.\ssl\s3_enc.c
-6666666666666666|
+6666666666666666m_bPreventLoopback
 67-s
 6H,N
 6O|T%
-6P1;
 6Qd=
 6\f%648
 6\n2GAME_PARTICLE_MANAGER_EVENT_UPDATE_ENTITY_POSITION
@@ -9145,6 +9150,7 @@ $light_emissive
 ;"lY7
 ;5jNf
 ;83\v\nHBJ7
+;Dm_iszEnemyName
 ;LGEW
 ;Qo0
 ;\n6k_EMsgClientToGCGetLimitedItemPurchaseQuantityResponse
@@ -9269,17 +9275,17 @@ $light_emissive
 ?333?333?
 ?33s?
 ?CEntityIOOutput
-?EWeakPointBreakBehavior
+?CITADEL_ABILITY_TARGETING_LOCATION_MINIMAP_GROUND
 ?HAI\t81\t9dcG'
 ?HP4
-?Timers
+?TLK_CITADEL_INTERACT_WITH_ABILITY
 ?VBH;
 ?\n;GAME_PARTICLE_MANAGER_EVENT_CHANGE_CONTROL_POINT_ATTACHMENT
 ?\n;GAME_PARTICLE_MANAGER_EVENT_SET_SCENE_OBJECT_TINT_AND_DESAT
 ?\n;STEAMLEARN_SNAPSHOT_PROJECT_ERROR_INVALID_PUBLISHED_VERSION
 ?\n\ncurrencies
 ?\n\rmatch_outcome
-?citadel_time_for_recent_heal_event
+?citadel_metal_expire_time
 ?d86L
 ?dt]X
 ?expr
@@ -9287,14 +9293,14 @@ $light_emissive
 ?gwL
 ?jOb
 ?kv 0x%p AddRef refcount == %d\n
-?m_bUpdateOnClient
-?m_vecHomingPosition
+?point_value_remapper
 ?srJO
 ?tya
 ?uWS
 ?x29
 @!@%@+@1@?@C@E@]@a@g@m@
 @0pp
+@6P7;
 @BH]f
 @MfKZ
 @Pgl
@@ -9308,9 +9314,9 @@ $light_emissive
 @\n<STEAMLEARN_SNAPSHOT_PROJECT_ERROR_INTERNAL_DATA_SOURCE_ERROR
 @\n\fSingleObject
 @dKb]
+@env_shake
 @fff>fff>fff>fff>
 @i1V
-@m_TiltTime
 @n2w
 @player_start_teleport_destination
 @zipline_panel_tutorial_relay
@@ -9498,7 +9504,6 @@ AIExtendedSaveHeader_t
 AIMotorTransitionState_t
 AIN_NO_DEST
 AINavQueue
-AINavSmartGoal
 AINet
 AIRBOAT
 AIScheduleState_t
@@ -9959,6 +9964,7 @@ An environment light entity
 An omni-directional, spherical or tube light source
 An omnidirectional light entity
 An orthographic spot light entity
+Anavlocal_constrain
 AnchorList
 Angle sensor '%s' could not find look at entity '%s'.\n
 AngleDiff
@@ -10004,7 +10010,6 @@ Animgraph trigger parameter for this attack
 Animgraph-based models
 Anisotropy
 Announcer_%i
-Anpc_super_neutral
 Antlion: Burrow Point
 Antlion: Thumper Flee Point
 Any Extended Key Usage
@@ -10142,6 +10147,7 @@ AwakenDamage
 Away from closest point
 Axis
 AxisAngleToQuaternion
+B 4Z
 B!rA
 B#B)B/BCBSBUB[BaBsB}B
 B*k@5
@@ -10461,6 +10467,7 @@ BeginSequence
 Behavior
 BestEnemy() {\n
 Between 0 and 1 (0 and 100%), what percent of max health should a pickup heal
+Bg_SoundPatchCount
 Bh;+j
 Bi-passes all AI logic routines and puts all NPCs into their idle animations.  Can be used to get NPCs out of your way and to test effect of AI logic routines on frame rate
 Bidirectional_Messages_LowFrequency
@@ -11481,6 +11488,7 @@ CCitadelPlayerClipComponent::Storage_t
 CCitadelPlayerClipComponentReferenced
 CCitadelPlayerClipComponentReferencedPtr
 CCitadelPlayerController
+CCitadelPlayerController::ReportAsCheater
 CCitadelPlayerPawn
 CCitadelPlayerPawn::EntSelectSpawnPoint: no info_player_start on level\n
 CCitadelPlayerPawn::SelectSpawnSpot: couldn't find valid info_team_spawn, falling back to spawning at the world.\n
@@ -12464,7 +12472,6 @@ CCitadel_Modifier_Rutger_ForceField_Aura
 CCitadel_Modifier_Rutger_ForceField_PushOut
 CCitadel_Modifier_Rutger_Pulse_Aura
 CCitadel_Modifier_Rutger_Pulse_Aura_VData
-CCitadel_Modifier_Rutger_Pulse_Target
 CCitadel_Modifier_Rutger_Pulse_VData
 CCitadel_Modifier_Savior
 CCitadel_Modifier_Savior_VData
@@ -13292,7 +13299,6 @@ CITADEL_ABILITY_HUD_ELEMENT_TYPE_UNIT_TARGET
 CITADEL_ABILITY_TARGETING_LOCATION_COUNT
 CITADEL_ABILITY_TARGETING_LOCATION_FIXED_RANGE_GROUND
 CITADEL_ABILITY_TARGETING_LOCATION_GROUND
-CITADEL_ABILITY_TARGETING_LOCATION_MINIMAP_GROUND
 CITADEL_ABILITY_TARGETING_LOCATION_MINIMAP_UNIT
 CITADEL_ABILITY_TARGETING_LOCATION_NONE
 CITADEL_ABILITY_TARGETING_LOCATION_SELF
@@ -14172,6 +14178,7 @@ CMsgServerToGCAbandonMatch
 CMsgServerToGCEnterMatchmaking
 CMsgServerToGCIdlePing
 CMsgServerToGCMatchSignout
+CMsgServerToGCReportCheater
 CMsgServerToGCTestConnection"G\n$CMsgServerToGCTestConnectionResponse
 CMsgServerToGCUpdateMatchInfo
 CMsgServerUseItem
@@ -15242,6 +15249,7 @@ C\n\votherentity
 C\tD\vD
 C\tr9rW
 C_HeroPreview
+C_entname_fixup_prefix
 Cache
 CacheDataAccessToken
 Calc Detour
@@ -15494,6 +15502,7 @@ CitadelGenericData_t
 CitadelHeroData_t
 CitadelHeroData_t::KV3TransferPostLoad
 CitadelItemVData
+CitadelLobbyID_t
 CitadelLobbyPlayerSlot_t
 CitadelMatchDataWatcher
 CitadelNPCDamageState_t
@@ -15759,7 +15768,6 @@ CountdownTimer
 Counter
 CountryDailyRevenue
 CoverGroupID
-Cparticle_cluster_debug
 Crash detection sentinel file '%s' file is present!\n
 Crash report has been pending to submit for %d seconds\n
 Crash report message acknowledge by GC.\n
@@ -17883,6 +17891,7 @@ EViscousChargedGunState
 EViscousChargedGunState_Charging
 EViscousChargedGunState_Idle
 EViscousChargedGunState_Shoot
+EWeakPointBreakBehavior
 EWeaponAttribute_BeamWeapon
 EWeaponAttribute_BurstFire
 EWeaponAttribute_CloseRange
@@ -19543,6 +19552,7 @@ Head
 HeadShotBonusDamage
 HeadShotCooldown
 Header | 
+Headshot %d%% Lucky Shots %d Damage %d
 HeadshotBonus
 HeadshotBonusSteal
 Heal Lost
@@ -19942,6 +19952,7 @@ IN_TURNLEFT
 IN_TURNRIGHT
 IN_USE
 IN_WEAPON1
+INavSmartGoal
 INdK
 IP Address
 IP Address:%d.%d.%d.%d
@@ -21315,7 +21326,6 @@ MODIFIER_DEBUFF_YES
 MODIFIER_DISABLE_GROUP_ACTIVE_WEAPON
 MODIFIER_DISABLE_GROUP_MAX
 MODIFIER_DISABLE_GROUP_MAX_BIT
-MODIFIER_DISABLE_GROUP_MIN
 MODIFIER_DISABLE_GROUP_TIME_LOCKED
 MODIFIER_ENTRY_TYPE
 MODIFIER_ENTRY_TYPE_ACTIVE
@@ -23528,9 +23538,8 @@ P-224
 P-256
 P-384
 P-521
-P08@Jp
+P08@JP
 P08J
-P0_5
 P1\t98"
 P5[1
 PAGN_4
@@ -24550,8 +24559,7 @@ RUMBLE_SMG1
 RUMBLE_STOP_ALL
 R\n\nBookReward
 R\r1>Vp
-R\vpH
-R\vpt
+R\vpT
 R]Di
 RadiationThink
 Radius
@@ -27278,7 +27286,6 @@ TLK_CITADEL_HERO_SELECTED
 TLK_CITADEL_HIT_BY_PROJECTILE
 TLK_CITADEL_HUNTING
 TLK_CITADEL_IDOL
-TLK_CITADEL_INTERACT_WITH_ABILITY
 TLK_CITADEL_INTERRUPT_ABILITY
 TLK_CITADEL_KILL
 TLK_CITADEL_KILL_ASSIST
@@ -27758,6 +27765,7 @@ Timeline
 TimelineCompression_t
 Timeout in seconds for backend requests
 TimeoutThink
+Timers
 To disconnect areas, mark an area, highlight a second area, then invoke the disconnect command. This will remove all connections between the two areas.
 To disconnect two Areas, mark an Area, highlight a second Area, then invoke the disconnect command. This will remove all connections between the two Areas.
 To prevent zombie matches, if a match has been active longer than this many minutes, it should be timed out and the server restarted
@@ -30158,7 +30166,6 @@ Z~wl
 \tMatchID_t"{\n$CMsgServerToGCUpdateLobbyServerState
 \tMax uptime scheduled Shutdown: %u (%u seconds from now)\n
 \tNone\n
-\tP0_5
 \tPartyID_t
 \tPrivate script scope:
 \tPublic script scope:
@@ -30200,14 +30207,12 @@ Z~wl
 \vGt5
 \vHCK/
 \vNCE\v
-\vP0_5
 \vUY6[E
 \v\tV_fmodd
 \v\vTSG
 \v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r
 \vj0k
 \vjC7
-\vp0_5
 ]1h=bfz
 ]FhSD}
 ]GT7]
@@ -30258,7 +30263,6 @@ _dummyBaseFireClass
 _editor/next_ping_wheel_id
 _entname_fixup_local
 _entname_fixup_parent
-_entname_fixup_prefix
 _firesmoke
 _g@Cg
 _include
@@ -30277,6 +30281,7 @@ _tools_event_desc
 _xU`u
 _}eOk
 `28)fk
+`6P8;
 `:zQF
 `D$daM-l
 `DZG
@@ -30290,7 +30295,6 @@ _}eOk
 `generic-method-parameter-
 `generic-type-
 `h9T~
-`htP
 `local static destructor helper'
 `non-type-template-parameter
 `o_je
@@ -32315,7 +32319,6 @@ citadel_melee_quick_melee_parry
 citadel_melee_shake_amplitude
 citadel_melee_shake_duration
 citadel_melee_shake_frequency
-citadel_metal_expire_time
 citadel_min_accel_speed
 citadel_min_match_minutes_for_replay
 citadel_minimap_arrow_show_distance_down
@@ -32518,6 +32521,7 @@ citadel_tether_pull_speed_scale_per_meter
 citadel_text_chat_enabled
 citadel_throwsand_projectile_show_debug
 citadel_tightcamera
+citadel_time_for_recent_heal_event
 citadel_time_for_recent_kill_event
 citadel_time_scale
 citadel_timewarp
@@ -34088,7 +34092,6 @@ env_portal_path_track
 env_projectedtexture
 env_screenoverlay
 env_screenoverlay %s has no overlays to display.\n
-env_shake
 env_shake %s with "Don't shake view" spawnflag set without "Shake physics" or "Shake ropes" spawnflags set.\n
 env_sky
 env_soundscape
@@ -34797,7 +34800,6 @@ gTH.M
 gXC.nT\v
 g\n#particle_freeze_transition_override
 g]i/H
-g_SoundPatchCount
 g_debug_angularsensor
 g_debug_constraint_sounds
 g_debug_doors
@@ -35311,7 +35313,7 @@ hour
 houseIdentifier
 hovering
 hows joint info for this entity
-hpzp
+hpzP
 hr_H
 http request
 https proxy request
@@ -36646,6 +36648,8 @@ k_EMsgServerToGCMatchSignout
 k_EMsgServerToGCMatchSignoutPermission
 k_EMsgServerToGCMatchSignoutPermissionResponse
 k_EMsgServerToGCMatchSignoutResponse
+k_EMsgServerToGCReportCheater
+k_EMsgServerToGCReportCheaterResponse
 k_EMsgServerToGCTestConnection
 k_EMsgServerToGCTestConnectionResponse
 k_EMsgServerToGCUpdateLobbyServerState
@@ -36688,6 +36692,7 @@ k_EServerSignoutData_Disconnections
 k_EServerSignoutData_PenalizedPlayers
 k_EServerSignoutData_PerfData
 k_EServerSignoutData_PlayerChat
+k_EServerSignoutData_ReportCheaters
 k_EServerSignoutData_ServerPerfStats
 k_ESignout_Failed_InFlight
 k_ESignout_Failed_NoRetry
@@ -37505,6 +37510,7 @@ m_ChargeUpExplosionParticle
 m_ChargeUpParticle
 m_ChargeUpSound
 m_ChargingModifier
+m_CheckCheatersTimer
 m_CheckIdleTimer
 m_CheckOnGroundTimer
 m_ChildTargetName
@@ -38730,6 +38736,7 @@ m_TetherModifier
 m_TetherSound
 m_TextureScale
 m_ThrowSound
+m_TiltTime
 m_TimeDestroy
 m_TimeLastLook
 m_TimeLastLookHighPriority
@@ -39294,11 +39301,13 @@ m_bHasBakedLightingFromVertexStream
 m_bHasBeenAwakened
 m_bHasBeenPhysgunned
 m_bHasBeenPreFiltered
+m_bHasBeenReportedAsCheater
 m_bHasBreakPiecesOrCommands
 m_bHasCollision
 m_bHasComputedAttachedParticles
 m_bHasEnemyAcquired
 m_bHasFreeCursor
+m_bHasGCACKedCheaterReport
 m_bHasGoneFullyInvis
 m_bHasHeightFogEnd
 m_bHasHitSomething
@@ -39640,7 +39649,6 @@ m_bPredictedOwner
 m_bPreparing
 m_bPreventAbilityLearning
 m_bPreventChangesWhileMoving
-m_bPreventLoopback
 m_bPreventMovement
 m_bPreventUpdateYawOnFinish
 m_bPreventWeaponPickup
@@ -39852,6 +39860,7 @@ m_bUnstoppable
 m_bUpDownState
 m_bUpdateLayerPriorities
 m_bUpdateNavWhenMoving
+m_bUpdateOnClient
 m_bUpdateTarget
 m_bUpdatedSoundOrigin
 m_bUseAngles
@@ -42642,7 +42651,6 @@ m_iszEffectSource
 m_iszEndEntity
 m_iszEnemyEffectName
 m_iszEnemyFilterName
-m_iszEnemyName
 m_iszEntity
 m_iszEntityA
 m_iszEntityB
@@ -44727,6 +44735,7 @@ m_vecHitEntities
 m_vecHitEnts
 m_vecHitOffset
 m_vecHome
+m_vecHomingPosition
 m_vecHookTargetStartPos
 m_vecHorizOffsetOperations
 m_vecImbuedByAbilitiyIDs
@@ -46270,7 +46279,6 @@ nav_validate
 nav_volume_debug
 navlib
 navlink
-navlocal_constrain
 navlocal_debug
 navlocal_debug_constraint
 navlocal_debug_isect
@@ -46630,6 +46638,7 @@ npc_steering
 npc_steering_all
 npc_steering_scalar
 npc_stop_moving
+npc_super_neutral
 npc_super_neutral_herotest
 npc_super_trooper
 npc_surveillance_drone
@@ -46907,13 +46916,13 @@ p.other
 p.ppBasis
 p.prime
 p.tpBasis
-p0_5
 p2{l
 p4Z3
 p5Z3
 p5\nL,
 p618
 p@0pqE5tsO?|1
+pACCitadel_Modifier_Rutger_Pulse_Target
 pAttachment
 pAttachmentName
 pAttachmentname
@@ -46927,6 +46936,7 @@ pG_*h
 pHitEntity
 pIp 
 pLocationEntity
+pMODIFIER_DISABLE_GROUP_MIN
 pMaterialGroup
 pMeshGroupName
 pModelName
@@ -46988,6 +46998,7 @@ parse error
 parse tlsext
 part_name
 particle_can_freeze
+particle_cluster_debug
 particle_cluster_manager_search_dist
 particle_cluster_nodraw
 particle_cluster_use_collision_hulls
@@ -47509,7 +47520,6 @@ point_soundevent
 point_teleport
 point_template
 point_template '%s' is missing its template entity lump names: '%s' or '%s'.\n
-point_value_remapper
 point_velocitysensor
 point_viewcontrol
 point_worldtext
