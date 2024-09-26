@@ -32,6 +32,7 @@
  Child collection: [%p]
  Child: 
  LinePos:
+ Vector b
  adr=%p stride=%d row stride=%d slice stride=%d}
  next: %p, parent: %p\n
  noexcept
@@ -59,6 +60,7 @@
 !m_bUseRadius
 !m_bUseScalarForTextureCoordinate
 !m_bUseTexture
+"Limit Count: " + m_nLimitCount
 "Position within sphere random" no longer supports the "randomly distribute to highest supplied Control Point" feature\n\t"Emit continuously" and "Emit noise" no longer support "scale emission to used control points".\n\t"Position from control points" had a max control point added to it.
 "Remap control point orientation to rotation" does something approaching sanity for the cases I looked at.  If we have cases where this isn't appropriate, we can split out the behavior.\n
 "Remap control point orientation to rotation" rewritten to make more sense.\n
@@ -124,7 +126,7 @@ $SPECULARSCALE
 %s took %g seconds. %g iterations/sec
 %s:( ActiveParticleCount()=%d, m_bounds=%? simtime=%g )
 %s::%s (%u)
-( m_nTextureType == SPRITECARD_TEXTURE_NORMALMAP || m_nTextureType == SPRITECARD_TEXTURE_ANIMMOTIONVEC || m_nTextureType == SPRITECARD_TEXTURE_6POINT_XYZ_A || m_nTextureType == SPRITECARD_TEXTURE_6POINT_NEGXYZ_E )
+( m_nTextureType == SPRITECARD_TEXTURE_NORMALMAP || m_nTextureType == SPRITECARD_TEXTURE_ANIMMOTIONVEC || m_nTextureType == SPRITECARD_TEXTURE_6POINT_XYZ_A || m_nTextureType == SPRITECARD_TEXTURE_6POINT_NEGXYZ_E || m_nTextureType == SPRITECARD_TEXTURE_SPHERICAL_HARMONICS_A || m_nTextureType == SPRITECARD_TEXTURE_SPHERICAL_HARMONICS_B || m_nTextureType == SPRITECARD_TEXTURE_SPHERICAL_HARMONICS_C || m_nTextureType == SPRITECARD_TEXTURE_DEPTH )
 (Expecting %s)
 (Expecting EOF)
 (channel = 
@@ -159,6 +161,7 @@ $SPECULARSCALE
 .?AV<lambda_1>@?1??DrawBlobulatorImplicits@CGpuImplicitRenderer@@QEAAXPEAVIRenderContext@@PEBVIMaterialMode@@MMAEBUConfig_t@2@AEBV?$CUtlVector@UParticle_t@CGpuImplicitRenderer@@HV?$CUtlMemory@UParticle_t@CGpuImplicitRenderer@@H@@@@@Z@
 .?AV<lambda_1>@?1??DrawSoftObjectImplicits@CGpuImplicitRenderer@@QEAAXPEAVIRenderContext@@PEBVIMaterialMode@@MMAEBUConfig_t@2@AEBV?$CUtlVector@UParticle_t@CGpuImplicitRenderer@@HV?$CUtlMemory@UParticle_t@CGpuImplicitRenderer@@H@@@@@Z@
 .?AV<lambda_1>@?1??DrawSoftObjectImplicitsWithRadii@CGpuImplicitRenderer@@QEAAXPEAVIRenderContext@@PEBVIMaterialMode@@MAEBUConfig_t@2@AEBV?$CUtlVector@UParticle_t@CGpuImplicitRenderer@@HV?$CUtlMemory@UParticle_t@CGpuImplicitRenderer@@H@@@@@Z@
+.?AV<lambda_1>@?1??GetIndexedVertexGenerator@@YA?AV?$function@$$A6AXV?$span@$$CBV?$Triangle_t@V?$Vec3D@M@@@@$0?0@std@@@Z@std@@AEAV?$CUtlVector@HHV?$CUtlMemory@HH@@@@AEAV?$CUtlVector@V?$Vec3D@M@@HV?$CUtlMemory@V?$Vec3D@M@@H@@@@AEAV?$CUtlHashMap@V?$Vec3D@M@@HV?$CDefEquals@V?$Vec3D@M@@@@U?$HashMapFunctor_t@V?$Vec3D@M@@@@H@@@Z@
 .?AV<lambda_1>@?6??FilterInY@CSOAContainer@@QEAAXHVIntAABB_t@@HPEBM_N@Z@
 .?AV<lambda_1>@?6??FilterInZ@CSOAContainer@@QEAAXHVIntAABB_t@@HPEBM_N@Z@
 .?AV<lambda_2>@?7??Operate@C_OP_VelocityMatchingForce@@UEBAXPEAVCParticleCollection@@MPEAX@Z@
@@ -167,6 +170,7 @@ $SPECULARSCALE
 .?AV?$CKV3Transfer_UtlSymbolLargeInterface@V?$CUtlSymbolTableLargeBase@$00$0IAA@VCThreadNullMutex@@@@@@
 .?AV?$CKV3Transfer_UtlSymbolLargeInterface@V?$CUtlSymbolTableLargeBase@$0A@$0IAA@VCThreadNullMutex@@@@@@
 .?AV?$CParallelLambdaJob@V<lambda_1>@?1??FilterInX@CSOAContainer@@QEAAXHVIntAABB_t@@HPEBM_N@Z@@CParallelProcessLauncher@@
+.?AV?$CParallelLambdaJob@V<lambda_1>@?L@??MarchingCubes@@YAXPEBMHHHAEBV?$function@$$A6AXV?$span@$$CBV?$Triangle_t@V?$Vec3D@M@@@@$0?0@std@@@Z@std@@V?$Vec3D@M@@2MHH@Z@@CParallelProcessLauncher@@
 .?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_1>@?1??GenerateDistanceFieldFromTrianglesWithVoting@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHMH@Z@@@YAXHHPEBD$$QEAV1?1??GenerateDistanceFieldFromTrianglesWithVoting@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHMH@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
 .?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_1>@?1??InitDependencyCounters@?$CSweepBlockProcessor@$00@@IEAAXXZ@@@YAXHHPEBD$$QEAV1?1??InitDependencyCounters@?$CSweepBlockProcessor@$00@@IEAAXXZ@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
 .?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_1>@?1??PostSimulate@C_OP_RenderModels@@UEBAXPEAVCParticleCollection@@PEAX_N@Z@@@YAXHHPEBD$$QEAV1?1??PostSimulate@C_OP_RenderModels@@UEBAXPEAVCParticleCollection@@PEAX_N@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
@@ -543,10 +547,12 @@ $SPECULARSCALE
 .?AV?$_Func_base@VCPulseValueFullType@@$$V@std@@
 .?AV?$_Func_base@XPEAVCRenderAttributes@@@std@@
 .?AV?$_Func_base@XPEBUPairCollisionList_t@@@std@@
+.?AV?$_Func_base@XV?$span@$$CBV?$Triangle_t@V?$Vec3D@M@@@@$0?0@std@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?$GapBindingSchemaEnumTraits_t@W4PulseCursorCancelPriority_t@@@@VCPulseValueFullType@@$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??DrawBlobulatorImplicits@CGpuImplicitRenderer@@QEAAXPEAVIRenderContext@@PEBVIMaterialMode@@MMAEBUConfig_t@3@AEBV?$CUtlVector@UParticle_t@CGpuImplicitRenderer@@HV?$CUtlMemory@UParticle_t@CGpuImplicitRenderer@@H@@@@@Z@XPEAVCRenderAttributes@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??DrawSoftObjectImplicits@CGpuImplicitRenderer@@QEAAXPEAVIRenderContext@@PEBVIMaterialMode@@MMAEBUConfig_t@3@AEBV?$CUtlVector@UParticle_t@CGpuImplicitRenderer@@HV?$CUtlMemory@UParticle_t@CGpuImplicitRenderer@@H@@@@@Z@XPEAVCRenderAttributes@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??DrawSoftObjectImplicitsWithRadii@CGpuImplicitRenderer@@QEAAXPEAVIRenderContext@@PEBVIMaterialMode@@MAEBUConfig_t@3@AEBV?$CUtlVector@UParticle_t@CGpuImplicitRenderer@@HV?$CUtlMemory@UParticle_t@CGpuImplicitRenderer@@H@@@@@Z@XPEAVCRenderAttributes@@@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??GetIndexedVertexGenerator@@YA?AV?$function@$$A6AXV?$span@$$CBV?$Triangle_t@V?$Vec3D@M@@@@$0?0@std@@@Z@std@@AEAV?$CUtlVector@HHV?$CUtlMemory@HH@@@@AEAV?$CUtlVector@V?$Vec3D@M@@HV?$CUtlMemory@V?$Vec3D@M@@H@@@@AEAV?$CUtlHashMap@V?$Vec3D@M@@HV?$CDefEquals@V?$Vec3D@M@@@@U?$HashMapFunctor_t@V?$Vec3D@M@@@@H@@@Z@XV?$span@$$CBV?$Triangle_t@V?$Vec3D@M@@@@$0?0@4@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?6??FilterInY@CSOAContainer@@QEAAXHVIntAABB_t@@HPEBM_N@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?6??FilterInZ@CSOAContainer@@QEAAXHVIntAABB_t@@HPEBM_N@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_2>@?7??Operate@C_OP_VelocityMatchingForce@@UEBAXPEAVCParticleCollection@@MPEAX@Z@XPEBUPairCollisionList_t@@@std@@
@@ -558,6 +564,7 @@ $SPECULARSCALE
 .?AVCChildFunctionDefinition@@
 .?AVCDefaultParticleSystemQuery@@
 .?AVCEmptySequence@@
+.?AVCFileSystemFormatOutputStream@@
 .?AVCGeneralRandomRotation@@
 .?AVCGeneralSpin@@
 .?AVCGenericExprPart@@
@@ -648,6 +655,7 @@ $SPECULARSCALE
 .?AVCPulseCell_Unknown@@
 .?AVCPulseCell_Val_TestDomainFindEntityByName@@
 .?AVCPulseCell_Val_TestDomainGetEntityName@@
+.?AVCPulseCell_Value_RandomFloat@@
 .?AVCPulseCell_Value_RandomInt@@
 .?AVCPulseCell_Value_TestValue50@@
 .?AVCPulseExecCursor@@
@@ -1095,6 +1103,7 @@ $SPECULARSCALE
 1D Luminance to Color Lookup
 2D Orient
 2\nP!E
+3 %d %d %d\n
 33S@ff
 3E"F
 3E"W
@@ -1136,8 +1145,12 @@ $SPECULARSCALE
 ?/?????/?.>??????????????>>??;?/?+???;?/?**?/?;???+?/?;??>>??????????????>.?/?????/?
 ?????????>&7'7????/?/????>6773???;???;???:
 ?Bxt>
+?CURVE_TANGENT_LINEAR
 ?JA7=
+?TestCheckpoint: %s
+?m_bUseShadowFastPath
 ?t$7?t$7?t$7?t$7?
+@ARegisterConCommand: Unknown error registering con command "%s"!\n
 @fff>fff>fff>fff>
 A minimum on particle simulation time, particle simulation happening more frequently than this will lerp.
 A testing-only domain that doesn't correspond to any in-engine use case.
@@ -1166,6 +1179,8 @@ Actually dude, we didn't seem to be expecting anything here, or at least\n
 Add + Self Illum
 Add Decay to Bounce
 Add R%d <- R%d + R%d
+Add Vector
+Add Vector a to Vector b
 Add to Current Value Raw
 Add to Initial Value
 Additive
@@ -1197,8 +1212,14 @@ Apply fog of war to color
 Apply fog to particle
 Apply global light to color
 Aq?S
+Arc Cos
+Arc Cosine of angle, in degrees (0 -> 0, 90 -> 1)
 Arc Duration Maximum
+Arc Sin
+Arc Sine of angle, in degrees (0 -> 0, 90 -> 1)
 Arc Speed
+Arc Tan
+Arc Tangent of angle, in degrees (0 -> 0, 90 -> 1)
 Are we currently running unit tests?
 Assert True
 AssetBrowse( vpost, *showassetpreview )
@@ -1307,6 +1328,7 @@ Breakpoint Log [%u]
 Breakpoint Log [%u] - %s
 Bump Strength
 C:\buildworker\citadel_rel_win64\build\_build_\particles\_vpc_particles\default\win64\_msvc_\Retail\particles.pdb
+C:\buildworker\citadel_rel_win64\build\src\mathlib\contouring.cpp
 C:\buildworker\citadel_rel_win64\build\src\mathlib\extended\generic_expr.g
 C:\buildworker\citadel_rel_win64\build\src\mathlib\voxelarray_sdf_heatmethod.cpp
 C:\buildworker\citadel_rel_win64\build\src\particles\gpu_implicit_renderer.cpp
@@ -1460,6 +1482,7 @@ CPulseCell_Timeline::TimelineEvent_t
 CPulseCell_Unknown
 CPulseCell_Val_TestDomainFindEntityByName
 CPulseCell_Val_TestDomainGetEntityName
+CPulseCell_Value_RandomFloat
 CPulseCell_Value_RandomInt
 CPulseCell_Value_TestValue50
 CPulseExecCursor
@@ -1481,15 +1504,26 @@ CPulseGraphInstance_TurtleGraphics!Graph_Go
 CPulseMathlib
 CPulseMathlib!AbsFloat
 CPulseMathlib!AbsInt
+CPulseMathlib!AddVector
+CPulseMathlib!ArcCos
+CPulseMathlib!ArcSin
+CPulseMathlib!ArcTan
 CPulseMathlib!ClampFloat
 CPulseMathlib!ClampInt
 CPulseMathlib!Cos
+CPulseMathlib!CrossProductVector
+CPulseMathlib!DotProductVector
+CPulseMathlib!LengthVector
 CPulseMathlib!MaxFloat
 CPulseMathlib!MaxInt
 CPulseMathlib!MinFloat
 CPulseMathlib!MinInt
+CPulseMathlib!NormalizeVector
 CPulseMathlib!Pow
+CPulseMathlib!ScaleVector
 CPulseMathlib!Sin
+CPulseMathlib!SubVector
+CPulseMathlib!Tan
 CPulseRuntimeMethodArg
 CPulseTestGapTypeQueryRegistration
 CPulseTestScriptLib
@@ -1522,7 +1556,7 @@ CRandomNumberGeneratorParameters
 CReplicationParameters
 CResourceNameTyped
 CSOAContainer(%d x %d x %d 
-CSOAContainer::FilterInX(), C:\buildworker\citadel_rel_win64\build\src\tier0_perproject\utlsoacontainer.cpp:2502
+CSOAContainer::FilterInX(), C:\buildworker\citadel_rel_win64\build\src\tier0_perproject\utlsoacontainer.cpp:2503
 CSOAContainer::IterateSlices
 CSpinUpdateBase
 CStrongHandle
@@ -1916,6 +1950,8 @@ CreateSemaphoreW
 Creating collection: 
 Creation Time
 Cross Product
+Cross Product Vector
+Cross Product of Vector a x Vector b
 Crossfade
 Cubes
 Cull random
@@ -1978,8 +2014,10 @@ Density value to map to max value
 Density value to map to min value
 Density-based force
 Depth
+Depth Filter Map
 Depth buffer control and effects
 Depth feathering mode
+DepthMap
 Derived
 Derived Func A
 Derived Func B
@@ -2023,6 +2061,8 @@ Domain: %s\n
 Don't Break
 Don't Set
 Dot Product
+Dot Product Vector
+Dot Product of Vector a 
 Draw particle children with parents (-1=use gameinfo, 0=no, 1=yes)
 Drive CP from global sound float
 Dump all new particles, optional name substring.
@@ -2058,7 +2098,6 @@ Enable Named Values (EXPERIMENTAL)
 Enable children from parent particle count
 Enable input path in particle ops
 Enable/disable particle rendering
-EnableMixedResolution
 EnableParticleShaderFeatureBranching
 Enabled
 Enables/Disables Particle Simulation
@@ -2099,6 +2138,7 @@ F_ADDSELF
 F_ALPHA_REFERENCE
 F_ANIMATE_IN_FPS
 F_BLENDFRAMES_SEQ0
+F_DEPTH_MAP
 F_DIRECTIONAL_LIGHTING
 F_DISABLE_DEPTHTEST
 F_DRAW_AS_TRAIL
@@ -2128,7 +2168,6 @@ F_SELF_ILLUM_PER_PARTICLE
 F_SPHERICAL_HARMONIC_LIGHTING
 F_TEXTURE_LAYERS
 F_TINT_BY_FOW
-F_VR
 Factor to map size adjustment to alpha
 Fading and culling
 Fail Immediately
@@ -2204,6 +2243,7 @@ Gameplay State High
 Gameplay State Low
 Gamma-correct vertex colors
 Gaussian
+Generate a random float between min and max (inclusive)
 Generate a random integer between min and max (inclusive)
 GenerateDistanceFieldFromTrianglesUsingHeatMethod
 GenerateInt
@@ -2288,6 +2328,7 @@ IPulseReloadListener
 IS_EFFECTS_LAYER
 IS_MBOIT_4_MOMENTS
 IS_MBOIT_PASS
+IS_MODE_MIXED_RESOLUTION
 IS_MODE_MIXED_RESOLUTION_MBOIT
 IS_PARTICLE_MIXED_RESOLUTION_LAYER
 If (R%d) Jump to Instr I%d
@@ -2399,6 +2440,8 @@ LT_INT
 Last/Newest Particle
 Leap to Chunk C%d
 Left Hand
+Length (magnitude) of Vector a
+Length Vector
 Lerp attribute to other attribue
 Lerp endcap scalar
 Lerp endcap vector
@@ -2467,7 +2510,6 @@ MISSING_PARENT_DO_NOTHING
 MISSING_PARENT_FIND_NEW
 MISSING_PARENT_KILL
 MISSING_PARENT_SAME_INDEX
-MIXED_RESOLUTION_CLEAR
 ML_COMMENT
 MODEL_HITBOX_TYPE_RAW_BONES
 MODEL_HITBOX_TYPE_RENDERBOUNDS
@@ -2529,6 +2571,7 @@ MPulseProvideFeatureTag
 MPulseRequirementCheck
 MPulseRequirementCommit
 MPulseRequirementPass
+MPulseRequirementSummaryExpr
 MPulseSignatureForOutflow
 MPulseSignatureName
 MUL_FLOAT
@@ -2538,6 +2581,7 @@ MVectorIsSometimesCoordinate
 Made disabling operators + children actually fully work.\n
 Manual Animation Frame
 Manual Snapshot Index
+MarchingCubes
 Mass controls
 Material
 MaterialProxyType_t
@@ -2580,7 +2624,6 @@ Missing token
 Missing token %s
 MissingParentInheritBehavior_t
 Mix Blend Mode
-MixedResolutionResources
 Mod R%d <- R%d %% R%d
 Mod2X
 Model
@@ -2677,6 +2720,8 @@ Normal align to CP
 Normal lock to control point
 Normal modify offset random
 NormalTexture
+Normalize Vector
+Normalize Vector a
 Normalize vector
 Not R%d <- !R%d
 Not safe to 'new' this class due to alignment requirements
@@ -3018,7 +3063,6 @@ ParticleAlphaReferenceType_t
 ParticleAttachment_t
 ParticleAttrBoxFlags_t
 ParticleAttributeIndex_t
-ParticleBilateralUpsample
 ParticleChildrenInfo_t
 ParticleCollisionMode_t
 ParticleColorBlendMode_t
@@ -3260,6 +3304,7 @@ Random -1 - 1 x Time
 Random 0 - 1 Value
 Random 0 - 1 x Time
 Random Direction scale
+Random Float
 Random Integer
 Random force
 Random number generator controls
@@ -3376,7 +3421,7 @@ Render sprites
 Render standard light
 Render tonemap controller
 RenderModelSubModelFieldType_t
-RenderOps_Init(14037): 
+RenderOps_Init(13996): 
 RenderProjectedMaterial_t
 RenderSimpleModelCollection is missing a model to render
 Renderer Modifiers
@@ -3467,6 +3512,7 @@ SPRITECARD_TEXTURE_CHANNEL_MIX_RGB_A
 SPRITECARD_TEXTURE_CHANNEL_MIX_RGB_ALPHAMASK
 SPRITECARD_TEXTURE_CHANNEL_MIX_RGB_A_RGBALPHA
 SPRITECARD_TEXTURE_CHANNEL_MIX_RGB_RGBMASK
+SPRITECARD_TEXTURE_DEPTH
 SPRITECARD_TEXTURE_DIFFUSE
 SPRITECARD_TEXTURE_PP_SCALE_ANIMATION_FRAME
 SPRITECARD_TEXTURE_PP_SCALE_NEG_RANDOM
@@ -3500,6 +3546,7 @@ ScalarExpressionType_t
 Scale Current Value Raw
 Scale Initial Value
 Scale Start/End Control Point
+Scale Vector
 Scale child particle radius based on parent radius
 Scale of force
 Scale to apply to result
@@ -3507,11 +3554,11 @@ Scene Object Pointer
 SceneSystem/DrawParticleChildrenSeparateFromParents
 SceneSystem/PerObjectLightingSetup
 Schema Enum
-Scratch Float
+Scratch Float 1
 Scratch Vector
 Scratch Vector 2
-Scratch float 1
 Scratch float 2
+Scratch float 3
 Screen
 Screen & Particle Normal Align
 Screen Align
@@ -3679,8 +3726,10 @@ Stops all particle systems currently playing
 String
 String( %s )
 Sub R%d <- R%d - R%d
+Sub Vector
 Sub-Sample Between Input Points
 SubModel Field Type
+Subtract Vector a from Vector b
 Succeeded
 Synchronize particles
 Synchronous - wait for the method to fully complete before returning
@@ -3697,6 +3746,7 @@ T\tV_sind
 Take radius into account
 Take radius into account for distance
 TanFrameQuat
+Tangent of angle, in degrees (0 -> 0, 90 -> 1)
 Target color control point number
 Target density
 Teleport Beam
@@ -3709,7 +3759,6 @@ Test node that just generates the integer 50. Nothing to see here!
 Test node that picks between two outflows as specified in the test domain.
 Test node that randomly picks between two outflows.
 Test step with return value
-TestCheckpoint: %s
 TestClock_AutoRun
 TestClock_ExplicitStepped
 TestDomain
@@ -4238,7 +4287,6 @@ cull start time
 cull time exponent
 current anim time output field
 cursor_id
-cursor_state
 cursors
 curvature
 cutoff radius
@@ -4433,6 +4481,7 @@ flLastReferenced
 flMax
 flMin
 flResidualDotResidual=%?\n
+flScale
 flValue
 flWaitValue
 flattening strength
@@ -5159,7 +5208,6 @@ m_bUseQuat
 m_bUseRadius
 m_bUseRandomCPs
 m_bUseScalarForTextureCoordinate
-m_bUseShadowFastPath
 m_bUseTexture
 m_bUseVelocity
 m_bUseVerticalVelocity
@@ -6183,7 +6231,6 @@ material selection
 material variable
 material variables
 material vector variables
-materials/dev/bilateral_upsample.vmat
 materials/dev/implicit_surface.vmat
 materials/dev/roomwalls_white.vmat
 materials/dev/visualize_implicit.vmat
@@ -6314,6 +6361,7 @@ n?9a
 nAsyncRet1
 nCursorID
 nEditorID
+nIndices.Count()=%? vVertices.Count()=%?\n
 nLastValidEntryIdx
 nParam
 nRetValue
@@ -6364,6 +6412,7 @@ not obeying particle system stencil of failure to parse stencil comparison strin
 not rendering particle system because of failure ot parse stencil write string %s\n
 num to emit
 num_particles
+o\tV_tand
 object local space axis 0/1
 observable_listeners
 observer_cursors
@@ -6522,6 +6571,7 @@ particles/dev/dev_cables_preview_material.vmat
 particles/error/error.vpcf
 particles/personal/cgreen/bunny.obj
 particles_multiplier
+particles_sdf.ply
 particleslib
 particlesystemmgr
 path points
@@ -6559,6 +6609,7 @@ plane point
 play end cap effect
 play endcap when children are removed
 play when emission ends
+ply\nformat ascii 1.0\nelement vertex %d\nproperty float x\nproperty float y\nproperty float z\nelement face %d\nproperty list uchar uint vertex_indices\nend_header\n
 point list
 point offset
 point_1

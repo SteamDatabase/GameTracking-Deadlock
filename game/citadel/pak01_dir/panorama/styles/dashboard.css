@@ -513,12 +513,12 @@ PopupManager
 	animation-name: none;
 }
 
-.has_users_in_queue #HeroRosterScenePanel
+.in_matchmaking #HeroRosterScenePanel
 {
 	visibility: visible;
 }
 
-.has_users_in_queue #HeroRosterScenePanel.FadeIn
+.in_matchmaking #HeroRosterScenePanel.FadeIn
 {
 	visibility: visible;
 	animation-name: RosterFadeIn;
@@ -527,7 +527,7 @@ PopupManager
 	animation-iteration-count: 1;
 }
 
-.has_users_in_queue #HeroRosterScenePanel.FadeOut
+.in_matchmaking #HeroRosterScenePanel.FadeOut
 {
 	visibility: visible;
 	animation-name: RosterFadeOut;
@@ -904,9 +904,9 @@ PopupManager
 	width: 280px;
 	padding: 0px 0px;
 	height: 70px;
-	overflow: noclip;
 	horizontal-align: left;
 	flow-children: right;
+	overflow: noclip;
 }
 
 .menuButtonLabel
@@ -956,7 +956,6 @@ PopupManager
 #exittesting.nav_menu_item Label
 {
 	font-weight: bold;
-	margin-top: 10px;
 }
 
 #quit.nav_menu_item Label
@@ -987,7 +986,6 @@ PopupManager
 	color: ritualGreenLight;
 	z-index: 100;
 	font-size: 60px;
-	font-style: italic;
 	transform: rotateZ(-1deg);
 }
 
@@ -1485,33 +1483,6 @@ PopupManager
 	height: 15px;
 }
 
-#playtest_time
-{
-	background-color: #000000ee;
-	color: silvered;
-	width: 100%;
-	flow-children: right;
-	padding: 15px;
-}
-
-#playtest_time Label
-{
-	font-size: 20px;
-}
-
-.scheduleIntro
-{
-	color: offWhite;
-	margin-right: 8px;
-	font-weight: semi-bold;
-}
-
-.scheduleDesc
-{
-	color: brandGreen;
-	font-weight: bold;
-}
-
 .unranked_party_blocked,.unranked_mm_paused,.unranked_mm_disabled
 {
 	visibility: collapse;
@@ -1868,6 +1839,7 @@ PopupManager
 	vertical-align: top;
 	horizontal-align: right;
 	flow-children: down;
+	width: 500px;
 }
 
 #NewPlayerContainer
@@ -2203,31 +2175,30 @@ PopupManager
 
 #PlayMenu
 {
-	padding: 0px 70px 0px 0px;
+	padding: 0px 100px;
 	height: 100%;
 	width: 500px;
 	flow-children: down;
 	transition-property: transform;
 	transition-duration: 0.15s;
 	background-color: gradient( linear, 100% 0%, 80% 0%, from( #00000000 ), to( #000000aa ) );
-	background-color: #111;
+	background-color: #111111f9;
 	background-size: 100%;
 	background-position: right;
 	z-index: 9;
 	flow-children: down;
 	opacity: 0;
-	opacity-mask: url("s2r://panorama/images/main_menu/sidebar_png.vtex");
 	transition-property: width;
-	transition-duration: 0.4s;
+	transition-duration: 0.05s;
 	transition-timing-function: ease;
 }
 
 .IsShowingDashboardPage.showPlayMenu #PlayMenu,.connectedToGame.showPlayMenu #PlayMenu
 {
-	width: 700px;
+	width: 880px;
 	opacity: 1;
 	transition-property: width, opacity;
-	transition-duration: 0.2s;
+	transition-duration: 0s;
 }
 
 #GameTitleSpacer
@@ -2243,7 +2214,7 @@ PopupManager
 	margin-left: 60px;
 	transition-property: height;
 	transition-duration: 0.2s;
-	transition-delay: 0.1s;
+	transition-delay: 0.05s;
 }
 
 .showPlayMenu #GameTitleSpacer
@@ -2260,7 +2231,7 @@ PopupManager
 	opacity: 0;
 	transition-property: transform, opacity;
 	transition-duration: 0.2s;
-	transition-delay: 0.2s;
+	transition-delay: 0.05s;
 }
 
 .showPlayMenu #PlayOptions
@@ -2268,7 +2239,7 @@ PopupManager
 	opacity: 1;
 	transform: translateX(0px);
 	transition-property: transform, opacity;
-	transition-duration: 0.2s;
+	transition-duration: 0s;
 }
 
 #PlayTitle Label
@@ -2279,25 +2250,83 @@ PopupManager
 	color: #262626;
 	color: offWhite;
 	opacity: 0.3;
-	padding-left: 89px;
+	padding: 10px;
 	font-family: serif;
 }
 
 .playoption Label.menuButtonLabel
 {
-	vertical-align: middle;
 	font-style: normal;
 	font-family: serif;
 	font-weight: bold;
-	font-size: 36px;
-	padding: 2px 0px;
-	text-align: left;
-	horizontal-align: left;
+	font-size: 26px;
+	height: 50px;
+	width: 100%;
+	border: 1px solid red;
+	padding: 0px 5px;
+	text-overflow: shrink;
+	text-align: center;
+	horizontal-align: center;
 	color: #FFEFD7aa;
-	letter-spacing: 0px;
-	transition-property: color, transform;
-	transition-duration: 0.08s;
+	margin-top: 8px;
 	overflow: noclip;
+}
+
+.ImgArea
+{
+	width: 100%;
+	height: 220px;
+	background-color: #333;
+}
+
+.smallButton .ImgArea
+{
+	height: 150px;
+}
+
+.TextArea
+{
+	flow-children: up;
+	width: 100%;
+	height: 160px;
+	padding: 0px 5px;
+	vertical-align: bottom;
+	background-color: offBlack&f5;
+}
+
+.playoptionLabel
+{
+	font-size: 38px;
+	font-family: serif;
+	font-weight: bold;
+	horizontal-align: center;
+	text-align: center;
+	vertical-align: bottom;
+	text-overflow: shrink;
+	line-height: 32px;
+	width: 100%;
+}
+
+.smallButton .playoptionLabel
+{
+	font-size: 26px;
+}
+
+#BotDifficultyDropDown
+{
+	visibility: collapse;
+}
+
+#TitleArea
+{
+	width: 100%;
+	max-height: 80px;
+}
+
+#DescArea
+{
+	width: 100%;
+	height: 80px;
 }
 
 .playoption:hover Label.menuButtonLabel
@@ -2307,27 +2336,62 @@ PopupManager
 	transition-duration: 0.08s;
 }
 
-#Option_Matchmaking.playoption:hover Label.menuButtonLabel
+#Option_Matchmaking.playoption:hover Label.menuButtonLabel,#Option_PlayersVsBots.playoption:hover Label.menuButtonLabel
 {
-	font-style: italic;
 	color: offBlack;
 	transition-property: color, transform;
 	transition-duration: 0.08s;
+}
+
+#PrimaryModes
+{
+	width: 780px;
+}
+
+#SubModes
+{
+	width: 780px;
 }
 
 .playoption
 {
 	margin: 0px;
 	flow-children: down;
-	width: 100%;
-	height: fit-children;
-	padding: 20px 0px;
-	overflow: noclip;
-	padding-left: 90px;
 	margin-bottom: 3px;
-	background-color: #00000090;
-	transition-property: background-color, padding;
+	background-color: offBlack;
+	border: 1px solid #424242;
+	border-radius: 5px;
+	transition-property: background-color, pre-transform-scale2d, padding;
 	transition-duration: 0.2s;
+}
+
+.largeButton.option2
+{
+	x: 330px;
+}
+
+.smallButton.option2
+{
+	x: 220px;
+}
+
+.smallButton.option3
+{
+	x:440px;
+}
+
+.playoption.largeButton
+{
+	width: 310px;
+	height: 400px;
+	margin: 10px;
+}
+
+.playoption.smallButton
+{
+	width: 200px;
+	height: 300px;
+	margin: 10px;
 }
 
 .in_party #Option_HeroTesting
@@ -2342,19 +2406,18 @@ PopupManager
 
 .playoption:hover
 {
-	background-color: offWhite;
+	brightness: 1.6;
+	pre-transform-scale2d: 1.05;
 }
 
-#Option_Matchmaking.playoption
+#Option_Matchmaking.playoption Label.menuButtonLabel,#Option_PlayersVsBots.playoption Label.menuButtonLabel
 {
-	padding: 50px 0px;
-	padding-left: 90px;
-}
-
-#Option_Matchmaking.playoption Label.menuButtonLabel
-{
-	font-size: 46px;
+	font-size: 38px;
+	text-align: center;
+	horizontal-align: center;
 	color: offWhite;
+	height: 52px;
+	text-overflow: shrink;
 }
 
 .playoption Label.queueNumber
@@ -2375,13 +2438,19 @@ PopupManager
 Label.playModeDesc
 {
 	font-family: sans;
-	font-size: 18px;
+	font-size: 16px;
 	color: offWhite&70;
+	text-align: center;
+	horizontal-align: center;
 	font-weight: semi-bold;
-	max-width: 400px;
-	height: fit-children;
-	min-height: 60px;
-	margin-top: 3px;
+	width: 100%;
+	vertical-align: top;
+	height: 100%;
+}
+
+.largeButton .playModeDesc
+{
+	font-size: 19px;
 }
 
 #play_low_priority_matchmaking_description
@@ -2400,15 +2469,70 @@ Label.playModeDesc
 	visibility: visible;
 }
 
-.playoption:hover Label.playModeDesc
-{
-	color: offBlack;
-}
-
 .DropdownPlaceholder
 {
 	background-color: #333;
 	padding: 10px 30px;
+}
+
+#Option_Matchmaking
+{
+	background-image: url("s2r://panorama/images/main_menu/menu_images/menu_play_deadlock_psd.vtex");
+	background-size: cover;
+	background-img-opacity: 0.3;
+}
+
+#Option_PlayersVsBots
+{
+	background-image: url("s2r://panorama/images/main_menu/menu_images/menu_play_playersbots_psd.vtex");
+	background-size: cover;
+	background-img-opacity: 0.3;
+}
+
+#Option_HeroTesting
+{
+	background-image: url("s2r://panorama/images/main_menu/menu_images/menu_play_sandbox_psd.vtex");
+	background-size: cover;
+	background-img-opacity: 0.3;
+}
+
+#Option_BotMatch
+{
+	background-image: url("s2r://panorama/images/main_menu/menu_images/menu_play_privatebots_psd.vtex");
+	background-size: cover;
+	background-img-opacity: 0.3;
+}
+
+#Option_Lobby
+{
+	background-image: url("s2r://panorama/images/main_menu/menu_images/menu_play_custom_match_psd.vtex");
+	background-size: cover;
+	background-img-opacity: 0.3;
+}
+
+#UnavailableOverlay
+{
+	ignore-parent-flow: true;
+	width: 100%;
+	height: 100%;
+	background-color: #000000ee;
+	z-index: 100;
+	visibility: collapse;
+}
+
+#UnavailableOverlay Label
+{
+	text-align: center;
+	horizontal-align: center;
+	vertical-align: center;
+	font-weight: bold;
+	opacity: 0.7;
+	color: rgb(207, 62, 62);
+}
+
+.in_party #UnavailableOverlay
+{
+	visibility: visible;
 }
 
 .connectedToHeroTesting #HeroTestingShop,.in_matchmaking #matchmakeLeave,.disconnected #connect,.disconnected #citadeltv,.connectedToGame #resume,.connectedToGame #disconnect,.connectedToGame #exittesting,.connectedToGame.isSpectator #disconnect_spectator,.connectedToGame #spectate,.connectedToGame.in_post_game #disconnect_spectator

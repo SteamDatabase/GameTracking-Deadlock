@@ -5785,4 +5785,70 @@
 			},
 		]
 	}
+	update_test_vsnd_envelope = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					vsnd_files = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = 
+						[
+							"sounds/diagnostics/enveloped_noise_01.vsnd",
+						]
+					}
+				}
+			},
+			
+			{
+				name = "get_event_info"
+				operator = "soundevent_get_info"
+			},
+			
+			{
+				name = "get_vsnd"
+				operator = "opvar_get_vsnd"
+				execute_once = "true"
+				check_event_data = "true"
+				input_operator_name = "public"
+				input_field_name = "vsnd_files"
+				input_use_namespace = "false"
+				array_selection_type = "random_exclusive"
+			},
+			
+			{
+				name = "update_test_start_vsnd"
+				operator = "vmix_voice_start"
+				input_vsnd1 = "@get_vsnd.output"
+				input_start = "@get_event_info.output_unstopped"
+				input_speaker_volumes = "[ 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 ]"
+			},
+			
+			{
+				name = "sample_env_curve"
+				operator = "container_sample_curve"
+				input_time = "@get_event_info.output_elapsed_time"
+				input_default = "0.0"
+				input_index = "0"
+				input_container = "@get_vsnd.output"
+			},
+			
+			{
+				name = "***ENV:"
+				operator = "util_print_float"
+				input = "@sample_env_curve.output"
+			},
+		]
+		_system_properties = 
+		{
+			display_game = "diagnostics"
+		}
+	}
 }

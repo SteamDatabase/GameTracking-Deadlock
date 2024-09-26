@@ -195,7 +195,6 @@
 								<Panel class="LeftRightFlow FullWidth">
 									<Panel class="advancedvideo">
 										<CitadelSettingsCheckbox convar="r_citadel_distancefield_shadows" text="#citadel_settings_distancefield_shadows" onmouseover="UIShowTextTooltip( #citadel_settings_distancefield_shadows_desc )" onmouseout="UIHideTextTooltip()" />
-										<CitadelSettingsCheckbox convar="r_displacement_mapping" text="#citadel_settings_displacement_mapping" onmouseover="UIShowTextTooltip( #citadel_settings_displacement_mapping_desc )" onmouseout="UIHideTextTooltip()" />
 										<CitadelSettingsCheckbox convar="r_post_bloom" text="#citadel_settings_post_bloom" onmouseover="UIShowTextTooltip( #citadel_settings_post_bloom_desc )" onmouseout="UIHideTextTooltip()" />
 										<CitadelSettingsCheckbox convar="r_effects_bloom" text="#citadel_settings_effects_bloom" onmouseover="UIShowTextTooltip( #citadel_settings_effects_bloom_desc )" onmouseout="UIHideTextTooltip()" />
 										<ToggleButton class="CheckBox" id="VSyncToggle" text="#citadel_settings_vsync" onactivate="CitadelSetVSync();" onmouseover="UIShowTextTooltip( #citadel_settings_vsync_desc )" onmouseout="UIHideTextTooltip()" />
@@ -323,15 +322,22 @@
 									<CitadelSettingsKeyBinder id="MantleBinder" text="#citadel_keybind_mantle" bind="Mantle" />
 									<CitadelSettingsKeyBinder id="RollBinder" text="#citadel_keybind_roll" bind="Roll" />
 									<CitadelSettingsKeyBinder id="CrouchBinder" text="#citadel_keybind_crouch" bind="Crouch" />
+									<CitadelSettingsKeyBinder id="ZiplineBinder" text="#citadel_keybind_zipline" bind="Zipline" />
 									<Label class="SubHeaderText" text="#citadel_settings_itemkeybinds" />
 									<Panel class="SectionHeaderLine" />
+									<Panel class="ItemQuickCastContainer LeftRightFlow">
+										<Label id="QuickCastDescription" class="QuickCastDesc" text="#citadel_settings_quick_cast_items_desc" />
+										<Panel id="ItemQuickCastDropDownContainer">
+											<DropDown id="ItemQuickCastDropDown" class="DropDown" />
+											<Panel id="UnitHasBindsIndicator" class="ItemQuickCastIndicator" />
+										</Panel>
+									</Panel>
 									<CitadelSettingsKeyBinder id="Item1Binder" text="#citadel_keybind_item1" bind="Item1" />
 									<CitadelSettingsKeyBinder id="Item2Binder" text="#citadel_keybind_item2" bind="Item2" />
 									<CitadelSettingsKeyBinder id="Item3Binder" text="#citadel_keybind_item3" bind="Item3" />
 									<CitadelSettingsKeyBinder id="Item4Binder" text="#citadel_keybind_item4" bind="Item4" />
 									<Label class="SubHeaderText" text="#citadel_settings_communicationkeybinds" />
 									<Panel class="SectionHeaderLine" />
-									<CitadelSettingsKeyBinder id="PushToTalkBinder" text="#citadel_keybind_push_to_talk" bind="PushToTalk" />
 									<CitadelSettingsKeyBinder id="ChatAllBinder" text="#citadel_keybind_chat_all" bind="Chat" />
 									<CitadelSettingsKeyBinder id="ChatTeamBinder" text="#citadel_keybind_chat_team" bind="ChatTeam" />
 									<CitadelSettingsKeyBinder id="MouseWheelBinder" text="#citadel_keybind_mouse_wheel" bind="MouseWheel" />
@@ -344,7 +350,10 @@
 								<Panel id="KeybindingsContainer2" class="SettingsSection HotkeySettingsSection">
 									<Label class="SubHeaderText" text="#citadel_settings_abilitieskeybinds" />
 									<Panel class="SectionHeaderLine" />
-									<CitadelSettingsKeyBinder id="MeleeBinder" text="#citadel_keybind_melee" bind="AbilityMelee" />
+									<Panel class="GlobalQuickCastContainer LeftRightFlow">
+										<Label id="QuickCastDescription" class="QuickCastDesc" text="#citadel_settings_quick_cast_global_desc" />
+										<DropDown id="GlobalQuickCastMode" class="DropDown" />
+									</Panel>
 									<CitadelSettingsKeyBinder id="Ability1Binder" text="#citadel_keybind_ability1" bind="Ability1" />
 									<CitadelSettingsKeyBinder id="Ability2Binder" text="#citadel_keybind_ability2" bind="Ability2" />
 									<CitadelSettingsKeyBinder id="Ability3Binder" text="#citadel_keybind_ability3" bind="Ability3" />
@@ -354,6 +363,7 @@
 									<CitadelSettingsKeyBinder id="AbilityUpgrade2Binder" text="#citadel_keybind_upgrade_ability2" bind="AbilityUpgrade2" />
 									<CitadelSettingsKeyBinder id="AbilityUpgrade3Binder" text="#citadel_keybind_upgrade_ability3" bind="AbilityUpgrade3" />
 									<CitadelSettingsKeyBinder id="AbilityUpgrade4Binder" text="#citadel_keybind_upgrade_ability4" bind="AbilityUpgrade4" />
+									<CitadelSettingsKeyBinder id="MeleeBinder" text="#citadel_keybind_melee" bind="AbilityMelee" />
 									<CitadelSettingsKeyBinder id="HeldItemBinder" text="#citadel_keybind_held_item" bind="HeldItem" />
 									<Panel class="ModeOptionContainer">
 										<Label class="ModeOption" text="#citadel_settings_cancel_ability_mode" />
@@ -403,7 +413,11 @@
 									<CitadelSettingsKeyBinder id="ToggleSpectatorInEyeBinder" text="#citadel_keybind_spec_in_eye" bind="SpectatorInEye" />
 									<CitadelSettingsKeyBinder id="ToggleSpectatorChaseBinder" text="#citadel_keybind_spec_chase" bind="SpectatorChase" />
 									<CitadelSettingsKeyBinder id="ToggleSpectatorReplayDeathBinder" text="#citadel_keybind_replay_death" bind="ReplayDeath" />
-									<CitadelSettingsKeyBinder id="ToggleFreeCursor" text="#citadel_keybind_toggle_free_cursor" bind="ToggleFreeCursor" />
+									<CitadelSettingsKeyBinder id="ToggleFreeCursor" text="#citadel_keybind_toggle_free_cursor" bind="SpectatorToggleFreeCursor" />
+									<CitadelSettingsKeyBinder id="SpectatorFOWTeamBoth" text="#citadel_keybind_minimap_view_spectator_team" bind="SpectatorFOWTeamBoth" />
+									<CitadelSettingsKeyBinder id="SpectatorFOWTeamAmber" text="#citadel_keybind_minimap_view_amber_team" bind="SpectatorFOWTeamAmber" />
+									<CitadelSettingsKeyBinder id="SpectatorFOWTeamSapphire" text="#citadel_keybind_minimap_view_sapphire_team" bind="SpectatorFOWTeamSapphire" />
+									<CitadelSettingsKeyBinder id="SpectatorFOWTeamTarget" text="#citadel_keybind_minimap_view_targets_team" bind="SpectatorFOWTeamTarget" />
 									<Label class="SubHeaderText" text="#citadel_settings_replaykeybinds" />
 									<Panel class="SectionHeaderLine" />
 									<CitadelSettingsKeyBinder id="ToggleReplayNextTargetBinder" text="#citadel_keybind_replay_next_target" bind="ReplayNextTarget" />

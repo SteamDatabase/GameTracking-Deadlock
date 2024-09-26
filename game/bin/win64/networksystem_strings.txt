@@ -17,11 +17,8 @@
   version max  : %u.%u\n
   version used : %u.%u\n
  %dms faster than direct ping of %dms
- (08@HPX`j 
- (08@HPXb
- (08@HPZ 
- (08@HR
- (0X`hpz
+ (08@HPX`j
+ (08@HPZ
  - keeping around as cacheable shared connection
  [+add recip %d]
  [COMPLEX]
@@ -130,7 +127,12 @@
 %s::%s has more than one MNetworkChangeCallback that requires passing network value into handler, this is unsupported\n
 %s::%s was in the original serializer at offset %u but that offset isn't in the ignore list!!!\n
 %s::%s:%u (%s ) already encountered at %s::%s:%u (%s)
-%s:Dropped %i packets at %i\n
+%s:Inbound net frame %d dropped\n
+%s:Inbound net frame %d duplicated\n
+%s:Inbound net frame %d out of order (latest received is %d)\n
+%s:Inbound net frames %d..%d dropped (%d frames)\n
+%s:Outbound net frame %d dropped\n
+%s:Outbound net frame %d out of order\n
 %sApplying %s\n
 %sCull fields for %s\n
 %sCulled %s::%s\n
@@ -247,16 +249,13 @@
 0 bit issue, spot 2
 0 bit issue, spot 3
 0 bit issue, spot 4
-08@HR 
-08@J
-08B 
-2\vp`u
-2\vpt
+08@HR
 2tx!2dw!24v!2
-81N"
 <classname> <fieldname>:  spew why field was excluded from networking for classname.
 @ inf
-AA:PO
+@08N`
+@HPX`hv`
+@HV0
 Accepting Steam Net connection %s\n
 AckSeqNum
 Activates/deactivates net message validation
@@ -662,8 +661,8 @@ Opened Steam Net Connection on socket '%s' to %s, connection %s\n
 Order,'From','To',Bits\n
 OutSeqNumAck
 Overrides IP for multihomed hosts
-P08@J
-P08J
+P08J`
+P08N`
 PACKET_STATUS_DROPPED
 PACKET_STATUS_INVALID
 PACKET_STATUS_NORMAL
@@ -692,7 +691,6 @@ Print current ping times to SDR points of presence, and selected route
 Print current simulated network condifions
 Print detailed network statistics for each network connection
 ProcessOverride encountered unknown directive NetworkOverrideType_t(%d)\n
-ProcessPacket %s:%s packet %i at %i\n
 Processing
 Proto 
 PushN
@@ -725,7 +723,6 @@ QueueChange
 QueueReplayCompatFieldChange( %s ): can't place MNetworkReplayCompatField callback on a fully fake struct (e.g., a pointed to component or object), game code should move callback on entity %d to a C_BaseEntity derived class!\n
 QueueTimeMS
 RSDS
-R\vp`u
 RadianEuler
 ReadFields
 Recv
@@ -811,12 +808,13 @@ Unable to unambiguously match %s::%s in %s, %d possible matches found\n
 Unexpected argument '%s'\n
 Unknown jitter profile '%s'.\n
 Unknown message type %u
+Unreliable header too small
 UnreliableNetSize
 UnreliableSize
 Unserialized nonresident asset %s status [%d]
 Usage: net_captureculldata <file path>\n
 Usage: net_option <setting> [<value>]\n
-Usage:\nnet_fakejitter [send|recv] AVG [PCT] [MAX]\nnet_fakejitter [send|recv] PROFILE\n\nsend|recv  If present, applies the changes to the specified direction only.\nAVG        Mean delay, for packets that are jittered, in ms.  The random\n           delay is chosen using the exponential distribution.\nPCT        Percentage of packets (0...100) that will receive a random delay.\nMAX        Clamp random jitter delay to MAX ms.\nPROFILE    One of: off, low, med, high\n\nUse net_fakestatus to display current simulated network conditions.\n
+Usage:\nnet_fakejitter [send|recv] AVG [PCT] [MAX]\nnet_fakejitter [send|recv] PROFILE\n\nsend|recv  If present, applies the changes to the specified direction only.\nAVG        Mean delay, for packets that are jittered, in ms.  The random\n           delay is chosen using the exponential distribution.\nPCT        Percentage of packets (0...100) that will receive a random delay.\nMAX        Clamp random jitter delay to MAX ms.\nPROFILE    One of: off, low, med, high, huge\n\nUse net_fakestatus to display current simulated network conditions.\n
 UsecEngineLatency
 UsecLocalLatency
 Using Valve ICE implementation\n
@@ -843,7 +841,7 @@ Vector4D
 WriteFields
 WriteToBuffer Message %s is not initialized! Probably missing required fields!\n
 Writing %d bits for path %s of serializer %s entity %d, this will fail to parse\n
-X`hr 
+X`hr
 [ Net Message Info: %s ]\n
 [%s] high frame misdelivery %.1f%%, %d/%d of %d frames dropped/reordered, %.0fms ping\n
 [%s] misdelivery %.1f%%, %d/%d of %d frames dropped/reordered, %.0fms ping\n
@@ -863,7 +861,7 @@ X`hr
 \tGroup ID                 = %u\n
 \tID                       = %u\n
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t
-`2PO
+aBv`
 activated
 added
 aggegated
@@ -911,7 +909,6 @@ dropped
 dti_%02d%02d%02d-%02d%02d%02d_%s.csv
 dti_enabled
 due to MNetworkNoBase
-duplicate
 embedded field
 encoding_stats
 exclude
@@ -938,9 +935,9 @@ g_pSteamNetworkingSockets
 g_pSteamNetworkingUtils
 groupindex
 groupnames
-h1p"
 has_network_encoding_data
 hostip
+huge
 identified %d entity related c++ field shadowing issues:\n
 include
 including
@@ -1032,7 +1029,7 @@ out-of-order
 outgoing_data_bytespersecond
 outgoing_sequence
 outgoing_sequence_start
-p0jPE
+p08@H^`
 pFSField
 packet_status
 parallel

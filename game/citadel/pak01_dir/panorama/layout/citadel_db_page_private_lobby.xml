@@ -6,41 +6,19 @@
 		<include src="s2r://panorama/styles/citadel_db_page_private_lobby.vcss_c" />
 	</styles>
 	<CitadelPrivateLobbyPage class="DashboardPage" oncancel="">
-		<Panel class="MainHeader">
-			<Panel class="MainTitle">
-				<Label class="MainTitleText" text="#Citadel_PrivateLobby_PageTitle" />
-			</Panel>
-		</Panel>
 		<Panel class="MainBodyCtn">
-			<Panel class="TeamContainer">
-				<Panel class="TeamAmber TeamCtn">
-					<Panel class="TeamTitle">
-						<Label class="TeamTitleText" text="#Citadel_Team1_Name" />
-					</Panel>
-					<Panel id="Team1Listing" class="TeamListing" />
-				</Panel>
-				<Panel id="VersusText">
-					<Label id="VersusText" text="#Citadel_PrivateLobby_Versus" />
-				</Panel>
-				<Panel class="TeamSapphire TeamCtn">
-					<Panel class="TeamTitle">
-						<Label class="TeamTitleText" text="#Citadel_Team2_Name" />
-					</Panel>
-					<Panel id="Team2Listing" class="TeamListing" />
-				</Panel>
+			<Panel id="LobbyInfo">
 				<Panel class="SettingsPanel">
-					<Label class="SettingsHeader" text="#Citadel_PrivateLobby_MatchSettings" />
+					<Label class="SettingsHeader" text="#Citadel_PrivateLobby_PageTitle" />
 					<Panel class="SettingSubSection">
+						<Button class="SecondaryButton light outline hasIcon" onactivate="CitadelPrivateLobbyOpenInvites()">
+							<Panel class="InviteIcon" />
+							<Label class="TeamJoinText" text="#Citadel_PrivateLobby_Invite" />
+						</Button>
 						<CitadelPartyCode id="PartyCode" />
 					</Panel>
 					<Panel class="SettingSubSection">
-						<DropDown id="RegionDropdown">
-							<Label id="Region_ROW" class="RegionOption" value="0" text="#Citadel_PrivateLobby_Region_ROW" onactivate="CitadelPrivateLobbySetRegion(0)" />
-							<Label id="Region_Europe" class="RegionOption" value="1" text="#Citadel_PrivateLobby_Region_Europe" onactivate="CitadelPrivateLobbySetRegion(1)" />
-							<Label id="Region_SEAsia" class="RegionOption" value="2" text="#Citadel_PrivateLobby_Region_SEAsia" onactivate="CitadelPrivateLobbySetRegion(2)" />
-							<Label id="Region_SAmerica" class="RegionOption" value="3" text="#Citadel_PrivateLobby_Region_SAmerica" onactivate="CitadelPrivateLobbySetRegion(3)" />
-							<Label id="Region_Oceania" class="RegionOption" value="5" text="#Citadel_PrivateLobby_Region_Oceania" onactivate="CitadelPrivateLobbySetRegion(5)" />
-						</DropDown>
+						<DropDown id="ServerRegionDropdown" />
 					</Panel>
 					<Panel class="SettingSubSection">
 						<DropDown id="BotDifficultyDropdown">
@@ -56,40 +34,62 @@
 							<Label id="Randomized_On" class="RegionOption" value="1" text="#Citadel_PrivateLobby_RandomLanes_On" onactivate="CitadelPrivateLobbySetRandomizeLanes(1)" />
 						</DropDown>
 					</Panel>
-				</Panel>
-			</Panel>
-			<Panel class="OthersContainer">
-				<Panel class="Speactators TeamCtn">
-					<Panel class="TeamTitle">
-						<Label class="TeamTitleText" text="#Citadel_PrivateLobby_Group_Spectators" />
+					<Panel class="SettingSubSection">
+						<DropDown id="PubliclyVisibleDropdown">
+							<Label id="PubliclyVisible_Off" class="RegionOption" value="0" text="#Citadel_PrivateLobby_PubliclyVisible_Off" onactivate="CitadelPrivateLobbySetPubliclyVisible(0)" />
+							<Label id="PubliclyVisible_On" class="RegionOption" value="1" text="#Citadel_PrivateLobby_PubliclyVisible_On" onactivate="CitadelPrivateLobbySetPubliclyVisible(1)" />
+						</DropDown>
 					</Panel>
-					<Panel id="SpectatorListing" class="TeamListing" />
+					<Panel class="SettingSubSection">
+						<DropDown id="CheatsEnabledDropdown">
+							<Label id="Cheats_Off" class="RegionOption" value="0" text="#Citadel_PrivateLobby_Cheats_Off" onactivate="CitadelPrivateLobbySetCheatsEnabled(0)" />
+							<Label id="Cheats_On" class="RegionOption" value="1" text="#Citadel_PrivateLobby_Cheats_On" onactivate="CitadelPrivateLobbySetCheatsEnabled(1)" />
+						</DropDown>
+					</Panel>
 				</Panel>
 				<Panel class="Unassigned TeamCtn">
 					<Panel class="TeamTitle">
 						<Label class="TeamTitleText" text="#Citadel_PrivateLobby_Group_Unassigned" />
 					</Panel>
-					<Panel id="UnassignedListing" class="TeamListing" />
-					<Button id="UnassignedJoin" class="TeamJoinButton" onactivate="CitadelPrivateLobbySetPartySlot( 0 )">
+					<Button id="UnassignedJoin" class="SecondaryButton light outline" onactivate="CitadelPrivateLobbySetPartySlot( 0 )">
 						<Label class="TeamJoinText" text="#Citadel_PrivateLobby_Join" />
 					</Button>
+					<Panel id="UnassignedListing" class="TeamListing" />
 				</Panel>
-				<Panel class="Invites TeamCtn">
-					<Panel class="TeamTitle">
-						<Label class="TeamTitleText" text="#Citadel_PrivateLobby_Group_Invites" />
+			</Panel>
+			<Panel id="PlayersPanel">
+				<Panel class="TeamContainer">
+					<Panel class="TeamAmber TeamCtn">
+						<Panel class="TeamTitle">
+							<Label class="TeamTitleText" text="#Citadel_Team1_Name" />
+						</Panel>
+						<Panel id="Team1Listing" class="TeamListing" />
 					</Panel>
-					<Panel id="InvitesListing" class="TeamListing" />
-					<Button id="InvitePlayers" class="TeamJoinButton" onactivate="CitadelPrivateLobbyOpenInvites()">
-						<Label class="TeamJoinText" text="#Citadel_PrivateLobby_Invite" />
-					</Button>
+					<Panel id="VersusText">
+						<Label id="VersusText" text="#Citadel_PrivateLobby_Versus" />
+					</Panel>
+					<Panel class="TeamSapphire TeamCtn">
+						<Panel class="TeamTitle">
+							<Label class="TeamTitleText" text="#Citadel_Team2_Name" />
+						</Panel>
+						<Panel id="Team2Listing" class="TeamListing" />
+					</Panel>
+				</Panel>
+				<Panel class="OthersContainer">
+					<Panel class="Spectators">
+						<Panel class="TeamTitle">
+							<Label class="TeamTitleText" text="#Citadel_PrivateLobby_Group_Spectators" />
+						</Panel>
+						<Panel id="SpectatorListing" class="TeamListing" />
+					</Panel>
 				</Panel>
 			</Panel>
-			<Panel class="LaunchMatchCtn">
-				<Label class="PartyErrorText" text="{s:PartyError}" />
-				<Button id="StartMatch" onactivate="CitadelPrivateLobbyStartMatch( 1 )">
-					<Label class="StartMatchText" text="#Citadel_PrivateLobby_StartMatch" />
-				</Button>
-			</Panel>
+		</Panel>
+		<Panel class="LaunchMatchCtn">
+			<Label class="PartyErrorText" text="{s:PartyError}" />
+			<Button id="StartMatch" onactivate="CitadelPrivateLobbyStartMatch( 1 )">
+				<Label class="StartMatchText" text="#Citadel_PrivateLobby_StartMatch" />
+			</Button>
 		</Panel>
 	</CitadelPrivateLobbyPage>
 </root>

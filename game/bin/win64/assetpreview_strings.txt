@@ -59,6 +59,7 @@
  PRESS
  RELEASE
  REPEAT
+ Vector b
  X?setAlignment@QTextOption@@QEAAXV?$QFlags@W4AlignmentFlag@Qt@@@@@Z
  [ %f %f %f %f  %f %f %f %f  %f %f %f %f  %f %f %f %f ]
  [SYNCED]
@@ -132,6 +133,7 @@
 "?widget@QScrollArea@@QEBAPEAVQWidget@@XZ
 "ActBusy.txt"\n
 "LightRigs"\n{\n\tDefault\n\t{\n  \t\tSun\n\t\t{\n  \t\t\tPos "300 0 0"\n\t\t\tDir "1 0 0"\n \t\t\tColor "255 255 255"\n\t\t\tBrightness 0.5\n\t\t\tShadows 1\n\t\t\tAxisScale 2\n \t\t}\n\t\tPointLight\n\t\t{\n\t\t\tBrightness 0.025\n\t\t\tPos "0 200 0"\n\t\t\tRadius 10000\n\t\t}\n\t\tPointLight\n\t\t{\n\t\t\tBrightness 0.025\n\t\t\tPos "0 0 200"\n\t\t\tRadius 10000\n\t\t}\n\t}\n}\n
+"Limit Count: " + m_nLimitCount
 "Predictor" value %d not supported
 "Proxies"\n
 "X?setAlpha@QColor@@QEAAXH@Z
@@ -997,6 +999,7 @@ $prefix_element$
 .?AVCPulseCell_Unknown@@
 .?AVCPulseCell_Val_TestDomainFindEntityByName@@
 .?AVCPulseCell_Val_TestDomainGetEntityName@@
+.?AVCPulseCell_Value_RandomFloat@@
 .?AVCPulseCell_Value_RandomInt@@
 .?AVCPulseCell_Value_TestValue50@@
 .?AVCPulseGraphDef@@
@@ -1451,7 +1454,7 @@ $prefix_element$
 /]?size@QImage@@QEBA?AVQSize@@XZ
 0 to 1 value indicating the amout of random offset that should be applied to the reguluarly spaced positions
 0.0 to 1.0 value indicating the probability of this element being evaluated. Where a value of 0 means the element will never be evaluated and 1.0 means it will always be evaluated
-0>RP9
+0>rr9
 0x%1
 0x%llx
 0x%p = %s '%s'
@@ -1691,6 +1694,7 @@ $prefix_element$
 2ValueChanged()
 2WidgetUpdated(int)
 2\f?focusOutEvent@QLabel@@MEAAXPEAVQFocusEvent@@@Z
+2\fm5!
 2\n?doItemsLayout@QListView@@UEAAXXZ
 2\nP!E
 2\r?hideEvent@QWidget@@MEAAXPEAVQHideEvent@@@Z
@@ -1743,8 +1747,8 @@ $prefix_element$
 5\r55t
 5\v?event@QCheckBox@@MEAA_NPEAVQEvent@@@Z
 5sfm_v8
-6,P9
 64 283 0
+6Lr9
 6[?setRenderHint@QPainter@@QEAAXW4RenderHint@1@_N@Z
 6\f?focusOutEvent@QPlainTextEdit@@MEAAXPEAVQFocusEvent@@@Z
 6\v?createNode@QMapDataBase@@QEAAPEAUQMapNodeBase@@HHPEAU2@_N@Z
@@ -1758,7 +1762,6 @@ $prefix_element$
 8\f?focusOutEvent@QTextBrowser@@MEAAXPEAVQFocusEvent@@@Z
 8\v?event@QCompleter@@MEAA_NPEAVQEvent@@@Z
 8]?size@QPixmap@@QEBA?AVQSize@@XZ
-8fff?
 8text
 969p
 9\f?focusOutEvent@QTextEdit@@MEAAXPEAVQFocusEvent@@@Z
@@ -1785,7 +1788,6 @@ $prefix_element$
 <missing 
 <no text for the token>
 <none>\n
-=33s?
 == PulseGraphDef ==\n
 >WorldGroupId_t
 ??0QAction@@QEAA@AEBVQString@@PEAVQObject@@@Z
@@ -3203,6 +3205,8 @@ Activity
 Activity %s has %d sequences with a total weight of %d!\n
 Actually dude, we didn't seem to be expecting anything here, or at least\n
 Add R%d <- R%d + R%d
+Add Vector
+Add Vector a to Vector b
 AddColor
 AddUndoElement '%s'\n
 AddValueToSet
@@ -3250,6 +3254,12 @@ Apply a scale to the current transform.
 Apply scale to the last element in order to fit the line. Only proceed to scale additional elements if the scale range of the last element is not sufficient.
 Apply the active deformer to the current transform as a rigid deformation and disable the deformer.
 ApplyColorMode_t
+Arc Cos
+Arc Cosine of angle, in degrees (0 -> 0, 90 -> 1)
+Arc Sin
+Arc Sine of angle, in degrees (0 -> 0, 90 -> 1)
+Arc Tan
+Arc Tangent of angle, in degrees (0 -> 0, 90 -> 1)
 Are we currently running unit tests?
 ArithmeticMode_t
 Arms
@@ -3283,7 +3293,6 @@ Auto
 Axis around which the rotation will occur
 AxisScale
 B channel not found!\n
-B.f?y
 BACKSLASH_CHAR
 BA_INT_NONE
 BLACK
@@ -3560,6 +3569,7 @@ CPulseCell_Timeline::TimelineEvent_t
 CPulseCell_Unknown
 CPulseCell_Val_TestDomainFindEntityByName
 CPulseCell_Val_TestDomainGetEntityName
+CPulseCell_Value_RandomFloat
 CPulseCell_Value_RandomInt
 CPulseCell_Value_TestValue50
 CPulseExecCursor
@@ -3581,15 +3591,26 @@ CPulseGraphInstance_TurtleGraphics!Graph_Go
 CPulseMathlib
 CPulseMathlib!AbsFloat
 CPulseMathlib!AbsInt
+CPulseMathlib!AddVector
+CPulseMathlib!ArcCos
+CPulseMathlib!ArcSin
+CPulseMathlib!ArcTan
 CPulseMathlib!ClampFloat
 CPulseMathlib!ClampInt
 CPulseMathlib!Cos
+CPulseMathlib!CrossProductVector
+CPulseMathlib!DotProductVector
+CPulseMathlib!LengthVector
 CPulseMathlib!MaxFloat
 CPulseMathlib!MaxInt
 CPulseMathlib!MinFloat
 CPulseMathlib!MinInt
+CPulseMathlib!NormalizeVector
 CPulseMathlib!Pow
+CPulseMathlib!ScaleVector
 CPulseMathlib!Sin
+CPulseMathlib!SubVector
+CPulseMathlib!Tan
 CPulseRuntimeMethodArg
 CPulseTestGapTypeQueryRegistration
 CPulseTestScriptLib
@@ -3758,6 +3779,7 @@ CSmartPropElement_Deformer
 CSmartPropElement_Layout2DGrid
 CSmartPropElement_Model
 CSmartPropElement_PlaceInSphere
+CSmartPropElement_PlaceMultiple
 CSmartPropElement_PlaceOnPath
 CSmartPropElement_SmartProp
 CSmartPropFilter
@@ -3858,7 +3880,6 @@ CToolSceneMaterialPreview
 CToolSceneMaterialPreview::GetDefaultPreviewModel
 CToolSceneMesh
 CToolSceneModel
-CToolSceneNode
 CToolSceneNodeGroup
 CToolSceneParticleSystem
 CToolSceneSceneObject
@@ -4080,6 +4101,8 @@ CreateTesselatedPlane(373):
 CreateTesselatedSphere(139): 
 Creates a bend deformer that is applied to child elements. The deformation bends the local space x-axis around the local space z-axis. The Angles property can be used to rotate the local axis to change the direction of deformation.
 Cross Product
+Cross Product Vector
+Cross Product of Vector a x Vector b
 Ctrl
 CtrlAltV
 Cube
@@ -4293,6 +4316,8 @@ Domain: %s\n
 Done!
 Done.
 Dot Product
+Dot Product Vector
+Dot Product of Vector a 
 DotRange
 DotaForward
 DotaGlobalParams_t
@@ -4315,7 +4340,6 @@ DumpModeDecode: Not enough data for scanline %d
 Dynamic Configs
 E<G&Iw
 ELEMENT
-EOxV
 EPulseGraphExecutionHistoryFlag
 EQUAL
 EQ_BOOL
@@ -4452,7 +4476,6 @@ FailImmediately
 Failed to allocate a lexer for '%s'. (Out of memory?)
 Failed to allocate a parser for '%s'. (Out of memory?)
 Failed to allocate a token stream for '%s'. (Out of memory?)
-Failed to allocate an instance of a class
 Failed to allocate an instance of class '%s'
 Failed to allocate field info array
 Failed to allocate memory for %s (%ld elements of %ld bytes each)
@@ -4560,6 +4583,7 @@ GREATER_OR_EQUAL
 GREEN
 G\v?event@QHeaderView@@MEAA_NPEAVQEvent@@@Z
 Game Blackboards: 
+Generate a random float between min and max (inclusive)
 Generate a random integer between min and max (inclusive)
 Generate the grid by placing N x N children.
 GenerateInt
@@ -4637,7 +4661,6 @@ HoverItemChanged
 How much should the surface normal up direction influence the final orientation. [ 0, 1 ] where 0 = don't modify the orientation, 1 = completely re-orient to match the surface.
 I ?toggleViewAction@QDockWidget@@QEBAPEAVQAction@@XZ
 I could not work out what I was expecting, like so many of us these days!\n
-IACSmartPropElement_PlaceMultiple
 IAsset*
 IAssetPreviewSettingsChangedListener
 IAssetSelectionListener
@@ -4671,7 +4694,6 @@ I[?setRgbF@QColor@@QEAAXNNNN@Z
 I\n?compare@QString@@QEBAHAEBV1@W4CaseSensitivity@Qt@@@Z
 I\r?endsWith@QString@@QEBA_NVQChar@@W4CaseSensitivity@Qt@@@Z
 I\r?hitButton@QCheckBox@@MEBA_NAEBVQPoint@@@Z
-Iblendweight
 If (R%d) Jump to Instr I%d
 If (R%d) Leap to Chunk C%d
 If No Surface Hit
@@ -4823,6 +4845,7 @@ KeyValues: Element uses unknown element type %s\n
 Kill after current node.
 Kill elegantly.
 Kill immediately.
+L?CToolSceneNode
 L@C:\buildworker\citadel_rel_win64\build\src\mathlib\extended\generic_expr.g
 LARGEST_FIRST
 LAST_SERIALIZED_CODE
@@ -4877,6 +4900,8 @@ Left Mouse (Point)
 Left direction (+y)
 LeftFingers
 Legs
+Length (magnitude) of Vector a
+Length Vector
 LensInfo
 Less R%d <- R%d < R%d
 LessEq R%d <- R%d <= R%d
@@ -4992,6 +5017,7 @@ MPulseProvideFeatureTag
 MPulseRequirementCheck
 MPulseRequirementCommit
 MPulseRequirementPass
+MPulseRequirementSummaryExpr
 MPulseSignatureForOutflow
 MPulseSignatureName
 MSAA Resolve
@@ -5241,6 +5267,7 @@ Nonstandard tile length %d, convert file
 Nonstandard tile width %d, convert file
 Normal
 Normalize Vector
+Normalize Vector a
 Normalize the value of a 3d vector.
 Normalized (Direction Vector)
 NoseV
@@ -5534,7 +5561,6 @@ Planarconfig tag value assumed incorrect, assuming data is contig instead of chu
 Plane
 Play
 PlaybackSpeedChanged
-Plt7
 PointLight
 Policy
 PopUpAndActivate
@@ -5719,6 +5745,7 @@ Radius of the bend. If 0 the radius will be computed automatically to preserve t
 Raise pen.
 Random
 Random Cull
+Random Float
 Random Integer
 Random fitting
 Randomly Flip Yaw
@@ -5887,6 +5914,7 @@ ScalableAOBias
 ScalableAORadius
 ScalableAOStrength
 Scale Mode
+Scale Vector
 Scale equally
 Scale factor (may be non-uniform) to be applied directly to the model (in the model's local space).
 Scale last
@@ -6227,8 +6255,10 @@ StripByteCounts
 StripOffsets
 Stylesheet
 Sub R%d <- R%d - R%d
+Sub Vector
 SubIFD
 SubfileType
+Subtract Vector a from Vector b
 SubtractValueFromSet
 Succeeded
 SupportsActivities
@@ -6272,6 +6302,7 @@ Tag %d
 Tag Value
 TakeFocus
 TanFrameQuat
+Tangent of angle, in degrees (0 -> 0, 90 -> 1)
 TangentU_SignV
 TargetPrinter
 Tear Off Copy ...
@@ -7034,6 +7065,7 @@ blendTransitionAndPath
 blendindices
 blendindices$0
 blendindices$0Indices
+blendweight
 blendweights
 blendweights$0
 blendweights$0Indices
@@ -7148,7 +7180,6 @@ cube_verts
 cubemap
 currentColorChanged
 cursorPowerDragEnabled
-cursor_state
 curvature
 curve info
 curvetypes
@@ -7289,6 +7320,7 @@ fast_strobe
 fbx2dmx
 ffValueIn
 ffValueOut
+fff?
 ffffff
 filePath
 fillBufferExt
@@ -7308,6 +7340,7 @@ flExponent
 flLastReferenced
 flMax
 flMin
+flScale
 flSpeed
 flValue
 flVaue
@@ -8034,6 +8067,7 @@ numchannels
 o KPBf
 oY.o<
 o\n?dragEnterEvent@QWidget@@MEAAXPEAVQDragEnterEvent@@@Z
+o\tV_tand
 o\v?event@QTreeWidget@@MEAA_NPEAVQEvent@@@Z
 offset
 offsetDelta
@@ -8049,7 +8083,6 @@ oscillate_scalar
 oscillate_vector
 outerconeangle
 ownerlog
-p>~O9
 pAsset
 pAsyncRet2
 pCheckpointName
@@ -8354,7 +8387,6 @@ speedIndices
 sphere_indices
 sphere_verts
 split
-sqrtf
 srcCropXEnd
 srcCropXStart
 srcCropYEnd

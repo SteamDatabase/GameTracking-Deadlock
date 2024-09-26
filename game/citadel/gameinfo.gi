@@ -98,11 +98,12 @@
 		"VulkanSteamAppShaderCache" "1"
 		"VulkanSteamDownloadedShaderCache" "1"
 		"VulkanAdditionalShaderCache" "vulkan_shader_cache.foz"
-		"VulkanStagingPMBSizeLimitMB" "128"
+		"VulkanStagingPMBSizeLimitMB" "384"
 		"GraphicsPipelineLibrary"	"1"
 		"VulkanOnlyTestProbability" "0"
 		"VulkanDefrag"				"1"
 		"MinStreamingPoolSizeMB"	"1024"
+		"AlwaysPreloadTexturesInGame" "0"
 	}
 
 	Engine2
@@ -223,7 +224,6 @@
 				direct_light_shadows 1
 				debug_chart_color 1
 			}
-			BakeLightingOnStaticPropsByDefault 0
 			UseStaticLightProbes 0
 			LPVAtlas 1
 		}

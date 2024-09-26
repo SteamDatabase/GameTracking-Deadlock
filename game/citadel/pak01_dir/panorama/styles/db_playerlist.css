@@ -1,9 +1,10 @@
 /* Prettified by Source 2 Viewer 10.1.0.0 - https://valveresourceformat.github.io */
 
+@import url("s2r://panorama/styles/citadel_shared_colors.vcss_c");
 @define offWhite: #FFEFD7;
 @define silvered: #C6C6C6;
 @define offBlack: #10130D;
-#PlayerList
+#PlayerList,#EnemyPlayerList
 {
 	flow-children: down;
 	horizontal-align: right;
@@ -13,12 +14,17 @@
 	visibility: collapse;
 }
 
-.IsShowingDashboardPage #PlayerList,.connectedToGame #PlayerList
+.IsShowingDashboardPage #PlayerList,.connectedToGame #PlayerList,.connectedToGame #EnemyPlayerList
 {
 	visibility: visible;
 }
 
-.connectedToGame #PlayerList
+.connectedToGame #EnemyPlayerList.noPlayersPopulated
+{
+	visibility: collapse;
+}
+
+.connectedToGame #PlayerList,#EnemyPlayerList
 {
 	width: 450px;
 }
@@ -35,6 +41,20 @@
 	opacity: 0.3;
 	margin-bottom: 10px;
 	visibility: collapse;
+}
+
+.playerListTitle
+{
+	font-weight: bold;
+	text-transform: uppercase;
+	opacity: 0.5;
+	margin-bottom: 5px;
+	visibility: collapse;
+}
+
+.connectedToGame .playerListTitle
+{
+	visibility: visible;
 }
 
 .connectedToGame .localPlayerInParty .partyLabel,.connectedToGame .hasAnyPlayersNotInParty .playersTitle
@@ -185,6 +205,11 @@
 	background-color: gradient( linear, 0% 0%, 100% 0%, from( #464646 ), to( #333 ) );
 }
 
+#EnemyPlayerList .PlayerContainer
+{
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( #422a2a ), to( #531c1c ) );
+}
+
 .connectedToGame .PlayerContainer
 {
 	width: 450px;
@@ -218,6 +243,31 @@
 .localPlayerInParty .PlayerContainer.localPlayer
 {
 	background-color: gradient( linear, 0% 0%, 100% 0%, from( #7ec59a70 ), to( #64646480 ) );
+}
+
+.VoiceIcon
+{
+	width: 25px;
+	height: 25px;
+	horizontal-align: center;
+	vertical-align: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-image: url("s2r://panorama/images/control_icons/party_open_mic_active_png.vtex");
+	wash-color: ritualGreen;
+	visibility: collapse;
+}
+
+.VoiceIcon.TransmittingVoice
+{
+	background-image: url("s2r://panorama/images/control_icons/party_mic_transmitting_png.vtex");
+	visibility: visible;
+}
+
+.VoiceIcon.ReceivingVoice
+{
+	background-image: url("s2r://panorama/images/control_icons/party_open_mic_active_png.vtex");
+	visibility: visible;
 }
 
 #ChatControl
@@ -325,6 +375,19 @@
 	flow-children: right;
 	vertical-align: middle;
 	width: 280px;
+}
+
+.ShowProfileBlocker
+{
+	width: 100%;
+	height: 100%;
+	ignore-parent-flow: true;
+	visibility: collapse;
+}
+
+.disconnected.IsShowingDashboardPage .localPlayer .ShowProfileBlocker
+{
+	visibility: visible;
 }
 
 #CitadelHeroImage
@@ -494,6 +557,11 @@
 	background-color: gradient( linear, 0% 0%, 100% 0%, from( #ffffff05 ), color-stop( 0.5, #9b9b9b30 ), to( #ffffff05 ) );
 	height: 60px;
 	flow-children: right;
+	visibility: collapse;
+}
+
+#EnemyPlayerList #ChatSelection
+{
 	visibility: collapse;
 }
 
