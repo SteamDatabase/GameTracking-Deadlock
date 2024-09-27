@@ -118,7 +118,6 @@
  <-- Arg '%s'
  <-- Retval '%s'
  <b>@import</b> 
- A Py
  ACTIVE GROUP
  C_PhysPropClientside::Spawn: SetupPhysicsAsModel() failed for %s.\n
  FLK
@@ -346,7 +345,6 @@
 #.CPlayer_GetLastPlayedTimes_Request
 #.CPublishedFile_GetDetails_Response"9
 #.CPublishedFile_Unsubscribe_Request
-#<CCitadelPlayerPawn_GraphController
 #AbandonMatchPrompt_Cancel
 #AbandonMatchPrompt_Confirm
 #AbandonMatchPrompt_Countdown
@@ -1711,6 +1709,7 @@ $hRh
 %s:  %s WRITE DirectoryClear( %s, %s )\n
 %s:  %s WRITE DirectoryCopy Append( %s [%u] )\n
 %s:  %s WRITE DirectoryCopy( %s, %p )\n
+%s:  %s WRITE DirectoryExtract( %s, %s )\n
 %s:  %s WRITE Queue AsyncWrite(%s) in CEntity2SaveRestore::SaveGame_Finalize\n
 %s:  %s WRITE Queue ClearSaveFile(%s) in CEntity2SaveRestore::SaveGame_Finalize\n
 %s:  %s WRITE Queue WriteFile(%s) in CEntity2SaveRestore::StreamEntitiesToFile\n
@@ -2897,9 +2896,9 @@ $hRh
 ../src/devtools/bin/certificates/game/
 ..CPlayer_GetNewSteamAnnouncementState_Response"_
 ..uR5&m
-.0FI
-.0jI
-.0lI
+.0HI
+.0sI
+.0tI
 .4bb
 .97yY
 .?AU?$CameraOp_Approach_t@M@@
@@ -3043,6 +3042,7 @@ $hRh
 .?AV<lambda_1>@?BA@??Dispatch@?$CGameMessageDelegateHook@VCCitadelUserMsg_BossDamaged_t@@@@EEAA_NAEBVCCitadelUserMsg_BossDamaged_t@@@Z@
 .?AV<lambda_1>@?BA@??Dispatch@?$CGameMessageDelegateHook@VCCitadelUserMsg_BossKilled_t@@@@EEAA_NAEBVCCitadelUserMsg_BossKilled_t@@@Z@
 .?AV<lambda_1>@?BA@??Dispatch@?$CGameMessageDelegateHook@VCCitadelUserMsg_BulletHit_t@@@@EEAA_NAEBVCCitadelUserMsg_BulletHit_t@@@Z@
+.?AV<lambda_1>@?BA@??Dispatch@?$CGameMessageDelegateHook@VCCitadelUserMsg_CallCheaterVote_t@@@@EEAA_NAEBVCCitadelUserMsg_CallCheaterVote_t@@@Z@
 .?AV<lambda_1>@?BA@??Dispatch@?$CGameMessageDelegateHook@VCCitadelUserMsg_CameraController_t@@@@EEAA_NAEBVCCitadelUserMsg_CameraController_t@@@Z@
 .?AV<lambda_1>@?BA@??Dispatch@?$CGameMessageDelegateHook@VCCitadelUserMsg_ChatEvent_t@@@@EEAA_NAEBVCCitadelUserMsg_ChatEvent_t@@@Z@
 .?AV<lambda_1>@?BA@??Dispatch@?$CGameMessageDelegateHook@VCCitadelUserMsg_ChatMsg_t@@@@EEAA_NAEBVCCitadelUserMsg_ChatMsg_t@@@Z@
@@ -3225,6 +3225,7 @@ $hRh
 .?AV?$CClientMessagePB@$0DPB@VCCitadelClientMsg_MapLine@@$00@@
 .?AV?$CClientMessagePB@$0DPC@VCCitadelClientMsg_AbilityPing@@$00@@
 .?AV?$CClientMessagePB@$0DPD@VCCitadelClientMsg_ExecuteMapUnitAbility@@$00@@
+.?AV?$CClientMessagePB@$0DPF@VCCitadelClientMsg_CheaterVote@@$00@@
 .?AV?$CComponentPredictionCopyDataOps@VCBodyComponentBaseAnimGraph@@@@
 .?AV?$CComponentPredictionCopyDataOps@VCBodyComponentBaseModelEntity@@@@
 .?AV?$CComponentPredictionCopyDataOps@VCBodyComponentPoint@@@@
@@ -3401,6 +3402,7 @@ $hRh
 .?AV?$CGameMessageDelegateHook@VCCitadelUserMsg_BossDamaged_t@@@@
 .?AV?$CGameMessageDelegateHook@VCCitadelUserMsg_BossKilled_t@@@@
 .?AV?$CGameMessageDelegateHook@VCCitadelUserMsg_BulletHit_t@@@@
+.?AV?$CGameMessageDelegateHook@VCCitadelUserMsg_CallCheaterVote_t@@@@
 .?AV?$CGameMessageDelegateHook@VCCitadelUserMsg_CameraController_t@@@@
 .?AV?$CGameMessageDelegateHook@VCCitadelUserMsg_ChatEvent_t@@@@
 .?AV?$CGameMessageDelegateHook@VCCitadelUserMsg_ChatMsg_t@@@@
@@ -4373,6 +4375,7 @@ $hRh
 .?AV?$CNetMessagePB@$0BFP@VCCitadelUserMsg_KillStreak@@$0N@$00$00@@
 .?AV?$CNetMessagePB@$0BGA@VCCitadelUserMsg_TeamMsg@@$0N@$00$00@@
 .?AV?$CNetMessagePB@$0BGB@VCCitadelUserMsg_PlayerRespawned@@$0N@$00$00@@
+.?AV?$CNetMessagePB@$0BGC@VCCitadelUserMsg_CallCheaterVote@@$0N@$00$00@@
 .?AV?$CNetMessagePB@$0BJA@VCMsgTEEffectDispatch@@$04$0A@$00@@
 .?AV?$CNetMessagePB@$0BJB@VCMsgTEArmorRicochet@@$04$0A@$00@@
 .?AV?$CNetMessagePB@$0BJC@VCMsgTEBeamEntPoint@@$04$0A@$00@@
@@ -4417,6 +4420,7 @@ $hRh
 .?AV?$CNetMessagePB@$0DPC@VCCitadelClientMsg_AbilityPing@@$0O@$00$00@@
 .?AV?$CNetMessagePB@$0DPD@VCCitadelClientMsg_ExecuteMapUnitAbility@@$0O@$00$00@@
 .?AV?$CNetMessagePB@$0DPE@VCCitadelClientMsg_GetDamageStats@@$0O@$00$00@@
+.?AV?$CNetMessagePB@$0DPF@VCCitadelClientMsg_CheaterVote@@$0O@$00$00@@
 .?AV?$CNetMessagePB@$0GF@VCUserMessageAchievementEvent@@$0N@$00$00@@
 .?AV?$CNetMessagePB@$0GG@VCUserMessageCloseCaption@@$0N@$00$00@@
 .?AV?$CNetMessagePB@$0GH@VCUserMessageCloseCaptionDirect@@$0N@$00$00@@
@@ -5337,6 +5341,7 @@ $hRh
 .?AV?$CUserMessagePB@$0BFP@VCCitadelUserMsg_KillStreak@@$00@@
 .?AV?$CUserMessagePB@$0BGA@VCCitadelUserMsg_TeamMsg@@$00@@
 .?AV?$CUserMessagePB@$0BGB@VCCitadelUserMsg_PlayerRespawned@@$00@@
+.?AV?$CUserMessagePB@$0BGC@VCCitadelUserMsg_CallCheaterVote@@$00@@
 .?AV?$CUserMessagePB@$0BPE@VCCitadelEntityMsg_BreakablePropSpawnDebris@@$00@@
 .?AV?$CUserMessagePB@$0GG@VCUserMessageCloseCaption@@$00@@
 .?AV?$CUserMessagePB@$0GH@VCUserMessageCloseCaptionDirect@@$00@@
@@ -5665,6 +5670,7 @@ $hRh
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?BA@??Dispatch@?$CGameMessageDelegateHook@VCCitadelUserMsg_BossDamaged_t@@@@EEAA_NAEBVCCitadelUserMsg_BossDamaged_t@@@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?BA@??Dispatch@?$CGameMessageDelegateHook@VCCitadelUserMsg_BossKilled_t@@@@EEAA_NAEBVCCitadelUserMsg_BossKilled_t@@@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?BA@??Dispatch@?$CGameMessageDelegateHook@VCCitadelUserMsg_BulletHit_t@@@@EEAA_NAEBVCCitadelUserMsg_BulletHit_t@@@Z@X$$V@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_1>@?BA@??Dispatch@?$CGameMessageDelegateHook@VCCitadelUserMsg_CallCheaterVote_t@@@@EEAA_NAEBVCCitadelUserMsg_CallCheaterVote_t@@@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?BA@??Dispatch@?$CGameMessageDelegateHook@VCCitadelUserMsg_CameraController_t@@@@EEAA_NAEBVCCitadelUserMsg_CameraController_t@@@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?BA@??Dispatch@?$CGameMessageDelegateHook@VCCitadelUserMsg_ChatEvent_t@@@@EEAA_NAEBVCCitadelUserMsg_ChatEvent_t@@@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?BA@??Dispatch@?$CGameMessageDelegateHook@VCCitadelUserMsg_ChatMsg_t@@@@EEAA_NAEBVCCitadelUserMsg_ChatMsg_t@@@Z@X$$V@std@@
@@ -6015,6 +6021,8 @@ $hRh
 .?AVCCitadelClientMsg_AbilityPing_t@@
 .?AVCCitadelClientMsg_ChatMsg@@
 .?AVCCitadelClientMsg_ChatMsg_t@@
+.?AVCCitadelClientMsg_CheaterVote@@
+.?AVCCitadelClientMsg_CheaterVote_t@@
 .?AVCCitadelClientMsg_ExecuteMapUnitAbility@@
 .?AVCCitadelClientMsg_ExecuteMapUnitAbility_t@@
 .?AVCCitadelClientMsg_GetDamageStats@@
@@ -6183,6 +6191,8 @@ $hRh
 .?AVCCitadelUserMsg_BossKilled@@
 .?AVCCitadelUserMsg_BossKilled_t@@
 .?AVCCitadelUserMsg_BulletHit_t@@
+.?AVCCitadelUserMsg_CallCheaterVote@@
+.?AVCCitadelUserMsg_CallCheaterVote_t@@
 .?AVCCitadelUserMsg_CameraController@@
 .?AVCCitadelUserMsg_CameraController_Approach@@
 .?AVCCitadelUserMsg_CameraController_Lag@@
@@ -9061,6 +9071,7 @@ $hRh
 .?AVCProtobufBinding@?$CNetMessagePB@$0BFP@VCCitadelUserMsg_KillStreak@@$0N@$00$00@@
 .?AVCProtobufBinding@?$CNetMessagePB@$0BGA@VCCitadelUserMsg_TeamMsg@@$0N@$00$00@@
 .?AVCProtobufBinding@?$CNetMessagePB@$0BGB@VCCitadelUserMsg_PlayerRespawned@@$0N@$00$00@@
+.?AVCProtobufBinding@?$CNetMessagePB@$0BGC@VCCitadelUserMsg_CallCheaterVote@@$0N@$00$00@@
 .?AVCProtobufBinding@?$CNetMessagePB@$0BJA@VCMsgTEEffectDispatch@@$04$0A@$00@@
 .?AVCProtobufBinding@?$CNetMessagePB@$0BJB@VCMsgTEArmorRicochet@@$04$0A@$00@@
 .?AVCProtobufBinding@?$CNetMessagePB@$0BJC@VCMsgTEBeamEntPoint@@$04$0A@$00@@
@@ -9105,6 +9116,7 @@ $hRh
 .?AVCProtobufBinding@?$CNetMessagePB@$0DPC@VCCitadelClientMsg_AbilityPing@@$0O@$00$00@@
 .?AVCProtobufBinding@?$CNetMessagePB@$0DPD@VCCitadelClientMsg_ExecuteMapUnitAbility@@$0O@$00$00@@
 .?AVCProtobufBinding@?$CNetMessagePB@$0DPE@VCCitadelClientMsg_GetDamageStats@@$0O@$00$00@@
+.?AVCProtobufBinding@?$CNetMessagePB@$0DPF@VCCitadelClientMsg_CheaterVote@@$0O@$00$00@@
 .?AVCProtobufBinding@?$CNetMessagePB@$0GF@VCUserMessageAchievementEvent@@$0N@$00$00@@
 .?AVCProtobufBinding@?$CNetMessagePB@$0GG@VCUserMessageCloseCaption@@$0N@$00$00@@
 .?AVCProtobufBinding@?$CNetMessagePB@$0GH@VCUserMessageCloseCaptionDirect@@$0N@$00$00@@
@@ -10478,7 +10490,6 @@ $hRh
 .P6AHPEBVIUIPanelClient@panorama@@0@Z
 .P6AXPEAVCSceneObject@@@Z
 .P6A_NXZ
-.PAI
 .PARTICLE_MESSAGE
 .PEAV?$CUtlVector@ULifetimeHighScore_t@CCitadelAccountStatCache@@HV?$CUtlMemory@ULifetimeHighScore_t@CCitadelAccountStatCache@@H@@@@
 .PEAVCBaseModifier@@
@@ -10496,15 +10507,13 @@ $hRh
 .PEBVCMsgMatchMetaDataContents_Players@@
 .PEBVCPanel2D@panorama@@
 .PEBVILocalizationString@panorama@@
-.PTI
 .PartnerAccountType
 .PerFriendPreferences"*\n(CPlayer_SetPerFriendPreferences_Response"c\n
 .PerFriendPreferences"U\n'CPlayer_SetPerFriendPreferences_Request
-.PiI
 .PingCommonData
-.PkI
-.PlI
 .PostProcessingGameStates
+.PsI
+.PtI
 .PublishedFileDetails
 .PublishedFileDetails"
 .PublishedFileDetails.Child
@@ -10799,12 +10808,12 @@ $hRh
 .dx_LV9
 .google.protobuf.ServiceOptions
 .lbN
-.pTI
-.paI
-.piI
-.pkI
+.pVI
+.plI
 .png
 .pp@0
+.prI
+.ptI
 .steammessages_unified_base.steamworkssdk.proto"
 .steammessages_unified_base.steamworkssdk.proto"4\n2CPlayer_GetMutualFriendsForIncomingInvites_Request"\\n&CPlayer_IncomingInviteMutualFriendList
 .steammessages_unified_base.steamworkssdk.proto"\\n"CMsgSteamLearnDataSourceDescObject
@@ -10910,7 +10919,6 @@ $hRh
 0\r0#0)070;0U0Y0[0g0q0y0}0
 0\tV_iswspace
 0e\r8
-0lrC
 0pp@5tqE?|sO541
 0tU+xc:
 0x%4.4x 
@@ -11102,7 +11110,6 @@ $hRh
 2\r%2h
 2\r.CameraAction
 2\rlhp
-2\vpt
 2^pV
 2a"l
 2bT~
@@ -11167,6 +11174,7 @@ $hRh
 4@AA
 4Ch;
 4F0I
+4F\v@9X
 4Mv8
 4Redirection URI provided during client registration.2
 4Zis
@@ -11217,18 +11225,14 @@ $hRh
 5s\nl
 5t?F
 5~EW
-6 OI
-6 WI
-6 ZI
-6 rI
 6#6165676;6M6O6S6Y6a6k6m6
 6#RDP#
 6%vi
 6(Optional) Type of game the published file represents.
 6,2K
 6-zeZ
-60^I
-60sI
+60OI
+60YI
 62$|S)6f
 64CK\vH
 65535
@@ -11239,11 +11243,8 @@ $hRh
 6666666666666666p
 67-s
 6?NumberValue@Value@v8@@QEBA?AV?$Maybe@N@2@V?$Local@VContext@v8@@@2@@Z
-6@XI
 6H,N
 6O|T%
-6PQI
-6PYI
 6Qd=
 6Returns the URL of the proper cloud server for a user.
 6True if the operation was successful, false otherwise.
@@ -11257,7 +11258,6 @@ $hRh
 6\n\vmatch_slots
 6\r56h
 6_wEX
-6`VI
 6afD
 6bX+
 6c&0|vvX
@@ -11265,7 +11265,6 @@ $hRh
 6l13
 6lkc
 6myY;
-6p`I
 6qo~
 6r-m_v
 6r1ij
@@ -11573,7 +11572,6 @@ $hRh
 >fff?
 >l\rur
 >p00<
->pZI
 >yhP
 >ztq
 ?(Optional) Video Id of a YouTube video for this published file.
@@ -11607,9 +11605,8 @@ $hRh
 ?HAI\t81\t9dcG'
 ?HP4
 ?HasCaught@TryCatch@v8@@QEBA_NXZ
-?PopupSettings
+?If > 0, show lag compensated hitboxes whenever a player is lag compensated. Value is for how long.
 ?ScrollBar
-?Spectator camera automatically try to match target view after no input for sometime
 ?TestCheckpoint: %s
 ?The most recent last-played time the client already knows about"
 ?VBH;
@@ -11625,22 +11622,22 @@ $hRh
 ?gwL
 ?invalid_hitbox
 ?jOb
-?m_nNextPrimaryAttackTick
+?r_citadel_shadow_caching
 ?srJO
 ?tya
 ?uWS
 ?x29
 @!@%@+@1@?@C@E@]@a@g@m@
-@08ND
+@08N4
 @0pp
-@6@AI
-@6@TI
-@6pGI
+@60lI
+@6`rI
+@>0SI
 @?SlowGetInternalField@Object@v8@@AEAA?AV?$Local@VData@v8@@@2@H@Z
 @BH]f
 @BoneSetup
 @DebugIndividualStyle
-@HPX`hv0uI
+@HPX`hv 
 @MfKZ
 @Pgl
 @Pu\rm
@@ -11654,11 +11651,12 @@ $hRh
 @\n\fSingleObject
 @dKb]
 @fff>fff>fff>fff>
+@htp
 @i1V
 @keyframes 
 @keyframes '%s'\r\n{\r\n
 @n2w
-@shatterglass_shard
+@shard_model_desc_t
 A bias on the lerp
 A capsule light entity
 A comma separated list of hero IDs that hold the currently high priority roster heroes
@@ -11690,6 +11688,7 @@ A<fP
 A>x8
 AA Compromise
 AA->Output
+AA:0
 AABBDirection
 AABB_t
 AACompromise
@@ -11704,7 +11703,7 @@ ACTIVATE_TYPE_DATAUPDATE_CREATION
 ACTIVATE_TYPE_INITIAL_CREATION
 ACTIVATE_TYPE_ONRESTORE
 ACTOR
-ACitadelPingWheelMessagesVDATA_t
+ACitadelPingWheelConcept_t
 AD Time Stamping
 ADD_CERT_DIR
 ADD_FLOAT
@@ -11875,6 +11874,7 @@ APPSYSTEM: In ReconnectGameInterface(), tried to use different connection modes!
 APUsageFlag_ModifierConditional
 APUsageFlag_ModifierIntrinsic
 APUsageFlag_NONE
+APlayer's active weapon will never run out of ammo
 ASCII
 ASIDENTIFIERCHOICE_CANONIZE
 ASIDENTIFIERCHOICE_IS_CANONICAL
@@ -11981,6 +11981,7 @@ A\n\tent_index
 A\n\vdescriptors
 A\n\vdiagnostics
 A\rjW
+A\vW9X
 A_txt
 AbW_
 Abandoned
@@ -12340,7 +12341,6 @@ AltInfoContainer
 AltJumpSpeed
 Alternate icon definition index %d must be greater than or equal to zero
 Always
-Am_hMyWeapons
 Amber
 Amber base attack expire: %.03f
 Ambient %s:Unknown command %s\n
@@ -13322,7 +13322,6 @@ B{Y.w
 C q'O
 C!OFtq74
 C%C'C3C7C9COCWCiC
-C%s:  %s WRITE DirectoryExtract( %s, %s )\n
 C-gr
 C-side of entity framework
 C3ps
@@ -13350,9 +13349,9 @@ C:\buildworker\citadel_rel_win64\build\src\game\client\c_te_effect_dispatch.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\client\cdll_client_int.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\client\citadel\animgraph2_test_prop\c_animgraph2_test_prop_citadel.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\client\citadel\c_citadel_peer2peer.cpp
-C:\buildworker\citadel_rel_win64\build\src\game\client\citadel\c_citadel_player_pawn.cpp:2505
-C:\buildworker\citadel_rel_win64\build\src\game\client\citadel\c_citadel_player_pawn.cpp:2790
-C:\buildworker\citadel_rel_win64\build\src\game\client\citadel\c_citadel_player_pawn.cpp:2920
+C:\buildworker\citadel_rel_win64\build\src\game\client\citadel\c_citadel_player_pawn.cpp:2514
+C:\buildworker\citadel_rel_win64\build\src\game\client\citadel\c_citadel_player_pawn.cpp:2799
+C:\buildworker\citadel_rel_win64\build\src\game\client\citadel\c_citadel_player_pawn.cpp:2929
 C:\buildworker\citadel_rel_win64\build\src\game\client\citadel\c_citadel_triggers.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\client\citadel\citadel_hero_builds_manager.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\client\citadel\citadel_musicmanager.cpp
@@ -13835,6 +13834,8 @@ CCitadelClientMsg_AbilityPing
 CCitadelClientMsg_AbilityPing_t
 CCitadelClientMsg_ChatMsg
 CCitadelClientMsg_ChatMsg_t
+CCitadelClientMsg_CheaterVote
+CCitadelClientMsg_CheaterVote_t
 CCitadelClientMsg_ExecuteMapUnitAbility_t
 CCitadelClientMsg_GetDamageStats_t
 CCitadelClientMsg_MapLine
@@ -13928,6 +13929,7 @@ CCitadelPlayerClipComponentReferencedPtr
 CCitadelPlayerController
 CCitadelPlayerPawn
 CCitadelPlayerPawnBase
+CCitadelPlayerPawn_GraphController
 CCitadelPlayer_CameraServices
 CCitadelPlayer_MovementServices
 CCitadelPlayer_ObserverServices
@@ -13965,6 +13967,8 @@ CCitadelUserMsg_BossDamaged_t
 CCitadelUserMsg_BossKilled
 CCitadelUserMsg_BossKilled_t
 CCitadelUserMsg_BulletHit_t
+CCitadelUserMsg_CallCheaterVote
+CCitadelUserMsg_CallCheaterVote_t
 CCitadelUserMsg_CameraController_t
 CCitadelUserMsg_ChatEvent
 CCitadelUserMsg_ChatEvent_t
@@ -15706,6 +15710,7 @@ CITADEL_CHAT_MESSAGE_UNPAUSE_COUNTDOWN
 CITADEL_CHAT_MESSAGE_YOUPAUSED
 CITADEL_CM_AbilityPing
 CITADEL_CM_ChatMsg
+CITADEL_CM_CheaterVote
 CITADEL_CM_ExecuteMapUnitAbility
 CITADEL_CM_GetDamageStats
 CITADEL_CM_MapLine
@@ -16064,6 +16069,7 @@ CLightGlow
 CLightOrthoEntity
 CLightQueryGameSystem::OnPostSimulate
 CLightSpotEntity
+CLinear
 CLobbyData_PostMatchSurvey
 CLogicRelay
 CLogicalEntity
@@ -16671,7 +16677,6 @@ CNetworkFieldScratchData.m_MemoryStacks[ 0 ]
 CNetworkFieldScratchData::Alloc created buffer %s of size %s\n
 CNetworkFieldScratchData::Alloc, failed to add new CMemoryStack at slot %d of size %u bytes.
 CNetworkFieldScratchData::Init failed on buffer of %u bytes.
-CNetworkGameClient::OnSource1Source1LegacyGameEvent: UnserializeKeyValue failed.\n
 CNetworkOriginCellCoordQuantizedVector
 CNetworkOriginCellCoordQuantizedVector m_cell%c cell %d is outside of cell bounds (0->%d) @(%f %f %f)\n
 CNetworkOriginQuantizedVector
@@ -18244,6 +18249,7 @@ CitadelBookViewerAutoPlay
 CitadelBookViewerGoto
 CitadelBookViewerUpdate
 CitadelBookXPUpdated
+CitadelCallCheaterVote
 CitadelCameraDistanceOperationDef_t
 CitadelCameraFOVOperationDef_t
 CitadelCameraHorizOffsetOperationDef_t
@@ -18253,6 +18259,7 @@ CitadelCameraTargetPosOperationDef_t
 CitadelCameraVertOffsetOperationDef_t
 CitadelCancelInvite
 CitadelCancelSpectate
+CitadelCastCheaterVote
 CitadelCenterMouseCursor
 CitadelChangeHero
 CitadelChatTextSubmitted
@@ -18604,7 +18611,7 @@ CitadelPaused
 CitadelPerformaceTracker
 CitadelPingEvent_t
 CitadelPingIndicator
-CitadelPingWheelConcept_t
+CitadelPingWheelMessagesVDATA_t
 CitadelPlayChatWheelSound
 CitadelPlayMenuBotMatch
 CitadelPlayMenuBotMatchPopup
@@ -19969,6 +19976,7 @@ DataDesc
 DataDescSchemaInit
 Date Cell
 DcO/lcK+hSK
+Dcitadel_ability_wraith_rapidfire
 Dd g4X3
 Deactivate
 Dead
@@ -20198,7 +20206,6 @@ Dev convar to allow for parties to use sandbox
 Dev operation was successful\n
 DevConsole
 DevUniverse
-Dh+y
 Dhq0\ri
 DiablePanel
 DialogVariablesHeader
@@ -20344,7 +20351,6 @@ DistanceFieldVisualize
 DistanceFromFocus%d
 DistanceToMaxTime
 Div R%d <- R%d / R%d
-Dm_flGrappleShotDelayToFlyOnHit
 DnRv
 Do client side flex animation.
 Do not stop the current yielding node, but do not continue to the next node afterwards.
@@ -22019,6 +22025,7 @@ F9q'
 F<mb
 F?ToString@Value@v8@@QEBA?AV?$MaybeLocal@VString@v8@@@2@V?$Local@VContext@v8@@@2@@Z
 FALL
+FCNetworkGameClient::OnSource1Source1LegacyGameEvent: UnserializeKeyValue failed.\n
 FCVAR_DEMO
 FCVAR_DEVELOPMENTONLY
 FCVAR_HIDDEN
@@ -22144,7 +22151,6 @@ FOLIAGE_ANIMATION_PIVOT
 FORCE_CAPTION
 FORM
 FORMAT
-FP~I
 FSR Upscale
 FTYPEDESC_ADDITIONAL_FIELDS
 FTYPEDESC_ENUM
@@ -22182,7 +22188,7 @@ F\n\finventories3
 F\n\trow_range
 F\rH'4
 F\tV_powd
-F_entname_fixup_prefix
+F`aI
 Face
 Facial Expression
 Facing Angle: %.2f\t
@@ -22561,8 +22567,6 @@ Found duplicate particle system index %d
 Found no entity at %d.\n
 FourQuaternions
 FourVectors
-Fp6I
-Fplayer
 Frame Rate, Number of Frames, Percent of Frames\n
 Frame time greater than this is considered 'poor'.
 Frame.AutoSnapRange
@@ -23258,6 +23262,7 @@ HBJ\nTRF
 HDR Color Scale: %0.3f
 HDRColor
 HDRColorScale
+HDX-
 HEAD 
 HEIGHT
 HH&a
@@ -24050,7 +24055,6 @@ If (R%d) Leap to Chunk C%d
 If -1 use the hud default, otherwise 0 is disabled, 1 is enabled
 If 0, the 360controller.cfg file will be executed on startup & option changes.
 If > 0, bullets will continue through thin surfaces with their damage scaled by this amount
-If > 0, show lag compensated hitboxes whenever a player is lag compensated. Value is for how long.
 If > 0, this bullet will apply its damage in a radius where it impacts (this is how to make something like a rocket).
 If >= 0, drags longer than this distance will suppress mouse click events (e.g. onactivate of embedded panels)
 If activating via the lookahead probe's normal, use that normal for this long after activating to help us get over that slope.
@@ -24990,7 +24994,6 @@ LineCtn
 LineItem
 LinePanel
 LineVisible
-Linear
 LinearForcePointAt
 LingerDuration
 List all client-side entities in the scene
@@ -26174,7 +26177,6 @@ ModifierRecord
 ModifierRemoveTargets_t
 ModifierRenderAttribute_t
 ModifierRuntimeHandle_t
-ModifierScriptValue_t
 ModifierScriptedEventHandler_t
 ModifierSerialNumber_t
 ModifierSnippet
@@ -27320,13 +27322,13 @@ P-224
 P-256
 P-384
 P-521
-P08ND
+P08N4
 P1\t98"
 P2P ping to "%s". Timed out after %.2fms\n
 P2P_Messages
 P5[1
-P60&I
-P6pAI
+P6 QI
+P6`lI
 PAGN_4
 PANEL_ID
 PANORAMA_LAYOUTFILE
@@ -27654,7 +27656,6 @@ PVAL_TYPESAFE_INT
 PVAL_VEC3
 P\n\nnumperpage
 P\n\nregression
-P`tC
 Packed store %s with refcount > 0.\n
 PackedAABB_t
 Packet delivery anomaly rate (0..100) higher than this is considered 'poor'.
@@ -27932,7 +27933,6 @@ Player Kill Orb
 Player Killed NPC Sound
 Player Motor
 Player%uHover
-Player's active weapon will never run out of ammo
 Player.AddFriend#1
 Player.MeepMop
 Player.Negative.Interact
@@ -27990,7 +27990,6 @@ Please Wait
 Please specify 0 or 1 with the -stream Parameter\n
 Plots
 Plots view angles yaw at various stages of the frame/tick in Tracy.
-PlrC
 Pm8A?
 PmR"H?
 Point entity.
@@ -28034,6 +28033,7 @@ PopupPlaytestUser
 PopupPrivateBots
 PopupReportPlayer
 PopupSellMaxItems
+PopupSettings
 PopupShowAsync
 PopupVisible
 PopupWrapper
@@ -28594,7 +28594,7 @@ RUMBLE_STOP_ALL
 R\n\nBookReward
 R\n\rincludekvtags
 R\r1>Vp
-R\vpP
+R\vpd
 R]Di
 Radiant
 RadioBox
@@ -29641,6 +29641,7 @@ Script_UnloadSpawnGroupByHandle
 Script_VectorCrossProduct
 Scripted Event Handlers
 Scripted Modifier Values
+Scripted Settings
 ScriptedHeldWeaponBehavior_t
 ScriptedMoveTo_t
 ScriptedOnDeath_t
@@ -30240,6 +30241,7 @@ ShowBonusDiffEnd
 ShowBookPrototype
 ShowCancel
 ShowCaptions
+ShowCheaterVote
 ShowChildren
 ShowDamageRatio
 ShowDebugAttributes
@@ -30617,6 +30619,7 @@ SpectatePlayerButtonPanel
 Spectated player changed...\n
 Spectating team changed from %i %s to %i %s.\n
 Spectator
+Spectator camera automatically try to match target view after no input for sometime
 Spectator voice transmit mode: 0 spectators and players, 1 spectators only
 SpectatorChase
 SpectatorControls
@@ -33343,8 +33346,6 @@ Z~wl
 \f]ne3
 \fdhWTh
 \fiaR
-\fp\vPlrC
-\fp\v`lrC
 \ful2
 \fy&3Gl
 \l:ArR
@@ -34447,7 +34448,6 @@ Z~wl
 \v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r
 \vj0k
 \vjC7
-\vplrC
 ]1h=bfz
 ]FhSD}
 ]GT7]
@@ -34455,6 +34455,7 @@ Z~wl
 ]MSd
 ][LK~lO
 ^.om5r
+^0zI
 ^DnJ
 ^DqPt
 ^J_spY
@@ -34498,6 +34499,7 @@ _dir.vpk
 _editor/next_ping_wheel_id
 _entname_fixup_local
 _entname_fixup_parent
+_entname_fixup_prefix
 _flt.vpk
 _fov
 _g@Cg
@@ -34520,7 +34522,6 @@ _xU`u
 _}eOk
 `28)fk
 `3?New@Array@v8@@SA?AV?$Local@VArray@v8@@@2@PEAVIsolate@2@H@Z
-`6PjI
 `:zQF
 `D$daM-l
 `DZG
@@ -34536,7 +34537,6 @@ _}eOk
 `generic-type-
 `h9T~
 `local static destructor helper'
-`lrC
 `non-type-template-parameter
 `o_je
 `template static data member constructor helper'
@@ -34561,7 +34561,7 @@ a5<p
 a;Tg
 a@XZ
 aA0k
-aBvD
+aBv4
 aD/x
 aDSS
 aECDH
@@ -36122,6 +36122,7 @@ chat_wheel_sound_icon
 chattype_%d
 chattype_1
 chatwheel
+cheater_name
 cheats_enabled
 checked
 checkedvalue
@@ -36243,7 +36244,6 @@ citadel_ability_upgrade_sell_time
 citadel_ability_uppercut
 citadel_ability_void_sphere
 citadel_ability_wing_blast
-citadel_ability_wraith_rapidfire
 citadel_ability_zip_line
 citadel_ability_zipline_boost
 citadel_abilityprojectile
@@ -37835,7 +37835,6 @@ dAN"
 dDV8
 dHHp
 dITRedirect
-dJ\fP
 dNSDomain
 dOj\f,
 dSAQuality
@@ -38630,6 +38629,7 @@ end-time
 endLerpTo
 endTime
 end_as_info
+end_game_immediately
 end_group
 end_memory_bytes
 end_point
@@ -42053,6 +42053,7 @@ k_EUserMsg_AuraModifierApplied
 k_EUserMsg_BossDamaged
 k_EUserMsg_BossKilled
 k_EUserMsg_BulletHit
+k_EUserMsg_CallCheaterVote
 k_EUserMsg_CameraController
 k_EUserMsg_ChatEvent
 k_EUserMsg_ChatMsg
@@ -45706,6 +45707,7 @@ m_flGoldRewardBonusPercentPerMinute
 m_flGraceTime
 m_flGrappleArriveTime
 m_flGrappleShotAttackTime
+m_flGrappleShotDelayToFlyOnHit
 m_flGrappleShotFloatTime
 m_flGrappleSpeed
 m_flGrappleStartTime
@@ -46648,6 +46650,7 @@ m_hModel
 m_hModifier
 m_hModifierListHandle
 m_hMoveToTarget
+m_hMyWeapons
 m_hMyWearables
 m_hObserverTarget
 m_hOldAttached
@@ -47279,6 +47282,7 @@ m_nMotionDisabledSpawnFlag
 m_nMoveType
 m_nNameOffset
 m_nNextIndex
+m_nNextPrimaryAttackTick
 m_nNextSceneEventId
 m_nNextScriptVarRecordID
 m_nNextSecondaryAttackTick
@@ -50360,8 +50364,7 @@ p.other
 p.ppBasis
 p.prime
 p.tpBasis
-p08@H^D
-p0j 
+p08@H^4
 p2p_FightingGame_Connection
 p2p_FightingGame_GameData
 p2p_Ping
@@ -50392,11 +50395,11 @@ pG_*h
 pHitEntity
 pIp 
 pLocationEntity
+pModifierScriptValue_t
 pO0h
 pRTH
 pRetName
 pSPo
-pScripted Settings
 pSource
 pSourceFunc
 pSpawnedEntityName
@@ -50410,7 +50413,6 @@ pUnitName
 pWorldObject
 pYieldArg2
 p^i9
-p`tC
 packet length too long
 packet_misdelivery_in_label
 packet_misdelivery_out_label
@@ -51153,7 +51155,6 @@ plays for local player victim taking damage from this ability
 playsoundscape
 playtime_2weeks
 playtime_forever
-plrC
 plum
 point
 point arithmetic failure
@@ -51533,7 +51534,6 @@ rRfKR
 rX&O0
 rZ1VwGf5
 rZPM
-r\fpP
 r\n\vstart_index
 r\vDi
 r_AirboatViewDampenDamp
@@ -51609,7 +51609,6 @@ r_citadel_motionblur_strength
 r_citadel_outlines
 r_citadel_prewarm_particles
 r_citadel_shadow_cache_size
-r_citadel_shadow_caching
 r_citadel_shadow_caching_stats
 r_citadel_shadow_quality
 r_citadel_shadowdb
@@ -52725,7 +52724,6 @@ shake_show
 shake_stop
 shake_testpunch
 shape
-shard_model_desc_t
 shared info error
 sharedobj
 sharpStartAngle
@@ -52736,6 +52734,7 @@ shatterglass_cleanup
 shatterglass_cleanup_max
 shatterglass_debug
 shatterglass_hit_tolerance
+shatterglass_shard
 shatterglass_shard_lifetime
 shear
 shieldActive
@@ -53730,6 +53729,7 @@ t4O_
 t80z
 tA`KO/3G!\n7h=
 tGTS
+tI\v@9X
 tLY^m`6
 tLl 
 tLsq
@@ -55093,6 +55093,7 @@ z-index
 z-offset
 z/B,9d
 z<d2
+z>8u
 z>Hz
 z?ff
 zEX9
@@ -55158,7 +55159,6 @@ zz2K
 }Xee+
 }gE3
 }n2W
-~0kI
 ~9ob
 ~CMoviePlayer
 ~CPanel2D - destroy members
