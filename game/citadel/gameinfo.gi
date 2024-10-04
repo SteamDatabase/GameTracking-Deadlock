@@ -365,7 +365,8 @@
 		"Float16HDRBackBuffer" "1"
 		"ParticlePixelCBSlot" "4"
 		"ParticleVertexCBSlot" "4"
-		PET_SupportFadingOpaqueModels "1"
+		"PET_SupportFadingOpaqueModels" "1"
+		"Features" "non_homogenous_forward_layer_only"
 	}
 
 	ConVars
