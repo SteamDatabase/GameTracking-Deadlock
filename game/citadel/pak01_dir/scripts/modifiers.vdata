@@ -70,8 +70,8 @@
 					m_eCameraOperation = "k_ECameraOp_Lerp"
 					m_flLerpDuration = 0.250000
 					m_flLerpBias = 0.702000
-					m_bLerpStartAtCurrent = false
-					m_flLerpStart = 300.000000
+					m_bLerpStartAtCurrent = true
+					m_flLerpStart = 0.000000
 				},
 			]
 		}
@@ -138,7 +138,6 @@
 	{
 		_class = "modifier_held_item_pickup_aura"
 		m_iAuraSearchType = "CITADEL_UNIT_TARGET_HERO"
-		m_strParticleEffect = resource_name:"particles/generic/idol_pickup_aura.vpcf"
 		m_modifierProvidedByAura = subclass:
 		{
 			_class = "modifier_item_pickup_aura_target"
@@ -222,6 +221,24 @@
 	{
 		m_eHudDisplayLocation = "DISPLAY_HUD_CENTER"
 		m_eDebuffType = "MODIFIER_DEBUFF_NO"
+		m_bDurationReducible = false
+		m_SpeedBonusModifier = subclass:
+		{
+			_class = "modifier_base"
+			_my_subclass_name = "bonus_speed"
+			m_strParticleStatusEffect = resource_name:"particles/abilities/kali/kali_speed_boost_buff.vpcf"
+			m_flDuration = 5.000000
+			m_vecScriptValues = 
+			[
+				
+				{
+					m_eModifierValue = "MODIFIER_VALUE_MOVEMENT_SPEED_MAX"
+					m_value = 118.110000
+				},
+			]
+			m_strHudMessageText = "#TeleporterBonus"
+			m_bIsHidden = true
+		}
 	}
 	modifier_neutral_gold_pickup_aura = 
 	{
@@ -319,6 +336,7 @@
 		m_sLocalizationName = "MODIFIER_STATE_DISARMED"
 		m_strHudMessageText = "#modifier_citadel_disarmed"
 		m_strSmallIconCssClass = "disarm_proc"
+		m_eHudDisplayLocation = "DISPLAY_HUD_CENTER"
 	}
 	modifier_citadel_holding_golden_idol = 
 	{
@@ -340,6 +358,8 @@
 		m_flFastSpeed = 175.000000
 		m_flVerticalOffset = 0.000000
 		m_flTolerance = 20.000000
+		m_IdleParticle = resource_name:"particles/generic/idol_pickup_aura.vpcf"
+		m_RunningParticle = resource_name:"particles/generic/idol_pickup_aura_running.vpcf"
 	}
 	modifier_hero_testing_damage_aura = 
 	{
@@ -521,5 +541,32 @@
 	{
 		_class = "modifier_citadel_cheater_curse"
 		m_CursedModel = resource_name:"models/abilities/pocket_frog_small.vmdl"
+	}
+	modifier_inside_interior_small = 
+	{
+		_class = "modifier_base"
+		m_bIsHidden = true
+		m_nAttributes = "MODIFIER_ATTRIBUTE_CANNOT_BE_PURGED | MODIFIER_ATTRIBUTE_MULTIPLE"
+		m_nEnabledStateMask = "MODIFIER_STATE_IN_SMALL_INTERIOR_SPACE"
+	}
+	modifier_inside_interior_medium = 
+	{
+		_class = "modifier_base"
+		m_bIsHidden = true
+		m_nAttributes = "MODIFIER_ATTRIBUTE_CANNOT_BE_PURGED | MODIFIER_ATTRIBUTE_MULTIPLE"
+		m_nEnabledStateMask = "MODIFIER_STATE_IN_MEDIUM_INTERIOR_SPACE"
+	}
+	modifier_escalating_exposure_tech_armor_debuff = 
+	{
+		_class = "modifier_base"
+		m_bIsHidden = true
+		m_strSmallIconCssClass = "escalating_exposure"
+		m_strParticleEffect = resource_name:"particles/upgrades/tech_resist_debuff.vpcf"
+		m_bDurationAffectedByEffectiveness = true
+		m_eDrawOverheadStatus = "OVERHEAD_DRAW_NEVER"
+		m_vecAutoRegisterModifierValueFromAbilityPropertyName = 
+		[
+			"TechArmorDamageReduction",
+		]
 	}
 }

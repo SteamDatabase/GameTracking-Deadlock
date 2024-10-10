@@ -1,4 +1,4 @@
-<!-- xml reconstructed by Source 2 Viewer 10.1.0.0 - https://valveresourceformat.github.io -->
+<!-- xml reconstructed by Source 2 Viewer 10.2.0.0 - https://valveresourceformat.github.io -->
 <root>
 	<styles>
 		<include src="s2r://panorama/styles/unit_status.vcss_c" />
@@ -10,6 +10,18 @@
 				<Label id="stacks" text="{i:stacks}" />
 				<Panel id="status_duration_bg">
 					<Panel id="status_duration" />
+				</Panel>
+			</Panel>
+		</snippet>
+		<snippet name="UnitInfoPanelSnippet">
+			<Panel class="unit_info_panel">
+				<Panel id="unit_info_bg">
+					<Image id="unit_ult_ready_icon" />
+					<Image id="unit_info_icon" />
+					<Panel id="state_container">
+						<Image id="state_icon" />
+						<Panel id="state_progressbar" />
+					</Panel>
 				</Panel>
 			</Panel>
 		</snippet>
@@ -25,27 +37,35 @@
 				<Panel class="immuneImage" />
 				<Label id="stacks" text="{i:stacks}" />
 				<Panel class="statusEffectContainer">
-					<Panel class="statusEffectsBorder" />
+					<Panel id="StatusEffectsBorder" />
 					<Panel id="StatusEffectCooldownOverlay" />
-					<Panel class="statusEffectInner">
-						<Panel class="statusEffectImage" />
-					</Panel>
+					<Panel id="StatusEffectInner" />
+					<Panel class="statusEffectImage" />
 				</Panel>
 			</Panel>
 		</snippet>
 	</snippets>
 	<Panel class="WindowRoot" hittest="false">
+		<Label id="name" text="{s:name}" />
 		<Panel id="UnitStatus" hittest="false">
-			<Panel id="LevelHealthContainer">
-				<Citadel_HealthPips id="healthpips" />
-				<Image id="pip_image" src="s2r://panorama/images/control_icons/arrow_solid_down_png.vtex" />
-			</Panel>
-			<Panel id="NameVoiceContainer">
-				<Label id="name" text="{s:name}" />
-			</Panel>
-			<Label id="bounty" text="{s:bounty}" />
 			<Panel id="status_container" />
+			<Panel id="InfoHealthContainer">
+				<Panel id="unit_info_container" />
+				<Panel id="unit_healthbar_container">
+					<Label id="unit_healthbar_pip_label" text="{s:pip_text}" />
+					<Panel id="unit_healthbar_bg">
+						<Panel id="unit_healthbar_missing">
+							<Panel id="unit_healthbar_active_parent">
+								<Panel id="unit_healthbar_lagging" />
+								<Panel id="unit_healthbar_healing" />
+								<Panel id="unit_healthbar_highlight" />
+								<Panel id="unit_healthbar_bullet_shield" />
+								<Panel id="unit_healthbar_tech_shield" />
+							</Panel>
+						</Panel>
+					</Panel>
+				</Panel>
+			</Panel>
 		</Panel>
-		<Panel id="range_indicator" />
 	</Panel>
 </root>

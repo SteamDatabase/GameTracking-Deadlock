@@ -149,7 +149,6 @@
 		"TileGridBlendDefaultColor"	"0 255 0"
 		"LoadScriptEntities" "0"
 		"UsesBakedLighting" "1"
-		"UsesBakedLightingPerVertex" "0"
 		"UseAnalyticGrid" "0"
 		"SupportsDisplacementMapping" "1"
 		"DisplacementMappingSelectionDepthBias" "1024"

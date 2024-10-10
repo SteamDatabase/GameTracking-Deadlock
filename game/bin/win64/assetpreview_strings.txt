@@ -329,6 +329,7 @@ $prefix_element$
 ' ?timerEvent@QPlainTextEdit@@MEAAXPEAVQTimerEvent@@@Z
 '\v?enterEvent@QMenu@@MEAAXPEAVQEvent@@@Z
 ( %1, %2, %3, %4% )
+( %f, %f, %f )
 ( m_PlaceAtPositions == ALL ) || ( m_PlaceAtPositions == START_AND_END ) || ( m_PlaceAtPositions == CONTROL_POINTS )
 ( m_SelectionMode != SPECIFIC )
 (#?windowModality@QWidget@@QEBA?AW4WindowModality@Qt@@XZ
@@ -951,6 +952,8 @@ $prefix_element$
 .?AVCKV3TransferInterface_EHandle_Save_NoOp@@
 .?AVCKV3TransferInterface_GameTime_Load_NoOp@@
 .?AVCKV3TransferInterface_GameTime_Save_NoOp@@
+.?AVCKV3TransferInterface_Worldspace_Load_NoOp@@
+.?AVCKV3TransferInterface_Worldspace_Save_NoOp@@
 .?AVCLightingControlRig@@
 .?AVCLightingPreviewPopupUI@@
 .?AVCModelInstanceManager@@
@@ -1309,6 +1312,8 @@ $prefix_element$
 .?AVIKV3TransferInterface_EHandle_Save@@
 .?AVIKV3TransferInterface_GameTime_Load@@
 .?AVIKV3TransferInterface_GameTime_Save@@
+.?AVIKV3TransferInterface_Worldspace_Load@@
+.?AVIKV3TransferInterface_Worldspace_Save@@
 .?AVIModelConfigPreviewHost@@
 .?AVIModelConfigWidgetTarget@@
 .?AVIModelInstanceRenderContext@@
@@ -1454,7 +1459,6 @@ $prefix_element$
 /]?size@QImage@@QEBA?AVQSize@@XZ
 0 to 1 value indicating the amout of random offset that should be applied to the reguluarly spaced positions
 0.0 to 1.0 value indicating the probability of this element being evaluated. Where a value of 0 means the element will never be evaluated and 1.0 means it will always be evaluated
-0>br9
 0x%1
 0x%llx
 0x%p = %s '%s'
@@ -1698,6 +1702,7 @@ $prefix_element$
 2\nP!E
 2\r?hideEvent@QWidget@@MEAAXPEAVQHideEvent@@@Z
 2\v?event@QAction@@MEAA_NPEAVQEvent@@@Z
+2\vpH$8
 2aboutToShow()
 2accepted()
 2buttonClicked( QAbstractButton* )
@@ -1747,7 +1752,6 @@ $prefix_element$
 5\v?event@QCheckBox@@MEAA_NPEAVQEvent@@@Z
 5sfm_v8
 64 283 0
-6<r9
 6[?setRenderHint@QPainter@@QEAAXW4RenderHint@1@_N@Z
 6\f?focusOutEvent@QPlainTextEdit@@MEAAXPEAVQFocusEvent@@@Z
 6\v?createNode@QMapDataBase@@QEAAPEAUQMapNodeBase@@HHPEAU2@_N@Z
@@ -2064,6 +2068,7 @@ $prefix_element$
 ??YQString@@QEAAAEAV0@AEBV0@@Z
 ??YQString@@QEAAAEAV0@PEBD@Z
 ?DmeChannelsClip
+?PlH
 ?TestCheckpoint: %s
 ?ToolScene
 ?Tools_Unlit_Opaque
@@ -3159,6 +3164,7 @@ $prefix_element$
 ?value@QSettings@@QEBA?AVQVariant@@AEBVQString@@AEBV2@@Z
 ?valueToKeys@QMetaEnum@@QEBA?AVQByteArray@@H@Z
 @#?write@QTableWidgetItem@@UEBAXAEAVQDataStream@@@Z
+@H4I
 @InputBindSystem
 @Integer overflow in %s
 @\v?event@QFrame@@MEAA_NPEAVQEvent@@@Z
@@ -3181,9 +3187,11 @@ ACT_NEUTRAL_REF_POSE
 ADD_FLOAT
 ADD_INT
 ADD_STRING
+ADD_VEC3
 ALL_IN_ORDER
 ANTLR3_EXCEPTION number %d (%08X).\n
 ANTLR3_EXCEPTION: %s\n
+ANode
 ARRAY: Grid is a specific number of grid divisions. FILL: The boundary is filled with as many as will fit at the specified cell spacing.
 ASYNC_FIRE_AND_FORGET
 Abort
@@ -3204,8 +3212,6 @@ Activity
 Activity %s has %d sequences with a total weight of %d!\n
 Actually dude, we didn't seem to be expecting anything here, or at least\n
 Add R%d <- R%d + R%d
-Add Vector
-Add Vector a to Vector b
 AddColor
 AddUndoElement '%s'\n
 AddValueToSet
@@ -3590,7 +3596,6 @@ CPulseGraphInstance_TurtleGraphics!Graph_Go
 CPulseMathlib
 CPulseMathlib!AbsFloat
 CPulseMathlib!AbsInt
-CPulseMathlib!AddVector
 CPulseMathlib!ArcCos
 CPulseMathlib!ArcSin
 CPulseMathlib!ArcTan
@@ -3599,17 +3604,21 @@ CPulseMathlib!ClampInt
 CPulseMathlib!Cos
 CPulseMathlib!CrossProductVector
 CPulseMathlib!DotProductVector
+CPulseMathlib!FloatToGameTime
+CPulseMathlib!GameTimeToFloat
 CPulseMathlib!LengthVector
+CPulseMathlib!MakeVector
+CPulseMathlib!MakeWorldVector
 CPulseMathlib!MaxFloat
 CPulseMathlib!MaxInt
 CPulseMathlib!MinFloat
 CPulseMathlib!MinInt
 CPulseMathlib!NormalizeVector
 CPulseMathlib!Pow
-CPulseMathlib!ScaleVector
 CPulseMathlib!Sin
-CPulseMathlib!SubVector
 CPulseMathlib!Tan
+CPulseMathlib!VectorToWorldVector
+CPulseMathlib!WorldVectorToVector
 CPulseRuntimeMethodArg
 CPulseTestGapTypeQueryRegistration
 CPulseTestScriptLib
@@ -4072,6 +4081,10 @@ Context
 Controls whether or not the configuration of the locator can include scale. If enabled scale can be applied to the editable locator in Hammer. If disabled the scale will not be editable and the current scale will be used.
 Controls whether or not the locator can be edited in a smart prop configuration. If enabled an editable locator will appear when the smart prop is placed in Hammer. Any changes to that locator will modify the current transform.
 Convert %s R%d <- %s R%d
+Convert from a Game Time a raw floating-point time that will NOT fixed up - use with caution!
+Convert from a local-space to a world-space vector
+Convert from a raw floating-point time to a Game Time that will be saved/loaded appropriately
+Convert from a world-space to local-space vector
 Coordinate Space
 Coordinate space the axis of rotation is specified in.
 Coordinate space the end point is specified in.
@@ -4339,6 +4352,8 @@ DumpModeDecode: Not enough data for scanline %d
 Dynamic Configs
 E<G&Iw
 ELEMENT
+ELEMENT_ACCESS
+ELEMENT_ACCESS_VEC3
 EPulseGraphExecutionHistoryFlag
 EQUAL
 EQ_BOOL
@@ -4384,6 +4399,7 @@ EditGameClassProps
 EditingCancelled
 EditingFinished
 EditingStarted
+Element Access R%d <- R%d[R%d]
 Element space
 Element space transform, includes the transform of the current element, which is also relative to the object.
 Element uses unknown element type %s\n
@@ -4540,6 +4556,7 @@ Fit on Line Pick Mode
 Fit on Line Scale Mode
 Fixed
 Float
+Float To Game Time
 Float( %f )
 FloatBitMap_t: Error loading %s\n
 FloatBitMap_t::LoadFromFile(3243): Error! Slice %d format %dx%dx%d Attr(%d) != previous slices of %dx%d Attr(%d) for %s\n
@@ -4582,6 +4599,8 @@ GREATER_OR_EQUAL
 GREEN
 G\v?event@QHeaderView@@MEAA_NPEAVQEvent@@@Z
 Game Blackboards: 
+Game Time
+Game Time To Float
 Generate a random float between min and max (inclusive)
 Generate a random integer between min and max (inclusive)
 Generate the grid by placing N x N children.
@@ -4678,6 +4697,8 @@ IKV3TransferInterface_GameTime_Load
 IKV3TransferInterface_GameTime_Save
 IKV3TransferInterface_ResourceLoad
 IKV3TransferInterface_UtlSymbolLarge
+IKV3TransferInterface_Worldspace_Load
+IKV3TransferInterface_Worldspace_Save
 IMMEDIATE_HALT
 IModelConfigWidgetTarget
 INVALID
@@ -5053,6 +5074,10 @@ M\n?done@QDialog@@UEAAXH@Z
 M\t?canDropMimeData@QAbstractProxyModel@@UEBA_NPEBVQMimeData@@W4DropAction@Qt@@HHAEBVQModelIndex@@@Z
 M\v?event@QListWidget@@MEAA_NPEAVQEvent@@@Z
 Make
+Make Vector
+Make World Vector
+Make a Vector from component values
+Make a World Vector from component values
 Make sheet file
 MakerNoteSafety
 Manipulators
@@ -5192,6 +5217,7 @@ N?index@QStandardItemModel@@UEBA?AVQModelIndex@@HHAEBV2@@Z
 NEGATE
 NEGATE_FLOAT
 NEGATE_INT
+NEGATE_VEC3
 NEGATIVE_TOK
 NEWLINE
 NE_BOOL
@@ -5258,7 +5284,6 @@ No space to write per-sample shorts
 No space to write per-sample values
 No support for converting user data format to LogL
 No support for converting user data format to LogLuv
-Node
 NodeID %d port '%s' called from C%d:I%d
 Noise Scalar
 Noise Vector
@@ -5459,8 +5484,8 @@ P?jumpToNextImage@QImageReader@@QEAA_NXZ
 PANEL_ID
 PARTICLE_EHANDLE__
 PGDInstruction_t
-PInstruction_t<33>::Run
-PInstruction_t<34>::Run
+PInstruction_t<36>::Run
+PInstruction_t<37>::Run
 POS_FLOATLITERAL
 POS_INTLITERAL
 PULSE_CALL_ASYNC_FIRE
@@ -5472,6 +5497,7 @@ PVAL_COLOR_RGB
 PVAL_COUNT
 PVAL_CURSOR_FLOW
 PVAL_FLOAT
+PVAL_GAMETIME
 PVAL_INT
 PVAL_INVALID
 PVAL_OPAQUE_HANDLE
@@ -5483,8 +5509,10 @@ PVAL_SNDEVT_NAME
 PVAL_STRING
 PVAL_TEST_HANDLE
 PVAL_TRANSFORM
+PVAL_TRANSFORM_WORLDSPACE
 PVAL_TYPESAFE_INT
 PVAL_VEC3
+PVAL_VEC3_WORLDSPACE
 P\f?font@QTableWidgetItem@@QEBA?AVQFont@@XZ
 PackBits
 PackBitsDecode: Not enough data for scanline %ld
@@ -5543,6 +5571,7 @@ PickMode_t
 PitchCameraDown
 PitchCameraUp
 PixarLog
+Pl"8
 Place In Radius
 Place Multiple
 Place all in order
@@ -5629,7 +5658,6 @@ PulseDebugLog: Calling external method on non-existent entity or game blackboard
 PulseDebugLog: Calling external method on non-existent entity or game blackboard\n
 PulseDocNodeID_t
 PulseDomainValueType_t
-PulseFakeEntities
 PulseGraphExecutionHistoryCursorDesc_t
 PulseGraphExecutionHistoryEntry_t
 PulseGraphExecutionHistoryNodeDesc_t
@@ -5837,9 +5865,13 @@ RunFrame
 S?name@QColor@@QEBA?AVQString@@XZ
 S?openUrl@QDesktopServices@@SA_NAEBVQUrl@@@Z
 S?paintEngine@QPixmap@@UEBAPEAVQPaintEngine@@XZ
+SCALE
 SCALE_END_TO_FIT
 SCALE_EQUALLY
+SCALE_INV
+SCALE_INV_VEC3
 SCALE_MAXIMIZE
+SCALE_VEC3
 SEGMENT
 SEMICOLON
 SET_BLACKBOARD_REFERENCE
@@ -5889,6 +5921,7 @@ START_AND_END
 STRING_CHAR
 SUB_FLOAT
 SUB_INT
+SUB_VEC3
 SYNC_WAIT_FOR_COMPLETION
 Sample Pixel Color
 SampleFormat
@@ -5912,8 +5945,9 @@ Save the specified direction vector to a specified variable, in the requested co
 ScalableAOBias
 ScalableAORadius
 ScalableAOStrength
+Scale INV R%d <- R%d / R%d
 Scale Mode
-Scale Vector
+Scale R%d <- R%d * R%d
 Scale equally
 Scale factor (may be non-uniform) to be applied directly to the model (in the model's local space).
 Scale last
@@ -6254,10 +6288,8 @@ StripByteCounts
 StripOffsets
 Stylesheet
 Sub R%d <- R%d - R%d
-Sub Vector
 SubIFD
 SubfileType
-Subtract Vector a from Vector b
 SubtractValueFromSet
 Succeeded
 SupportsActivities
@@ -6554,10 +6586,10 @@ Vector 4D
 Vector A
 Vector B
 Vector Between Points
+Vector To World Vector
 Vector in the local space of the child element to be aligned with sphere or circle
 Vector up direction of the plane of the circle. This in the local space of the current element.
 Vector2D
-Vector3
 Vector4D
 Velocity Inherit from Control Point
 Velocity Noise
@@ -6611,6 +6643,9 @@ WireframeEffectsBloom
 WireframeTranslucent
 World Files
 World Node Files
+World Transform
+World Vector
+World Vector To Vector
 World space
 World space transform, not relative to the specific smart prop object placement.
 Writable
@@ -7336,11 +7371,12 @@ flDegrees
 flDistance
 flExecTime
 flExponent
+flFloat
 flLastReferenced
 flMax
 flMin
-flScale
 flSpeed
+flTime
 flValue
 flVaue
 flWaitValue
@@ -8541,6 +8577,7 @@ vcrop
 vcsHeadShow
 vcsHeadValue
 vecAncestorCursorIDs
+vecValue
 vecline
 vector noise
 vector2_array

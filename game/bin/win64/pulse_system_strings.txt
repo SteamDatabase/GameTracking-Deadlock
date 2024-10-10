@@ -50,6 +50,7 @@ $?InstantiateModule@Module@v8@@QEAA?AV?$Maybe@_N@2@V?$Local@VContext@v8@@@2@P6A?
 &%?Int32Value@Value@v8@@QEBA?AV?$Maybe@H@2@V?$Local@VContext@v8@@@2@@Z
 '?IsExternal@Value@v8@@QEBA_NXZ
 '?IsFunction@Value@v8@@QEBA_NXZ
+( %f, %f, %f )
 (=?Resolve@Resolver@Promise@v8@@QEAA?AV?$Maybe@_N@3@V?$Local@VContext@v8@@@3@V?$Local@VValue@v8@@@3@@Z
 (Expecting %s)
 (Expecting EOF)
@@ -118,6 +119,8 @@ $?InstantiateModule@Module@v8@@QEAA?AV?$Maybe@_N@2@V?$Local@VContext@v8@@@2@P6A?
 .?AVCKV3TransferInterface_EHandle_Save_NoOp@@
 .?AVCKV3TransferInterface_GameTime_Load_NoOp@@
 .?AVCKV3TransferInterface_GameTime_Save_NoOp@@
+.?AVCKV3TransferInterface_Worldspace_Load_NoOp@@
+.?AVCKV3TransferInterface_Worldspace_Save_NoOp@@
 .?AVCPulseCell_Base@@
 .?AVCPulseCell_BaseFlow@@
 .?AVCPulseCell_BaseRequirement@@
@@ -182,6 +185,8 @@ $?InstantiateModule@Module@v8@@QEAA?AV?$Maybe@_N@2@V?$Local@VContext@v8@@@2@P6A?
 .?AVIKV3TransferInterface_GameTime_Load@@
 .?AVIKV3TransferInterface_GameTime_Save@@
 .?AVIKV3TransferInterface_UtlSymbolLarge@@
+.?AVIKV3TransferInterface_Worldspace_Load@@
+.?AVIKV3TransferInterface_Worldspace_Save@@
 .?AVIPulseGraphDef@@
 .?AVIPulseInstanceLoadAPI@@
 .?AVIPulseInstanceSaveAPI@@
@@ -196,7 +201,6 @@ $?InstantiateModule@Module@v8@@QEAA?AV?$Maybe@_N@2@V?$Local@VContext@v8@@@2@P6A?
 1:1: Tokens : ( T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | TOK_COLON | OPEN_BRACE | CLOSE_BRACE | OPEN_PAREN | CLOSE_PAREN | OPEN_BRACKET | CLOSE_BRACKET | SEMICOLON | OP_EQUAL | COMMA | DOUBLE_AND | NEGATIVE_TOK | DOUBLE_OR | LITERAL_TRUE | LITERAL_FALSE | POS_INTLITERAL | POS_FLOATLITERAL | ID | DOUBLE_QUOTED_STRING | SINGLE_QUOTED_STRING | SINGLE_LINE_COMMENT | ML_COMMENT | WS | UNRECOGNIZED );
 2?MakeWeak@api_internal@v8@@YAXPEA_KPEAXP6AXAEBV?$WeakCallbackInfo@X@2@@ZW4WeakCallbackType@2@@Z
 2?Message@TryCatch@v8@@QEBA?AV?$Local@VMessage@v8@@@2@XZ
-2\vpl4\n
 3?New@Integer@v8@@SA?AV?$Local@VInteger@v8@@@2@PEAVIsolate@2@H@Z
 3?New@Number@v8@@SA?AV?$Local@VNumber@v8@@@2@PEAVIsolate@2@N@Z
 3?New@ObjectTemplate@v8@@SA?AV?$Local@VObjectTemplate@v8@@@2@PEAVIsolate@2@V?$Local@VFunctionTemplate@v8@@@2@@Z
@@ -251,6 +255,7 @@ A testing-only domain that draws on a 2D canvas with a LOGO-like 'turtle' cursor
 ADD_FLOAT
 ADD_INT
 ADD_STRING
+ADD_VEC3
 ANTLR3_EXCEPTION number %d (%08X).\n
 ANTLR3_EXCEPTION: %s\n
 ASYNC_FIRE_AND_FORGET
@@ -261,8 +266,6 @@ Absolute value (float)
 Absolute value (int)
 Actually dude, we didn't seem to be expecting anything here, or at least\n
 Add R%d <- R%d + R%d
-Add Vector
-Add Vector a to Vector b
 Adjust heading (positive = right, negative = left)
 And R%d <- R%d && R%d
 Any Other Cursors Have Tag
@@ -435,7 +438,6 @@ CPulseGraphInstance_TurtleGraphics!Graph_Go
 CPulseMathlib
 CPulseMathlib!AbsFloat
 CPulseMathlib!AbsInt
-CPulseMathlib!AddVector
 CPulseMathlib!ArcCos
 CPulseMathlib!ArcSin
 CPulseMathlib!ArcTan
@@ -444,17 +446,21 @@ CPulseMathlib!ClampInt
 CPulseMathlib!Cos
 CPulseMathlib!CrossProductVector
 CPulseMathlib!DotProductVector
+CPulseMathlib!FloatToGameTime
+CPulseMathlib!GameTimeToFloat
 CPulseMathlib!LengthVector
+CPulseMathlib!MakeVector
+CPulseMathlib!MakeWorldVector
 CPulseMathlib!MaxFloat
 CPulseMathlib!MaxInt
 CPulseMathlib!MinFloat
 CPulseMathlib!MinInt
 CPulseMathlib!NormalizeVector
 CPulseMathlib!Pow
-CPulseMathlib!ScaleVector
 CPulseMathlib!Sin
-CPulseMathlib!SubVector
 CPulseMathlib!Tan
+CPulseMathlib!VectorToWorldVector
+CPulseMathlib!WorldVectorToVector
 CPulseRuntimeMethodArg
 CPulseSystem::Internal_InstanceCreated( %s, %p )\n
 CPulseSystem::Internal_InstanceDestroyed( %s, %p )\n
@@ -564,6 +570,10 @@ Class does not allow allocation from its schema binding
 Commit Step
 CommitStep
 Convert %s R%d <- %s R%d
+Convert from a Game Time a raw floating-point time that will NOT fixed up - use with caution!
+Convert from a local-space to a world-space vector
+Convert from a raw floating-point time to a Game Time that will be saved/loaded appropriately
+Convert from a world-space to local-space vector
 Copy R%d <- R%d
 Cosine of angle, in degrees (0 -> 1, 90 -> 0)
 Could not execute '%s' because this graph domain does not support the required IGapHost
@@ -612,6 +622,8 @@ Domain: %s\n
 Dot Product Vector
 Dot Product of Vector a 
 E?ThrowException@Isolate@v8@@QEAA?AV?$Local@VValue@v8@@@2@V32@@Z
+ELEMENT_ACCESS
+ELEMENT_ACCESS_VEC3
 EPulseGraphExecutionHistoryFlag
 EQ_BOOL
 EQ_EHANDLE
@@ -627,6 +639,7 @@ ESCAPE_CHAR
 ESCAPE_CODE
 EXPONENT
 Early exit
+Element Access R%d <- R%d[R%d]
 EntFire,%d,%s,%s
 Entity Handle
 Entity Name
@@ -681,6 +694,7 @@ Fired when A becomes 0 from any other number.
 Fired when A exceeds 5.
 Fired whenever the global A value changes.
 Float
+Float To Game Time
 Float( %f )
 Function signature which has been replaced after compilation.
 Function signature which will be replaced after compilation.
@@ -693,6 +707,8 @@ GET_DOMAIN_VALUE
 GET_VAR
 GREEN
 Game Blackboards: 
+Game Time
+Game Time To Float
 Generate a random float between min and max (inclusive)
 Generate a random integer between min and max (inclusive)
 GenerateInt
@@ -742,6 +758,8 @@ IKV3TransferInterface_GameTime_Load
 IKV3TransferInterface_GameTime_Save
 IKV3TransferInterface_ResourceLoad
 IKV3TransferInterface_UtlSymbolLarge
+IKV3TransferInterface_Worldspace_Load
+IKV3TransferInterface_Worldspace_Save
 IMMEDIATE_HALT
 INVALID
 IPulseInstanceLoadAPI
@@ -861,6 +879,10 @@ MPulseSignatureForOutflow
 MPulseSignatureName
 MUL_FLOAT
 MUL_INT
+Make Vector
+Make World Vector
+Make a Vector from component values
+Make a World Vector from component values
 Max Float
 Max Int
 Maximum of two values (float)
@@ -889,6 +911,7 @@ Mul R%d <- R%d * R%d
 NEGATE
 NEGATE_FLOAT
 NEGATE_INT
+NEGATE_VEC3
 NEGATIVE_TOK
 NEWLINE
 NE_BOOL
@@ -938,8 +961,8 @@ Optional. Type 'Any'. An associated value, e.g. the Entity Handle which is respo
 Or R%d <- R%d || R%d
 PANEL_ID
 PGDInstruction_t
-PInstruction_t<33>::Run
-PInstruction_t<34>::Run
+PInstruction_t<36>::Run
+PInstruction_t<37>::Run
 POS_FLOATLITERAL
 POS_INTLITERAL
 PULSE_CALL_ASYNC_FIRE
@@ -950,6 +973,7 @@ PVAL_COLOR_RGB
 PVAL_COUNT
 PVAL_CURSOR_FLOW
 PVAL_FLOAT
+PVAL_GAMETIME
 PVAL_INT
 PVAL_INVALID
 PVAL_OPAQUE_HANDLE
@@ -961,8 +985,10 @@ PVAL_SNDEVT_NAME
 PVAL_STRING
 PVAL_TEST_HANDLE
 PVAL_TRANSFORM
+PVAL_TRANSFORM_WORLDSPACE
 PVAL_TYPESAFE_INT
 PVAL_VEC3
+PVAL_VEC3_WORLDSPACE
 PanelID
 Panorama Panel Handle
 Param
@@ -995,7 +1021,6 @@ PulseDebugLog: Calling external method on non-existent entity or game blackboard
 PulseDebugLog: Calling external method on non-existent entity or game blackboard\n
 PulseDocNodeID_t
 PulseDomainValueType_t
-PulseFakeEntities
 PulseGraphExecutionHistoryCursorDesc_t
 PulseGraphExecutionHistoryEntry_t
 PulseGraphExecutionHistoryNodeDesc_t
@@ -1048,6 +1073,10 @@ Requirement Result R%d
 Resource
 Resume
 Return the input string, use the code default if none was supplied.
+SCALE
+SCALE_INV
+SCALE_INV_VEC3
+SCALE_VEC3
 SEMICOLON
 SET_BLACKBOARD_REFERENCE
 SET_VAR
@@ -1058,9 +1087,11 @@ SQUARE
 STRING_CHAR
 SUB_FLOAT
 SUB_INT
+SUB_VEC3
 SYNC_WAIT_FOR_COMPLETION
 Save a named value of any type on the cursor.
-Scale Vector
+Scale INV R%d <- R%d / R%d
+Scale R%d <- R%d * R%d
 Schema Enum
 Set And Get Int Value
 Set Color
@@ -1118,8 +1149,6 @@ StopWaiting
 String
 String( %s )
 Sub R%d <- R%d - R%d
-Sub Vector
-Subtract Vector a from Vector b
 Succeeded
 Synchronous - wait for the method to fully complete before returning
 TOK_COLON
@@ -1172,8 +1201,9 @@ Unsupported version %d for resource '%s' (Expected %d)\n
 Unwanted token '%s' %s
 Usage: pulse_debug_print <vpulse_resource>
 Used to flag a test as having failed.
+Vector
+Vector To World Vector
 Vector2D
-Vector3
 Void
 WHITE
 Wait
@@ -1182,6 +1212,9 @@ Wait For Cursors With Tag
 Wait, Resume=%s
 When we start waiting, how should we handle existing cursors?
 White
+World Transform
+World Vector
+World Vector To Vector
 X to the Y power
 Yield, Resume=%s
 [ Chunk%d ]
@@ -1268,10 +1301,11 @@ flDegrees
 flDistance
 flExecTime
 flExponent
+flFloat
 flLastReferenced
 flMax
 flMin
-flScale
+flTime
 flValue
 flWaitValue
 flWakeTime
@@ -1503,5 +1537,6 @@ unFlags
 v8.dll
 v8system
 vecAncestorCursorIDs
+vecValue
 |F?ToObject@Value@v8@@QEBA?AV?$MaybeLocal@VObject@v8@@@2@V?$Local@VContext@v8@@@2@@Z
 }3?New@FunctionTemplate@v8@@SA?AV?$Local@VFunctionTemplate@v8@@@2@PEAVIsolate@2@P6AXAEBV?$FunctionCallbackInfo@VValue@v8@@@2@@ZV?$Local@VValue@v8@@@2@V?$Local@VSignature@v8@@@2@HW4ConstructorBehavior@2@W4SideEffectType@2@PEBVCFunction@2@GGG@Z

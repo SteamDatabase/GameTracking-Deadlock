@@ -15,6 +15,7 @@
  RELEASE
  REPEAT
  X?setAlignment@QTextOption@@QEAAXV?$QFlags@W4AlignmentFlag@Qt@@@@@Z
+ Y?setDefaultTextOption@QTextDocument@@QEAAXAEBVQTextOption@@@Z
  {NO ELEMENT}
 !?triggered@QAction@@QEAAX_N@Z
 !?unsetCursor@QWidget@@QEAAXXZ
@@ -93,6 +94,11 @@ $\f?focusNextPrevChild@QWidget@@MEAA_N_N@Z
 %\?setUnderline@QFont@@QEAAX_N@Z
 %]?sibling@QStandardItemModel@@UEBA?AVQModelIndex@@HHAEBV2@@Z
 %s%s: DynamicWidget: %s\n
+%s: Initialize (%p) for [ m_bDragInProgress -> false ]\n
+%s: OnBeginUpdateAttributesFromEditor (%p) [ m_bDragInProgress -> true ]\n
+%s: OnEndUpdateAttributesFromEditor (%p) [ m_bDragInProgress -> false ]\n
+%s: OnUpdateAttributesFromEditor( PEMT_FINAL_UPDATE ) [m_bDragInProgress == false] (%p)\n
+%s: OnUpdateAttributesFromEditor( PEMT_INCREMENTAL_UPDATE ) [m_bDragInProgress == true] (%p)\n
 & ?timerEvent@QMenuBar@@MEAAXPEAVQTimerEvent@@@Z
 &Allow Wrapping
 &Arrows
@@ -769,9 +775,6 @@ $\f?focusNextPrevChild@QWidget@@MEAA_N_N@Z
 2\n?doItemsLayout@QListView@@UEAAXXZ
 2\r?hideEvent@QWidget@@MEAAXPEAVQHideEvent@@@Z
 2\v?event@QAction@@MEAA_NPEAVQEvent@@@Z
-2\vpH
-2\vpX
-2\vpt
 2aboutToShow()
 2accepted()
 2changed()
@@ -975,6 +978,7 @@ $\f?focusNextPrevChild@QWidget@@MEAA_N_N@Z
 ??0QTextDocument@@QEAA@PEAVQObject@@@Z
 ??0QTextEdit@@QEAA@PEAVQWidget@@@Z
 ??0QTextFormat@@QEAA@AEBV0@@Z
+??0QTextOption@@QEAA@V?$QFlags@W4AlignmentFlag@Qt@@@@@Z
 ??0QTextOption@@QEAA@XZ
 ??0QTime@@QEAA@HHHH@Z
 ??0QTimer@@QEAA@PEAVQObject@@@Z
@@ -2415,6 +2419,8 @@ CQPropRowList
 CQPropertyAttributeLabel
 CQPropertyAttributeLabel::UpdateHoverPresence() - mouse = [%d,%d] resizeRect = [%d,%d,%d,%d] mouseInResize = %d\n
 CQPropertyEditor
+CQPropertyEditor::EndAttributeModification( %s )\n
+CQPropertyEditor::RebuildEditor\n
 CQPropertyEditor::StartDraggingLabelWidthColumn() - col = %d\n
 CQPropertyEditor::UpdateDraggingLabelWidthColumn() - cursor[%d,%d] - col = %d\n
 CQPropertyEditorToolbar
@@ -2678,7 +2684,6 @@ Incoming
 IndicateClean
 IndicateDirty
 InitRandom
-Initialize (%p) for '%s' [ m_bDragInProgress -> false ]\n
 Input
 Input Binding Error
 Input Debugger [%1]
@@ -2836,7 +2841,6 @@ OnAttributeFilterChanged
 OnAttributeModified
 OnAutoUpdateTimer
 OnBeginUpdateAttributesFromEditor
-OnBeginUpdateAttributesFromEditor (%p) [ m_bDragInProgress -> true ]\n
 OnBrowseChoices
 OnButtonClicked
 OnCancelled
@@ -2855,7 +2859,6 @@ OnEditReturnPressed
 OnEditingFinished
 OnEditorClosed
 OnEndUpdateAttributesFromEditor
-OnEndUpdateAttributesFromEditor (%p) [ m_bDragInProgress -> false ]\n
 OnFileChanged
 OnFilterChanged
 OnFilterTextChanged
@@ -2900,8 +2903,6 @@ OnTreeHoverChanged
 OnTreeMenuRequested
 OnTreeSelectionChanged
 OnUpdateAttributesFromEditor
-OnUpdateAttributesFromEditor( PEMT_FINAL_UPDATE ) [m_bDragInProgress == false] (%p)\n
-OnUpdateAttributesFromEditor( PEMT_INCREMENTAL_UPDATE ) [m_bDragInProgress == true] (%p)\n
 OnValueChanged
 OnWhitespaceWarningClicked
 OnWhitespaceWarningClickedDelayed
@@ -2914,6 +2915,9 @@ P?isValid@QColor@@QEBA_NXZ
 P?isValid@QTextCharFormat@@QEBA_NXZ
 P?itemData@QStandardItemModel@@UEBA?AV?$QMap@HVQVariant@@@@AEBVQModelIndex@@@Z
 P?jumpToNextImage@QImageReader@@QEAA_NXZ
+PEMT_BEGIN_INCREMENTAL_UPDATE
+PEMT_FINAL_UPDATE
+PEMT_INCREMENTAL_UPDATE
 P\f?font@QTableWidgetItem@@QEBA?AVQFont@@XZ
 Paste
 Paste (Overwrite)
@@ -3012,6 +3016,7 @@ R?mimeData@QClipboard@@QEBAPEBVQMimeData@@W4Mode@1@@Z
 R?mimeData@QStandardItemModel@@UEBAPEAVQMimeData@@AEBV?$QList@VQModelIndex@@@@@Z
 R?mimeTypes@QStandardItemModel@@UEBA?AVQStringList@@XZ
 R?modifiers@QKeyEvent@@QEBA?AV?$QFlags@W4KeyboardModifier@Qt@@@@XZ
+REBUILDING! m_bGotRebuildDuringModification (after) = %d\n
 RGBA
 RGBA\t
 RGBA\t%1\t%2\t%3\t%4
@@ -3019,11 +3024,9 @@ RMouse
 RMouseDoubleClick
 RSDS
 R\f?font@QTreeWidgetItem@@QEBA?AVQFont@@H@Z
-R\fpX
 R\n?background@QPainter@@QEBAAEBVQBrush@@XZ
 R\t?canFetchMore@QAbstractItemModel@@UEBA_NAEBVQModelIndex@@@Z
 R\v?event@QMenuBar@@MEAA_NPEAVQEvent@@@Z
-R\vpH
 R^?supportedDropActions@QStandardItemModel@@UEBA?AV?$QFlags@W4DropAction@Qt@@@@XZ
 Randomize
 RandomizeGradient
@@ -3362,6 +3365,7 @@ Z]?sort@QStandardItemModel@@UEAAXHW4SortOrder@Qt@@@Z
 [?setStyle@QPen@@QEAAXW4PenStyle@Qt@@@Z
 [?setText@QClipboard@@QEAAXAEBVQString@@W4Mode@1@@Z
 [?setText@QStandardItem@@QEAAXAEBVQString@@@Z
+[?setTextWidth@QTextDocument@@QEAAXN@Z
 [?setTexture@QBrush@@QEAAXAEBVQPixmap@@@Z
 [Default] Determine a lifespan based on the warning/error state of the group
 [Default] General information
@@ -3739,9 +3743,15 @@ m_Context
 m_Input
 m_InputMacros
 m_Stops
+m_bGotRebuildDuringModification (after) = %d\n
+m_bGotRebuildDuringModification (before) = %d\n
+m_bGotRebuildDuringModification (midpoint) = %d\n
 m_flPosition
 m_flSlopeIncoming
 m_flSlopeOutgoing
+m_pDomain->IsEditorRebuildNeeded (after) = %d\n
+m_pDomain->IsEditorRebuildNeeded (before) = %d\n
+m_pDomain->IsEditorRebuildNeeded (midpoint) = %d\n
 maxValue
 maximum
 menu
@@ -3797,8 +3807,6 @@ q\n?dragLeaveEvent@QAbstractScrollArea@@MEAAXPEAVQDragLeaveEvent@@@Z
 q\v?currentTime@QTime@@SA?AV1@XZ
 q\v?event@QWidgetAction@@MEAA_NPEAVQEvent@@@Z
 quiet
-r\vpH
-r\vpX
 right
 rowspan
 sO?insertRows@QStandardItemModel@@UEAA_NHHAEBVQModelIndex@@@Z

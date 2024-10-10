@@ -1,0 +1,48 @@
+<!-- xml reconstructed by Source 2 Viewer 10.2.0.0 - https://valveresourceformat.github.io -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/citadel_base_styles.vcss_c" />
+		<include src="s2r://panorama/styles/dashboard.vcss_c" />
+		<include src="s2r://panorama/styles/popups/citadel_popup_ranked_schedule.vcss_c" />
+	</styles>
+	<snippets>
+		<snippet name="Schedule">
+			<Panel class="rankedSchedule">
+				<Panel id="RegionName">
+					<Label class="region" text="{s:region_name}" />
+					<Label class="selected" text="#Citadel_SetSchedule_Selected" />
+				</Panel>
+				<Label id="RegionName" text="{s:region_name}" />
+				<Panel id="Weekdays" class="scheduleColumn">
+					<Label class="columnTitle" text="#menu_ranked_schedule_alldays" />
+					<Panel id="WeekdayTimeSegmentContainer" class="segmentContainer" />
+				</Panel>
+				<Panel id="Weekends" class="scheduleColumn">
+					<Label class="columnTitle" text="#menu_ranked_schedule_weekends" />
+					<Panel id="WeekendTimeSegmentContainer" class="segmentContainer" />
+				</Panel>
+			</Panel>
+		</snippet>
+		<snippet name="TimeSegment">
+			<Panel class="timeSegment">
+				<Label class="timeLabel" text="#menu_ranked_schedule_timeplaceholder" />
+			</Panel>
+		</snippet>
+	</snippets>
+	<CitadelPopupRankedSchedule class="PopupPanel Hidden" popupbackground="dim" oncancel="UIPopupButtonClicked(CitdaelSetDBPageFocus())">
+		<Panel id="DescContainer">
+			<Label class="h3 display" text="#Citadel_ranked_scheduleModal_title" />
+			<Label class="desc" text="#Citadel_ranked_scheduleModal_desc" html="true" />
+			<Label class="desc warning" text="#Citadel_ranked_scheduleModal_warning" />
+			<Panel id="ButtonRow">
+				<Button id="SetSchedulePopupButton" class="SecondaryButton light fill" onactivate="CitadelSetScheduleClicked();">
+					<Label text="#menu_ranked_set_schedule" />
+				</Button>
+				<Button id="ClosePopupButton" class="SecondaryButton light" onactivate="UIPopupButtonClicked( CitdaelSetDBPageFocus() );">
+					<Label text="#Cancel" />
+				</Button>
+			</Panel>
+		</Panel>
+		<Panel id="SchedulesContainer" />
+	</CitadelPopupRankedSchedule>
+</root>

@@ -1,11 +1,11 @@
-<!-- xml reconstructed by Source 2 Viewer 10.1.0.0 - https://valveresourceformat.github.io -->
+<!-- xml reconstructed by Source 2 Viewer 10.2.0.0 - https://valveresourceformat.github.io -->
 <root>
 	<styles>
 		<include src="s2r://panorama/styles/citadel_base_styles.vcss_c" />
 		<include src="s2r://panorama/styles/citadel_db_page_shared.vcss_c" />
 		<include src="s2r://panorama/styles/citadel_db_page_private_lobby.vcss_c" />
 	</styles>
-	<CitadelPrivateLobbyPage class="DashboardPage" oncancel="">
+	<CitadelPrivateLobbyPage class="DashboardPage" oncancel="CitadelPrivateLobbyLeave( 1 );">
 		<Panel class="MainBodyCtn">
 			<Panel id="LobbyInfo">
 				<Panel class="SettingsPanel">
@@ -38,6 +38,12 @@
 						<DropDown id="PubliclyVisibleDropdown">
 							<Label id="PubliclyVisible_Off" class="RegionOption" value="0" text="#Citadel_PrivateLobby_PubliclyVisible_Off" onactivate="CitadelPrivateLobbySetPubliclyVisible(0)" />
 							<Label id="PubliclyVisible_On" class="RegionOption" value="1" text="#Citadel_PrivateLobby_PubliclyVisible_On" onactivate="CitadelPrivateLobbySetPubliclyVisible(1)" />
+						</DropDown>
+					</Panel>
+					<Panel class="SettingSubSection">
+						<DropDown id="DuplicateHeroesEnabledDropdown">
+							<Label id="DuplicateHeroes_Off" class="RegionOption" value="0" text="#Citadel_PrivateLobby_Duplicate_Heroes_Off" onactivate="CitadelPrivateLobbySetDuplicateHeroesEnabled(0)" />
+							<Label id="DuplicateHeroes_On" class="RegionOption" value="1" text="#Citadel_PrivateLobby_Duplicate_Heroes_On" onactivate="CitadelPrivateLobbySetDuplicateHeroesEnabled(1)" />
 						</DropDown>
 					</Panel>
 					<Panel class="SettingSubSection">
@@ -76,6 +82,17 @@
 					</Panel>
 				</Panel>
 				<Panel class="OthersContainer">
+					<Panel class="LobbyButtons">
+						<Button id="SwapTeams" class="SecondaryButton" onactivate="CitadelPrivateLobbySwapTeams()" onmouseover="UIShowTextTooltip( #Citadel_PrivateLobby_SwapTeamsTooltip ); CitadelPlayUISound( EMainMenuHover )" onmouseout="UIHideTextTooltip()">
+							<Label class="LobbyActionText" text="#Citadel_PrivateLobby_SwapTeams" />
+						</Button>
+						<Button id="ShuffleTeams" class="SecondaryButton" onactivate="CitadelPrivateLobbyShuffleTeams()" onmouseover="UIShowTextTooltip( #Citadel_PrivateLobby_ShuffleTeamsTooltip ); CitadelPlayUISound( EMainMenuHover )" onmouseout="UIHideTextTooltip()">
+							<Label class="LobbyActionText" text="#Citadel_PrivateLobby_RandomizeTeams" />
+						</Button>
+						<Button id="ShuffleLanes" class="SecondaryButton" onactivate="CitadelPrivateLobbyShuffleLanes()" onmouseover="UIShowTextTooltip( #Citadel_PrivateLobby_ShuffleLanesTooltip ); CitadelPlayUISound( EMainMenuHover )" onmouseout="UIHideTextTooltip()">
+							<Label class="LobbyActionText" text="#Citadel_PrivateLobby_ShuffleTeams" />
+						</Button>
+					</Panel>
 					<Panel class="Spectators">
 						<Panel class="TeamTitle">
 							<Label class="TeamTitleText" text="#Citadel_PrivateLobby_Group_Spectators" />

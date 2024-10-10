@@ -76,6 +76,7 @@
 !"For any texture: usage cannot contain SAMPLER for textures with an integer format"
 !"For any texture: usage cannot contain both GRAPHICS_STORAGE_READ and SAMPLER"
 !"For any texture: width, height, and layer_count_or_depth must be >= 1"
+!"For array textures: sample_count must be SDL_GPU_SAMPLECOUNT_1"
 !"For array textures: usage must not contain DEPTH_STENCIL_TARGET"
 !"For cube array textures: layer_count_or_depth must be a multiple of 6"
 !"For cube array textures: sample_count must be SDL_GPU_SAMPLECOUNT_1"
@@ -105,12 +106,14 @@
 !"Resolve texture must have a sample count of 1!"
 !"Resolve texture must have the same format as its corresponding color target!"
 !"Resolve texture must not be of TEXTURETYPE_3D!"
+!"Resolve texture usage must include COLOR_TARGET!"
 !"Shader format cannot be INVALID!"
 !"Source buffer cannot be NULL!"
 !"Source texture cannot be NULL!"
 !"Source transfer buffer cannot be NULL!"
 !"Store op is RESOLVE or RESOLVE_AND_STORE but resolve_texture is NULL!"
 !"Store op is RESOLVE or RESOLVE_AND_STORE but texture is not multisample!"
+!"Texture must be created with COMPUTE_STORAGE_WRITE or COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE flag"
 !"The number of vertex attributes in a vertex input state must not exceed 16!"
 !"The number of vertex buffer descriptions in a vertex input state must not exceed 16!"
 !"Unrecognized TextureFormat!"
@@ -123,6 +126,7 @@
 "Jk+s
 "TEXCOORD
 "texture1
+"vkCreateImageView"
 #define SDL_TEXCOORD_PRECISION highp\nprecision mediump float;\n\n
 #define SDL_TEXCOORD_PRECISION mediump\nprecision mediump float;\n\n
 #define UVCoordScale 1.0\n
@@ -519,7 +523,8 @@ $`C0M
 22"POSITION
 2<U0
 2>X94>
-2\vpP
+2\vp!3
+2\vpp$
 2dX`G
 2dx.resourcesS
 2texture_type
@@ -527,7 +532,7 @@ $`C0M
 30F\f
 3`2e
 47.SV_Position
-4\f%4dt
+4\f%4d
 4\f%4t
 4]W1#
 4c@Cj
@@ -563,7 +568,7 @@ $`C0M
 =@zj?@L~@@\GA@l
 =v<y5
 >jC4
-?Failed to map temporary buffer!
+?Failed to create fence!
 ?sofile
 @dst
 @entryPointOutput
@@ -624,7 +629,6 @@ Application didn't initialize properly, did you include SDL_main.h in the file c
 AreDpiAwarenessContextsEqual
 Assertion failure at %s (%s:%d), triggered %u %s:\r\n  '%s'
 AttachThreadInput
-Attempted to bind read-only texture as compute write texture
 Audio device in use
 Audio stream not bound to an audio device
 Audio streams are bound to device ids from SDL_OpenAudioDevice, not raw physical devices
@@ -633,12 +637,14 @@ Audio target '%s' not available
 AvRevertMmThreadCharacteristics
 AvSetMmThreadCharacteristicsW
 BMP file with bad dimensions (%dx%d)
+BSDLWASAPIMgmt
 BT\vA\f
 B\fp\v0
 Backbone One
 Backspace
 Bad GET_ATTRIBUTES_VALUES response for controller %p\n
 Bad segment size! %d\n
+Bauto
 Bcoeff
 Bdi.
 BeginScene()
@@ -646,7 +652,6 @@ Bensussen Deutsch & Associates,Inc.(BDA)
 BindResourceMemory must be given either a VulkanBuffer or a VulkanTexture
 BitBlt
 Blit combination not supported
-Bpoweroff
 Buffer has no default usage mode!
 Button name too large: %s
 Bwidth
@@ -714,11 +719,12 @@ Can't create render targets, GL_EXT_framebuffer_object not available
 Can't stat
 Cancel
 CancelIoEx
+Cannot acquire a swapchain texture from an unclaimed window!
+Cannot acquire swapchain texture from an unclaimed window!
 Cannot change binding on a stream created with SDL_OpenAudioDeviceStream
 Cannot change stream bindings on device opened with SDL_OpenAudioDeviceStream
 Cannot create an OPENGL window invalid egl_data
 Cannot create surface
-Cannot get swapchain format, swapchain is currently invalid!
 Cannot get swapchain format, window has not been claimed!
 Cannot set swapchain parameters on unclaimed window!
 CapsLock
@@ -750,6 +756,7 @@ Constants
 Control requested is not available
 Controller
 Copy
+CopyFileExW
 Could not acquire swapchain!
 Could not allocate space to read DB into memory
 Could not create D3D11 device
@@ -781,7 +788,7 @@ Could not create graphics pipeline state
 Could not create indirect dispatch command signature
 Could not create indirect draw command signature
 Could not create indirect indexed draw command signature
-Could not create input layout! Error: (0x%08lX)
+Could not create input layout!
 Could not create pixel shader
 Could not create query
 Could not create rasterizer state
@@ -840,7 +847,7 @@ Could not read custom coefficients in MS ADPCM format header
 Could not read data of WAVE data chunk
 Could not read data of WAVE fmt chunk
 Could not reset command allocator
-Could not reset graphicsCommandList
+Could not reset command list
 Could not resize swapchain buffers
 Could not retrieve EGL function eglBindAPI
 Could not retrieve EGL function eglChooseConfig
@@ -890,6 +897,7 @@ Couldn't find matching render driver
 Couldn't find monitor data
 Couldn't find offscreen surface for window
 Couldn't get clipboard data
+Couldn't get clipboard mime types
 Couldn't get folder
 Couldn't get path's attributes
 Couldn't get sensor ID
@@ -931,6 +939,7 @@ Couldn't setup USB mode
 Couldn't start USB reports
 Couldn't write feature report
 Couldn't write init packet
+CountClipboardFormats
 CrSel
 CreateBitmap
 CreateBitmap()
@@ -1112,7 +1121,6 @@ DestroyCursor
 DestroyIcon
 Device does not support requested present_mode!
 Device does not support requested swapchain composition!
-Device does not support swap chain creation
 Device doesn't support rumble
 Device not found
 Device was already lost and can't accept new opens
@@ -1151,7 +1159,6 @@ DwmSetWindowAttribute
 E2A(
 E5A(
 EC1b
-EDtr
 EGL context already created
 EGL context attribute callback returned NULL pointer
 EGL context attribute callback returned too many attributes
@@ -1189,12 +1196,14 @@ Empty pattern not allowed
 EnableNonClientDpiScaling
 Enabling actuators
 EndCall
+EnumClipboardFormats
 EnumDisplayDevicesW
 EnumDisplayMonitors
 EnumDisplaySettingsW
 EnumResourceNamesW
 Enumerating DirectInput devices
 Enumerating supported effects
+Error flushing datastream
 Error processing command line arguments
 Error reading from datastream
 Error seeking in datastream
@@ -1218,12 +1227,8 @@ FHIDAPI Rumble
 FW&77%
 FW6%
 FW6%@
-Failed loading 
-Failed to acquire command buffer!
-Failed to acquire descriptor heap!
-Failed to acquire fence.
-Failed to acquire swapchain texture!
-Failed to allocate descriptor sets!
+Failed loading %s
+Failed to acquire swapchain texture: %s
 Failed to close command list!
 Failed to compile BlitFrom2D pixel shader!
 Failed to compile BlitFrom2DArray pixel shader!
@@ -1240,42 +1245,23 @@ Failed to create BlitFrom2DArray pipeline!
 Failed to create BlitFrom3D pipeline!
 Failed to create BlitFromCube pipeline!
 Failed to create BlitFromCubeArray pipeline!
+Failed to create GPU pipeline for blit
 Failed to create ID3D12CommandAllocator
 Failed to create ID3D12CommandList
 Failed to create ID3D12CommandList. Out of Memory
-Failed to create RootSignature
-Failed to create VkRenderPass!
+Failed to create RootSignature: %s
 Failed to create blit linear sampler!
 Failed to create blit nearest sampler!
-Failed to create buffer container!
-Failed to create buffer!
-Failed to create color attachment image view
-Failed to create command pool!
-Failed to create compute pipeline!
-Failed to create defrag buffer!
-Failed to create defrag command buffer!
-Failed to create defrag texture!
 Failed to create descriptor heap!
-Failed to create descriptor pool!
-Failed to create fence!
-Failed to create graphics pipeline for blit
-Failed to create graphics pipeline!
-Failed to create logical device
+Failed to create logical device!
 Failed to create message window for joystick autodetect
 Failed to create notify device for joystick autodetect
 Failed to create register class for joystick autodetect
-Failed to create shader module!
-Failed to create temporary download buffer!
-Failed to create temporary upload buffer.
 Failed to create texture download structure!
-Failed to create texture image view
 Failed to create texture!
 Failed to created an offscreen surface (EGL display: %p)
-Failed to cycle active buffer!
-Failed to cycle active texture!
 Failed to enqueue fence signal!
 Failed to enumerate directory
-Failed to fetch command pool!
 Failed to find any GPUs with Vulkan support
 Failed to initialize Vulkan!
 Failed to initialize internal SDL dynapi. As this would otherwise crash, we have to abort now.
@@ -1287,13 +1273,13 @@ Failed to load the shader %d
 Failed to load the shader %d: %s
 Failed to load vkGetInstanceProcAddr from Vulkan Portability library
 Failed to map buffer pool!
-Failed to map destination buffer!
+Failed to map destination buffer
 Failed to map staging buffer
+Failed to map temporary buffer
 Failed to map uniform buffer
 Failed to map upload buffer!
 Failed to obtain XInput device capabilities. Device disconnected?
 Failed to read extension type: %u
-Failed to recreate swapchain!
 Failed to serialize RootSignature: %s
 File dialog driver unsupported
 File is not a Windows BMP file
@@ -1820,7 +1806,6 @@ No default audio device available
 No displays available
 No dynamic %s support in current SDL video driver (%s)
 No dynamic GL support in current SDL video driver (%s)
-No fallback swapchain size available!
 No hardware accelerated renderers available
 No matching GL pixel format available
 No message system available
@@ -1978,11 +1963,11 @@ RENDER
 RIFF form type is not WAVE (not a Waveform file)
 RIFF size truncates chunk
 ROTATION
-RSDSgH
+RSDS>'G\nTq
 RTS0
 RTS00
 RTS0H
-R\fpP
+R\fpp$
 Rcoeff
 Read timed out
 Reading from
@@ -2047,7 +2032,7 @@ SDL failed to get a vertex buffer for this Direct3D 9 rendering batch!
 SDL generic title storage driver
 SDL generic user storage driver
 SDL offscreen video driver
-SDL-prerelease-3.1.2-1827-g34c601136
+SDL-preview-3.1.3-28-g54e622c2e
 SDL.app.metadata.copyright
 SDL.app.metadata.creator
 SDL.app.metadata.identifier
@@ -2079,6 +2064,8 @@ SDL.internal.window.surface
 SDL.internal.window.texturedata
 SDL.iostream.dynamic.chunksize
 SDL.iostream.dynamic.memory
+SDL.iostream.memory.base
+SDL.iostream.memory.size
 SDL.iostream.windows.handle
 SDL.joystick.cap.mono_led
 SDL.joystick.cap.player_led
@@ -2218,7 +2205,6 @@ SDLAudio%c%d
 SDLCamera%d
 SDLGPU
 SDLTimer
-SDLWASAPIMgmt
 SDL_ALLOW_ALT_TAB_WHILE_GRABBED
 SDL_APP_ID
 SDL_APP_NAME
@@ -2646,6 +2632,7 @@ SDL_GetCameraProperties
 SDL_GetCameraSupportedFormats
 SDL_GetCameras
 SDL_GetClipboardData
+SDL_GetClipboardMimeTypes
 SDL_GetCurrentCameraDriver
 SDL_GetCurrentDisplayOrientation
 SDL_GetCurrentRenderOutputSize
@@ -2950,6 +2937,7 @@ SDL_IsGamepad
 SDL_IsJoystickHaptic
 SDL_IsJoystickVirtual
 SDL_IsMouseHaptic
+SDL_IsTV
 SDL_IsTablet
 SDL_JOYSTICK_ALLOW_BACKGROUND_EVENTS
 SDL_JOYSTICK_ARCADESTICK_DEVICES
@@ -3311,6 +3299,7 @@ SDL_SetGamepadSensorEnabled
 SDL_SetHapticAutocenter
 SDL_SetHapticGain
 SDL_SetHintWithPriority
+SDL_SetInitialized
 SDL_SetJoystickEventsEnabled
 SDL_SetJoystickLED
 SDL_SetJoystickPlayerIndex
@@ -3339,7 +3328,6 @@ SDL_SetRenderScale
 SDL_SetRenderTarget
 SDL_SetRenderVSync
 SDL_SetRenderViewport
-SDL_SetScancodeName
 SDL_SetSurfaceAlphaMod
 SDL_SetSurfaceBlendMode
 SDL_SetSurfaceClipRect
@@ -3373,6 +3361,8 @@ SDL_SetWindowResizable
 SDL_SetWindowShape
 SDL_SetWindowSurfaceVSync
 SDL_SetX11EventHook
+SDL_ShouldInit
+SDL_ShouldQuit
 SDL_ShowOpenFileDialog
 SDL_ShowOpenFolderDialog
 SDL_ShowSaveFileDialog
@@ -3591,6 +3581,7 @@ SDL_memmove
 SDL_memset
 SDL_memset4
 SDL_modf
+SDL_murmur3_32
 SDL_pow
 SDL_powf
 SDL_qsort
@@ -4067,6 +4058,7 @@ Video subsystem must be initialized to check primary selection text
 Video subsystem must be initialized to get clipboard data
 Video subsystem must be initialized to get clipboard text
 Video subsystem must be initialized to get primary selection text
+Video subsystem must be initialized to query clipboard mime types
 Video subsystem must be initialized to set clipboard text
 Video subsystem must be initialized to set primary selection text
 Video subsystem not initialized
@@ -4126,6 +4118,7 @@ WGL_EXT_swap_control
 WGL_EXT_swap_control_tear
 WIN_AdjustWindowRectWithStyle
 WRONGTEXTUREFORMAT
+Wait failed
 WaitForSingleObject(hProcess) returned WAIT_FAILED
 WaitOnAddress
 Wake
@@ -4614,6 +4607,7 @@ no video driver
 none,%s,
 none,*,
 not implemented
+num_buckets is too large
 num_buckets must be a power of two
 num_color_targets exceeds MAX_COLOR_TARGET_BINDINGS
 num_indices
@@ -4648,6 +4642,7 @@ plane * 4 would overflow
 platform
 platform:
 points
+poweroff
 pressed
 process
 projectionAndView
@@ -4666,10 +4661,11 @@ qYV12
 qYVYU
 quiet
 r,s,d
-r\vpP
+r\vpp$
 read size overflow
 realloc_func
 rect
+rect has a negative size
 rects
 released
 render_pass
@@ -4719,6 +4715,7 @@ stream
 streams
 strict
 surface
+swapchain_texture
 switchpro
 system
 tex%d
@@ -4760,6 +4757,7 @@ u_texture
 u_texture_u
 u_texture_v
 uinput-fpc
+unable to copy current mime types
 unable to create an EGL window surface
 unable to show color buffer in an OS-native window
 unaware
@@ -4863,7 +4861,6 @@ vkCreateImage(): %s\n
 vkCreateImageView
 vkCreateImageView(): %s\n
 vkCreateInstance
-vkCreateInstance failed: %s
 vkCreateInstance(): %s\n
 vkCreatePipelineCache
 vkCreatePipelineLayout
@@ -4992,6 +4989,7 @@ vkGetDeviceProcAddr(device, "vkUpdateDescriptorSets") failed\n
 vkGetDeviceProcAddr(device, "vkWaitForFences") failed\n
 vkGetDeviceQueue
 vkGetFenceStatus
+vkGetFenceStatus: %s
 vkGetImageMemoryRequirements
 vkGetInstanceProcAddr
 vkGetInstanceProcAddr is NULL
@@ -5031,10 +5029,8 @@ vkGetPhysicalDeviceSurfaceCapabilitiesKHR
 vkGetPhysicalDeviceSurfaceCapabilitiesKHR(): %s\n
 vkGetPhysicalDeviceSurfaceFormatsKHR
 vkGetPhysicalDeviceSurfaceFormatsKHR(): %s\n
-vkGetPhysicalDeviceSurfaceFormatsKHR: %s
 vkGetPhysicalDeviceSurfacePresentModesKHR
 vkGetPhysicalDeviceSurfacePresentModesKHR(): %s\n
-vkGetPhysicalDeviceSurfacePresentModesKHR: %s
 vkGetPhysicalDeviceSurfaceSupportKHR
 vkGetPhysicalDeviceSurfaceSupportKHR(): %s\n
 vkGetPhysicalDeviceWin32PresentationSupportKHR

@@ -126,6 +126,8 @@ $SPECULARSCALE
 %s took %g seconds. %g iterations/sec
 %s:( ActiveParticleCount()=%d, m_bounds=%? simtime=%g )
 %s::%s (%u)
+%tf\t%de\t%4d\t%
+( %f, %f, %f )
 ( m_nTextureType == SPRITECARD_TEXTURE_NORMALMAP || m_nTextureType == SPRITECARD_TEXTURE_ANIMMOTIONVEC || m_nTextureType == SPRITECARD_TEXTURE_6POINT_XYZ_A || m_nTextureType == SPRITECARD_TEXTURE_6POINT_NEGXYZ_E || m_nTextureType == SPRITECARD_TEXTURE_SPHERICAL_HARMONICS_A || m_nTextureType == SPRITECARD_TEXTURE_SPHERICAL_HARMONICS_B || m_nTextureType == SPRITECARD_TEXTURE_SPHERICAL_HARMONICS_C || m_nTextureType == SPRITECARD_TEXTURE_DEPTH )
 (Expecting %s)
 (Expecting EOF)
@@ -584,6 +586,8 @@ $SPECULARSCALE
 .?AVCKV3TransferInterface_EHandle_Save_NoOp@@
 .?AVCKV3TransferInterface_GameTime_Load_NoOp@@
 .?AVCKV3TransferInterface_GameTime_Save_NoOp@@
+.?AVCKV3TransferInterface_Worldspace_Load_NoOp@@
+.?AVCKV3TransferInterface_Worldspace_Save_NoOp@@
 .?AVCKV3Transfer_EmptyResourceLoadInterface@@
 .?AVCKV3Transfer_ResourceLoadInterface@@
 .?AVCParticleCollection@@
@@ -1075,6 +1079,8 @@ $SPECULARSCALE
 .?AVIKV3TransferInterface_GameTime_Save@@
 .?AVIKV3TransferInterface_ResourceLoad@@
 .?AVIKV3TransferInterface_UtlSymbolLarge@@
+.?AVIKV3TransferInterface_Worldspace_Load@@
+.?AVIKV3TransferInterface_Worldspace_Save@@
 .?AVIParticleCollection@@
 .?AVIParticleEHandleHelper@@
 .?AVIParticleFunctionDefinition@@
@@ -1103,8 +1109,7 @@ $SPECULARSCALE
 1D Luminance to Color Lookup
 2D Orient
 2\nP!E
-2\vpd
-2\vpl
+2\vpl,A
 3 %d %d %d\n
 33S@ff
 3E"F
@@ -1149,9 +1154,7 @@ $SPECULARSCALE
 ?Bxt>
 ?CURVE_TANGENT_LINEAR
 ?JA7=
-?PAH
 ?TestCheckpoint: %s
-?m_bUseShadowFastPath
 ?t$7?t$7?t$7?t$7?
 @ARegisterConCommand: Unknown error registering con command "%s"!\n
 @fff>fff>fff>fff>
@@ -1164,6 +1167,7 @@ AABB_t(min=%g, max=%g)
 ADD_FLOAT
 ADD_INT
 ADD_STRING
+ADD_VEC3
 ALPHA
 ALPHA2
 AN?NbX?\f
@@ -1182,8 +1186,6 @@ Actually dude, we didn't seem to be expecting anything here, or at least\n
 Add + Self Illum
 Add Decay to Bounce
 Add R%d <- R%d + R%d
-Add Vector
-Add Vector a to Vector b
 Add to Current Value Raw
 Add to Initial Value
 Additive
@@ -1507,7 +1509,6 @@ CPulseGraphInstance_TurtleGraphics!Graph_Go
 CPulseMathlib
 CPulseMathlib!AbsFloat
 CPulseMathlib!AbsInt
-CPulseMathlib!AddVector
 CPulseMathlib!ArcCos
 CPulseMathlib!ArcSin
 CPulseMathlib!ArcTan
@@ -1516,17 +1517,21 @@ CPulseMathlib!ClampInt
 CPulseMathlib!Cos
 CPulseMathlib!CrossProductVector
 CPulseMathlib!DotProductVector
+CPulseMathlib!FloatToGameTime
+CPulseMathlib!GameTimeToFloat
 CPulseMathlib!LengthVector
+CPulseMathlib!MakeVector
+CPulseMathlib!MakeWorldVector
 CPulseMathlib!MaxFloat
 CPulseMathlib!MaxInt
 CPulseMathlib!MinFloat
 CPulseMathlib!MinInt
 CPulseMathlib!NormalizeVector
 CPulseMathlib!Pow
-CPulseMathlib!ScaleVector
 CPulseMathlib!Sin
-CPulseMathlib!SubVector
 CPulseMathlib!Tan
+CPulseMathlib!VectorToWorldVector
+CPulseMathlib!WorldVectorToVector
 CPulseRuntimeMethodArg
 CPulseTestGapTypeQueryRegistration
 CPulseTestScriptLib
@@ -1940,6 +1945,10 @@ Control Point for Orientation Amount
 Control point
 ControlPointReference_t
 Convert %s R%d <- %s R%d
+Convert from a Game Time a raw floating-point time that will NOT fixed up - use with caution!
+Convert from a local-space to a world-space vector
+Convert from a raw floating-point time to a Game Time that will be saved/loaded appropriately
+Convert from a world-space to local-space vector
 Cookie
 Cookie is Spherically Mapped
 Copy R%d <- R%d
@@ -2074,6 +2083,8 @@ Duration value for path point
 Dynamic Entities Only
 Dynamic Fog No Shadows
 Dynamic Fog with Shadows
+ELEMENT_ACCESS
+ELEMENT_ACCESS_VEC3
 EPulseGraphExecutionHistoryFlag
 EQ_BOOL
 EQ_EHANDLE
@@ -2091,6 +2102,7 @@ ESCAPE_CODE
 EXPONENT
 Early exit
 Elapsed time = %f\n
+Element Access R%d <- R%d[R%d]
 Emit continuously
 Emit instantaneously
 Emit noise
@@ -2212,6 +2224,7 @@ Fixed Rate
 Fixed bugs in "Position along path sequential" where it could incorrectly create too many particles at the last control point. Also fixed issues with control points specified in backward order in that operator as well as "Movement lock to saved position along path".\n
 Flip U or V texcoords if pitch or yaw go over PI
 Float
+Float To Game Time
 Float( %f )
 Float16HDRBackBuffer
 FloatInputMaterialVariable_t
@@ -2240,6 +2253,8 @@ GLOW_ALPHA
 GLOW_RGB
 GREEN
 Game Blackboards: 
+Game Time
+Game Time To Float
 GameSupportsLegacyShaders
 Gameplay Effect
 Gameplay State High
@@ -2313,6 +2328,8 @@ IKV3TransferInterface_GameTime_Load
 IKV3TransferInterface_GameTime_Save
 IKV3TransferInterface_ResourceLoad
 IKV3TransferInterface_UtlSymbolLarge
+IKV3TransferInterface_Worldspace_Load
+IKV3TransferInterface_Worldspace_Save
 IMMEDIATE_HALT
 IMPULSE_TYPE_EXPLOSION
 IMPULSE_TYPE_EXPLOSION_UNDERWATER
@@ -2582,6 +2599,10 @@ MUL_INT
 MVectorIsCoordinate
 MVectorIsSometimesCoordinate
 Made disabling operators + children actually fully work.\n
+Make Vector
+Make World Vector
+Make a Vector from component values
+Make a World Vector from component values
 Manual Animation Frame
 Manual Snapshot Index
 MarchingCubes
@@ -2674,6 +2695,7 @@ Multiply x2
 NEGATE
 NEGATE_FLOAT
 NEGATE_INT
+NEGATE_VEC3
 NEGATIVE_TOK
 NEWLINE
 NE_BOOL
@@ -2991,8 +3013,8 @@ PF_TYPE_RENDERER_CAMERA_DOT_PRODUCT
 PFuncVisualizationType_t
 PGDInstruction_t
 PITCH
-PInstruction_t<33>::Run
-PInstruction_t<34>::Run
+PInstruction_t<36>::Run
+PInstruction_t<37>::Run
 PM_TYPE_COUNT
 PM_TYPE_INVALID
 PM_TYPE_NAMED_VALUE_EHANDLE
@@ -3012,6 +3034,7 @@ PVAL_COLOR_RGB
 PVAL_COUNT
 PVAL_CURSOR_FLOW
 PVAL_FLOAT
+PVAL_GAMETIME
 PVAL_INT
 PVAL_INVALID
 PVAL_OPAQUE_HANDLE
@@ -3023,8 +3046,10 @@ PVAL_SNDEVT_NAME
 PVAL_STRING
 PVAL_TEST_HANDLE
 PVAL_TRANSFORM
+PVAL_TRANSFORM_WORLDSPACE
 PVAL_TYPESAFE_INT
 PVAL_VEC3
+PVAL_VEC3_WORLDSPACE
 PVEC_TYPE_CLOSEST_CAMERA_POSITION
 PVEC_TYPE_COUNT
 PVEC_TYPE_CP_RELATIVE_DIR
@@ -3229,8 +3254,6 @@ PulseDebugLog: Calling external method on non-existent entity or game blackboard
 PulseDebugLog: Calling external method on non-existent entity or game blackboard\n
 PulseDocNodeID_t
 PulseDomainValueType_t
-PulseEntities
-PulseFakeEntities
 PulseGraphExecutionHistoryCursorDesc_t
 PulseGraphExecutionHistoryEntry_t
 PulseGraphExecutionHistoryNodeDesc_t
@@ -3239,7 +3262,6 @@ PulseInstructionCode_t
 PulseMethodCallMode_t
 PulseNodeDynamicOutflows_t
 PulseNodeDynamicOutflows_t::DynamicOutflow_t
-PulseParticles
 PulseRegisterMap_t
 PulseRuntimeBlackboardReferenceIndex_t
 PulseRuntimeCallInfoIndex_t
@@ -3284,7 +3306,6 @@ RGBA with RGB as Alpha
 ROTATION
 ROTATION_SPEED
 RSDS
-R\fpl
 Radial Amount (-1..1)
 Radius
 Radius Scale
@@ -3425,7 +3446,7 @@ Render sprites
 Render standard light
 Render tonemap controller
 RenderModelSubModelFieldType_t
-RenderOps_Init(13996): 
+RenderOps_Init(14004): 
 RenderProjectedMaterial_t
 RenderSimpleModelCollection is missing a model to render
 Renderer Modifiers
@@ -3475,6 +3496,10 @@ SCALAR_EXPRESSION_MOD
 SCALAR_EXPRESSION_MUL
 SCALAR_EXPRESSION_SUBTRACT
 SCALAR_EXPRESSION_UNINITIALIZED
+SCALE
+SCALE_INV
+SCALE_INV_VEC3
+SCALE_VEC3
 SCENEOBJECTPTR
 SCENEOBJECTPTR_NOFREE
 SCRATCH_FLOAT
@@ -3544,13 +3569,15 @@ SUBMODEL_AS_MESHGROUP_INDEX
 SUBMODEL_IGNORED_USE_MODEL_DEFAULT_MESHGROUP_MASK
 SUB_FLOAT
 SUB_INT
+SUB_VEC3
 SYNC_WAIT_FOR_COMPLETION
 Saturate color pre alphablend
 ScalarExpressionType_t
 Scale Current Value Raw
+Scale INV R%d <- R%d / R%d
 Scale Initial Value
+Scale R%d <- R%d * R%d
 Scale Start/End Control Point
-Scale Vector
 Scale child particle radius based on parent radius
 Scale of force
 Scale to apply to result
@@ -3730,10 +3757,8 @@ Stops all particle systems currently playing
 String
 String( %s )
 Sub R%d <- R%d - R%d
-Sub Vector
 Sub-Sample Between Input Points
 SubModel Field Type
-Subtract Vector a from Vector b
 Succeeded
 Synchronize particles
 Synchronous - wait for the method to fully complete before returning
@@ -3887,9 +3912,9 @@ VecInputMaterialVariable_t
 Vector
 Vector Component
 Vector Field Grid Spacing Override
+Vector To World Vector
 Vector component random
 Vector2D
-Vector3
 VectorExpressionType_t
 VectorFloatExpressionType_t
 Vehicle Wake Radius
@@ -3938,6 +3963,9 @@ With Cloth Effect
 Within-Cluster Fire Count Before Cooldown
 Within-Cluster Refire Time
 World Only
+World Transform
+World Vector
+World Vector To Vector
 World-Z Align
 Worley
 Write normal instead of rotation
@@ -4481,11 +4509,12 @@ flDegrees
 flDistance
 flExecTime
 flExponent
+flFloat
 flLastReferenced
 flMax
 flMin
 flResidualDotResidual=%?\n
-flScale
+flTime
 flValue
 flWaitValue
 flattening strength
@@ -5212,6 +5241,7 @@ m_bUseQuat
 m_bUseRadius
 m_bUseRandomCPs
 m_bUseScalarForTextureCoordinate
+m_bUseShadowFastPath
 m_bUseTexture
 m_bUseVelocity
 m_bUseVerticalVelocity
@@ -5379,6 +5409,7 @@ m_flFadeStartTime
 m_flFallingEdge
 m_flFalloff
 m_flFalloffLinearity
+m_flFeatheringDepthMapFilter
 m_flFeatheringFilter
 m_flFeatheringMaxDist
 m_flFeatheringMinDist
@@ -6542,9 +6573,10 @@ pYieldArg2
 parent particle radius scale
 parent_cursor_id
 particle density
+particle feathering alpha filter
 particle feathering closest distance to surface
+particle feathering depthmap layer filter
 particle feathering farthest distance to surface
-particle feathering filter
 particle field
 particle increment amount
 particle neighbor increment amount
@@ -6656,7 +6688,6 @@ pulse_save_execution_history_limit
 pvec_color_black
 pvec_color_white
 quX?
-r\vpl
 r_draw_particle_children_with_parents
 r_drawparticles
 r_freezeparticles
@@ -7094,6 +7125,7 @@ use vertical velocity for weighting
 vMin=%? vMax=%?\n
 value to lerp to
 vecAncestorCursorIDs
+vecValue
 vector_component
 velocity
 velocity maximum
