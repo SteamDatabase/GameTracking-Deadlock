@@ -108,9 +108,11 @@
 						</Panel>
 					</Panel>
 					<Panel id="RankedMode">
-						<Label class="PlayTitle" text="#menu_ranked_title" />
+						<Panel id="RankedTitleArea">
+							<Label class="RankedTitle" text="#menu_ranked_title" />
+							<Label class="currentPhase" text="#menu_ranked_week_dates" />
+						</Panel>
 						<Panel id="RankedOption" hittest="false">
-							<Panel class="menu_divider" />
 							<Button id="Option_RankedLocked" class="rankedoption">
 								<Panel id="UnlockArea">
 									<Panel id="RankedProgressCircle">
@@ -132,35 +134,57 @@
 									</Panel>
 								</Panel>
 							</Button>
-							<Button id="Option_Ranked" class="rankedoption">
+							<Button id="Option_Ranked" class="rankedoption playoption largeButton" onactivate="CitadelPlayMenuRankedMatchmaking();">
 								<Panel id="RankArea">
 									<Panel id="RankMedal" class="rank0" />
 									<Label class="rankTitle rank0" text="#Citadel_ranks_rank0" />
 								</Panel>
-								<Panel class="TextArea">
-									<Panel id="DescArea">
-										<Label id="play_matchmaking_description" text="#menu_play_ranked_desc" class="playModeDesc" />
-										<Label id="play_low_priority_matchmaking_description" text="#menu_play_low_priority_matchmaking" class="playModeDesc" />
-									</Panel>
+								<Panel class="RankedTextArea">
 									<Panel id="TitleArea">
-										<Label text="#menu_play_ranked" class="playoptionLabel" />
-										<Label text="#Citadel_ranked_closed" class="rankedAvailableStatus" />
+										<Label text="#menu_play_ranked" class="playoptionLabel rankedAvailable" />
+										<Label text="{s:ranked_mode_status}" class="playoptionLabel rankedClosed" />
 									</Panel>
+									<Panel id="DescArea">
+										<Panel id="RankGamesPlayedContainer">
+											<Panel class="TopBottomFlow AlignHorizontalCenter AlignVerticalCenter">
+												<Panel id="RankedPipsContainer" class="LeftRightFlow AlignHorizontalCenter" />
+												<Panel class="rankedGamesTextContainer">
+													<Label class="rankedGamesPlayed" text="#Citadel_RankedGame_Played_desc" />
+												</Panel>
+											</Panel>
+										</Panel>
+										<Panel id="RankGamesCompletedContainer">
+											<Label class="qualifiedText" text="#Citadel_RankedGames_PlayedQualified" />
+											<Label class="qualifiedDate" text="#Citadel_RankedGames_Qualified2" />
+										</Panel>
+									</Panel>
+								</Panel>
+								<Panel id="UnavailableOverlay">
+									<Label text="#menu_play_unavailable_in_party" />
 								</Panel>
 							</Button>
 						</Panel>
 						<Panel id="ScheduleInfo">
-							<Label id="RankedOpeningSoon" text="#Citadel_ranked_comingsoon" />
 							<Label class="ScheduleTitle" text="#menu_ranked_schedule_title" />
-							<Label id="SetScheduleExplainer" text="#Citadel_ranked_schedule_explainer" />
-							<Button id="SetSchedule" onactivate="CitadelShowRankedSchedule();">
-								<Panel id="scheduleIcon" />
-								<Label text="#menu_ranked_select_schedule" />
-							</Button>
-							<Panel id="ScheduleList" />
-							<Label class="microText" text="#Citadel_SetSchedule_LocalTimes" />
-							<Button id="ViewAllSchedules" class="SecondaryButton hasIcon" onactivate="CitadelShowRankedSchedule();">
-								<Label text="#menu_ranked_view_schedules" />
+							<Panel id="NoScheduleSelected">
+								<Label id="SetScheduleExplainer" text="#Citadel_ranked_schedule_explainer" />
+								<Button id="SetSchedule" onactivate="CitadelShowRankedSchedule();">
+									<Panel id="scheduleIcon" />
+									<Label text="#menu_ranked_select_schedule" />
+								</Button>
+							</Panel>
+							<Panel id="Schedule">
+								<Panel id="ScheduleList" />
+								<Label class="microText" text="#Citadel_SetSchedule_LocalTimes" />
+								<Button id="ViewAllSchedules" onactivate="CitadelShowRankedSchedule();">
+									<Panel id="scheduleIcon" />
+									<Label text="#menu_ranked_view_schedules" />
+								</Button>
+							</Panel>
+						</Panel>
+						<Panel id="RankedInfo">
+							<Button id="RankedInfoButton" class="SecondaryButton light hasIcon" onactivate="CitadelShowRankedInfo();">
+								<Label text="#Citadel_ranked_explainer_button" />
 							</Button>
 						</Panel>
 					</Panel>

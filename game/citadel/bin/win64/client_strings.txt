@@ -81,6 +81,10 @@
  ' ) - 3 G M Q _ c e i w } 
  (%d)Unknown
  (%ld unused bits)\n
+ (08@HPX`j`
+ (08@HPXb`
+ (08@HPZ`
+ (0X`hpz`
  (Dirty Animation)
  (INVALID PSS PARAMETERS)\n
  (Negative)
@@ -117,6 +121,7 @@
  <-- Retval '%s'
  <b>@import</b> 
  ACTIVE GROUP
+ AX7
  C_PhysPropClientside::Spawn: SetupPhysicsAsModel() failed for %s.\n
  FLK
  FWa
@@ -788,6 +793,10 @@
 #Citadel_Party_SetTeamTitle
 #Citadel_Play_MatchmakingOfflineText
 #Citadel_Play_MatchmakingOfflineTitle
+#Citadel_Play_RankedMatchmakingOfflineText
+#Citadel_Play_RankedMatchmakingOfflineTitle
+#Citadel_Play_RankedNoSchedule
+#Citadel_Play_RankedNoScheduleDesc
 #Citadel_PlayerCard_FavoriteHero
 #Citadel_PlayerContextMenu_PartyLeave
 #Citadel_PlayerList_Enemy
@@ -1013,6 +1022,8 @@
 #Citadel_WatchPage_FilterByHeroDefault
 #Citadel_WatchPage_NextPage
 #Citadel_WatchPage_PrevPage
+#Citadel_ranked_closed
+#Citadel_ranked_open
 #Debugger_AnimationHeader
 #Debugger_AttributesHeader
 #Debugger_DialogVariablesHeader
@@ -2926,9 +2937,8 @@ $hRh
 ../src/devtools/bin/certificates/game/
 ..CPlayer_GetNewSteamAnnouncementState_Response"_
 ..uR5&m
-.0HO
+.08O
 .0aO
-.0pO
 .4bb
 .97yY
 .?AU?$CameraOp_Approach_t@M@@
@@ -6188,6 +6198,9 @@ $hRh
 .?AVCCitadelPlayer_ObserverServices@@
 .?AVCCitadelPortraitWorldSystem@@
 .?AVCCitadelPreviewPlayerController@@
+.?AVCCitadelRankedBadge@@
+.?AVCCitadelRankedBadgeFull@@
+.?AVCCitadelRankedBadgeMini@@
 .?AVCCitadelRecentGameEventsTracker@@
 .?AVCCitadelRenderTargets@@
 .?AVCCitadelReplayManager@@
@@ -7584,6 +7597,7 @@ $hRh
 .?AVCCitadel_UI_Popup_PlaytestUser@@
 .?AVCCitadel_UI_Popup_PostMatchSurvey@@
 .?AVCCitadel_UI_Popup_PrivateBots@@
+.?AVCCitadel_UI_Popup_RankedInfo@@
 .?AVCCitadel_UI_Popup_RankedSchedule@@
 .?AVCCitadel_UI_Popup_ReportPlayer@@
 .?AVCCitadel_UI_Popup_SellMaxItems@@
@@ -10414,6 +10428,7 @@ $hRh
 .CMsgDevMatchInfo"
 .CMsgDevMatchInfo.MatchPlayer
 .CMsgEffectData"[\n
+.CMsgGCAccountData
 .CMsgGCMsgSetOptions.Option
 .CMsgGCRoutingInfo"
 .CMsgGCRoutingInfo">\n(CMsgGCMsgMasterSetWebAPIRouting_Response
@@ -10546,9 +10561,8 @@ $hRh
 .P6AHPEBVIUIPanelClient@panorama@@0@Z
 .P6AXPEAVCSceneObject@@@Z
 .P6A_NXZ
-.P9O
+.P8O
 .PARTICLE_MESSAGE
-.PDO
 .PEAV?$CUtlVector@ULifetimeHighScore_t@CCitadelAccountStatCache@@HV?$CUtlMemory@ULifetimeHighScore_t@CCitadelAccountStatCache@@H@@@@
 .PEAVCBaseModifier@@
 .PEAVCPanel2D@panorama@@
@@ -10866,9 +10880,9 @@ $hRh
 .dx_LV9
 .google.protobuf.ServiceOptions
 .lbN
-.p9O
-.paO
+.p8O
 .png
+.poO
 .pp@0
 .steammessages_unified_base.steamworkssdk.proto"
 .steammessages_unified_base.steamworkssdk.proto"4\n2CPlayer_GetMutualFriendsForIncomingInvites_Request"\\n&CPlayer_IncomingInviteMutualFriendList
@@ -10938,6 +10952,9 @@ $hRh
 0.CPlayer_UpdateSteamAnnouncementLastRead_Request
 02V8[
 05=k
+08@HR`
+08@J`
+08B`
 08bX
 09,h
 0;Q5[
@@ -10974,7 +10991,6 @@ $hRh
 0\r0#0)070;0U0Y0[0g0q0y0}0
 0\tV_iswspace
 0e\r8
-0peI
 0pp@5tqE?|sO541
 0tU+xc:
 0x%4.4x 
@@ -11128,6 +11144,7 @@ $hRh
 27d7
 28.CMsgClientToGCPurchaseChargeCostItemsResponse.EResponse
 28Vm
+28_I
 2:.CMsgClientToGCUpdateHeroBuildPreferenceResponse.EResponse"1\n\tEResponse
 2:3maJ
 2:pS
@@ -11167,7 +11184,6 @@ $hRh
 2\r%2h
 2\r.CameraAction
 2\rlhp
-2\vpX
 2^pV
 2a"l
 2bT~
@@ -11232,6 +11248,7 @@ $hRh
 4@AA
 4Ch;
 4F0I
+4F\v uZ
 4Mv8
 4Redirection URI provided during client registration.2
 4Zis
@@ -11282,15 +11299,15 @@ $hRh
 5s\nl
 5t?F
 5~EW
-6 IO
-6 LO
+6 qO
+6 zO
 6#6165676;6M6O6S6Y6a6k6m6
 6#RDP#
 6%vi
 6(Optional) Type of game the published file represents.
 6,2K
 6-zeZ
-60(O
+60|O
 62$|S)6f
 64CK\vH
 65535
@@ -11298,16 +11315,15 @@ $hRh
 65535"j\n
 65535B$
 666666666666666666666666666666666666666666666666\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\.\ssl\s3_enc.c
-6666666666666666Pv
+6666666666666666p
 67-s
 6?NumberValue@Value@v8@@QEBA?AV?$Maybe@N@2@V?$Local@VContext@v8@@@2@@Z
-6@JO
-6@OO
+6@jO
+6@rO
+6@uO
 6H,N
 6O|T%
-6PSO
-6PTO
-6PgO
+6PyO
 6Qd=
 6Returns the URL of the proper cloud server for a user.
 6True if the operation was successful, false otherwise.
@@ -11321,8 +11337,8 @@ $hRh
 6\n\vmatch_slots
 6\r56h
 6_wEX
-6`KO
-6`vO
+6`IO
+6`sO
 6afD
 6bX+
 6c&0|vvX
@@ -11330,7 +11346,8 @@ $hRh
 6l13
 6lkc
 6myY;
-6pNO
+6plO
+6ptO
 6qo~
 6r-m_v
 6r1ij
@@ -11618,11 +11635,10 @@ $hRh
 =cdE
 =trF6,#
 >#>)>/>3>A>W>c>e>w>
->0QO
+>0wO
 >333>
 >4|6eXg_e
 >7^0g
->PfO
 >Sem
 >VNotify
 >WK6
@@ -11641,6 +11657,7 @@ $hRh
 >fN46R^
 >l\rur
 >p00<
+>pzO
 >yhP
 >ztq
 ?(Optional) Video Id of a YouTube video for this published file.
@@ -11656,6 +11673,7 @@ $hRh
 ?CEntityIOOutput
 ?C_CitadelPlayerPawn
 ?CarouselNav
+?ClearHudAbilityInterrupt
 ?CreateHandle@HandleScope@v8@@KAPEA_KPEAVIsolate@internal@2@_K@Z
 ?DisposeGlobal@api_internal@v8@@YAXPEA_K@Z
 ?EncodeBC7Blocks
@@ -11692,23 +11710,21 @@ $hRh
 ?gwL
 ?invalid_hitbox
 ?jOb
-?m_nHeroLoading
 ?srJO
 ?tya
 ?uWS
 ?x29
 @!@%@+@1@?@C@E@]@a@g@m@
-@08N
+@08Nd
 @0pp
-@6@9O
-@6p|O
+@6`oO
 @?SlowGetInternalField@Object@v8@@AEAA?AV?$Local@VData@v8@@@2@H@Z
 @BH]f
 @BoneSetup
 @CGlowProperty
 @DebugIndividualStyle
+@HPX`hvP
 @MfKZ
-@N@kO
 @Pgl
 @Pu\rm
 @Requests the metadata that was generated from a specified fetch.
@@ -11721,6 +11737,7 @@ $hRh
 @\n\fSingleObject
 @dKb]
 @fff>fff>fff>fff>
+@ht Y
 @i1V
 @keyframes 
 @keyframes '%s'\r\n{\r\n
@@ -12051,6 +12068,7 @@ A\n\tent_index
 A\n\vdescriptors
 A\n\vdiagnostics
 A\rjW
+A\v7uZ
 A_txt
 AbW_
 Abandoned
@@ -18796,6 +18814,7 @@ CitadelPopupInvitationAccepted
 CitadelPopupInvitationAcceptedDone
 CitadelPopupJoinParty
 CitadelPopupJoinPartyCode
+CitadelPopupRankedInfo
 CitadelPopupRankedSchedule
 CitadelPopupSetTeamName
 CitadelPopupSubmitForumRequest
@@ -18842,7 +18861,6 @@ CitadelProfileCardLayoutUpdated
 CitadelProfileCardStatsUpdated
 CitadelProfileCardTooltip
 CitadelProfileCardUpdated
-CitadelProfileHeroClicked
 CitadelProfileHistoryNextPage
 CitadelProfileHistoryPrevPage
 CitadelProfilePage
@@ -18855,6 +18873,9 @@ CitadelQuickcastToggled
 CitadelQuit
 CitadelQuit()
 CitadelQuitConfirm
+CitadelRankedBadge
+CitadelRankedBadgeFull
+CitadelRankedBadgeMini
 CitadelRankedScheduleOpenChanged
 CitadelReceivedGCWelcome
 CitadelRecentGameEventsTracker
@@ -18911,7 +18932,6 @@ CitadelSelectItemToReplace
 CitadelSelectRankedSchedule
 CitadelSelectedChatWheelBind
 CitadelSelectionHeroCard
-CitadelSetActiveAbilitySubTab
 CitadelSetActiveItemSubTab
 CitadelSetActiveTab
 CitadelSetAspectRatio
@@ -18941,6 +18961,7 @@ CitadelShopHeroIDOverride
 CitadelShopHeroRecommendedItemsChanged
 CitadelShopMod
 CitadelShopModIconClickedInPurchasePanel
+CitadelShopModScoreboardItemClicked
 CitadelShopModsActivate
 CitadelShopModsBuild
 CitadelShopModsBuildCategory
@@ -18995,7 +19016,9 @@ CitadelShowProfilePageForAccount
 CitadelShowProfilePageForHero
 CitadelShowProfilePageMatchHistory
 CitadelShowQuickGuidePage
+CitadelShowRankedInfo
 CitadelShowRankedSchedule
+CitadelShowRankedSchedule()
 CitadelShowReadOnlyAbilityDetailsTooltip
 CitadelShowRebindKeysPage
 CitadelShowRosterConfirmPage
@@ -19128,6 +19151,7 @@ Citadel_Unit_Zipline
 Citadel_Valid_Ping_Target
 Citadel_dashboard
 Citadel_hud
+Citadel_ranks_rank%i
 CitdaelSetDBPageFocus
 CitdaelSetDBPageFocus();
 ClQ(|
@@ -19163,7 +19187,6 @@ ClearColorLinear
 ClearDebugBits
 ClearDecalsForSkeletonInstanceEvent_t
 ClearEntityDecalsEvent_t
-ClearHudAbilityInterrupt
 ClearImageSource
 ClearJS
 ClearModellistOverride
@@ -19589,6 +19612,8 @@ Current sound patches: %d\n
 Current state: %s
 CurrentDamageBufferIndex %i \n
 CurrentMicLevel
+CurrentRank
+CurrentTier
 CurrentUser
 CurrentValueSameAsBase
 Currently Used Entries: %d\n
@@ -22254,7 +22279,6 @@ F'pY
 F+Zb
 F,mZq
 F/o4
-F0*O
 F2M+
 F6tr
 F7!z
@@ -22521,7 +22545,9 @@ Failed!\n
 Fake Ent-Fire
 Fake a player report on the post game screen
 Fake a player slot for the post game screen
+Fake a ranked mode status. -1 is disabled, 0 is fake rank closed, 1 is fake ranked open
 Fake client, simulated server side; don't send network messages to them
+Fake the number of ranked games you've played. -1 is disabled
 FakeEntityDerivedA_tAPI
 FakeEntityDerivedA_tAPI!DerivedFuncA
 FakeEntityDerivedB_tAPI
@@ -23023,7 +23049,8 @@ GCSDK::GCDirIndex_t
 GCSQL_VERSION_BASELINE
 GCSQL_VERSION_BOOLTYPE
 GCType_t"2\n
-GCitadelShopModScoreboardItemClicked
+GCitadelProfileHeroClicked
+GCitadelSetActiveAbilitySubTab
 GENERALIZEDTIME
 GENERALSTRING
 GENERAL_ALLOCATE_BOOLEAN
@@ -23200,7 +23227,6 @@ GasCylinder.Explode
 Gascan
 Gaussian Bloom
 GaussianBloomBlurManifestClient
-Gcitadel_spoof_profile_account
 General.BurningFlesh
 GeneralNames
 GeneralString
@@ -23708,6 +23734,7 @@ HaticsType_Default
 HaticsType_None
 Have all towers standing at 7 minutes
 Have closed caption Panorama panel perform depth testing against the scene
+Have we shown the ranked popup for players who are eligible for ranked gameplay.
 HaveActivePopups
 HbAta
 Hc S
@@ -27009,6 +27036,7 @@ NoLaneIntention
 NoLastUpdatedTime
 NoMessage
 NoPausesLeft
+NoRankedSchedule
 NoReadingString
 NoSecondaryWeaponDesc
 NoShowcase
@@ -27591,12 +27619,14 @@ P-224
 P-256
 P-384
 P-521
-P08N
+P08@J`
+P08J
+P08Nd
 P1\t98"
 P2P ping to "%s". Timed out after %.2fms\n
 P2P_Messages
 P5[1
-P6p^O
+P6PAO
 PAGN_4
 PANEL_ID
 PANORAMA_LAYOUTFILE
@@ -28351,7 +28381,6 @@ PowerIncreaseHeroImage
 PowerIncreaseSnippet
 PowerUpStages
 Powerup Values
-PpeI
 Pr"V
 PreEntityPacketReceived
 PreEntityPacketReceived(nocmds)
@@ -28868,7 +28897,7 @@ RUMBLE_STOP_ALL
 R\n\nBookReward
 R\n\rincludekvtags
 R\r1>Vp
-R\vpX
+R\vpp
 R]Di
 Radiant
 RadioBox
@@ -28913,10 +28942,14 @@ RangeSliderFocusChanged
 RangeSliderReleased
 RangeSliderValueChanged
 Range_t
+RankedInfo
 RankedMatchmake
 RankedMode
+RankedPip%i
+RankedPipsContainer
 RankedProgressCircleAmount
 RankedSchedule
+RankedScheduleClosed
 Rapid Fire
 Rarity definition %s: Missing required field "loc_key"
 Rarity definition %s: Missing required field "value"
@@ -32741,7 +32774,6 @@ V\n\vItemCharges
 V\rKk
 V_a|I
 V_strcmp( pDataMap->dataClassName, pCodeClass ) == 0
-V`AO
 VacuumRadius
 Validate Target Line of Sight
 ValidateHeroBuild
@@ -33050,9 +33082,7 @@ WeaponTierBonus
 Weather Type:
 WebBrowser
 WebVTT Parse Error %d: %s:%u:%u - %s.\n
-WeekdaySchedule
 WeekdayTimeSegmentContainer
-WeekendSchedule
 WeekendTimeSegmentContainer
 WeeklyFavorite
 Weight
@@ -33446,6 +33476,7 @@ XRJ2
 XWY]
 XYD%
 X\tQo
+X`hr`
 Xd3h
 XfJ7
 XjfR
@@ -33654,7 +33685,6 @@ Z~wl
 \f]ne3
 \fdhWTh
 \fiaR
-\fp\v`peI
 \ful2
 \fy&3Gl
 \l:ArR
@@ -33821,6 +33851,7 @@ Z~wl
 \n/CMsgClientToGCUpdateHeroBuildPreferenceResponse
 \n/steammessages_publishedfile.steamworkssdk.proto
 \n0CCitadelUserMsg_ParticipantSetLibraryStackFields
+\n0jI
 \n1CHelpRequestLogs_UploadUserApplicationLog_Request
 \n3CPlayer_GetMutualFriendsForIncomingInvites_Response
 \n4CMsgClientToGCGetLimitedItemPurchaseQuantityResponse
@@ -34651,7 +34682,6 @@ Z~wl
 \tPartyID_t"
 \tPartyID_t"p\n
 \tPlayer param "%s" returned NULL.\n
-\tPpeI
 \tPrevious element returned false.\n
 \tPrivate script scope:
 \tPublic script scope:
@@ -34756,16 +34786,12 @@ Z~wl
 \vGt5
 \vHCK/
 \vNCE\v
-\vPpeI
 \vUY6[E
 \v\tV_fmodd
 \v\vTSG
 \v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r
-\v`peI
 \vj0k
 \vjC7
-\vp`hI
-\vppeI
 ]1h=bfz
 ]FhSD}
 ]GT7]
@@ -34839,7 +34865,7 @@ _xU`u
 _}eOk
 `28)fk
 `3?New@Array@v8@@SA?AV?$Local@VArray@v8@@@2@PEAVIsolate@2@H@Z
-`60=O
+`6@8O
 `:zQF
 `D$daM-l
 `DZG
@@ -34854,10 +34880,10 @@ _}eOk
 `generic-method-parameter-
 `generic-type-
 `h9T~
+`htp
 `local static destructor helper'
 `non-type-template-parameter
 `o_je
-`peI
 `template static data member constructor helper'
 `template static data member destructor helper'
 `template-parameter
@@ -34880,6 +34906,7 @@ a5<p
 a;Tg
 a@XZ
 aA0k
+aBvd
 aD/x
 aDSS
 aECDH
@@ -35765,6 +35792,8 @@ bad value
 bad version number
 bad write retry
 bad x509 filetype
+badgeRank%i
+badgeTier1
 badges
 baked_light_indexing
 bakedshadowindex
@@ -36801,8 +36830,10 @@ citadel_event_indicator_mitigation_mid
 citadel_fake_death_gold
 citadel_fake_no_match_metadata
 citadel_fake_no_match_metadata forced a fake error
+citadel_fake_number_of_games_played
+citadel_fake_number_of_ranked_games
 citadel_fake_party_roster_usage
-citadel_fake_ranked_num_games
+citadel_fake_ranked_open_status
 citadel_fake_schedule_selected
 citadel_fake_show_player_reported
 citadel_fibonnaci_sphere_trace_debug
@@ -37069,6 +37100,7 @@ citadel_projectile_radius_debug
 citadel_prop_dynamic
 citadel_quick_cast_select_effects_delay
 citadel_quick_response_display_time
+citadel_ranked_popup_shown
 citadel_rapid_stamina_regen
 citadel_region_override
 citadel_relevance_opvars
@@ -37145,6 +37177,7 @@ citadel_spew_rate_limited_suppressed_sounds
 citadel_spoof_invalid_client_version
 citadel_spoof_num_matches_on_profile
 citadel_spoof_persona_name
+citadel_spoof_profile_account
 citadel_standing_spread_is_aimed_spread
 citadel_stat_override_official_match
 citadel_stat_preview
@@ -39061,6 +39094,7 @@ end-time
 endLerpTo
 endTime
 end_as_info
+end_day
 end_game_immediately
 end_group
 end_memory_bytes
@@ -39385,6 +39419,7 @@ f%wyLmX:
 f&dy
 f1cK%
 f45\r
+f@5O
 fBB\fy
 fC\tc
 fL\ri
@@ -39555,6 +39590,8 @@ file://{resources}/layout/citadel_hud_top_bar_team.xml
 file://{resources}/layout/citadel_hud_zipline_boost_icon.xml
 file://{resources}/layout/citadel_modified_attribute_label.xml
 file://{resources}/layout/citadel_mods_purchased_panel.xml
+file://{resources}/layout/citadel_ranked_badge_full.xml
+file://{resources}/layout/citadel_ranked_badge_mini.xml
 file://{resources}/layout/citadel_roster_hero_details.xml
 file://{resources}/layout/citadel_shop_ability_menu_icon.xml
 file://{resources}/layout/citadel_shop_mod_icon.xml
@@ -39675,6 +39712,7 @@ file://{resources}/layout/popups/citadel_popup_custom_match.xml
 file://{resources}/layout/popups/citadel_popup_discord_invite.xml
 file://{resources}/layout/popups/citadel_popup_join_forum.xml
 file://{resources}/layout/popups/citadel_popup_private_bots.xml
+file://{resources}/layout/popups/citadel_popup_ranked_info.xml
 file://{resources}/layout/popups/citadel_popup_ranked_schedule.xml
 file://{resources}/layout/popups/citadel_popup_report_player.xml
 file://{resources}/layout/popups/popup_activated_ability_selection.xml
@@ -40195,6 +40233,7 @@ gathered override for %s 0x%p : field %s flags %s\n
 gaussian
 gaussian( 
 gb`X
+gc_account_data
 gc_connected
 gc_dir_index_source
 gc_disconnected
@@ -40464,6 +40503,7 @@ hasComponentMods
 hasControllerConnected
 hasCooldown
 hasCreatedDiscordInvite
+hasDateSet
 hasDesc
 hasEnoughHeroes
 hasFavoriteHero
@@ -40777,6 +40817,7 @@ hovering
 how fast to run (1 to use player max run speed).
 hows joint info for this entity
 hp_stat
+hpz`
 hr_H
 href="
 hscroll
@@ -41541,6 +41582,7 @@ ir@r`
 is also the end of the line, so you must check your lexer rules\n
 is commodity
 isActivatedAbility
+isActive
 isActiveItem
 isArmor
 isArmorComponent
@@ -47742,6 +47784,7 @@ m_nHealthToGrant
 m_nHeroAbilityUpgradeBits
 m_nHeroDraftPosition
 m_nHeroID
+m_nHeroLoading
 m_nHierarchicalDepth
 m_nHierarchyId
 m_nHierarchyType
@@ -50273,7 +50316,6 @@ n5cM
 n6j/
 n:2C[
 n@PK
-n@oO
 nAsyncRet1
 nCRD
 nChangeOffset < INT16_MAX
@@ -50289,7 +50331,6 @@ nIndex
 nLastValidEntryIdx
 nLevelKey == m_vecLevelToInfo.Count() + 1
 nObjects
-nP&O
 nParam
 nPriority != NETWORK_FIELD_CHANGE_DEFAULT_PRIORITY
 nRetValue
@@ -50950,8 +50991,7 @@ p.other
 p.ppBasis
 p.prime
 p.tpBasis
-p08@H^
-p0j 
+p08@H^d
 p2p_FightingGame_Connection
 p2p_FightingGame_GameData
 p2p_Ping
@@ -50968,6 +51008,7 @@ p2{l
 p4Z3
 p5Z3
 p5\nL,
+p60DO
 p618
 p>?Set@Template@v8@@QEAAXV?$Local@VName@v8@@@2@V?$Local@VData@v8@@@2@W4PropertyAttribute@2@@Z
 p@0pqE5tsO?|1
@@ -50978,7 +51019,6 @@ pData->GetDataDescMap() == pTemplateDataMap
 pDescription
 pDest
 pField
-pFp*O
 pG_*h
 pHitEntity
 pIp 
@@ -51851,7 +51891,6 @@ powerup_spawn
 pp == NULL || *pp != NULL
 pp&c
 ppBasis
-ppeI
 pqualid
 pre mac length too long
 pre-transform-rotate2d
@@ -52101,6 +52140,7 @@ q_%s_target_rot
 qangle_precise
 qcStatements
 qf`ny
+qualifiedForRanked
 qualifiers
 qualities
 qualityLabelledData
@@ -52133,6 +52173,7 @@ rRfKR
 rX&O0
 rZ1VwGf5
 rZPM
+r\fpp
 r\n\vstart_index
 r\vDi
 r_AirboatViewDampenDamp
@@ -52364,12 +52405,20 @@ range_max
 range_min
 range_too_far
 ranges
+rank
+rankedOpen
+rankedPip
+rankedPipUnlocked
 ranked_available
 ranked_badge_detail
 ranked_badge_interval
 ranked_badge_level
+ranked_games_played
+ranked_games_required
 ranked_interval
 ranked_matches
+ranked_mode_status
+ranked_name
 ranked_schedule
 ranked_schedule_time
 rare_loadout_anim_chance
@@ -54015,6 +54064,7 @@ start_active
 start_at_attachment
 start_at_customorigin
 start_at_origin
+start_day
 start_disabled
 start_distance
 start_paused
@@ -54340,6 +54390,7 @@ t4O_
 t80z
 tA`KO/3G!\n7h=
 tGTS
+tI\v uZ
 tLY^m`6
 tLl 
 tLsq
@@ -54548,6 +54599,7 @@ thumper_ability_4
 thumper_use_plane_reflection
 tick_%d
 ticket
+tier
 tier1
 tier1_shop
 tier2
@@ -55011,6 +55063,7 @@ unpacked_item_ids
 unparsed text after QAngle string, '%s'\n
 unparsed text after Quaternion string, '%s'\n
 unprotectedAttrs
+unranked
 unranked_mm_pause_time
 unranked_queue_size
 unrecognized webvtt-cue-setting
@@ -55450,7 +55503,6 @@ vote_create_failed_t
 votes_up
 voxel_size
 vparams
-vpkO
 vprof_scope_entity_clientthink
 vprof_scope_entity_thinks
 vqw0\nU
