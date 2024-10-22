@@ -8,7 +8,16 @@
 	<snippets>
 		<snippet name="PlayerSnippet">
 			<Panel class="PlayerSnippet">
-				<CitadelHeroImage id="HeroImage" heroimagestyle="vertical" scaling="stretch-to-fit-y-preserve-aspect" />
+				<Panel id="HeroImageContainer">
+					<CitadelHeroImage id="HeroImage" heroimagestyle="vertical" scaling="stretch-to-fit-y-preserve-aspect" />
+					<Panel id="RankColorWash" />
+					<CitadelRankedBadgeMini id="RankBadge" />
+				</Panel>
+				<Panel id="PlayerCommendContainer">
+					<Button id="CommendPlayerButton" onmouseover="UIShowTextTooltip( #Citadel_MatchDetails_CommendTooltip );" onmouseout="UIHideTextTooltip()">
+						<Panel id="commendIcon" />
+					</Button>
+				</Panel>
 				<Panel id="NameBarGraphs">
 					<CitadelUserName id="PlayerName" />
 					<CitadelHudModBarGraph id="ModBarGraph" />
@@ -36,11 +45,11 @@
 						<Label class="PlayerHealing Row6 StatsLabel" text="{i:player_healing}" />
 					</Panel>
 				</Panel>
-				<Panel id="PlayerReportContainer">
-					<Button id="ReportPlayerLabel" onmouseover="UIShowTextTooltip( #Citadel_MatchDetails_ReportTooltip );" onmouseout="UIHideTextTooltip()">
+				<Panel id="PlayerReportContainer" class="PlayerFeedbackContainer">
+					<Button id="ReportPlayerButton" class="PlayerFeedbackButton" onmouseover="UIShowTextTooltip( #Citadel_MatchDetails_ReportTooltip );" onmouseout="UIHideTextTooltip()">
 						<Panel id="reportIcon" />
-						<Label class="reportLabel" text="#Citadel_Party_Report" />
-						<Label class="reportedLabel" text="#Citadel_Party_Reported" />
+						<Label class="reportLabel feedbackLabel" text="#Citadel_Party_Report" />
+						<Label class="reportedLabel feedbackLabel" text="#Citadel_Party_Reported" />
 					</Button>
 				</Panel>
 			</Panel>
@@ -52,28 +61,28 @@
 	<CitadelPostGameScoreboard hittest="false">
 		<Panel id="PatronImageContainer" />
 		<Panel id="ScoreContainer">
-			<Panel class="clamp_width">
-				<Panel id="GoldAndTimeContainer">
-					<Panel id="Team1Networth" class="TeamNetworth">
-						<Panel class="ScoreBG" />
-						<Panel class="ScoreContainer">
-							<Panel class="SoulsImage" />
-							<Label class="ScoreLabel" html="true" text="#Citadel_MatchDetails_Team1NetWorth" />
-						</Panel>
-					</Panel>
-					<Panel class="TimeContainer">
-						<Label class="TimeLabel" text="{s:match_minutes}:{s:match_seconds}" />
-					</Panel>
-					<Panel id="Team2Networth" class="TeamNetworth">
-						<Panel class="ScoreBG" />
-						<Panel class="ScoreContainer">
-							<Panel class="SoulsImage" />
-							<Label class="ScoreLabel" html="true" text="#Citadel_MatchDetails_Team2NetWorth" />
-						</Panel>
+			<Panel id="GoldAndTimeContainer">
+				<Panel id="Team1Networth" class="TeamNetworth">
+					<Panel class="ScoreBG" />
+					<Panel class="ScoreContainer">
+						<Panel class="SoulsImage" />
+						<Label class="ScoreLabel" html="true" text="#Citadel_MatchDetails_Team1NetWorth" />
 					</Panel>
 				</Panel>
-				<Label class="matchIDLabel" text="#Citadel_MatchDetails_MatchID" />
+				<Panel class="TimeContainer">
+					<Label class="TimeLabel" text="{s:match_minutes}:{s:match_seconds}" />
+				</Panel>
+				<Panel id="Team2Networth" class="TeamNetworth">
+					<Panel class="ScoreBG" />
+					<Panel class="ScoreContainer">
+						<Panel class="SoulsImage" />
+						<Label class="ScoreLabel" html="true" text="#Citadel_MatchDetails_Team2NetWorth" />
+					</Panel>
+				</Panel>
 			</Panel>
+		</Panel>
+		<Panel class="clamp_width">
+			<Label class="matchIDLabel" text="#Citadel_MatchDetails_MatchID" />
 		</Panel>
 		<Panel class="TeamNamesContainer">
 			<Panel id="Team1TitleContainer" class="titleContainer">
@@ -90,6 +99,9 @@
 				</Panel>
 				<Label class="VictoryLabel" text="#Citadel_MatchDetails_Victory" />
 			</Panel>
+		</Panel>
+		<Panel id="RankedGameContainer" class="tempHideRank">
+			<CitadelRankedBadgeFull id="RankMainBadge" />
 		</Panel>
 		<Panel class="PlayersContainer">
 			<Panel id="Team1Players" class="TeamPlayersContainer" />
