@@ -629,6 +629,7 @@ $hRh
 2Zq)
 2\fWQx
 2\rlhp
+2\vp<T
 2^pV
 2a"l
 2bT~
@@ -1212,6 +1213,7 @@ BakePathData: Unable to create serialized object. [%d]\n
 BakeReverb: Cancelled\n
 BakeReverb: Max probes (%u) limit exceeded (%d). Bake cancelled.\n
 BakeReverb: Saved %zu bytes.\n
+BakeReverb: Unable to create compressed probe batch. (%d)\n
 BakeReverb: Unable to create probe array. (%d)\n
 BakeReverb: Unable to create probe batch. (%d)\n
 BakeReverb: Unable to create serialized object. (%d)\n
@@ -2033,6 +2035,7 @@ Email address mismatch
 Enable caching listener probe neighborhood for pathing.
 Enable custom HRTF loading.
 Enable perspective correction for 3D audio.
+Enables tracy profiling when baking steam audio data in Hammer.
 Encipher Only
 Enter 
 Enter PEM pass phrase:
@@ -2083,7 +2086,6 @@ FORMAT
 FU\n-XP
 FV|FgUV
 F\rH'4
-F\tV_powd
 Failed to open file
 Failed to read
 Failed to read %d bytes\n
@@ -2196,6 +2198,7 @@ HMAC_Init_ex
 HO8?
 HU>mA$_E*
 HWyn
+H\tV_powd
 Hash Algorithm: 
 HbAta
 Hc S
@@ -3033,6 +3036,7 @@ RSA_verify_PKCS1_PSS
 RSA_verify_PKCS1_PSS_mgf1
 RSDS
 R\r1>Vp
+R\vp<T
 R]Di
 Rbg.E
 ReadConsoleInputW
@@ -3065,6 +3069,7 @@ ResourceCompiler/SteamAudio/Reverb/AmbisonicsOrder
 ResourceCompiler/SteamAudio/ReverbDefaults/ClusteringCubemapResolution
 ResourceCompiler/SteamAudio/ReverbDefaults/ClusteringDepthThreshold
 ResourceCompiler/SteamAudio/ReverbDefaults/ClusteringEnabled
+ResourceCompiler/SteamAudio/ReverbDefaults/CompressionEnabled
 ResourceCompiler/SteamAudio/ReverbDefaults/FilterUsingNavMesh
 ResourceCompiler/SteamAudio/ReverbDefaults/FilterUsingVolumes
 ResourceCompiler/SteamAudio/ReverbDefaults/GridGenerationType
@@ -3445,6 +3450,7 @@ Unspecified
 Unsupported extension feature
 Unused
 Usage: snd_steamaudio_halton_sequence <order> <numsamples>.\n
+Use compressed reverb data if available.
 Ut]<E
 Uv1t
 Uz_G3=
@@ -4717,6 +4723,7 @@ emailCA
 emailProtection
 empty file structure
 empty srtp protection profile list
+enable_compressed_reverb_lookup
 enable_dc_correction_for_phase_interpolation
 enable_paths_from_all_source_probes
 enable_reverb_probe_caching_for_missing_probes
@@ -5438,11 +5445,14 @@ iplProbeBatchAddProbe
 iplProbeBatchAddProbeArray
 iplProbeBatchAddProbeArrayAndCluster
 iplProbeBatchCommit
+iplProbeBatchCompress
 iplProbeBatchCreate
+iplProbeBatchCreateCompressed
 iplProbeBatchCreateNonUniform
 iplProbeBatchGetInfluencingProbes
 iplProbeBatchGetProbeArray
 iplProbeBatchLoad
+iplProbeBatchLoadCompressed
 iplProbeBatchLoadNonUniform
 iplProbeBatchRelease
 iplProbeBatchSave
@@ -6715,7 +6725,9 @@ snd_hrtf_distance_behind
 snd_steamaudio_active_hrtf
 snd_steamaudio_baked_data_stats
 snd_steamaudio_default_hrtf_volume_gain
+snd_steamaudio_enable_compressed_reverb_lookup
 snd_steamaudio_enable_custom_hrtf
+snd_steamaudio_enable_editor_profiling
 snd_steamaudio_enable_pathing
 snd_steamaudio_enable_perspective_correction
 snd_steamaudio_enable_probeneighborhood_caching
@@ -6923,6 +6935,7 @@ steamaudio_reverb_bounces
 steamaudio_reverb_clustering_cubemap_resolution
 steamaudio_reverb_clustering_depth_threshold
 steamaudio_reverb_clustering_enable
+steamaudio_reverb_compression_enable
 steamaudio_reverb_filter_navmesh
 steamaudio_reverb_filter_volumes
 steamaudio_reverb_generation_type

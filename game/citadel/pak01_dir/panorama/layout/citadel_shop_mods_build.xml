@@ -1,14 +1,23 @@
-<!-- xml reconstructed by Source 2 Viewer 10.1.0.0 - https://valveresourceformat.github.io -->
+<!-- xml reconstructed by Source 2 Viewer 10.2.0.0 - https://valveresourceformat.github.io -->
 <root>
 	<styles>
 		<include src="s2r://panorama/styles/citadel_base_styles.vcss_c" />
 		<include src="s2r://panorama/styles/citadel_shop_mods_list.vcss_c" />
 		<include src="s2r://panorama/styles/citadel_shop_mods_build.vcss_c" />
 	</styles>
+	<snippets>
+		<snippet name="FavoriteBuildEntry">
+			<Panel class="FavoriteBuildEntryContainer">
+				<Label class="FavoriteBuildEntryLabel SelectedBuildName" text="{s:build_name}" />
+			</Panel>
+		</snippet>
+	</snippets>
 	<CitadelShopModsBuild class="shopModsBuild" hittest="true">
 		<Panel class="BuildHeader BuildHeaderShared">
-			<Label id="SelectedBuildNameLabel" class="SelectedBuildName" text="#Citadel_HeroBuilds_SelectedBuildNameLabel" />
-			<Label id="SelectedBuildDescriptionLabel" class="SelectedBuildDescription" text="#Citadel_HeroBuilds_SelectedBuildDescriptionLabel" />
+			<Panel class="BuildHeaderContainer FavoriteBuildEntryContainer" onactivate="CitadelHudHeroBuildsToggleFavoriteSelector();">
+				<Panel class="FavoriteBuildsSelector" />
+				<Label id="SelectedBuildNameLabel" class="SelectedBuildName" text="#Citadel_HeroBuilds_SelectedBuildNameLabel" />
+			</Panel>
 			<Button id="BrowseHeroBuildsButton" class="SecondaryButton light hasIcon fill" onmouseactivate="CitadelShopSetBuildMode(true);">
 				<Label class="BrowseBuilds" text="#Citadel_HeroBuilds_BrowseBuilds" />
 			</Button>
@@ -24,5 +33,6 @@
 			</Button>
 		</Panel>
 		<Panel id="CategoryContainer" />
+		<Panel id="FavoriteBuildList" />
 	</CitadelShopModsBuild>
 </root>

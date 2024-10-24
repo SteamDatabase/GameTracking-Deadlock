@@ -532,7 +532,7 @@
 					occlusion_max_velocity = 
 					{
 						data_type = "float"
-						value = "1.000000"
+						value = "1.0"
 						_system_properties = 
 						{
 							property_group = "Occlusion"
@@ -1270,8 +1270,50 @@
 			},
 			
 			{
+				name = "delay_random"
+				operator = "math_randomize_float"
+				execute_once = "true"
+				input = "@public.delay"
+				input_rand_min = "@public.delay_rand_min"
+				input_rand_max = "@public.delay_rand_max"
+			},
+			
+			{
+				name = "remap_delay_distance"
+				operator = "math_curve_2d_4knot"
+				curve_type = "linear"
+				execute_once = "1.000000"
+				input = "@distance_to_source.output"
+				input_X1 = "0.000000"
+				input_Y1 = "0.000000"
+				input_X2 = "100.000000"
+				input_Y2 = "0.100000"
+				input_X3 = "1000.000000"
+				input_Y3 = "0.150000"
+				input_X4 = "1000.000000"
+				input_Y4 = "0.150000"
+			},
+			
+			{
+				name = "switch_delay"
+				operator = "ctrl_switch_float"
+				input_switch = "@public.delay_use_distance_curve"
+				input1 = "@delay_random.output"
+				input2 = "@remap_delay_distance.output"
+			},
+			
+			{
 				name = "get_event_info"
 				operator = "soundevent_get_info"
+				input_stack_delay = "@switch_delay.output"
+			},
+			
+			{
+				name = "math_not_in_predelay"
+				operator = "math_float"
+				apply = "greater_than_or_equal"
+				input1 = "@get_event_info.output_elapsed_time"
+				input2 = "@get_event_info.output_final_delay"
 			},
 			
 			{
@@ -1559,39 +1601,6 @@
 			},
 			
 			{
-				name = "delay_random"
-				operator = "math_randomize_float"
-				execute_once = "true"
-				input = "@public.delay"
-				input_rand_min = "@public.delay_rand_min"
-				input_rand_max = "@public.delay_rand_max"
-			},
-			
-			{
-				name = "remap_delay_distance"
-				operator = "math_curve_2d_4knot"
-				curve_type = "linear"
-				execute_once = "1.000000"
-				input = "@distance_to_source.output"
-				input_X1 = "0.000000"
-				input_Y1 = "0.000000"
-				input_X2 = "100.000000"
-				input_Y2 = "0.100000"
-				input_X3 = "1000.000000"
-				input_Y3 = "0.150000"
-				input_X4 = "1000.000000"
-				input_Y4 = "0.150000"
-			},
-			
-			{
-				name = "switch_delay"
-				operator = "ctrl_switch_float"
-				input_switch = "@public.delay_use_distance_curve"
-				input1 = "@delay_random.output"
-				input2 = "@remap_delay_distance.output"
-			},
-			
-			{
 				name = "calc_doppler"
 				input_execute = "@public.doppler_on"
 				operator = "math_calc_doppler"
@@ -1628,6 +1637,7 @@
 			{
 				name = "mixer"
 				operator = "soundmixer_get_mixgroup"
+				input_execute = "@math_not_in_predelay.output"
 				mixgroup = "@public.mixer_mixgroup"
 				input_class_name = "@source_info.output_entity_classname"
 				input_is_player = "false"

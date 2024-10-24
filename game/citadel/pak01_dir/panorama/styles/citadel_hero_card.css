@@ -1,4 +1,4 @@
-/* Prettified by Source 2 Viewer 10.1.0.0 - https://valveresourceformat.github.io */
+/* Prettified by Source 2 Viewer 10.2.0.0 - https://valveresourceformat.github.io */
 
 CitadelSelectionHeroCard,CitadelRosterHeroCard,CitadelHeroCard
 {
@@ -110,6 +110,11 @@ CitadelRosterHeroCard:hover,CitadelSelectionHeroCard:hover
 	z-index: 1000;
 }
 
+CitadelSelectionHeroCard.isHeroLabsHero,CitadelRosterHeroCard.isHeroLabsHero,CitadelHeroCard.isHeroLabsHero
+{
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #ce9b54 ), to( #674915 ) );
+}
+
 #GrainOverlay
 {
 	width: 100%;
@@ -178,7 +183,7 @@ CitadelRosterHeroCard.inRoster .SelectedState,CitadelSelectionHeroCard.inRoster 
 	visibility: visible;
 }
 
-CitadelHeroCard.newPlayers:hover #GrainOverlay
+.isNewPlayer CitadelHeroCard.newPlayers:hover #GrainOverlay
 {
 	border: 3px solid #87d316;
 	z-index: 20;
@@ -350,16 +355,6 @@ CitadelRosterHeroCard #HeroName,CitadelSelectionHeroCard #HeroName
 	text-shadow: 0px 0px 0px 3.0 offBlack, 2px 5px 0px 3.0 offBlack;
 }
 
-.showingDisabledHeroes CitadelRosterHeroCard #HeroInfo,.showingDisabledHeroes CitadelSelectionHeroCard #HeroInfo
-{
-	height: 18px;
-}
-
-.showingDisabledHeroes CitadelRosterHeroCard #HeroName,.showingDisabledHeroes CitadelSelectionHeroCard #HeroName
-{
-	font-size: 12px;
-}
-
 .AspectRatio16x10 CitadelRosterHeroCard #HeroName,.AspectRatio16x10 CitadelSelectionHeroCard #HeroName
 {
 	font-size: 20px;
@@ -482,7 +477,7 @@ CitadelRosterHeroCard.inRoster #HeroName,CitadelSelectionHeroCard:selected
 	animation-duration: 2s;
 }
 
-.newPlayers .RecommendedHeroIcon
+.isNewPlayer .newPlayers .RecommendedHeroIcon
 {
 	visibility: visible;
 }
@@ -495,6 +490,84 @@ CitadelRosterHeroCard.inRoster #HeroName,CitadelSelectionHeroCard:selected
 .isNewPlayer .multiplayer .newPlayers .RecommendedHeroIcon
 {
 	visibility: visible;
+}
+
+#DevMessageHeroLabs
+{
+	horizontal-align: middle;
+	vertical-align: top;
+	margin-bottom: 0px;
+	padding: 1px 4px 0px 4px;
+	border-radius: 2px;
+	font-weight: medium;
+	visibility: collapse;
+	z-index: 100;
+	width: fit-children;
+	margin-bottom: 3px;
+	background-color: #d36c16ee;
+}
+
+.isHeroLabsHero #DevMessageHeroLabs
+{
+	visibility: visible;
+}
+
+#DevMessageHeroLabs Label
+{
+	font-size: 12px;
+	text-transform: uppercase;
+	color: #ffffff;
+	font-weight: bold;
+	text-align: center;
+	text-overflow: shrink;
+	max-height: 15px;
+	horizontal-align: center;
+}
+
+.HeroLabsHeroIcon
+{
+	width: 50px;
+	height: 50px;
+	horizontal-align: right;
+	ignore-parent-flow: true;
+	background-image: url("s2r://panorama/images/main_menu/herolabs_icon_backer_png.vtex");
+	background-size: contain;
+	opacity: 1;
+	z-index: 100;
+	visibility: collapse;
+}
+
+.isHeroLabsHero .HeroLabsHeroIcon
+{
+	visibility: visible;
+}
+
+.HeroLabsIcon
+{
+	width: 13px;
+	height: 13px;
+	background-image: url("s2r://panorama/images/icons/icon_herolabs.vsvg");
+	background-repeat: no-repeat;
+	background-position: center;
+	wash-color: #ffffff;
+	background-size: contain;
+	vertical-align: top;
+	horizontal-align: right;
+	margin-top: 5px;
+	margin-right: 5px;
+	width: 35%;
+	height: 35%;
+}
+
+CitadelSelectionHeroCard .HeroLabsHeroIcon,CitadelRosterHeroCard .HeroLabsHeroIcon
+{
+	width: 40px;
+	height: 40px;
+}
+
+.inRoster .HeroLabsHeroIcon,CitadelSelectionHeroCard:selected .HeroLabsHeroIcon,CitadelSelectionHeroCard:selected:hover .HeroLabsHeroIcon,CitadelRosterHeroCard.inRoster:hover .HeroLabsHeroIcon
+{
+	opacity: 0;
 }
 
 .LockIcon
@@ -644,7 +717,7 @@ CitadelHeroGrid .openTesting #DevMessageOpen,CitadelRosterConfirmPage .openTesti
 	background-color: #00B5E0ae;
 }
 
-CitadelHeroGrid .newPlayers:hover #DevMessageNewPlayers,CitadelRosterConfirmPage .newPlayers:hover #DevMessageNewPlayers
+.isNewPlayer CitadelHeroGrid .newPlayers:hover #DevMessageNewPlayers,.isNewPlayer CitadelRosterConfirmPage .newPlayers:hover #DevMessageNewPlayers
 {
 	background-color: #87d316;
 	opacity: 1;
@@ -663,7 +736,7 @@ CitadelHeroGrid .assignedPlayersOnly #DevMessageAssigned,CitadelRosterConfirmPag
 	brightness: 0.5;
 }
 
-.assignedPlayersOnly #HeroName,.openTesting #HeroName,.newPlayers #HeroName
+.assignedPlayersOnly #HeroName,.openTesting #HeroName,.isNewPlayer .newPlayers #HeroName,.isHeroLabsHero #HeroName
 {
 	margin-bottom: 2px;
 }

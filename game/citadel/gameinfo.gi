@@ -448,4 +448,13 @@
 
 		"cl_max_particle_pvs_aabb_edge_length" "100"
 	}
+
+	Memory
+	{
+		"EstimatedMaxCPUMemUsageMB"	"1"
+		"EstimatedMinGPUMemUsageMB"	"1"
+
+		"ShowInsufficientPageFileMessageBox" "1"
+		"ShowLowAvailableVirtualMemoryMessageBox" "1"
+	}
 }

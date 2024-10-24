@@ -1,4 +1,4 @@
-/* Prettified by Source 2 Viewer 10.1.0.0 - https://valveresourceformat.github.io */
+/* Prettified by Source 2 Viewer 10.2.0.0 - https://valveresourceformat.github.io */
 
 @import url("s2r://panorama/styles/citadel_hero_builds_shared.vcss_c");
 CitadelShopModsBuild
@@ -20,7 +20,22 @@ CitadelShopModsBuild .BuildHeaderShared
 	border-top: 8px solid buildsLightColor;
 }
 
-CitadelShopModsBuild .BuildHeaderShared .SelectedBuildName
+CitadelShopModsBuild .BuildHeaderContainer.FavoriteBuildEntryContainer
+{
+	width: fit-children;
+}
+
+CitadelShopModsBuild .BuildHeaderContainer.FavoriteBuildEntryContainer:hover
+{
+	brightness: 1.0;
+}
+
+CitadelShopModsBuild .BuildHeaderContainer.FavoriteBuildEntryContainer:hover .SelectedBuildName
+{
+	brightness: 1.5;
+}
+
+CitadelShopModsBuild .SelectedBuildName
 {
 	margin: 4px;
 	vertical-align: center;
@@ -37,6 +52,29 @@ CitadelShopModsBuild .SelectedBuildDescription
 	font-size: 20px;
 	margin-left: 10px;
 	visibility: collapse;
+}
+
+CitadelShopModsBuild .FavoriteBuildsSelector
+{
+	vertical-align: center;
+	width: 18px;
+	height: 18px;
+	background-image: url("s2r://panorama/images/control_icons/arrow_solid_right_png.vtex");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	transform: rotateZ(0deg);
+	visibility: collapse;
+}
+
+CitadelShopModsBuild.HasFavoriteBuilds .FavoriteBuildsSelector
+{
+	visibility: visible;
+}
+
+CitadelShopModsBuild.ShowFavoriteSelector .FavoriteBuildsSelector
+{
+	transform: rotateZ(90deg);
 }
 
 .gEditingBuilds CitadelShopModsBuild .BuildHeader
@@ -108,6 +146,41 @@ CitadelShopModsBuild .BuildHeaderEdit .AddCategoryButton
 .gEditingBuilds CitadelShopModsBuild
 {
 	background-color: citadelBuildsColorDarkBlue;
+}
+
+CitadelShopModsBuild .FavoriteBuildEntryContainer
+{
+	vertical-align: center;
+	flow-children: right;
+	width: 100%;
+	background-color: citadelBuildsColorLightBlue;
+	padding: 4px;
+	padding-bottom: 6px;
+}
+
+CitadelShopModsBuild .FavoriteBuildEntryContainer.Even
+{
+	background-color: citadelBuildsColorDarkBlue;
+}
+
+CitadelShopModsBuild .FavoriteBuildEntryContainer:hover
+{
+	brightness: 2;
+}
+
+CitadelShopModsBuild #FavoriteBuildList
+{
+	background-color: citadelBuildsColorDarkBlue;
+	margin-top: 60px;
+	width: 500px;
+	ignore-parent-flow: true;
+	flow-children: down;
+	visibility: collapse;
+}
+
+CitadelShopModsBuild.ShowFavoriteSelector #FavoriteBuildList
+{
+	visibility: visible;
 }
 
 CitadelShopModsBuild #CategoryContainer

@@ -41,6 +41,8 @@
 .?AV<lambda_4>@?M@??RunPolyClipInternal@CNavGenPolyProcessor@@AEAAXAEBVCNavGenInput@@AEAV?$CUtlVector@V?$Vec3D@M@@HV?$CUtlMemory@V?$Vec3D@M@@H@@@@AEAV?$CUtlVector@IHV?$CUtlMemory@IH@@@@AEAV?$CUtlVector@UNavGenProcessorMovableMeshInput_t@@HV?$CUtlMemory@UNavGenProcessorMovableMeshInput_t@@H@@@@AEAVCNavGenDebugData@@_NHPEAV?$shared_ptr@VCNavGenPolyProcessorStageBase@@@std@@H6@Z@
 .?AV<lambda_5>@?1??GetOutput@CNavGenOrientedMeshTile@@QEAAXAEAUNavGenVertexData_t@@AEAV?$CUtlVector@_NHV?$CUtlMemory@_NH@@@@AEAV?$CUtlVector@VCNavGenPoly@@HV?$CUtlMemory@VCNavGenPoly@@H@@@@PEAV?$CUtlVector@UNavGenRecastDebugStage_t@@HV?$CUtlMemory@UNavGenRecastDebugStage_t@@H@@@@@Z@
 .?AV?$CBaseAppSystem@VINavSystem@@@@
+.?AV?$CBaseTypesafeVDataFileManager@VCNavHullPresetVData@@@@
+.?AV?$CBaseTypesafeVDataFileManager@VCNavHullVData@@@@
 .?AV?$CTier0AppSystem@VINavSystem@@$0A@@@
 .?AV?$CTier1AppSystem@VINavSystem@@$0A@@@
 .?AV?$CTier2AppSystem@VINavSystem@@$0A@@@
@@ -143,6 +145,8 @@
 .?AV?$function@$$A6A_NV?$Vec3D@H@@@Z@std@@
 .?AVCBaseVDataFileManager@@
 .?AVCEmptySequence@@
+.?AVCKV3Transfer_AssertAlreadyLoadedResourceLoadInterface@@
+.?AVCKV3Transfer_EmptyResourceLoadInterface@@
 .?AVCNavGenOrientedMeshTile@@
 .?AVCNavGenPolyProcessorStage1@@
 .?AVCNavGenPolyProcessorStage2@@
@@ -155,6 +159,7 @@
 .?AVCNavToolsPhysicsInterface@@
 .?AVCThreadedJobFunc@@
 .?AVIBaseSequence@@
+.?AVIKV3TransferInterface_ResourceLoad@@
 .?AVINavPathCost@@
 .?AVINavPhysicsInterface@@
 .?AVINavSystem@@
@@ -164,6 +169,7 @@
 1\r51h
 ;1#INF
 =33s?
+=texcoord
 >0 = watershed, 1 = monotone, 2 = layers
 >>>>NAVGEN Oriented - Region has invalid bounds ( region %d ) - skipping\n
 >>>>NAVGEN Oriented - Region was not processed ( region %d ) - skipping\n
@@ -252,11 +258,14 @@ GetNearestNav: Area[%d] too far below us
 GetNearestNav: Area[%d] too far to the side
 GetNearestNav: Area[%d] too short
 GetNearestNav: Empty Grid
+GetNearestNav: Failed.
 GetNearestNav: Invalid Ground Height
 GetNearestNav: Pos Invalid
-GetNearestNav: Returning area [%d]
+GetNearestNav: Start Position
+GetNearestNav: Success! Returning area [%d]
 GetNearestNav: [%d] Areas that failed poly test
 Hide unless error/warning occurs
+IKV3TransferInterface_ResourceLoad
 IT DOES HAPPEN!\n
 IslandRemoval
 IslandRemoval - unable to find a poly near navlink location %g %g %g\n
@@ -334,6 +343,7 @@ RemoveDegens
 RemovePolysMarkedNoNav
 RemoveSmallAreasOnEdge
 RemoveStrayVerticalPolys
+Should have already been loaded via CVDataTypeManager::RegisterExtRefs
 Show areas that are potentially visible from the current nav area
 Show regardless of user setting
 Simplified Contours
@@ -371,7 +381,6 @@ VertexPaintBlendParams
 VertexPaintBlendParams1
 VertexPaintTintColor
 WALKABLESEED
-WARNING: Failed to load %s: %s\n
 WARNING: VNotify abandoned after too many attempts:\n%s\n
 Warning (problem that doesn't prevent forward progress)
 WeldVertices
@@ -632,7 +641,6 @@ source_file_searchpath
 source_line
 tangent
 tangentu_signv
-texcoord
 vnotify_ui
 waiting_group
 warn

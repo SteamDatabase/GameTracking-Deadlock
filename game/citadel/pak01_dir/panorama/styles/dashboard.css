@@ -1366,6 +1366,50 @@ PopupManager
 	opacity: 1;
 }
 
+.DebugButton
+{
+	width: 32px;
+	height: 32px;
+	margin-top: 5px;
+	background-size: 20px 20px;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	wash-color: #66aadd;
+}
+
+.DebugButton:hover
+{
+	wash-color: #dcdcdc;
+}
+
+.DebugButton:active
+{
+	wash-color: white;
+}
+
+#DashboardDebugControls
+{
+	flow-children: right;
+	margin: 8px;
+	margin-left: 16px;
+	padding: 2px;
+	vertical-align: top;
+	horizontal-align: left;
+	z-index: 9998;
+	visibility: collapse;
+}
+
+#DashboardDebugControls #ReloadPageButton
+{
+	background-image: url("s2r://panorama/images/control_icons/refresh_psd.vtex");
+	opacity: 0.75;
+}
+
+.ShowDashboardDebugControls #DashboardDebugControls
+{
+	visibility: visible;
+}
+
 #QuickMute
 {
 	width: 25px;
@@ -2382,6 +2426,39 @@ Label.PlayTitle
 	background-color: offBlack&f5;
 }
 
+.smallButton .TextArea
+{
+	background-color: red;
+	width: 60%;
+	height: 180px;
+	horizontal-align: right;
+	background-color: none;
+	margin-right: 10px;
+}
+
+#Option_HeroLabs.smallButton .TextArea
+{
+	height: fit-children;
+	vertical-align: middle;
+}
+
+#Option_HeroLabs:not(.heroLabsUnlocked)
+{
+	background-color: offBlack&10;
+	border: 1px solid #42424230;
+}
+
+#Option_HeroLabs.heroLabsTimeUnavailable
+{
+	background-color: offBlack&10;
+	border: 1px solid #42424230;
+}
+
+#Option_HeroLabs .ScheduleTitle
+{
+	font-size: 15px;
+}
+
 .playoptionLabel
 {
 	font-size: 38px;
@@ -2405,9 +2482,27 @@ Label.PlayTitle
 	font-size: 26px;
 }
 
+.smallButton .subHeader.playoptionLabel
+{
+	font-size: 26px;
+	vertical-align: top;
+	visibility: collapse;
+}
+
+#Option_HeroLabs:not(.heroLabsUnlocked) .subHeader.playoptionLabel
+{
+	visibility: visible;
+}
+
 #BotDifficultyDropDown
 {
 	visibility: collapse;
+}
+
+#LockedContainer
+{
+	height: fit-children;
+	width: 100%;
 }
 
 #TitleArea
@@ -2433,6 +2528,36 @@ Label.PlayTitle
 	height: 80px;
 }
 
+.smallButton #DescArea
+{
+	height: 88px;
+}
+
+#Option_HeroLabs.heroLabsUnlocked #DescArea
+{
+	height: 50px;
+}
+
+#Option_HeroLabs.heroLabsUnlocked #DescArea Label.lockedDesc
+{
+	visibility: collapse;
+}
+
+#Option_HeroLabs:not(.heroLabsUnlocked) #DescArea
+{
+	height: 75px;
+}
+
+#Option_HeroLabs:not(.heroLabsUnlocked) #DescArea Label:not(.lockedDesc)
+{
+	visibility: collapse;
+}
+
+#Option_HeroLabs:not(.heroLabsUnlocked) #DescArea,#Option_HeroLabs:not(.heroLabsUnlocked) #TitleArea,#Option_HeroLabs.heroLabsTimeUnavailable #DescArea,#Option_HeroLabs.heroLabsTimeUnavailable #TitleArea
+{
+	opacity:.2 ;
+}
+
 #RankedOpeningSoon
 {
 	text-align: center;
@@ -2443,7 +2568,7 @@ Label.PlayTitle
 	font-size: 16px;
 }
 
-.playoption:hover Label.menuButtonLabel
+.playoption:enabled:hover Label.menuButtonLabel
 {
 	color: offBlack;
 	transition-property: color, transform;
@@ -2465,6 +2590,7 @@ Label.PlayTitle
 #SubModes
 {
 	width: 780px;
+	flow-children: right;
 }
 
 .playoption
@@ -2484,16 +2610,6 @@ Label.PlayTitle
 	x: 330px;
 }
 
-.smallButton.option2
-{
-	x: 220px;
-}
-
-.smallButton.option3
-{
-	x:440px;
-}
-
 .playoption.largeButton
 {
 	width: 310px;
@@ -2501,10 +2617,24 @@ Label.PlayTitle
 	margin: 10px;
 }
 
+#SubModesContainerTop
+{
+	flow-children: right;
+	height: fit-children;
+	width: fit-children;
+}
+
+#SubModesContainerBottom
+{
+	flow-children: right;
+	height: fit-children;
+	width: fit-children;
+}
+
 .playoption.smallButton
 {
-	width: 200px;
-	height: 300px;
+	width: 310px;
+	height: 180px;
 	margin: 10px;
 }
 
@@ -2518,7 +2648,7 @@ Label.PlayTitle
 	opacity: 1;
 }
 
-.playoption:hover
+.playoption:enabled:hover
 {
 	brightness: 1.6;
 	pre-transform-scale2d: 1.05;
@@ -2609,7 +2739,7 @@ Label.PlayTitle
 	font-weight: semi-bold;
 }
 
-.playoption:hover Label.queueNumber
+.playoption:enabled:hover Label.queueNumber
 {
 	color: offBlack;
 }
@@ -3054,6 +3184,52 @@ Label.playModeDesc
 	flow-children: down;
 }
 
+#TimeContainer
+{
+	flow-children: up;
+	width: 100%;
+	height: fit-children;
+}
+
+.heroLabsUnlocked #TimeContainer
+{
+	visibility: visible;
+}
+
+#Option_HeroLabs:not(.heroLabsUnlocked) #TimeContainer
+{
+	visibility: collapse;
+}
+
+#TimeSegmentContainerHeroLabs
+{
+	background-color: #62E762;
+	width: 150px;
+	padding: 3px 5px;
+	border-radius: 3px;
+	margin: 3px 0px;
+	horizontal-align: center;
+}
+
+.heroLabsTimeUnavailable #TimeSegmentContainerHeroLabs
+{
+	background-color: #333;
+}
+
+#TimeSegmentContainerHeroLabs .timeLabel
+{
+	color: offBlack;
+	font-size: 15px;
+	horizontal-align: center;
+	font-weight: bold;
+	margin-bottom: 1px;
+}
+
+.heroLabsTimeUnavailable #TimeSegmentContainerHeroLabs .timeLabel
+{
+	color: offWhite&90;
+}
+
 .rankedSchedule
 {
 	flow-children: right;
@@ -3192,23 +3368,40 @@ Label.playModeDesc
 
 #Option_HeroTesting
 {
-	background-image: url("s2r://panorama/images/main_menu/menu_images/menu_play_sandbox_psd.vtex");
+	background-image: url("s2r://panorama/images/main_menu/menu_images/menu_play_sandbox_horizontal_psd.vtex");
 	background-size: cover;
-	background-img-opacity: 0.3;
+	background-img-opacity: .3;
 }
 
 #Option_BotMatch
 {
-	background-image: url("s2r://panorama/images/main_menu/menu_images/menu_play_privatebots_psd.vtex");
+	background-image: url("s2r://panorama/images/main_menu/menu_images/menu_play_privatebots_horizontal_psd.vtex");
 	background-size: cover;
 	background-img-opacity: 0.3;
 }
 
 #Option_Lobby
 {
-	background-image: url("s2r://panorama/images/main_menu/menu_images/menu_play_custom_match_psd.vtex");
+	background-image: url("s2r://panorama/images/main_menu/menu_images/menu_play_custom_match_horizontal_psd.vtex");
 	background-size: cover;
 	background-img-opacity: 0.3;
+}
+
+#Option_HeroLabs
+{
+	background-image: url("s2r://panorama/images/main_menu/menu_images/menu_play_hero_labs_horizontal_psd.vtex");
+	background-size: cover;
+	background-img-opacity: 0.3;
+}
+
+#Option_HeroLabs:not(.heroLabsUnlocked)
+{
+	background-img-opacity: .08;
+}
+
+#Option_HeroLabs.heroLabsTimeUnavailable
+{
+	background-img-opacity: .08;
 }
 
 #Option_Ranked

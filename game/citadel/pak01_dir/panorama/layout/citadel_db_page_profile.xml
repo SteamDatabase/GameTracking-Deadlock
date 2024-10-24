@@ -31,7 +31,7 @@
 						<Label class="gameDate" text="{t:s:t:m:match_start_time}" />
 					</Panel>
 					<CitadelHeroImage id="HeroImage" class="heroImg" />
-					<Label class="gameNetworth" text="{s:game_networth}" />
+					<Label class="gameNetworth" text="{s:game_networth_label}" />
 				</Panel>
 				<Panel id="Overlay">
 					<Panel class="viewDetails">
@@ -60,6 +60,16 @@
 				<Label class="heroRowName" text="{s:hero_row_name}" />
 			</Panel>
 		</snippet>
+		<snippet name="RankMatchHistoryRow">
+			<Panel class="rankMatchHistoryRow">
+				<Panel class="rowContent LeftRightFlow">
+					<CitadelRankedBadgeMini id="RankBadge" />
+					<Label class="rankName" text="{s:rank_name}" />
+				</Panel>
+				<Label class="gamesPlayed" text="#Citadel_ranked_numGamesPlayed" />
+				<Label class="datesContainer" text="#Citadel_rank_phase_example" />
+			</Panel>
+		</snippet>
 		<snippet name="BlockStat">
 			<Panel class="BlockStat">
 				<Panel class="blockBacker" />
@@ -74,8 +84,7 @@
 	<CitadelProfilePage class="DashboardPage" oncancel="CitadelNavigateBack();">
 		<ScenePanel id="HeroScenePanel" map="ui/hero_shop/abrams_shop" use_shop_map="true" sound="PORTRAIT_SOUND_MODE_ALL_SOUNDS" shop_hero_animgraph_enum="ShopBase" parent_entity_name="hero_root" camera="point_camera" rotateonhover="true" allowrotation="false" require-composition-layer="true" />
 		<Panel id="CurrentRank">
-			<CitadelRankedBadgeFull id="RankBadge" onactivate="CitadelShowRankedSummaryPopup();" />
-			<Label class="rankDesc AlignHorizontalCenter" text="#Citadel_ClickToViewReport" />
+			<CitadelRankedBadgeFull id="RankBadge" />
 		</Panel>
 		<Panel class="MainContents">
 			<Panel class="LeftPanel">
@@ -114,10 +123,17 @@
 						<Panel id="MatchBlockMiniContainer" class="MiniMatchBlock" />
 					</Panel>
 				</Panel>
-				<Panel id="Statistics">
+				<Panel id="TabsContainer">
 					<Panel class="titleArea">
-						<Label class="smallTitle" text="#Citadel_Profile_Statistics" />
+						<Panel id="StatsTab" class="profileTab" onactivate="CitadelProfileSelectTab( EProfileTabStats );">
+							<Label class="smallTitle" text="#Citadel_Profile_Statistics" />
+						</Panel>
+						<Panel id="RankHistoryTab" class="profileTab" onactivate="CitadelProfileSelectTab( EProfileTabRankHistory );">
+							<Label class="smallTitle" text="#Citadel_Profile_RankHistory" />
+						</Panel>
 					</Panel>
+				</Panel>
+				<Panel id="Statistics">
 					<Panel id="StatsContent">
 						<Panel id="HeroList" />
 						<Panel id="StatsBlock">
@@ -146,11 +162,18 @@
 										<Label class="statLabel" text="#Citadel_Profile_Stats_Denies" />
 									</Panel>
 								</Panel>
+								<Panel class="StatRow">
+									<Panel id="CommendsContainer" class="TextStat">
+										<Label class="statValue" text="{i:commend_count}" />
+										<Label class="statLabel" text="#Citadel_Profile_Stats_Commends" />
+									</Panel>
+								</Panel>
 							</Panel>
 							<Panel id="StatsRight" />
 						</Panel>
 					</Panel>
 				</Panel>
+				<Panel id="RankHistory" />
 			</Panel>
 		</Panel>
 		<Panel class="StatsSectionLoading">

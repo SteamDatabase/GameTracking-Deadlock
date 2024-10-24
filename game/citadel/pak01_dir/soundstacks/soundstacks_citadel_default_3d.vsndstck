@@ -464,11 +464,18 @@
 			},
 			
 			{
+				name = "occlusion_lpf_filter"
+				operator = "math_filter_float"
+				input = "@citadel_base_3d::occlusion.output"
+				input_max_velocity = "10.0"
+			},
+			
+			{
 				name = "occlusion_vmix_send"
 				input_execute = "1"
 				operator = "vmix_voicegraph_input"
 				input_name = "occlusion"
-				input = "@citadel_base_3d::occlusion.output"
+				input = "@occlusion_lpf_filter.output"
 			},
 			
 			{

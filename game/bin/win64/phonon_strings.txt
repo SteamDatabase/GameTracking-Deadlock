@@ -1,5 +1,29 @@
               
                                                             
+             gflop   for the numerical factorization: %f
+             gflop/s for the numerical factorization: %f
+             number of columns for each panel: %d
+             number of columns for each panel: %lli
+             number of equations:           %d
+             number of equations:           %lli
+             number of independent subgraphs:  %d
+             number of independent subgraphs:  %lli
+             number of non-zeros in A (%%): %f
+             number of non-zeros in A:      %d
+             number of non-zeros in A:      %lli
+             number of non-zeros in L+U:              %d
+             number of non-zeros in L+U:              %lli
+             number of non-zeros in L:                %d
+             number of non-zeros in L:                %lli
+             number of non-zeros in U:                %d
+             number of non-zeros in U:                %lli
+             number of right-hand sides:    %d
+             number of right-hand sides:    %lli
+             number of supernodes:                    %d
+             number of supernodes:                    %lli
+             size of largest supernode:               %d
+             size of largest supernode:               %lli
+             ||A||                                    %f
            #include "pmmintrin.h"
            #include "xmmintrin.h"
            _MM_SET_DENORMALS_ZERO_MODE(_MM_DENORMALS_ZERO_ON);
@@ -7,6 +31,41 @@
            in the MXCSR control and status register. This can have a severe 
            performance impact. Please enable these modes for each application 
            thread the following way:
+          ia(neqns_in+1)-1: %d nb_in         : %d
+          ia(neqns_in+1)-1: %lli nb_in         : %lli
+          ia[neqns_in]-1  : %d nb_in         : %d
+          ia[neqns_in]-1  : %lli nb_in         : %lli
+          ido_in          : %d neqns_in      : %d
+          ido_in          : %lli neqns_in      : %lli
+          matrix_number_in: %d matrix_type_in: %d
+          matrix_number_in: %i matrix_type_in: %d
+          matrix_number_in: %lli matrix_type_in: %lli
+      Factorization: Time for reading from files: %f
+      Factorization: Time for writing to files  : %f
+      Solution:      Time for reading from files: %f
+      Time A to LU:
+      Time cgs    :
+      Time fulladj:
+      Time malloc :
+      Time numfct :
+      Time parlist:
+      Time reorder:
+      Time solve  :
+      Time symbfct:
+      Time total  :
+      factorization - write&read: %d %%
+      factorization - write&read: %lli %%
+      read from files: %10.3f Mb
+      read from files: %d %%
+      read from files: %lli %%
+      solve - write&read: %d %%
+      solve - write&read: %lli %%
+      total - write&read: %d %%
+      total - write&read: %lli %%
+      write to files : %10.3f Mb
+      write to files : %d %%
+      write to files : %lli %%
+      write&read     : %10.3f Mb
     Features: 
     ISA     : 
     Targets : 
@@ -54,10 +113,17 @@
   unalignedNodesMB : 
   used blocks = 
   verbosity     = 
+ %.2fGHz
+ %f s cgx iterations %d
+ %f s cgx iterations %lli
+ %f s total - sum: %f s
+ %s build %s for %s %s
  (100.00%), 
  (compile time enabled)
  (supported)
  +2<vdR
+ - contradiction (set ido>0) %d
+ - contradiction (set ido>0) %lli
  -D AMD_MEDIA_OPS 
  -cl-mad-enable -cl-fast-relaxed-math -cl-std=CL1.2 -I . 
  289
@@ -83,7 +149,23 @@
  =Hn8
  ?QJI?me
  BVH
+ Build 
+ CNR:%s
  CmQ,
+ Dyn:%d
+ Export functionality error: CODE PATH = %d not supported.
+ Export functionality error: DATA_NAME = %d not supported.
+ Export functionality error: INVALID DATA_NAME = %d.
+ Export functionality error: INVALID OPERATION = %d.
+ Export functionality error: INVALID handle.
+ Export functionality error: NULL handle.
+ Export functionality error: OPERATION = %d not supported.
+ Export functionality error: distrubution overlap is not supported.
+ Export functionality error: integer overflow, consider using ILP64 interface.
+ Export functionality error: not all required pointers has been provided before calling main export routine.
+ Export functionality error: some of the input pointers are NULL.
+ Export functionality error: unidentified error.
+ FastMM:%d
  GB/s
  H;Ry
  I;s8A
@@ -93,15 +175,23 @@
  MB (100.00%), 
  Mprim/s, 
  Mq<n
+ PARDISO message: Interrupted by the mkl_progress function.
+ Patch %d
  Q<OX
  RC=hb
+ Update %d
  X;60
  Y;J0
  Z9;K
+ applications
  character 
+ contraction rate is greater than 0.9, interrupt
  dy=3
  e8EH
+ exceeds maximum iteration number %d
+ exceeds maximum iteration number %lli
  failed: cylinder = 
+ for 
  for BVH4<Bezier1i>
  for BVH4<Bezier1v>
  for BVH4<Line4i>
@@ -138,8 +228,10 @@
  n2:Nu
  o6;1
  o:cPO
+ parameter number %4i had an illegal value 
  q9\r3
  qe;4
+ real (including 1 factor): %d
  uB;L
  vN9
  y<Pq
@@ -182,6 +274,7 @@
 !XC<u
 !Yp8
 !Z<l1
+!\t@Attempted to create SOFA HRTF without either a file name or a data buffer.
 !\t@REF%08lX
 !\tp;GJl
 !au9
@@ -245,6 +338,7 @@
 "i;Zo5
 "lQ<7
 "lY;V
+"memkind".dll
 "n:b8
 "n;2T
 "n;Yw
@@ -288,6 +382,7 @@
 #G=hL
 #K18
 #KO;M
+#Loop | #Eig  |    Trace     | Error-Trace |  Max-Residual
 #M=ky
 #N:KJ
 #Sp>g8d
@@ -362,7 +457,15 @@ $yF?w
 $zX|Dz
 $|9tJ
 % filled), 
+%-6i %-6i %-3i     %-8.4f %-8.4f
+%-6i %-6i %-3i    %-10.3f %-8.4f %-10e %-10e
+%-6i %-6i %-3i    %-10.3f %-8.4f %-10e %-10e   FAIL
+%-6i %-6i %-3i    %-10.3f %-8.4f %-10e %-10e   pass
 %.0Lf
+%.0fns
+%.2fms
+%.2fs
+%.2fus
 %0<q0
 %7I9
 %88HA
@@ -400,6 +503,8 @@ $|9tJ
 %ai9
 %b %d %H : %M : %S %Y
 %d / %m / %y
+%d,%d,%.15e,%.15e,%.15e
+%d,%d,%.7e,%.7e,%.7e
 %d,%d,%d,%d
 %e9o
 %ez<8w
@@ -411,6 +516,8 @@ $|9tJ
 %lY8
 %lZ=vI
 %m / %d / %y
+%s double precision computation is turned ON
+%s single precision computation is turned ON
 %s9&3
 %s: HRTF data contains Ambisonic HRIRs of unsupported order: %d.
 %s: Unsupported HRTF data format version: %d.
@@ -567,16 +674,20 @@ $|9tJ
 (*identifier).type
 (*identifier).variation
 (-o:CD0
+(13c
+(1Cc
 (1d=l
-(20\f0
 (57;M
+(5Ec
 (5F=4u
 (6w;S
 (76;6
 (7gcA;
 (96B
+(99d
 (9DBu9
 (9O k
+(9bf
 (:EIh
 (;L4B
 (;d0M
@@ -584,25 +695,53 @@ $|9tJ
 (<C$\t<C6v;~
 (<iAP
 (AA=H
+(AVc
 (Af<Z
 (D4<I
 (Dp<W
 (Hd9
+(Hlf
+(Hqf
+(Huf
+(Lmf
 (M9rU'
+(MBc
 (RUU
+(Uec
+(Y3e
+(YGc
+(Ydc
+(Ysf
 (^*V,H*D.V0H.
-(^*V,H*D.V0H.}
+(^*V,H*D.V0H.^2(
 (_9US
 (aV:M
+(bWf
 (debug) 
 (e3:gN
 (e;oAV
+(eZf
 (f;k2
+(hUf
+(iAc
 (l9X
+(m1c
+(m2c
+(matrix size-1) if IPAR(7)>0, aborting otherwise.
+(pvf
 (q;WkE
 (qF;F
+(qJc
+(qQc
+(qva
 (s9A
+(xlf
+(y0e
+(y8c
+(yCc
+(ypc
 (zQ;mv
+(zbf
 )1;jt
 )1Y9
 )2Q;n
@@ -654,6 +793,160 @@ $|9tJ
 )z9a
 ){;BN:;lY<:
 )|=55M>vG
+*** Error in PARDISO  (        reordering_phase) error_num= %d
+*** Error in PARDISO  (        reordering_phase) error_num= %lli
+*** Error in PARDISO  (        reordering_phase) internal error_num= %d
+*** Error in PARDISO  (      open OOC tmp files) error_num= %d
+*** Error in PARDISO  (      open OOC tmp files) error_num= %lli
+*** Error in PARDISO  (      open OOC tmp files) internal error_num= %d
+*** Error in PARDISO  (     insufficient_memory) error_num= %d
+*** Error in PARDISO  (     insufficient_memory) error_num= %lli
+*** Error in PARDISO  (     insufficient_memory) internal error_num= %d
+*** Error in PARDISO  ( internal_error,unclass.) error_num= %d
+*** Error in PARDISO  ( internal_error,unclass.) error_num= %lli
+*** Error in PARDISO  ( internal_error,unclass.) internal error_num= %d
+*** Error in PARDISO  ( not enough mem. for OOC) error_num= %d
+*** Error in PARDISO  ( not enough mem. for OOC) error_num= %lli
+*** Error in PARDISO  ( not enough mem. for OOC) internal error_num= %d
+*** Error in PARDISO  ( numerical_factorization) error_num= %d
+*** Error in PARDISO  ( numerical_factorization) error_num= %lli
+*** Error in PARDISO  ( numerical_factorization) internal error_num= %d
+*** Error in PARDISO  ( sequence_ido,parameters) error_num= %d
+*** Error in PARDISO  ( sequence_ido,parameters) error_num= %lli
+*** Error in PARDISO  ( sequence_ido,parameters) internal error_num= %d
+*** Error in PARDISO  (32-bit overflow problem.) error_num= %d
+*** Error in PARDISO  (32-bit overflow problem.) error_num= %lli
+*** Error in PARDISO  (32-bit overflow problem.) internal error_num= %d
+*** Error in PARDISO  (incorrect input matrix  ) error_num= %d
+*** Error in PARDISO  (incorrect input matrix  ) error_num= %lli
+*** Error in PARDISO  (incorrect input matrix  ) internal error_num= %d
+*** Error in PARDISO  (prereordering_mtype11,13) error_num= %d
+*** Error in PARDISO  (prereordering_mtype11,13) error_num= %lli
+*** Error in PARDISO  (prereordering_mtype11,13) internal error_num= %d
+*** Error in PARDISO  (read/write OOC data file) error_num= %d
+*** Error in PARDISO  (read/write OOC data file) error_num= %lli
+*** Error in PARDISO  (read/write OOC data file) internal error_num= %d
+*** Error in PARDISO memory allocation: AFTER_REORDERING, allocation of %d bytes failed
+*** Error in PARDISO memory allocation: AFTER_REORDERING, allocation of %lli bytes failed
+*** Error in PARDISO memory allocation: ALLOCATE_GLOBAL_STRUCTURE, allocation of %d bytes failed
+*** Error in PARDISO memory allocation: ALLOCATE_GLOBAL_STRUCTURE, allocation of %lli bytes failed
+*** Error in PARDISO memory allocation: BASIC   , size to allocate: %d bytes
+*** Error in PARDISO memory allocation: BEFORE_INIT_PARALLEL_DATA, allocation of %d bytes failed
+*** Error in PARDISO memory allocation: BEFORE_INIT_PARALLEL_DATA, allocation of %lli bytes failed
+*** Error in PARDISO memory allocation: BEFORE_REORDERING, allocation of %d bytes failed
+*** Error in PARDISO memory allocation: BEFORE_REORDERING, allocation of %lli bytes failed
+*** Error in PARDISO memory allocation: BEFORE_SYMBOLIC_FACTORIZATION, allocation of %d bytes failed
+*** Error in PARDISO memory allocation: BEFORE_SYMBOLIC_FACTORIZATION, allocation of %lli bytes failed
+*** Error in PARDISO memory allocation: CGS_ARR , size to allocate: %d bytes
+*** Error in PARDISO memory allocation: FACTORIZE_SOLVING_LU_DATA, allocation of %d bytes failed
+*** Error in PARDISO memory allocation: FACTORIZE_SOLVING_LU_DATA, allocation of %lli bytes failed
+*** Error in PARDISO memory allocation: FACTORIZE_SOLVING_WORK_DATA, allocation of %d bytes failed
+*** Error in PARDISO memory allocation: FACTORIZE_SOLVING_WORK_DATA, allocation of %lli bytes failed
+*** Error in PARDISO memory allocation: FACT_ADR, size to allocate: %d bytes
+*** Error in PARDISO memory allocation: FACT_L&U, size to allocate: %d bytes
+*** Error in PARDISO memory allocation: LOC_INT1, size to allocate: %d bytes
+*** Error in PARDISO memory allocation: LOC_INT2, size to allocate: %d bytes
+*** Error in PARDISO memory allocation: MATCHING_REORDERING_DATA, allocation of %d bytes failed
+*** Error in PARDISO memory allocation: MATCHING_REORDERING_DATA, allocation of %lli bytes failed
+*** Error in PARDISO memory allocation: OOC_TREE_STRUCTURE, allocation of %d bytes failed
+*** Error in PARDISO memory allocation: OOC_TREE_STRUCTURE, allocation of %lli bytes failed
+*** Error in PARDISO memory allocation: REALLOC_OOC_ARRAYS, allocation of %d bytes failed
+*** Error in PARDISO memory allocation: REALLOC_OOC_ARRAYS, allocation of %lli bytes failed
+*** Error in PARDISO memory allocation: SOLVING_ITERREF_WORK_DATA, allocation of %d bytes failed
+*** Error in PARDISO memory allocation: SOLVING_ITERREF_WORK_DATA, allocation of %lli bytes failed
+*** Error in PARDISO memory allocation: STRUC_FI, size to allocate: %d bytes
+*** Error in PARDISO memory allocation: STRUC_S0, size to allocate: %d bytes
+*** Error in PARDISO memory allocation: STRUC_S1, size to allocate: %d bytes
+*** Error in PARDISO memory allocation: STRUC_S2, size to allocate: %d bytes
+*** Error in PARDISO memory allocation: UP_UPLEN, size to allocate: %d bytes
+*** Error in PARDISO memory allocation: WORK_I0 , size to allocate: %d bytes
+*** Error in PARDISO memory allocation: WORK_R0 , size to allocate: %d bytes
+*** Error in PARDISO: cgs error iparam(20) %d
+*** Error in PARDISO: cgs error iparam(20) %lli
+*** Error in PARDISO: cgs error iparam[19] %d
+*** Error in PARDISO: cgs error iparam[19] %lli
+*** Error in PARDISO: clean impossible (ido?)
+*** Error in PARDISO: ido<-1
+*** Error in PARDISO: ido<1 and initialization
+*** Error in PARDISO: internal error, insufficient memory factorization
+*** Error in PARDISO: minimal memory required by OOC mode (%dMB) is less than variable MKL_PARDISO_OOC_MAX_CORE_SIZE (%dMB)
+*** Error in PARDISO: minimal memory required by OOC mode (%lliMB) is greater than variable MKL_PARDISO_OOC_MAX_CORE_SIZE (%dMB)
+*** Error in PARDISO: minimal memory required by OOC mode (%lliMB) is greater than variable MKL_PARDISO_OOC_MAX_CORE_SIZE (%lliMB)
+*** Error in PARDISO: only symbolic factorization diagonal matrix case %d
+*** Error in PARDISO: only symbolic factorization diagonal matrix case %lli
+*** Error in PARDISO: preordering failed after %d neqns out of %d
+*** Error in PARDISO: preordering failed after %lli neqns out of %lli
+*** Error in PARDISO: unclassified error
+*** Error in PARDISO: wrong matrix number, clean %d
+*** Error in PARDISO: wrong matrix number, clean %lli
+*** Error in PARDISO: zero or negative pivot, A is not SPD-matrix
+*** Error in PARDISO: zero pivot
+*** Input check: Sequential OOC mode of factorization is incompatible with sequential IC mode of reordering
+*** Input check: Two-level factorization algorithm does not work in OOC mode.
+*** Input check: empty input arrays ia and/or ja
+*** Input check: i=%d, ia(i)=%d, ia(i+1)=%d are incompatible
+*** Input check: i=%d, ia[i]=%d, ia[i+1]=%d are incompatible
+*** Input check: i=%d, j=ia(i)=%d, ja(j)=%d are incompatible
+*** Input check: i=%d, j=ia[i]=%d, ja[j]=%d are incompatible
+*** Input check: i=%d, ja(i)=%d, neqns=%d are incompatible
+*** Input check: i=%d, ja[i]=%d, neqns=%d are incompatible
+*** Input check: i=%lli, ia(i)=%lli, ia(i+1)=%lli are incompatible
+*** Input check: i=%lli, ia[i]=%lli, ia[i+1]=%lli are incompatible
+*** Input check: i=%lli, j=ia(i)=%lli, ja(j)=%lli are incompatible
+*** Input check: i=%lli, j=ia[i]=%lli, ja[j]=%lli are incompatible
+*** Input check: i=%lli, ja(i)=%lli, neqns=%lli are incompatible
+*** Input check: i=%lli, ja[i]=%lli, neqns=%lli are incompatible
+*** Input check: ia(neqns+1)_new %d _old %d are incompatible
+*** Input check: ia(neqns+1)_new %lli _old %lli are incompatible
+*** Input check: ia[neqns]_new %d _old %d are incompatible
+*** Input check: ia[neqns]_new %lli _old %lli are incompatible
+*** Input check: ido_new %d (out of bounds)
+*** Input check: ido_new %lli (out of bounds)
+*** Input check: internal error, counted number of threads %d
+*** Input check: internal error, counted number of threads %lli
+*** Input check: iparam(6) %d (out of bounds)
+*** Input check: iparam(6) %lli (out of bounds)
+*** Input check: iparam[5] %d (out of bounds)
+*** Input check: iparam[5] %lli (out of bounds)
+*** Input check: j=%d, ja(j)=%d, ja(j+1)=%d are incompatible
+*** Input check: j=%d, ja[j]=%d, ja[j+1]=%d are incompatible
+*** Input check: j=%lli, ja(j)=%lli, ja(j+1)=%lli are incompatible
+*** Input check: j=%lli, ja[j]=%lli, ja[j+1]=%lli are incompatible
+*** Input check: matrix_number_new %d ido %d are incompatible
+*** Input check: matrix_number_new %lli ido %lli are incompatible
+*** Input check: matrix_type_new %d (out of bounds)
+*** Input check: matrix_type_new %d _old %d are incompatible
+*** Input check: matrix_type_new %lli (out of bounds)
+*** Input check: matrix_type_new %lli _old %lli are incompatible
+*** Input check: max_fac_store_in %d matrix_number_in %d
+*** Input check: max_fac_store_in %lli matrix_number_in %lli
+*** Input check: max_fac_store_new %d _old %d are incompatible
+*** Input check: max_fac_store_new %lli _old %lli are incompatible
+*** Input check: nb_new %d ido %d are incompatible
+*** Input check: nb_new %lli ido %lli are incompatible
+*** Input check: neqns %d or ia[neqns_in] %d are invalid
+*** Input check: neqns %lli or ia[neqns_in] %lli are invalid
+*** Input check: neqns_new %d 
+*** Input check: neqns_new %d _old %d are incompatible
+*** Input check: neqns_new %lli 
+*** Input check: neqns_new %lli _old %lli are incompatible
+*** Input check: nproc %d is not equal to counted number of threads %d
+*** Input check: nproc %lli is not equal to counted number of threads %lli
+*** Input check: preprocessing %d (out of bounds)
+*** Input check: preprocessing %lli (out of bounds)
+*** Input check: unexpected error with working arrays ia and/or ja
+*** Input parameters: inconsistent error= %d max_fac_store_in: %d
+*** Input parameters: inconsistent error= %lli max_fac_store_in: %lli
+*** PARDISO PERFORMANCE WARNING: Insufficient memory to obtain solution with %d nrhs in single step.\n    RHS will be split in %d parts with %d columns maximum.\n    To optimize performance increase MKL_PARDISO_OOC_MAX_CORE_SIZE (now: %dMB, should be %dMB)
+*** PARDISO PERFORMANCE WARNING: Insufficient memory to obtain solution with %lli nrhs in single step.\n    RHS will be split in %lli parts with %lli columns maximum.\n    To optimize performance increase MKL_PARDISO_OOC_MAX_CORE_SIZE (now: %lliMB, should be %lliMB)
+*** PARDISO error: internal error
+*** PARDISO error: unknown bit size of pint ***
+*** error PARDISO: iterative refinement
+*** error PARDISO: reordering, symbolic factorization
+*** something wrong with diagonal matrix row %d
+*** something wrong with diagonal matrix row %lli
+*** wrong control step parameter ido %d
+*** wrong control step parameter ido %lli
 *0;I8
 *6Z:G
 *84e
@@ -693,8 +986,6 @@ $|9tJ
 *hE:o
 *iu<K
 *oD<0
-*p95
-*pu1
 *qD;d
 *t8s
 *t\f\f*d\v\f*4\n\f*
@@ -796,6 +1087,7 @@ $|9tJ
 ,N;wF
 ,Q9B
 ,Ra;-jf
+,STRICT
 ,T8t
 ,T<OV
 ,W:9h
@@ -812,7 +1104,11 @@ $|9tJ
 ,t9U
 ,zG:e
 ,zf;K
+----------- Out of core Mb --------------
+----------- Out of core time (in percent (%%)) --------------
 ------------
+------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 -01;U
 -1A=X
 -3=2u
@@ -860,7 +1156,6 @@ $|9tJ
 -rR9
 -tG<zmZ<
 -ti;x
--z0\v7
 .2;Ue
 .2Y<V
 .3Mx
@@ -1304,17 +1599,17 @@ $|9tJ
 .?AUmoney_base@std@@
 .?AUrtcore_error@embree@@
 .?AUtime_base@std@@
-.?AV<lambda_081ca0496a4617227558c690037022b7>@@
-.?AV<lambda_0b237fb88318a2c5a2569350bfa1edb5>@@
-.?AV<lambda_258caa2aa93fdeed38b7932ab14ce555>@@
+.?AV<lambda_0a5eb190081202e0f28c290d3f31c81b>@@
+.?AV<lambda_0cfbd31dcc0320209a6f9675d2dc252f>@@
 .?AV<lambda_498b6f04f2beccab8c714618b3ad669c>@@
-.?AV<lambda_500571d1f9d0a65aa1db1f219ecd57cd>@@
 .?AV<lambda_62a9d32afc8d6b63df56e96e440ec261>@@
-.?AV<lambda_a38cb66fac85a719ba71f2c8faa44676>@@
-.?AV<lambda_be12e81c125b702ef2e41724fd1f6d30>@@
-.?AV<lambda_d9cc229929455c8f29444ad9f7024193>@@
+.?AV<lambda_845e6907f0dbd1951683b9def278af13>@@
+.?AV<lambda_9aaaaccd033d9521153b989e3b20efb5>@@
+.?AV<lambda_ad5078782d34ed51c56ec29c040ebbb4>@@
+.?AV<lambda_ad81efa77d3f586fae2d16f50912b9cf>@@
 .?AV<lambda_dff3c1b6999eee227e24249907461f6e>@@
-.?AV<lambda_fe89cc8dd20d17b87ff8094e4c964cc6>@@
+.?AV<lambda_ee6a2105f198a1070623061950e8e630>@@
+.?AV<lambda_f5a6bbee718852bc735793355e363d30>@@
 .?AV?$BVHN@$03@embree@@
 .?AV?$BVHN@$07@embree@@
 .?AV?$BVHNBuilderInstancing@$03UTriangleMesh@embree@@@avx@embree@@
@@ -1375,6 +1670,7 @@ $|9tJ
 .?AV?$_Ebco_base@V?$allocator@VAmbisonicsRotateEffect@ipl@@@ipl@@$00@std@@
 .?AV?$_Ebco_base@V?$allocator@VBinauralEffect@ipl@@@ipl@@$00@std@@
 .?AV?$_Ebco_base@V?$allocator@VBufferedIndirectEffect@ipl@@@ipl@@$00@std@@
+.?AV?$_Ebco_base@V?$allocator@VCompressedProbeBatch@ipl@@@ipl@@$00@std@@
 .?AV?$_Ebco_base@V?$allocator@VContext@ipl@@@ipl@@$00@std@@
 .?AV?$_Ebco_base@V?$allocator@VDirectEffect@ipl@@@ipl@@$00@std@@
 .?AV?$_Ebco_base@V?$allocator@VDirectSimulator@ipl@@@ipl@@$00@std@@
@@ -1416,14 +1712,14 @@ $|9tJ
 .?AV?$_Func_impl@V<lambda_498b6f04f2beccab8c714618b3ad669c>@@V?$allocator@H@std@@XPEAVBuffer@Calc@@@std@@
 .?AV?$_Func_impl@V<lambda_62a9d32afc8d6b63df56e96e440ec261>@@V?$allocator@H@std@@XPEAVDevice@Calc@@@std@@
 .?AV?$_Func_impl@V<lambda_dff3c1b6999eee227e24249907461f6e>@@V?$allocator@H@std@@XPEAVEvent@Calc@@@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_081ca0496a4617227558c690037022b7>@@XHAEAU?$atomic@_N@std@@@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_0b237fb88318a2c5a2569350bfa1edb5>@@XHAEAU?$atomic@_N@std@@@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_258caa2aa93fdeed38b7932ab14ce555>@@XHAEAU?$atomic@_N@std@@@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_500571d1f9d0a65aa1db1f219ecd57cd>@@XHAEAU?$atomic@_N@std@@@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_a38cb66fac85a719ba71f2c8faa44676>@@XHAEAU?$atomic@_N@std@@@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_be12e81c125b702ef2e41724fd1f6d30>@@XHAEAU?$atomic@_N@std@@@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_d9cc229929455c8f29444ad9f7024193>@@XHAEAU?$atomic@_N@std@@@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_fe89cc8dd20d17b87ff8094e4c964cc6>@@XHAEAU?$atomic@_N@std@@@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_0a5eb190081202e0f28c290d3f31c81b>@@XHAEAU?$atomic@_N@std@@@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_0cfbd31dcc0320209a6f9675d2dc252f>@@XHAEAU?$atomic@_N@std@@@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_845e6907f0dbd1951683b9def278af13>@@XHAEAU?$atomic@_N@std@@@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_9aaaaccd033d9521153b989e3b20efb5>@@XHAEAU?$atomic@_N@std@@@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_ad5078782d34ed51c56ec29c040ebbb4>@@XHAEAU?$atomic@_N@std@@@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_ad81efa77d3f586fae2d16f50912b9cf>@@XHAEAU?$atomic@_N@std@@@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_ee6a2105f198a1070623061950e8e630>@@XHAEAU?$atomic@_N@std@@@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_f5a6bbee718852bc735793355e363d30>@@XHAEAU?$atomic@_N@std@@@std@@
 .?AV?$_Mpunct@D@std@@
 .?AV?$_Mpunct@G@std@@
 .?AV?$_Mpunct@_W@std@@
@@ -1437,6 +1733,7 @@ $|9tJ
 .?AV?$_Ref_count_obj_alloc3@VAmbisonicsRotateEffect@ipl@@V?$allocator@VAmbisonicsRotateEffect@ipl@@@2@@std@@
 .?AV?$_Ref_count_obj_alloc3@VBinauralEffect@ipl@@V?$allocator@VBinauralEffect@ipl@@@2@@std@@
 .?AV?$_Ref_count_obj_alloc3@VBufferedIndirectEffect@ipl@@V?$allocator@VBufferedIndirectEffect@ipl@@@2@@std@@
+.?AV?$_Ref_count_obj_alloc3@VCompressedProbeBatch@ipl@@V?$allocator@VCompressedProbeBatch@ipl@@@2@@std@@
 .?AV?$_Ref_count_obj_alloc3@VContext@ipl@@V?$allocator@VContext@ipl@@@2@@std@@
 .?AV?$_Ref_count_obj_alloc3@VDirectEffect@ipl@@V?$allocator@VDirectEffect@ipl@@@2@@std@@
 .?AV?$_Ref_count_obj_alloc3@VDirectSimulator@ipl@@V?$allocator@VDirectSimulator@ipl@@@2@@std@@
@@ -1483,6 +1780,7 @@ $|9tJ
 .?AV?$allocator@VAmbisonicsRotateEffect@ipl@@@ipl@@
 .?AV?$allocator@VBinauralEffect@ipl@@@ipl@@
 .?AV?$allocator@VBufferedIndirectEffect@ipl@@@ipl@@
+.?AV?$allocator@VCompressedProbeBatch@ipl@@@ipl@@
 .?AV?$allocator@VContext@ipl@@@ipl@@
 .?AV?$allocator@VDirectEffect@ipl@@@ipl@@
 .?AV?$allocator@VDirectSimulator@ipl@@@ipl@@
@@ -1579,6 +1877,7 @@ $|9tJ
 .?AVCAmbisonicsPanningEffect@api@@
 .?AVCAmbisonicsRotationEffect@api@@
 .?AVCBinauralEffect@api@@
+.?AVCCompressedProbeBatch@api@@
 .?AVCContext@api@@
 .?AVCDirectEffect@api@@
 .?AVCEmbreeDevice@api@@
@@ -1640,6 +1939,8 @@ $|9tJ
 .?AVCalcClw@Calc@@
 .?AVCalcIntersectionDevice@RadeonRays@@
 .?AVCalcIntersectionDeviceCl@RadeonRays@@
+.?AVCompressedBakedReflections@ipl@@
+.?AVCompressedProbeBatch@ipl@@
 .?AVCustomScene@ipl@@
 .?AVDefaultAllocator@flatbuffers@@
 .?AVDevice@Calc@@
@@ -1676,6 +1977,7 @@ $|9tJ
 .?AVIAmbisonicsPanningEffect@api@@
 .?AVIAmbisonicsRotationEffect@api@@
 .?AVIBakedData@ipl@@
+.?AVIBakedReflectionsLookup@ipl@@
 .?AVIBinauralEffect@api@@
 .?AVIContext@api@@
 .?AVIDirectEffect@api@@
@@ -1825,6 +2127,8 @@ $|9tJ
 0#;M9
 0'7W
 0+<5o
+0-\v4t8x4
+0-based array is turned ON
 0/8;&jt
 00<M
 00<O
@@ -1919,6 +2223,7 @@ $|9tJ
 0=sd
 0=ue
 0=wC
+0> >&>*((pf
 0>.I5
 0>H8B=!
 0>L8
@@ -1991,7 +2296,6 @@ $|9tJ
 0Z;}e
 0[s9
 0\2<z
-0\n@V1
 0\rD;0
 0]w;f
 0^;MzP:Q
@@ -2041,7 +2345,6 @@ $|9tJ
 0u<d
 0u]:w
 0x%I64x
-0x2r0]\v4t8v4m
 0x6;
 0y<2\r6=
 0z7=
@@ -2058,6 +2361,7 @@ $|9tJ
 1+S;T
 1-8=M8I
 1-;zG
+1-based array indexing is turned ON
 1.0;o
 1/8S
 10l9
@@ -2282,11 +2586,9 @@ $|9tJ
 2.8OVd
 2.=jiD=
 2/x;Oq
+20240722
 20:W
 20;P2
-20J0
-20\v7
-20h0
 21a;?H8:6
 21l<I
 22:RNz
@@ -2428,7 +2730,6 @@ $|9tJ
 2OV=Z
 2P:p
 2P=7
-2Pq0
 2Q;rf\r<
 2Q<Cc
 2Q=ve
@@ -2455,6 +2756,7 @@ $|9tJ
 2\nx:s
 2\r;pQ
 2\v<ae
+2\vpX
 2^i<0
 2`X9
 2a;mV
@@ -2528,6 +2830,7 @@ $|9tJ
 319c
 31;d
 31;w
+32-bit integer overflow problem
 32Y;
 33:T#
 33?A{
@@ -2896,7 +3199,6 @@ $|9tJ
 4O?f
 4OV:
 4P8<
-4P]0
 4R):wv
 4R9\v]5
 4R;SK
@@ -2956,7 +3258,6 @@ $|9tJ
 4p:9
 4p:jCH;y
 4p=N
-4p\f7
 4po;V
 4q:1
 4q<+3U
@@ -3222,11 +3523,13 @@ $|9tJ
 64:Y@
 64c=
 65K<
+65P/
 666<jHv;
 66;3
 66;M
 66=w
 66?:e
+66I/
 66wW
 67f;
 67i:B
@@ -3354,6 +3657,8 @@ $|9tJ
 6O;o
 6P9<
 6P;&t
+6Pa.
+6Pb.
 6Q:@Y
 6S7=
 6S~D
@@ -3375,6 +3680,7 @@ $|9tJ
 6`tl:hO
 6a8I
 6a<ww
+6aO/
 6aR;5
 6akA
 6bB;n^;
@@ -3388,6 +3694,7 @@ $|9tJ
 6e;vu
 6e=x
 6eF<
+6eL/
 6eV;
 6eZa:
 6eu9
@@ -3421,6 +3728,9 @@ $|9tJ
 6oh;\f
 6p7MOf
 6pR;0
+6pS.
+6pm.
+6ps.
 6q;fUR
 6q=*s
 6r9 5
@@ -3720,6 +4030,7 @@ $|9tJ
 8(y=9
 8)fT;
 8,3M:QN
+8,4f
 8,xe
 8-1;r
 8.Rs9
@@ -3778,6 +4089,7 @@ $|9tJ
 88Sk;_
 88X<
 88zg
+89.e
 897}:I3G;$/
 89;6
 89Bn
@@ -3884,6 +4196,7 @@ $|9tJ
 8ABo
 8AIy:
 8Aa'
+8B u
 8B+59&pt9
 8B:m
 8B;I
@@ -3970,6 +4283,7 @@ $|9tJ
 8P)6;
 8P9M
 8P=R2
+8P>f
 8Pc\t;
 8Pjm;
 8Py;
@@ -4112,6 +4426,7 @@ $|9tJ
 8l8\n
 8l<\tj
 8lA99c
+8lSf
 8lvZ
 8m+:it;
 8m:StY
@@ -5358,8 +5673,6 @@ $|9tJ
 :0Yr709
 :0\09
 :0eJ9
-:0h0
-:0i7
 :0lX:
 :0uB=
 :0uM9
@@ -5682,7 +5995,6 @@ $|9tJ
 :JLH;
 :JPy
 :JQa
-:JRxT`R\V
 :JT:wx\t
 :Jan:January:Feb:February:Mar:March:Apr:April:May:May:Jun:June:Jul:July:Aug:August:Sep:September:Oct:October:Nov:November:Dec:December
 :Jbk9f
@@ -5778,7 +6090,6 @@ $|9tJ
 :PYi:
 :PbQ;y
 :Pm7
-:Pq0
 :Pt*9Z 
 :Px$9
 :PyY6
@@ -5858,7 +6169,6 @@ $|9tJ
 :Uwi:
 :Uzz:C
 :V4D
-:VFR:
 :VHZ:
 :VK7;
 :VOF;
@@ -6333,7 +6643,6 @@ $|9tJ
 :x9W
 :xDT:
 :xF7
-:xFl:
 :xOv
 :xVo
 :xXs<S
@@ -7609,9 +7918,20 @@ $|9tJ
 ;{nW:n$Z;K5J:
 ;|7o9
 ;|CI9y
+<   no multiple minimum degree on the separator nodes         >
 < Dn9
+< Factors L and U >
+< Hybrid Solver PARDISO with CGS/CG Iteration >
+< Linear system Ax = b >
+< Linear system Ax = b > < transpose >
+< Parallel Direct Factorization with number of processors: > %d
+< Preprocessing with input permutation >
+< Preprocessing with multiple minimum degree with constraints >
+< Preprocessing with multiple minimum degree, tree height >
+< Preprocessing with state of the art partitioning metis>
+< Reduction for efficient parallel factorization >
+< with multiple minimum degree on the separator nodes         >
 <%5fj
-<%d,%d,%d,%d
 <'EI;zL
 <,4R=i7
 <0C<P
@@ -7834,6 +8154,7 @@ $|9tJ
 <KUn
 <KXg
 <KcP
+<Kd %f %f %f\n
 <KfZ
 <Kxq=
 <Ky2:
@@ -8197,7 +8518,6 @@ $|9tJ
 <vj2
 <vjG=
 <vjL9
-<void*
 <w4d
 <wDg;
 <wH<v
@@ -8295,7 +8615,25 @@ $|9tJ
 =<dGO
 =<muI
 =<yJ=0xN>7
+=== %s: solving a Hermitian indefinite system ===
+=== %s: solving a Hermitian positive definite system ===
+=== %s: solving a complex nonsymmetric system ===
+=== %s: solving a complex structurally symmetric system ===
+=== %s: solving a complex symmetric system ===
+=== %s: solving a real nonsymmetric system ===
+=== %s: solving a real structurally symmetric system ===
+=== %s: solving a symmetric indefinite system ===
+=== %s: solving a symmetric positive definite system ===
+=== PARDISO is running in In-Core mode, because iparam(60)=0 ===
+=== PARDISO is running in In-Core mode, because iparam(60)=1 and there is enough RAM for In-Core ===
+=== PARDISO is running in Out-Of-Core mode, because iparam(60)=1 and there is not enough RAM for In-Core ===
+=== PARDISO is running in Out-Of-Core mode, because iparam(60)=2 ===
+===========
+================
+=================== Timing linear equation system solver ===================
+==============================================================
 ================================================================================
+==>INFO code =: %d
 =>3P=\v1`<ci1
 =@k93
 =AJC<w
@@ -8562,7 +8900,7 @@ $|9tJ
 >0m;YG
 >0r9
 >1y8
->20P@hD2B>F>H>J
+>20P@hD2B<F>H>J
 >2>mx
 >2Fa
 >2c0
@@ -8654,6 +8992,7 @@ $|9tJ
 >Yas
 >YiN<hA
 >Z;Wj
+>ZBfD
 >ZCB
 >ZIh?
 >ZcD
@@ -8775,13 +9114,16 @@ $|9tJ
 ?A;kD
 ?AL;B
 ?Ab<w
+?All
 ?B+Q4
 ?B;RbT
 ?CnR
 ?D9m
 ?Dk;H
+?EPS
 ?Fa6Q
 ?G6?2
+?GGHRD
 ?Gn3?
 ?H;Ir
 ?HS=8
@@ -8792,11 +9134,25 @@ $|9tJ
 ?L7A@V
 ?L9n
 ?MGQJ
+?No transpose
 ?OBT
 ?Opv
+?Overflow
 ?PIM
 ?P]DSH
+?Precision
 ?Q6:jkf
+?SGEBD2
+?SGEBRD
+?SGELQ2
+?SGELQF
+?SGEQR 
+?SGEQR2
+?SORG2R
+?SORGL2
+?SORGLQ
+?SORGQR
+?SSTEQR
 ?Va3
 ?W1a>C
 ?Wnl
@@ -8822,6 +9178,7 @@ $|9tJ
 ?e78
 ?eti
 ?execute_local@TaskQueue@TaskScheduler@embree@@QEAA_NAEAUThread@23@PEAUTask@23@@Z
+?f %d %d %d\n
 ?g6H=Co
 ?g<1t
 ?gRr
@@ -8864,6 +9221,7 @@ $|9tJ
 ?v;6p
 ?wait@TaskScheduler@embree@@SA_NXZ
 ?xCz>
+?xdgemm
 ?y1<C
 ?y:oSj:
 ?ypO<
@@ -8872,15 +9230,13 @@ $|9tJ
 ?|hO8
 @ >">$<&<(>*>,(.(
 @06;r
-@20\v7
-@20i7
+@08~l
+@20A
 @2<xD2BNF
-@2@M1
-@2@m0
-@2Pq0
 @2h=9
 @4\r<0Li
 @5:yB
+@8Fl
 @8iy(
 @9'yr
 @9F\tG
@@ -8895,7 +9251,7 @@ $|9tJ
 @=EvL
 @>66D
 @>ewA
-@A%u,%u,%u,%u
+@A# Generated by Steam Audio\n
 @A<9P
 @I,<zuH
 @J-;kUQ
@@ -8912,6 +9268,7 @@ $|9tJ
 @V9y
 @W8;L
 @X;p1
+@ZLR@
 @\0:HQo
 @\Z9zn
 @`N3AD
@@ -8924,6 +9281,7 @@ $|9tJ
 @n;5Y
 @p:ol
 @v\f>GvS
+@xLl@
 @y8T
 @yz8
 @zM9
@@ -8936,7 +9294,6 @@ A*D;i
 A+E:i
 A,0;J
 A,;HG
-A-z0\v7
 A.5<sx{
 A.B0
 A/691
@@ -9075,7 +9432,13 @@ AMFInit
 AMFQueryVersion
 AMF}
 AMF}A
+AMX-BF16
+AMX-COMPLEX
+AMX-FP16
+AMX-INT8
+AMX-TILE
 AMw<
+AO library failed to initialize!
 AO<X~
 AOE:
 AOe:
@@ -9086,6 +9449,7 @@ AP<jZ
 AP<o
 APIName
 APIVersion
+APXF
 AP\r;li
 APi9+
 AR>+n
@@ -9096,22 +9460,52 @@ ASl<1
 AT4;
 AT:0
 AU;z
+AUTO
 AVF;
 AVX2
+AVX512
+AVX512BW
 AVX512BW 
+AVX512CD
 AVX512CD 
+AVX512DQ
 AVX512DQ 
+AVX512ER
 AVX512ER 
+AVX512F
 AVX512F 
 AVX512IFMA 
+AVX512IFMA52
 AVX512KNL
 AVX512KNL 
+AVX512PF
 AVX512PF 
 AVX512SKX
 AVX512SKX 
+AVX512VBMI
 AVX512VBMI 
+AVX512VL
 AVX512VL 
+AVX512_4FMAPS
+AVX512_4VNNIW
+AVX512_BF16
+AVX512_BITALG
+AVX512_E1
+AVX512_FP16
+AVX512_MIC
+AVX512_MIC_E1
+AVX512_VBMI2
+AVX512_VNNI
+AVX512_VP2INTERSECT
+AVX512_VPOPCNTDQ
 AVXI 
+AVX_10_1
+AVX_10_1_512
+AVX_IFMA
+AVX_NE_CONVERT
+AVX_VNNI
+AVX_VNNI_INT16
+AVX_VNNI_INT8
 AW&qB>
 AW2;Y
 AWY<
@@ -9158,6 +9552,8 @@ Am,DC
 Am<NO
 AmN?C
 AmQ,BP
+An error/warning message cannot be saved in the file.
+An unclassifiable error occurred
 An>uCv?
 ApL<
 ApO;
@@ -9167,8 +9563,12 @@ AqY9\n
 Arv;r
 AsD9
 Asg<0gk
+Assigning DPAR(1)=%e
+Assigning DPAR(2)=%e
+Assigning IPAR(8)=IPAR(9)=1. This means that DFGMRES routine will do the
+At least one of parameters IPAR(8), IPAR(9), or IPAR(10) must be equal to 1.
+At least one of the parameters IPAR(8), IPAR(9), or
 At;i
-Attempted to create SOFA HRTF without either a file name or a data buffer.
 Au\r<i
 Auu:L:
 Av=jl
@@ -9189,7 +9589,7 @@ A}9D
 A~c;Z
 B j9
 B!;Ac
-B"B&B*B.B2B6B:B>BBBFBJ(
+B"B&B*B.B2B6B:B>BBBFBJ
 B#;3J
 B&L:R
 B'8CQ
@@ -9346,6 +9746,7 @@ BP<K
 BQ0>7
 BQ19F
 BQZ:K:G
+BRANCH=
 BRl;
 BS9;
 BSp<fm0;
@@ -9381,6 +9782,8 @@ B]\n>wZU
 Ba<lb
 BaC3
 BaF>
+Bad facility code
+Bad severity number
 BbC.
 Bc4;
 Bc:x
@@ -9613,16 +10016,21 @@ CG<UlX
 CGZ;-
 CGh;3
 CGj:zK
+CHEGST
 CJ>9
 CJA:
 CKX<N
 CKc=YC
 CL interop not supported
 CLASS
+CLDEMOTE
+CLWB
 CM:TkJ
 CMF}
 CMF}A
 CMN:
+CMOV
+CMPCCXADD
 CN9<
 CN@=!kC
 CN@bo
@@ -9630,9 +10038,11 @@ CNs8
 CO ;qd~
 CO9`2):
 CO;x
+COMPATIBLE
 CP:h
 CP>D
 CPU does not support SSE2
+CPU frequency: %8.3f GHz
 CR;s
 CR<f
 CT:<7
@@ -9656,7 +10066,21 @@ C]k>2
 C`N3
 C`N3A
 CalcMortonCode
+Calling r8write without FORTRAN_IO, iparam(9)=0
+Cannot create file %s
+Cannot create file MKL_Poisson_Library_Log.txt
+Cannot proceed as the system failed to provide
+Cannot proceed with calculations as
+Cannot proceed with calculations as input
+Cannot proceed with calculations as input matrix has
+Cannot proceed with calculations as input maximum
+Cannot proceed with calculations as input size
+Cannot proceed with calculations as matrix has either
+Cannot proceed with calculations as small diagonal
+Cannot proceed with calculations as the system failed
+Cannot proceed with computations.
 Cannot read the contents of a file
+Cannot run %s - not enough memory
 Cb;M
 Cbw;]
 CcZ;
@@ -9695,9 +10119,18 @@ Cn;8
 Cn<K
 Co7"L
 CoJ;
+Column-replicated array -- copy in process column: %d 
+Columnwise
+Computational layer library for Cluster FFT not loaded.
+Computations have stopped. The result may be incorrect.
+Conditional numerical reproducibility mode is turned OFF
+Conditional numerical reproducibility mode is turned ON
+Conjugate
 Conventions
 Core1
 Core2
+Could not open file %s
+Could not open file %s, aborted.
 Cp:E:
 Cq;m
 Cr;Npl
@@ -9712,6 +10145,7 @@ Ct8K
 Ct:I
 Ct;ti
 CuU=
+Current date/time: %s
 Cv9Z
 CvZ;
 Cw;CD
@@ -9748,7 +10182,6 @@ D1;i
 D1;l
 D1R:
 D2<&t
-D2@^H2FvJ
 D3;I
 D3q:
 D49@
@@ -9832,6 +10265,7 @@ D>SRM
 D>xq
 D?\f<fVO:5
 DA9wX3
+DAL_BLAS_COMPUTE_MODE
 DAb<eE
 DB$<2
 DB5T
@@ -9848,6 +10282,8 @@ DE;k
 DE\f;4
 DF,<S
 DF;G
+DFGMRES routine.
+DFGMRES routine. Otherwise, the maximal number of iterations is equal to
 DFr;
 DG9:N2
 DGY;j
@@ -9868,6 +10304,7 @@ DMn;
 DN>~6
 DNnW'
 DO:-F
+DPAR(2)=%e should not be equal to 0.0 simultaneously. The FGMRES
 DQ;C
 DQC:
 DQa<Ua
@@ -9877,6 +10314,7 @@ DRB<b!
 DS;S
 DS<tl1
 DSE=
+DSYGST
 DSs;
 DT9u
 DT:A
@@ -9895,6 +10333,7 @@ D\tV:w
 D\vb<N
 D]V<E
 D^F<n
+D_FORWARD_TRIG_TRANSFORM/D_BACKWARD_TRIG_TRANSFORM routine.
 Da:d
 Da<ll
 Da=b
@@ -9909,6 +10348,7 @@ Dd;K=
 Dd;V
 De;a
 DeC;Y
+Debug
 Dee;5
 Df<w
 Dg5;
@@ -9917,6 +10357,17 @@ Dg;u\
 Dg<z
 Dh!;F
 Dh:ZL
+Distributed Matrix Input Format is used for CPARDISO (iparm(40) = %d)
+Division by 0 occurred.
+Division by zero occurred. Computations have stopped. The result may be incorrect.
+Division by zero occurred. The D_COMMIT_TRIG_TRANSFORM routine was not called,
+Division by zero occurred. The S_COMMIT_TRIG_TRANSFORM routine was not called,
+Division by zero occurred. The d_commit_trig_transform routine was not called,
+Division by zero occurred. The s_commit_trig_transform routine was not called,
+Division by zero occurred: At iteration number %s, the rotated Hessenberg
+Division by zero occurred: parameter DPAR(5)=%e should
+Division by zero occurred: parameter DPAR(7)=%e should not be equal to 0.0.
+Division by zero occurred: the new rotation for Hessenberg matrix is degenerate.
 DjA9
 Djk:
 Dk;hYn
@@ -9934,7 +10385,6 @@ Ds;V
 Dt8?
 Du59<
 Du;od
-Du?`p
 DuT<
 Duj<
 Dv.9
@@ -10099,6 +10549,7 @@ EKa;q
 EKr:+
 EM9?
 EN6;
+ENQCMD
 EO;5
 EQJ;
 ERD$
@@ -10142,6 +10593,15 @@ Eg7;
 Eh;9=
 Eh;VB
 Ei8o9
+Either parameter TT_TYPE in the D_INIT_TRIG_TRANSFORM routine
+Either parameter TT_TYPE in the S_INIT_TRIG_TRANSFORM routine
+Either parameter tt_type in the d_init_trig_transform routine
+Either parameter tt_type in the s_init_trig_transform routine
+Either the D_INIT_TRIG_TRANSFORM routine was not called,
+Either the S_INIT_TRIG_TRANSFORM routine was not called,
+Either the d_init_trig_transform routine was not called,
+Either the parameters were altered by mistake outside of the DFGMRES
+Either the s_init_trig_transform routine was not called,
 Ej7=
 Ej<c
 EkZ;Q:,
@@ -10159,13 +10619,32 @@ Embree: Out of memory
 Embree: Unknown error
 Embree: Unsupported CPU
 EmitterPosition
+End of tests
 Eo;Ki&
 Eoh9
 Ep(;G
 EpS=#
+Epsilon
 Eq9=
 EqH;
 Er;db
+Error (VML_STATUS_BADMEM) in %s: NULL pointer is passed.
+Error (VML_STATUS_BADSIZE) in %s: array size %d is not positive.
+Error (VML_STATUS_ERRDOM) in %s: argument is out of domain.
+Error (VML_STATUS_OVERFLOW) in %s: argument caused overflow.
+Error (VML_STATUS_SING) in %s: argument caused singularity.
+Error (VML_STATUS_UNDERFLOW) in %s: argument caused underflow.
+Error code=%s and/or %s.
+Error code=%s and/or %s. Computations have stopped.
+Error code=%s. Computations have stopped.
+Error is not in the area of OOC I/O. Check it manually, error=%d, %s
+Error is not in the area of OOC I/O. Check it manually, error=%lli, %s
+Error message has been written in %s
+Error: Intel oneMKL TT backward transform failed with status=%d in FFTW3 interface to Intel oneMKL.
+Error: Intel oneMKL TT commit step failed with status=%d in FFTW3 interface to Intel oneMKL.
+Error: Intel oneMKL TT forward transform failed with status=%d in FFTW3 interface to Intel oneMKL.
+Error: Intel oneMKL TT initialization failed with status=%d in FFTW3 interface to Intel oneMKL.
+Error: info returned=%i
 Es3<
 Es<m
 Et2=
@@ -10206,6 +10685,7 @@ F-N;ro
 F/;r7
 F0=6^
 F0M;
+F16C
 F16C 
 F19Be
 F2;J
@@ -10313,6 +10793,8 @@ FDN<
 FF;P
 FG9|
 FG:A
+FGMRES method has lost the orthogonality property, or the FGMRES method was
+FGMRES method without restarts, set IPAR(15)=IPAR(5)-IPAR(4) which is equal to %s
 FH8;xI
 FH;;p
 FH=7/
@@ -10359,6 +10841,7 @@ FW<SO
 FWS;k
 FX;mz
 FX=rV?=0)
+FXSAVE
 FY:]5
 FY<jY
 FYM<
@@ -10373,6 +10856,19 @@ F\t;wc
 F]E6
 Fa;Q}p
 Fa;o
+Factorization step (100 (%%)):
+Factorization step:
+Fatal
+Fatal error (error message=%s).
+Fatal error: Division by zero occurred. Computations have stopped.
+Fatal error: Failed to normalize the right-hand side.
+Fatal error: Internal memory error. Computations have stopped.
+Fatal error: Memory cannot be allocated/deallocated.
+Fatal error: Memory cannot be allocated/deallocated. Computations have stopped.
+Fatal error: Trigonometric Transform commit step failed to complete.
+Fatal error: Trigonometric Transform forward/backward step failed to complete.
+Fatal error: Trigonometric Transform has failed to release the memory.
+Fatal error: Trigonometric Transform initialization failed to complete.
 Fbw:
 Fc*99;-
 Fd<O
@@ -10416,10 +10912,12 @@ Fp9S
 Fr[:c
 Fs6j
 Fs:T
+Fseek failed
 FtO<
 Fu<;0
 Fu<l
 Fu>_i
+Full
 Fv:u
 Fw;eN
 Fx98
@@ -10527,13 +11025,16 @@ GCmQ,
 GD<mM
 GE;R
 GEN;
+GENERIC_IA32
 GFF;
+GFNI
 GFY<
 GFg:
 GFw<5W
 GG;z1
 GG<X
 GG=2{
+GGHD3
 GGR8|Q
 GH4>
 GH;l
@@ -10585,8 +11086,10 @@ Ges;
 GetActiveProcessorCount
 GetActiveProcessorGroupCount
 GetConsoleCP
+GetEnvironmentVariableA
 GetFileInformationByHandleEx
 GetLargePageMinimum
+GetThreadLocale
 GetTickCount64
 Gf?<9
 Ggi=
@@ -10764,7 +11267,9 @@ HPX`
 HPY;
 HQC;
 HR;xu
+HRESET
 HRTF
+HSEQR
 HSp;
 HT9)
 HT;k]
@@ -10806,6 +11311,8 @@ Hd<g{7
 He3<9^
 He;(2
 He=R<
+Helmholtz coefficient ?PAR(4)=%e should be non-negative.
+Helmholtz coefficient ?par[3]=%e should be non-negative.
 Hf6:
 Hf:1Q
 Hf;0
@@ -10928,7 +11435,7 @@ I>u4A
 I?F>I
 I?crt
 I@ H2
-I@%d,%d,%d,%d
+I@Unable to load SOFA data. [%d]
 IAi<
 IAl'
 IB>3
@@ -10955,12 +11462,19 @@ IM1:MT
 IM;A
 IN:7
 IN<E1
+INTEL oneMKL ERROR: %s.
+INTEL_ISA_DISABLE
 IO:j
 IOD9
 IP4=
 IP7;s
 IP<ga
 IP<qN_
+IPAR(10) must have the value 1.
+IPAR(15)=%s. Parameters IPAR(14) and/or IPAR(15) were probably
+IPAR(4) is greater than or equal to IPAR(5).
+IPAR(5)-IPAR(4)=%s
+IPAR(5)=%s is less or equal to the current value of the iteration
 IPLAirAbsorptionModelType
 IPLAmbisonicsType
 IPLAudioEffectState
@@ -11006,6 +11520,9 @@ I\f@;z0u
 I\fT=f
 I\v<K6M<
 I]82i
+I_MPI_NUMBER_OF_MPI_PROCESSES_PER_NODE
+I_MPI_PIN_MAPPING
+I_MPI_THREAD_LEVEL
 Ia:w
 Ib&:0
 Ib:2\vP
@@ -11016,6 +11533,7 @@ Ic7=
 IcO;W
 Id7;9O
 Id;5-
+If you are sure that everything is correct, you may force the
 If;C
 Ifx;
 IgE<
@@ -11035,13 +11553,112 @@ Iln:
 Im;u
 Ina:5
 Index is out of bounds
+Infinite loop.
+Infinite loop. At least one of parameters IPAR(8), IPAR(9), or IPAR(10) must be equal to 1.
+Info
 InitOnceExecuteOnce
+Initialization failed to complete, or the parameter IPAR(7)=%s
+Initialization failed to complete, or the parameter ipar[6]=%s
 Initialized AMD Advanced Media Framework v%d.%d.%d.%d.
 Initialized Embree v%lld.%02lld.%02lld.
 Initialized OpenCL device: %s %s (%s).
 Initialized OpenCL platform: %s %s (%s).
 Initialized Radeon Rays v%.2f.
+Input absolute value of tolerance is greater than
+Input data or print help ? Type [data]/help :
+Input error is not equal to ZERO, error=%d
+Input error is not equal to ZERO, error=%lli
+Input value of DPAR(31) equals zero.
+Intel oneMKL BLACS fatal error: cannot allocate memory, aborted.
+Intel oneMKL DCSRILU0 ERROR: 
+Intel oneMKL DCSRILU0 WARNING: 
+Intel oneMKL DCSRILUT ERROR: 
+Intel oneMKL DCSRILUT WARNING: 
+Intel oneMKL DFTI ERROR: Configuration parameter DFTI_NUMBER_OF_USER_THREADS is not set 
+Intel oneMKL DFTI ERROR: Descriptor is uncommitted or corrupted
+Intel oneMKL DFTI ERROR: Error in OpenMP
+Intel oneMKL DFTI ERROR: Functionality is not implemented
+Intel oneMKL DFTI ERROR: Inconsistent configuration parameters
+Intel oneMKL DFTI ERROR: Incorrect status
+Intel oneMKL DFTI ERROR: Internal error
+Intel oneMKL DFTI ERROR: Invalid configuration parameters
+Intel oneMKL DFTI ERROR: Not enough memory to allocate
+Intel oneMKL DFTI ERROR: Transforms with number of points N of a non-unit stride dimension exceeding 2^(27-p) - 1 for N a power-of-two, or 2^(23-p) - 1 for N not a power-of-two, are currently not supported, where p=0 for single precision and p=1 for double precision
+Intel oneMKL DFTI SUCCESS: No error
+Intel oneMKL ERROR: CPU %d is not supported.
+Intel oneMKL ERROR: Incompatible optional parameters on entry to %s.
+Intel oneMKL ERROR: Parameter %d was incorrect on entry to %s.
+Intel oneMKL Extended Eigensolvers ERROR: Problem from Inner Linear System Solver
+Intel oneMKL Extended Eigensolvers ERROR: Problem with array parameters
+Intel oneMKL Extended Eigensolvers ERROR: Problem with input parameters
+Intel oneMKL Extended Eigensolvers ERROR: Problem with internal memory allocation
+Intel oneMKL Extended Eigensolvers ERROR: Problem with reduced system
+Intel oneMKL Extended Eigensolvers Error: Matrix B is not positive definite.
+Intel oneMKL Extended Eigensolvers WARNING: No eigenvalue has been found in the proposed search interval.
+Intel oneMKL Extended Eigensolvers WARNING: Only the subspace has been returned.
+Intel oneMKL Extended Eigensolvers WARNING: Size subspace M0 too small.
+Intel oneMKL Extended Eigensolvers WARNING: Solver did not converge (number of loops reached maximum allowed.
+Intel oneMKL Extended Eigensolvers have successfully converged (to desired tolerance).
+Intel oneMKL Extended Eigensolvers: List of input parameters fpm(1:64)-- if different from default
+Intel oneMKL Extended Eigensolvers: Resize subspace %d
+Intel oneMKL Extended Eigensolvers: Size subspace %d
+Intel oneMKL Extended Eigensolvers: complex double precision driver
+Intel oneMKL Extended Eigensolvers: complex single precision driver
+Intel oneMKL Extended Eigensolvers: double precision driver
+Intel oneMKL Extended Eigensolvers: fpm(%d)=%d
+Intel oneMKL Extended Eigensolvers: single precision driver
+Intel oneMKL FATAL ERROR: Cannot load %s or %s.
+Intel oneMKL FATAL ERROR: Cannot load %s.
+Intel oneMKL FATAL ERROR: Error on loading function %s.
+Intel oneMKL FATAL ERROR: MKLMPI wrappers are NULL.
+Intel oneMKL FATAL ERROR: This system does not meet the minimum requirements for use of the Intel(R) Math Kernel Library.
+Intel oneMKL FATAL ERROR: cannot load %s or %s.
+Intel oneMKL FATAL ERROR: cannot load %s.
+Intel oneMKL FATAL ERROR: dynamic library %s is not convenient for this processor.
+Intel oneMKL FATAL ERROR: memory allocation error.
+Intel oneMKL INTERNAL ERROR: Condition %d detected in function %s.
+Intel oneMKL INTERNAL ERROR: Insufficient workspace available in function %s.
+Intel oneMKL INTERNAL ERROR: Issue accessing coprocessor %s.
+Intel oneMKL INTERNAL ERROR: Not enough work memory in function %s
+Intel oneMKL INTERNAL ERROR: Optimization cache's size limit exceeded.
+Intel oneMKL POISSON SOLVER ERROR: 
+Intel oneMKL POISSON SOLVER WARNING: 
+Intel oneMKL RCI CG ERROR: 
+Intel oneMKL RCI CG WARNING: 
+Intel oneMKL RCI FGMRES ERROR: 
+Intel oneMKL RCI FGMRES WARNING: 
+Intel oneMKL ScaLAPACK fatal error: cannot allocate memory, aborted.
+Intel oneMKL TRIG TRANSFORMS ERROR: 
+Intel oneMKL TRIG TRANSFORMS WARNING: 
+Intel oneMKL WARNING: %s function associated with Intel(R) Xeon Phi(TM) x100 Product Family has been deprecated. Intel(R) Parallel Studio XE 2017 is the last supported version for this function.
+Intel oneMKL WARNING: CPU type %d is not suitable for this processor.
+Intel oneMKL WARNING: Library %s (oneMKL type %d) is not suitable for this processor (oneMKL type %d).
+Intel oneMKL WARNING: PGI support is deprecated and will be removed in the Intel oneAPI Math Kernel Library 2025.0 release.
+Intel oneMKL WARNING: Support of Intel(R) Advanced Vector Extensions (Intel(R) AVX) enabled only processors has been deprecated. Intel oneAPI Math Kernel Library will use Intel(R) Streaming SIMD Extensions 4.2 (Intel(R) SSE4.2) instructions instead.
+Intel oneMKL WARNING: Support of Intel(R) Streaming SIMD Extensions 4.2 (Intel(R) SSE4.2) enabled only processors has been deprecated. Intel oneAPI Math Kernel Library 2025.0 will require Intel(R) Advanced Vector Extensions (Intel(R) AVX) instructions.
+Intel oneMKL WARNING: Support of Intel(R) Supplemental Streaming SIMD Extensions 3 (Intel(R) SSSE3) enabled only processors has been deprecated. Intel oneAPI Math Kernel Library will use Intel(R) Streaming SIMD 2 Extensions (Intel(R) SSE2) instructions instead.
+Intel oneMKL WARNING: incorrect conditional numerical reproducibility mode, MKL_CBWR_AUTO is set
+Intel oneMKL function load error: %s.
+Intel oneMKL function load error: cpu specific dynamic library is not loaded.
+Intel(R) 64 architecture
+Intel(R) Advanced Vector Extensions (Intel(R) AVX) enabled processors
+Intel(R) Advanced Vector Extensions (Intel(R) AVX) with F16C instructions support
+Intel(R) Advanced Vector Extensions 2 (Intel(R) AVX-2) with support of Intel(R) Deep Learning Boost (Intel(R) DL Boost)
+Intel(R) Advanced Vector Extensions 2 (Intel(R) AVX2) enabled processors
+Intel(R) Advanced Vector Extensions 512 (Intel(R) AVX-512) enabled processors
+Intel(R) Advanced Vector Extensions 512 (Intel(R) AVX-512) with support for INT8, BF16, FP16 (limited) instructions, and Intel(R) Advanced Matrix Extensions (Intel(R) AMX) with INT8 and BF16
+Intel(R) Advanced Vector Extensions 512 (Intel(R) AVX-512) with support for INT8, BF16, FP16 (limited) instructions, and Intel(R) Advanced Matrix Extensions (Intel(R) AMX) with INT8, BF16, and FP16
+Intel(R) Advanced Vector Extensions 512 (Intel(R) AVX-512) with support for INT8, BF16, and FP16 (limited) instructions
+Intel(R) Advanced Vector Extensions 512 (Intel(R) AVX-512) with support of Intel(R) Deep Learning Boost (Intel(R) DL Boost)
+Intel(R) Advanced Vector Extensions 512 (Intel(R) AVX-512) with support of Intel(R) Deep Learning Boost (Intel(R) DL Boost) and bfloat16
+Intel(R) Advanced Vector Extensions 512 (Intel(R) AVX-512) with support of Intel(R) Deep Learning Boost (Intel(R) DL Boost), EVEX-encoded AES and Carry-Less Multiplication Quadword instructions
+Intel(R) Architecture processors
+Intel(R) Streaming SIMD Extensions 2 (Intel(R) SSE2) enabled processors
+Intel(R) Streaming SIMD Extensions 4.2 (Intel(R) SSE4.2) enabled processors
+Intel(R) Supplemental Streaming SIMD Extensions 3 (Intel(R) SSSE3) enabled processors
+Intel(R) oneAPI Math Kernel Library Version 
 Internal error
+Internal error in %s: memory leak
 IntersectAny
 IntersectAny2L
 IntersectAnyRC
@@ -11050,6 +11667,18 @@ IntersectClosest
 IntersectClosest2L
 IntersectClosestRC
 IntersectClosestRC2L
+Invalid call sequence
+Invalid error number
+Invalid factor option
+Invalid message argument descriptor
+Invalid message level
+Invalid message request. This should never happen in a normal situation.
+Invalid message request. This should not happen under normal circumstances.
+Invalid option
+Invalid reorder option
+Invalid string descriptor
+Invalid structure option
+Invalid termination level
 Io7<+
 Io:7
 IoT;C
@@ -11058,6 +11687,19 @@ Iq!;a
 Iq!;o
 Iq~;Y
 Isn8
+It is also possible that parameter IPAR(1) was altered by mistake outside of the routine.
+It is also possible that parameter ipar[0] was altered by mistake outside of the routine.
+It is possible that future usage for replacement of small diagonal values
+It may be an error in one of the parameters.
+It may be an error in one of the parameters. The method may fail to proceed.
+It was probably altered by mistake outside of DFGMRES routine. The solution may be wrong.
+It was probably altered by mistake outside of the routine, or some characters in
+It was probably altered by mistake outside of the routine, or the fifth character in the
+It was probably altered by mistake outside of the routine, or the first character in the
+It was probably altered by mistake outside of the routine, or the fourth character in the
+It was probably altered by mistake outside of the routine, or the second character in the
+It was probably altered by mistake outside of the routine, or the sixth character in the
+It was probably altered by mistake outside of the routine, or the third character in the
 It6"
 ItE;<
 Iu;R
@@ -11074,7 +11716,7 @@ Iz\v<8
 Izj<
 I{n<0
 J <cL
-J J8
+J J8(
 J"J(J.p0%
 J$;r1
 J$td
@@ -11098,6 +11740,7 @@ J1:%M
 J1:a
 J27:
 J2<2h"
+J2FdN2LvP
 J2O;
 J2};S
 J30;
@@ -11449,6 +12092,7 @@ KM9R
 KM:^C
 KM;g
 KMl<
+KNCNI
 KQ;kT
 KQh;>
 KR;%D
@@ -11528,6 +12172,8 @@ L!9To
 L#;IN
 L#r<u
 L$:Tb
+L&U for matrix number %d deleted
+L&U for matrix number %lli deleted
 L'f9
 L*09
 L*t.r0.
@@ -11578,7 +12224,6 @@ L:5v
 L:?iN
 L:JO
 L:NX
-L:P*L\H*FM
 L:T\tn
 L:Zfc;
 L:a7
@@ -11639,6 +12284,11 @@ L?9u
 L?LU
 L@:ii
 LA;$H
+LANG
+LAPACKE_NANCHECK
+LAPACKE_sgesvd
+LAPACKE_sgesvd_work
+LAQR
 LBk9
 LC*;rF
 LC;W
@@ -11647,6 +12297,7 @@ LD9;[
 LD:,j
 LDB:
 LD[:8
+LD_LIBRARY_PATH
 LDj:
 LE&:g
 LEi;
@@ -11690,6 +12341,7 @@ LX;q
 LY<;Q
 LZ6;Dc(
 LZB;
+LZCNT
 LZCNT 
 LZO=
 L\n\;oPZ:rq>;
@@ -11703,6 +12355,7 @@ Lb:v
 Ld0:
 LdD<
 Ldy<x4
+Left
 Lf:4
 LgF;
 Lh:a
@@ -11724,6 +12377,7 @@ LoC=
 LoadLibraryExA
 LoadLibraryW
 LookupPrivilegeValueW
+Lower
 Lpq=
 Lr*9
 LrM;
@@ -11870,6 +12524,7 @@ MBEU
 MBlur
 MC:nE
 ME<7
+METIS algorithm at reorder step is turned ON
 MF<C
 MF=0
 MFB`
@@ -11879,17 +12534,44 @@ MHV:
 MHa<L
 MHv;f
 MI:H
+MIC_LD_LIBRARY_PATH
 MIX;
 MJ;R'
 MK;P
+MKLROOT
+MKL_CBWR
+MKL_DISABLE_FAST_MM
+MKL_DOMAIN_ALL
+MKL_DOMAIN_BLAS
+MKL_DOMAIN_FFT
+MKL_DOMAIN_NUM_THREADS
+MKL_DOMAIN_PARDISO
+MKL_DOMAIN_VML
+MKL_DYNAMIC
+MKL_ENABLE_INSTRUCTIONS
+MKL_FAST_MEMORY_LIMIT
+MKL_MPI_PPN
+MKL_NUM_STRIPES
+MKL_NUM_THREADS
+MKL_SOMATCOPY(%c, %c, %zu, %zu, %f, %p, %zu, %p, %zu)
+MKL_VERBOSE
+MKL_VERBOSE %s %s\n
+MKL_VERBOSE WARNING: %s\n
+MKL_VERBOSE oneMKL %d.%d
+MKL_VERBOSE_OUTPUT_FILE
 MN='l
+MOVBE
+MOVDIR64B
+MOVDIRI
 MOw;
 MP9'/r
 MP;4nf;
 MP>9(4
+MPI_LOCALNRANKS
 MQO;AG
 MRY<
 MS:DP-
+MSRLIST
 MU:0
 MVI;%
 MW<U(
@@ -11905,7 +12587,17 @@ M\nB;i
 M\vk9
 M`=0h
 Ma%=sQ
+Making IPARM(16) comply with IPAR(1) and IPAR(15).
+Making IPARM(17) comply with IPAR(1) and IPAR(15).
+Making IPARM(18) comply with IPAR(1) and IPAR(15).
+Making IPARM(19) comply with IPAR(1) and IPAR(15).
+Making IPARM(20) comply with IPAR(1) and IPAR(15).
+Making IPARM(21) comply with IPAR(1) and IPAR(15).
+Matching is turned ON
+Matrix checker is turned ON
 Max split depth: 
+Maximum fill-in input parameter is greater than or equals
+Maximum memory requested that can be used=%llu, at the size=%u
 Mc:4
 Mc=z
 Mc_;u
@@ -11919,6 +12611,8 @@ Mh<<l
 Mi&:l
 Mi9sq
 Min node overlap: 
+Minimal supported version of the memkind library is 1.1.0
+Minimum degree algorithm at reorder step is turned ON
 Mj;DX
 Mj;Z
 MjY:
@@ -12046,7 +12740,6 @@ N;wQ
 N;x6
 N;yk
 N<03(
-N<>8Z*8.h
 N<BNN
 N<EQ
 N<FVN
@@ -12157,8 +12850,16 @@ Nm,:p3
 NmX:
 Nmw:
 Nn;x
+No (P)CG iterations will be performed as parameter
+No FGMRES iterations will be performed as the limit for the iteration counter
 No such kernel in program
+No transpose
 Node overhead: 
+Non-unit
+Not a square matrix
+Not enough memory for OOC mode
+Not enough memory to allocate work array in %s\n
+Not enough memory to transpose matrix in %s\n
 Np9z
 Nq<N
 NqW;
@@ -12170,10 +12871,22 @@ NtV9
 Nu=t
 NuM:9B
 NuW:
+Number of CPUs: %i
+Number of columns less than one
+Number of cores: %i
+Number of items read=%d
+Number of items read=%lli
 Number of nodes in corresponding non-split BVH: 
 Number of nodes: 
+Number of non-zeros greater than nRows*nCols
+Number of non-zeros less than nRows
+Number of rows less than one
+Number of tests: %i
+Number of threads: %i
 Number of triangle refs: 
 Number of triangles: 
+Number of unknowns computed in backward solving step
+Number of unknowns computed in forward solving step
 Nuz>
 Nv:Kn
 Nv<v
@@ -12327,6 +13040,8 @@ OKm:t
 OL1;
 OLg;
 OM3:
+OMPI_COMM_WORLD_LOCAL_SIZE
+OMP_NUM_THREADS
 OMU:
 ON;1
 OP4=q
@@ -12400,10 +13115,15 @@ Os:Db
 OsV:
 Osq<%
 Oss;
+Otherwise, set the 1st and the 2nd character of parameter 'BCTYPE' equal to {P} during initialization
+Otherwise, set the 3rd and the 4th character of parameter 'BCTYPE' equal to {P} during initialization
+Otherwise, set the 5th and the 6th character of parameter 'BCTYPE' equal to {P} during initialization
+Otherwise, the Poisson solver may fail to proceed
 Ou:|J
 Ou=g[P>
 OuD;
 OuJ:
+Out of memory
 Ov=y
 Ow>S
 Oy5;
@@ -12423,6 +13143,7 @@ P";UO
 P%;7vy:
 P%D9
 P%Y<Z
+P%d,%d,%d,%d
 P%w9
 P&u:.Qs
 P&x:h
@@ -12432,7 +13153,7 @@ P*;0pz;
 P+<TN
 P,9E5#:
 P.T:X
-P08~
+P08~l
 P0X=p
 P0o;
 P1/<l
@@ -12446,14 +13167,12 @@ P38:
 P3:GG.
 P3;p
 P4;5
-P4P]0
 P5?V
 P5?e^
 P5q9
 P5t;
 P6<dx
 P6>D
-P6\r9
 P78;
 P79s
 P7g<hVB
@@ -12530,9 +13249,28 @@ P>lE
 P>v#T
 P?uZ
 PA<0
+PARDISO Internationalization error. Message %d is unknown.
+PARDISO Internationalization error. Message %lli is unknown.
+PARDISO_OOC_CLOSE_FILE_ERROR occurred: %s
+PARDISO_OOC_DELETE_FILE_ERROR occurred: %s
+PARDISO_OOC_NUMBER_OF_READ_EQUAL_ZERO occurred: %s
+PARDISO_OOC_NUMBER_OF_READ_NOT_EQUAL_COUNT occurred: %s
+PARDISO_OOC_NUMBER_OF_WRITE_EQUAL_ZERO occurred: %s
+PARDISO_OOC_NUMBER_OF_WRITE_NOT_EQUAL_COUNT occurred: %s
+PARDISO_OOC_OPEN_FILE_ERROR occurred: %s
+PARDISO_OOC_OPEN_MODE_FILE_ERROR occurred: %s
+PARDISO_OOC_READ_EOF_ERROR occurred: %s
+PARDISO_OOC_READ_INPUT_PARAMETERS_INCORRECT occurred: %s
+PARDISO_OOC_READ_SEEK_ERROR occurred: %s
+PARDISO_OOC_WRITE_EOF_ERROR occurred: %s
+PARDISO_OOC_WRITE_INPUT_PARAMETERS_INCORRECT occurred: %s
+PARDISO_OOC_WRITE_SEEK_ERROR occurred: %s
 PA\;4
 PAr;/
+PBNDKB
 PC<C\r
+PCLMULQDQ
+PCONFIG
 PCP8
 PCZ;
 PCs9P
@@ -12563,6 +13301,7 @@ PME<NT
 PO;.c
 PO<E
 PO>O
+POPCNT
 POPCNT 
 POg;
 PP=8
@@ -12572,6 +13311,7 @@ PQA;^
 PQN;3
 PR;J
 PR;r
+PREFETCHI
 PS;@l
 PS;RG]
 PS;U
@@ -12582,7 +13322,7 @@ PS<m
 PS=f
 PS~;ok]
 PTO:
-PTf %f %f %f\n\n
+PTWRITE
 PTs7g
 PUB;
 PUR=
@@ -12600,15 +13340,122 @@ P\vT8D5
 P`m8
 Pa:#5
 PaS<
+Parallel Direct Factorization is running on %d MPI and %d OpenMP per MPI process
+Parallel Direct Factorization is running on %d OpenMP
+Parallel Direct Factorization is running on %lli OpenMP
+Parallel METIS algorithm at reorder step is turned ON
+Parameter ?PAR(1)=%e (the size of the domain along x-direction)
+Parameter ?PAR(2) was probably altered by mistake outside of the routine.
+Parameter ?PAR(2)=%e (the size of the domain along y-direction)
+Parameter ?PAR(3)=%e (the size of the domain along phi-direction)
+Parameter ?PAR(3)=%e (the size of the domain along z-direction)
+Parameter ?PAR(4)=%e (the size of the domain along theta-direction)
+Parameter ?par[0]=%e (the size of the domain along phi-direction)
+Parameter ?par[0]=%e (the size of the domain along x-direction)
+Parameter ?par[1] was probably altered by mistake outside of the routine.
+Parameter ?par[1]=%e (the size of the domain along theta-direction)
+Parameter ?par[1]=%e (the size of the domain along y-direction)
+Parameter ?par[2]=%e (the size of the domain along z-direction)
+Parameter DPAR(5)=%e should be positive.
+Parameter DPAR(7) was probably altered by mistake outside of the DFGMRES
+Parameter DPAR(7) was probably altered by mistake outside of the DFGMRES routine.
+Parameter DPAR(7)=%e should not be negative.
+Parameter IPAR(1) is not equal to the parameter N.
+Parameter IPAR(1) must be a positive integer.
+Parameter IPAR(1) was probably altered by mistake outside of DFGMRES routine.
+Parameter IPAR(1)=%s is not equal to the parameter N=%s.
+Parameter IPAR(1)=%s must be a positive integer.
+Parameter IPAR(10)=%s is not in the admissible range {0,1,2}.
+Parameter IPAR(11)=%s (the number of intervals in phi-direction)
+Parameter IPAR(11)=%s (the number of intervals in x-direction)
+Parameter IPAR(12)=%s (the number of intervals in theta-direction)
+Parameter IPAR(12)=%s (the number of intervals in y-direction)
+Parameter IPAR(13)=%s (the number of intervals in z-direction)
+Parameter IPAR(14)=%s is not in the admissible range from 1 to
+Parameter IPAR(14)=%s should be equal to 0 before the first call to
+Parameter IPAR(15)=%s should be positive.
+Parameter IPAR(15)=%s should be positive. If you wish to run the
+Parameter IPAR(16) was probably altered by mistake outside of DFGMRES routine.
+Parameter IPAR(16)=%s must be a positive integer.
+Parameter IPAR(17) was probably altered by mistake outside of DFGMRES routine.
+Parameter IPAR(17)=%s must be a positive integer.
+Parameter IPAR(18) was probably altered by mistake outside of DFGMRES routine.
+Parameter IPAR(18)=%s must be a positive integer.
+Parameter IPAR(19) was probably altered by mistake outside of DFGMRES routine.
+Parameter IPAR(19)=%s must be a positive integer.
+Parameter IPAR(20) was probably altered by mistake outside of DFGMRES routine.
+Parameter IPAR(20)=%s must be a positive integer.
+Parameter IPAR(21) was probably altered by mistake outside of DFGMRES routine.
+Parameter IPAR(21)=%s must be a positive integer.
+Parameter IPAR(23) was probably altered by mistake outside of DFGMRES routine.
+Parameter IPAR(23)=%s must be a positive integer.
+Parameter IPAR(3) must be equal to 1 before the first
+Parameter IPAR(3)=%s is not in the admissible range {0,1,2}.
+Parameter IPAR(3)=%s should be equal to 1 before the first call to
+Parameter IPAR(4) must be equal to 0 before the first
+Parameter IPAR(4)=%s is not in the admissible range {0,...,15}.
+Parameter IPAR(4)=%s is not in the admissible range {0,...,63}.
+Parameter IPAR(4)=%s should be equal to 0 before the first call to
+Parameter IPAR(4)=%s was altered outside of the routine or commit
+Parameter IPAR(5) must be greater than or equal to 0 before
+Parameter IPAR(5)=%s is not in the admissible range {0,1,2}.
+Parameter IPAR(5)=%s should be greater than or equal to 0 before the first
+Parameter IPAR(6)=%s is not in the admissible range {0,1,2}.
+Parameter IPAR(7)=%s is not in the admissible range {0,1,2}.
+Parameter IPAR(8)=%s is not in the admissible range {0,1,2}.
+Parameter IPAR(9)=%s is not in the admissible range {0,1,2}.
+Parameter ipar[10]=%s (the number of intervals in phi-direction)
+Parameter ipar[10]=%s (the number of intervals in x-direction)
+Parameter ipar[11]=%s (the number of intervals in the y-direction)
+Parameter ipar[11]=%s (the number of intervals in theta-direction)
+Parameter ipar[12]=%s (the number of intervals in z-direction)
+Parameter ipar[2]=%s is not in the admissible range {0,1,2}.
+Parameter ipar[3]=%s is not in the admissible range {0,...,15}.
+Parameter ipar[3]=%s is not in the admissible range {0,...,63}.
+Parameter ipar[3]=%s was altered outside of the routine or commit
+Parameter ipar[4]=%s is not in the admissible range {0,1,2}.
+Parameter ipar[5]=%s is not in the admissible range {0,1,2}.
+Parameter ipar[6]=%s is not in the admissible range {0,1,2}.
+Parameter ipar[7]=%s is not in the admissible range {0,1,2}.
+Parameter ipar[8]=%s is not in the admissible range {0,1,2}.
+Parameter ipar[9]=%s is not in the admissible range {0,1,2}.
+Parameters IPAR(1), IPAR(15) and IPAR(16) have incompatible values.
+Parameters IPAR(1), IPAR(15) and IPAR(17) have incompatible values.
+Parameters IPAR(1), IPAR(15) and IPAR(18) have incompatible values.
+Parameters IPAR(1), IPAR(15) and IPAR(19) have incompatible values.
+Parameters IPAR(1), IPAR(15) and IPAR(20) have incompatible values.
+Parameters IPAR(1), IPAR(15) and IPAR(21) have incompatible values.
+Parameters IPAR(4)=%s and from IPAR(5) to IPAR(10) equal %s, %s, %s, %s, %s, %s do not agree.
+Parameters IPAR(4)=%s and from IPAR(5) to IPAR(8) equal %s, %s, %s, %s do not agree.
+Parameters IPAR(5)=%s and IPAR(6)=%s do not correspond to each other.
+Parameters IPAR(7)=%s and IPAR(8)=%s do not correspond to each other.
+Parameters IPAR(9)=%s and IPAR(10)=%s do not correspond to each other.
+Parameters are set to:
+Parameters ipar[3]=%s and from ipar[4] to ipar[7] equal %s, %s, %s, %s do not agree.
+Parameters ipar[3]=%s and from ipar[4] to ipar[9] equal %s, %s, %s, %s, %s, %s do not agree.
+Parameters ipar[4]=%s and ipar[5]=%s do not correspond to each other.
+Parameters ipar[6]=%s and ipar[7]=%s do not correspond to each other.
+Parameters ipar[8]=%s and ipar[9]=%s do not correspond to each other.
 Pc<mf\t;
 Pcb;
 Pcs<m
 Pdj<
 Pe?9
+Percentage of computed non-zeros for LL^T factorization
+Performance Summary (GFlops)
+Periodic boundary conditions can be used only for a pair of boundaries simultaneously.
+Permutation contains %d multiple element pairs (first: %d -> %d)
+Permutation contains %d multiple element pairs (first: %d -> %ld)
+Permutation contains %d out-of-range elements (first:  %d -> %d)
+Permutation contains %d out-of-range elements (first:  %d -> %ld)
+Permutation contains %lli multiple element pairs (first: %lli -> %lli)
+Permutation contains %lli out-of-range elements (first:  %lli -> %lli)
+Permutation is inconsistent.
 Pf=:F
 PgG;
 Ph:d
 Ph=\tcw
+Phvl
 Pi:f
 Pi;.P
 Pj:Bq
@@ -12619,6 +13466,7 @@ Pkj<
 Pl<l
 Pl>FE
 PlI9$
+Please contact Intel oneMKL Technical Support and provide as many details as possible.
 Ply<
 Pm.c
 Pm;J
@@ -12630,13 +13478,18 @@ Po;4\f
 Po;j
 PoA<
 Pp+;i
+Pp7.
 Pp;Wt
 Pp<1
 PpB;f
 Pq8;
 Pq;YK
 Pr<c
+Precision
+Probably the data were altered by mistake outside of DCG routine.
 Probe clustering complete. (%lld probes, %lld clusters)
+Proceed with (-value) if IPAR(7)>0, aborting otherwise.
+Product
 Pt<h
 PtG:
 Pu-9
@@ -12931,6 +13784,7 @@ R:+gh
 R:0R
 R:>r2
 R:N1
+R:V*R\N*LA
 R:fg
 R;4K
 R;4b
@@ -12982,12 +13836,16 @@ RA4;9
 RA6<[
 RA9<
 RAA;z
+RAO_INT
 RB,<y
 RBd<
 RCF;Z<
 RD;y
 RD=6>k
+RDPID
 RDRAND 
+RDRND
+RDSEED
 RE=g_
 REY<
 RE]:g
@@ -13020,7 +13878,7 @@ RP<h
 RRG<F0
 RRX8Cv
 RS:T/
-RSDS4c
+RSDSr6
 RT;l
 RU;J
 RV;;6
@@ -13037,20 +13895,30 @@ RZ;5
 RZT;
 R[<bRl<v`p=4
 R\nK9r#M
+R\npX
 R\r4:BF:
 R\t:f3
+R\vpX
+R\vph
 R^P9
 Rb)9
 Rb;N
 Rb=ib>>s
 Rd<n
 Re1;(
+Read failed
+Read type=%d
+Read type=%lli
 Reb;,9
 ReceiverPosition
 Ref duplication: 
 RefitBounds
 Release 
+Replicated array -- copy in process (%d,%d) 
+Requested options conflict
 ResetEvent failed
+Residual checks FAILED
+Residual checks PASSED
 Rf;%U
 RgD:
 Rh:l
@@ -13059,6 +13927,7 @@ Ri;\tc
 Ri;q
 RiF7B4
 Rif=s
+Right
 Rjb<
 Rk/<r
 Rl:Z
@@ -13069,6 +13938,8 @@ RmI:
 Rn9k
 Rn;i$
 Rnn;R
+Row-replicated array -- copy in process row: %d 
+Rowwise
 Rp$j
 Rp;M
 Rpf<j
@@ -13078,6 +13949,7 @@ Rr;X
 Rs:u
 Rt=z
 RtE9
+RtlGetVersion
 Ru;3
 Ruw;
 Rw0:
@@ -13206,10 +14078,12 @@ S>eK9
 SA2:
 SA:V
 SAH: 
+SAXPY(%d,%p,%p,%d,%p,%d)
 SB,=z
 SB7*
 SB=Ru
 SB>gv
+SBDSQR
 SBx;L
 SC?l
 SCx:
@@ -13220,8 +14094,25 @@ SF1=
 SFk8
 SG;t'
 SG=j
+SGBBRD
+SGBBRDM
+SGEBRD
+SGELQF
+SGEMM
+SGEMMT
+SGEMQR
+SGEMV
+SGEMV 
+SGEMV(%c,%d,%d,%p,%p,%d,%p,%d,%p,%p,%d)
+SGEQR 
+SGEQRF
+SGESVD
+SGESVD(%c,%c,%d,%d,%p,%d,%p,%p,%d,%p,%d,%p,%d,%d)
+SGETSQR
 SH;Wh
 SH<=5
+SHA512
+SHSTK
 SHX;$
 SHX?
 SI)<m
@@ -13229,6 +14120,13 @@ SI9?
 SI:d
 SJ<U
 SL:o\vu:
+SLAQRF
+SLARFT
+SLASCL
+SLASQ1
+SLASQ2
+SLASR 
+SLASRT
 SLD<;d.
 SMD<
 SN:H/
@@ -13240,6 +14138,14 @@ SO>z
 SOFA
 SOFA file %s contains non-zero values for Data.Delay; this is not currently supported.
 SOFAConventions
+SORGBR
+SORGLQ
+SORGQR
+SORM2R
+SORMBR
+SORML2
+SORMLQ
+SORMQR
 SPt;
 SQ';w
 SQ>b
@@ -13250,8 +14156,17 @@ SSE3
 SSE3 
 SSE4.1
 SSE4.2
+SSE4_1
+SSE4_2
 SSSE3
 SSSE3 
+SSYGST
+SSYMM
+SSYR2K
+SSYRK
+STRICT
+STRMM
+STRSM
 SU<E
 SU<S
 SUZ;
@@ -13264,12 +14179,14 @@ SY;r
 SZ;3
 SZN;}
 S\f;r5
+S_FORWARD_TRIG_TRANSFORM/S_BACKWARD_TRIG_TRANSFORM routine.
 S`Q;Udc
 Sa<a
 Sa<s;
 SaT:k
 SaT=
 Sa[9l
+Safe minimum
 SandyBridge
 Saq:
 Sb:h)
@@ -13278,11 +14195,14 @@ Sc-<y
 Sc;f
 Sc<3
 Sc\9Y
+Scaling is turned ON
 ScatterKeysAndValues
 Scene is empty.
 Sck9
 Se:~M
 SeV;
+Search interval [%.15e;%.15e]
+Search interval [%.7e;%.7e]
 SetEnvironmentVariableA
 SetEvent failed
 SetFileInformationByHandle
@@ -13300,7 +14220,11 @@ Sgp;=
 ShI=s
 SimpleFreeFieldHRIR
 Simulating reflections for %d sources, which is more than the max (%d). Some sources will be ignored.
+Single-level factorization algorithm is turned ON
 Siw=T
+Size   LDA    Align.  Average  Maximal
+Size   LDA    Align. Time(s)    GFlops   Residual     Residual(norm)
+Size   LDA    Align. Time(s)    GFlops   Residual     Residual(norm) Check
 Sj:b
 Sj<#1
 Sj=X;
@@ -13314,6 +14238,14 @@ SmN:
 SmO;Y
 Sn8:
 SoK<
+Solution step (100 (%%)):
+Solution step:
+Some of the parameters were probably altered by mistake outside of the routine.
+Some of these parameters were probably altered after DFGMRES init routine.
+Some parameters were probably altered by mistake outside of the DFGMRES routine,
+Some values from IPAR(11) to IPAR(21) were probably altered by mistake outside of the routine.
+Some values from ipar[10] to ipar[20] were probably altered by mistake outside of the routine.
+Sorry, no statistics for %s in case of a diagonal matrix
 Sos<U
 SourcePosition
 SplitBvh\n
@@ -13323,15 +14255,27 @@ Sr::G
 SrY<%
 St;c|B<
 StJ:z7
+Statistics:
+Stopping parameters DPAR(1) and DPAR(2) should not be
 Stw=
 Su;U
 Su;wk
 Su<,K
+Success
+Summary PARDISO: (
+Summary: ( cleaning phase )
+Summary: ( factorization phase )
+Summary: ( reordering phase )
+Summary: ( solution phase )
+Summary: ( starting phase is factorization, ending phase is solution )
+Summary: ( starting phase is reordering, ending phase is factorization )
+Summary: ( starting phase is reordering, ending phase is solution )
 Svw:
 Sw<d
 Sx?m
 SyQ=:
 Sys;
+System error in PARDISO
 Szt=
 S~n90
 T ;Lz
@@ -13476,11 +14420,15 @@ TZ;E
 TZn<y
 T[9d%D
 T\fC9
+T\fF\nT
 T\nM90A
 T\vl;H
 T];Hb
 T^9;qA
 TaR=+
+Task does not fit RAM, OOC LU factorization algorithm is turned ON
+Task does not fit RAM, OOC NLL factorization algorithm is turned ON
+Task fits RAM, OOC NLL factorization algorithm is turned ON
 Tb87
 Tb8a
 Tco;
@@ -13495,11 +14443,99 @@ Tf<r
 Tg9@
 Th:vv
 Th>Q_
+The CPU is not supported in this Intel oneMKL version.
+The absolute and relative stopping parameters DPAR(1)=%e and
+The absolute stopping parameter (zero norm tolerance) DPAR(8)=%e
+The absolute stopping parameter DPAR(2) is out of
+The absolute stopping parameter DPAR(2)=%e is out of admissible interval [0,infinity).
+The computations may fail to proceed and/or The result may be incorrect.
+The computations may fail to proceed and/or the result may be incorrect.
+The data in parameter DPAR were probably altered by mistake before
+The data in parameter SPAR were probably altered by mistake before
+The data in parameter dpar were probably altered by mistake before
+The data in parameter spar were probably altered by mistake before
+The dimension of the trigonometric transform %s should be
+The file %s was not opened
+The file was not closed
+The input vector value |F(1)|=%s is bigger than the tolerance
+The input vector value |F(IPAR(1)+1)|=%s is bigger than the tolerance
+The input vector value |f[0]|=%s is bigger than the tolerance
+The input vector value |f[ipar[0]]|=%s is bigger than the tolerance
+The local (internal) PARDISO version is                          : %d
+The local (internal) PARDISO version is                          : %lli
+The matrix is probably (almost) non-positive definite
 The maximum number of elements for scan exceeded\n
+The mesh size in the direction theta, ?PAR(2)=%e, must be positive.
+The mesh size in the direction theta, ?par[1]=%e, must be positive.
+The mesh size in the direction y, ?PAR(2)=%e, must be positive.
+The mesh size in the direction y, ?par[1]=%e, must be positive.
+The method may fail to converge.
+The method may fail to proceed.
+The number of OMP threads defined by parameter IPAR(10)=%s should be
+The number of OMP threads defined by parameter ipar[9]=%s should be
+The parameter IPAR(15) was probably altered by mistake outside of DFGMRES routine.
+The parameters were probably altered by mistake outside of the routine.
+The previous call to a Intel oneMKL Trigonometric Transform routine produced an error
+The previous call to a Poisson solver routine has failed or has not been made.
+The previous call to a Trigonometric Transform routine produced an error
+The problem is degenerate due to rounding errors. The approximate solution
+The processor must support the Intel(R) Advanced Vector Extensions (Intel(R) AVX) instructions.
+The processor must support the Intel(R) Streaming SIMD 2 Extensions (Intel(R) SSE2) instructions.
+The processor must support the Intel(R) Streaming SIMD 3 Extensions (Intel(R) SSE3) instructions.
+The processor must support the Intel(R) Streaming SIMD Extensions 4.2 (Intel(R) SSE4.2) instructions.
+The processor must support the Intel(R) Supplemental Streaming SIMD Extensions 3 (Intel(R) SSSE3) instructions.
+The relative stopping parameter DPAR(1) is out of
+The relative stopping parameter DPAR(1)=%e is out of admissible interval [0,1].
+The result may be inaccurate.
+The result may be incorrect.
+The solution may be wrong.
+The solvers_ee interval generator has failed to find the requested number of eigenvalues. Try\n increasing the number of requested eigenvalues, as this can increase likelihood of success.
+The tolerance parameter DPAR(1)=%e is not in the admissible range [0,infinity).
+The tolerance parameter SPAR(1)=%e is not in the admissible range [0,infinity).
+The tolerance parameter dpar[0]=%e is not in the admissible range [0,infinity).
+The tolerance parameter spar[0]=%e is not in the admissible range [0,infinity).
+The type of the trigonometric transform %s is not in the admissible range {0,...,5}.
+The value of input tolerance parameter is negative.
+This binary version of the SMP LINPACK benchmark is optimized for and runs on only genuine Intel processors
 This device does not support HLBVH construction\n
 This is a netCDF dimension but not a netCDF variable.
+This message reserved for future use and should not be displayed
 Thx=6
 Ti;o
+Time spent in additional calculations                            :
+Time spent in additional calculations                            : %f s
+Time spent in additional calculations                            : %f s total - sum: %f s
+Time spent in allocation of internal data structures (malloc)    :
+Time spent in allocation of internal data structures (malloc)    : %f s
+Time spent in allocation of internal data structures (malloc)    : %f s total - sum: %f s
+Time spent in calculations of symmetric matrix portrait (fulladj):
+Time spent in calculations of symmetric matrix portrait (fulladj): %f s
+Time spent in calculations of symmetric matrix portrait (fulladj): %f s total - sum: %f s
+Time spent in copying matrix to internal data structure (A to LU):
+Time spent in copying matrix to internal data structure (A to LU): %f s
+Time spent in copying matrix to internal data structure (A to LU): %f s total - sum: %f s
+Time spent in data preparations for factorization (parlist)      :
+Time spent in data preparations for factorization (parlist)      : %f s
+Time spent in data preparations for factorization (parlist)      : %f s total - sum: %f s
+Time spent in direct solver at solve step (solve)                :
+Time spent in direct solver at solve step (solve)                : %f s
+Time spent in direct solver at solve step (solve)                : %f s total - sum: %f s
+Time spent in factorization step (numfct)                        :
+Time spent in factorization step (numfct)                        : %f s
+Time spent in factorization step (numfct)                        : %f s total - sum: %f s
+Time spent in iterative solver at solve step (cgs)               :
+Time spent in iterative solver at solve step (cgs)               : %f s
+Time spent in iterative solver at solve step (cgs)               : %f s total - sum: %f s
+Time spent in matching/scaling                                   :
+Time spent in matching/scaling                                   : %f s
+Time spent in matching/scaling                                   : %f s total - sum: %f s
+Time spent in reordering of the initial matrix (reorder)         :
+Time spent in reordering of the initial matrix (reorder)         : %f s
+Time spent in reordering of the initial matrix (reorder)         : %f s total - sum: %f s
+Time spent in symbolic factorization (symbfct)                   :
+Time spent in symbolic factorization (symbfct)                   : %f s
+Time spent in symbolic factorization (symbfct)                   : %f s total - sum: %f s
+Times:
 Tit;
 Tj(<1Q@
 TjD=d
@@ -13513,12 +14549,20 @@ Tn1;
 Tn`z
 To9(
 To:'C
+Tolerance
+Total size of data transferred:
+Total time (100 (%%)):
+Total time spent                                                 :
+Total time spent                                                 : %f s
+Total time spent                                                 : %f s total - sum: %f s
 Tq"<k
 Tq;W
 TrP>
 TrQ:
+Transpose
 Tree height: 
 TrueAudioNext.dll
+Trying to free NULL matrix.
 Ts3;
 TsE;
 Tt0<
@@ -13526,6 +14570,7 @@ Tu;S{A
 Tv;b
 Tw2<
 Tw:e
+Two-level factorization algorithm is turned ON
 Txr9
 Ty:A
 Ty:m
@@ -13651,6 +14696,7 @@ UF,:fAG
 UF<!I
 UG<e%
 UH;W;
+UINTR
 UK96'':
 UK;I
 UK<Y#
@@ -13671,6 +14717,7 @@ UQ<b
 UQp8
 URn<t>
 US'=n
+USER_MSR
 UT0=
 UT>x
 UTV<
@@ -13686,7 +14733,6 @@ UZ>O
 UZ?5t,?G
 UZ?G
 U\:s&c9e
-U\f0i7
 U\t<Gd
 U_0=1
 U_d:Fd!;q
@@ -13715,20 +14761,24 @@ Uie;l
 Ujn;Lr
 Ul;uN\8
 Unable to create OpenCL kernel %s. [%d]
-Unable to load SOFA data. [%d]
 Unable to load SOFA file: %s. [%d]
+Unable to open verbose output file.
+Unit
 Units
 Unknown CPU
+Unknown error in %s.
 Unknown matrix type
 Uo;L
 UoW<
 Up:kK
 Up;LG\t
+Upper
 Ur5;
 Ur;v
 Urp;kv6
 Us1:z
 Us1<
+User provided fill-in reducing permutation is turned ON
 UserProfile
 Using %d CUs for convolution, %d CUs for IR update.
 Using OpenCL device: %s %s (%s).
@@ -13872,6 +14922,7 @@ VA70d
 VA7<5#
 VA9h
 VA;Z
+VAES
 VAl<X
 VBE<
 VC8I
@@ -13902,6 +14953,7 @@ VMW9@
 VOD;Q
 VOs;
 VP<A
+VPCLMULQDQ
 VQ8vg
 VQ;f
 VQ[;Ba
@@ -14102,6 +15154,7 @@ W>CHl
 W>eD
 W?=Kp
 W?L;Y
+WAITPKG
 WARNING: AdjustTokenPrivileges failed to enable SeLockMemoryPrivilege: Add SeLockMemoryPrivilege for current user and run process in elevated mode (Run as administrator).
 WARNING: AdjustTokenPrivileges failed while trying to enable SeLockMemoryPrivilege
 WARNING: LookupPrivilegeValue failed while trying to enable SeLockMemoryPrivilege: 
@@ -14110,6 +15163,7 @@ WB8;
 WB:j
 WB;5
 WB;J
+WBNOINVD
 WC:Br
 WCQ;
 WD2:o
@@ -14124,6 +15178,7 @@ WG=`z
 WH2<[Q0
 WH;h
 WH=i
+WIDE-KL
 WJ:<Yh
 WJ;b
 WJ=Q$a
@@ -14139,6 +15194,7 @@ WPW=
 WQ ;6
 WR2;D
 WR;RmA
+WRMSRNS
 WSV=
 WSz9
 WTC;
@@ -14162,12 +15218,17 @@ Wa=0
 Wa\v;m
 WaitForSingleObjects failed
 WaitForThreadpoolTimerCallbacks
+Warning message has been written in %s
 Warning: 
+Warning: Consider use of MKL_RODFT00 instead of FFTW_RODFT00 in planning r2r transforms with FFTW3 interface to Intel oneMKL (see Intel oneMKL Reference Manual).
+Warning: incorrect parameter %s (%i),
 Was:
 Wb9d
 Wc;!42
 WcB;
 WcS;j
+We appreciate your assistance and apologize for any inconvenience
+We appreciate your assistance and apologize for any inconvenience resulting from
 We7=
 We89
 Wg:{X
@@ -14204,7 +15265,12 @@ WqCf
 WqE;f
 Wr9.f
 WrM<dr
+Write type=%d
+Write type=%lli
 Wrong number of vertices per face
+Wrong parameter %d in %s\n
+Wrote %d items
+Wrote %lli items
 Ws,<WrQ
 Wt5=
 Wu;g
@@ -14343,13 +15409,13 @@ XR?9Dz
 XRA<
 XS0<
 XSB>
+XSGBBRDM
 XT;d
 XUm<
 XV27U?
 XV6;
 XV;cf
 XVK:
-XXVPF`Zd\,^
 XY9f
 XZV;
 X\nO<d
@@ -14720,6 +15786,7 @@ ZEH;
 ZF:A
 ZGC;$
 ZGj\tt
+ZHEGST
 ZHb<
 ZI{;Ct
 ZJ6;9
@@ -14757,6 +15824,7 @@ ZY;V
 ZYU;
 ZZS:
 ZZU;
+Z`XX\
 Za<2
 Zak;
 Zam=e
@@ -14770,6 +15838,7 @@ ZdN=Y
 Ze+:g
 Ze4=m
 Ze;0
+Zero pivot detected
 Zf<T
 Zfb=
 Zg:\tr
@@ -14832,6 +15901,10 @@ Z~@f#aCW
 [F9X,
 [G8r
 [It<r
+[MKL] [MIC %02d] [AO %s %s Time] %f seconds
+[MKL] [MIC %02d] [AO %s %s->%s Data] %llu bytes
+[MKL] [MIC --]   [AO %s Workdivision] %s
+[MKL] [MIC --]   [AO Function] %s
 [QC<CL
 [QF<wt9
 [T;jN
@@ -14954,8 +16027,8 @@ Z~@f#aCW
 \l=c3
 \lU9)
 \m;Bo
+\n       Lenght: %d   Buffer size: %d\n
 \n/97vO
-\n0i7
 \n1#<OP8
 \n29B
 \n2d=E
@@ -14989,11 +16062,11 @@ Z~@f#aCW
 \nEl:c3
 \nH;bw
 \nK7:v8
+\nMKL INTERNAL ERROR: message buffer overflow.
 \nNAN
 \nNq:RuY:
 \nO;HbK
 \nP<ni
-\nPq0
 \nPr9
 \nR;SdH
 \nT9Aq
@@ -15131,7 +16204,6 @@ Z~@f#aCW
 \ts8c
 \ttd;l
 \tx38
-\tz0\v7
 \tz9a
 \v49b
 \v5 er
@@ -15268,6 +16340,7 @@ Z~@f#aCW
 ^S;nN
 ^TW9
 ^W8WAD:
+^X\PLP`db,d
 ^Xe=kme<
 ^Yi;PC
 ^aX;W
@@ -15329,10 +16402,8 @@ _xB;d
 `0_tL
 `1<Egd;"m
 `2>cx
-`4P]0
 `5L9S
 `5u=K
-`68a
 `7;XZ
 `7<RLK
 `7xz
@@ -15366,7 +16437,7 @@ _xB;d
 `f<Ol4
 `g5<u
 `h`hhh
-`hr8
+`hr0
 `j:QW
 `k;ZM
 `kD;f
@@ -15377,10 +16448,13 @@ _xB;d
 `q99
 `r2:m
 `rj9
+`u4c
 `u9k
 `w:JL
 `zD=8
 a :ud
+a non-negative integer. Assigning to the parameter IPAR(10) the default value
+a non-negative integer. Assigning to the parameter ipar[9] the default value
 a!i=i
 a$;sF
 a';m2
@@ -15539,6 +16613,8 @@ addProbe
 addProbeArray
 addProbeBatch
 adl:e
+admissible interval [0,1]. Assigning DPAR(1) to
+admissible interval [0,infinity). Assigning DPAR(2) to
 ae;9_
 ae;M
 aeG<L
@@ -15571,14 +16647,24 @@ alloc_main_block_size
 alloc_num_main_slots
 alloc_single_thread_alloc
 alloc_thread_block_size
+allocate enough memory for TMP array.
 allocateAudioBuffer
 allocation is too large
 already initialized
+altered by mistake outside of the DFGMRES routine. The solution may be wrong.
 am;<9
 am\nv
+amx-bf16
+amx-complex
+amx-fp16
+amx-int8
+amx-tile
+an integer number greater than or equal to 2.
 an6;
 an9~
 an<N
+and/or The result may be incorrect.
+and/or the result may be incorrect.
 anx;[I
 ao;v
 ao<%b
@@ -15586,6 +16672,7 @@ aoa=
 ap;D0
 apply
 applyIIRFilter
+apxf
 apy<S@n
 aq;m
 aq='q
@@ -15602,6 +16689,8 @@ aul;
 av:-l
 av<)p
 av\v=H7\
+avx10.1-256
+avx10.1-512
 avx2
 avx2::BVH4IntersectorStreamPacketFallback
 avx2::BVH4Triangle4Intersector4HybridMoeller
@@ -15682,8 +16771,26 @@ avx2::InstanceIntersectorN
 avx2::QBVH4Triangle4iIntersector1Pluecker
 avx2::QBVH8Triangle4Intersector1Moeller
 avx2::QBVH8Triangle4iIntersector1Pluecker
+avx5124fmaps
+avx5124vnniw
+avx512bf16
+avx512bitalg
+avx512bw
+avx512cd
+avx512dq
+avx512er
+avx512f
+avx512fp16
+avx512ifma
 avx512knl
+avx512pf
 avx512skx
+avx512vbmi
+avx512vbmi2
+avx512vl
+avx512vnni
+avx512vp2intersect
+avx512vpopcntdq
 avx::BVH
 avx::BVH4IntersectorStreamPacketFallback
 avx::BVH4Triangle4Intersector4HybridMoeller
@@ -15767,6 +16874,11 @@ avx::QBVH4Triangle4iIntersector1Pluecker
 avx::QBVH8Triangle4Intersector1Moeller
 avx::QBVH8Triangle4iIntersector1Pluecker
 avxi
+avxifma
+avxneconvert
+avxvnni
+avxvnniint16
+avxvnniint8
 aw0<
 aw:R)z8f0
 ay:3
@@ -15783,7 +16895,6 @@ b%F:x
 b'9A
 b-u9
 b0<J
-b0J0
 b1!;j
 b1;:wM<
 b1;JF
@@ -15944,6 +17055,7 @@ bb;H
 bb\v<D[c
 bd;vK3
 be ;2
+before the call to the DFGMRES_CHECK routine. Make sure to
 benchmark
 bezier1i
 bezier1v
@@ -15981,7 +17093,6 @@ bnE;
 bnb;
 bn~<xk
 bp*<SZ
-bph0
 bq:C
 bqY:
 br;5 
@@ -16205,6 +17316,9 @@ calculateAirAbsorption
 calculateDirectivity
 calculateDistanceAttenuation
 calculateRelativeDirection
+call to DCG routine.
+call to DCG routine. Otherwise, the maximal number
+call to DFGMRES routine. Otherwise, the maximal number of iterations is equal to
 cannot instantiate this geometry
 cannot instantiate this geometry 
 cannot unget that many items
@@ -16213,12 +17327,14 @@ cb;q
 cb<C
 cbQ;
 cbi9
+cblas_sgemv
 cc7;
 cc;w
 ccV:
 cd4;]
 cd>,DZ>
 cdV;
+cdecl
 ce*9
 ce:w
 ce\n;K
@@ -16303,19 +17419,29 @@ clSetKernelArg failed
 clWaitForEvents
 clWaitForEvents failed
 cl_amd_media_ops2
+cldemote
+clean
+cleaned memory, deleted number of L&U-factorizations: %d
+cleaned memory, deleted number of L&U-factorizations: %lli
 closure stack overflow
+clwb
 cm;w
 cmL;
+cmpccxadd
 cmq>
 cnP:
 cnR<
 co%;hx
+code, or the parameter IPAR(7)=%s was altered by mistake outside of the routine.
+code, or the parameter ipar[6]=%s was altered by mistake outside of the routine.
 coherent
 collapsing from 
 combineBandpassedImpulseResponse
 compact
+converged, or parameter DPAR(5) was altered by mistake outside of the DFGMRES routine.
 convertAmbisonicAudioBuffer
 convolutionQueue
+counter IPAR(4)=%s
 cp<P
 cpw;
 cq;<v
@@ -16348,6 +17474,7 @@ createStaticMesh
 createTrueAudioNextDevice
 createVirtualSurroundEffect
 created scene intersector
+criterion, but it cannot be replaced as IPAR(31)=0.
 cs>Ao
 cu*:Q
 cu9M
@@ -16548,6 +17675,7 @@ d\vO=o
 d];OO
 d_&8G
 d_O;.Cz;Z
+d_forward_trig_transform/d_backward_trig_transform routine.
 d`k:7
 da:K
 da;Z4
@@ -16580,8 +17708,10 @@ dge=*
 dgx='
 dh4<
 di.<GZ
+diagonal matrix problem
 disabled\n
 distribute_part_sum_int4
+division by a small diagonal value will happen.
 dj9xf
 dk:l]k<
 dk;q
@@ -16608,6 +17738,8 @@ dummy_rtcore_ispc___avx
 dummy_rtcore_ispc___avx2
 dummy_rtcore_ispc___sse2
 dummy_rtcore_ispc___sse4
+during initialization stage. Computations have stopped.
+during the initialization stage. Computations have stopped.
 dw:K
 dw;i
 dwl<
@@ -16803,6 +17935,7 @@ en2;
 en8/
 en;G
 en<e
+enable_compressed_reverb_lookup
 enable_dc_correction_for_phase_interpolation
 enable_hybrid_eq_from_ir
 enable_paths_from_all_source_probes
@@ -16810,9 +17943,11 @@ enable_reverb_probe_caching_for_missing_probes
 enable_selockmemoryprivilege
 enabled (forced)\n
 enabled\n
+enqcmd
 eq8:
 eq:x
 eqD<
+equal to 0 simultaneously.
 er);p
 ero;.
 es;9
@@ -16843,9 +17978,9 @@ f-;ytZ;
 f.8J
 f.:Ju
 f0<\R
+f16c
 f1=E
 f1L<
-f2`2ZHH2F2::h
 f3:2
 f3;I
 f3<x
@@ -16971,6 +18106,7 @@ f]R=r/X
 f^P:G
 f`;N#O9aU
 fa>ac
+factorize
 fast
 fast_allocator_regression_test
 fatbvh
@@ -16991,6 +18127,7 @@ fi;r
 fiG;I
 fi^;I
 fileBaseName
+fill-in parameter is negative.
 filter functions not supported for this geometry
 finished BVH
 fj:i
@@ -17007,6 +18144,8 @@ fn9"}
 fn9ll
 fn@;Q
 fnp<
+foA/
+format or the matrix is degenerate with zero row.
 fp09*$u:\tS
 fp;M
 fq1<&JF
@@ -17233,6 +18372,7 @@ getNumProbes
 getOutputs
 getProbe
 gf=n
+gfni
 gg:C\r4<t`
 ggd:
 gi;u
@@ -17260,6 +18400,7 @@ gt:<h
 gtv;
 guo:
 gv<b
+gw?nR
 gx19
 gxb;t
 gy7=
@@ -17369,7 +18510,6 @@ h=c(5
 h=f2H
 h=qI%
 h=zg
-h><>J>R>V>Z
 h>YR
 h>^ht>0
 h?5u
@@ -17435,6 +18575,8 @@ h_:~xr9b
 ha<a
 haH;
 haI:
+had the wrong value or the parameter IPAR(6) was altered by mistake outside of
+had the wrong value or the parameter ipar[5] was altered by mistake outside of
 hair:
 hair_accel
 hair_accel_mb
@@ -17442,6 +18584,8 @@ hair_builder
 hair_builder_mb
 hair_traverser
 hair_traverser_mb
+hbw_free
+hbw_posix_memalign_psize
 hc;!UR;8
 hc;M
 hc;d
@@ -17487,9 +18631,11 @@ hpT;U
 hpxb
 hq<4U
 hql=
+hqva
 hr;_1
 hr>8x
 hrd<O
+hreset
 hrtf
 hrtfSettings
 hrtfSettings->normType
@@ -17683,6 +18829,7 @@ ie <GG,
 ie:;w
 ie<I
 iesx
+iface%x
 ifx;
 ig<Yh
 ignore_config_files
@@ -17695,7 +18842,9 @@ il0<Yl;
 il5;
 il;0
 ilj;S
+ilp64
 imZ=
+in instability of calculations.
 in->data
 in->data[iChannel][in->numSamples - 1]
 in->numChannels
@@ -17703,7 +18852,10 @@ in->numSamples
 inType
 ina;
 incoherent
+incorrect output filename: too long or empty
 index
+input matrix size is negative or zero.
+input value set in DPAR(31) which might result
 inputs
 inputs->baked
 inputs->bakedDataIdentifier.endpointInfluence.center.x
@@ -18192,13 +19344,16 @@ iplProbeBatchAddProbe
 iplProbeBatchAddProbeArray
 iplProbeBatchAddProbeArrayAndCluster
 iplProbeBatchCommit
+iplProbeBatchCompress
 iplProbeBatchCreate
+iplProbeBatchCreateCompressed
 iplProbeBatchCreateNonUniform
 iplProbeBatchGetDataSize
 iplProbeBatchGetInfluencingProbes
 iplProbeBatchGetNumProbes
 iplProbeBatchGetProbeArray
 iplProbeBatchLoad
+iplProbeBatchLoadCompressed
 iplProbeBatchLoadNonUniform
 iplProbeBatchRelease
 iplProbeBatchRemoveData
@@ -18324,8 +19479,10 @@ ir;B
 ir<B
 irD:Y
 irUpdateQueue
+is out of admissible interval [0,infinity). Assigning DPAR(8)=%e
 is;2G
 is=\vH
+iterations automatically.
 iuL<*
 iw;a
 iwI;
@@ -18468,7 +19625,6 @@ jTK;5
 jU)9`9
 jU:u%
 jV2;
-jXh<F
 jY;E
 jY\n<x
 jYj;=
@@ -18744,6 +19900,7 @@ l!s;9p
 l":gL
 l$E;I
 l.;Uh
+l0(,hf
 l0=h{D
 l0a9
 l1"B
@@ -18751,6 +19908,7 @@ l15;RJ
 l1=zl
 l1K;
 l27<
+l2f2`HN2L2n
 l3=Q
 l4;0h
 l4d;
@@ -18813,6 +19971,7 @@ l<Bu!
 l<Eg
 l<Fe
 l<H]Q
+l<X94<
 l<Zi
 l<d0
 l<h1
@@ -18945,6 +20104,7 @@ lo:Mh
 loadProbeBatch
 loadScene
 loadStaticMesh
+lp64
 lp;jx
 lpn=
 lqn<C
@@ -18965,6 +20125,7 @@ lx:b
 lx:u
 lz"<R
 lz;2@
+lzcnt
 l~;n25<
 m 9e
 m#<FI
@@ -19126,6 +20287,11 @@ m\f;0f
 m\fY8
 m\nE<v
 map/set<T> too long
+matrix appears to be degenerate. The method probably had to be stopped at the
+matrix column indexes are not in increasing order.
+matrix has no diagonal in CSR format.
+matrix has zero diagonal.
+matrix size. Proceeding with the parameter equals
 max_builder_isa
 max_hrtf_normalization_volume_gain_db
 max_isa
@@ -19136,8 +20302,23 @@ md:jgt;
 md^:E
 me8<
 me9#[
+memcpy_s: dest is NULL
+memcpy_s: dmax exceeds max
+memcpy_s: dmax is 0
+memcpy_s: overlap undefined
+memcpy_s: smax exceeds dmax
+memcpy_s: smax is 0
+memcpy_s: src is NULL
+memkind_get_version
+memmove_s: dest is null
+memmove_s: dmax is 0
+memmove_s: smax exceeds max
+memmove_s: smax is 0
+memmove_s: src is null
+memory for inner temporary integer array of size N.
 memory monitor forced termination
 meter
+method may fail to converge.
 mfO;q
 mg<;z
 mge:p
@@ -19152,6 +20333,17 @@ mixAudioBuffer
 mixer
 mj2;
 mk<H,
+mkl_avx2.2.dll
+mkl_avx512.2.dll
+mkl_def.2.dll
+mkl_mc3.2.dll
+mkl_msg.dll
+mkl_somatcopy
+mkl_vml_avx2.2.dll
+mkl_vml_avx512.2.dll
+mkl_vml_cmpt.2.dll
+mkl_vml_def.2.dll
+mkl_vml_mc3.2.dll
 mlO;!
 mm=B
 mma8Q
@@ -19175,6 +20367,9 @@ motion blur hair:
 motion blur line segments:
 motion blur quads:
 motion blur triangles:
+movbe
+movdir64b
+movdiri
 mp:R
 mp:b:
 mp<u|
@@ -19186,12 +20381,15 @@ mr;4i`<
 ms4;
 ms:W6x:
 msM;W
+msrlist
 mt2;a
 mt9\G
 mtB;3
 mtllib %s.mtl\n
 muM:
 mub=
+must be not bigger than (%i),
+must be not less than (%i),
 mv1;
 mv1<
 mx;6
@@ -19272,6 +20470,7 @@ n=dO
 n=e}Q>p
 n>1Z
 n>8u
+n>:>B>P>X>\J`
 n>J9H<
 n>WWK
 n>w3
@@ -19374,6 +20573,8 @@ no.;0
 noJ;1
 no_;M
 not all buffers are unmapped
+not be equal to 0.0 at this stage. Either the user had to stop the method as it
+not stopped when it found the solution. The solution may be wrong.
 not supported node type in bvh_statistics
 np:C(
 npJ:4#
@@ -19389,6 +20590,7 @@ nt<N
 nuH<
 numChannels
 numSamples
+number of iterations is equal to IPAR(5)-IPAR(4).
 nv9f
 nv<8
 nvL<D
@@ -19577,6 +20779,8 @@ ocE=
 od ;S
 od-;k
 oe<(H
+of iterations is equal to IPAR(5)-IPAR(4).
+of the matrix is negative or zero.
 ofO<
 og:;d
 ogX;
@@ -19590,10 +20794,28 @@ ole;
 om;Jd
 oo:v
 ooY:
+ooc_cfg_file_name  got by Env=%s
+ooc_cfg_path       got by Env=%s
+ooc_keep_file      got by Env=%d
+ooc_keep_file     got from config file=%d
+ooc_max_core_size  got by Env=%d
+ooc_max_core_size got from config file=%d
+ooc_max_swap_size got by Env=%d
+ooc_max_swap_size got by Env=%lli
+ooc_max_swap_size got from config file=%d
+ooc_path           got by Env=%s
+ooc_path          got from config file=%s
 oow=
 operation not supported for this geometry
 opy<
 oq;Z
+or criterion is very restrictive. CG method has been stopped.
+or the parameter DPAR(1) was altered by mistake outside of
+or the parameter IPAR(1)=%s was altered by mistake outside of the
+or the parameter SPAR(1) was altered by mistake outside of
+or the parameter dpar[0] was altered by mistake outside of
+or the parameter ipar[0]=%s was altered by mistake outside of the
+or the parameter spar[0] was altered by mistake outside of
 or9:
 or:a
 or>P>M
@@ -19609,6 +20831,11 @@ out->numChannels
 out->numSamples
 outType
 outputs
+outside of the routine, or the wrong value was assigned to the parameter 'np'
+outside of the routine, or the wrong value was assigned to the parameter 'nt'
+outside of the routine, or the wrong value was assigned to the parameter 'nx'
+outside of the routine, or the wrong value was assigned to the parameter 'ny'
+outside of the routine, or the wrong value was assigned to the parameter 'nz'
 owV;
 owq:Bsb:)
 ox;g#
@@ -19631,10 +20858,9 @@ p,:7U
 p.;mS
 p/1<g
 p/C<Dn
-p0:P
 p0m;
+p0nl
 p1'9
-p20\v7
 p2F:5
 p2\9U
 p2f<
@@ -19645,11 +20871,12 @@ p3Q=
 p4:D
 p4;U
 p4<RS
-p4@^0
 p4f>7
 p5U;
+p60~.
 p6B=
 p6N$i
+p6^R/
 p7=Pi
 p7M}
 p7M}f
@@ -19772,6 +20999,7 @@ pW;u
 pW;y
 pWW9\v
 pXa;7
+pXn<L
 pY8%
 pY>GTr=
 pYL;
@@ -19785,6 +21013,21 @@ p\tL<dd
 p]:ql
 p^<DGn
 pa;CT&
+parameter 'BCTYPE' was not in the admissible range {D,N,P} during initialization stage.
+parameter 'BCtype' was not in the admissible range {D,N,P} during initialization stage.
+parameter DPAR(1)=%e. The sine transform may be unsuitable for
+parameter DPAR(1)=%e. The staggered cosine transform may be
+parameter DPAR(1)=%e. The staggered sine transform may be
+parameter SPAR(1)=%e. The SINE TRANSFORM may be unsuitable for
+parameter SPAR(1)=%e. The sine transform may be unsuitable for
+parameter SPAR(1)=%e. The staggered cosine transform may be
+parameter SPAR(1)=%e. The staggered sine transform may be
+parameter dpar[0]=%e. The sine transform may be unsuitable for
+parameter dpar[0]=%e. The staggered cosine transform may be
+parameter dpar[0]=%e. The staggered sine transform may be
+parameter spar[0]=%e. The sine transform may be unsuitable for
+parameter spar[0]=%e. The staggered cosine transform may be
+parameter spar[0]=%e. The staggered sine transform may be
 params
 params->airAbsorption[iBand]
 params->bakeBatchSize
@@ -19865,9 +21108,16 @@ params->transmissionType
 params->transmission[iBand]
 params->type
 params->visRange
+pardiso_read_ooc_file: Fseek error
+pardiso_read_ooc_file: Read error
+pardiso_write_ooc_file: Write error
+pardiso_write_ooc_file: nfirst is EOF
 pbk;
+pbndkb
 pc(;4
 pc=i9#=
+pclmul
+pconfig
 pd^=R
 pf:6K/
 pgL:vt
@@ -19895,21 +21145,27 @@ pn<d
 pnD<
 pno=
 poh=qO
+popcnt
 pq;B
 pq;b
 pq>h
 pr ;U
 pr;L
+prefetchi
+preordering failed (matrix types 11, 13 only)
+previous iteration. The solution may be wrong.
 probe.center.x
 probe.center.y
 probe.center.z
 probe.radius
 probeArray
 probeBatch
+problems with opening OOC temporary files
 profilerContext
 progress monitor forced termination
 provided geometry ID already assigned to a geometry
 ps8^
+ptwrite
 pug:P
 pv.9
 pv;bg
@@ -20142,8 +21398,6 @@ r(P;A
 r.9pR\n
 r/09
 r09m
-r0\v7
-r0i7
 r27=
 r2:g
 r2<u4
@@ -20291,9 +21545,11 @@ r\n0\tP
 r\t9,g0
 r\t;rL
 r\ta<1G:
+r\vpX
 r\vw<?hG
 raB3G
 rae:m2R;B
+raoint
 rb=6
 rc3<
 rc=A
@@ -20301,13 +21557,20 @@ rch9
 rd-<8
 rd:*7W
 rde:
+rdpid
+rdrnd
+rdseed
 re";V
 re;0w8
 re>8R
+read-write problems with the OOC data file
 reconstructImpulseResponse
 removeData
 removeProbe
 removeProbeBatch
+reorder
+reordering problem
+residual stopping test and the stopping test for the maximal number of
 result
 result.center.x
 result.center.y
@@ -20316,6 +21579,8 @@ result.radius
 result.x
 result.y
 result.z
+resulting from this problem.
+retain_uncompressed_reverb
 rf(8n
 rg;c
 rh;l
@@ -20330,6 +21595,21 @@ ro:Pu
 ro;L
 roU;i
 robust
+routine to work by setting IPAR(7)=0 before the call to this routine.
+routine to work by setting ipar[6]=0 before the call to this routine.
+routine was not called. Computations have stopped. The result may be incorrect.
+routine, or DFGMRES_CHECK routine was not called. The solution may be wrong.
+routine, or the user had to stop FGMRES method because it had converged.
+routine, or the wrong values were assigned to parameters 'ap' and 'bp'
+routine, or the wrong values were assigned to parameters 'at' and 'bt'
+routine, or the wrong values were assigned to parameters 'ax' and 'bx'
+routine, or the wrong values were assigned to parameters 'ay' and 'by'
+routine, or the wrong values were assigned to parameters 'az' and 'bz'
+routine, or the wrong values were assigned to the parameters 'ap' and 'bp'
+routine, or the wrong values were assigned to the parameters 'at' and 'bt'
+routine, or the wrong values were assigned to the parameters 'ax' and 'bx'
+routine, or the wrong values were assigned to the parameters 'ay' and 'by'
+routine, or the wrong values were assigned to the parameters 'az' and 'bz'
 rp9x
 rp:0
 rpR;
@@ -21041,6 +22321,7 @@ s\v<gt
 s\v<m1
 s\vD88w)
 s^=Hs
+s_forward_trig_transform/s_backward_trig_transform routine.
 s`3;Y
 sa;L
 sa;ld
@@ -21059,6 +22340,7 @@ se9;
 segments
 selected scene intersector
 serializedObject
+set to default value (%i).
 setInputs
 setProfilerContext
 setScene
@@ -21117,6 +22399,7 @@ sf95
 sgs<"
 sh9w3I::
 sh;9
+sha512
 shadeAndBounce
 sharedInputs
 sharedInputs->duration
@@ -21136,6 +22419,20 @@ sharedInputs->listener.up.z
 sharedInputs->numBounces
 sharedInputs->numRays
 sharedInputs->order
+should be a positive integer. Parameter was probably altered by mistake
+should be a positive integer. The parameter was probably altered by mistake
+should be an even number. Assign a proper value to parameter 'np'
+should be an even number. Assign a proper value to parameter 'nt'
+should be an even number. Assign a proper value to parameter 'nx'
+should be an even number. Assign a proper value to the parameter 'np'
+should be an even number. Assign a proper value to the parameter 'nt'
+should be an even number. Assign a proper value to the parameter 'nx'
+should be divisible by 4. Assign a proper value to parameter 'nx'
+should be divisible by 4. Assign a proper value to the parameter 'nx'
+should be positive. Parameter was probably altered by mistake outside of the
+should be positive. The parameter was probably altered by mistake outside of the
+should not be equal to 0.0. The FGMRES method may fail to converge.
+shstk
 si)<ZO
 simulator
 sio<
@@ -21152,6 +22449,7 @@ sn>f
 snU;
 snu<
 soT<
+solve
 source
 source.ahead.x
 source.ahead.y
@@ -21219,6 +22517,7 @@ sse2::InstanceIntersectorN
 sse2::QBVH
 sse2::QBVH4Triangle4iIntersector1Pluecker
 sse3
+sse4
 sse4.1
 sse4.2
 sse41
@@ -21266,6 +22565,25 @@ stp;}
 stp<
 stream buffer empty
 stride of vertex buffers have to be identical for each time step
+strncat_s: dest is null
+strncat_s: dest unterminated
+strncat_s: dmax exceeds max
+strncat_s: dmax is 0
+strncat_s: not enough space for src
+strncat_s: overlapping objects
+strncat_s: slen exceeds max
+strncat_s: src is null
+strncpy_s: dest is null
+strncpy_s: dmax exceeds max
+strncpy_s: dmax is 0
+strncpy_s: not enough space for src
+strncpy_s: overlapping objects
+strncpy_s: slen exceeds max
+strncpy_s: slen is zero
+strncpy_s: src is null
+strnlen_s: dmax exceeds max
+strnlen_s: dmax is 0
+structure singular or input/parameter problem (matrixtype 11,13)
 subdiv_accel
 subdiv_accel_mb
 subdivision surfaces:
@@ -21277,6 +22595,7 @@ sw@;E
 sx<Ll
 sxP9
 sy8^
+symbolic (max): %d symbolic (permanent): %d
 sy|:J
 sz:v
 szG>
@@ -21415,6 +22734,27 @@ tg<*K
 tgD:
 th*;073:
 th<V3
+that provides the minimal Euclidean norm of the solution will be computed.
+that should be discarded according to the threshold
+the D_COMMIT_TRIG_TRANSFORM routine.
+the D_COMMIT_TRIG_TRANSFORM routine. Assigning to DPAR(1) the default value
+the S_COMMIT_TRIG_TRANSFORM routine.
+the S_COMMIT_TRIG_TRANSFORM routine. Assigning to SPAR(1) the default value
+the call to D_FORWARD_TRIG_TRANSFORM/D_BACKWARD_TRIG_TRANSFORM routine.
+the call to S_FORWARD_TRIG_TRANSFORM/S_BACKWARD_TRIG_TRANSFORM routine.
+the call to d_forward_trig_transform/d_backward_trig_transform routine.
+the call to s_forward_trig_transform/s_backward_trig_transform routine.
+the d_commit_trig_transform routine.
+the d_commit_trig_transform routine. Assigning to dpar[0] the default value
+the default value.
+the first call to DCG routine. Otherwise, the maximal
+the parameter 'BCTYPE' were out of admissible range {D,N,P} during initialization stage.
+the parameter 'BCtype' is not in the admissible range {D,N,P} during the initialization stage.
+the parameter 'BCtype' was outside of the admissible range {D,N,P} during the initialization stage.
+the s_commit_trig_transform routine.
+the s_commit_trig_transform routine. Assigning to spar[0] the default value
+this data vector.
+this problem.
 thn:T
 threads
 tiY:SV[
@@ -21427,10 +22767,17 @@ tn$;Wc
 tn)=0O
 tnO:
 tny<l\nB
+to provide memory for temporary data structures.
+to use periodic boundary conditions in x axis direction.
+to use periodic boundary conditions in y axis direction.
+to use periodic boundary conditions in z axis direction.
 to;6O"
 toR;
 to\v>0
+tolerance multiplied by the matrix row L_2 norm)
 total = 
+total memory wanted here: %d kbyte
+total memory wanted here: %lli kbyte
 tp9~
 tp:T~P
 tp<O
@@ -21648,12 +22995,14 @@ ufl9
 ug;i
 ui:B0
 ui="jf
+uintr
 uj;9
 um0;L
 um;O
 um;o(k
 un;DW{
 un;Y
+unable to open output file. Print to STDOUT
 unknown buffer type
 unknown builder 
 unknown exception caught
@@ -21664,6 +23013,7 @@ unknown triangle acceleration structure
 unknown user geometry accel 
 unknown user geometry mblur accel 
 unknown writable parameter
+unsuitable for this data vector.
 uoA;?
 up:8
 up:K
@@ -21677,6 +23027,7 @@ us=}a
 used = 
 usemtl material_%d\n
 usergeom
+usermsr
 utV9
 utv=\tV
 uu;U0
@@ -21843,6 +23194,8 @@ v\G<I
 v\v<or
 v\v_;VYf:UPH
 v_t5!
+vaes
+value has appeared (small with respect to the input
 vbM<
 vc<PM?;l
 ve<z
@@ -21876,6 +23229,7 @@ voa=
 void*
 vp:D
 vp;y
+vpclmulqdq
 vq;5f
 vq;a
 vqJ=C`
@@ -22044,12 +23398,18 @@ w`W=U
 wa-<Q
 waJ;
 wa\9
+waitpkg
+was altered by mistake outside of the D_COMMIT_TRIG_TRANSFORM routine.
+was altered by mistake outside of the S_COMMIT_TRIG_TRANSFORM routine.
+was altered by mistake outside of the d_commit_trig_transform routine.
+was altered by mistake outside of the s_commit_trig_transform routine.
 wasted = 
 wb)<o
 wb1<
 wb9G
 wb9X-s
 wb:8
+wbnoinvd
 wd<EM
 wda;E
 we;D
@@ -22060,7 +23420,11 @@ wgj;p4
 wh<Zc
 wh?9nMW>
 whK:
+which is equal to %e
+which is equal to %s
 wi:R
+wide-kl
+will always lead to failure in computation of LU factors.
 wj;7
 wj;CU
 wl989d
@@ -22077,6 +23441,10 @@ wop<
 wq9;
 wr9= 
 wr9f
+wrmsrns
+wrong column indexes in CSR format.
+wrong integer array of row positions in its CSR
+wrong row indexes in CSR format.
 ws1:Mt
 ws;3
 ws;PXR
@@ -22531,7 +23899,6 @@ z096?
 z0;{c
 z0=|Q
 z0U;6x
-z0\v7
 z12;
 z1t9\
 z2v;Ns
@@ -22715,12 +24082,36 @@ zqo:
 zr;T
 zrx;
 zt;D
+zt?r
 zu;b
 zut<[H
 zxC;w
 zxi=
 zz1;j1
 zzp;lQ
+{ %i, %i } :  Memory overwrite in %s 
+{ %i, %i } : %s  Memory overwrite in %4s-guardzone: loc( %i) = %11.4f 
+{ %i, %i } : %s  Memory overwrite in %4s-guardzone: loc( %i) = %11.4f + i* %11.4f 
+{ %i, %i } : %s  Memory overwrite in %4s-guardzone: loc( %i) = %20.7lf 
+{ %i, %i } : %s  Memory overwrite in %4s-guardzone: loc( %i) = %20.7lf + i* %20.7lf 
+{ %i, %i } : %s  Memory overwrite in %4s-guardzone: loc( %i) = %i 
+{ %i, %i } : %s  Memory overwrite in lda-m gap: loc( %i, %i) = %11.4f 
+{ %i, %i } : %s  Memory overwrite in lda-m gap: loc( %i, %i) = %11.4f + i* %11.4f 
+{ %i, %i } : %s  Memory overwrite in lda-m gap: loc( %i, %i) = %20.7lf 
+{ %i, %i } : %s  Memory overwrite in lda-m gap: loc( %i, %i) = %20.7lf + i* %20.7lf 
+{ %i, %i } : %s  Memory overwrite in lda-m gap: loc( %i, %i) = %i 
+{ %lli, %lli } :  Memory overwrite in %s 
+{ %lli, %lli } : %s  Memory overwrite in %4s-guardzone: loc( %lli) = %11.4f 
+{ %lli, %lli } : %s  Memory overwrite in %4s-guardzone: loc( %lli) = %11.4f + i* %11.4f 
+{ %lli, %lli } : %s  Memory overwrite in %4s-guardzone: loc( %lli) = %20.7lf 
+{ %lli, %lli } : %s  Memory overwrite in %4s-guardzone: loc( %lli) = %20.7lf + i* %20.7lf 
+{ %lli, %lli } : %s  Memory overwrite in %4s-guardzone: loc( %lli) = %i 
+{ %lli, %lli } : %s  Memory overwrite in lda-m gap: loc( %lli, %lli) = %11.4f 
+{ %lli, %lli } : %s  Memory overwrite in lda-m gap: loc( %lli, %lli) = %11.4f + i* %11.4f 
+{ %lli, %lli } : %s  Memory overwrite in lda-m gap: loc( %lli, %lli) = %20.7lf 
+{ %lli, %lli } : %s  Memory overwrite in lda-m gap: loc( %lli, %lli) = %20.7lf + i* %20.7lf 
+{ %lli, %lli } : %s  Memory overwrite in lda-m gap: loc( %lli, %lli) = %lli 
+{%5i,%5i}:  On entry to 
 {0;7zA
 {19c
 {5E8

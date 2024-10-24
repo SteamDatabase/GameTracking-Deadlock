@@ -68,43 +68,69 @@
 									</Panel>
 								</Button>
 							</Panel>
-							<Panel id="SubModes">
-								<Button id="Option_HeroTesting" class="playoption option1 smallButton" onactivate="CitadelPlayMenuHeroTesting(); CitadelPlayUISound( EMainMenuActivate )" onmouseover="CitadelPlayUISound( EMainMenuHover )" onmouseout="">
-									<Panel class="TextArea">
-										<Panel id="DescArea">
-											<Label text="#menu_play_sandbox_desc" class="playModeDesc" />
+							<Panel id="SubModesContainerTop">
+								<Panel id="SubModes">
+									<Button id="Option_HeroTesting" class="playoption option1 smallButton" onactivate="CitadelPlayMenuHeroTesting(); CitadelPlayUISound( EMainMenuActivate )" onmouseover="CitadelPlayUISound( EMainMenuHover )" onmouseout="">
+										<Panel class="TextArea">
+											<Panel id="DescArea">
+												<Label text="#menu_play_sandbox_desc" class="playModeDesc" />
+											</Panel>
+											<Panel id="TitleArea">
+												<Label text="#menu_sandbox" class="playoptionLabel" />
+											</Panel>
 										</Panel>
-										<Panel id="TitleArea">
-											<Label text="#menu_sandbox" class="playoptionLabel" />
+									</Button>
+									<Button id="Option_BotMatch" class="playoption option2 smallButton" onactivate="CitadelPlayMenuBotMatchPopup(); CitadelPlayUISound( EMainMenuActivate )" onmouseover="CitadelPlayUISound( EMainMenuHover )" onmouseout="">
+										<Panel class="TextArea">
+											<Panel id="DescArea">
+												<Label text="#menu_play_bots_easy_desc" class="playModeDesc" />
+												<DropDown id="BotDifficultyDropDown" dropdownbodyposition="100% 100%" />
+											</Panel>
+											<Panel id="TitleArea">
+												<Label text="#menu_bot_practice" class="playoptionLabel" />
+											</Panel>
 										</Panel>
-									</Panel>
-								</Button>
-								<Button id="Option_BotMatch" class="playoption option2 smallButton" onactivate="CitadelPlayMenuBotMatchPopup(); CitadelPlayUISound( EMainMenuActivate )" onmouseover="CitadelPlayUISound( EMainMenuHover )" onmouseout="">
-									<Panel class="TextArea">
-										<Panel id="DescArea">
-											<Label text="#menu_play_bots_easy_desc" class="playModeDesc" />
-											<DropDown id="BotDifficultyDropDown" dropdownbodyposition="100% 100%" />
-										</Panel>
-										<Panel id="TitleArea">
-											<Label text="#menu_bot_practice" class="playoptionLabel" />
-										</Panel>
-									</Panel>
-								</Button>
-								<Button id="Option_Lobby" class="playoption option3 smallButton" onactivate="CitadelPlayMenuCustomMatchPopup(); CitadelPlayUISound( EMainMenuActivate )" onmouseover="CitadelPlayUISound( EMainMenuHover )" onmouseout="">
-									<Panel id="UnavailableOverlay">
-										<Label text="#menu_play_unavailable_in_party" />
-									</Panel>
-									<Panel class="TextArea">
-										<Panel id="DescArea">
-											<Label text="#menu_play_custom_game_desc" class="playModeDesc" />
-										</Panel>
-										<Panel id="TitleArea">
-											<Label text="#menu_bot_custom" class="playoptionLabel" />
-										</Panel>
-									</Panel>
-								</Button>
+									</Button>
+								</Panel>
 							</Panel>
-							<Panel class="menu_divider" />
+							<Panel id="SubModesContainerBottom">
+								<Panel id="SubModes">
+									<Button id="Option_Lobby" class="playoption option3 smallButton" onactivate="CitadelPlayMenuCustomMatchPopup(); CitadelPlayUISound( EMainMenuActivate )" onmouseover="CitadelPlayUISound( EMainMenuHover )" onmouseout="">
+										<Panel id="UnavailableOverlay">
+											<Label text="#menu_play_unavailable_in_party" />
+										</Panel>
+										<Panel class="TextArea">
+											<Panel id="DescArea">
+												<Label text="#menu_play_custom_game_desc" class="playModeDesc" />
+											</Panel>
+											<Panel id="TitleArea">
+												<Label text="#menu_bot_custom" class="playoptionLabel" />
+											</Panel>
+										</Panel>
+									</Button>
+									<Button id="Option_HeroLabs" class="playoption option4 smallButton" onactivate="CitadelPlayMenuHeroLab(); CitadelPlayUISound( EMainMenuActivate )" onmouseover="CitadelPlayUISound( EMainMenuHover )" onmouseout="">
+										<Panel class="TextArea">
+											<Panel id="TimeContainer">
+												<Panel id="TimeSegmentContainerHeroLabs">
+													<Label class="timeLabel" text="#menu_hero_labs_schedule_times" />
+												</Panel>
+												<Label class="ScheduleTitle" text="#menu_hero_labs_schedule_title" />
+											</Panel>
+											<Panel id="LockedContainer">
+												<Label text="#menu_hero_labs_unavailable" class="subHeader playoptionLabel" />
+											</Panel>
+											<Panel id="DescArea">
+												<Label text="#menu_play_hero_labs_desc" class="playModeDesc" />
+												<Label text="#menu_play_hero_labs_locked_desc" class="playModeDesc lockedDesc" />
+											</Panel>
+											<Panel id="TitleArea">
+												<Label text="#menu_bot_hero_labs" class="playoptionLabel" />
+											</Panel>
+										</Panel>
+									</Button>
+								</Panel>
+								<Panel class="menu_divider" />
+							</Panel>
 						</Panel>
 					</Panel>
 					<Panel id="RankedMode">
@@ -274,10 +300,12 @@
 								<Panel class="smallIcon GearIcon" />
 								<Label text="#menu_settings" class="menuButtonLabel" />
 							</Button>
-							<Button id="control_zoo" class="nav_menu_item minor" onactivate="CitadelToggleControlZoo();" onmouseover="UIShowTextTooltip( View control Zoo ); CitadelPlayUISound( EMainMenuHover )" onmouseout="UIHideTextTooltip()">
-								<Panel class="smallIcon ZooIcon" />
-								<Label text="#menu_control_zoo" class="menuButtonLabel" />
-							</Button>
+							<Panel class="LeftRightFlow">
+								<Button id="control_zoo" class="nav_menu_item minor" onactivate="CitadelToggleControlZoo();" onmouseover="UIShowTextTooltip( View control Zoo ); CitadelPlayUISound( EMainMenuHover )" onmouseout="UIHideTextTooltip()">
+									<Panel class="smallIcon ZooIcon" />
+									<Label text="#menu_control_zoo" class="menuButtonLabel" />
+								</Button>
+							</Panel>
 							<Button id="QuickMute" class="nav_menu_item minor" onactivate="CitadelMuteButtonClicked();" onmouseover="CitadelUIShowTextTooltip( &apos;#citadel_mute_game_audio&apos; ); CitadelPlayUISound( EMainMenuHover )" onmouseout="CitadelUIHideTextTooltip()">
 								<Panel class="smallIcon MuteIcon" />
 							</Button>
@@ -366,8 +394,11 @@
 				<Panel id="InQueueTopBanner" />
 			</Panel>
 		</Panel>
+		<Panel id="DashboardDebugControls">
+			<Button id="ReloadPageButton" class="DebugButton" onactivate="CitadelReloadCurrentPage();  CitadelPlayUISound( EMainMenuActivate )" onmouseover="UIShowTextTooltip( #Citadel_Dashboard_ReloadPageTooltip ); CitadelPlayUISound( EMainMenuHover )" onmouseout="UIHideTextTooltip()" />
+		</Panel>
 		<PopupManager id="PopupManager" />
-		<ToastManager id="ToastManager" hittest="false" toastduration="30.0s" maxtoastsvisible="3" />
+		<ToastManager id="ToastManager" hittest="false" toastduration="5.0s" maxtoastsvisible="3" />
 		<CitadelTooltipManager id="TooltipManager" hittest="false" />
 	</CitadelDB>
 </root>

@@ -1018,7 +1018,6 @@ ToggleButton:hover .TickBox,CitadelSettingsCheckbox:hover .TickBox
 
 ToggleButton Label,CitadelSettingsCheckbox Label
 {
-	margin-top: 4px;
 	font-size: 16px;
 	margin-left: 8px;
 	color: baseText;
@@ -1670,6 +1669,16 @@ CitadelTooltipProfileCard #Contents
 	border: 1px solid offWhite&00;
 }
 
+#PlayerReportContainer
+{
+	visibility: collapse;
+}
+
+.CanReportPlayers #PlayerReportContainer
+{
+	visibility: visible;
+}
+
 #PlayerReportContainer,.localplayer #PlayerReportContainer,.CanReportPlayers .localplayer #PlayerReportContainer,.CanReportPlayers .localplayer.PlayerSnippet:hover #PlayerReportContainer,.CanReportPlayers .localplayer.Selected #PlayerReportContainer,.ReportedPlayer #PlayerReportContainer,.ReportedPlayer.PlayerSnippet:hover #PlayerReportContainer
 {
 	opacity: 1;
@@ -1742,6 +1751,12 @@ CitadelTooltipProfileCard #Contents
 	ignore-parent-flow: true;
 	horizontal-align: center;
 	vertical-align: top;
+	visibility: collapse;
+}
+
+.CanCommendPlayers #PlayerCommendContainer
+{
+	visibility: visible;
 }
 
 #CommendPlayerButton
@@ -1758,10 +1773,15 @@ CitadelTooltipProfileCard #Contents
 	opacity: 0.2;
 }
 
-#PlayerCommendContainer,.localplayer #PlayerCommendContainer,.localplayer #PlayerCommendContainer,.localplayer.PlayerSnippet:hover #PlayerCommendContainer,.localplayer.Selected #PlayerCommendContainer,.CommendedPlayer #PlayerCommendContainer,.CommendedPlayer.PlayerSnippet:hover #PlayerCommendContainer
+.CanCommendPlayers .localplayer #PlayerCommendContainer,.CanCommendPlayers .localplayer.PlayerSnippet:hover #PlayerCommendContainer,.CanCommendPlayers .localplayer.Selected #PlayerCommendContainer
 {
 	opacity: 1;
 	brightness: 0.5;
+}
+
+.CanReportPlayers #CommendPlayerButton
+{
+	opacity: 1;
 }
 
 .localplayer #CommendPlayerButton
@@ -1810,11 +1830,11 @@ CitadelTooltipProfileCard #Contents
 	visibility: visible;
 }
 
-@define toastExitDuration: 0.3s;
+@define toastExitDuration: 0.1s;
 #ToastManager
 {
 	vertical-align: top;
-	horizontal-align: left;
+	horizontal-align: right;
 	margin-top: 400px;
 	width: 350px;
 	height: 100%;
@@ -1825,7 +1845,7 @@ CitadelTooltipProfileCard #Contents
 #ToastManager > .ToastPanel
 {
 	opacity: 0.0;
-	transform: translateX( -40px );
+	transform: translateX( 40px );
 	transition-property: position, opacity, transform;
 	transition-duration: toastExitDuration;
 }
@@ -1839,32 +1859,33 @@ CitadelTooltipProfileCard #Contents
 .ExampleToast
 {
 	width: 100%;
-	background-color: #EEEEEE66;
-	border: 1px solid #333;
-	box-shadow: black 2px 2px ;
-	margin-bottom: 5px;
-	padding: 10px 10px;
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( #595959 ), to( #444 ) );
+	box-shadow: 4px 4px 12px #00000044;
+	margin-bottom: 8px;
+	padding: 12px 12px;
+	border-radius: 5px 0px 0px 5px;
 	flow-children: right;
 }
 
 .ExampleToast:active
 {
-	background-color: #002;
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( #595959 ), to( #444 ) );
 }
 
 .ExampleToast CitadelHeroImage,.ExampleToast Image
 {
 	vertical-align: middle;
 	width: 100px;
-	height: 57px;
+	height: 40px;
 }
 
 .ExampleToast Label
 {
 	vertical-align: middle;
-	margin-left: 20px;
-	font-size: 16px;
-	color: white;
+	margin-left: 12px;
+	font-size: 15px;
+	font-weight: bold;
+	color: offWhite;
 }
 
 .ExampleToastTextContainer
@@ -1872,14 +1893,21 @@ CitadelTooltipProfileCard #Contents
 	flow-children:down;
 }
 
+.CommendToast #HeroImage
+{
+	width: 64px;
+	height: 64px;
+}
+
 .CommendToast .commendIcon
 {
 	background-color: black;
-	width: 64px;
-	height: 64px;
+	width: 40px;
+	height: 40px;
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
 	background-size: 80% 80%;
+	visibility: collapse;
 }
 
 .commendIcon
@@ -1887,12 +1915,11 @@ CitadelTooltipProfileCard #Contents
 	width: 70px;
 	height: 70px;
 	horizontal-align: center;
-	margin-bottom: 5px;
-	margin-top: 10px;
 	background-size: contain;
 	background-repeat: no-repeat;
 	opacity: 1;
 	wash-color: offWhite;
+	background-image: url("s2r://panorama/images/icons/icon_thumbsup.vsvg");
 }
 
 .Friendly .commendIcon
