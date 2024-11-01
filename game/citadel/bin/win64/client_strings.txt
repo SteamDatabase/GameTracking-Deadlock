@@ -81,6 +81,7 @@
  ' ) - 3 G M Q _ c e i w } 
  (%d)Unknown
  (%ld unused bits)\n
+ (08@HPX`j \v
  (08@HPXb
  (08@HR
  (0X`hpz
@@ -237,6 +238,7 @@
 " implements neither SetCachedSize() nor ByteSize().  Must implement one or the other.
 "!"%"+"1"9"K"O"c"g"s"u"
 ""\n CMsgClientToGCLeaveLobbyResponse"
+"#\n!CMsgClientToGCRequestCheatReports"
 "#\n!CPublishedFile_Subscribe_Response"v\n"CPublishedFile_Unsubscribe_Request
 "$\n"CMsgServerToGCAbandonMatchResponse"
 "%\n#CCitadelUserMsg_ObstructedShotFired"
@@ -2249,6 +2251,7 @@ $hRh
 (\t">\n+CClientMsg_DevPaletteVisibilityChangedEvent
 (\t"@\n2CHelpRequestLogs_UploadUserApplicationLog_Response
 (\t"C\n&CWorkshop_SetItemPaymentRules_Response
+(\t"J\n\nEBanReason
 (\t"K\n$CMsgGCMsgMasterSetDirectory_Response
 (\t"Y\n CMsgSQLGCToGCRevokeUntrustedGift
 (\t"^\n(CMsgGCMsgWebAPIJobRequestForwardResponse
@@ -2473,6 +2476,7 @@ $hRh
 (\v2;.CMsgNotificationOfSuspiciousActivity.MultipleGameInstances
 (\v2;.CWorkshop_GetItemDailyRevenue_Response.CountryDailyRevenue
 (\v2<.CMsgClientToGCGetRankedIntervalStatsResponse.RankedInterval
+(\v2<.CMsgClientToGCRequestCheatReportsResponse.RecentCheatReport
 (\v2<.CMsgGCToGCGrantAccountRolledItems.Item.AdditionalAuditEntry
 (\v2<.CMsgServerSignoutData_Disconnections.CMsgMatchDisconnection
 (\v2<.CMsgSteamLearn_InferenceMetadata_Response.SnapshotHistogram
@@ -2734,6 +2738,7 @@ $hRh
 +\n&GE_ClearDecalsForSkeletonInstanceEvent
 +\n&k_ECitadelDisconnectReason_UserQuitApp
 +\n&k_EMsgClientToGCCommendPlayerFromMatch
++\n&k_EMsgClientToGCDevRequestCheatReports
 +\n&k_EMsgClientToGCFindHeroBuildsResponse
 +\n&k_EMsgClientToGCGetAccountMatchReports
 +\n&k_EMsgClientToGCGetDiscordLinkResponse
@@ -2976,6 +2981,10 @@ $hRh
 ..Additional text in debugoverlay_dashboard..
 ..CPlayer_GetNewSteamAnnouncementState_Response"_
 ..uR5&m
+.00T
+.02T
+.0jT
+.0mT
 .4bb
 .97yY
 .?AU?$CameraOp_Approach_t@M@@
@@ -4318,6 +4327,8 @@ $hRh
 .?AV?$CMsgIDLink@$00$0BA@$0CEAD@VCMsgClientToGCUpdateSpectatorStatus@@@@
 .?AV?$CMsgIDLink@$00$0BA@$0CEAH@VCMsgClientToGCCommendPlayerFromMatch@@@@
 .?AV?$CMsgIDLink@$00$0BA@$0CEAK@VCMsgClientToGCGetRankedIntervalStats@@@@
+.?AV?$CMsgIDLink@$00$0BA@$0CEAO@VCMsgClientToGCRequestCheatReports@@@@
+.?AV?$CMsgIDLink@$00$0BA@$0CEBA@VCMsgClientToGCDevBan@@@@
 .?AV?$CMsgIDLink@$02$0BA@$0BLFI@VCMsgAnyToGCReportAsserts@@@@
 .?AV?$CMsgIDLink@$0BA@$00$0KCH@VCMsgGCToClientCurrencyPricePoints@@@@
 .?AV?$CMsgIDLinkGCToGenericClient@$00$0KCH@VCMsgGCToClientCurrencyPricePoints@@@@
@@ -4368,6 +4379,8 @@ $hRh
 .?AV?$CMsgIDLinkGenericClientToGCResponse@$00$0CEAB@VCMsgClientToGCGetOldHeroBuildData@@$0CEAC@VCMsgClientToGCGetOldHeroBuildDataResponse@@@@
 .?AV?$CMsgIDLinkGenericClientToGCResponse@$00$0CEAH@VCMsgClientToGCCommendPlayerFromMatch@@$0CEAI@VCMsgClientToGCCommendPlayerFromMatchResponse@@@@
 .?AV?$CMsgIDLinkGenericClientToGCResponse@$00$0CEAK@VCMsgClientToGCGetRankedIntervalStats@@$0CEAL@VCMsgClientToGCGetRankedIntervalStatsResponse@@@@
+.?AV?$CMsgIDLinkGenericClientToGCResponse@$00$0CEAO@VCMsgClientToGCRequestCheatReports@@$0CEAP@VCMsgClientToGCRequestCheatReportsResponse@@@@
+.?AV?$CMsgIDLinkGenericClientToGCResponse@$00$0CEBA@VCMsgClientToGCDevBan@@$0CEBB@VCMsgClientToGCDevBanResponse@@@@
 .?AV?$CMsgIDLinkGenericClientToGCResponse@$02$0BLFI@VCMsgAnyToGCReportAsserts@@$0BLFJ@VCMsgAnyToGCReportAssertsResponse@@@@
 .?AV?$CMsgIDLinkResponse@$00$0BA@$0CDDC@VCMsgClientToGCStartMatchmaking@@$0CDDD@VCMsgClientToGCStartMatchmakingResponse@@@@
 .?AV?$CMsgIDLinkResponse@$00$0BA@$0CDDE@VCMsgClientToGCStopMatchmaking@@$0CDDF@VCMsgClientToGCStopMatchmakingResponse@@@@
@@ -4412,6 +4425,8 @@ $hRh
 .?AV?$CMsgIDLinkResponse@$00$0BA@$0CEAB@VCMsgClientToGCGetOldHeroBuildData@@$0CEAC@VCMsgClientToGCGetOldHeroBuildDataResponse@@@@
 .?AV?$CMsgIDLinkResponse@$00$0BA@$0CEAH@VCMsgClientToGCCommendPlayerFromMatch@@$0CEAI@VCMsgClientToGCCommendPlayerFromMatchResponse@@@@
 .?AV?$CMsgIDLinkResponse@$00$0BA@$0CEAK@VCMsgClientToGCGetRankedIntervalStats@@$0CEAL@VCMsgClientToGCGetRankedIntervalStatsResponse@@@@
+.?AV?$CMsgIDLinkResponse@$00$0BA@$0CEAO@VCMsgClientToGCRequestCheatReports@@$0CEAP@VCMsgClientToGCRequestCheatReportsResponse@@@@
+.?AV?$CMsgIDLinkResponse@$00$0BA@$0CEBA@VCMsgClientToGCDevBan@@$0CEBB@VCMsgClientToGCDevBanResponse@@@@
 .?AV?$CMsgIDLinkResponse@$02$0BA@$0BLFI@VCMsgAnyToGCReportAsserts@@$0BLFJ@VCMsgAnyToGCReportAssertsResponse@@@@
 .?AV?$CMutableRefCountBase@VCRefMT@@@@
 .?AV?$CMutableRefCounted@V?$CMutableRefCountBase@VCRefMT@@@@@@
@@ -5584,6 +5599,7 @@ $hRh
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??CreateParty@CCitadel_PlayController@@QEAAXI_N@Z@@GCSDK@@
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??DispatchAnnouncementOperation@@YAXIPEBD000IW4CMsgClientToGCModifyDevAnnouncements_EOperation@@@Z@@GCSDK@@
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??DispatchDevAction@@YAXW4CMsgClientToGCDevAction_EAction@@IIH_NPEBD@Z@@GCSDK@@
+.?AV?$GCClientJobLambda@V<lambda_1>@?1??DispatchDevBan@@YAXIVMatchID_t@@W4CMsgClientToGCDevBan_EBanReason@@PEBD@Z@@GCSDK@@
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??EnsureBuildsLoaded@CCitadel_Hud_HeroBuilds@@QEAA_N_N@Z@@GCSDK@@
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??EventClearHeroHotkeyBindings@CCitadel_PopupSettings@@QEAA_NXZ@@GCSDK@@
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??EventCommendPlayer@CCitadel_DB_Main@@AEAA_NVMatchID_t@@I@Z@@GCSDK@@
@@ -5635,6 +5651,7 @@ $hRh
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??Update@CCitadelClientAccountEvent@@QEAAXXZ@@GCSDK@@
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??UpdateMatchmakingRoster@CCitadel_PlayController@@QEAAXAEBV?$CUtlVector@URosterSlot_t@@HV?$CUtlMemory@URosterSlot_t@@H@@@@@Z@@GCSDK@@
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??citadel_commend_player@@YAXAEBVCCommandContext@@AEBVCCommand@@@Z@@GCSDK@@
+.?AV?$GCClientJobLambda@V<lambda_1>@?1??citadel_fetch_cheat_reports@@YAXAEBVCCommandContext@@AEBVCCommand@@@Z@@GCSDK@@
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??citadel_reset_new_player@@YAXAEBVCCommandContext@@AEBVCCommand@@@Z@@GCSDK@@
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??citadel_test_survey_popup@@YAXAEBVCCommandContext@@AEBVCCommand@@@Z@@GCSDK@@
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??deadlock_get_old_builds@@YAXAEBVCCommandContext@@AEBVCCommand@@@Z@@GCSDK@@
@@ -8504,6 +8521,8 @@ $hRh
 .?AVCMsgClientToGCDeleteHeroBuildResponse@@
 .?AVCMsgClientToGCDevAction@@
 .?AVCMsgClientToGCDevActionResponse@@
+.?AVCMsgClientToGCDevBan@@
+.?AVCMsgClientToGCDevBanResponse@@
 .?AVCMsgClientToGCDevSetMMBias@@
 .?AVCMsgClientToGCEquipItems@@
 .?AVCMsgClientToGCEquipItemsResponse@@
@@ -8597,6 +8616,9 @@ $hRh
 .?AVCMsgClientToGCReplacementSDRTicketResponse@@
 .?AVCMsgClientToGCReportPlayerFromMatch@@
 .?AVCMsgClientToGCReportPlayerFromMatchResponse@@
+.?AVCMsgClientToGCRequestCheatReports@@
+.?AVCMsgClientToGCRequestCheatReportsResponse@@
+.?AVCMsgClientToGCRequestCheatReportsResponse_RecentCheatReport@@
 .?AVCMsgClientToGCSetItemInventoryCategory@@
 .?AVCMsgClientToGCSetItemStyle@@
 .?AVCMsgClientToGCSetItemStyleResponse@@
@@ -10729,6 +10751,8 @@ $hRh
 .GCProtoBufMsgSrc
 .HCK\v
 .MODIFIER_ENTRY_TYPE
+.P0T
+.P2T
 .P6A?AVCTransform@@AEBV0@0@Z
 .P6AHPEBVIUIPanelClient@panorama@@0@Z
 .P6AXPEAVCSceneObject@@@Z
@@ -10751,11 +10775,12 @@ $hRh
 .PEBVCMsgMatchMetaDataContents_Players@@
 .PEBVCPanel2D@panorama@@
 .PEBVILocalizationString@panorama@@
-.PFT
+.PNT
 .PartnerAccountType
 .PerFriendPreferences"*\n(CPlayer_SetPerFriendPreferences_Response"c\n
 .PerFriendPreferences"U\n'CPlayer_SetPerFriendPreferences_Request
 .PingCommonData
+.PjT
 .PostProcessingGameStates
 .PublishedFileDetails
 .PublishedFileDetails"
@@ -11052,7 +11077,8 @@ $hRh
 .dx_LV9
 .google.protobuf.ServiceOptions
 .lbN
-.p3T
+.p0T
+.phT
 .png
 .pp@0
 .steammessages_unified_base.steamworkssdk.proto"
@@ -11124,16 +11150,19 @@ $hRh
 0.CPlayer_UpdateSteamAnnouncementLastRead_Request
 02V8[
 05=k
-084N
+08@HR \v
 08@J
+08B \v
 08bX
 09,h
 0;Q5[
 0<cz
+0>0XT
+0@6N
 0M2~@p
 0Marks latest announcement timestamp read by user
 0Name of the file to publish in the user's cloud.
-0P\fN
+0PhN
 0W/5
 0Z@q
 0\f504P
@@ -11231,6 +11260,7 @@ $hRh
 1xT$
 1}oP
 2 .CMsgClientToGCDevAction.EAction
+2 .CMsgClientToGCDevBan.EBanReason
 2 .CMsgGCRoutingInfo.RoutingMethod:
 2 .CMsgGCToClientPartyEvent.EEvent
 2 .PARTICLE_SYSTEM_MANAGER_MESSAGE
@@ -11243,6 +11273,7 @@ $hRh
 2#.CMsgServerToGCAbandonMatch.EReason
 2#.ESteamLearnInferenceMetadataResult
 2$.CMsgAddItemToSocketResponse.EAddGem"
+2%.CMsgClientToGCDevBanResponse.EResult"I\n
 2%.CMsgExtractGemsResponse.EExtractGems"
 2%.ESteammLearnRegisterDataSourceResult
 2&.CMsgClientToGCGetBookResponse.EResult
@@ -11292,6 +11323,7 @@ $hRh
 21.CMsgClientToGCUnpackBundleResponse.EUnpackBundle
 21x9
 21x9Button
+22.CMsgClientToGCRequestCheatReportsResponse.EResult
 22.CMsgClientToGCUpdateAccountSyncResponse.EResponse"i\n\tEResponse
 22.CMsgServerToGCMatchSignoutResponse.ESignoutResult"
 23.CMsgClientToGCCreateStaticRecipeResponse.EResponse
@@ -11324,6 +11356,7 @@ $hRh
 2Array of text tags to apply to the published file.
 2I y)
 2If true, return vote data in the returned details.
+2PD\f
 2Set of published file Ids to retrieve details for.
 2Tm=#
 2Uiwp"9
@@ -11359,7 +11392,7 @@ $hRh
 2\r.ECommendType"V\n$CMsgClientToGCGetRankedIntervalStats
 2\rlhp
 2\tV_iswspace
-2\vp84N
+2\vpPhN
 2^pV
 2a"l
 2bT~
@@ -11392,6 +11425,7 @@ $hRh
 3Wk1^
 3\n+average_wait_for_rendering_to_complete_time
 3\n.k_EMsgClientToGCCommendPlayerFromMatchResponse
+3\n.k_EMsgClientToGCDevRequestCheatReportsResponse
 3\n.k_EMsgClientToGCGetAccountMatchReportsResponse
 3\n.k_EMsgClientToGCGetInFlightItemChargesResponse
 3\n.k_EMsgClientToGCGetLimitedItemPurchaseQuantity
@@ -11469,6 +11503,7 @@ $hRh
 5\n1k_UnpackBundle_Failed_UnableToCreateContainedItem
 5\n\taction_id
 5\n\tset_vdata
+5\n\vreason_code
 5\n\vtype_caches
 5\vFuo
 5b!g
@@ -11478,14 +11513,17 @@ $hRh
 5s\nl
 5t?F
 5~EW
+6 YT
+6 qT
 6#6165676;6M6O6S6Y6a6k6m6
 6#RDP#
 6%vi
 6(Optional) Type of game the published file represents.
 6,2K
 6-zeZ
-60/T
-60GT
+60$T
+60%T
+608T
 62$|S)6f
 64CK\vH
 65535
@@ -11496,11 +11534,12 @@ $hRh
 666666666666666666666666666666666666666666666666\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\.\ssl\s3_enc.c
 67-s
 6?NumberValue@Value@v8@@QEBA?AV?$Maybe@N@2@V?$Local@VContext@v8@@@2@@Z
+6@GT
+6@ZT
+6@tT
+6@zT
 6H,N
 6O|T%
-6P0T
-6PJT
-6PPT
 6Qd=
 6Returns the URL of the proper cloud server for a user.
 6True if the operation was successful, false otherwise.
@@ -11514,6 +11553,8 @@ $hRh
 6\n\vmatch_slots
 6\r56h
 6_wEX
+6`TT
+6`fT
 6afD
 6bX+
 6c&0|vvX
@@ -11521,8 +11562,8 @@ $hRh
 6l13
 6lkc
 6myY;
-6p*T
-6p<T
+6p%T
+6pzT
 6qo~
 6r-m_v
 6r1ij
@@ -11575,8 +11616,8 @@ $hRh
 8= zp
 8A6j
 8Client ID for which to count the number of issued tokens"
-8FP-T
-8F`,T
+8F@WT
+8FPVT
 8GZS
 8Gets the list of nicknames this user has for other users
 8If set, remove from ignore/block list instead of adding "\\n
@@ -11713,6 +11754,10 @@ $hRh
 <Account ID>
 <Account ID> <Comment> <Ban Invites: 0|1> <Ban HWID: 0|1> Bans the specified account
 <Account ID> <MMR> Sets the MMR of the specified account
+<Account ID> <Match ID> <Comment> Bans the specified account for aim assistance.
+<Account ID> <Match ID> <Comment> Bans the specified account for movement assistance.
+<Account ID> <Match ID> <Comment> Bans the specified account for vision assistance.
+<Account ID> Clear recent cheat reports on this account.
 <Account ID> [0/1] Grants or removes dev access to an account
 <Account ID> [MMR] Locks a user to the current MMR (optionally can set the MMR as well)
 <BWK
@@ -11814,6 +11859,7 @@ $hRh
 =cdE
 =trF6,#
 >#>)>/>3>A>W>c>e>w>
+>07T
 >333>
 >4|6eXg_e
 >7^0g
@@ -11840,6 +11886,7 @@ $hRh
 ?(Optional) Video Id of a YouTube video for this published file.
 ?333?
 ?333?333?
+?8Xe
 ??0HandleScope@v8@@QEAA@PEAVIsolate@1@@Z
 ??0TryCatch@v8@@QEAA@PEAVIsolate@1@@Z
 ??0Utf8Value@String@v8@@QEAA@PEAVIsolate@2@V?$Local@VValue@v8@@@2@@Z
@@ -11880,7 +11927,6 @@ $hRh
 ?\n\rmatch_outcome
 ?citadel_text_chat_enabled
 ?d86L
-?default_fov
 ?dt]X
 ?ff&?333?
 ?gwL
@@ -11894,7 +11940,8 @@ $hRh
 @!@%@+@1@?@C@E@]@a@g@m@
 @08N
 @0pp
-@6p>T
+@6PMT
+@6`hT
 @?SlowGetInternalField@Object@v8@@AEAA?AV?$Local@VData@v8@@@2@H@Z
 @BH]f
 @BoneSetup
@@ -11913,7 +11960,6 @@ $hRh
 @\n\fSingleObject
 @dKb]
 @fff>fff>fff>fff>
-@htp
 @i1V
 @keyframes 
 @keyframes '%s'\r\n{\r\n
@@ -12106,6 +12152,7 @@ AI_EVENT
 AI_PATHFINDING
 AI_SCHEDULE
 AI_TASK
+AItemImbuementPair_t
 AJsN
 ALBEDO
 ALG_MODULE_INIT
@@ -12422,12 +12469,12 @@ Accepts an invite
 AccessDropDownMenu
 Account
 Account sync storage. GC Dirty: %u\n
+AccountID:%u Hero:%s[%d] MatchID:%llu\n
 AccountList
 AccountRewards
 AccumulatedRelevance %.3f \n
 Achievement
 AchievementGroup
-Acl_citadel_ability_alt_cast_mode
 Action
 Action Reload
 Activate
@@ -12884,7 +12931,6 @@ B64_READ_PKCS7
 B64_WRITE_ASN1
 B64_WRITE_PKCS7
 B8Z"h
-B8do
 B>J7I
 BACK
 BACKSLASH_CHAR
@@ -13093,6 +13139,7 @@ Badge
 BallOffset
 BallRadius
 BallScale
+Ban operation was successful\n
 BannedWordsCache
 BarbedWireDPS
 BarbedWireDamagePerMeter
@@ -13302,6 +13349,7 @@ BonusClipSizePercent
 BonusCritDamagePercent
 BonusDPSPercent
 BonusDamagePctPerPlayerHit
+BonusDamagePctPerPlayerKilled
 BonusDamagePercent
 BonusFireRate
 BonusFireRateNPC
@@ -16777,6 +16825,8 @@ CMsgClientToGCBookUnlock
 CMsgClientToGCDeleteHeroBuild
 CMsgClientToGCDevAction
 CMsgClientToGCDevActionResponse
+CMsgClientToGCDevBan
+CMsgClientToGCDevBanResponse
 CMsgClientToGCDevSetMMBias
 CMsgClientToGCEquipItems
 CMsgClientToGCFindHeroBuilds
@@ -19105,7 +19155,6 @@ CitadelPrivateLobbySetRandomizeLanes
 CitadelPrivateLobbySetServerRegion
 CitadelPrivateLobbyShuffleLanes
 CitadelPrivateLobbyShuffleTeams
-CitadelPrivateLobbyStartMatch
 CitadelPrivateLobbyStartMatch( 0 )
 CitadelPrivateLobbySwapTeams
 CitadelPrivateLobbyTeamSlot
@@ -19246,6 +19295,7 @@ CitadelShowHeroDetailsPage
 CitadelShowHeroPage
 CitadelShowHeroStatsTooltip
 CitadelShowHeroStatsTooltipFromSignoutData
+CitadelShowHomePage
 CitadelShowInGamePage
 CitadelShowLatestPatchNotes
 CitadelShowLearnPage
@@ -20717,7 +20767,6 @@ Disable interpolation list optimizations.
 Disable map color-correction entities
 Disable player sprays.
 Disable the early dev build message
-Disable the early post match survey
 Disable touch on hit
 Disable trigger projectile impact behavior
 DisableAnimEventSounds
@@ -22529,7 +22578,9 @@ Evolution of env_sprite for light glows
 Ew`)9Q
 Example
 Example Window Title
+Example: %s 1234 123456 "Saw them cheating at 14:25"\n
 Example: citadel_ban_account 1234 "Saw him cheating in match 2345" 0 1\n
+Example: citadel_exonerate_account 1234\n
 ExampleToast
 Exclamation%d
 Exclude the inner region of a cascade during CS unpack if there is a higher resolution cascade that will cover that area.
@@ -22590,13 +22641,13 @@ F'pY
 F+Zb
 F,mZq
 F/o4
+F0^T
 F2M+
 F6tr
 F7!z
 F9q'
 F<mb
 F?ToString@Value@v8@@QEBA?AV?$MaybeLocal@VString@v8@@@2@V?$Local@VContext@v8@@@2@@Z
-F@4T
 FALL
 FCVAR_DEMO
 FCVAR_DEVELOPMENTONLY
@@ -22828,6 +22879,7 @@ Failed to parse components block in dynamic recipe
 Failed to parse the match data
 Failed to parse the match metadata file
 Failed to perform announcement operation: %s\n
+Failed to perform ban operation: %s\n
 Failed to perform dev operation: %s: %s\n
 Failed to perform party action %s: %s\n
 Failed to precache script entity %s of type %s: script entity instance is null\n
@@ -22836,6 +22888,8 @@ Failed to read %d bytes\n
 Failed to read %s\n
 Failed to read settings file '%s\n
 Failed to ready up: %s\n
+Failed to request reports from the GC. Make sure that you are properly connected to the GC\n
+Failed to request reports from the GC: %s\n
 Failed to run entity framework script\n
 Failed to save %s to file.\n
 Failed to save AnimGraph Recording to %s\n
@@ -22847,6 +22901,7 @@ Failed to send SetConVar request\n
 Failed to send announcement message to the GC. Make sure that you are properly connected to the GC\n
 Failed to send dev operation to the GC. Make sure that you are properly connected to the GC\n
 Failed to send invite: %s\n
+Failed to send operation to the GC. Make sure that you are properly connected to the GC\n
 Failed to set match mode for party: %s\n
 Failed to sign VPK; RSA failure.\n
 Failed to sign vpk; signature is unexpected size.\n
@@ -23137,7 +23192,9 @@ Forces a hint to be ready to show in the HUD
 Forces a soundscape to play
 Forces color correction entities to be updated on the client
 Forge.Rocket.Barrage.Channel
+Format: %s <Account ID> <Comment>\n
 Format: citadel_ban_account <Account ID> <Comment> <Ban Invites: 0|1> <Ban HWID: 0|1>\n
+Format: citadel_exonerate_account <Account ID>\n
 Format: ent_filter <list of flags to toggle, or all/none, parsed in order>\n
 Format: ent_find substring [substring...] [-exclude_substring...] \n
 Format: ent_find_index <index>\n
@@ -23370,7 +23427,8 @@ GCSDK::GCDirIndex_t
 GCSQL_VERSION_BASELINE
 GCSQL_VERSION_BOOLTYPE
 GCType_t"2\n
-GCitadelShowHomePage
+GCitadelPrivateLobbyStartMatch
+GDisable the early post match survey
 GENERALIZEDTIME
 GENERALSTRING
 GENERAL_ALLOCATE_BOOLEAN
@@ -23773,7 +23831,6 @@ GlowManager
 GlowOverlaySystem
 GlowProxySize
 Glyph: %s => %s\n
-Gm_nPortraitParticle
 GoJJw
 GoXis
 Go^ldg
@@ -23858,7 +23915,6 @@ H8xp
 H=`HY
 H@H9xqI
 HBJ\nTRF
-HD(q
 HDR Color Scale: %0.3f
 HDRColor
 HDRColorScale
@@ -24194,6 +24250,7 @@ HeroID
 HeroID_t
 HeroID_t"
 HeroID_t"F\n
+HeroID_t"I\n
 HeroIcon
 HeroIconImage
 HeroImage
@@ -25229,7 +25286,6 @@ ItemData
 ItemDescriptionsLanguageBlock
 ItemFlagTypes_t
 ItemImage
-ItemImbuementPair_t
 ItemPips
 ItemQuickCastDropDown
 ItemQuickCastDropDownContainer
@@ -27996,12 +28052,14 @@ P-256
 P-384
 P-521
 P08@J
+P08J@\r
 P08N
 P1\t98"
 P2P ping to "%s". Timed out after %.2fms\n
 P2P_Messages
 P5[1
-P84N
+P6P/T
+P@6N
 PAGN_4
 PANEL_ID
 PANORAMA_LAYOUTFILE
@@ -28282,7 +28340,6 @@ POST
 POST 
 POS_FLOATLITERAL
 POS_INTLITERAL
-PP\fN
 PPz\v=
 PRB+
 PRECIPITATION
@@ -29170,6 +29227,7 @@ RP for user %s:\n
 RP: Player %s has %d active RP's.\n
 RP: Setting %s's status to %s (%s).\n
 RP;e!
+RPD\f
 RP_UNPAUSE
 RSA Data Security, Inc.
 RSA Data Security, Inc. PKCS
@@ -29278,10 +29336,10 @@ RUMBLE_SHOTGUN_DOUBLE
 RUMBLE_SHOTGUN_SINGLE
 RUMBLE_SMG1
 RUMBLE_STOP_ALL
+R\fpPhN
 R\n\nBookReward
 R\n\rincludekvtags
 R\r1>Vp
-R\vp84N
 R]Di
 Radiant
 RadioBox
@@ -29376,6 +29434,8 @@ Received method callback. Handle: %llu. Context: %llu. EResult: %d. Response Siz
 Received partial cache for %s from system %d (%d dependencies, sync version %llu)\n
 Received server welcome from GC.\n
 ReceivingVoice
+Recent cheat reports [%d reports]:\n
+RecentCheatReport
 RecentDamageMarkDuration
 RecentlyUpdated
 Recipe component chance to apply out of bounds: %f
@@ -29571,6 +29631,7 @@ ReportingDisabled
 Reports all extant entities. Optional 2nd arg is a substring of a classname that the list will be filtered by.
 Reports: %d
 Request
+Request accounts recently reported for cheating
 Request elegant wind-down of any associated work (e.g. vcd interrupt).
 RequestMatchMetadata job failed to decompress BZ2 file: %u\n
 RequestMatchMetadata job failed to download file for match: %llu\n
@@ -30124,6 +30185,7 @@ SXNET_get_id_asc
 SXNET_get_id_ulong
 SXNetID
 SYNC_WAIT_FOR_COMPLETION
+S\n\rcheat_reports
 S\vQN
 Safe To Auto-Switch Away From
 Safe To Auto-Switch To
@@ -33138,6 +33200,7 @@ V8ParamToPanoramaType expected Number type to convert, but got something else (%
 V8ParamToPanoramaType expected bool type to convert, but got something else (%s)
 V8ParamToPanoramaType expected object type to convert, but got something else
 V8ParamToPanoramaType expected object type to convert, but got something else (%s)
+V@nT
 VDPr
 VData:%s
 VDataAnimGraphParam( m_hModel )
@@ -33197,7 +33260,6 @@ VOTE_FAILED_TEAM_CANT_CALL
 VOTE_FAILED_TRANSITIONING_PLAYERS
 VOTE_FAILED_WAITINGFORPLAYERS
 VOTE_FAILED_YES_MUST_EXCEED_NO
-VPDT
 VPK directory for '%s' corrupt
 VPK: Check file %s Length %d MD5 %s \n
 VPK: Wrote file %s Length %d MD5 %s \n
@@ -33356,6 +33418,7 @@ VolumetricFogView
 VoteData
 VoxManager
 Vp>u
+VpjT
 Vt_9
 VulnerabilityPerStack
 V~~Vq
@@ -33939,7 +34002,8 @@ XYD%
 X\tQo
 Xd3h
 XfJ7
-Xf`/T
+XfPYT
+XfpZT
 XjfR
 XqgA+
 Xuub
@@ -33977,7 +34041,9 @@ YellowLaneIntention
 Yield, Resume=%s
 YieldingDispatchAnnouncementOperation
 YieldingDispatchDevAction
+YieldingDispatchDevBan
 YieldingModStatus
+YieldingRequestCheatReports
 Ykg"
 YnFpW
 You are #%d in line of %d waiting players.\n
@@ -33992,6 +34058,8 @@ You must provide the Account ID and MMR to set\n
 You must provide the Account ID and a comment about the ban. Make sure to put quotes around the comment.\n
 You must provide the Account ID and optionally the value to set\n
 You must provide the Account ID to request\n
+You must provide the Account ID, MatchID and a comment about the ban. Make sure to put quotes around the comment.\n
+You must provide the Account ID.\n
 You must specify a book by name or book ID\n
 You must type in 
 You need to name the scheme (%s)!
@@ -34145,8 +34213,7 @@ Z~wl
 \f]ne3
 \fdhWTh
 \fiaR
-\fp84N
-\fp\v`84N
+\fp\v`PhN
 \ful2
 \fy&3Gl
 \l:ArR
@@ -34290,6 +34357,7 @@ Z~wl
 \n)CMsgClientToGCGetFriendGameStatusResponse
 \n)CMsgClientToGCGetOldHeroBuildDataResponse
 \n)CMsgClientToGCRemoveItemAttributeResponse
+\n)CMsgClientToGCRequestCheatReportsResponse
 \n)CMsgGCEconSQLWorkItemEmbeddedRollbackData
 \n)CMsgSteamLearn_InferenceMetadata_Response
 \n)CPublishedFile_RefreshVotingQueue_Request
@@ -34397,6 +34465,7 @@ Z~wl
 \n\fk_EMsgGCBase
 \n\fk_EParam_FOV
 \n\fk_EResult_OK
+\n\fk_eAimAssist
 \n\fk_eBookReset
 \n\fk_eDeveloper
 \n\fk_eEmailUsed
@@ -34614,6 +34683,7 @@ Z~wl
 \n\nstartindex
 \n\nstat_score
 \n\nstat_total
+\n\nstr_reason
 \n\nstrip_html
 \n\nsubscriber
 \n\nswap_width
@@ -35073,8 +35143,6 @@ Z~wl
 \ri1I
 \rjwB\t
 \roKK
-\rp\f`\v084N
-\rp\f`\vP84N
 \rrCj
 \rstyle_index_t
 \rusercmd.proto"
@@ -35149,7 +35217,7 @@ Z~wl
 \tMatchID_t"Z\n#CMsgClientToGCSpectateLobbyResponse
 \tMatchID_t"{\n$CMsgServerToGCUpdateLobbyServerState
 \tNone\n
-\tPP\fN
+\tP@6N
 \tParam BasePlayerWeapon returned NULL!\n
 \tParam selecting string is out of range!\n
 \tPartyID_t
@@ -35259,14 +35327,15 @@ Z~wl
 \vGt5
 \vHCK/
 \vNCE\v
-\vPP\fN
+\vP@6N
 \vUY6[E
 \v\vTSG
 \v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r
 \vj0k
 \vjC7
-\vp84N
-\vpP\fN
+\vp09N
+\vp@6N
+\vpPhN
 ]1h=bfz
 ]FhSD}
 ]GT7]
@@ -35282,6 +35351,7 @@ Z~wl
 ^RB!r
 ^\n\ffloat_values
 ^\n\fmap_mappings
+^ptT
 _BaseEntity
 _ClientLevel
 _ClientModifier
@@ -35340,14 +35410,14 @@ _xU`u
 _}eOk
 `28)fk
 `3?New@Array@v8@@SA?AV?$Local@VArray@v8@@@2@PEAVIsolate@2@H@Z
-`6p?T
-`84N
+`6`iT
 `:zQF
 `D$daM-l
 `DZG
 `F?ToLocalEmpty@api_internal@v8@@YAXXZ
 `H(hqA1p
 `ITS
+`PhN
 `VX:H
 `\n\rvector_values
 `adjustor{
@@ -37133,6 +37203,9 @@ citadel_announcement_display_time
 citadel_announcement_game_over_msg_display_time
 citadel_arrow_brightness
 citadel_ban_account
+citadel_ban_account_aim_assist
+citadel_ban_account_movement_assist
+citadel_ban_account_vision_assist
 citadel_base_ability
 citadel_base_lockon_ability
 citadel_base_trigger_ability
@@ -37324,6 +37397,7 @@ citadel_event_indicator_dps_percent_mid
 citadel_event_indicator_mitigation_high
 citadel_event_indicator_mitigation_low
 citadel_event_indicator_mitigation_mid
+citadel_exonerate_account
 citadel_fake_death_gold
 citadel_fake_no_match_metadata
 citadel_fake_no_match_metadata forced a fake error
@@ -37335,6 +37409,7 @@ citadel_fake_ranked_open_status
 citadel_fake_ranked_schedule_selected
 citadel_fake_show_player_reported
 citadel_fake_subrank_for_match
+citadel_fetch_cheat_reports
 citadel_fibonnaci_sphere_trace_debug
 citadel_fibonnaci_sphere_trace_fraction
 citadel_fibonnaci_sphere_trace_los_max
@@ -37851,6 +37926,7 @@ cl_bullet_travel_debug_trace
 cl_change_callback_limit
 cl_citadel_ability_alt_cast_hold_time
 cl_citadel_ability_alt_cast_instant_cast_double_tap_timeout
+cl_citadel_ability_alt_cast_mode
 cl_citadel_ability_test_fail_all
 cl_citadel_bebop_beam_draw_points
 cl_citadel_camera_ops_debug
@@ -38925,6 +39001,7 @@ default_camera
 default_color
 default_drop_quantity
 default_env_map
+default_fov
 default_idle_expression
 default_light
 default_list
@@ -39957,7 +40034,6 @@ f#9i\n
 f%wyLmX:
 f&dy
 f1cK%
-f3dT
 f45\r
 fBB\fy
 fC\tc
@@ -40579,6 +40655,7 @@ fov_desired
 fow_amount
 fow_control_point
 fow_control_point2
+fp?T
 fpnS
 fr_FR
 fraction
@@ -42756,6 +42833,10 @@ k_EMsgClientToGCDeleteHeroBuild
 k_EMsgClientToGCDeleteHeroBuildResponse
 k_EMsgClientToGCDevAction
 k_EMsgClientToGCDevActionResponse
+k_EMsgClientToGCDevBan
+k_EMsgClientToGCDevBanResponse
+k_EMsgClientToGCDevRequestCheatReports
+k_EMsgClientToGCDevRequestCheatReportsResponse
 k_EMsgClientToGCDevSetMMBias
 k_EMsgClientToGCEquipItems
 k_EMsgClientToGCEquipItemsResponse
@@ -43291,6 +43372,7 @@ k_eEditRoster
 k_eEnablePartyCode
 k_eEnteredMatchMaking
 k_eEnteredPartyMatchMaking
+k_eExonerateAccount
 k_eExternalModerator
 k_eFeatureBanReason_DevCommand
 k_eFeatureBanReason_ExcessivePlayerReports
@@ -43367,6 +43449,7 @@ k_eMemberRights_Admin
 k_eMemberRights_Creator
 k_eMismatchedVersions
 k_eMissingPrereq
+k_eMovementAssist
 k_eNewPlayerProgress_GettingStarted
 k_eNewPlayerProgress_HeroTraining
 k_eNewPlayerProgress_LaneTraining
@@ -43479,6 +43562,7 @@ k_eViewedSettings_Options
 k_eViewedSettings_Video
 k_eViewedSocial
 k_eViewedWatch
+k_eVisionAssist
 k_eWatchedReplay
 ka`O
 kali_boomerang_projectile
@@ -48579,6 +48663,7 @@ m_nPlayerDeathEventID
 m_nPlayerTeamEvent
 m_nPlayerTeamEventIndex
 m_nPlayersHit
+m_nPortraitParticle
 m_nPositionX
 m_nPositionXY
 m_nPositionY
@@ -51003,12 +51088,14 @@ mzP"T
 n < (int)sizeof(ctx->enc_data)
 n does not equal p q
 n0?X
+n0]T
 n1Z 
 n5cM
 n6j/
 n:2C[
-n@3T
 n@PK
+n@PT
+n@xT
 nAsyncRet1
 nCRD
 nChangeOffset < INT16_MAX
@@ -51025,8 +51112,6 @@ nIndex
 nLastValidEntryIdx
 nLevelKey == m_vecLevelToInfo.Count() + 1
 nObjects
-nP&T
-nPNT
 nParam
 nPriority != NETWORK_FIELD_CHANGE_DEFAULT_PRIORITY
 nRetValue
@@ -51343,6 +51428,7 @@ notifications_showmessages
 notifications_showonline
 notreadybehavior
 nowrap
+npWT
 npc_barrack_boss
 npc_boss_tier2
 npc_boss_tier2_sidelanes
@@ -51691,7 +51777,7 @@ p.ppBasis
 p.prime
 p.tpBasis
 p08@H^
-p0j`1
+p0jP[
 p2p_FightingGame_Connection
 p2p_FightingGame_GameData
 p2p_Ping
@@ -51709,10 +51795,9 @@ p4Z3
 p5Z3
 p5\nL,
 p618
-p84N
 p>?Set@Template@v8@@QEAAXV?$Local@VName@v8@@@2@V?$Local@VData@v8@@@2@W4PropertyAttribute@2@@Z
-p>?dT
 p@0pqE5tsO?|1
+p@6N
 pAsyncRet2
 pCheckpointName
 pClimbRopeSpeedPercent
@@ -51726,7 +51811,7 @@ pHitEntity
 pIp 
 pLocationEntity
 pO0h
-pP\fN
+pPhN
 pRTH
 pRetName
 pSPo
@@ -51742,7 +51827,6 @@ pU>\AL
 pUnitName
 pWorldObject
 pYieldArg2
-p\r`\fP84N
 p^i9
 packet length too long
 packet_misdelivery_%s_label
@@ -52889,6 +52973,7 @@ rZ1VwGf5
 rZPM
 r\n\vstart_index
 r\vDi
+r\vpPhN
 r_AirboatViewDampenDamp
 r_AirboatViewDampenFreq
 r_AirboatViewZHeight
@@ -55943,7 +56028,6 @@ upgrade_rocket_boots
 upgrade_savior
 upgrade_self_bubble
 upgrade_self_buff_modifier
-upgrade_siphon_bullets
 upgrade_slow_immunity
 upgrade_spellshield
 upgrade_stabilizing_tripod
@@ -56037,9 +56121,9 @@ uv y offset during copy to cascade.
 uvs are all identical
 uxX/
 v axis
+v vT
 v'A>M6
 v)56
-v0LT
 v0o/5
 v1(0)
 v1GZ
@@ -56058,6 +56142,7 @@ vAr>
 vAu&
 vF'l
 vHullPos[%i] %g %g %g\n
+vP<T
 vW3N&
 v\n,associated_workshop_file_for_direct_payments
 v\v$m8
@@ -56580,5 +56665,6 @@ zz2K
 ~P2T
 ~R65Fu
 ~jLRG
+~pnT
 ~w]UG
 ~yhZ
