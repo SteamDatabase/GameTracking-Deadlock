@@ -17,6 +17,7 @@
 !?triggered@QAction@@QEAAX_N@Z
 !?unsetCursor@QWidget@@QEAAXXZ
 !\f?focusNextPrevChild@QScrollArea@@UEAA_N_N@Z
+!m_bInEditorRebuild
 !root
 " ?timerEvent@QListView@@MEAAXPEAVQTimerEvent@@@Z
 ""?updateEditorGeometry@QStyledItemDelegate@@UEBAXPEAVQWidget@@AEBVQStyleOptionViewItem@@AEBVQModelIndex@@@Z
@@ -2077,7 +2078,6 @@ $\f?focusNextPrevChild@QWidget@@MEAA_N_N@Z
 A#?write@QTreeWidgetItem@@UEBAXAEAVQDataStream@@@Z
 ARRAY
 ATTR
-A\tV_modfd
 About...
 AcceptColorInternal
 AcceptIfItemPicked
@@ -2094,6 +2094,7 @@ AttributeFilterChanged
 BEGIN_INCREMENTAL
 BUTTON
 B\f?focusWidget@QApplication@@SAPEAVQWidget@@XZ
+B\tV_modfd
 B`?translate@QPainter@@QEAAXAEBVQPointF@@@Z
 BackGroundFill_t
 BackGroundStyle_t
@@ -2105,6 +2106,7 @@ Bad verticalPolicy "%s"
 Begin mouse capture [%i]: %s\n
 Binding removed due to active drag: %s
 C:\buildworker\citadel_rel_win64\build\_build_\propertyeditor\_vpc_propertyeditor\default\win64\_msvc_\Retail\propertyeditor.pdb
+C:\buildworker\citadel_rel_win64\build\src\propertyeditor\qpropertyeditor.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0_perproject\vnotifyapi.cpp
 CGlobalHotkeyCommands
 CInputBindManager::HandleInputCode recursion depth got too deep.\n
@@ -2214,8 +2216,12 @@ CQPropRowList
 CQPropertyAttributeLabel
 CQPropertyAttributeLabel::UpdateHoverPresence() - mouse = [%d,%d] resizeRect = [%d,%d,%d,%d] mouseInResize = %d\n
 CQPropertyEditor
+CQPropertyEditor::BlockRebuilds
+CQPropertyEditor::BlockRebuilds ==> deferred rebuild\n
+CQPropertyEditor::BlockRebuilds( %s )\n
 CQPropertyEditor::EndAttributeModification( %s )\n
 CQPropertyEditor::RebuildEditor -> REBUILD!\n
+CQPropertyEditor::RebuildEditor -> m_bExternallyBlockedRebuilds\n
 CQPropertyEditor::RebuildEditor -> m_bLatentRebuildAfterOperation\n
 CQPropertyEditor::RebuildEditor -> m_bRebuildAfterModify\n
 CQPropertyEditor::StartDraggingLabelWidthColumn() - col = %d\n
@@ -2368,6 +2374,7 @@ End mouse capture [%i] due to hidden widget\n
 End mouse capture [%i]: %s\n
 EndCancelSequence
 EndWheelSequence
+EnsureRowsUpToDate %.0f us\n
 Enter
 Error (problem that prevents task success)
 Error copying to clipboard: %1
@@ -2640,6 +2647,7 @@ OnReloadTimeout
 OnReturnPressed
 OnReverseInputClicked
 OnReverseOutputClicked
+OnScrollbarValueChanged
 OnSelectClear
 OnSelectionChanged
 OnShowDocumentationWebpage
@@ -2893,8 +2901,6 @@ Spline
 Stylesheet
 Supported Image Formats (%s);;All Files (*)
 SwitchToEngineWindow
-SyncToScrollBar
-SyncToScrollBar %.0f us\n
 T?parent@QStandardItemModel@@UEBA?AVQModelIndex@@AEBV2@@Z
 T?pos@QCursor@@SA?AVQPoint@@XZ
 T?pos@QDropEvent@@QEBA?AVQPoint@@XZ
@@ -3228,6 +3234,7 @@ application/x-color
 application/x-property-editor-array-drag-index
 area
 autoLabelColumnSize
+autoexpand
 averageColor
 bAccepted
 bDirty
@@ -3296,6 +3303,7 @@ fontfamily
 fontstyle
 foreground
 forever
+friendlyname
 g\r?enumerator@QMetaObject@@QEBA?AVQMetaEnum@@H@Z
 g\r?horizontalScrollbarAction@QTableView@@MEAAXH@Z
 g\t?cap@QRegExp@@QEAA?AVQString@@H@Z
@@ -3371,13 +3379,14 @@ iValueIn
 i\f?forward@QTextBrowser@@UEAAXXZ
 i\r?enumerator@QMetaProperty@@QEBA?AVQMetaEnum@@XZ
 i\r?horizontalScrollbarValueChanged@QAbstractItemView@@MEAAXH@Z
-i\tV_strspn
 i\v?event@QTableWidget@@MEAA_NPEAVQEvent@@@Z
+icon
 info
 input_name
 italic
 jY?setFamily@QFont@@QEAAXAEBVQString@@@Z
 jZ?setMimeData@QDrag@@QEAAXPEAVQMimeData@@@Z
+j\tV_strspn
 j\v?event@QTextBrowser@@MEAA_NPEAVQEvent@@@Z
 k"?value@QAbstractSlider@@QEBAHXZ
 kX?setBlue@QColor@@QEAAXH@Z
@@ -3398,6 +3407,7 @@ m_Context
 m_Input
 m_InputMacros
 m_Stops
+m_bExternallyBlockedRebuilds != bBlock
 m_bLatentRebuildAfterOperation (after) = %d\n
 m_bLatentRebuildAfterOperation (before) = %d\n
 m_bLatentRebuildAfterOperation (midpoint) = %d\n

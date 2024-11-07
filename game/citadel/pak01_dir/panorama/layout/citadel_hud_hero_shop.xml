@@ -1,10 +1,21 @@
-<!-- xml reconstructed by Source 2 Viewer 10.1.0.0 - https://valveresourceformat.github.io -->
+<!-- xml reconstructed by Source 2 Viewer 10.2.0.0 - https://valveresourceformat.github.io -->
 <root>
 	<styles>
 		<include src="s2r://panorama/styles/citadel_base_styles.vcss_c" />
-		<include src="s2r://panorama/styles/citadel_shared_colors.vcss_c" />
 		<include src="s2r://panorama/styles/citadel_hud_hero_shop.vcss_c" />
+		<include src="s2r://panorama/styles/ability_icons.vcss_c" />
 	</styles>
+	<snippets>
+		<snippet name="RecentPurchase">
+			<Panel class="recentPurchase">
+				<Label class="recentTimePurchased" text="{s:time_purchased}" />
+				<Label class="recentPurchaseHeroName" text="{s:recent_hero_name}:" />
+				<Panel class="mod_icon" />
+				<Label class="recentModPurchaseName" text="{s:recent_mod_name}" />
+				<Label class="recentModTierCost" text="{s:recent_tier_purchased}" />
+			</Panel>
+		</snippet>
+	</snippets>
 	<CitadelHudHeroShop class="CitadelHudHeroShop gShopOpen" oncancel="CitadelExitUpgradeShop();" onactivate="">
 		<GlobalClassListener classes="gBrowsingBuilds gEditingBuilds gShopOpen" />
 		<Panel id="Shop">
@@ -24,6 +35,10 @@
 							<Label class="SectionLabel" text="Purchase Items" />
 						</Panel>
 					</Panel>
+				</Panel>
+				<Panel id="RecentPurchasesPanel">
+					<Label id="RecentPurchases" text="#Citadel_Hud_RecentPurchases" />
+					<Panel id="RecentPurchasesContainer" />
 				</Panel>
 				<Panel id="HeroPanel">
 					<Image id="HeroImage" scaling="stretch-to-fit-y-preserve-aspect" />
@@ -90,7 +105,7 @@
 							<Panel id="SearchBox">
 								<Panel id="ShopSearchIcon" onactivate="SetSearchFocus();" />
 								<TextEntry id="SearchTextEntry" acceptsfocus="true" acceptsinput="true" placeholder="#CitadelShopSearch" ontextentrychange="CitadelShopSearchTextEntryChanged()" onfocus="CitadelShopSearchTextEntryChanged()" />
-								<Button id="ClearSearchButton" onactivate="CitadelShopSearchTextEntryChanged();" />
+								<Button id="ClearSearchButton" onactivate="CitadelShopSearchTextEntryClear();" />
 							</Panel>
 						</Panel>
 					</Panel>

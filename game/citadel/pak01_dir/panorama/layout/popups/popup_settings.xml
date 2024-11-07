@@ -26,7 +26,8 @@
 								<Label class="AlignVerticalCenter" text="#citadel_settings_ui_language" />
 								<DropDown id="UILanguage" />
 							</Panel>
-							<CitadelSettingsCheckbox class="streamerModeCheckbox" convar="citadel_streaming_mode_enabled" text="#citadel_settings_streamer_mode" onmouseover="UIShowTextTooltipStyled( #citadel_settings_streamer_mode_tooltip , OptionsTooltip)" onmouseout="UIHideTextTooltip()" />
+							<CitadelSettingsCheckbox class="extraTopMargin" convar="citadel_quickbuy_auto_buy_enable" text="#citadel_quickbuy_auto_buy_enable" onmouseover="UIShowTextTooltipStyled( #citadel_quickbuy_auto_buy_enable_tooltip , OptionsTooltip)" onmouseout="UIHideTextTooltip()" />
+							<CitadelSettingsCheckbox class="focusWindowUnpauseCheckbox" convar="citadel_activate_window_on_unpause" text="#citadel_settings_active_window_unpause" onmouseover="UIShowTextTooltipStyled( #citadel_settings_active_window_unpause_tooltip , OptionsTooltip)" onmouseout="UIHideTextTooltip()" />
 						</Panel>
 					</Panel>
 					<Panel class="SettingsDualColumn FullHeight CrosshairSettings">
@@ -41,6 +42,7 @@
 									<CitadelSettingsSlider convar="citadel_crosshair_pip_height" min="2" max="50" percentage="false" displayprecision="0" text="#citadel_settings_crosshair_pip_height" />
 									<CitadelSettingsSlider convar="citadel_crosshair_pip_opacity" min="0" max="1" percentage="false" displayprecision="2" text="#citadel_settings_crosshair_pip_opacity" />
 									<CitadelSettingsCheckbox convar="citadel_crosshair_pip_border" text="#citadel_settings_crosshair_pip_border" />
+									<CitadelSettingsCheckbox convar="citadel_crosshair_pip_gap_static" text="#citadel_settings_crosshair_static_pip_gap" />
 								</Panel>
 							</Panel>
 							<Panel id="DotOptions" class="reticleSubSection">
@@ -128,6 +130,10 @@
 									<Label text="#citadel_settings_lowlatency_boost" id="boost" value="2" onmouseover="UIShowTextTooltipStyled( #citadel_settings_low_latency_tooltip_boost, OptionsTooltip)" onmouseout="UIHideTextTooltip()" />
 								</CitadelSettingsEnumDropDown>
 							</Panel>
+							<Panel class="LeftRightFlow" id="GSyncPanel" onmouseover="UIShowTextTooltip( #citadel_settings_gsync_info )" onmouseout="UIHideTextTooltip()">
+								<Label text="#citadel_settings_gsync" />
+								<Label id="GSyncStatus" />
+							</Panel>
 							<ToggleButton id="FullscreenFocusBehaviorButton" class="CheckBox Hide" text="#citadel_settings_fullscreen_focus_behavior" onactivate="CitadelSetFullscreenFocusBehavior();" />
 							<CitadelSettingsCheckbox convar="r_light_sensitivity_mode" text="#citadel_settings_light_sensitivity_mode" onmouseover="UIShowTextTooltip( #citadel_settings_light_sensitivity_mode_desc )" onmouseout="UIHideTextTooltip()" />
 							<CitadelSettingsSlider id="FpsMaxUISlider" convar="fps_max_ui" min="60" max="240" class="compressed" disableifoutofrange="false" text="#citadel_settings_fps_max_ui" onmouseover="UIShowTextTooltipStyled( #citadel_settings_fps_max_ui_tip, OptionsTooltip)" onmouseout="UIHideTextTooltip()" />
@@ -188,6 +194,10 @@
 									<RadioButton text="#citadel_settings_shadow_quality_high" value="2" class="EnumButton" id="ShadowQualityHigh" group="shadowquality" />
 									<RadioButton text="#citadel_settings_shadow_quality_ultra" value="3" class="EnumButton" id="ShadowQualityUltra" group="shadowquality" />
 								</CitadelSettingsEnum>
+								<CitadelSettingsEnum class="HorizontalEnum" convar="r_citadel_fog_quality" text="#citadel_settings_fogquality" id="FogEnum" onmouseover="UIShowTextTooltip( #citadel_settings_fogquality_desc )" onmouseout="UIHideTextTooltip()">
+									<RadioButton text="#citadel_settings_fogquality_low" value="0" class="EnumButton" id="TextureQualityLow" group="fogquality" />
+									<RadioButton text="#citadel_settings_fogquality_high" value="1" class="EnumButton" id="TextureQualityHigh" group="fogquality" />
+								</CitadelSettingsEnum>
 								<CitadelSettingsEnum class="HorizontalEnum" convar="r_texture_stream_mip_bias" text="#citadel_settings_texturequality" id="TextureEnum" onmouseover="UIShowTextTooltip( #citadel_settings_texturequality_desc )" onmouseout="UIHideTextTooltip()">
 									<RadioButton text="#citadel_settings_texturequality_low" value="2" class="EnumButton" id="TextureQualityLow" group="texturequality" />
 									<RadioButton text="#citadel_settings_texturequality_med" value="1" class="EnumButton" id="TextureQualityMed" group="texturequality" />
@@ -195,7 +205,6 @@
 								</CitadelSettingsEnum>
 								<Panel class="LeftRightFlow FullWidth">
 									<Panel class="advancedvideo">
-										<CitadelSettingsCheckbox convar="r_citadel_distancefield_shadows" text="#citadel_settings_distancefield_shadows" onmouseover="UIShowTextTooltip( #citadel_settings_distancefield_shadows_desc )" onmouseout="UIHideTextTooltip()" />
 										<CitadelSettingsCheckbox convar="r_post_bloom" text="#citadel_settings_post_bloom" onmouseover="UIShowTextTooltip( #citadel_settings_post_bloom_desc )" onmouseout="UIHideTextTooltip()" />
 										<CitadelSettingsCheckbox convar="r_effects_bloom" text="#citadel_settings_effects_bloom" onmouseover="UIShowTextTooltip( #citadel_settings_effects_bloom_desc )" onmouseout="UIHideTextTooltip()" />
 										<ToggleButton class="CheckBox" id="VSyncToggle" text="#citadel_settings_vsync" onactivate="CitadelSetVSync();" onmouseover="UIShowTextTooltip( #citadel_settings_vsync_desc )" onmouseout="UIHideTextTooltip()" />
@@ -209,6 +218,28 @@
 								<CitadelSettingsSlider id="FpsMaxSlider" convar="fps_max" min="60" max="240" disableifoutofrange="false" text="#citadel_settings_fps_max" onmouseover="UIShowTextTooltipStyled( #citadel_settings_fps_max_tip, OptionsTooltip)" onmouseout="UIHideTextTooltip()" />
 							</Panel>
 						</Panel>
+					</Panel>
+				</Panel>
+			</Panel>
+		</snippet>
+		<snippet name="SocialTabContent">
+			<Panel class="SettingsSecondaryPanel">
+				<Panel id="BasicOptions" class="SettingsColumnContainer FullHeight">
+					<Panel id="Column0" class="SettingsDualColumn">
+						<Panel id="ChatOptions" class="SettingsSection">
+							<Label text="#citadel_settings_chat" class="SectionHeader" />
+							<Panel class="SectionHeaderLine" />
+							<CitadelSettingsEnum convar="citadel_chat_filter_settings" text="#citadel_settings_chat_filter">
+								<RadioButton text="#citadel_settings_chat_filter_allow_none" value="0" class="EnumButton" group="chatpermissions" />
+								<RadioButton text="#citadel_settings_chat_filter_allow_friendly" value="1" class="EnumButton" group="chatpermissions" />
+								<RadioButton text="#citadel_settings_chat_filter_allow_teams" value="2" class="EnumButton" group="chatpermissions" />
+								<RadioButton text="#citadel_settings_chat_filter_allow_all" value="3" class="EnumButton" group="chatpermissions" />
+							</CitadelSettingsEnum>
+							<Button class="BlueButton" onactivate="CitadelShowSteamTextFilterSettings()">
+								<Label text="#citadel_settings_steam_text_filter" />
+							</Button>
+						</Panel>
+						<CitadelSettingsCheckbox class="streamerModeCheckbox extraTopMargin" convar="citadel_streaming_mode_enabled" text="#citadel_settings_streamer_mode" onmouseover="UIShowTextTooltipStyled( #citadel_settings_streamer_mode_tooltip , OptionsTooltip)" onmouseout="UIHideTextTooltip()" />
 					</Panel>
 				</Panel>
 			</Panel>
@@ -397,6 +428,7 @@
 									<Panel class="SectionHeaderLine" />
 									<CitadelSettingsKeyBinder id="ExtraInfoBinder" text="#citadel_keybind_extra_info" bind="ExtraInfo" />
 									<CitadelSettingsKeyBinder id="OpenHeroSheetBinder" text="#citadel_keybind_open_hero_sheet" bind="OpenHeroSheet" />
+									<CitadelSettingsKeyBinder id="PurchaseQuickbuyBinder" text="#citadel_keybind_purchase_quickbuy" bind="PurchaseQuickbuy" />
 									<CitadelSettingsKeyBinder id="ScoreboardSheetBinder" text="#citadel_keybind_scoreboard" bind="Scoreboard" />
 									<CitadelSettingsKeyBinder id="DevConsoleBinder" text="#citadel_keybind_dev_console" bind="DevConsole" />
 									<CitadelSettingsKeyBinder id="PauseConsoleBinder" text="#citadel_keybind_pause" bind="Pause" />
@@ -548,6 +580,30 @@
 				<Label class="ChatWheelPhraseChoiceText" html="true" text="{s:chat_wheel_message}" />
 			</Panel>
 		</snippet>
+		<snippet name="SteamInputTabContent">
+			<Panel class="SettingsSecondaryPanel">
+				<Panel id="SteamInputOptions" class="SettingsColumnContainer">
+					<Panel id="SteamInputTabContentContainer">
+						<Panel id="" class="SettingsSection">
+							<Label id="SteamInputHeader" text="#citadel_settings_steam_input" class="SectionHeader" />
+							<Panel id="SteamInputHeaderLine" class="SectionHeaderLine" />
+							<Label id="NoControllerDetectedMessage" text="#citadel_settings_steam_input_no_controller" />
+							<Button id="OpenSteamInputConfiguratorButton" class="ButtonBevel" onactivate="CitadelOpenSteamInputConfigurator()">
+								<Label text="#citadel_settings_steam_input_open_configurator" />
+							</Button>
+							<Panel class="LeftRightFlow" id="SteamInputGlyphLockModePanel">
+								<Label id="SteamInputGlyphLockModeLabel" class="AlignVerticalCenter" text="#citadel_settings_glyph_lock_mode" />
+								<CitadelSettingsEnumDropDown id="GlyphLockModeDropDown" convar="steam_inputhandler_glyph_lock_mode" class="">
+									<Label text="#citadel_settings_glyph_lock_mode_off" id="off" value="0" onmouseover="UIShowTextTooltipStyled( #citadel_settings_glyph_lock_mode_tooltip_off, OptionsTooltip)" onmouseout="UIHideTextTooltip()" />
+									<Label text="#citadel_settings_glyph_lock_mode_kbm" id="on" value="1" onmouseover="UIShowTextTooltipStyled( #citadel_settings_glyph_lock_mode_tooltip_kbm, OptionsTooltip)" onmouseout="UIHideTextTooltip()" />
+									<Label text="#citadel_settings_glyph_lock_mode_gamepad" id="boost" value="2" onmouseover="UIShowTextTooltipStyled( #citadel_settings_glyph_lock_mode_tooltip_gamepad, OptionsTooltip)" onmouseout="UIHideTextTooltip()" />
+								</CitadelSettingsEnumDropDown>
+							</Panel>
+						</Panel>
+					</Panel>
+				</Panel>
+			</Panel>
+		</snippet>
 	</snippets>
 	<PopupSettings class="Hidden" popupbackground="blur" onload="" oncancel="UIPopupButtonClicked()">
 		<Panel id="SettingsNavBar">
@@ -565,23 +621,33 @@
 				<Label text="#citadel_settings_audio" />
 			</RadioButton>
 			<Label class="SettingsTabSeparator" text="/" />
-			<RadioButton id="HotkeyTabButton" class="SettingsNavBarButton" group="SettingsTopMenu" onactivate="changeActiveTab( 4 )">
+			<RadioButton id="SocialTabButton" class="SettingsNavBarButton" group="SettingsTopMenu" onactivate="changeActiveTab( 3 )">
+				<Label text="#citadel_settings_social" />
+			</RadioButton>
+			<Label class="SettingsTabSeparator" text="/" />
+			<RadioButton id="HotkeyTabButton" class="SettingsNavBarButton" group="SettingsTopMenu" onactivate="changeActiveTab( 5 )">
 				<Label text="#citadel_settings_hotkeys" />
 			</RadioButton>
 			<Label class="SettingsTabSeparator" text="/" />
-			<RadioButton id="ChatWheelTabButton" class="SettingsNavBarButton" group="SettingsTopMenu" onactivate="changeActiveTab( 5 )">
+			<RadioButton id="ChatWheelTabButton" class="SettingsNavBarButton" group="SettingsTopMenu" onactivate="changeActiveTab( 6 )">
 				<Label text="#citadel_settings_chatwheel" />
 			</RadioButton>
+			<Label class="SettingsTabSeparator" text="/" />
+			<RadioButton id="SteamInputTabButton" class="SettingsNavBarButton" group="SettingsTopMenu" onactivate="changeActiveTab( 7 )">
+				<Label text="#citadel_settings_steaminput" />
+			</RadioButton>
 			<Panel class="SettingsTabFiller" />
-			<RadioButton id="AboutTabButton" class="SettingsNavBarButton" group="SettingsTopMenu" onactivate="changeActiveTab( 3 )">
+			<RadioButton id="AboutTabButton" class="SettingsNavBarButton" group="SettingsTopMenu" onactivate="changeActiveTab( 4 )">
 				<Label text="#citadel_settings_about" />
 			</RadioButton>
 		</Panel>
 		<Panel id="OptionsTabContent" class="HideSection" tabsnippet="OptionsTabContent" />
 		<Panel id="VideoTabContent" class="HideSection" tabsnippet="VideoTabContent" />
 		<Panel id="AudioTabContent" class="HideSection" tabsnippet="AudioTabContent" />
+		<Panel id="SocialTabContent" class="HideSection" tabsnippet="SocialTabContent" />
 		<Panel id="AboutTabContent" class="HideSection" tabsnippet="AboutTabContent" />
 		<Panel id="HotkeyTabContent" class="HideSection" tabsnippet="HotkeyTabContent" />
 		<Panel id="ChatWheelTabContent" class="HideSection" tabsnippet="ChatWheelTabContent" />
+		<Panel id="SteamInputTabContent" class="HideSection" tabsnippet="SteamInputTabContent" />
 	</PopupSettings>
 </root>

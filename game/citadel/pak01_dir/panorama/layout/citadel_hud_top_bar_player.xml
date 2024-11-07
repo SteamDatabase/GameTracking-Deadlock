@@ -9,7 +9,9 @@
 		<snippet name="ChatWheelMessage">
 			<Panel class="ChatLineContainer">
 				<Panel class="PingArrow" />
-				<Label id="ChatText" html="false" class="ChatLine" />
+				<Panel id="ChatTextContainer" class="LeftRightFlow">
+					<Label id="ChatText" html="false" class="ChatLine" />
+				</Panel>
 				<Panel id="ResponsesContainer">
 					<Panel id="NegativeResponses" />
 					<Panel id="PositiveResponses">
@@ -23,6 +25,7 @@
 		</snippet>
 	</snippets>
 	<CitadelHudTopBarPlayer hittest="false">
+		<GlobalClassListener classes="gDetailView" />
 		<Panel id="PauseIndicator" />
 		<Panel class="VoiceBar" />
 		<Panel class="KingPandaContainer">
@@ -92,7 +95,6 @@
 						<Label class="SoulsValue" html="true" text="{s:total_souls}" />
 					</Panel>
 				</Panel>
-				<Panel class="ValveEmployee" />
 				<Label class="PlayerName" text="{s:player_name}" />
 				<Panel id="KDAContainer" class="TopBottomFlow">
 					<Panel class="KDALabels LeftRightFlow">
@@ -107,8 +109,24 @@
 						<Label class="ForwardSlash" text="/" />
 						<Label class="PlayerStat assists" text="{i:assists}" />
 					</Panel>
+					<Panel class="LeftRightFlow AlignHorizontalCenter objDamageContainer">
+						<Label class="objDamageLabel objDamageTitle" text="#Citadel_Scoreboard_Obj_Damage" />
+						<Label class="objDamageLabel" text="{i:objective_damage}" />
+					</Panel>
 				</Panel>
 				<CitadelHudModBarGraph id="ModsBarGraph" />
+			</Panel>
+			<Panel id="PlayerModsContainer">
+				<CitadelModsPurchasedPanel id="mod_weapon" class="mod_weapon" mod_category="Weapon" read_only="true" show_stats_panel_tooltip="true" />
+				<CitadelModsPurchasedPanel id="mod_armor" class="mod_armor" mod_category="Armor" read_only="true" show_stats_panel_tooltip="true" />
+				<CitadelModsPurchasedPanel id="mod_tech" class="mod_tech" mod_category="Tech" read_only="true" show_stats_panel_tooltip="true" />
+				<CitadelModsPurchasedPanel id="mod_universal_locked" class="mod_universal_locked" mod_category="Locked Universal" read_only="true" />
+			</Panel>
+			<Panel id="PlayerAbilitiesContainer">
+				<CitadelAbilityIcon id="AbilityButton1" class="abilityButton1" read_only="true" ability_slot="1" show_upgrade_pips="true" />
+				<CitadelAbilityIcon id="AbilityButton2" class="abilityButton2" read_only="true" ability_slot="2" show_upgrade_pips="true" />
+				<CitadelAbilityIcon id="AbilityButton3" class="abilityButton3" read_only="true" ability_slot="3" show_upgrade_pips="true" />
+				<CitadelAbilityIcon id="AbilityButton4" class="abilityButton4" read_only="true" ability_slot="4" show_upgrade_pips="true" />
 			</Panel>
 		</Panel>
 		<Panel id="SpectatePlayerButtonPanel" onmouseover="$.GetContextPanel().AddClass(&apos;SpectateHover&apos;)" onmouseout="$.GetContextPanel().RemoveClass(&apos;SpectateHover&apos;)" />

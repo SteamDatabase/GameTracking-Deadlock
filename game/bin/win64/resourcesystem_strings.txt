@@ -7,6 +7,7 @@
 %sResource System profile stats unavailable. Compile with RESOURCE_SYSTEM_GATHER_STATS as 1 to gather stats.\n
 ** Forcing all resource loads to fail: "%s"\n
 *** Bad deletion request: Refcount for %s resource "%s" (%016llX) is greater than zero. (%d)!\n
+*pExisting == nTypeManifestPriority
 .?AV<lambda_1>@?1??InitForFileRead@CAsyncResourceDataRequest@@AEAAXPEBUResourceBindingBase_t@@W4ResourceManifestLoadPriority_t@@_NPEBD@Z@
 .?AV?$CBaseAppSystem@VIResourceSystem@@@@
 .?AV?$CConCommandMemberAccessor@VCResourceSystemProfiler@@@@
@@ -56,7 +57,6 @@
 .?AVIResourceSystemUtils@@
 .?AVIResourceTypeManager@@
 .?AVIVDataTypeManager@@
-2\vplI
 7\f57tE
 <Anonymous>
 <INVALID>
@@ -73,6 +73,7 @@ C:\buildworker\citadel_rel_win64\build\src\resourcesystem\profilehelpers.cpp
 C:\buildworker\citadel_rel_win64\build\src\resourcesystem\resourcesystem.cpp
 C:\buildworker\citadel_rel_win64\build\src\resourcesystem\streamingresourcedata.cpp
 CAsyncResourceDataRequest
+CAsyncResourceDataRequest::CAsyncResourceDataRequest
 CColorGradient
 CExampleSchemaVData_Monomorphic
 CExampleSchemaVData_PolymorphicBase
@@ -96,8 +97,11 @@ CResourceSystem::BlockingLoadResourceByNameIntoJustInTimeManifest
 CResourceSystem::FindOrCreateProceduralResource: Passed in an empty name for a procedural resource!\n
 CResourceSystem::FindOrRegisterResourceByName
 CResourceSystem::ForceSynchronizationAndBlockUntilManifestLoaded blocked for %.3f ms on %s [%s]\n
+CResourceSystem::InstallTestFilesystem
 CResourceSystem::InstallTypeManager
 CResourceSystem::MaybeExitBecauseOfResourceLoadFailure
+CResourceSystem::SetResourceTypeManifestPriority
+CResourceSystem::UninstallTestFilesystem
 CSoundEventName
 CStreamingResourceData::~CStreamingResourceData
 CStrongHandle
@@ -114,9 +118,7 @@ CUtlString
 CUtlStringToken
 CWeakHandle
 CWeakHandleVoid
-Cannot allocate abstract class
 Cannot deduce for class
-Class does not allow allocation from its schema binding
 ConstantInfo_t
 Construct
 Couldn't load KV3 for resource: %s
@@ -278,6 +280,7 @@ InfoForResourceTypeCResourceManifestInternal
 InfoForResourceTypeCResponseRulesList
 InfoForResourceTypeCSequenceGroupData
 InfoForResourceTypeCSmartProp
+InfoForResourceTypeCTestResourceData
 InfoForResourceTypeCTextureBase
 InfoForResourceTypeCTypeScriptResource
 InfoForResourceTypeCVDataResource
@@ -296,7 +299,6 @@ InfoForResourceTypeIPulseGraphDef
 InfoForResourceTypeIVectorGraphic
 InfoForResourceTypeManifestTestResource_t
 InfoForResourceTypeProceduralTestResource_t
-InfoForResourceTypeTestResource_t
 InfoForResourceTypeWorld_t
 InstallResourceTypeManager
 IsResourceManifestGroupKnown: Manifest group name is empty or null\n
@@ -315,7 +317,6 @@ Manifest %s references non-existent resource '%s'\n
 ManifestTestResource_t
 Max time to spend finalizing resources per frame in miliseconds.
 No DATA block for resource\n
-Not safe to 'new' this class due to alignment requirements
 OnAsyncProcessResourceData
 Only wrote %d (of %d) values when saving map!
 PackedAABB_t
@@ -345,7 +346,6 @@ ResourceSystemFrame
 ResourceSystemWaitingForFutureWork
 SINGLE FRAME
 Scan all of the loaded modules and validate any resource manifests found
-TestResource_t
 Tried to double-register resource manager for two resource types! ( "%lld" and "%lld")\n
 Tried to install a NULL resource manager for resource type "%lld"!\n
 Tried to install a placeholder resource manager for an existing resource type "%lld"!\n
@@ -359,6 +359,7 @@ UnregisterNamedManifest called, but we are not shutting down!!!\n
 Unsupported version %d for resource '%s' (Expected %d)\n
 Usage: resource_leaks <resource_name>\n
 Usage: resource_repeated_reload <count> <resource_name>\n
+V_isempty( pFileNameOverride )
 VariableInfo_t
 Vector
 WARNING: %s resource '%s' (%016llX) requested but is not in the system. (Missing from from a manifest?)\n
@@ -413,6 +414,8 @@ m_nPackedMax
 m_nPackedMin
 m_nParamCount
 m_nameToken
+m_pTestFS == nullptr
+m_pTestFS == pTestFS
 m_programBuffer
 m_vMaxBounds
 m_vMinBounds
@@ -442,15 +445,17 @@ rs_dump_stats
 rs_dump_stats - Dump resourcesystem stats.
 schemasystem
 set_profile_mode
+test_payload
 vagrp
 vanim
-vanmgrpheconitemvents
+vanmgrpheconitem
 vcdlist
 vcompmat
 vdata
 vdpn
 vdvn
-vgcxdatavxml
+vents
+vgcxdata
 vmat
 vmdl
 vmesh

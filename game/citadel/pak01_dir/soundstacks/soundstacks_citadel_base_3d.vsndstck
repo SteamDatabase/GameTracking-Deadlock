@@ -75,42 +75,6 @@
 							display_group = "advanced"
 						}
 					}
-					mixer_mixgroup = 
-					{
-						data_type = "string"
-						value = "All"
-						_system_properties = 
-						{
-							property_group = "Mixer"
-						}
-					}
-					mixer_set_mixlayer = 
-					{
-						data_type = "float"
-						value = "0.000000"
-						_system_properties = 
-						{
-							property_group = "Mix Layer"
-						}
-					}
-					mixer_mixlayer_to_set = 
-					{
-						data_type = "string"
-						value = ""
-						_system_properties = 
-						{
-							property_group = "Mix Layer"
-						}
-					}
-					mixer_mixlayer_amount_manual = 
-					{
-						data_type = "float"
-						value = "0.000000"
-						_system_properties = 
-						{
-							property_group = "Mix Layer"
-						}
-					}
 					volume = 
 					{
 						data_type = "float"
@@ -1114,6 +1078,90 @@
 							property_help = "Lookup name for per speaking voice volume"
 						}
 					}
+					vsnd_file = 
+					{
+						data_type = "vsnd"
+						value = "sounds/common/null.vsnd"
+						_system_properties = 
+						{
+							display_group = "advanced"
+							property_group = "voice envelope timing"
+							property_help = "should be set by sos import in default_2d/3d"
+						}
+					}
+					mixer_mixgroup = 
+					{
+						data_type = "string"
+						value = "All"
+						_system_properties = 
+						{
+							property_group = "Mixer"
+						}
+					}
+					mixer_trigger_input = 
+					{
+						data_type = "enum"
+						enum_decl = 
+						{
+							value = 
+							[
+								"Volume",
+								"Envelope",
+								"Custom Amount",
+							]
+						}
+						value = "Volume"
+						_system_properties = 
+						{
+							property_group = "Mixer"
+						}
+					}
+					mixer_trigger_amount_manual = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "Mixer"
+						}
+					}
+					mixer_set_mixlayer_input = 
+					{
+						data_type = "enum"
+						enum_decl = 
+						{
+							value = 
+							[
+								"Disabled",
+								"Volume",
+								"Envelope",
+								"Custom Amount",
+							]
+						}
+						value = "Disabled"
+						_system_properties = 
+						{
+							property_group = "Mix Layer"
+						}
+					}
+					mixer_mixlayer_to_set = 
+					{
+						data_type = "string"
+						value = ""
+						_system_properties = 
+						{
+							property_group = "Mix Layer"
+						}
+					}
+					mixer_mixlayer_amount_manual = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "Mix Layer"
+						}
+					}
 				}
 			},
 			
@@ -1957,26 +2005,73 @@
 			},
 			
 			{
+				name = "get_vsnd_info"
+				operator = "vmix_vsnd_info"
+				input_vsnd = "@public.vsnd_file"
+			},
+			
+			{
+				name = "get_voice_elapsed_time"
+				operator = "vmix_voice_time"
+				input_execute = "@get_vsnd_info.output_has_envelope"
+			},
+			
+			{
+				name = "sample_env_curve"
+				operator = "container_sample_curve"
+				input_execute = "@get_vsnd_info.output_has_envelope"
+				input_time = "@get_voice_elapsed_time.output_voice_seek_time"
+				input_container = "@public.vsnd_file"
+			},
+			
+			{
+				name = "select_envelope_check"
+				operator = "ctrl_switch_float"
+				input_switch = "@get_vsnd_info.output_has_envelope"
+				input1 = "@volume_filter.output"
+				input2 = "@sample_env_curve.output"
+			},
+			
+			{
+				name = "mixer_trigger_select_input"
+				operator = "ctrl_switch3_float"
+				input_index = "@public.mixer_trigger_input"
+				input0 = "@volume_filter.output"
+				input1 = "@select_envelope_check.output"
+				input2 = "@public.mixer_trigger_amount_manual"
+			},
+			
+			{
 				name = "mixer_trigger"
 				operator = "soundmixer_set_trigger"
-				input_trigger = "@volume_filter.output"
+				input_trigger = "@mixer_trigger_select_input.output"
 				input_mixgroups = "@mixer.output_mixgroups"
 			},
 			
 			{
-				name = "mixlayer_input_switch"
-				operator = "ctrl_switch_float"
-				input_execute = "@public.mixer_set_mixlayer"
-				input_switch = "@public.mixer_mixlayer_amount_manual"
+				name = "set_mixlayer_enabled"
+				operator = "math_float"
+				apply = "greater_than"
+				input1 = "@public.mixer_set_mixlayer_input"
+				input2 = "0.000000"
+			},
+			
+			{
+				name = "mixlayer_select_input"
+				operator = "ctrl_switch12_float"
+				input_execute = "@set_mixlayer_enabled.output"
+				input_index = "@public.mixer_set_mixlayer_input"
+				input0 = "0.0"
 				input1 = "@volume_filter.output"
-				input2 = "@public.mixer_mixlayer_amount_manual"
+				input2 = "@select_envelope_check.output"
+				input3 = "@public.mixer_mixlayer_amount_manual"
 			},
 			
 			{
 				name = "mixer_set_mixlayer"
 				operator = "soundmixer_set_mixlayer_amount"
-				input_execute = "@public.mixer_set_mixlayer"
-				input = "@mixlayer_input_switch.output"
+				input_execute = "@set_mixlayer_enabled.output"
+				input = "@mixlayer_select_input.output"
 				mixlayer = "@public.mixer_mixlayer_to_set"
 			},
 			

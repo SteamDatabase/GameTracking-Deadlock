@@ -167,6 +167,13 @@ $hRh
 %s------%s%s
 %s------%s--%s%s
 %s: (%d bit)\n
+%s: Unable to create probe array (%d)\n
+%s: Unable to create probe batch(%d)\n
+%s: Unable to create serialized object (%d)\n
+%s: Unable to find serialized probe batch data\n
+%s: Unable to load data: %s\n
+%s: Unable to load probe batch (%d)\n
+%s: Unable to save data: %s\n
 %s:%d: rec->data != rec->input\n
 %s_%03d.vpk
 &'&)&5&;&?&K&S&Y&e&i&o&{&
@@ -278,6 +285,7 @@ $hRh
 .?AVCHybridReverbProcessor@@
 .?AVCImpulseResponse@@
 .?AVCPathingProcessor@@
+.?AVCSchemaRegistration_steamaudio@@
 .?AVCSource3DProcessor@@
 .?AVCSteamAudio@@
 .?AVCSteamAudioMaterialList@@
@@ -629,7 +637,6 @@ $hRh
 2Zq)
 2\fWQx
 2\rlhp
-2\vp<T
 2^pV
 2a"l
 2bT~
@@ -1205,18 +1212,14 @@ BakeOcclusion: Unable to create impulse response. (%d)\n
 BakeOcclusion: Unable to create probe batch. [%d]\n
 BakeOcclusion: Unable to create simulator. (%d)\n
 BakeOcclusion: Unable to create source. (%d)\n
-BakePathData: Baked %llu bytes.\n
 BakePathData: Cancelled\n
 BakePathData: Max probes (%u) limit exceeded (%d). Bake cancelled.\n
 BakePathData: Unable to create probe batch. [%d]\n
-BakePathData: Unable to create serialized object. [%d]\n
 BakeReverb: Cancelled\n
 BakeReverb: Max probes (%u) limit exceeded (%d). Bake cancelled.\n
-BakeReverb: Saved %zu bytes.\n
 BakeReverb: Unable to create compressed probe batch. (%d)\n
 BakeReverb: Unable to create probe array. (%d)\n
 BakeReverb: Unable to create probe batch. (%d)\n
-BakeReverb: Unable to create serialized object. (%d)\n
 Basic OCSP Response
 Basis Type: %s\n
 BcT`
@@ -1440,16 +1443,33 @@ CRYPTO_get_new_dynlockid
 CRYPTO_get_new_lockid
 CRYPTO_set_ex_data
 CSPName
+CSteamAudioBakedDimensionsData
+CSteamAudioBakedMaterialsData
+CSteamAudioBakedOcclusionData
+CSteamAudioBakedPathingData
+CSteamAudioBakedReverbData
+CSteamAudioBakedReverbData::KV3TransferPostLoadFn
+CSteamAudioBakedReverbData::KV3TransferPostSaveFn
+CSteamAudioProbeData
+CSteamAudioProbeData::KV3TransferPostLoadFn
+CSteamAudioProbeData::KV3TransferPostSaveFn
+CSteamAudioProbeData::SetProbes
+CSteamAudioProbeData::SetSerializedData
+CSteamAudioScene::BakeDimensions
+CSteamAudioScene::BakeMaterials
 CSteamAudioScene::BakeOcclusion
 CSteamAudioScene::BakePathData
 CSteamAudioScene::BakeReverb
+CSteamAudioSimulationData::ImportDimensionsData
+CSteamAudioSimulationData::ImportMaterialsData
+CSteamAudioSimulationData::ImportOcclusionData
 CSteamAudioSimulationData::ImportPathingData
 CSteamAudioSimulationData::ImportReverbData
 CT Certificate SCTs
 CT Precertificate Poison
 CT Precertificate SCTs
 CT Precertificate Signer
-CUtlRBTree<struct CUtlOrderedMapBase<int,int,class CDefLess<int>,int>::Node_t,class CUtlOrderedMapBase<int,int,class CDefLess<int>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<int,int,class CDefLess<int>,int>::Node_t,int>,int> >::Insert
+CUtlRBTree<struct CUtlOrderedMapBase<class CUtlStringToken,int,class CDefLess<class CUtlStringToken>,int>::Node_t,class CUtlOrderedMapBase<class CUtlStringToken,int,class CDefLess<class CUtlStringToken>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CUtlStringToken,int,class CDefLess<class CUtlStringToken>,int>::Node_t,int>,int> >::Insert
 CUtlSortVector<struct ChunkHashFraction_t,class ChunkHashFractionLess_t,class CUtlVector<struct ChunkHashFraction_t,int,class CUtlMemory<struct ChunkHashFraction_t,int> > >::Find
 CVcn
 C[L6
@@ -1459,6 +1479,7 @@ C\tr9rW
 Cam\v;
 Camellia(128)
 Camellia(256)
+Cannot allocate abstract class
 Certificate Hold
 Certificate Sign
 Certificate:\n
@@ -1467,6 +1488,7 @@ ChGg
 Char=
 Chunk hash not found.
 ClQ(|
+Class does not allow allocation from its schema binding
 CloseToolhelp32Snapshot
 Code Signing
 Code=
@@ -1737,17 +1759,11 @@ Diffie-Hellman based MAC
 Diffie-Hellman part of OpenSSL 1.0.2j  26 Sep 2016
 Diffie-Hellman routines
 Digital Signature
-Dimensions: Baked data file is the wrong format version, skipping load. Consider re-baking. (%s)\n
-Dimensions: Baked data file is the wrong format version, skipping load. Consider re-baking.\n
-Dimensions: Baked data file is the wrong format, skipping load. Consider re-baking. (%s)\n
-Dimensions: Baked data file is the wrong format, skipping load. Consider re-baking.\n
 Dimensions: Cannot find baked data file: %s.\n
+Dimensions: Data not stored in KV3 format. Rebake.\n
 Dimensions: Filesystem not initialized.\n
 Dimensions: Imported %d probes from baked file (%s).\n
 Dimensions: Loaded baked data file (%s).\n
-Dimensions: No probes dound, skipping load. Consider re-baking.\n
-Dimensions: Unable to create probe array. (%d)\n
-Dimensions: Unable to create probe batch. (%d)\n
 Dimensions: Unable to load baked data file (%s).\n
 DirName
 DirName: 
@@ -2086,6 +2102,7 @@ FORMAT
 FU\n-XP
 FV|FgUV
 F\rH'4
+Failed to allocate an instance of a class
 Failed to open file
 Failed to read
 Failed to read %d bytes\n
@@ -2198,7 +2215,6 @@ HMAC_Init_ex
 HO8?
 HU>mA$_E*
 HWyn
-H\tV_powd
 Hash Algorithm: 
 HbAta
 Hc S
@@ -2258,6 +2274,7 @@ IP Address
 IP Address:%d.%d.%d.%d
 IP Address:<invalid>
 IP address mismatch
+IPLProbeBatch
 IPSec End System
 IPSec Tunnel
 IPSec User
@@ -2268,6 +2285,7 @@ ISSUING_DIST_POINT
 ITU-T
 IV block
 I\tHA\t981G'dc
+I\tV_powd
 If set, all the probes near a source withing probe range are used to find paths instead of nearest probe.
 If set, baked dimensions data is loaded.
 If set, baked materials data is loaded.
@@ -2327,6 +2345,7 @@ KMBo8[
 KQSlB
 KRB5
 KSV<
+KV3 save transfer failed: %s
 KV;-W
 KWjI
 K[C7W+
@@ -2364,6 +2383,7 @@ LY\r5
 LbWf
 Load certs from files in a directory
 Load file into cache
+LoadKV3Object error: %s\n
 LoadLibraryW
 Loaded custom HRTF [%s] with volume [%.2f dB] and normaliztion [%d]\n
 LocalKeySet
@@ -2383,6 +2403,7 @@ MEMORY_LOCK
 MEM_READ
 MEM_WRITE
 MGF1
+MGetKV3ClassDefaults
 MGrB
 MIC-CLEAR
 MIC-ONLY
@@ -2398,17 +2419,10 @@ M\vOj
 Mail
 Management
 Mask Algorithm: 
-Materials: Baked data file is the wrong format version, skipping load. Consider re-baking. (%s)\n
-Materials: Baked data file is the wrong format version, skipping load. Consider re-baking.\n
-Materials: Baked data file is the wrong format, skipping load. Consider re-baking. (%s)\n
-Materials: Baked data file is the wrong format, skipping load. Consider re-baking.\n
 Materials: Cannot find baked data file: %s.\n
 Materials: Filesystem not initialized.\n
 Materials: Imported %d probes from baked file (%s).\n
 Materials: Loaded baked data file (%s).\n
-Materials: No probes dound, skipping load. Consider re-baking.\n
-Materials: Unable to create probe array. (%d)\n
-Materials: Unable to create probe batch. (%d)\n
 Materials: Unable to load baked data file (%s).\n
 Maximum gain any HRTF could have during volume normalization.
 Maximum number of probes to create when baking custom data.
@@ -2519,6 +2533,7 @@ Nonce
 Normalize volume of default HRTF dataset across all directions.
 Not After: 
 Not Before: 
+Not safe to 'new' this class due to alignment requirements
 NrPn
 Nu6Q
 Nw!qB
@@ -2608,17 +2623,11 @@ Oakley-EC2N-4
 Object Signer
 Object Signing
 Object Signing CA
-Occlusion: Baked data file is the wrong format version, skipping load. Consider re-baking. (%s)\n
-Occlusion: Baked data file is the wrong format version, skipping load. Consider re-baking.\n
-Occlusion: Baked data file is the wrong format, skipping load. Consider re-baking. (%s)\n
-Occlusion: Baked data file is the wrong format, skipping load. Consider re-baking.\n
 Occlusion: Cannot find baked data file: %s.\n
+Occlusion: Data not stored in KV3 format. Rebake.\n
 Occlusion: Filesystem not initialized.\n
 Occlusion: Imported %d probes from baked file (%s).\n
 Occlusion: Loaded baked data file (%s).\n
-Occlusion: No probes dound, skipping load. Consider re-baking.\n
-Occlusion: Unable to create probe array. (%d)\n
-Occlusion: Unable to create probe batch. (%d)\n
 Occlusion: Unable to load baked data file (%s).\n
 Oh%u'
 Only Some Reasons
@@ -2848,17 +2857,19 @@ Parameters
 Parse error on %s: %s\n
 Path length of invalid path in inches. Set this to .0 to use direct distance as path length.
 Pathing: Baked data file is the wrong format version, skipping load. Consider re-baking. (%s)\n
+Pathing: Baked data file is the wrong format version, skipping load. Consider re-baking.\n
 Pathing: Baked data file is the wrong format, skipping load. Consider re-baking. (%s)\n
+Pathing: Baked data file is the wrong format, skipping load. Consider re-baking.\n
 Pathing: Cannot find baked paths file: %s. Pathing disabled.\n
 Pathing: Cannot find baked paths file: %s.\n
 Pathing: Filesystem not initialized.\n
 Pathing: Imported %d probes from baked pathing file (%s).\n
 Pathing: Loaded baked data file (%s).\n
+Pathing: Loaded baked data file.\n
+Pathing: No baked pathing found in baked data file.\n
 Pathing: No baked pathing found in baked data file: %s.\n
-Pathing: No probes found in baked data file: %s. Pathing disabled.\n
-Pathing: Unable to create serialized object. (%d)\n
+Pathing: No probes found in baked data file. Pathing disabled.\n
 Pathing: Unable to load baked data file (%s).\n
-Pathing: Unable to load probe batch. (%d)\n
 Pathing: Unable to read from baked data file (%s). Pathing disabled.\n
 Peer haven't sent GOST certificate, required for selected ciphersuite
 Permanent Identifier
@@ -3036,7 +3047,6 @@ RSA_verify_PKCS1_PSS
 RSA_verify_PKCS1_PSS_mgf1
 RSDS
 R\r1>Vp
-R\vp<T
 R]Di
 Rbg.E
 ReadConsoleInputW
@@ -3054,6 +3064,10 @@ ResourceCompiler/SteamAudio/CustomDataDefaults/FilterUsingVolumes
 ResourceCompiler/SteamAudio/CustomDataDefaults/GridGenerationType
 ResourceCompiler/SteamAudio/CustomDataDefaults/GridSpacing
 ResourceCompiler/SteamAudio/CustomDataDefaults/HeightAboveFloor
+ResourceCompiler/SteamAudio/CustomDataDefaults/OcclusionPathing
+ResourceCompiler/SteamAudio/CustomDataDefaults/OcclusionReflection
+ResourceCompiler/SteamAudio/CustomDataDefaults/OcclusionReflectionBounces
+ResourceCompiler/SteamAudio/CustomDataDefaults/OcclusionReflectionRays
 ResourceCompiler/SteamAudio/CustomDataDefaults/RebakeOption
 ResourceCompiler/SteamAudio/PathingDefaults/FilterUsingNavMesh
 ResourceCompiler/SteamAudio/PathingDefaults/FilterUsingVolumes
@@ -3080,14 +3094,17 @@ ResourceCompiler/SteamAudio/ReverbDefaults/NumBounces
 ResourceCompiler/SteamAudio/ReverbDefaults/NumRays
 ResourceCompiler/SteamAudio/ReverbDefaults/RebakeOption
 Reverb: Baked data file is the wrong format version, skipping load. Consider re-baking. (%s)\n
+Reverb: Baked data file is the wrong format version, skipping load. Consider re-baking.\n
 Reverb: Baked data file is the wrong format, skipping load. Consider re-baking. (%s)\n
+Reverb: Baked data file is the wrong format, skipping load. Consider re-baking.\n
 Reverb: Cannot find baked reverb file: %s. Reverb disabled.\n
 Reverb: Cannot find baked reverb file: %s.\n
 Reverb: Filesystem not initialized.\n
 Reverb: Imported %d probes from baked reverb file (%s).\n
 Reverb: Loaded baked data file (%s).\n
+Reverb: No baked reverb found in baked data file.\n
 Reverb: No baked reverb found in baked data file: %s.\n
-Reverb: No probes found in baked data file: %s. Reverb disabled.\n
+Reverb: No probes found in baked data file. Reverb disabled.\n
 Reverb: Unable to create serialized object. (%d)\n
 Reverb: Unable to load baked data file (%s). Reverb disabled.\n
 Reverb: Unable to load baked data file (%s).\n
@@ -3114,7 +3131,6 @@ S2zw
 S8#w
 S<Fb
 S<hN-AO
-SABD
 SECG curve over a 112 bit prime field
 SECG curve over a 113 bit binary field
 SECG curve over a 128 bit prime field
@@ -3298,6 +3314,10 @@ SoundSystemLowLevel
 Sr89[
 Stack part of OpenSSL 1.0.2j  26 Sep 2016
 SteamAudio
+SteamAudioPathSettings_t
+SteamAudioReverbClusteringSettings_t
+SteamAudioReverbCompressionSettings_t
+SteamAudioReverbSettings_t
 Strong Extranet ID
 Subject Information Access
 Suite B: cannot sign P-384 with P-256
@@ -5450,6 +5470,8 @@ iplProbeBatchCreate
 iplProbeBatchCreateCompressed
 iplProbeBatchCreateNonUniform
 iplProbeBatchGetInfluencingProbes
+iplProbeBatchGetNumProbes
+iplProbeBatchGetProbe
 iplProbeBatchGetProbeArray
 iplProbeBatchLoad
 iplProbeBatchLoadCompressed
@@ -5639,7 +5661,6 @@ kisa
 kjy\v
 kp3/y*U
 kpEKI
-kr%g
 krb5
 krb5 client cc principal (no tkt?)
 krb5 client get cred
@@ -5704,6 +5725,27 @@ mS'7
 mXRecord
 mZKB
 m\ta=\ruWb
+m_bEnableClustering
+m_bEnableCompression
+m_flDepthThreshold
+m_flIRDuration
+m_flProbePathRange
+m_flProbeVisRadius
+m_flProbeVisThreshold
+m_nAmbisonicsOrder
+m_nCubeMapResolution
+m_nNumBounces
+m_nNumRays
+m_nNumVisSamples
+m_pProbeBatch
+m_probes
+m_reverbClusteringSettings
+m_reverbCompressionSettings
+m_reverbSettings
+m_vecInOut
+m_vecMaterialTokens
+m_vecOcclusion
+m_vecSize
 ma\v\r01!
 mac absent
 mac generation error
@@ -6920,6 +6962,10 @@ steamaudio_customdata_filter_volumes
 steamaudio_customdata_generation_type
 steamaudio_customdata_grid_spacing
 steamaudio_customdata_height_above_floor
+steamaudio_customdata_occlusion_pathing
+steamaudio_customdata_occlusion_reflection
+steamaudio_customdata_occlusion_reflection_bounces
+steamaudio_customdata_occlusion_reflection_rays
 steamaudio_customdata_rebake_option
 steamaudio_pathing_filter_navmesh
 steamaudio_pathing_filter_volumes

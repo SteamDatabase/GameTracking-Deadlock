@@ -127,7 +127,6 @@ $SPECULARSCALE
 %s:( ActiveParticleCount()=%d, m_bounds=%? simtime=%g )
 %s::%s (%u)
 %tf\t%de\t%4d\t%
-( %f, %f, %f )
 ( m_nTextureType == SPRITECARD_TEXTURE_NORMALMAP || m_nTextureType == SPRITECARD_TEXTURE_ANIMMOTIONVEC || m_nTextureType == SPRITECARD_TEXTURE_6POINT_XYZ_A || m_nTextureType == SPRITECARD_TEXTURE_6POINT_NEGXYZ_E || m_nTextureType == SPRITECARD_TEXTURE_SPHERICAL_HARMONICS_A || m_nTextureType == SPRITECARD_TEXTURE_SPHERICAL_HARMONICS_B || m_nTextureType == SPRITECARD_TEXTURE_SPHERICAL_HARMONICS_C || m_nTextureType == SPRITECARD_TEXTURE_DEPTH )
 (Expecting %s)
 (Expecting EOF)
@@ -166,7 +165,7 @@ $SPECULARSCALE
 .?AV<lambda_1>@?6??FilterInY@CSOAContainer@@QEAAXHVIntAABB_t@@HPEBM_N@Z@
 .?AV<lambda_1>@?6??FilterInZ@CSOAContainer@@QEAAXHVIntAABB_t@@HPEBM_N@Z@
 .?AV<lambda_2>@?7??Operate@C_OP_VelocityMatchingForce@@UEBAXPEAVCParticleCollection@@MPEAX@Z@
-.?AV<lambda_2>@?8??AddForces@C_OP_IntraParticleForce@@UEBAXPEAVFourVectors@@PEAVCParticleCollection@@AEBV?$CUtlLocalStackBuffer@T__m128@@@@HMPEAX@Z@
+.?AV<lambda_2>@?8??AddForces@C_OP_IntraParticleForce@@UEBAXPEAVFourVectors@@PEAVCParticleCollection@@AEBV?$CUtlLocalStackArray@T__m128@@@@HMPEAX@Z@
 .?AV?$CBaseAppSystem@VIParticleSystemMgr@@@@
 .?AV?$CKV3Transfer_UtlSymbolLargeInterface@V?$CUtlSymbolTableLargeBase@$00$0IAA@VCThreadNullMutex@@@@@@
 .?AV?$CKV3Transfer_UtlSymbolLargeInterface@V?$CUtlSymbolTableLargeBase@$0A@$0IAA@VCThreadNullMutex@@@@@@
@@ -555,7 +554,7 @@ $SPECULARSCALE
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?6??FilterInY@CSOAContainer@@QEAAXHVIntAABB_t@@HPEBM_N@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?6??FilterInZ@CSOAContainer@@QEAAXHVIntAABB_t@@HPEBM_N@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_2>@?7??Operate@C_OP_VelocityMatchingForce@@UEBAXPEAVCParticleCollection@@MPEAX@Z@XPEBUPairCollisionList_t@@@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_2>@?8??AddForces@C_OP_IntraParticleForce@@UEBAXPEAVFourVectors@@PEAVCParticleCollection@@AEBV?$CUtlLocalStackBuffer@T__m128@@@@HMPEAX@Z@XPEBUPairCollisionList_t@@@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_2>@?8??AddForces@C_OP_IntraParticleForce@@UEBAXPEAVFourVectors@@PEAVCParticleCollection@@AEBV?$CUtlLocalStackArray@T__m128@@@@HMPEAX@Z@XPEBUPairCollisionList_t@@@std@@
 .?AV?$_Ref_count_obj2@VCParticleNamedValueStorageLayout@@@std@@
 .?AVCBasePulseGraphInstance@@
 .?AVCBaseRendererSource2@@
@@ -1106,8 +1105,7 @@ $SPECULARSCALE
 1D Luminance to Color Lookup
 2D Orient
 2\nP!E
-2\vpd
-2\vpl
+2\vp<7A
 3 %d %d %d\n
 33S@ff
 3E"F
@@ -1518,6 +1516,7 @@ CPulseMathlib!DotProductVector
 CPulseMathlib!FloatToGameTime
 CPulseMathlib!GameTimeToFloat
 CPulseMathlib!LengthVector
+CPulseMathlib!MakeColor
 CPulseMathlib!MakeVector
 CPulseMathlib!MakeWorldVector
 CPulseMathlib!MaxFloat
@@ -2063,6 +2062,7 @@ Distortion Amount
 Distribute evenly
 Div R%d <- R%d / R%d
 Divide
+Divide by zero!
 Do Nothing
 Do not repeat cycle
 Do not stop the current yielding node, but do not continue to the next node afterwards.
@@ -2082,9 +2082,11 @@ Dynamic Entities Only
 Dynamic Fog No Shadows
 Dynamic Fog with Shadows
 ELEMENT_ACCESS
+ELEMENT_ACCESS_COLOR_RGB
 ELEMENT_ACCESS_VEC3
 EPulseGraphExecutionHistoryFlag
 EQ_BOOL
+EQ_COLOR_RGB
 EQ_EHANDLE
 EQ_ENTITY_NAME
 EQ_FLOAT
@@ -2596,10 +2598,11 @@ MUL_FLOAT
 MUL_INT
 MVectorIsCoordinate
 MVectorIsSometimesCoordinate
-M\tV_remainderf
 Made disabling operators + children actually fully work.\n
+Make Color
 Make Vector
 Make World Vector
+Make a Color from component values
 Make a Vector from component values
 Make a World Vector from component values
 Manual Animation Frame
@@ -2698,6 +2701,7 @@ NEGATE_VEC3
 NEGATIVE_TOK
 NEWLINE
 NE_BOOL
+NE_COLOR_RGB
 NE_EHANDLE
 NE_ENTITY_NAME
 NE_FLOAT
@@ -2715,6 +2719,7 @@ NORMAL
 NO_FLAGS
 NULL CELL
 NUM_SEQUENCES_PER_PARTICLE
+N\tV_remainderf
 Named Values
 Named model body part random
 Named model mesh group random
@@ -3063,7 +3068,6 @@ PVEC_TYPE_PARTICLE_VECTOR
 PVEC_TYPE_PARTICLE_VELOCITY
 PanelID
 Panorama Panel Handle
-Param
 Parent Map Entity
 Parent Map: %s\n
 Parent Particle Index
@@ -3304,7 +3308,6 @@ RGBA with RGB as Alpha
 ROTATION
 ROTATION_SPEED
 RSDS
-R\fpl
 Radial Amount (-1..1)
 Radius
 Radius Scale
@@ -3899,7 +3902,6 @@ VECTOR_FLOAT_EXPRESSION_INPUT1_LENGTH
 VECTOR_FLOAT_EXPRESSION_INPUT1_LENGTHSQR
 VECTOR_FLOAT_EXPRESSION_INPUT1_NOISE
 VECTOR_FLOAT_EXPRESSION_UNINITIALIZED
-V\tV_sind
 Value at end of cycle
 Value at start of cycle
 Value for dist<min
@@ -3952,6 +3954,7 @@ WARNING: Pulse failed to restore yielded cursor - no yielding cell or landing pa
 WARNING: Pulse failed to save yielded cursor - no yielding cell or landing pad (C%d:I%d)\n
 WARNING: Removing circular reference to particle child '%s'.\n
 WHITE
+W\tV_sind
 Wait
 Wait For Completion
 Wait, Resume=%s
@@ -4006,9 +4009,9 @@ Z>wg}?0
 \fp\v`\n0\tP!2\f
 \n    near %s\n    
 \n\n----------------------------\nInstance Count:\n
-\r\tV_fmodd
 \t The lexer was matching from line %d, offset %d, which\n\t 
 \t%4d -  %s\n
+\tV_fmodd
 \tV_fpclassifyd
 \tV_frexpf
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r
@@ -4884,7 +4887,6 @@ m_Outparams
 m_OutputConnections
 m_OutputIndex
 m_Outputs
-m_ParamType
 m_ParentMapName
 m_ParentXmlName
 m_PathParameters
@@ -6685,9 +6687,8 @@ pulse_save_execution_history
 pulse_save_execution_history_limit
 pvec_color_black
 pvec_color_white
-q\tV_tand
 quX?
-r\vpl
+r\tV_tand
 r_draw_particle_children_with_parents
 r_drawparticles
 r_freezeparticles

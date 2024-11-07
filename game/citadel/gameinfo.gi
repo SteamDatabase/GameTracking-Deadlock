@@ -215,13 +215,27 @@
 
 		BakedLighting
 		{
-			Version 2
+			Version 3
 			LightmapChannels
 			{
-				irradiance 1
-				directional_irradiance 1
 				direct_light_shadows 1
 				debug_chart_color 1
+				directional_irradiance_sh2_dc 1
+				
+				directional_irradiance_sh2_r
+				{
+					CompressedFormat BC7 //DXT1
+				}
+				
+				directional_irradiance_sh2_g
+				{
+					CompressedFormat BC7 //DXT1
+				}
+				
+				directional_irradiance_sh2_b
+				{
+					CompressedFormat BC7 //DXT1
+				}
 			}
 			UseStaticLightProbes 0
 			LPVAtlas 1
@@ -378,6 +392,7 @@
 		}
 		"sv_minrate"	"98304"
 		"sv_maxunlag"	"0.200"
+		"cl_clock_buffer_ticks"	"1"
 
 		// Spew warning when adding/removing classes to/from the top of the hierarchy
 		"panorama_classes_perf_warning_threshold_ms" "0.75"

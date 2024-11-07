@@ -200,13 +200,6 @@
 			},
 			
 			{
-				name = "citadel_base_3d"
-				operator = "sos_import_stack"
-				import_stack = "citadel_base_3d"
-				auto_connect_public_fields = "true"
-			},
-			
-			{
 				name = "get_vsnd"
 				operator = "opvar_get_vsnd"
 				execute_once = "true"
@@ -219,10 +212,18 @@
 			},
 			
 			{
-				name = "get_vsnd_info"
-				operator = "vmix_vsnd_info"
-				execute_once = "true"
-				input_vsnd = "@get_vsnd.output"
+				name = "citadel_base_3d"
+				operator = "sos_import_stack"
+				import_stack = "citadel_base_3d"
+				auto_connect_public_fields = "true"
+				operator_variables = 
+				{
+					vsnd_file = 
+					{
+						data_type = "vsnd"
+						value = "@get_vsnd.output"
+					}
+				}
 			},
 			
 			{
@@ -230,8 +231,8 @@
 				operator = "math_float"
 				execute_once = "true"
 				apply = "and_not"
-				input1 = "@get_vsnd_info.output_is_valid"
-				input2 = "@get_vsnd_info.output_is_looped"
+				input1 = "@citadel_base_3d::get_vsnd_info.output_is_valid"
+				input2 = "@citadel_base_3d::get_vsnd_info.output_is_looped"
 			},
 			
 			{
