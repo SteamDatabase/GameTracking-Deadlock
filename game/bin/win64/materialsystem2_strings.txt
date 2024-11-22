@@ -61,7 +61,9 @@
 %s Shader: %s attribute '%s' set in mode '%s' does not match value set in another mode %d != %d.\n
 %s Shader: %s attribute '%s' set in mode '%s' does not match value set in another mode %f != %f.\n
 %s Shader: %s attribute '%s' set in mode '%s' does not match value set in another mode %s != %s.\n
+%s allocation count overflow
 %s allocation count overflow( %llu > %llu )\n
+%s allocation count overflow( add %llu + current %llu > max %llu )\n
 %s(): Deprecated and unimplemented. Fix client code to use new postprocessing resources.\n
 %s: Input vector has incorrect length\n
 %s: Warning: No compile targets specified! Shader will not be compiled!\n
@@ -73,7 +75,7 @@
 (On the line reading %s):\n
 (channel = 
 (end of input).\n\t This indicates a poorly specified lexer RULE\n\t or unterminated input element such as: "STRING["]\n
-*** CVfx::StartupSanityCheck(6765): Programmer Error! The order of VfxVariableSourceType_t does not match s_shaderVariableSource!\n
+*** CVfx::StartupSanityCheck(6810): Programmer Error! The order of VfxVariableSourceType_t does not match s_shaderVariableSource!\n
 *** Error adding constant buffer to array!\n
 *** Error adding variable to array!\n
 *** Error masking unused parts! Equal sign not found after token "%s"! (line %d)\n
@@ -216,6 +218,7 @@
 //-----------------------------------\n
 /\tV_iswcntrl
 0123456789)"
+0P1\v
 1:1: Tokens : ( T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | BOOLLITERAL | ID | INTEGERLITERAL | HEXINTEGERLITERAL | FLOATLITERAL | COMMENT | WS );
 4\fu44\
 6\rE6h
@@ -313,8 +316,8 @@ CMaterial2::GetMode(644): Material "%s" is requesting a bad mode "%s"!\n
 CMaterial2::GetVertexShaderInputSignature(759): Error! Material "%s" doesn't have any valid layers to get the CVsInputSignatureVector from!\n
 CMaterial2::GetVertexShaderInputSignature(791): Error! Material "%s" doesn't have a CVsInputSignatureVector!\n
 CMaterial2::GetVertexShaderInputSignature(809): Error! Material "%s" has invalid signature index %d!\n
-CMaterial2::LoadShadersAndSetupModes(1569): Error creating shader %s for material %s!\n
-CMaterialLayer::ComputeWorkItemsToSetupStaticCombosForMode(3073): Failed call to FindOrLoadStaticComboData()!\n
+CMaterial2::LoadShadersAndSetupModes(1578): Error creating shader %s for material %s!\n
+CMaterialLayer::ComputeWorkItemsToSetupStaticCombosForMode(3082): Failed call to FindOrLoadStaticComboData()!\n
 CMaterialSystem2::DynamicShaderCompile_UnloadAllMaterials(1040): ERROR!!! Shaders not freed before shader reload! (See spew above)\n\n
 CMaterialSystem2::FrameUpdate
 CMaterialSystem2::GetErrorMaterial(522): GetErrorMaterial() called when m_pMaterialTypeManager == NULL!\n
@@ -358,15 +361,15 @@ CUtlRBTree<struct CUtlOrderedMapBase<unsigned int,struct `public: void __cdecl C
 CUtlRBTree<struct CUtlOrderedMapBase<unsigned short,class CFontManager::CFontDataFile,class CDefLess<unsigned short>,int>::Node_t,class CUtlOrderedMapBase<unsigned short,class CFontManager::CFontDataFile,class CDefLess<unsigned short>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<unsigned short,class CFontManager::CFontDataFile,class CDefLess<unsigned short>,int>::Node_t,int>,int> >::Insert
 CUtlStreamBuffer does not support TEXT_BUFFER's use CUtlBuffer\n
 CUtlString
-CVfx::CreateFromVcs(7471): Error opening file %s\n
-CVfx::CreateFromVcs(7559): VCS %s Unserialize failed\n
-CVfx::CreateFromVcs(7573): VCS %s Unserialize hit EOF\n
-CVfx::ValidateMD5FromVcs(7705): Error opening file %s\n
-CVfx::ValidateMD5FromVcs(7712): Error calling SkipAndValidateVCSHeader() for %s\n
-CVfxConstructor::Construct(2343): DxSupportLevel %d not supported!\n
+CVfx::CreateFromVcs(7516): Error opening file %s\n
+CVfx::CreateFromVcs(7604): VCS %s Unserialize failed\n
+CVfx::CreateFromVcs(7618): VCS %s Unserialize hit EOF\n
+CVfx::ValidateMD5FromVcs(7750): Error opening file %s\n
+CVfx::ValidateMD5FromVcs(7757): Error calling SkipAndValidateVCSHeader() for %s\n
+CVfxConstructor::Construct(2352): DxSupportLevel %d not supported!\n
 CVfxProgramData::CalcStaticComboIdFromValues
-CVfxProgramData::FindOrCreateStaticComboDataInCache(4101): Error! Ref count !=0 for static combo data cache entry!\n
-CVfxProgramData::FindOrLoadStaticComboData(4014): Error! Ref count !=0 for static combo data cache entry!\n
+CVfxProgramData::FindOrCreateStaticComboDataInCache(4146): Error! Ref count !=0 for static combo data cache entry!\n
+CVfxProgramData::FindOrLoadStaticComboData(4059): Error! Ref count !=0 for static combo data cache entry!\n
 CVfxStaticComboData::Decompress
 Cannot allocate abstract class
 ChildOf
@@ -378,7 +381,7 @@ Combo
 Command Format: mat_set_shader_quality <value> (valid values are 0 or 1)\n
 Compile Target Expression
 Compile Targets
-CompileComboAndGetVariables_DynamicShaderCompile(), C:\buildworker\citadel_rel_win64\build\src\materialsystem2\material2.cpp:2704
+CompileComboAndGetVariables_DynamicShaderCompile(), C:\buildworker\citadel_rel_win64\build\src\materialsystem2\material2.cpp:2713
 CompileShadersForFeatureCombo
 CompileTargets
 Compiled 
@@ -595,6 +598,7 @@ PC_SM_5_0_VULKAN
 PC_SM_6_0_VULKAN
 PLAT_
 POSITION
+PP1\v
 PS_RENDER_STATE
 PS_RS
 PS_RTX
@@ -713,6 +717,7 @@ TextureSize
 Times New Roman
 Tonemapping_DefaultFilmicLinear
 Tonemapping_LocalOperator
+Tool
 ToolsVis
 Total Combos After Rules:  %15s ( %s Static, 
 Total Combos Before Rules: %15s ( %s Static, %s Dynamic )\n
@@ -784,14 +789,14 @@ WARNING: Invalid resource version (%d): %s\n
 \n*** A feature alias in %s doesn't start with "F_"! Aborting shader compile!\n\n
 \n*** A feature in %s doesn't start with "F_"! Aborting shader compile!\n\n
 \n*** A static combo in %s doesn't start with "S_"! Aborting shader compile!\n\n
-\n*** CMaterial2::LoadShadersAndSetupModes(1501): Error! Trying to load material "%s" without any params!\n
-\n*** CVfx::ParseCombosAndRulesFromFileHelper(6253): Error opening file "%s"!\n\n
-\n*** CVfx::ParseDescriptionFromFile(6149): Error opening file "%s"!\n\n
-\n*** CVfx::ParseDevBoolFromFile(6076): Error opening file "%s"!\n\n
-\n*** CVfx::ParseFeaturesFromFile(5763): Error opening file "%s"!\n\n
-\n*** CVfx::ParseIncludeFiles(5722): Error opening include file in features list"%s"!\n\n
-\n*** CVfx::ParseModesFromFile(5572): Error opening file "%s"!\n\n
-\n*** CVfx::ParseVersionFromFile(6110): Error opening file "%s"!\n\n
+\n*** CMaterial2::LoadShadersAndSetupModes(1510): Error! Trying to load material "%s" without any params!\n
+\n*** CVfx::ParseCombosAndRulesFromFileHelper(6298): Error opening file "%s"!\n\n
+\n*** CVfx::ParseDescriptionFromFile(6194): Error opening file "%s"!\n\n
+\n*** CVfx::ParseDevBoolFromFile(6121): Error opening file "%s"!\n\n
+\n*** CVfx::ParseFeaturesFromFile(5808): Error opening file "%s"!\n\n
+\n*** CVfx::ParseIncludeFiles(5767): Error opening include file in features list"%s"!\n\n
+\n*** CVfx::ParseModesFromFile(5617): Error opening file "%s"!\n\n
+\n*** CVfx::ParseVersionFromFile(6155): Error opening file "%s"!\n\n
 \n*** Combo "%s" in %s doesn't match a known combo source!\n\n
 \n*** Combo "%s" in %s either does not follow the 0..N format, is not a valid dynamic combo name, or doesn't match an existing feature or mode argument!\n\n
 \n*** Combo "%s" in %s has arg %s that doesn't match an existing feature!\n\n
@@ -847,19 +852,19 @@ WARNING: Invalid resource version (%d): %s\n
 \n*** VfxGetCompileTargetsFromVfxFile(1398): Error opening file "%s"!\n\n
 \n*** VfxGetUsedShaderProgramsFromVfxFile(1475): Error opening file "%s"!\n\n
 \n//-----------------------------------\n
-\nCMaterial2::LoadShadersAndSetupModes(1496): Error! Material "%s" is already loaded!\n
-\nCMaterial2::LoadShadersAndSetupModes(1530): Cannot find shader entry in material "%s"! Using error.vfx!\n
-\nCMaterial2::LoadShadersAndSetupModes(1573): Error creating shader %s and cannot load error.vfx instead!\n
-\nCMaterial2::LoadShadersAndSetupModes(1612): Error creating fallback shader %s for %s for material %s! A fallback shader cannot fallback to a different shader!\n
-\nCMaterial2::LoadShadersAndSetupModes(1624): Error creating fallback shader %s for %s for material %s!\n
-\nCMaterial2::LoadShadersAndSetupModes(1628): Error creating fallback shader %s for %s and cannot load error.vfx instead!\n
-\nCMaterial2::LoadShadersAndSetupModes(1655): Error creating shader %s for material %s!\n
-\nCMaterial2::LoadShadersAndSetupModes(1660): Error creating shader %s and cannot load error.vfx instead!\n
-\nCMaterial2::LoadShadersAndSetupModes(1670): Error creating static combos for shader %s and error.vfx instead!\n
-\nCMaterialLayer::CreateCommandBuffer(4089): Find a graphics programmer! Trying to bind a "%s" shader that doesn't exist! for %s\n
-\nCMaterialMode::ComputeRenderablePassesForContextInternal(3408): All bad! The error material failed in dynamic shader compile!\n
-\nCompileComboAndGetVariables_DynamicShaderCompile(2685): Dynamic Combos should be assumed to be unique for dynamic shader compile! %d != %d\n
-\nCompileComboAndGetVariables_DynamicShaderCompile(2764): Dynamic shader compile failed for %s in material "%s"!\n
+\nCMaterial2::LoadShadersAndSetupModes(1505): Error! Material "%s" is already loaded!\n
+\nCMaterial2::LoadShadersAndSetupModes(1539): Cannot find shader entry in material "%s"! Using error.vfx!\n
+\nCMaterial2::LoadShadersAndSetupModes(1582): Error creating shader %s and cannot load error.vfx instead!\n
+\nCMaterial2::LoadShadersAndSetupModes(1621): Error creating fallback shader %s for %s for material %s! A fallback shader cannot fallback to a different shader!\n
+\nCMaterial2::LoadShadersAndSetupModes(1633): Error creating fallback shader %s for %s for material %s!\n
+\nCMaterial2::LoadShadersAndSetupModes(1637): Error creating fallback shader %s for %s and cannot load error.vfx instead!\n
+\nCMaterial2::LoadShadersAndSetupModes(1664): Error creating shader %s for material %s!\n
+\nCMaterial2::LoadShadersAndSetupModes(1669): Error creating shader %s and cannot load error.vfx instead!\n
+\nCMaterial2::LoadShadersAndSetupModes(1679): Error creating static combos for shader %s and error.vfx instead!\n
+\nCMaterialLayer::CreateCommandBuffer(4098): Find a graphics programmer! Trying to bind a "%s" shader that doesn't exist! for %s\n
+\nCMaterialMode::ComputeRenderablePassesForContextInternal(3417): All bad! The error material failed in dynamic shader compile!\n
+\nCompileComboAndGetVariables_DynamicShaderCompile(2694): Dynamic Combos should be assumed to be unique for dynamic shader compile! %d != %d\n
+\nCompileComboAndGetVariables_DynamicShaderCompile(2773): Dynamic shader compile failed for %s in material "%s"!\n
 \nInitDynamicShaderCompileDLL(113): ERROR! Can't load vfx_dx dll, dynamic shader compile unavailable!\n
 \nPS_RENDER_STATE
 \nRTX

@@ -632,6 +632,7 @@ $\f?focusNextPrevChild@QWidget@@MEAA_N_N@Z
 2\n?doItemsLayout@QListView@@UEAAXXZ
 2\r?hideEvent@QWidget@@MEAAXPEAVQHideEvent@@@Z
 2\v?event@QAction@@MEAA_NPEAVQEvent@@@Z
+2\vpD
 2aboutToShow()
 2accepted()
 2changed()
@@ -2217,14 +2218,16 @@ CQPropertyAttributeLabel
 CQPropertyAttributeLabel::UpdateHoverPresence() - mouse = [%d,%d] resizeRect = [%d,%d,%d,%d] mouseInResize = %d\n
 CQPropertyEditor
 CQPropertyEditor::BlockRebuilds
-CQPropertyEditor::BlockRebuilds ==> deferred rebuild\n
-CQPropertyEditor::BlockRebuilds( %s )\n
+CQPropertyEditor::BlockRebuilds() %d -> %d\n
 CQPropertyEditor::EndAttributeModification( %s )\n
 CQPropertyEditor::RebuildEditor -> REBUILD!\n
-CQPropertyEditor::RebuildEditor -> m_bExternallyBlockedRebuilds\n
 CQPropertyEditor::RebuildEditor -> m_bLatentRebuildAfterOperation\n
 CQPropertyEditor::RebuildEditor -> m_bRebuildAfterModify\n
+CQPropertyEditor::RebuildEditor -> m_nExternallyBlockedRebuilds = %d\n
 CQPropertyEditor::StartDraggingLabelWidthColumn() - col = %d\n
+CQPropertyEditor::UnblockRebuilds
+CQPropertyEditor::UnblockRebuilds ==> deferred rebuild\n
+CQPropertyEditor::UnblockRebuilds() %d -> %d\n
 CQPropertyEditor::UpdateDraggingLabelWidthColumn() - cursor[%d,%d] - col = %d\n
 CQPropertyEditorToolbar
 CQPropertyOverlayWidget
@@ -2934,6 +2937,7 @@ Unrecognized action class '%s'
 Unrecognized property '%s.%s'
 Unrecognized widget class %s
 UpArrowPressed
+UpdateAttributesFromEditor_AutomaticOneShotOrIncremental_IfModified
 UpdateAttributesFromEditor_AutomaticOneShotOrIncremental_Unconditional
 UpdateAttributesFromEditor_Incremental
 UpdateAttributesFromEditor_OneShot_IfModified
@@ -3407,7 +3411,6 @@ m_Context
 m_Input
 m_InputMacros
 m_Stops
-m_bExternallyBlockedRebuilds != bBlock
 m_bLatentRebuildAfterOperation (after) = %d\n
 m_bLatentRebuildAfterOperation (before) = %d\n
 m_bLatentRebuildAfterOperation (midpoint) = %d\n
@@ -3419,6 +3422,8 @@ m_bRebuildAfterModify (rebuilding) = %d\n
 m_flPosition
 m_flSlopeIncoming
 m_flSlopeOutgoing
+m_nExternallyBlockedRebuilds > 0
+m_nExternallyBlockedRebuilds >= 0
 m_pDomain->IsEditorRebuildNeeded (after) = %d\n
 m_pDomain->IsEditorRebuildNeeded (before) = %d\n
 m_pDomain->IsEditorRebuildNeeded (midpoint) = %d\n

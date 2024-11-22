@@ -29,6 +29,12 @@
 							<CitadelSettingsCheckbox class="extraTopMargin" convar="citadel_quickbuy_auto_buy_enable" text="#citadel_quickbuy_auto_buy_enable" onmouseover="UIShowTextTooltipStyled( #citadel_quickbuy_auto_buy_enable_tooltip , OptionsTooltip)" onmouseout="UIHideTextTooltip()" />
 							<CitadelSettingsCheckbox class="focusWindowUnpauseCheckbox" convar="citadel_activate_window_on_unpause" text="#citadel_settings_active_window_unpause" onmouseover="UIShowTextTooltipStyled( #citadel_settings_active_window_unpause_tooltip , OptionsTooltip)" onmouseout="UIHideTextTooltip()" />
 						</Panel>
+						<Panel id="SkillRatingSection">
+							<Label text="#citadel_settings_skill_rating" class="SectionHeader" />
+							<Panel class="SectionHeaderLine" />
+							<CitadelSettingsCheckbox text="#citadel_settings_skill_rating_notification" convar="citadel_show_rating_notification_on_change" />
+							<CitadelSettingsCheckbox text="#citadel_settings_skill_rating_post_game" convar="citadel_show_average_rating_on_postgame" />
+						</Panel>
 					</Panel>
 					<Panel class="SettingsDualColumn FullHeight CrosshairSettings">
 						<Panel id="ReticleSection" class="SettingsSection">
@@ -367,7 +373,7 @@
 									<Panel class="ItemQuickCastContainer LeftRightFlow">
 										<Label id="QuickCastDescription" class="QuickCastDesc" text="#citadel_settings_quick_cast_items_desc" />
 										<Panel id="ItemQuickCastDropDownContainer">
-											<DropDown id="ItemQuickCastDropDown" class="DropDown" />
+											<DropDown id="ItemQuickCastDropDown" class="DropDown" onmouseout="UIHideTextTooltip()" />
 											<Panel id="UnitHasBindsIndicator" class="ItemQuickCastIndicator" />
 										</Panel>
 									</Panel>
@@ -383,6 +389,11 @@
 									<CitadelSettingsKeyBinder id="PingBinder" text="#citadel_keybind_ping" bind="Ping" />
 									<CitadelSettingsCheckbox id="InvertPings" convar="citadel_invert_ping_type" text="#citadel_settings_chat_invert_ping" onmouseover="CitadelUIShowTextTooltip( #citadel_settings_invert_ping_desc )" onmouseout="CitadelUIHideTextTooltip()" />
 									<CitadelSettingsCheckbox id="HUDPingIndicator" convar="player_ping_indicator_enabled" text="#citadel_enable_ping_indicator" />
+									<CitadelSettingsPingKeyBinder id="ChatWheelOption1" text="#citadel_keybind_chatwheel_option1" bind="PingOption1" />
+									<CitadelSettingsPingKeyBinder id="ChatWheelOption2" text="#citadel_keybind_chatwheel_option2" bind="PingOption2" />
+									<CitadelSettingsPingKeyBinder id="ChatWheelOption3" text="#citadel_keybind_chatwheel_option3" bind="PingOption3" />
+									<CitadelSettingsPingKeyBinder id="ChatWheelOption4" text="#citadel_keybind_chatwheel_option4" bind="PingOption4" />
+									<CitadelSettingsPingKeyBinder id="ChatWheelOption5" text="#citadel_keybind_chatwheel_option5" bind="PingOption5" />
 								</Panel>
 							</Panel>
 							<Panel id="hotkeycolumn2" class="HotkeySettingsColumn">
@@ -405,8 +416,11 @@
 									<CitadelSettingsKeyBinder id="MeleeBinder" text="#citadel_keybind_melee" bind="AbilityMelee" />
 									<CitadelSettingsKeyBinder id="HeldItemBinder" text="#citadel_keybind_held_item" bind="HeldItem" />
 									<Panel class="ModeOptionContainer">
-										<Label class="ModeOption" text="#citadel_settings_cancel_ability_mode" />
-										<CitadelSettingsEnumDropDown id="ModeDropDown" class="modeDropDown" convar="cl_citadel_cancel_ability_mode">
+										<Panel class="TopBottomFlow">
+											<Label class="ModeOption" text="#citadel_settings_cancel_ability_mode" />
+											<Label class="ModeOptionDesc" text="#citadel_settings_cancel_ability_mode_desc" />
+										</Panel>
+										<CitadelSettingsEnumDropDown id="CancelModeDropDown" class="modeDropDown" convar="cl_citadel_cancel_ability_mode" onmouseout="UIHideTextTooltip()">
 											<Label text="#citadel_settings_cancel_ability_mode_ability_key" id="ability" value="0" onmouseover="UIShowTextTooltip( #citadel_settings_cancel_ability_mode_ability_key_tooltip )" onmouseout="UIHideTextTooltip()" />
 											<Label text="#citadel_settings_cancel_ability_mode_cancel_key" id="cancel" value="1" onmouseover="UIShowTextTooltip( #citadel_settings_cancel_ability_mode_cancel_key_tooltip )" onmouseout="UIHideTextTooltip()" />
 											<Label text="#citadel_settings_cancel_ability_mode_either" id="either" value="2" onmouseover="UIShowTextTooltip( #citadel_settings_cancel_ability_mode_either_tooltip )" onmouseout="UIHideTextTooltip()" />
@@ -415,7 +429,7 @@
 									<CitadelSettingsKeyBinder id="CancelAbilityBinder" text="#citadel_keybind_cancel_ability" bind="CancelAbility" />
 									<Panel class="ModeOptionContainer">
 										<Label class="ModeOption" text="#citadel_settings_alt_cast_mode" />
-										<CitadelSettingsEnumDropDown id="ModeDropDownAltCast" class="modeDropDown" convar="cl_citadel_ability_alt_cast_mode">
+										<CitadelSettingsEnumDropDown id="ModeDropDownAltCast" class="modeDropDown" convar="cl_citadel_ability_alt_cast_mode" onmouseout="UIHideTextTooltip()">
 											<Label text="#citadel_settings_alt_cast_press_and_hold" id="hold" value="0" onmouseover="UIShowTextTooltip( #citadel_settings_alt_cast_press_and_hold_tooltip )" onmouseout="UIHideTextTooltip()" />
 											<Label text="#citadel_settings_alt_cast_double_tap" id="doubletap" value="1" onmouseover="UIShowTextTooltip( #citadel_settings_alt_cast_double_tap_tooltip )" onmouseout="UIHideTextTooltip()" />
 											<Label text="#citadel_settings_alt_cast_key" id="modifier" value="2" onmouseover="UIShowTextTooltip( #citadel_settings_alt_cast_key_tooltip )" onmouseout="UIHideTextTooltip()" />
@@ -458,12 +472,6 @@
 									<CitadelSettingsKeyBinder id="SpectatorFOWTeamTarget" text="#citadel_keybind_minimap_view_targets_team" bind="SpectatorFOWTeamTarget" />
 									<Label class="SubHeaderText" text="#citadel_settings_replaykeybinds" />
 									<Panel class="SectionHeaderLine" />
-									<CitadelSettingsKeyBinder id="ToggleReplayNextTargetBinder" text="#citadel_keybind_replay_next_target" bind="ReplayNextTarget" />
-									<CitadelSettingsKeyBinder id="ToggleReplayPrevTargetBinder" text="#citadel_keybind_replay_prev_target" bind="ReplayPrevTarget" />
-									<CitadelSettingsKeyBinder id="ToggleReplayTeamBinder" text="#citadel_keybind_replay_change_Team" bind="ToggleReplayTeam" />
-									<CitadelSettingsKeyBinder id="ToggleReplayCameraBinder" text="#citadel_keybind_toggle_replay_camera" bind="ToggleReplayCamera" />
-									<CitadelSettingsKeyBinder id="ToggleReplayFlyUpBinder" text="#citadel_keybind_replay_fly_up" bind="ReplayFlyUp" />
-									<CitadelSettingsKeyBinder id="ToggleReplayFlyDownBinder" text="#citadel_keybind_replay_fly_down" bind="ReplayFlyDown" />
 									<CitadelSettingsKeyBinder id="ToggleReplayIncreaseSpeedBinder" text="#citadel_keybind_increase_replay_speed" bind="ReplayIncreaseSpeed" />
 									<CitadelSettingsKeyBinder id="ToggleReplayDecreaseSpeedBinder" text="#citadel_keybind_decrease_replay_speed" bind="ReplayDecreaseSpeed" />
 									<CitadelSettingsKeyBinder id="ToggleReplayTogglePause" text="#citadel_keybind_toggle_replay_pause" bind="ReplayTogglePause" />

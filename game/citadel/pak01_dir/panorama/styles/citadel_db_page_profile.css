@@ -140,7 +140,7 @@ CitadelProfilePage
 	visibility: visible;
 }
 
-.isLoadingStats #StatsSection,.isLoadingStats #Statistics,.isLoadingStats #MatchHistoryArea
+.isLoadingStats #StatsSection,.isLoadingStats #GamesPlayed,.isLoadingStats #MatchHistoryArea
 {
 	visibility: collapse;
 }
@@ -284,23 +284,6 @@ CitadelProfilePage
 	color: offWhite;
 }
 
-#CurrentRank
-{
-	ignore-parent-flow: true;
-	vertical-align: bottom;
-	margin-bottom: 120px;
-	margin-left: 60px;
-	visibility: collapse;
-	width: 420px;
-	z-index: 10;
-	flow-children: down;
-}
-
-.hasRank #CurrentRank
-{
-	visibility: visible;
-}
-
 .rankDesc
 {
 	opacity: 0;
@@ -311,14 +294,6 @@ CitadelProfilePage
 	opacity: 1;
 }
 
-CitadelRankedBadgeFull
-{
-	vertical-align: bottom;
-	horizontal-align: center;
-	visibility: visible;
-	width: 420px;
-}
-
 #MatchHistoryArea
 {
 	flow-children: down;
@@ -327,22 +302,62 @@ CitadelRankedBadgeFull
 
 .titleArea
 {
-	height: 50px;
-	width: 100%;
 	flow-children: right;
+}
+
+#MatchHistoryArea .titleArea
+{
+	width: 100%;
+	margin-bottom: 8px;
 }
 
 .profileTab
 {
-	padding: 10px 20px;
-	background-color: offBlack;
-	margin-right: 10px;
-	border-radius: 5px 5px 0px 0px;
+	padding: 8px 16px;
+	background-color: #000805f8;
+	margin: 0px 8px 8px 0px;
+	border-radius: 5px;
+	transition: all 0.15s ease-in-out;
+	pre-transform-scale2d: 0.98;
 }
 
-.showingStats #StatsTab,.showingRankHistory #RankHistoryTab
+.profileTab:hover
 {
-	background-color: #333;
+	pre-transform-scale2d: 1;
+}
+
+.sortedGamesPlayed #GamesPlayedTab,.sortedPerformance #RankedPerformanceTab
+{
+	background-color: offBlack;
+	pre-transform-scale2d: 1;
+}
+
+.sortedPerformance #GamesPlayedTab .smallTitle,.sortedGamesPlayed #RankedPerformanceTab .smallTitle
+{
+	color: #FFEFD740;
+}
+
+.profileTab .smallTitle
+{
+	color: offWhite;
+	text-shadow: 0px 0px 12px #00000088;
+}
+
+#AllStats,#CoreRating
+{
+	visibility: collapse;
+}
+
+.sortedGamesPlayed #AllStats,.sortedPerformance #CoreRating
+{
+	visibility: visible;
+}
+
+#CoreRating
+{
+	height: 48px;
+	padding: 0px 0px 0px 28px;
+	background-color: gradient( linear, 0% 0%, 50% 50%, from( #76767620 ), to( #76767600) );
 }
 
 .smallTitle
@@ -351,7 +366,7 @@ CitadelRankedBadgeFull
 	font-size: 20px;
 }
 
-#RankHistoryTab:disabled
+#RankedPerformanceTab:disabled
 {
 	opacity: 0;
 }
@@ -361,6 +376,9 @@ CitadelRankedBadgeFull
 	horizontal-align: right;
 	flow-children: right;
 	opacity: 0.3;
+	transition-property: opacity;
+	transition-duration: 0.15s;
+	transition-timing-function: ease-in-out;
 }
 
 #MatchHistoryButton:hover
@@ -406,25 +424,17 @@ CitadelRankedBadgeFull
 	width: 360px;
 }
 
-#Statistics
+#GamesPlayed
 {
 	width: 100%;
 	height: fill-parent-flow(1.0);
 	flow-children: down;
-	visibility: collapse;
+	margin-top: 30px;
 }
 
-#RankHistory
+.viewingSelf #GamesPlayed
 {
-	visibility: collapse;
-	width: 100%;
-	height: fill-parent-flow(1.0);
-	background-color: offBlack;
-	overflow: squish scroll;
-	flow-children: down;
-	background-color: #222;
-	background-image: url("s2r://panorama/images/main_menu/slate_texture_png.vtex");
-	background-img-opacity: 0.2;
+	margin-top: 0px;
 }
 
 .datesContainer
@@ -460,7 +470,10 @@ CitadelRankedBadgeFull
 CitadelRankedBadgeMini
 {
 	vertical-align: middle;
-	margin-right: 10px;
+	text-align: center;
+	margin-right: 12px;
+	margin-bottom: 4px;
+	ui-scale: 94%;
 }
 
 .rankName
@@ -484,15 +497,25 @@ CitadelRankedBadgeMini
 	font-style: italic;
 }
 
-.showingStats #Statistics,.showingRankHistory #RankHistory
+#TabsContainer
+{
+	width: 100%;
+	margin-top: 28px;
+	visibility: collapse;
+	flow-children: right;
+}
+
+.viewingSelf #TabsContainer
 {
 	visibility: visible;
 }
 
-#TabsContainer
+.SortByLabel
 {
-	width: 100%;
-	margin-top: 30px;
+	vertical-align: center;
+	font-weight: bold;
+	margin: 0px 8px 8px 0px;
+	color: #FFEFD740;
 }
 
 #StatsContent
@@ -500,23 +523,82 @@ CitadelRankedBadgeMini
 	flow-children: right;
 	width: 100%;
 	height: 100%;
-	background-image: url("s2r://panorama/images/main_menu/slate_texture_png.vtex");
+	border-radius: 5px;
 }
 
 #HeroList
 {
 	height: 100%;
 	width: 275px;
-	background-color: offBlack&90;
+	background-color: #000805;
 	flow-children: down;
 	overflow: squish scroll;
+}
+
+.heroRowContents
+{
+	margin-left: 0px;
+}
+
+.performanceArrow
+{
+	background-size: 100% 100%;
+	height: 20px;
+	width: 0px;
+	vertical-align: middle;
+	img-shadow: 0px 0px 12px #00000088;
+	margin: 4px;
+	opacity: 0.4;
+	wash-color: offWhite;
+	transition: all 0.15s ease-in-out;
+}
+
+.sortedPerformance .performanceArrow
+{
+	width: 20px;
+}
+
+.sortedPerformance .heroRowContents
+{
+	margin-left: 28px;
+}
+
+.relativeMMR2 .performanceArrow
+{
+	background-image: url("s2r://panorama/images/profile/double_up.vsvg");
+	wash-color: #62E762;
+}
+
+.relativeMMR1 .performanceArrow
+{
+	background-image: url("s2r://panorama/images/profile/single_up.vsvg");
+	wash-color: #419941;
+}
+
+.relativeMMR0 .performanceArrow
+{
+	background-image: url("s2r://panorama/images/profile/double_down.vsvg");
+	wash-color: #726B6B;
+}
+
+.relativeMMR-1 .performanceArrow
+{
+	background-image: url("s2r://panorama/images/profile/single_down.vsvg");
+	wash-color: #C14F4F;
+}
+
+.relativeMMR-2 .performanceArrow
+{
+	background-image: url("s2r://panorama/images/profile/double_down.vsvg");
+	wash-color: #933C3C;
 }
 
 #StatsBlock
 {
 	height: 100%;
 	width: fill-parent-flow(1.0);
-	background-color: #000000aa;
+	background-color: offBlack&f8;
+	box-shadow: inset -20px 0px 220px #00000088;
 	background-img-opacity: 0.4;
 	flow-children: right;
 }
@@ -534,107 +616,107 @@ CitadelRankedBadgeMini
 
 .hero_orion #StatsTitle
 {
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( orionColor&20 ), to( orionColor&00 ) );
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( orionColor&10 ), to( orionColor&00 ) );
 }
 
 .hero_astro #StatsTitle
 {
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( astroColor&20 ), to( astroColor&00 ) );
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( astroColor&10 ), to( astroColor&00 ) );
 }
 
 .hero_bebop #StatsTitle
 {
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( bebopColor&20 ), to( bebopColor&00 ) );
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( bebopColor&10 ), to( bebopColor&00 ) );
 }
 
 .hero_atlas #StatsTitle
 {
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( atlasColor&20 ), to( atlasColor&00 ) );
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( atlasColor&10 ), to( atlasColor&00 ) );
 }
 
 .hero_chrono #StatsTitle
 {
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( chronoColor&20 ), to( chronoColor&00 ) );
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( chronoColor&10 ), to( chronoColor&00 ) );
 }
 
 .hero_forge #StatsTitle
 {
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( forgeColor&20 ), to( forgeColor&00 ) );
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( forgeColor&10 ), to( forgeColor&00 ) );
 }
 
 .hero_ghost #StatsTitle
 {
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( ghostColor&20 ), to( ghostColor&00 ) );
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( ghostColor&10 ), to( ghostColor&00 ) );
 }
 
 .hero_gigawatt #StatsTitle
 {
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( gigawattColor&20 ), to( gigawattColor&00 ) );
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( gigawattColor&10 ), to( gigawattColor&00 ) );
 }
 
 .hero_haze #StatsTitle
 {
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( hazeColor&20 ), to( hazeColor&00 ) );
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( hazeColor&10 ), to( hazeColor&00 ) );
 }
 
 .hero_hornet #StatsTitle
 {
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( hornetColor&20 ), to( hornetColor&00 ) );
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( hornetColor&10 ), to( hornetColor&00 ) );
 }
 
 .hero_inferno #StatsTitle
 {
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( infernoColor&20 ), to( infernoColor&00 ) );
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( infernoColor&10 ), to( infernoColor&00 ) );
 }
 
 .hero_kelvin #StatsTitle
 {
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( kelvinColor&20 ), to( kelvinColor&00 ) );
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( kelvinColor&10 ), to( kelvinColor&00 ) );
 }
 
 .hero_lash #StatsTitle
 {
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( lashColor&20 ), to( lashColor&00 ) );
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( lashColor&10 ), to( lashColor&00 ) );
 }
 
 .hero_krill #StatsTitle
 {
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( krillColor&20 ), to( krillColor&00 ) );
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( krillColor&10 ), to( krillColor&00 ) );
 }
 
 .hero_shiv #StatsTitle
 {
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( shivColor&20 ), to( shivColor&00 ) );
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( shivColor&10 ), to( shivColor&00 ) );
 }
 
 .hero_dynamo #StatsTitle
 {
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( dynamoColor&20 ), to( dynamoColor&00 ) );
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( dynamoColor&10 ), to( dynamoColor&00 ) );
 }
 
 .hero_viscous #StatsTitle
 {
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( viscousColor&20 ), to( viscousColor&00 ) );
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( viscousColor&10 ), to( viscousColor&00 ) );
 }
 
 .hero_warden #StatsTitle
 {
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( wardenColor&20 ), to( wardenColor&00 ) );
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( wardenColor&10 ), to( wardenColor&00 ) );
 }
 
 .hero_wraith #StatsTitle
 {
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( wraithColor&20 ), to( wraithColor&00 ) );
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( wraithColor&10 ), to( wraithColor&00 ) );
 }
 
 .hero_yamato #StatsTitle
 {
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( yamatoColor&20 ), to( yamatoColor&00 ) );
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( yamatoColor&10 ), to( yamatoColor&00 ) );
 }
 
 .hero_tengu #StatsTitle
 {
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( tenguColor&20 ), to( tenguColor&00 ) );
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( tenguColor&10 ), to( tenguColor&00 ) );
 }
 
 .statSectionLabel
@@ -648,12 +730,14 @@ CitadelRankedBadgeMini
 
 .statSectionName
 {
-	font-size: 40px;
+	font-size: 52px;
 	font-weight: bold;
-	margin-bottom: 30px;
+	margin-bottom: 20px;
 	vertical-align: middle;
 	font-family: serif;
-	text-transform: uppercase;
+	text-shadow: 0px 0px 20px #00000044;
+	max-width: 360px;
+	text-overflow: shrink;
 }
 
 #StatsLeft
@@ -757,7 +841,8 @@ CitadelRankedBadgeMini
 
 .BlockStat.isZeroValue,.TextStat.isZeroValue
 {
-	opacity: 0.1;
+	wash-color: #575953;
+	saturation: 0.4;
 }
 
 .blockBacker
@@ -975,34 +1060,44 @@ CitadelRankedBadgeMini
 
 .heroRow
 {
-	width: 265px;
-	height: 50px;
+	width: 260px;
+	height: 48px;
 	border-top: 2px solid offWhite&00;
 	border-bottom: 2px solid offWhite&00;
-	margin: 1px 0px;
 	opacity: 0.5;
+	transition-property: opacity;
+	transition-duration: 0.15s;
+	transition-timing-function: ease-in-out;
 }
 
 .heroRow:selected
 {
-	background-color: #000000aa;
-	background-color: #333;
 	opacity: 1;
 }
 
 .heroRow:hover
 {
-	background-color: #000000aa;
 	opacity: 0.8;
 }
 
 #HeroRowImage
 {
-	height: 50px;
-	width: 50px;
+	height: 48px;
+	width: 48px;
 	saturation: 0.3;
 	transition-property: transform;
 	transition-duration: 0.1s;
+}
+
+.AllHeroesRow #HeroRowImage
+{
+	img-shadow: 0px 0px 12px #00000044;
+	padding: 4px;
+}
+
+.AllHeroesRow
+{
+	background-color: gradient( linear, 0% 0%, 50% 50%, from( #76767620 ), to( #76767600) );
 }
 
 .heroRow:selected #HeroRowImage,.heroRow:selected .heroRowName
@@ -1014,16 +1109,23 @@ CitadelRankedBadgeMini
 .heroRowName
 {
 	margin-left: 60px;
+	margin-right: 10px;
 	vertical-align: center;
 	font-family: serif;
-	text-transform: uppercase;
 	font-weight: bold;
-	letter-spacing: 0.3px;
-	font-size: 18px;
-	margin-top: 3px;
-	text-shadow: 1px 1px 2px 3.0 #00000050;
+	font-size: 20px;
+	margin-top: 4px;
+	text-overflow: shrink;
+	color: offWhite&88;
 	transition-property: transform;
 	transition-duration: 0.1s;
+	width: 200px;
+	text-shadow: 0px 0px 12px #00000066;
+}
+
+.heroRow:selected .heroRowName
+{
+	color: offWhite;
 }
 
 #HeroRowBackground
@@ -1031,5 +1133,26 @@ CitadelRankedBadgeMini
 	height: 100%;
 	width: 100%;
 	opacity-brush: gradient( linear, 100% 0%, 0% 0%, from( #ffffff ), to( #ffffff20 ) );
+}
+
+#ViewLeaderboardContainer
+{
+	horizontal-align: right;
+	vertical-align: center;
+	opacity: 0.3;
+	transition-property: opacity;
+	transition-duration: 0.15s;
+	transition-timing-function: ease-in-out;
+}
+
+#ViewLeaderboardContainer:hover
+{
+	opacity: 1;
+}
+
+#ViewLeaderboardsLabel
+{
+	font-weight: semi-bold;
+	font-size: 20px;
 }
 

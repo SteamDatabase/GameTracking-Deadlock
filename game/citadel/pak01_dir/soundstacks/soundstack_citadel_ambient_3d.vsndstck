@@ -150,6 +150,16 @@
 							property_group = "Position"
 						}
 					}
+					send_distance_to_blend_container = 
+					{
+						data_type = "bool"
+						value = "false"
+						_system_properties = 
+						{
+							display_group = "normal"
+							property_group = "Blends"
+						}
+					}
 				}
 			},
 			
@@ -223,7 +233,7 @@
 				input_execute = "@public.enable_retrigger"
 				operator = "math_float"
 				apply = "less_than"
-				input1 = "@distance_to_source.output"
+				input1 = "@citadel_default_3d::citadel_base_3d::distance_to_source.output"
 				input2 = "@public.retrigger_radius"
 			},
 			
@@ -416,6 +426,14 @@
 				operator = "soundevent_control"
 				input_add_dependent = "1.000000"
 				input_clear_dependencies = "@calc_event_finished_or_stopped.output"
+			},
+			
+			{
+				name = "set_distance_blend"
+				operator = "container_set_param_number"
+				input_execute = "@public.send_distance_to_blend_container"
+				input_value = "@citadel_default_3d::citadel_base_3d::distance_to_source.output"
+				input_name = "Distance"
 			},
 		]
 		_system_properties = 

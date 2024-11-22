@@ -198,6 +198,17 @@
 							property_help = "The mixer mixgroup when viewing victim."
 						}
 					}
+					mixer_mixgroup_victim_bypass = 
+					{
+						data_type = "string"
+						value = "Dmg-Victim-Bypass"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "citadel_damage - Mixgroup"
+							property_help = "The mixer mixgroup when viewing victim."
+						}
+					}
 					mixer_mixgroup_other = 
 					{
 						data_type = "string"
@@ -369,12 +380,31 @@
 			},
 			
 			{
+				name = "eval_damage_sidechain_enabled"
+				execute_once = "true"
+				input_execute = "1.0"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@public.triggers_damage_sidechain"
+				input2 = "@citadel_damage_info::output.inverse_is_chip_damage"
+			},
+			
+			{
+				name = "switch_mixgroup_victim_bypass"
+				execute_once = "true"
+				operator = "ctrl_switch_string"
+				input_switch = "@eval_damage_sidechain_enabled.output"
+				input1 = "@public.mixer_mixgroup_victim_bypass"
+				input2 = "@public.mixer_mixgroup_victim"
+			},
+			
+			{
 				name = "switch_mixgroup"
 				execute_once = "true"
 				operator = "ctrl_switch3_string"
 				input_index = "@citadel_damage_info::output.damage_index"
 				input1 = "@public.mixer_mixgroup_attacker"
-				input2 = "@public.mixer_mixgroup_victim"
+				input2 = "@switch_mixgroup_victim_bypass.output"
 				input3 = "@public.mixer_mixgroup_other"
 			},
 			
@@ -426,6 +456,16 @@
 				input1 = "attacker"
 				input2 = "victim"
 				input3 = "other"
+			},
+			
+			{
+				name = "switch_vmix_send"
+				execute_once = "true"
+				operator = "ctrl_switch3_string"
+				input_index = "@citadel_damage_info::output.damage_index"
+				input1 = "main"
+				input2 = "hit-victim-bus"
+				input3 = "main"
 			},
 			
 			{
@@ -568,37 +608,12 @@
 						data_type = "string"
 						value = "@switch_mixgroup.output"
 					}
+					send_name = 
+					{
+						data_type = "string"
+						value = "@switch_vmix_send.output"
+					}
 				}
-			},
-			
-			{
-				name = "eval_damage_sidechain_enabled"
-				execute_once = "true"
-				input_execute = "1.0"
-				operator = "math_float"
-				apply = "mult"
-				input1 = "@public.triggers_damage_sidechain"
-				input2 = "@citadel_damage_info::output.is_viewing_victim"
-			},
-			
-			{
-				name = "eval_sidechain_damage_not_chip"
-				execute_once = "true"
-				input_execute = "1.0"
-				operator = "math_float"
-				apply = "mult"
-				input1 = "@eval_damage_sidechain_enabled.output"
-				input2 = "@citadel_damage_info::output.inverse_is_chip_damage"
-			},
-			
-			{
-				name = "play_damage_sidechain_event"
-				operator = "soundevent_start"
-				input_spawn_oneshots = "0.000000"
-				input_execute = "@eval_sidechain_damage_not_chip.output"
-				input_start = "1"
-				soundevent_name = "Damage.Receive.Sidechain"
-				pass_opvar_args = "true"
 			},
 		]
 	}

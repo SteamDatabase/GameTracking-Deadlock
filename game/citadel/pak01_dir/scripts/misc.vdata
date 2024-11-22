@@ -1003,6 +1003,37 @@
 		m_sPickupSound = soundevent:"Powerup.Pickup.Gold"
 		m_nNameOffset = 150
 	}
+	citadel_punchable_powerup_base = 
+	{
+		_class = "citadel_breakable_prop_pickup"
+		m_flPickupRadius = 85.000000
+		m_spawnParticle = resource_name:"particles/environment/powerup_spawner_ambient.vpcf"
+		m_gainedParticle = resource_name:"particles/generic/powerup_spawner_gained.vpcf"
+		m_hModel = resource_name:"models/null.vmdl"
+		m_sSpawnSound = soundevent:"Powerup.Spawn.Generic"
+		m_flPickupExpirationDuration = 300.000000
+		m_flParticleRadius = 1.500000
+		m_bShowOnMinimap = true
+		m_sNameLocString = ""
+		m_sPickupSound = soundevent:"Powerup.Pickup.Gold"
+		m_nNameOffset = 150
+		_base = "citadel_breakable_prop_pickup_base"
+		m_AuraModifier = subclass:
+		{
+			_class = "modifier_base_aura"
+			_my_subclass_name = "near_rejuv"
+			m_bIsHidden = true
+			m_flAuraRadius = 300.000000
+			m_modifierProvidedByAura = subclass:
+			{
+				_class = "modifier_base"
+				_my_subclass_name = "target_near_item"
+				m_bIsHidden = true
+				m_nEnabledStateMask = "MODIFIER_STATE_NEAR_PUNCHABLE_ITEM"
+			}
+			m_iAuraSearchType = "CITADEL_UNIT_TARGET_HERO"
+		}
+	}
 	small_gold_pickup = 
 	{
 		_class = "citadel_breakable_prop_gold_pickup"
@@ -1031,7 +1062,7 @@
 	}
 	gun_powerup_pickup = 
 	{
-		_class = "citadel_breakable_prop_modifier_pickup"
+		_class = "citadel_punchable_powerup"
 		m_flPickupRadius = 85.000000
 		m_spawnParticle = resource_name:"particles/environment/powerup_spawner_ambient.vpcf"
 		m_gainedParticle = resource_name:"particles/generic/powerup_spawner_gained.vpcf"
@@ -1041,25 +1072,44 @@
 		m_flParticleRadius = 1.500000
 		m_bShowOnMinimap = true
 		m_sNameLocString = "gun_powerup_pickup"
-		m_sPickupSound = soundevent:"Powerup.PickUp.Weapon"
+		m_sPickupSound = soundevent:"Powerup.Pickup.Generic"
 		m_nNameOffset = 150
-		_base = "citadel_breakable_prop_pickup_base"
+		_base = "citadel_punchable_powerup_base"
+		m_AuraModifier = subclass:
+		{
+			_class = "modifier_base_aura"
+			_my_subclass_name = "near_rejuv"
+			m_bIsHidden = true
+			m_flAuraRadius = 300.000000
+			m_modifierProvidedByAura = subclass:
+			{
+				_class = "modifier_base"
+				_my_subclass_name = "target_near_item"
+				m_bIsHidden = true
+				m_nEnabledStateMask = "MODIFIER_STATE_NEAR_PUNCHABLE_ITEM"
+			}
+			m_iAuraSearchType = "CITADEL_UNIT_TARGET_HERO"
+		}
 		m_sModifer = subclass:
 		{
-			_class = "modifier_citadel_powerup"
+			_class = "modifier_citadel_powerup_gun"
 			_my_subclass_name = "gun_powerup_pickup"
 			m_flDuration = 160.000000
-			m_vecScriptValues = 
+			m_flTimeMin = 10
+			m_flTimeMax = 40
+			m_vecModifierValues = 
 			[
 				
 				{
 					m_eModifierValue = "MODIFIER_VALUE_FIRE_RATE"
-					m_value = 20.000000
+					m_valueMin = 10.000000
+					m_valueMax = 30.000000
 				},
 				
 				{
 					m_eModifierValue = "MODIFIER_VALUE_AMMO_CLIP_SIZE_PERCENT"
-					m_value = 40.000000
+					m_valueMin = 30.000000
+					m_valueMax = 30.000000
 				},
 			]
 			m_sLocalizationName = "gun_powerup_pickup"
@@ -1082,7 +1132,7 @@
 	}
 	survival_powerup_pickup = 
 	{
-		_class = "citadel_breakable_prop_modifier_pickup"
+		_class = "citadel_punchable_powerup"
 		m_flPickupRadius = 85.000000
 		m_spawnParticle = resource_name:"particles/environment/powerup_spawner_ambient.vpcf"
 		m_gainedParticle = resource_name:"particles/generic/powerup_spawner_gained.vpcf"
@@ -1092,25 +1142,44 @@
 		m_flParticleRadius = 1.500000
 		m_bShowOnMinimap = true
 		m_sNameLocString = "survival_powerup_pickup"
-		m_sPickupSound = soundevent:"Powerup.Buff.Survival"
+		m_sPickupSound = soundevent:"Powerup.Pickup.Generic"
 		m_nNameOffset = 150
-		_base = "citadel_breakable_prop_pickup_base"
+		_base = "citadel_punchable_powerup_base"
+		m_AuraModifier = subclass:
+		{
+			_class = "modifier_base_aura"
+			_my_subclass_name = "near_rejuv"
+			m_bIsHidden = true
+			m_flAuraRadius = 300.000000
+			m_modifierProvidedByAura = subclass:
+			{
+				_class = "modifier_base"
+				_my_subclass_name = "target_near_item"
+				m_bIsHidden = true
+				m_nEnabledStateMask = "MODIFIER_STATE_NEAR_PUNCHABLE_ITEM"
+			}
+			m_iAuraSearchType = "CITADEL_UNIT_TARGET_HERO"
+		}
 		m_sModifer = subclass:
 		{
-			_class = "modifier_citadel_powerup"
+			_class = "modifier_citadel_powerup_survival"
 			_my_subclass_name = "survival_powerup_pickup"
 			m_flDuration = 160.000000
-			m_vecScriptValues = 
+			m_flTimeMin = 10
+			m_flTimeMax = 40
+			m_vecModifierValues = 
 			[
 				
 				{
 					m_eModifierValue = "MODIFIER_VALUE_HEALTH_MAX"
-					m_value = 400
+					m_valueMin = 250.000000
+					m_valueMax = 700.000000
 				},
 				
 				{
 					m_eModifierValue = "MODIFIER_VALUE_REGEN_MAX_HEALTH_PERCENT_PER_SECOND"
-					m_value = 1.000000
+					m_valueMin = 1.000000
+					m_valueMax = 1.500000
 				},
 			]
 			m_sLocalizationName = "survival_powerup_pickup"
@@ -1133,7 +1202,7 @@
 	}
 	casting_powerup_pickup = 
 	{
-		_class = "citadel_breakable_prop_modifier_pickup"
+		_class = "citadel_punchable_powerup"
 		m_flPickupRadius = 85.000000
 		m_spawnParticle = resource_name:"particles/environment/powerup_spawner_ambient.vpcf"
 		m_gainedParticle = resource_name:"particles/generic/powerup_spawner_gained.vpcf"
@@ -1143,25 +1212,44 @@
 		m_flParticleRadius = 1.500000
 		m_bShowOnMinimap = true
 		m_sNameLocString = "casting_powerup_pickup"
-		m_sPickupSound = soundevent:"Powerup.Buff.Casting"
+		m_sPickupSound = soundevent:"Powerup.Pickup.Generic"
 		m_nNameOffset = 150
-		_base = "citadel_breakable_prop_pickup_base"
+		_base = "citadel_punchable_powerup_base"
+		m_AuraModifier = subclass:
+		{
+			_class = "modifier_base_aura"
+			_my_subclass_name = "near_rejuv"
+			m_bIsHidden = true
+			m_flAuraRadius = 300.000000
+			m_modifierProvidedByAura = subclass:
+			{
+				_class = "modifier_base"
+				_my_subclass_name = "target_near_item"
+				m_bIsHidden = true
+				m_nEnabledStateMask = "MODIFIER_STATE_NEAR_PUNCHABLE_ITEM"
+			}
+			m_iAuraSearchType = "CITADEL_UNIT_TARGET_HERO"
+		}
 		m_sModifer = subclass:
 		{
-			_class = "modifier_breakable_prop_cooldown_reduction"
+			_class = "modifier_citadel_powerup_casting"
 			_my_subclass_name = "casting_powerup_pickup"
 			m_flDuration = 160.000000
-			m_vecScriptValues = 
+			m_flTimeMin = 10
+			m_flTimeMax = 40
+			m_vecModifierValues = 
 			[
 				
 				{
 					m_eModifierValue = "MODIFIER_VALUE_TECH_POWER"
-					m_value = 25.000000
+					m_valueMin = 20.000000
+					m_valueMax = 40.000000
 				},
 				
 				{
 					m_eModifierValue = "MODIFIER_VALUE_COOLDOWN_REDUCTION_PERCENTAGE"
-					m_value = 20.000000
+					m_valueMin = 15.000000
+					m_valueMax = 25.500000
 				},
 			]
 			m_sLocalizationName = "casting_powerup_pickup"
@@ -1173,7 +1261,6 @@
 			m_eDebuffType = "MODIFIER_DEBUFF_NO"
 			m_strHudIcon = panorama:"file://{images}/hud/modifiers/icon_powerup.svg"
 		}
-		m_sAmbientLoopingSound = "amb.Powerup.Casting_Lp"
 		m_Color = 
 		[
 			203,
@@ -1185,7 +1272,7 @@
 	}
 	movement_powerup_pickup = 
 	{
-		_class = "citadel_breakable_prop_modifier_pickup"
+		_class = "citadel_punchable_powerup"
 		m_flPickupRadius = 85.000000
 		m_spawnParticle = resource_name:"particles/environment/powerup_spawner_ambient.vpcf"
 		m_gainedParticle = resource_name:"particles/generic/powerup_spawner_gained.vpcf"
@@ -1195,36 +1282,56 @@
 		m_flParticleRadius = 1.500000
 		m_bShowOnMinimap = true
 		m_sNameLocString = "movement_powerup_pickup"
-		m_sPickupSound = soundevent:"Powerup.Buff.Movement"
+		m_sPickupSound = soundevent:"Powerup.Pickup.Generic"
 		m_nNameOffset = 150
-		_base = "citadel_breakable_prop_pickup_base"
+		_base = "citadel_punchable_powerup_base"
+		m_AuraModifier = subclass:
+		{
+			_class = "modifier_base_aura"
+			_my_subclass_name = "near_rejuv"
+			m_bIsHidden = true
+			m_flAuraRadius = 300.000000
+			m_modifierProvidedByAura = subclass:
+			{
+				_class = "modifier_base"
+				_my_subclass_name = "target_near_item"
+				m_bIsHidden = true
+				m_nEnabledStateMask = "MODIFIER_STATE_NEAR_PUNCHABLE_ITEM"
+			}
+			m_iAuraSearchType = "CITADEL_UNIT_TARGET_HERO"
+		}
 		m_sModifer = subclass:
 		{
-			_class = "modifier_breakable_prop_extra_stamina"
+			_class = "modifier_citadel_powerup_movement"
 			_my_subclass_name = "movement_powerup_pickup"
 			m_flDuration = 160.000000
-			m_nExtraStamina = 0
-			m_vecScriptValues = 
+			m_flTimeMin = 10
+			m_flTimeMax = 40
+			m_vecModifierValues = 
 			[
 				
 				{
 					m_eModifierValue = "MODIFIER_VALUE_STAMINA"
-					m_value = 2
+					m_valueMin = 1
+					m_valueMax = 4
 				},
 				
 				{
 					m_eModifierValue = "MODIFIER_VALUE_SPRINT_SPEED_BONUS"
-					m_value = 118.110000
+					m_valueMin = 78.740200
+					m_valueMax = 157.480000
 				},
 				
 				{
 					m_eModifierValue = "MODIFIER_VALUE_ZIP_LINE_SPEED_PERCENTAGE"
-					m_value = 50
+					m_valueMin = 40
+					m_valueMax = 80
 				},
 				
 				{
 					m_eModifierValue = "MODIFIER_VALUE_STAMINA_REGEN_PER_SECOND_PERCENTAGE"
-					m_value = 30
+					m_valueMin = 20
+					m_valueMax = 50
 				},
 			]
 			m_vecAlwaysShowInStatModifierUI = 
@@ -1258,7 +1365,7 @@
 		m_flParticleRadius = 1.500000
 		m_bShowOnMinimap = false
 		m_sNameLocString = ""
-		m_sPickupSound = soundevent:"Powerup.Pickup.Gold"
+		m_sPickupSound = soundevent:"Powerup.Pickup.Spirit"
 		m_nNameOffset = 60
 		_base = "citadel_breakable_prop_pickup_base"
 		_not_pickable = 2
@@ -1615,7 +1722,7 @@
 		m_flParticleRadius = 1.500000
 		m_bShowOnMinimap = false
 		m_sNameLocString = "hp_permanent_pickup_label"
-		m_sPickupSound = soundevent:"Player.Heal.Small"
+		m_sPickupSound = soundevent:"Powerup.Pickup.Health"
 		m_nNameOffset = 60
 		_base = "permanent_pickup_base"
 		m_bIsPermanentPickup = true
@@ -1652,7 +1759,7 @@
 		m_flParticleRadius = 1.500000
 		m_bShowOnMinimap = false
 		m_sNameLocString = "hp_permanent_pickup_label_lv2"
-		m_sPickupSound = soundevent:"Player.Heal.Small"
+		m_sPickupSound = soundevent:"Powerup.Pickup.Health"
 		m_nNameOffset = 60
 		_base = "hp_permanent_pickup"
 		m_bIsPermanentPickup = true
@@ -1689,7 +1796,7 @@
 		m_flParticleRadius = 1.500000
 		m_bShowOnMinimap = false
 		m_sNameLocString = "hp_permanent_pickup_label_lv3"
-		m_sPickupSound = soundevent:"Player.Heal.Small"
+		m_sPickupSound = soundevent:"Powerup.Pickup.Health"
 		m_nNameOffset = 60
 		_base = "hp_permanent_pickup"
 		m_bIsPermanentPickup = true

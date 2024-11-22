@@ -55,9 +55,12 @@
 		</snippet>
 		<snippet name="HeroRow">
 			<Panel class="heroRow">
-				<Panel id="HeroRowBackground" />
-				<CitadelHeroImage id="HeroRowImage" heroimagestyle="small" />
-				<Label class="heroRowName" text="{s:hero_row_name}" />
+				<Panel class="heroRowContents">
+					<Panel id="HeroRowBackground" />
+					<CitadelHeroImage id="HeroRowImage" heroimagestyle="small" />
+					<Label class="heroRowName" text="{s:hero_row_name}" />
+				</Panel>
+				<Panel class="performanceArrow" />
 			</Panel>
 		</snippet>
 		<snippet name="RankMatchHistoryRow">
@@ -68,6 +71,13 @@
 				</Panel>
 				<Label class="gamesPlayed" text="#Citadel_ranked_numGamesPlayed" />
 				<Label class="datesContainer" text="#Citadel_rank_phase_example" />
+			</Panel>
+		</snippet>
+		<snippet name="CoreRating">
+			<Panel class="coreRating">
+				<Panel id="HeroRowBackground" />
+				<CitadelRankedBadgeMini id="RankBadgeCoreRating" />
+				<Label class="heroRowName" text="{s:core_rating_rank} {s:core_rating_subrank}" />
 			</Panel>
 		</snippet>
 		<snippet name="BlockStat">
@@ -83,9 +93,6 @@
 	</snippets>
 	<CitadelProfilePage class="DashboardPage" oncancel="CitadelNavigateBack();">
 		<ScenePanel id="HeroScenePanel" map="ui/hero_shop/abrams_shop" use_shop_map="true" sound="PORTRAIT_SOUND_MODE_ALL_SOUNDS" shop_hero_animgraph_enum="ShopBase" parent_entity_name="hero_root" camera="point_camera" rotateonhover="true" allowrotation="false" require-composition-layer="true" />
-		<Panel id="CurrentRank">
-			<CitadelRankedBadgeFull id="RankBadge" />
-		</Panel>
 		<Panel class="MainContents">
 			<Panel class="LeftPanel">
 				<Panel class="ProfileSection">
@@ -124,16 +131,21 @@
 					</Panel>
 				</Panel>
 				<Panel id="TabsContainer">
+					<Label class="SortByLabel" text="#Citadel_Profile_Stats_SortBy" />
 					<Panel class="titleArea">
-						<Panel id="StatsTab" class="profileTab" onactivate="CitadelProfileSelectTab( EProfileTabStats );">
-							<Label class="smallTitle" text="#Citadel_Profile_Statistics" />
+						<Panel id="GamesPlayedTab" class="profileTab" onactivate="CitadelProfileSortHeroes( EProfileSortGamesPlayed );">
+							<Label class="smallTitle" text="#Citadel_Profile_TimePlayedSort" />
 						</Panel>
-						<Panel id="RankHistoryTab" class="profileTab" onactivate="CitadelProfileSelectTab( EProfileTabRankHistory );">
-							<Label class="smallTitle" text="#Citadel_Profile_RankHistory" />
+						<Panel id="RankedPerformanceTab" class="profileTab" onactivate="CitadelProfileSortHeroes( EProfileSortRankedPerformance );">
+							<Label class="smallTitle" text="#Citadel_Profile_RankedPerformanceSort" />
 						</Panel>
 					</Panel>
+					<Panel id="ViewLeaderboardContainer" class="LeftRightFlow" onactivate="CitadelShowGlobalLeaderboard();">
+						<Label id="ViewLeaderboardsLabel" text="#Citadel_Profile_ViewLeaderboard" />
+						<Panel id="allHistoryIcon" />
+					</Panel>
 				</Panel>
-				<Panel id="Statistics">
+				<Panel id="GamesPlayed">
 					<Panel id="StatsContent">
 						<Panel id="HeroList" />
 						<Panel id="StatsBlock">
@@ -173,7 +185,6 @@
 						</Panel>
 					</Panel>
 				</Panel>
-				<Panel id="RankHistory" />
 			</Panel>
 		</Panel>
 		<Panel class="StatsSectionLoading">

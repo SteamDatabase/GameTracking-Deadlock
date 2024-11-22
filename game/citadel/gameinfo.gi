@@ -103,6 +103,7 @@
 		"VulkanOnlyTestProbability" "0"
 		"VulkanDefrag"				"1"
 		"MinStreamingPoolSizeMB"	"1024"
+		"MinStreamingPoolSizeMBTools" "2048"
 		"AlwaysPreloadTexturesInGame" "0"
 	}
 
@@ -124,6 +125,10 @@
 	SoundSystem
 	{
 		SteamAudioEnabled            "1"
+	}
+	Sounds
+	{
+		HierarchicalEncodingFiles	 "1"
 	}
 
 	ToolsEnvironment
@@ -224,17 +229,17 @@
 				
 				directional_irradiance_sh2_r
 				{
-					CompressedFormat BC7 //DXT1
+					CompressedFormat DXT1
 				}
 				
 				directional_irradiance_sh2_g
 				{
-					CompressedFormat BC7 //DXT1
+					CompressedFormat DXT1
 				}
 				
 				directional_irradiance_sh2_b
 				{
-					CompressedFormat BC7 //DXT1
+					CompressedFormat DXT1
 				}
 			}
 			UseStaticLightProbes 0
@@ -454,7 +459,7 @@
 		"cq_buffer_bloat_msecs_max" "120"
 
 		"snd_soundmixer"						"Default_Mix"
-		"cloth_filter_transform_stateless" "1"
+		"cloth_filter_transform_stateless" "0"
 
 		"cl_joystick_enabled" "0"
 		"panorama_joystick_enabled" "0"

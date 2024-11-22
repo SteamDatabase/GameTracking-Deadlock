@@ -136,6 +136,11 @@ CitadelHudHeroShop.gEditingBuilds
 	background-image: url("s2r://panorama/images/shop/shop_logo_psd.vtex");
 }
 
+.Dashboard .ShopName
+{
+	margin-left: 240px;
+}
+
 #GoldAPContainer
 {
 	vertical-align: bottom;
@@ -840,6 +845,16 @@ CitadelTrainingPage #FavoritesNav
 	margin-right: 10px;
 }
 
+.isShowingHeroBuildsPage #WeaponNav,.gBrowsingBuilds #WeaponNav,.isShowingHeroBuildsPage #TechNav,.gBrowsingBuilds #TechNav,.isShowingHeroBuildsPage #ArmorNav,.gBrowsingBuilds #ArmorNav
+{
+	visibility: collapse;
+}
+
+.gEditingBuilds #WeaponNav,.gEditingBuilds #TechNav,.gEditingBuilds #ArmorNav
+{
+	visibility: visible;
+}
+
 #FavoritesNav
 {
 	flow-children: down;
@@ -1167,7 +1182,12 @@ CitadelTrainingPage #FavoritesNav
 	z-index: 100;
 }
 
-CitadelTrainingPage #BackButton,CitadelTrainingPage .APHeader,CitadelTrainingPage .ModsPurchasedContainer,CitadelTrainingPage .HeroStatsContainer,CitadelTrainingPage .InnerAbilitiesRow
+CitadelTrainingPage #BackButton,CitadelTrainingPage .APHeader,CitadelTrainingPage .ModsPurchasedContainer,CitadelTrainingPage .HeroStatsContainer,CitadelTrainingPage .InnerAbilitiesRow,CitadelTrainingPage #RecentPurchasesPanel
+{
+	visibility: collapse;
+}
+
+CitadelHeroBuildsPage #BackButton,CitadelHeroBuildsPage .APHeader,CitadelHeroBuildsPage .ModsPurchasedContainer,CitadelHeroBuildsPage .HeroStatsContainer,CitadelHeroBuildsPage .InnerAbilitiesRow,CitadelHeroBuildsPage #RecentPurchasesPanel
 {
 	visibility: collapse;
 }
@@ -1641,6 +1661,31 @@ CitadelFooterBar .isMouseButton .controlKeyBind
 {
 	flow-children: right;
 	margin-bottom: 5px;
+	border-left: 3px solid offWhite&60;
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( offWhite&10 ), to( offWhite&00 ) );
+	opacity: 0.4;
+	padding: 2px 0px;
+}
+
+.localPlayerTeam1 .isTeam2Purchase.recentPurchase,.localPlayerTeam2 .isTeam1Purchase.recentPurchase
+{
+	border-left: 3px solid #ef6767;
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( #ef676710 ), to( #ef676700 ) );
+	opacity: 1;
+}
+
+.TeamSpectator .isTeam1Purchase.recentPurchase
+{
+	border-left: 3px solid team1Color;
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( team1Color&10 ), to( team1Color&00 ) );
+	opacity: 0.8;
+}
+
+.TeamSpectator .isTeam2Purchase.recentPurchase
+{
+	border-left: 3px solid team2Color;
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( team2Color&10 ), to( team2Color&00 ) );
+	opacity: 0.8;
 }
 
 .recentPurchase Label
@@ -1672,16 +1717,6 @@ CitadelFooterBar .isMouseButton .controlKeyBind
 	margin: 0px 5px;
 }
 
-.recentPurchaseHeroName
-{
-	font-weight: bold;
-}
-
-.isEnemyPurchase .recentPurchaseHeroName
-{
-	color: rgb(239, 103, 103);
-}
-
 .isWeaponPurchase .mod_icon
 {
 	wash-color: courageBrightColor;
@@ -1701,6 +1736,7 @@ CitadelFooterBar .isMouseButton .controlKeyBind
 {
 	font-weight: semi-bold;
 	margin-right: 5px;
+	opacity: 0.7;
 }
 
 Label.recentModTierCost
@@ -1717,11 +1753,16 @@ Label.recentTimePurchased
 	opacity: 0.3;
 	font-weight: semi-bold;
 	margin-right: 4px;
-	font-size: 15px;
+	font-size: 14px;
 	vertical-align: middle;
-	margin-top: 2px;
 	width: 30px;
 	height: 100%;
 	text-overflow: shrink;
+	margin-left: 5px;
+}
+
+.isEnemyPurchase Label.recentTimePurchased
+{
+	color: rgb(239, 103, 103);
 }
 

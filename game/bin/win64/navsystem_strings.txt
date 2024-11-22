@@ -167,10 +167,10 @@
 .?AVIVDataResourceListener@@
 .?AVrcContext@@
 1\r51h
-2\vp8
+2\vp0
 ;1#INF
 =33s?
-=texcoord
+=MovementGaitId_t
 >0 = watershed, 1 = monotone, 2 = layers
 >>>>NAVGEN Oriented - Region has invalid bounds ( region %d ) - skipping\n
 >>>>NAVGEN Oriented - Region was not processed ( region %d ) - skipping\n
@@ -229,6 +229,7 @@ Close the group automatically when the associated parent process exits (good for
 Compact Heightfield
 Dense voxels
 Distance Field
+DualHull
 ERROR: Ladders starting at index %d are lacking connectivity info during IslandRemoval.\n
 ERROR: Unable to compute distance to poly %d from point at ( %g, %g, %g )\n
 ERROR: Unconnected ladder bottom at ( %g, %g, %g )\n
@@ -266,6 +267,7 @@ GetNearestNav: Pos Invalid
 GetNearestNav: Start Position
 GetNearestNav: Success! Returning area [%d]
 GetNearestNav: [%d] Areas that failed poly test
+HITGROUP_INVALID
 Hide unless error/warning occurs
 IKV3TransferInterface_ResourceLoad
 IT DOES HAPPEN!\n
@@ -337,6 +339,7 @@ Polyclip : Optimising to Quads...
 Polyclip pipeline: \n
 PropWorldOrigin
 RSDScf-bpoSH
+R\fp0
 Raw Contours
 Recast
 Recast: 
@@ -346,6 +349,9 @@ RemovePolysMarkedNoNav
 RemoveSmallAreasOnEdge
 RemoveStrayVerticalPolys
 Should have already been loaded via CVDataTypeManager::RegisterExtRefs
+Should we straighten face island if the displacement is this much? (inches)
+Should we try to straighten an island of faces deviating from their average normal (tangent)?
+Should we try to straighten two faces connected to this edge? (tangent)
 Show areas that are potentially visible from the current nav area
 Show regardless of user setting
 Simplified Contours
@@ -453,12 +459,17 @@ delaunayHull: Removing dangling face %d [%d,%d,%d].
 end_as_info
 end_group
 erodeWalkableArea: Out of memory 'dist / relX / relY' (%d).
+fast
 flow_map
 forever
 game/
 generic_data_type
 group_title
 hull_index
+hullivr_edge_merge_tan
+hullivr_faceisland_merge_disp
+hullivr_faceisland_merge_tan
+hullivr_version
 hulls
 info
 lifespan
@@ -489,10 +500,12 @@ m_bUseCompressedNormalTangent
 m_bUseShadowFastPath
 m_flowMapGenerationEnabled
 m_flowMapNodeMaxRadius
+m_sId
 m_vGravity
 m_vecNavHulls
 mapOpenSearches.Remove( OpenSearch_t { pSearch->pNode, pSearch } )
 medianFilterWalkableArea: Out of memory 'areas' (%d).
+medium
 mergeAndFilterLayerRegions: Out of memory 'regions' (%d).
 mergeAndFilterRegions: Out of memory 'regions' (%d).
 mergeHoles: Failed to find merge points for %p and %p.
@@ -569,6 +582,7 @@ optionallycompressedtangentframe
 posxyz
 process
 quiet
+r\vp0
 radius used to raise/lower corners in nearby areas when raising/lowering corners.
 rcBuildCompactHeightfield: Heightfield has too many layers %d (max: %d)
 rcBuildCompactHeightfield: Out of memory 'chf.areas' (%d)
@@ -637,12 +651,15 @@ removeVertex: Too many polygons %d (max:%d).
 removeVertex: triangulate() returned bad results.
 scripts/nav_hulls.vdata
 scripts/nav_hulls_presets.vdata
+slow
 source_column
 source_file
 source_file_searchpath
 source_line
 tangent
 tangentu_signv
+texcoord
+very_fast
 vnotify_ui
 waiting_group
 warn

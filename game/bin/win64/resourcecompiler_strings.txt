@@ -14,11 +14,11 @@
         Subject:%c
         Validity\n
        AnisoNormal visualization: 
-       Compressing %ix%ix%i texture to %s (Q=%i): 
+       Compressed %s %ikb -> on disk %ikb (%i%%)\n
+       Encoding %ix%ix%i texture to %s (Q=%i): 
        Final before compression: 
        Generated Mips and Output: 
        Image processor "%s": 
-       In memory %ikb -> on disk %ikb (%i%%)\n
        Mip filter "%s": 
        RMSLE (mip %d frame %d face %d) : %f\n
        Ran Texture Processors: 
@@ -26,7 +26,6 @@
        SH Coefficient Computation: 
      - Found DXT5 texture with solid 255 alpha! Saving as a DXT1!\n
      image %d uv0=%f %f uv1=%f %f\n
-    %s: %.2f%s\n
     %s: %i\n
     //lpv_write_debug_voxelization fiv_voxels.glview\n
     //lpv_write_debug_voxelization lpv_%d_voxels.glview\n
@@ -36,11 +35,7 @@
     Triangles/cluster : 
     exit 0\n
     gpu_init\n
-    lightmap_bouncelight %d %d %.3f\n
     lightmap_compute_block_gpu %d %d %.3f\n
-    lightmap_directlight %d %d %d\n
-    lightmap_finish_block\n
-    lightmap_generate_samples_from_packing_geometry %d\n
     lightmap_image\n
     lightmap_image_consolidate_small_charts %d\n
     lightmap_image_dilate_baked_shadows\n
@@ -53,65 +48,41 @@
     lightmap_image_write_ao         ao.exr\n
     lightmap_image_write_chart_color   lightmap_chart_color.exr %d %d\n
     lightmap_image_write_confidence    confidence.exr \n
-    lightmap_image_write_debug_color   lightmap_debug_color.exr\n
+    lightmap_image_write_convergence   convergence.exr\n
     lightmap_image_write_direct_light_shadows direct_light_shadows.exr %d\n
     lightmap_image_write_direct_light_shadows direct_light_shadows_noisy.exr %d\n
     lightmap_image_write_directional_radiance shradiance_dclinear_r.exr shradiance_dclinear_g.exr shradiance_dclinear_b.exr shradiance_f4quadratic_r.exr shradiance_f4quadratic_g.exr shradiance_f4quadratic_b.exr shradiance_lastquadratic.exr\n
     lightmap_image_write_mean         lightmap.exr\n
     lightmap_image_write_mean         lightmap_noisy.exr\n
     lightmap_image_write_normal         normal.exr\n
+    lightmap_image_write_samplecount   samplecount.exr\n
     lightmap_image_write_sh_irradiance      sh_irradiance.exr \n
     lightmap_image_write_sh_irradiance      sh_irradiance_noisy.exr \n
     lightmap_image_write_tangent        tangent.exr\n
-    lightmap_load_block lightmap_info.dat $blocknum\n
     lightmap_load_block_gpu lightmap_info.dat %d\n
-    lightmap_load_packing_geometry lightmap_packing_geometry.dat\n
     lightmap_load_packing_geometry_gpu lightmap_packing_geometry.dat\n
-    lightmap_read_block lm_block_%08d.dat %d\n
-    lightmap_size   %d %d %d\n
     lightmap_size_gpu %d %d %d\n
-    lightmap_write_block $blockfile\n
     lpv_box %f %f %f %f %f %f\n
     lpv_cells %d %d %d\n
     lpv_compute_block_fog_gpu %d %d %d %d %d %d\n
     lpv_compute_block_gpu %d %d %d %d %d %d %d %d %.3f\n
-    lpv_direct $directfile $startx $starty $startz $endx $endy $endz\n
-    lpv_direct_load %s %d %d %d %d %d %d\n
     lpv_flood_fill\n
-    lpv_image\n
     lpv_image_ambient_occlusion\n
-    lpv_image_fog\n
     lpv_image_fog_gpu %d %d %d\n
     lpv_image_gpu %d %d %d\n
     lpv_image_median_filter %i\n
     lpv_image_median_filter_fog %i\n
     lpv_image_resolve\n
-    lpv_image_write_ambientcube           lpv_%d_ambientcube.exr\n
     lpv_image_write_ambientcube lpv_%d_ambientcube.exr\n
     lpv_image_write_ambientcube lpv_%d_ambientcube_noisy.exr\n
     lpv_image_write_direct_light_shadows  lpv_%d_dlshd.exr\n
     lpv_image_write_fog fiv.exr\n
-    lpv_indirect $indirectfile $startx $starty $startz $endx $endy $endz $minspp $maxspp $errortol\n
-    lpv_indirect_fog $indirectfile $startx $starty $startz $endx $endy $endz $spp\n
-    lpv_indirect_load %s %d %d %d %d %d %d\n
-    lpv_indirect_load_fog %s %d %d %d %d %d %d\n
     lpv_init\n
-    lpv_load_solid_voxels fiv_voxels.dat\n
-    lpv_load_solid_voxels voxels_%d.dat\n
     lpv_local_to_world %f %f %f %f %f %f %f %f %f %f %f %f\n
     lpv_voxelize_gpu\n
     print %ix%ix%i LPV_%i took $timer seconds\n
     print Lightmapping took $timer seconds\n
-    run $init\n
-    run fiv_finish\n
-    run fiv_init\n
-    run lm_combine\n
-    run lpv_combine\n
-    run lpv_init_%d\n
-    sceneinfo       scene_info.dat\n
-    sceneinfo scene_info.dat\n
     sceneinfo_gpu scene_info.kv3\n
-    shadow_cull_mode %d\n
     timer_poll\n
     timer_reset\n
     timer_start\n
@@ -119,8 +90,6 @@
     | % 3i | % 6i | % 6i | % 6i | % 8i (%10s) | % 8i (%10s) | %s\n
     | % 3i | % 8i (%10s) | % 8i (%10s) | %s\n
     | obj |                vertex |                 index | material\n
-   + Meshes      :: %d\n
-   + Source Node :: %s( %s )\n
    -changelist <name>:  use named changelist for p4 operations\n
    -crc <abspath>: Diagnostic - report the CRC of the specified file and quit\n
    -f:    Force-compile all encountered resources\n
@@ -184,7 +153,6 @@
   Pass %d of %d ->
   Predictor: 
   R%d: %15s %25s %s\n
-  Ran %i/%i task%s locally\n
   RelativeFilename: '%s'\n
   RelativePath = "%s"\n
   RootLocation: %s\n
@@ -207,10 +175,10 @@
  (%ld unused bits)\n
  (%lu = 0x%lx)\n
  (%u = 0x%x)\n
- (08@HPX`j@D
- (08@HPXb`
- (08@HPZ@D
- (0X`hpz`
+ (08@HPXbP"9
+ (08@HRP"9
+ (08@JP"9
+ (0X`hpzP"9
  (Bad Remap %d)
  (INVALID PSS PARAMETERS)\n
  (Negative)
@@ -219,9 +187,7 @@
  (auto)
  (deprecated)
  (mono)
- (sep memory)
  (stereo)
- * MeshSet :: %s\n
  * Requested DmAttribute of value of type "%s" From DmAttribute "%s" which is type "%s"\n
  ** Entrypoint For Method '%s'
  + (%.06f)\n
@@ -234,10 +200,6 @@
  - Next resource weak-references: %s)\n
  - Path is too long, %i > MAX_PATH (%i): %s!\n
  - Wrote to: %s\n
- --dev --dev-as=eddie
- --log=kubejobs.log
- --verbosity=debug
- --watch-parent-pid=%d
  -> %4.1fMB %s\n
  -> [ FAIL ] %s - Failed to read\n
  -> [FAIL] %s - Code %d\n
@@ -245,6 +207,7 @@
  -emaildumps_to "%s"
  -testmode
  -testmode -emaildumps
+ ... %i instances\n
  255
  8f\ff
  : Extraneous input - expected %s ...\n
@@ -267,6 +230,7 @@
  <-- Retval '%s'
  @ ('%s': %s)
  ACFeMorphLayer
+ ATwoBoneIKSettings_t
  Curve
  Done.\n
  ERROR: 
@@ -314,7 +278,6 @@
  _GDK\tZ
  __________ Aggregates __________\n 
  __________ SceneObjects __________\n
- adr=%p stride=%d row stride=%d slice stride=%d}
  bad channel name '%c'\n
  bn0s}Q_@r~aoPq
  center %f %f scale %f %f rotate %f translate %f %f
@@ -416,6 +379,7 @@
 # of channels is zero.\n
 #################################\n
 #%s_Title
+#<__dmekv3_attribute_will_be_name__
 #CfU7
 #P0_?G0
 #Q7z
@@ -532,7 +496,6 @@ $prefix_element$
 %30s\t\t%5d\t\t%5d\n
 %5ld:
 %5lu file=%s, line=%d, 
-%6.2f %6.2f %6.2f %.3f %.3f %.3f\n
 %76s\n
 %8sIssuer Unique ID: 
 %8sSubject Unique ID: 
@@ -563,8 +526,6 @@ $prefix_element$
 %d morphs.\n
 %d objects
 %d of %d driving bones have too few influences and were switched to simplified single-polygon shape-fit mode: {%s}\n%d matrices will shape-fit complex deformations: {%s}\n
-%d probes remaining after filtering by %d exclusion volumes.\n
-%d probes remaining after filtering by nav mesh.\n
 %d register(s) %d byte(s)\n
 %d tiles
 %d vertices
@@ -630,7 +591,6 @@ $prefix_element$
 %lu:%s:%s:%d:%s\n
 %s %2d %02d:%02d:%02d %d%s
 %s %2d %02d:%02d:%02d%.*s %d%s
-%s %s --as-json --release-next-task %s
 %s %s -> %s
 %s %s HTTP/1.0\r\n
 %s %s decoding is not implemented
@@ -654,7 +614,6 @@ $prefix_element$
 %s - Could not find blackboard instance for %s
 %s - Could not find blackboard reference %s: %u (%s)
 %s - Unknown type %s
-%s --threads=0 -4 scene_info.dat
 %s : %d.%s influences %d/%d verts {%.1f,%.1f,%.1f}-{%.1f,%.1f,%.1f}\n
 %s :: %s (%d)
 %s :: %s (%s) (%d)
@@ -683,7 +642,9 @@ $prefix_element$
 %s View ScreenSpace
 %s View WorldSpace
 %s algorithm "%s" unsupported\n
+%s allocation count overflow
 %s allocation count overflow( %llu > %llu )\n
+%s allocation count overflow( add %llu + current %llu > max %llu )\n
 %s by %s on %s
 %s channel
 %s compression support is not configured
@@ -696,12 +657,10 @@ $prefix_element$
 %s must be an array
 %s must be an array (did you mean %s?)
 %s restored from text format, should be converted to keyvalues3 text format using sceneimagebuilder -kv3convert -game <dota, etc.>\n
-%s took %g seconds. %g iterations/sec
 %s%02X
 %s%04x - <SPACES/NULS>\n
 %s%08lx.%s%d
 %s%c%08lx.%s%d
-%s%s --as-json %s.yaml
 %s%s%s crc=0x%x metadatasz=%d
 %s%s%s.vnmvar
 %s%s.vmat
@@ -724,10 +683,8 @@ $prefix_element$
 %s(token %i) : %s\n
 %s------%s%s
 %s------%s--%s%s
-%s.cmd
 %s.vsvg
 %s.vtex
-%s.yaml
 %s/%s.txt
 %s/%s.vmdl
 %s/%s/%s.rte
@@ -803,6 +760,8 @@ $prefix_element$
 %s: cannot handle zero tile size
 %s: invalid TIFF directory; tags are not sorted in ascending order
 %s: invalid add count %d\n
+%s: invalid nBeforeIndex %d\n
+%s: invalid nSize %d\n
 %s: maximum vector size exceeded, currently %u, adding %u\n
 %s: unexpected token %s\n
 %s: unknown field with tag %d (0x%x) encountered
@@ -918,7 +877,6 @@ $prefix_element$
 (Blend1D):m_resetCount
 (CONFLICT): %s
 (CRITICAL ERROR): %s
-(Chaining to remote successor)\n
 (D4D
 (Debug Feature) Used to draw collision with the same material in Physics Debugger as in Hammer.
 (Debug) Visualize Simplification Edges
@@ -932,11 +890,14 @@ $prefix_element$
 (NONE)
 (No class selected)
 (On the line reading %s):\n
+(Steam Audio) %d probes remaining after filtering by %d exclusion volumes.\n
+(Steam Audio) %d probes remaining after filtering by nav mesh.\n
 (Steam Audio) Appended %d probes from the map. Total probes = %d.\n
 (Steam Audio) Appended %d sound_opvar_set_point entities and %d proxy probes as probes. Total probes = %d.\n
 (Steam Audio) Generating probes on uniform grid for baking...\n
 (Steam Audio) Manual grid type selected. Loading nodes from the map...\n
 (Steam Audio) Manual grid type selected. Nothing to do...\n
+(Steam Audio) No NavMesh provided, no filtering performed.\n
 (U1h
 (Vertices to Edges)
 (Vertices to Faces)
@@ -970,7 +931,7 @@ $prefix_element$
 *%*/*O*U*_*e*k*m*s*
 ** Invalid ID **
 ** No Event Class Set **
-*** CVfx::StartupSanityCheck(6765): Programmer Error! The order of VfxVariableSourceType_t does not match s_shaderVariableSource!\n
+*** CVfx::StartupSanityCheck(6810): Programmer Error! The order of VfxVariableSourceType_t does not match s_shaderVariableSource!\n
 *** Converter error - element "%s" already has a non-int attribute "%s"!\n
 *** Element "%s" has attribute "%s" with an unexpected type!\n
 *** Error adding constant buffer to array!\n
@@ -1089,10 +1050,12 @@ $prefix_element$
 +Spline Settings
 +Stopping:Arrival Damping
 +Target Point
++Target Time
 +Timed Events
 +Timelines
 +Trace Away
 +Trace Direction
++Transition
 +Transition Behavior
 +Types
 +Vector A
@@ -1102,7 +1065,6 @@ $prefix_element$
 +v30Y
 , Type=
 , at offset %d
-, channel[%d]{ name="%s" type=
 , channels = 
 , height = 
 , near %s
@@ -1124,7 +1086,6 @@ $prefix_element$
 ,kj8\te
 ,name:
 ,oYR
-,pQB
 ,section=
 ,value:
 - Scripted Sequence: 
@@ -1146,7 +1107,6 @@ $prefix_element$
 -----END %s-----\n
 --> Map build FAILED.\n
 --> Map build finished.\n
---dev
 -1 1000
 -1 128
 -12 12
@@ -1170,7 +1130,6 @@ $prefix_element$
 -breakpad
 -changelist
 -crc
--emaildumps -testmode
 -end of input-(
 -filelist
 -fshallow
@@ -1181,9 +1140,6 @@ $prefix_element$
 -l34
 -logwarnings
 -mB:t
--map %s -script script.vrad3 -entrypoint fiv_compute -indirectfile=%s -startx=%d -starty=%d -startz=%d -endx=%d -endy=%d -endz=%d -spp=%d
--map %s -script script.vrad3 -entrypoint lm_compute -blockfile=lm_block_%08d.dat -blocknum=%d
--map %s -script script.vrad3 -entrypoint lpv_compute -init=lpv_init_%d -directfile=%s -indirectfile=%s -startx=%d -starty=%d -startz=%d -endx=%d -endy=%d -endz=%d -minspp=%d -maxspp=%d -errortol=%f
 -memory-
 -noassert
 -nop4
@@ -1207,10 +1163,8 @@ $prefix_element$
 -~T\viMOb
 .%.-.3.7.9.?.W.[.o.y.
 ....................
-../sdktools/bin/linuxsteamrt64/smtpmail
 ../src/devtools/bin/certificates/game/
 ..uR5&m
-./vrad3 %s -threads %.0f -outdir /tmp/output/ && mv /tmp/output/* $KUBEJOBS_OUTPUT_DIR/
 .4bb
 .97yY
 .?AU?$AccessorT@VCActionComponent@@VCAnimGraphDoc_Action@@@ArrayOperator@Attribute@@
@@ -1646,6 +1600,7 @@ $prefix_element$
 .?AUCAttr_m_Aliases@?1??GetStaticAttributes@CModelDocClothVertexMap@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_AnimGraphName@?1??GetStaticAttributes@CModelDocRoot@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_Args@?1??GetAttributeTable_CPulseDoc_Inflow_Method@CPulseDoc_Inflow_Method@@SAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
+.?AUCAttr_m_Args@?1??GetAttributeTable_CPulseDoc_PublicOutputDefinition@CPulseDoc_PublicOutputDefinition@@SAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_Args@?1??GetStaticAttributes@CModelDocConfigElement_Command@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_AttachMaterialName@?1??GetStaticAttributes@CModelDocGroomMeshFile@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_AttachMeshName@?1??GetStaticAttributes@CModelDocGroomMeshFile@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
@@ -1914,7 +1869,6 @@ $prefix_element$
 .?AUCAttr_m_TintInput@?1??GetAttributeTable_CMapTerrainGrass@CMapTerrainGrass@@SAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_ToName@?1??GetStaticAttributes@CModelDocMeshModifier_RenameStream@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_ToolMaterial@?1??GetStaticAttributes@CModelDocBasePhysicsShape@@MEAAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
-.?AUCAttr_m_Type@?1??GetAttributeTable_CPulseDoc_PublicOutputDefinition@CPulseDoc_PublicOutputDefinition@@SAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_Type@?1??GetAttributeTable_CPulseEditableMethodArg@CPulseEditableMethodArg@@SAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_Type@?1??GetAttributeTable_CPulseEditableValue@CPulseEditableValue@@SAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_Value@?1??GetAttributeTable_CPulseDoc_BaseValueDefinition@CPulseDoc_BaseValueDefinition@@SAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
@@ -3277,6 +3231,8 @@ $prefix_element$
 .?AUCAttr_m_optionLabels@?1??GetAttributeTable_Impl@CNmGraphDocParameterizedClipSelectorNode@@SAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_optionLabels@?1??GetAttributeTable_Impl@CNmGraphDocParameterizedSelectorNode@@SAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_optionLabels@?1??GetAttributeTable_Impl@CNmGraphDocSelectorBaseNode@@SAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
+.?AUCAttr_m_optionWeights@?1??GetAttributeTable_Impl@CNmGraphDocParameterizedClipSelectorNode@@SAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
+.?AUCAttr_m_optionWeights@?1??GetAttributeTable_Impl@CNmGraphDocParameterizedSelectorNode@@SAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_optionalID@?1??GetAttributeTable_Impl@CNmClipDocEvent_Transition@@SAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_options@?1??GetAttributeTable_Impl@CNmGraphDocBoneMaskSelectorNode@@SAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
 .?AUCAttr_m_options@?1??GetAttributeTable_Impl@CNmGraphDocFloatSelectorNode@@SAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H@@@@@Z@
@@ -3754,6 +3710,7 @@ $prefix_element$
 .?AUPermEntityLumpData_t@@
 .?AUProducerBase@?$ConcurrentQueue@HUConcurrentQueueDefaultTraits@moodycamel@@@moodycamel@@
 .?AUVDataInitInfo_t@@
+.?AV<lambda_1>@?1???$AddMatrixToMatrix@$00VCVariableMatrix@@V1@@MatrixMath@@YAXAEBVCVariableMatrix@@PEAV2@@Z@
 .?AV<lambda_1>@?1???$MakeNetVarCallback@VCAimMatrixUpdateNode@@E@@YA?AV?$function@$$A6AXAEAVCAnimUpdateContext@@E@Z@std@@PEBVCAimMatrixUpdateNode@@P83@EBAXAEAVCAnimUpdateContext@@E@Z@Z@
 .?AV<lambda_1>@?1???$MakeNetVarCallback@VCAnimStateMachineUpdater@@H@@YA?AV?$function@$$A6AXAEAVCAnimUpdateContext@@H@Z@std@@PEBVCAnimStateMachineUpdater@@P83@EBAXAEAVCAnimUpdateContext@@H@Z@Z@
 .?AV<lambda_1>@?1???$MakeNetVarCallback@VCAnimationLayer@@H@@YA?AV?$function@$$A6AXAEAVCAnimUpdateContext@@H@Z@std@@V?$CPackedDataOffset@VCAnimationLayer@@@@P8CAnimationLayer@@EAAXAEAVCAnimUpdateContext@@H@Z@Z@
@@ -3778,6 +3735,8 @@ $prefix_element$
 .?AV<lambda_1>@?1???$MakeNetVarCallback@VCSelectorUpdateNode@@E@@YA?AV?$function@$$A6AXAEAVCAnimUpdateContext@@E@Z@std@@PEBVCSelectorUpdateNode@@P83@EBAXAEAVCAnimUpdateContext@@E@Z@Z@
 .?AV<lambda_1>@?1???$MakeNetVarCallback@VCStateMachineUpdateNode@@E@@YA?AV?$function@$$A6AXAEAVCAnimUpdateContext@@E@Z@std@@PEBVCStateMachineUpdateNode@@P83@EBAXAEAVCAnimUpdateContext@@E@Z@Z@
 .?AV<lambda_1>@?1???$MakeNetVarCallback@VCTargetSelectorUpdateNode@@E@@YA?AV?$function@$$A6AXAEAVCAnimUpdateContext@@E@Z@std@@PEBVCTargetSelectorUpdateNode@@P83@EBAXAEAVCAnimUpdateContext@@E@Z@Z@
+.?AV<lambda_1>@?1???$MatrixMultiply@$00VCVariableMatrix@@V1@@MatrixMath@@YAXAEBV?$CSparseMatrixBase@M@@AEBVCVariableMatrix@@PEAV3@@Z@
+.?AV<lambda_1>@?1???$ScaleMatrix@$00VCVariableMatrix@@@MatrixMath@@YAXAEAVCVariableMatrix@@M@Z@
 .?AV<lambda_1>@?1???0CPulseDoc_BaseFlow@@QEAA@XZ@
 .?AV<lambda_1>@?1???0CPulseDoc_BaseInflow@@QEAA@XZ@
 .?AV<lambda_1>@?1???0CPulseDoc_BaseOutflow@@QEAA@XZ@
@@ -3791,23 +3750,23 @@ $prefix_element$
 .?AV<lambda_1>@?1???0CPulseDoc_Step_CallMethod@@QEAA@XZ@
 .?AV<lambda_1>@?1???0CPulseDoc_Step_FireCursors@@QEAA@XZ@
 .?AV<lambda_1>@?1???0CPulseDoc_Step_Timeline@@QEAA@XZ@
-.?AV<lambda_1>@?1???0CPulseOutflowPort@@QEAA@PEBVCPulseDoc_BaseFlow@@VCUtlSymbolLarge@@W4OutflowVisualPriority_t@@PEBD3_N@Z@
+.?AV<lambda_1>@?1???0CPulseOutflowPort@@QEAA@PEBVCPulseDoc_BaseFlow@@VCGlobalSymbol@@W4OutflowVisualPriority_t@@PEBD3_N@Z@
 .?AV<lambda_1>@?1???R0?1??ResolveEachReference@CLayoutContentParsed@@UEAAXAEBV?$function@$$A6AXPEBDAEBV?$function@$$A6AXPEBD@Z@std@@AEBV?$function@$$A6AXPEBD_N@Z@2@@Z@std@@@Z@QEBA@PEAU?$CContentASTNode@W4ELayoutNodeType@@@panorama@@@Z@
 .?AV<lambda_1>@?1???R0?1??ResolveEachReference@CStyleContent@@UEAAXAEBV?$function@$$A6AXPEBDAEBV?$function@$$A6AXPEBD@Z@std@@AEBV?$function@$$A6AXPEBD_N@Z@2@@Z@std@@@Z@QEBA@PEAU?$CContentASTNode@W4EStyleNodeType@@@panorama@@@Z@
 .?AV<lambda_1>@?1???R0?L@??SimulateParticles@CParticleMgr@@AEAAXAEAV?$CUtlVectorFixedGrowableCompat@UParticleSimListItem_t@CParticleMgr@@$0EAA@H@@@Z@QEBA@XZ@
 .?AV<lambda_1>@?1???R<lambda_2>@?1??ProcessReceivedLightingPackets@NLightBaker@@YA_NAEAUSubmitLightingContext_t@3@AEAVCLightBakeTarget@@@Z@QEBA@AEAV?$CUtlVector@V?$CSmartPtr@VCThreadedJob@@VCRefCountAccessor@@@@HV?$CUtlMemory@V?$CSmartPtr@VCThreadedJob@@VCRefCountAccessor@@@@H@@@@PEBDAEAVFloatBitMap_t@@HH@Z@
 .?AV<lambda_1>@?1??AccumulateDependencies@CAnimGraphDoc_SubGraph@@QEBAXAEAV?$CUtlHashtable@VCUtlString@@Uempty_t@@U?$DefaultHashFunctor@VCUtlString@@@@U?$DefaultEqualFunctor@VCUtlString@@@@Uundefined_t@@V?$CUtlMemory@V?$CUtlHashtableEntry@VCUtlString@@Uempty_t@@@@H@@$0A@@@@Z@
-.?AV<lambda_1>@?1??AmeliorateBlockCompressionArtefacts_RepackCharts@@YAXAEAUPackingGeometry_t@@PEAULightmap_t@@AEAV?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@H@Z@
-.?AV<lambda_1>@?1??AppendExtensionLibrariesToEntityClassInScope_R@@YAXPEAVGDclass@@PEAVISchemaSystemTypeScope@@AEAV?$CUtlOrderedSet@PEAVGDclass@@@@@Z@
+.?AV<lambda_1>@?1??AmeliorateBlockCompressionArtefacts_RepackCharts@@YAXAEAUPackingGeometry_t@@PEAULightmap_t@@AEAV?$CUtlVector@UPartitionedMeshData_t@@HV?$CUtlMemory@UPartitionedMeshData_t@@H@@@@H@Z@
+.?AV<lambda_1>@?1??ApplyMapVariableOverrideValuesToTargetMap@CMapPrefab@@AEBAXXZ@
 .?AV<lambda_1>@?1??AssignBakedShadowIndices@CResourceCompilerMap@@AEAAXPEAVIMapBuilderContext@@PEAVCMapDoc@@@Z@
 .?AV<lambda_1>@?1??BackCompatUpdate@CAnimGraphDoc_Graph@@QEAA_NXZ@
 .?AV<lambda_1>@?1??BackCompatUpdate@CAnimGraphDoc_GraphMotionItem@@UEAA_NXZ@
+.?AV<lambda_1>@?1??BindInstanceParams@CVoiceContainerDistanceBlender@@UEAAXAEAV?$CUtlVector@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@HV?$CUtlMemory@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@H@@@@@Z@
 .?AV<lambda_1>@?1??BindInstanceParams@CVoiceContainerGranulator@@MEAAXAEAV?$CUtlVector@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@HV?$CUtlMemory@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@H@@@@@Z@
 .?AV<lambda_1>@?1??BindInstanceParams@CVoiceContainerRandomSampler@@MEAAXAEAV?$CUtlVector@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@HV?$CUtlMemory@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@H@@@@@Z@
 .?AV<lambda_1>@?1??BindInstanceParams@CVoiceContainerRealtimeFMSineWave@@MEAAXAEAV?$CUtlVector@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@HV?$CUtlMemory@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@H@@@@@Z@
 .?AV<lambda_1>@?1??BindInstanceParams@CVoiceContainerStaticAdditiveSynth@@MEAAXAEAV?$CUtlVector@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@HV?$CUtlMemory@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@H@@@@@Z@
 .?AV<lambda_1>@?1??BindingForClass@CParticleDomainInfo@@QEAAPEBUParticleDomainMethodBindingLookup_t@@AEBUCGapScopedType_t@@@Z@
-.?AV<lambda_1>@?1??Build@CLightImportanceTree@@QEAAXAEAV?$CUtlVector@UImportanceLightScalar_t@CLightImportanceTree@@HV?$CUtlMemory@UImportanceLightScalar_t@CLightImportanceTree@@H@@@@PEAVCGlViewBuffer@@@Z@
 .?AV<lambda_1>@?1??CleanupIntermediateCruft@CMapBuilderContext@@AEAAXXZ@
 .?AV<lambda_1>@?1??ClearIntermediateDirectory@CMapBuilderContext@@UEAAXPEBD@Z@
 .?AV<lambda_1>@?1??CollectAreasAssociatedWithMovableMesh@CNavMesh@@AEAAXI_NAEAV?$CUtlVector@PEAVCNavArea@@HV?$CUtlMemory@PEAVCNavArea@@H@@@@@Z@
@@ -3818,6 +3777,7 @@ $prefix_element$
 .?AV<lambda_1>@?1??CompileItemImages@CResourceCompilerDotaItemSet@@AEAA_NAEAVCUtlBuffer@@PEAVIResourceCompilerContext@@@Z@
 .?AV<lambda_1>@?1??CompileNovels@CResourceCompilerDotaVisualNovels@@AEAA_NAEAVCUtlBuffer@@PEAVIResourceCompilerContext@@@Z@
 .?AV<lambda_1>@?1??CompileStyleResource@CResourceCompilerPanorama@@AEAA_NPEAVIResourceCompilerContext@@PEBURawContentSource@panorama@@AEBV?$CUtlVectorFixedGrowable@PEBD$07H@@PEA_N@Z@
+.?AV<lambda_1>@?1??CreateAndLoadNavMeshFromVPK@@YAPEAVCNavMesh@@PEBVIVPhysics2World@@AEBVCUtlString@@@Z@
 .?AV<lambda_1>@?1??CreateLeafChoiceWrapperThunk@@YA?AV?$function@$$A6AXVHToolAttrTarget@@PEBVIBaseToolAttr@@PEAV?$CUtlVector@UToolAttrGenericChoice_t@@HV?$CUtlMemory@UToolAttrGenericChoice_t@@H@@@@@Z@std@@P6AXPEAV?$CUtlVector@ULeafPropertyChoice_t@@HV?$CUtlMemory@ULeafPropertyChoice_t@@H@@@@@Z@Z@
 .?AV<lambda_1>@?1??DebugDrawFailedLights@CLightOverlapRenderable@@AEAAXPEAVCToolRenderContext@@@Z@
 .?AV<lambda_1>@?1??DeleteStaleVPKSubFile@@YAXPEAVIResourceCompilerContext@@PEBD@Z@
@@ -3851,10 +3811,12 @@ $prefix_element$
 .?AV<lambda_1>@?3??FindAndCompilePanoramaReferencesFromKV3@@YA_NPEAVIResourceCompilerContext@@PEAVKeyValues3@@@Z@
 .?AV<lambda_1>@?3??InitSimpleConnectivity@CPulseInflowPort@@IEAAXPEBVCPulseSequencePoint@@@Z@
 .?AV<lambda_1>@?4??Finalize_Internal@CVoiceContainerGranulator@@UEAA_NXZ@
+.?AV<lambda_1>@?4??SAXPY2@MatrixMath@@YAXMV?$span@$$CBM$0?0@std@@V?$span@M$0?0@4@M01@Z@
 .?AV<lambda_1>@?5??AddParticleDomainBindings@@YAXAEAVGameData@@@Z@
 .?AV<lambda_1>@?5??UnzipVpk@@YAXPEBD00AEAVCVpkOutputFileRegistry@@_N@Z@
 .?AV<lambda_1>@?6??FilterInY@CSOAContainer@@QEAAXHVIntAABB_t@@HPEBM_N@Z@
 .?AV<lambda_1>@?6??FilterInZ@CSOAContainer@@QEAAXHVIntAABB_t@@HPEBM_N@Z@
+.?AV<lambda_1>@?7???$InnerProduct@$00@MatrixMath@@YAMPEBM0H@Z@
 .?AV<lambda_1>@?8??BuildSACustomDimensions@@YA_NPEAVIResourceCompilerContext@@PEAVCMapWorld@@PEAVIVPhysics2World@@PEAVIHammerMapNode@@W4SteamAudioProbeGenerationType_t@@_N5USteamAudioProbeSettings_t@@W4SteamAudioCustomDataRebakeOptions_t@@@Z@
 .?AV<lambda_1>@?8??BuildSACustomMaterials@@YA_NPEAVIResourceCompilerContext@@PEAVCMapWorld@@PEAVIVPhysics2World@@PEAVIHammerMapNode@@W4SteamAudioProbeGenerationType_t@@_N5USteamAudioProbeSettings_t@@W4SteamAudioCustomDataRebakeOptions_t@@@Z@
 .?AV<lambda_1>@?8??BuildSACustomOcclusion@@YA_NPEAVIResourceCompilerContext@@PEAVCMapWorld@@PEAVIVPhysics2World@@PEAVIHammerMapNode@@W4SteamAudioProbeGenerationType_t@@_N5USteamAudioCustomDataOcclusionSettings_t@@USteamAudioProbeSettings_t@@W4SteamAudioCustomDataRebakeOptions_t@@@Z@
@@ -3867,7 +3829,7 @@ $prefix_element$
 .?AV<lambda_1>@?BI@??SyncClothState@CPhysicsObject@@AEAAXPEBVCMapNode@@W4CopyClothStateFlags_t@@@Z@
 .?AV<lambda_1>@?CA@??FrameUpdate@CMapDoc@@QEAAXM_N0@Z@
 .?AV<lambda_1>@?CC@??QuarterSizeAttrWithBoxFilter@CSOAContainer@@QEAAXAEBV2@HHPEAVCCallQueue@@@Z@
-.?AV<lambda_1>@?CH@??RunVrad3@NLightBaker@@YA_NAEBUSubmitLightingContext_t@2@AEBUPackingGeometry_t@@AEBV?$CUtlVector@UEnvLightProbe_t@@HV?$CUtlMemory@UEnvLightProbe_t@@H@@@@AEBV?$CUtlVector@UEnvFogIrradianceVolume_t@@HV?$CUtlMemory@UEnvFogIrradianceVolume_t@@H@@@@PEAVIMapBuilderContext@@II@Z@
+.?AV<lambda_1>@?CK@??AppendExtensionLibrariesToEntityClassInScope_R@@YAXPEAVGDclass@@PEAVISchemaSystemTypeScope@@AEAV?$CUtlOrderedSet@PEAVGDclass@@@@@Z@
 .?AV<lambda_1>@?CM@??LoadAndRenderBatch@CResourceCompilerMorphSet@@AEAAXPEAVCDmElement@@PEAVIMorphCompileInstance@@AEBV?$CUtlVector@Us_deltaname_t@CResourceCompilerMorphSet@@HV?$CUtlMemory@Us_deltaname_t@CResourceCompilerMorphSet@@H@@@@@Z@
 .?AV<lambda_1>@?DC@??RunGraphUpdate@CAnimUpdateContextBuilder@@QEAAXPEBVCAnimUpdateNodeBase@@PEAVCPoseUpdateResources@@_N2@Z@
 .?AV<lambda_1>@?L@??SimulateParticles@CParticleMgr@@AEAAXAEAV?$CUtlVectorFixedGrowableCompat@UParticleSimListItem_t@CParticleMgr@@$0EAA@H@@@Z@
@@ -3894,16 +3856,16 @@ $prefix_element$
 .?AV<lambda_2>@?1???0CPulseDoc_Step_CallMethod@@QEAA@XZ@
 .?AV<lambda_2>@?1???0CPulseDoc_Step_FireCursors@@QEAA@XZ@
 .?AV<lambda_2>@?1???0CPulseDoc_Step_Timeline@@QEAA@XZ@
-.?AV<lambda_2>@?1???0CPulseOutflowPort@@QEAA@PEBVCPulseDoc_BaseFlow@@VCUtlSymbolLarge@@W4OutflowVisualPriority_t@@PEBD3_N@Z@
+.?AV<lambda_2>@?1???0CPulseOutflowPort@@QEAA@PEBVCPulseDoc_BaseFlow@@VCGlobalSymbol@@W4OutflowVisualPriority_t@@PEBD3_N@Z@
 .?AV<lambda_2>@?1???R<lambda_1>@?1??ResolveEachReference@CLayoutContentParsed@@UEAAXAEBV?$function@$$A6AXPEBDAEBV?$function@$$A6AXPEBD@Z@std@@AEBV?$function@$$A6AXPEBD_N@Z@2@@Z@std@@@Z@QEBA@PEAU?$CContentASTNode@W4ELayoutNodeType@@@panorama@@@Z@
 .?AV<lambda_2>@?1???R<lambda_1>@?1??ResolveEachReference@CStyleContent@@UEAAXAEBV?$function@$$A6AXPEBDAEBV?$function@$$A6AXPEBD@Z@std@@AEBV?$function@$$A6AXPEBD_N@Z@2@@Z@std@@@Z@QEBA@PEAU?$CContentASTNode@W4EStyleNodeType@@@panorama@@@Z@
 .?AV<lambda_2>@?1??AccumulateDependencies@CAnimGraphDoc_SubGraph@@QEBAXAEAV?$CUtlHashtable@VCUtlString@@Uempty_t@@U?$DefaultHashFunctor@VCUtlString@@@@U?$DefaultEqualFunctor@VCUtlString@@@@Uundefined_t@@V?$CUtlMemory@V?$CUtlHashtableEntry@VCUtlString@@Uempty_t@@@@H@@$0A@@@@Z@
-.?AV<lambda_2>@?1??AppendExtensionLibrariesToEntityClassInScope_R@@YAXPEAVGDclass@@PEAVISchemaSystemTypeScope@@AEAV?$CUtlOrderedSet@PEAVGDclass@@@@@Z@
 .?AV<lambda_2>@?1??BindInstanceParams@CVoiceContainerGranulator@@MEAAXAEAV?$CUtlVector@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@HV?$CUtlMemory@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@H@@@@@Z@
 .?AV<lambda_2>@?1??BindInstanceParams@CVoiceContainerStaticAdditiveSynth@@MEAAXAEAV?$CUtlVector@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@HV?$CUtlMemory@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@H@@@@@Z@
 .?AV<lambda_2>@?1??CompileLayoutResource@CResourceCompilerPanorama@@AEAA_NPEAVIResourceCompilerContext@@PEBURawContentSource@panorama@@AEBV?$CUtlVectorFixedGrowable@PEBD$07H@@PEA_N@Z@
 .?AV<lambda_2>@?1??CompileStyleResource@CResourceCompilerPanorama@@AEAA_NPEAVIResourceCompilerContext@@PEBURawContentSource@panorama@@AEBV?$CUtlVectorFixedGrowable@PEBD$07H@@PEA_N@Z@
 .?AV<lambda_2>@?1??InitializeChartUVs@NUVChartPacker@@YAXAEAV?$CUtlVector@UChart_t@NUVChartPacker@@HV?$CUtlMemory@UChart_t@NUVChartPacker@@H@@@@AEAV?$CUtlVector@PEAUChart_t@NUVChartPacker@@HV?$CUtlMemory@PEAUChart_t@NUVChartPacker@@H@@@@PEBV?$Vec2D@M@@PEBIMII@Z@
+.?AV<lambda_2>@?1??UpdateMovableMeshTransform@CNavGeometryManager@@QEAAXIAEBVmatrix3x4a_t@@@Z@
 .?AV<lambda_2>@?1??UpdateSpontaneousEntryPoint@CPulseDoc_Flow_Generic@@AEAAXXZ@
 .?AV<lambda_2>@?3??InitSimpleConnectivity@CPulseInflowPort@@IEAAXPEBVCPulseSequencePoint@@@Z@
 .?AV<lambda_2>@?4??RenderASTNode@@YAXAEAVCUtlBuffer@@IPEAVCContentSourceMap@@PEBU?$CContentASTNode@W4EStyleNodeType@@@panorama@@H@Z@
@@ -3913,6 +3875,7 @@ $prefix_element$
 .?AV<lambda_2>@?BH@??Normalize3ComponentVectorInAttributes@CSOAContainer@@QEAAXHHHV?$Vec3D@M@@_N1@Z@
 .?AV<lambda_2>@?BH@??Normalized3x3SobelEdgeFilterFrom@CSOAContainer@@QEAAXAEBV2@HHH_N@Z@
 .?AV<lambda_2>@?BJ@??RefineNode@RayTracingEnvironment@@AEAAXHPEBHHPEBUTriangleBounds_t@@V?$Vec3D@M@@2HPEAVCUtlMultiJobProcessor@@@Z@
+.?AV<lambda_2>@?CK@??AppendExtensionLibrariesToEntityClassInScope_R@@YAXPEAVGDclass@@PEAVISchemaSystemTypeScope@@AEAV?$CUtlOrderedSet@PEAVGDclass@@@@@Z@
 .?AV<lambda_2>@?DE@??QuarterSizeAttrWithBoxFilter@CSOAContainer@@QEAAXAEBV2@HHPEAVCCallQueue@@@Z@
 .?AV<lambda_2>@CAnimGraphDoc_SelectorNode@@
 .?AV<lambda_2>@CAnimGraphDoc_StateStatusCondition@@
@@ -3922,15 +3885,15 @@ $prefix_element$
 .?AV<lambda_3>@?1??BindInstanceParams@CVoiceContainerGranulator@@MEAAXAEAV?$CUtlVector@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@HV?$CUtlMemory@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@H@@@@@Z@
 .?AV<lambda_3>@?1??CompileLayoutResource@CResourceCompilerPanorama@@AEAA_NPEAVIResourceCompilerContext@@PEBURawContentSource@panorama@@AEBV?$CUtlVectorFixedGrowable@PEBD$07H@@PEA_N@Z@
 .?AV<lambda_3>@?3??InitSimpleConnectivity@CPulseInflowPort@@IEAAXPEBVCPulseSequencePoint@@@Z@
-.?AV<lambda_3>@?BM@??MakeNode_R@CLightImportanceTree@@AEAAXHHHHHPEAV?$CUtlVector@UImportanceLightScalar_t@CLightImportanceTree@@HV?$CUtlMemory@UImportanceLightScalar_t@CLightImportanceTree@@H@@@@PEAVCThreadMutex@@PEAVCUtlMultiJobProcessor@@@Z@
 .?AV<lambda_3>@CAnimGraphDoc_SelectorNode@@
 .?AV<lambda_3>@CAnimGraphDoc_StateStatusCondition@@
 .?AV<lambda_4>@?1???0CPulseDoc_BaseFlow@@QEAA@XZ@
-.?AV<lambda_4>@?1??AmeliorateBlockCompressionArtefacts_RepackCharts@@YAXAEAUPackingGeometry_t@@PEAULightmap_t@@AEAV?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@H@Z@
+.?AV<lambda_4>@?1??AmeliorateBlockCompressionArtefacts_RepackCharts@@YAXAEAUPackingGeometry_t@@PEAULightmap_t@@AEAV?$CUtlVector@UPartitionedMeshData_t@@HV?$CUtlMemory@UPartitionedMeshData_t@@H@@@@H@Z@
 .?AV<lambda_4>@?1??BindInstanceParams@CVoiceContainerGranulator@@MEAAXAEAV?$CUtlVector@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@HV?$CUtlMemory@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@H@@@@@Z@
 .?AV<lambda_4>@?3??InitSimpleConnectivity@CPulseInflowPort@@IEAAXPEBVCPulseSequencePoint@@@Z@
 .?AV<lambda_5>@?1??BindInstanceParams@CVoiceContainerGranulator@@MEAAXAEAV?$CUtlVector@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@HV?$CUtlMemory@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@H@@@@@Z@
 .?AV<lambda_5>@?3??InitSimpleConnectivity@CPulseInflowPort@@IEAAXPEBVCPulseSequencePoint@@@Z@
+.?AV<lambda_5>@?BI@??GenerateDistanceFieldFromTrianglesUsingHeatMethod@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHH@Z@
 .?AV<lambda_6>@?1??BindInstanceParams@CVoiceContainerGranulator@@MEAAXAEAV?$CUtlVector@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@HV?$CUtlMemory@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@H@@@@@Z@
 .?AV<lambda_6>@?3??InitSimpleConnectivity@CPulseInflowPort@@IEAAXPEBVCPulseSequencePoint@@@Z@
 .?AV<lambda_7>@?1??BindInstanceParams@CVoiceContainerGranulator@@MEAAXAEAV?$CUtlVector@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@HV?$CUtlMemory@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@H@@@@@Z@
@@ -3970,6 +3933,8 @@ $prefix_element$
 .?AV?$CBaseConcreteToolAttr@$$BY07VCFilterStage@@VCMixEQ8@@@@
 .?AV?$CBaseConcreteToolAttr@$$BY07VCUtlString@@VCMixSum@@@@
 .?AV?$CBaseConcreteToolAttr@EVCMapMesh@@@@
+.?AV?$CBaseConcreteToolAttr@EVCNmGraphDocParameterizedClipSelectorNode@@@@
+.?AV?$CBaseConcreteToolAttr@EVCNmGraphDocParameterizedSelectorNode@@@@
 .?AV?$CBaseConcreteToolAttr@HUVMixShaperDesc_t@@@@
 .?AV?$CBaseConcreteToolAttr@HVCMapCable@@@@
 .?AV?$CBaseConcreteToolAttr@HVCMapDeformerLattice@@@@
@@ -4282,6 +4247,7 @@ $prefix_element$
 .?AV?$CBaseConcreteToolAttr@MVCnmGraphDocSpeedScaleNode@@@@
 .?AV?$CBaseConcreteToolAttr@MVCnmGraphDocVelocityBasedSpeedScaleNode@@@@
 .?AV?$CBaseConcreteToolAttr@PEAVCPulseEditableMethodArg@@VCPulseDoc_Inflow_Method@@@@
+.?AV?$CBaseConcreteToolAttr@PEAVCPulseEditableMethodArg@@VCPulseDoc_PublicOutputDefinition@@@@
 .?AV?$CBaseConcreteToolAttr@UBoneWeight_t@CNmBoneMaskDefinition@@V2@@@
 .?AV?$CBaseConcreteToolAttr@UCSelectableSubgraph@@VCMixSubgraphSwitch@@@@
 .?AV?$CBaseConcreteToolAttr@UCondition_t@CNmGraphDocStateEventConditionNode@@V2@@@
@@ -4307,6 +4273,8 @@ $prefix_element$
 .?AV?$CBaseConcreteToolAttr@UVMixOscDesc_t@@VCMixOsc@@@@
 .?AV?$CBaseConcreteToolAttr@UVMixShaperDesc_t@@VCMixShaper@@@@
 .?AV?$CBaseConcreteToolAttr@UVMixUtilityDesc_t@@VCMixUtility@@@@
+.?AV?$CBaseConcreteToolAttr@V?$CUtlVector@EHV?$CUtlMemory@EH@@@@VCNmGraphDocParameterizedClipSelectorNode@@@@
+.?AV?$CBaseConcreteToolAttr@V?$CUtlVector@EHV?$CUtlMemory@EH@@@@VCNmGraphDocParameterizedSelectorNode@@@@
 .?AV?$CBaseConcreteToolAttr@V?$CUtlVector@HHV?$CUtlMemory@HH@@@@VCMapDocTestStruct@@@@
 .?AV?$CBaseConcreteToolAttr@V?$CUtlVector@HHV?$CUtlMemory@HH@@@@VCMapTestNode@@@@
 .?AV?$CBaseConcreteToolAttr@V?$CUtlVector@HHV?$CUtlMemory@HH@@@@VCModelDocTestNode@@@@
@@ -4315,6 +4283,7 @@ $prefix_element$
 .?AV?$CBaseConcreteToolAttr@V?$CUtlVector@MHV?$CUtlMemory@MH@@@@VCMixControlInputArray@@@@
 .?AV?$CBaseConcreteToolAttr@V?$CUtlVector@MHV?$CUtlMemory@MH@@@@VCMixSteamAudioPathing@@@@
 .?AV?$CBaseConcreteToolAttr@V?$CUtlVector@PEAVCPulseEditableMethodArg@@HV?$CUtlMemory@PEAVCPulseEditableMethodArg@@H@@@@VCPulseDoc_Inflow_Method@@@@
+.?AV?$CBaseConcreteToolAttr@V?$CUtlVector@PEAVCPulseEditableMethodArg@@HV?$CUtlMemory@PEAVCPulseEditableMethodArg@@H@@@@VCPulseDoc_PublicOutputDefinition@@@@
 .?AV?$CBaseConcreteToolAttr@V?$CUtlVector@UBoneWeight_t@CNmBoneMaskDefinition@@HV?$CUtlMemory@UBoneWeight_t@CNmBoneMaskDefinition@@H@@@@VCNmBoneMaskDefinition@@@@
 .?AV?$CBaseConcreteToolAttr@V?$CUtlVector@UCSelectableSubgraph@@HV?$CUtlMemory@UCSelectableSubgraph@@H@@@@VCMixSubgraphSwitch@@@@
 .?AV?$CBaseConcreteToolAttr@V?$CUtlVector@UCondition_t@CNmGraphDocStateEventConditionNode@@HV?$CUtlMemory@UCondition_t@CNmGraphDocStateEventConditionNode@@H@@@@VCNmGraphDocStateEventConditionNode@@@@
@@ -4467,7 +4436,6 @@ $prefix_element$
 .?AV?$CBaseConcreteToolAttr@VCPiecewiseCurve@@VCModelDocAnimMarkupCurveBase@@@@
 .?AV?$CBaseConcreteToolAttr@VCPiecewiseCurve@@VCNmGraphDocFloatCurveNode@@@@
 .?AV?$CBaseConcreteToolAttr@VCPulseEditableType@@VCPulseDoc_Inflow_Method@@@@
-.?AV?$CBaseConcreteToolAttr@VCPulseEditableType@@VCPulseDoc_PublicOutputDefinition@@@@
 .?AV?$CBaseConcreteToolAttr@VCPulseEditableType@@VCPulseDoc_Step_CreateTempVar@@@@
 .?AV?$CBaseConcreteToolAttr@VCPulseEditableType@@VCPulseEditableMethodArg@@@@
 .?AV?$CBaseConcreteToolAttr@VCPulseEditableType@@VCPulseEditableValue@@@@
@@ -4819,7 +4787,6 @@ $prefix_element$
 .?AV?$CBaseConcreteToolAttr@W4ModelDocTestEnum_t@@VCModelDocTestStruct@@@@
 .?AV?$CBaseConcreteToolAttr@W4MotionResistance_t@CModelDocBasePhysicsJoint@@V2@@@
 .?AV?$CBaseConcreteToolAttr@W4MotionType_t@CModelDocExtractMotion@@V2@@@
-.?AV?$CBaseConcreteToolAttr@W4MovementGait_t@@VCPulseScriptedSequenceDataForEditor@@@@
 .?AV?$CBaseConcreteToolAttr@W4NameMode_t@CModelDocBaseBreakPiece@@V2@@@
 .?AV?$CBaseConcreteToolAttr@W4NmCachedValueMode_t@@VCNmGraphDocCachedBoolNode@@@@
 .?AV?$CBaseConcreteToolAttr@W4NmCachedValueMode_t@@VCNmGraphDocCachedFloatNode@@@@
@@ -4885,6 +4852,7 @@ $prefix_element$
 .?AV?$CBaseConcreteToolAttr@W4ScriptedHeldWeaponBehavior_t@@VCPulseScriptedSequenceDataForEditor@@@@
 .?AV?$CBaseConcreteToolAttr@W4ScriptedMoveTo_t@@VCPulseScriptedSequenceDataForEditor@@@@
 .?AV?$CBaseConcreteToolAttr@W4SearchRule_t@CNmGraphDocIDEventConditionNode@@V2@@@
+.?AV?$CBaseConcreteToolAttr@W4SharedMovementGait_t@@VCPulseScriptedSequenceDataForEditor@@@@
 .?AV?$CBaseConcreteToolAttr@W4SpawnEntity_t@CModelDocBaseBreakPiece@@V2@@@
 .?AV?$CBaseConcreteToolAttr@W4StateType_t@CNmGraphDocStateNode@@V2@@@
 .?AV?$CBaseConcreteToolAttr@W4StaticOverlayProjectionMode_t@@VCMapStaticOverlay@@@@
@@ -5079,6 +5047,8 @@ $prefix_element$
 .?AV?$CBaseConcreteToolAttr@_NVCSteamAudioImportedProbeNode@@@@
 .?AV?$CBaseConcreteToolAttr@_NVCnmGraphDocConstBoolNode@@@@
 .?AV?$CBaseConcreteToolAttrValue@EVCMapMesh@@@@
+.?AV?$CBaseConcreteToolAttrValue@EVCNmGraphDocParameterizedClipSelectorNode@@@@
+.?AV?$CBaseConcreteToolAttrValue@EVCNmGraphDocParameterizedSelectorNode@@@@
 .?AV?$CBaseConcreteToolAttrValue@HUVMixShaperDesc_t@@@@
 .?AV?$CBaseConcreteToolAttrValue@HVCMapCable@@@@
 .?AV?$CBaseConcreteToolAttrValue@HVCMapDeformerLattice@@@@
@@ -5826,7 +5796,6 @@ $prefix_element$
 .?AV?$CBaseConcreteToolAttrValue@W4ModelDocTestEnum_t@@VCModelDocTestStruct@@@@
 .?AV?$CBaseConcreteToolAttrValue@W4MotionResistance_t@CModelDocBasePhysicsJoint@@V2@@@
 .?AV?$CBaseConcreteToolAttrValue@W4MotionType_t@CModelDocExtractMotion@@V2@@@
-.?AV?$CBaseConcreteToolAttrValue@W4MovementGait_t@@VCPulseScriptedSequenceDataForEditor@@@@
 .?AV?$CBaseConcreteToolAttrValue@W4NameMode_t@CModelDocBaseBreakPiece@@V2@@@
 .?AV?$CBaseConcreteToolAttrValue@W4NmCachedValueMode_t@@VCNmGraphDocCachedBoolNode@@@@
 .?AV?$CBaseConcreteToolAttrValue@W4NmCachedValueMode_t@@VCNmGraphDocCachedFloatNode@@@@
@@ -5892,6 +5861,7 @@ $prefix_element$
 .?AV?$CBaseConcreteToolAttrValue@W4ScriptedHeldWeaponBehavior_t@@VCPulseScriptedSequenceDataForEditor@@@@
 .?AV?$CBaseConcreteToolAttrValue@W4ScriptedMoveTo_t@@VCPulseScriptedSequenceDataForEditor@@@@
 .?AV?$CBaseConcreteToolAttrValue@W4SearchRule_t@CNmGraphDocIDEventConditionNode@@V2@@@
+.?AV?$CBaseConcreteToolAttrValue@W4SharedMovementGait_t@@VCPulseScriptedSequenceDataForEditor@@@@
 .?AV?$CBaseConcreteToolAttrValue@W4SpawnEntity_t@CModelDocBaseBreakPiece@@V2@@@
 .?AV?$CBaseConcreteToolAttrValue@W4StateType_t@CNmGraphDocStateNode@@V2@@@
 .?AV?$CBaseConcreteToolAttrValue@W4StaticOverlayProjectionMode_t@@VCMapStaticOverlay@@@@
@@ -6120,6 +6090,8 @@ $prefix_element$
 .?AV?$CConcreteToolAttr@$$BY07VCFilterStage@@VCMixEQ8@@X@@
 .?AV?$CConcreteToolAttr@$$BY07VCUtlString@@VCMixSum@@X@@
 .?AV?$CConcreteToolAttr@EVCMapMesh@@X@@
+.?AV?$CConcreteToolAttr@EVCNmGraphDocParameterizedClipSelectorNode@@X@@
+.?AV?$CConcreteToolAttr@EVCNmGraphDocParameterizedSelectorNode@@X@@
 .?AV?$CConcreteToolAttr@HUVMixShaperDesc_t@@X@@
 .?AV?$CConcreteToolAttr@HVCMapCable@@X@@
 .?AV?$CConcreteToolAttr@HVCMapDeformerLattice@@X@@
@@ -6432,6 +6404,7 @@ $prefix_element$
 .?AV?$CConcreteToolAttr@MVCnmGraphDocSpeedScaleNode@@X@@
 .?AV?$CConcreteToolAttr@MVCnmGraphDocVelocityBasedSpeedScaleNode@@X@@
 .?AV?$CConcreteToolAttr@PEAVCPulseEditableMethodArg@@VCPulseDoc_Inflow_Method@@X@@
+.?AV?$CConcreteToolAttr@PEAVCPulseEditableMethodArg@@VCPulseDoc_PublicOutputDefinition@@X@@
 .?AV?$CConcreteToolAttr@UBoneWeight_t@CNmBoneMaskDefinition@@V2@X@@
 .?AV?$CConcreteToolAttr@UCSelectableSubgraph@@VCMixSubgraphSwitch@@X@@
 .?AV?$CConcreteToolAttr@UCondition_t@CNmGraphDocStateEventConditionNode@@V2@X@@
@@ -6457,6 +6430,8 @@ $prefix_element$
 .?AV?$CConcreteToolAttr@UVMixOscDesc_t@@VCMixOsc@@X@@
 .?AV?$CConcreteToolAttr@UVMixShaperDesc_t@@VCMixShaper@@X@@
 .?AV?$CConcreteToolAttr@UVMixUtilityDesc_t@@VCMixUtility@@X@@
+.?AV?$CConcreteToolAttr@V?$CUtlVector@EHV?$CUtlMemory@EH@@@@VCNmGraphDocParameterizedClipSelectorNode@@X@@
+.?AV?$CConcreteToolAttr@V?$CUtlVector@EHV?$CUtlMemory@EH@@@@VCNmGraphDocParameterizedSelectorNode@@X@@
 .?AV?$CConcreteToolAttr@V?$CUtlVector@HHV?$CUtlMemory@HH@@@@VCMapDocTestStruct@@X@@
 .?AV?$CConcreteToolAttr@V?$CUtlVector@HHV?$CUtlMemory@HH@@@@VCMapTestNode@@X@@
 .?AV?$CConcreteToolAttr@V?$CUtlVector@HHV?$CUtlMemory@HH@@@@VCModelDocTestNode@@X@@
@@ -6465,6 +6440,7 @@ $prefix_element$
 .?AV?$CConcreteToolAttr@V?$CUtlVector@MHV?$CUtlMemory@MH@@@@VCMixControlInputArray@@X@@
 .?AV?$CConcreteToolAttr@V?$CUtlVector@MHV?$CUtlMemory@MH@@@@VCMixSteamAudioPathing@@X@@
 .?AV?$CConcreteToolAttr@V?$CUtlVector@PEAVCPulseEditableMethodArg@@HV?$CUtlMemory@PEAVCPulseEditableMethodArg@@H@@@@VCPulseDoc_Inflow_Method@@X@@
+.?AV?$CConcreteToolAttr@V?$CUtlVector@PEAVCPulseEditableMethodArg@@HV?$CUtlMemory@PEAVCPulseEditableMethodArg@@H@@@@VCPulseDoc_PublicOutputDefinition@@X@@
 .?AV?$CConcreteToolAttr@V?$CUtlVector@UBoneWeight_t@CNmBoneMaskDefinition@@HV?$CUtlMemory@UBoneWeight_t@CNmBoneMaskDefinition@@H@@@@VCNmBoneMaskDefinition@@X@@
 .?AV?$CConcreteToolAttr@V?$CUtlVector@UCSelectableSubgraph@@HV?$CUtlMemory@UCSelectableSubgraph@@H@@@@VCMixSubgraphSwitch@@X@@
 .?AV?$CConcreteToolAttr@V?$CUtlVector@UCondition_t@CNmGraphDocStateEventConditionNode@@HV?$CUtlMemory@UCondition_t@CNmGraphDocStateEventConditionNode@@H@@@@VCNmGraphDocStateEventConditionNode@@X@@
@@ -6617,7 +6593,6 @@ $prefix_element$
 .?AV?$CConcreteToolAttr@VCPiecewiseCurve@@VCModelDocAnimMarkupCurveBase@@X@@
 .?AV?$CConcreteToolAttr@VCPiecewiseCurve@@VCNmGraphDocFloatCurveNode@@X@@
 .?AV?$CConcreteToolAttr@VCPulseEditableType@@VCPulseDoc_Inflow_Method@@X@@
-.?AV?$CConcreteToolAttr@VCPulseEditableType@@VCPulseDoc_PublicOutputDefinition@@X@@
 .?AV?$CConcreteToolAttr@VCPulseEditableType@@VCPulseDoc_Step_CreateTempVar@@X@@
 .?AV?$CConcreteToolAttr@VCPulseEditableType@@VCPulseEditableMethodArg@@X@@
 .?AV?$CConcreteToolAttr@VCPulseEditableType@@VCPulseEditableValue@@X@@
@@ -6969,7 +6944,6 @@ $prefix_element$
 .?AV?$CConcreteToolAttr@W4ModelDocTestEnum_t@@VCModelDocTestStruct@@X@@
 .?AV?$CConcreteToolAttr@W4MotionResistance_t@CModelDocBasePhysicsJoint@@V2@X@@
 .?AV?$CConcreteToolAttr@W4MotionType_t@CModelDocExtractMotion@@V2@X@@
-.?AV?$CConcreteToolAttr@W4MovementGait_t@@VCPulseScriptedSequenceDataForEditor@@X@@
 .?AV?$CConcreteToolAttr@W4NameMode_t@CModelDocBaseBreakPiece@@V2@X@@
 .?AV?$CConcreteToolAttr@W4NmCachedValueMode_t@@VCNmGraphDocCachedBoolNode@@X@@
 .?AV?$CConcreteToolAttr@W4NmCachedValueMode_t@@VCNmGraphDocCachedFloatNode@@X@@
@@ -7035,6 +7009,7 @@ $prefix_element$
 .?AV?$CConcreteToolAttr@W4ScriptedHeldWeaponBehavior_t@@VCPulseScriptedSequenceDataForEditor@@X@@
 .?AV?$CConcreteToolAttr@W4ScriptedMoveTo_t@@VCPulseScriptedSequenceDataForEditor@@X@@
 .?AV?$CConcreteToolAttr@W4SearchRule_t@CNmGraphDocIDEventConditionNode@@V2@X@@
+.?AV?$CConcreteToolAttr@W4SharedMovementGait_t@@VCPulseScriptedSequenceDataForEditor@@X@@
 .?AV?$CConcreteToolAttr@W4SpawnEntity_t@CModelDocBaseBreakPiece@@V2@X@@
 .?AV?$CConcreteToolAttr@W4StateType_t@CNmGraphDocStateNode@@V2@X@@
 .?AV?$CConcreteToolAttr@W4StaticOverlayProjectionMode_t@@VCMapStaticOverlay@@X@@
@@ -7337,6 +7312,8 @@ $prefix_element$
 .?AV?$CConcreteToolAttrDirectMember@UVMixOscDesc_t@@VCMixOsc@@@@
 .?AV?$CConcreteToolAttrDirectMember@UVMixShaperDesc_t@@VCMixShaper@@@@
 .?AV?$CConcreteToolAttrDirectMember@UVMixUtilityDesc_t@@VCMixUtility@@@@
+.?AV?$CConcreteToolAttrDirectMember@V?$CUtlVector@EHV?$CUtlMemory@EH@@@@VCNmGraphDocParameterizedClipSelectorNode@@@@
+.?AV?$CConcreteToolAttrDirectMember@V?$CUtlVector@EHV?$CUtlMemory@EH@@@@VCNmGraphDocParameterizedSelectorNode@@@@
 .?AV?$CConcreteToolAttrDirectMember@V?$CUtlVector@MHV?$CUtlMemory@MH@@@@VCMixControlInputArray@@@@
 .?AV?$CConcreteToolAttrDirectMember@V?$CUtlVector@MHV?$CUtlMemory@MH@@@@VCMixSteamAudioPathing@@@@
 .?AV?$CConcreteToolAttrDirectMember@V?$CUtlVector@UBoneWeight_t@CNmBoneMaskDefinition@@HV?$CUtlMemory@UBoneWeight_t@CNmBoneMaskDefinition@@H@@@@VCNmBoneMaskDefinition@@@@
@@ -7511,6 +7488,7 @@ $prefix_element$
 .?AV?$CConcreteToolAttrGetForModify@V?$CUtlVector@HHV?$CUtlMemory@HH@@@@VCModelDocTestStruct@@@@
 .?AV?$CConcreteToolAttrGetForModify@V?$CUtlVector@HHV?$CUtlMemory@HH@@@@VCPulseDoc_Outflow_IntSwitch@@@@
 .?AV?$CConcreteToolAttrGetForModify@V?$CUtlVector@PEAVCPulseEditableMethodArg@@HV?$CUtlMemory@PEAVCPulseEditableMethodArg@@H@@@@VCPulseDoc_Inflow_Method@@@@
+.?AV?$CConcreteToolAttrGetForModify@V?$CUtlVector@PEAVCPulseEditableMethodArg@@HV?$CUtlMemory@PEAVCPulseEditableMethodArg@@H@@@@VCPulseDoc_PublicOutputDefinition@@@@
 .?AV?$CConcreteToolAttrGetForModify@V?$CUtlVector@UPulseDynamicOutflowDef_t@@HV?$CUtlMemory@UPulseDynamicOutflowDef_t@@H@@@@VCPulseDocNodeDynamicOutflowsAttr@@@@
 .?AV?$CConcreteToolAttrGetForModify@V?$CUtlVector@UPulseTimelineEventDefinition_t@@HV?$CUtlMemory@UPulseTimelineEventDefinition_t@@H@@@@VCPulseDoc_Step_Timeline@@@@
 .?AV?$CConcreteToolAttrGetForModify@V?$CUtlVector@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@HV?$CUtlMemory@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@H@@@@VCMapTestNode@@@@
@@ -7531,7 +7509,6 @@ $prefix_element$
 .?AV?$CConcreteToolAttrGetForModify@VCPetVariableConfiguration@@VCPetVariableNode@@@@
 .?AV?$CConcreteToolAttrGetForModify@VCPiecewiseCurve@@VCMapTestNode@@@@
 .?AV?$CConcreteToolAttrGetForModify@VCPulseEditableType@@VCPulseDoc_Inflow_Method@@@@
-.?AV?$CConcreteToolAttrGetForModify@VCPulseEditableType@@VCPulseDoc_PublicOutputDefinition@@@@
 .?AV?$CConcreteToolAttrGetForModify@VCPulseEditableType@@VCPulseDoc_Step_CreateTempVar@@@@
 .?AV?$CConcreteToolAttrGetForModify@VCPulseEditableType@@VCPulseEditableMethodArg@@@@
 .?AV?$CConcreteToolAttrGetForModify@VCPulseEditableType@@VCPulseEditableValue@@@@
@@ -7667,7 +7644,6 @@ $prefix_element$
 .?AV?$CConcreteToolAttrGetSet@W4MapNodeDeformationMode_t@@VCMapGroup@@@@
 .?AV?$CConcreteToolAttrGetSet@W4MapTestNodeEnum_t@@VCMapDocTestStruct@@@@
 .?AV?$CConcreteToolAttrGetSet@W4ModelDocTestEnum_t@@VCModelDocTestStruct@@@@
-.?AV?$CConcreteToolAttrGetSet@W4MovementGait_t@@VCPulseScriptedSequenceDataForEditor@@@@
 .?AV?$CConcreteToolAttrGetSet@W4OutputFormat_t@CMapTerrainLayerComposite@@V2@@@
 .?AV?$CConcreteToolAttrGetSet@W4ParticleAttachment_t@@VCPetVariableConfiguration@@@@
 .?AV?$CConcreteToolAttrGetSet@W4PathInterpolationType_t@@VCMapPath@@@@
@@ -7682,6 +7658,7 @@ $prefix_element$
 .?AV?$CConcreteToolAttrGetSet@W4PulseValueType_t@@VCPulseEditableType@@@@
 .?AV?$CConcreteToolAttrGetSet@W4ScriptedHeldWeaponBehavior_t@@VCPulseScriptedSequenceDataForEditor@@@@
 .?AV?$CConcreteToolAttrGetSet@W4ScriptedMoveTo_t@@VCPulseScriptedSequenceDataForEditor@@@@
+.?AV?$CConcreteToolAttrGetSet@W4SharedMovementGait_t@@VCPulseScriptedSequenceDataForEditor@@@@
 .?AV?$CConcreteToolAttrGetSet@W4StaticOverlayProjectionMode_t@@VCMapStaticOverlay@@@@
 .?AV?$CConcreteToolAttrGetSet@W4SteamAudioImportedProbeType_t@@VCSteamAudioImportedProbeBoxNode@@@@
 .?AV?$CConcreteToolAttrGetSet@W4SteamAudioImportedProbeType_t@@VCSteamAudioImportedProbeNode@@@@
@@ -7842,7 +7819,6 @@ $prefix_element$
 .?AV?$CDefaultToolAttrTableForStruct@VCNmGraphDocCachedIDNode@@@@
 .?AV?$CDefaultToolAttrTableForStruct@VCNmGraphDocCachedTargetNode@@@@
 .?AV?$CDefaultToolAttrTableForStruct@VCNmGraphDocCachedVectorNode@@@@
-.?AV?$CDefaultToolAttrTableForStruct@VCNmGraphDocChildGraphNode@@@@
 .?AV?$CDefaultToolAttrTableForStruct@VCNmGraphDocClipNode@@@@
 .?AV?$CDefaultToolAttrTableForStruct@VCNmGraphDocClipSelectorNode@@@@
 .?AV?$CDefaultToolAttrTableForStruct@VCNmGraphDocCurrentSyncEventIDNode@@@@
@@ -7885,6 +7861,7 @@ $prefix_element$
 .?AV?$CDefaultToolAttrTableForStruct@VCNmGraphDocParameterizedClipSelectorNode@@@@
 .?AV?$CDefaultToolAttrTableForStruct@VCNmGraphDocParameterizedSelectorNode@@@@
 .?AV?$CDefaultToolAttrTableForStruct@VCNmGraphDocReferencePoseNode@@@@
+.?AV?$CDefaultToolAttrTableForStruct@VCNmGraphDocReferencedGraphNode@@@@
 .?AV?$CDefaultToolAttrTableForStruct@VCNmGraphDocRootMotionOverrideNode@@@@
 .?AV?$CDefaultToolAttrTableForStruct@VCNmGraphDocSelectorBaseNode@@@@
 .?AV?$CDefaultToolAttrTableForStruct@VCNmGraphDocSelectorConditionNode@@@@
@@ -8411,7 +8388,6 @@ $prefix_element$
 .?AV?$CInlineStructAttributeWrapper@VCModelDocTestStruct@@VCModelDocTestNode@@@@
 .?AV?$CKV3ResourceTypeManager@$0GNGFHEGJGOGPGDGF@@@
 .?AV?$CKV3ResourceTypeManager@$0HEHCGBGNHDHG@@@
-.?AV?$CKV3Transfer_UtlSymbolLargeInterface@V?$CUtlSymbolTableLargeBase@$00$0IAA@VCThreadNullMutex@@@@@@
 .?AV?$CModelDocAttr@HVCModelDocActivityModifier@@@@
 .?AV?$CModelDocAttr@HVCModelDocAnimAlign@@@@
 .?AV?$CModelDocAttr@HVCModelDocAnimBaseParams@@@@
@@ -9004,19 +8980,17 @@ $prefix_element$
 .?AV?$CMutableRefCountBase@VCRefMT@@@@
 .?AV?$CMutableRefCounted@V?$CMutableRefCountBase@VCRefMT@@@@@@
 .?AV?$COpaqueStructAttributeWrapper@VCPiecewiseCurve@@VCModelDocAnimMarkupCurveBase@@@@
-.?AV?$CParallelLambdaJob@V<lambda_1>@?1???$Build@VCPathTraceSceneInfo@@@CLightImportanceTree@@QEAAXAEBVCPathTraceSceneInfo@@HPEAVCGlViewBuffer@@@Z@@CParallelProcessLauncher@@
-.?AV?$CParallelLambdaJob@V<lambda_1>@?1???$ParallelForEach@AEAV?$CUtlVector@UChoreoSceneFileEntry_t@@HV?$CUtlMemory@UChoreoSceneFileEntry_t@@H@@@@V<lambda_1>@?BF@??CompileResource@CResourceCompilerChoreoSceneFileData@@UEAA_NAEAVCUtlBuffer@@PEAVIResourceCompilerContext@@@Z@@@YAXAEAV?$CUtlVector@UChoreoSceneFileEntry_t@@HV?$CUtlMemory@UChoreoSceneFileEntry_t@@H@@@@PEBDV1?BF@??CompileResource@CResourceCompilerChoreoSceneFileData@@UEAA_NAEAVCUtlBuffer@@PEAVIResourceCompilerContext@@@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
-.?AV?$CParallelLambdaJob@V<lambda_1>@?1???$ParallelForEach@AEAV?$CUtlVector@UMergeElement_t@CVisibilityMeshMerger@@HV?$CUtlMemory@UMergeElement_t@CVisibilityMeshMerger@@H@@@@V<lambda_1>@?BB@??MergeMeshes@CVisibilityMeshMerger@@QEAAXAEBV?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@AEAV?$CUtlVector@V?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@HV?$CUtlMemory@V?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@H@@@@PEAV5@@Z@@@YAXAEAV?$CUtlVector@UMergeElement_t@CVisibilityMeshMerger@@HV?$CUtlMemory@UMergeElement_t@CVisibilityMeshMerger@@H@@@@PEBDV1?BB@??MergeMeshes@CVisibilityMeshMerger@@QEAAXAEBV?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@AEAV?$CUtlVector@V?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@HV?$CUtlMemory@V?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@H@@@@PEAV5@@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
-.?AV?$CParallelLambdaJob@V<lambda_1>@?1???$ParallelForEach@AEAV?$CUtlVector@USerializeInputDependencyWorkItem_t@@HV?$CUtlMemory@USerializeInputDependencyWorkItem_t@@H@@@@V<lambda_1>@?9??SerializeInputDependencies@CResourceCompilerContext@@AEBA_NPEAV?$CUtlVector@UInputDependency_t@CResourceEditInfo@@HV?$CUtlMemory@UInputDependency_t@CResourceEditInfo@@H@@@@AEBVInputFileDependencyList_t@@PEBD@Z@@@YAXAEAV?$CUtlVector@USerializeInputDependencyWorkItem_t@@HV?$CUtlMemory@USerializeInputDependencyWorkItem_t@@H@@@@PEBDV1?9??SerializeInputDependencies@CResourceCompilerContext@@AEBA_NPEAV?$CUtlVector@UInputDependency_t@CResourceEditInfo@@HV?$CUtlMemory@UInputDependency_t@CResourceEditInfo@@H@@@@AEBVInputFileDependencyList_t@@1@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
-.?AV?$CParallelLambdaJob@V<lambda_1>@?1???$ParallelForEach@AEAV?$CUtlVectorFixedGrowable@H$0DA@H@@V<lambda_1>@?1???R2?O@??PrecomputeLightVisMembership@CWorldRendererBuilder@@QEAAXPEAVIMapBuilderContext@@@Z@QEBA@AEBUAABB_t@@AEBV?$CUtlVector@V?$Vec3D@M@@HV?$CUtlMemory@V?$Vec3D@M@@H@@@@2@Z@@@YAXAEAV?$CUtlVectorFixedGrowable@H$0DA@H@@PEBDV1?1???R1?O@??PrecomputeLightVisMembership@CWorldRendererBuilder@@QEAAXPEAVIMapBuilderContext@@@Z@QEBA@AEBUAABB_t@@AEBV?$CUtlVector@V?$Vec3D@M@@HV?$CUtlMemory@V?$Vec3D@M@@H@@@@4@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
+.?AV?$CParallelLambdaJob@V<lambda_1>@?1???$ParallelForEach@AEAV?$CUtlVector@UChoreoSceneFileEntry_t@@HV?$CUtlMemory@UChoreoSceneFileEntry_t@@H@@@@V<lambda_1>@?BF@??CompileResource@CResourceCompilerChoreoSceneFileData@@UEAA_NAEAVCUtlBuffer@@PEAVIResourceCompilerContext@@@Z@@@YAXAEAV?$CUtlVector@UChoreoSceneFileEntry_t@@HV?$CUtlMemory@UChoreoSceneFileEntry_t@@H@@@@PEBD$$QEAV1?BF@??CompileResource@CResourceCompilerChoreoSceneFileData@@UEAA_NAEAVCUtlBuffer@@PEAVIResourceCompilerContext@@@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
+.?AV?$CParallelLambdaJob@V<lambda_1>@?1???$ParallelForEach@AEAV?$CUtlVector@UMergeElement_t@CVisibilityMeshMerger@@HV?$CUtlMemory@UMergeElement_t@CVisibilityMeshMerger@@H@@@@V<lambda_1>@?BB@??MergeMeshes@CVisibilityMeshMerger@@QEAAXAEBV?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@AEAV?$CUtlVector@V?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@HV?$CUtlMemory@V?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@H@@@@PEAV5@@Z@@@YAXAEAV?$CUtlVector@UMergeElement_t@CVisibilityMeshMerger@@HV?$CUtlMemory@UMergeElement_t@CVisibilityMeshMerger@@H@@@@PEBD$$QEAV1?BB@??MergeMeshes@CVisibilityMeshMerger@@QEAAXAEBV?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@AEAV?$CUtlVector@V?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@HV?$CUtlMemory@V?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@H@@@@PEAV5@@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
+.?AV?$CParallelLambdaJob@V<lambda_1>@?1???$ParallelForEach@AEAV?$CUtlVector@USerializeInputDependencyWorkItem_t@@HV?$CUtlMemory@USerializeInputDependencyWorkItem_t@@H@@@@V<lambda_1>@?9??SerializeInputDependencies@CResourceCompilerContext@@AEBA_NPEAV?$CUtlVector@UInputDependency_t@CResourceEditInfo@@HV?$CUtlMemory@UInputDependency_t@CResourceEditInfo@@H@@@@AEBVInputFileDependencyList_t@@PEBD@Z@@@YAXAEAV?$CUtlVector@USerializeInputDependencyWorkItem_t@@HV?$CUtlMemory@USerializeInputDependencyWorkItem_t@@H@@@@PEBD$$QEAV1?9??SerializeInputDependencies@CResourceCompilerContext@@AEBA_NPEAV?$CUtlVector@UInputDependency_t@CResourceEditInfo@@HV?$CUtlMemory@UInputDependency_t@CResourceEditInfo@@H@@@@AEBVInputFileDependencyList_t@@1@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
+.?AV?$CParallelLambdaJob@V<lambda_1>@?1???$ParallelForEach@AEAV?$CUtlVectorFixedGrowable@H$0DA@H@@V<lambda_1>@?1???R2?O@??PrecomputeLightVisMembership@CWorldRendererBuilder@@QEAAXPEAVIMapBuilderContext@@@Z@QEBA@AEBUAABB_t@@AEBV?$CUtlVector@V?$Vec3D@M@@HV?$CUtlMemory@V?$Vec3D@M@@H@@@@2@Z@@@YAXAEAV?$CUtlVectorFixedGrowable@H$0DA@H@@PEBD$$QEAV1?1???R1?O@??PrecomputeLightVisMembership@CWorldRendererBuilder@@QEAAXPEAVIMapBuilderContext@@@Z@QEBA@AEBUAABB_t@@AEBV?$CUtlVector@V?$Vec3D@M@@HV?$CUtlMemory@V?$Vec3D@M@@H@@@@4@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
 .?AV?$CParallelLambdaJob@V<lambda_1>@?1???0AxisAlignedDualDepthMap_t@@QEAA@PEAVRayTracingEnvironment@@AEBUAABB_t@@W4AxisAlignedDualDepthMapAxis_t@@MHHH@Z@@CParallelProcessLauncher@@
 .?AV?$CParallelLambdaJob@V<lambda_1>@?1???R<lambda_3>@?1??TryPack@NUVChartPacker@@YA_NIIAEAV?$CUtlVector@PEAUChart_t@NUVChartPacker@@HV?$CUtlMemory@PEAUChart_t@NUVChartPacker@@H@@@@AEAV?$CUtlVector@VIntVector2D@@HV?$CUtlMemory@VIntVector2D@@H@@@@PEBD@Z@QEBA_NHHH@Z@@CParallelProcessLauncher@@
-.?AV?$CParallelLambdaJob@V<lambda_1>@?1??AssignClusters@@YAXAEBV?$CUtlVector@V?$VectorND@$08@@HV?$CUtlMemory@V?$VectorND@$08@@H@@@@AEAV?$CUtlVector@HHV?$CUtlMemory@HH@@@@0AEBVCVertexKDTree@@@Z@@CParallelProcessLauncher@@
+.?AV?$CParallelLambdaJob@V<lambda_1>@?1??AssignClusters@@YAXAEBV?$CUtlVector@V?$VectorND@$08@@HV?$CUtlMemory@V?$VectorND@$08@@H@@@@AEAV?$CUtlVector@HHV?$CUtlMemory@HH@@@@0AEBV?$KDTree@V?$VectorND@$08@@@kdt@@@Z@@CParallelProcessLauncher@@
 .?AV?$CParallelLambdaJob@V<lambda_1>@?1??FilterInX@CSOAContainer@@QEAAXHVIntAABB_t@@HPEBM_N@Z@@CParallelProcessLauncher@@
 .?AV?$CParallelLambdaJob@V<lambda_1>@?1??Init@CAmalgamatedTexture@@QEAAXPEBD_N@Z@@CParallelProcessLauncher@@
 .?AV?$CParallelLambdaJob@V<lambda_1>@?1??InitializeChartUVs@NUVChartPacker@@YAXAEAV?$CUtlVector@UChart_t@NUVChartPacker@@HV?$CUtlMemory@UChart_t@NUVChartPacker@@H@@@@AEAV?$CUtlVector@PEAUChart_t@NUVChartPacker@@HV?$CUtlMemory@PEAUChart_t@NUVChartPacker@@H@@@@PEBV?$Vec2D@M@@PEBIMII@Z@@CParallelProcessLauncher@@
-.?AV?$CParallelLambdaJob@V<lambda_1>@?1??UberWeld@@YAXAEAUPackingGeometry_t@@AEAV?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@PEAULightmap_t@@MM@Z@@CParallelProcessLauncher@@
-.?AV?$CParallelLambdaJob@V<lambda_1>@?1??Voxelize@CUtlGrid@@QEBAXPEAV?$CVarBitVecT@H$0CA@@@AEBVRayTracingEnvironment@@AEBVVMatrix@@HGH@Z@@CParallelProcessLauncher@@
+.?AV?$CParallelLambdaJob@V<lambda_1>@?1??UberWeld@@YAXAEBUPackingGeometry_t@@AEBV?$CUtlVector@UPartitionedMeshData_t@@HV?$CUtlMemory@UPartitionedMeshData_t@@H@@@@PEAULightmap_t@@MM@Z@@CParallelProcessLauncher@@
 .?AV?$CParallelLambdaJob@V<lambda_1>@?1??WriteInMemoryEXRFast@FloatBitMap_t@@IEBA_NAEAVCUtlBuffer@@@Z@@CParallelProcessLauncher@@
 .?AV?$CParallelLambdaJob@V<lambda_1>@?4??BuildHybridSDF@@YAXPEAUFeBuildSDFRigid_t@@AEBV?$CUtlVector@V?$Vec3D@M@@HV?$CUtlMemory@V?$Vec3D@M@@H@@@@M@Z@@CParallelProcessLauncher@@
 .?AV?$CParallelLambdaJob@V<lambda_1>@?7??ForEachPixelParallel@FloatBitMap_t@@QEAAX$$QEAV?$function@$$A6AXAEAM@Z@std@@@Z@@CParallelProcessLauncher@@
@@ -9028,24 +9002,24 @@ $prefix_element$
 .?AV?$CParallelLambdaJob@V<lambda_1>@?DN@??GenerateMips_SphericalHarmonics@CTextureFrame@@AEAA_NPEBVCImageProcessor@@AEAV?$CUtlVector@PEBVCTextureObject@@HV?$CUtlMemory@PEBVCTextureObject@@H@@@@HAEBVCTextureObject@@PEAVIResourceCompilerContext@@_NH@Z@@CParallelProcessLauncher@@
 .?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_1>@?1??CompileAllShadersForStaticCombo@@YA_N_KAEAVCVfxStaticComboData@@AEAVCVfx@@W4VfxProgram_t@@PEAVIVfx@@@Z@@@YAXHHPEBD$$QEAV1?1??CompileAllShadersForStaticCombo@@YA_N_KAEAVCVfxStaticComboData@@AEAVCVfx@@W4VfxProgram_t@@PEAVIVfx@@@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
 .?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_1>@?1??DownsampleNiceFiltered@FloatBitMap_t@@QEAAXAEBUDownsampleInfo_t@@PEAV3@@Z@@@YAXHHPEBD$$QEAV1?1??DownsampleNiceFiltered@FloatBitMap_t@@QEAAXAEBUDownsampleInfo_t@@PEAV3@@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
-.?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_1>@?1??GenerateDistanceFieldFromTrianglesWithVoting@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHMH@Z@@@YAXHHPEBD$$QEAV1?1??GenerateDistanceFieldFromTrianglesWithVoting@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHMH@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
+.?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_1>@?1??GenerateDistanceFieldFromTrianglesWithVoting@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHH@Z@@@YAXHHPEBD$$QEAV1?1??GenerateDistanceFieldFromTrianglesWithVoting@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHH@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
 .?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_1>@?1??InitDependencyCounters@?$CSweepBlockProcessor@$00@@IEAAXXZ@@@YAXHHPEBD$$QEAV1?1??InitDependencyCounters@?$CSweepBlockProcessor@$00@@IEAAXXZ@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
 .?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_1>@?1??PreProcessLights@@YAXPEAVCMapDoc@@AEAVCLightCookies@@@Z@@@YAXHHPEBD$$QEAV1?1??PreProcessLights@@YAXPEAVCMapDoc@@AEAVCLightCookies@@@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
 .?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_1>@?1??Run@?$CSweepBlockProcessor@$00@@QEAAXXZ@@@YAXHHPEBD$$QEAV1?1??Run@?$CSweepBlockProcessor@$00@@QEAAXXZ@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
 .?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_1>@?2??ScatterMeshToVisClusterMeshes@CVisibilityMeshMerger@@AEBAXAEBVCMeshListEntry@@AEBV?$CUtlVector@GHV?$CUtlMemory@GH@@@@AEAV?$CUtlHashtable@UVisClusterMembership_t@@V?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@U?$DefaultHashFunctor@UVisClusterMembership_t@@@@U?$DefaultEqualFunctor@UVisClusterMembership_t@@@@Uundefined_t@@V?$CUtlMemory@V?$CUtlHashtableEntry@UVisClusterMembership_t@@V?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@@@H@@$0A@@@PEAV?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@@Z@@@YAXHHPEBD$$QEAV1?2??ScatterMeshToVisClusterMeshes@CVisibilityMeshMerger@@AEBAXAEBVCMeshListEntry@@AEBV?$CUtlVector@GHV?$CUtlMemory@GH@@@@AEAV?$CUtlHashtable@UVisClusterMembership_t@@V?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@U?$DefaultHashFunctor@UVisClusterMembership_t@@@@U?$DefaultEqualFunctor@UVisClusterMembership_t@@@@Uundefined_t@@V?$CUtlMemory@V?$CUtlHashtableEntry@UVisClusterMembership_t@@V?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@@@H@@$0A@@@PEAV?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
 .?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_1>@?7??QuarterSize@FloatBitMap_t@@QEAAXPEAV3@@Z@@@YAXHHPEBD$$QEAV1?7??QuarterSize@FloatBitMap_t@@QEAAXPEAV3@@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
-.?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_1>@?8???$IterateRows@V<lambda_1>@?1???$TransformRGB@V<lambda_2>@?BD@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHMHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@FloatBitMap_t@@QEAAX$$QEAV<lambda_2>@?BD@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHMHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@Z@@CSOAContainer@@QEAAXV1?1???$TransformRGB@V<lambda_2>@?BD@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHMHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@FloatBitMap_t@@QEAAX$$QEAV<lambda_2>@?BD@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHMHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@Z@_N@Z@@@YAXHHPEBD$$QEAV1?8???$IterateRows@V<lambda_1>@?1???$TransformRGB@V<lambda_2>@?BD@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHMHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@FloatBitMap_t@@QEAAX$$QEAV<lambda_2>@?BD@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHMHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@Z@@CSOAContainer@@QEAAXV1?1???$TransformRGB@V<lambda_2>@?BD@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHMHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@FloatBitMap_t@@QEAAX$$QEAV<lambda_2>@?BD@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHMHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@Z@_N@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
-.?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_1>@?8???$IterateRows@V<lambda_1>@?1???$TransformRGB@V<lambda_3>@?BM@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHMHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@FloatBitMap_t@@QEAAX$$QEAV<lambda_3>@?BM@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHMHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@Z@@CSOAContainer@@QEAAXV1?1???$TransformRGB@V<lambda_3>@?BM@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHMHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@FloatBitMap_t@@QEAAX$$QEAV<lambda_3>@?BM@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHMHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@Z@_N@Z@@@YAXHHPEBD$$QEAV1?8???$IterateRows@V<lambda_1>@?1???$TransformRGB@V<lambda_3>@?BM@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHMHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@FloatBitMap_t@@QEAAX$$QEAV<lambda_3>@?BM@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHMHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@Z@@CSOAContainer@@QEAAXV1?1???$TransformRGB@V<lambda_3>@?BM@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHMHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@FloatBitMap_t@@QEAAX$$QEAV<lambda_3>@?BM@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHMHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@Z@_N@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
-.?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_1>@?8???$IterateRows@V<lambda_1>@?1??RemoveInteriorISOSurfaceSamples@CSOAContainer@@QEAAXHMH@Z@@CSOAContainer@@QEAAXV1?1??RemoveInteriorISOSurfaceSamples@2@QEAAXHMH@Z@_N@Z@@@YAXHHPEBD$$QEAV1?8???$IterateRows@V<lambda_1>@?1??RemoveInteriorISOSurfaceSamples@CSOAContainer@@QEAAXHMH@Z@@CSOAContainer@@QEAAXV1?1??RemoveInteriorISOSurfaceSamples@2@QEAAXHMH@Z@_N@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
-.?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_1>@?8???$IterateRows@V<lambda_4>@?8??GenerateDistanceFieldFromTrianglesWithVoting@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHMH@Z@@CSOAContainer@@QEAAXV<lambda_4>@?8??GenerateDistanceFieldFromTrianglesWithVoting@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHMH@Z@_N@Z@@@YAXHHPEBD$$QEAV1?8???$IterateRows@V<lambda_4>@?8??GenerateDistanceFieldFromTrianglesWithVoting@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHMH@Z@@CSOAContainer@@QEAAXV<lambda_4>@?8??GenerateDistanceFieldFromTrianglesWithVoting@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHMH@Z@_N@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
-.?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_1>@?8???$IterateRows@V<lambda_5>@?1??GenerateDistanceFieldFromTrianglesWithVoting@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHMH@Z@@CSOAContainer@@QEAAXV<lambda_5>@?1??GenerateDistanceFieldFromTrianglesWithVoting@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHMH@Z@_N@Z@@@YAXHHPEBD$$QEAV1?8???$IterateRows@V<lambda_5>@?1??GenerateDistanceFieldFromTrianglesWithVoting@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHMH@Z@@CSOAContainer@@QEAAXV<lambda_5>@?1??GenerateDistanceFieldFromTrianglesWithVoting@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHMH@Z@_N@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
-.?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_1>@?8???$IterateSlices@V<lambda_4>@?BB@??GenerateDistanceFieldFromTrianglesUsingHeatMethod@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HHMH@Z@@CSOAContainer@@QEAAXV<lambda_4>@?BB@??GenerateDistanceFieldFromTrianglesUsingHeatMethod@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HHMH@Z@_N@Z@@@YAXHHPEBD$$QEAV1?8???$IterateSlices@V<lambda_4>@?BB@??GenerateDistanceFieldFromTrianglesUsingHeatMethod@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HHMH@Z@@CSOAContainer@@QEAAXV<lambda_4>@?BB@??GenerateDistanceFieldFromTrianglesUsingHeatMethod@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HHMH@Z@_N@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
-.?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_1>@?9??ChartMeshes@@YA?AW4StaticLightingResult_t@@PEAVIMapBuilderContext@@AEBV?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@AEBV?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@_NPEAV?$CUtlVector@V?$shared_ptr@UChartableMeshData_t@@@std@@HV?$CUtlMemory@V?$shared_ptr@UChartableMeshData_t@@@std@@H@@@@PEAV?$CUtlVector@UPartitionedMeshData_t@@HV?$CUtlMemory@UPartitionedMeshData_t@@H@@@@@Z@@@YAXHHPEBD$$QEAV1?9??ChartMeshes@@YA?AW4StaticLightingResult_t@@PEAVIMapBuilderContext@@AEBV?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@AEBV?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@_NPEAV?$CUtlVector@V?$shared_ptr@UChartableMeshData_t@@@std@@HV?$CUtlMemory@V?$shared_ptr@UChartableMeshData_t@@@std@@H@@@@PEAV?$CUtlVector@UPartitionedMeshData_t@@HV?$CUtlMemory@UPartitionedMeshData_t@@H@@@@@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
+.?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_1>@?8???$IterateRows@V<lambda_1>@?1???$TransformRGB@V<lambda_2>@?BA@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@FloatBitMap_t@@QEAAX$$QEAV<lambda_2>@?BA@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@Z@@CSOAContainer@@QEAAX$$QEAV1?1???$TransformRGB@V<lambda_2>@?BA@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@FloatBitMap_t@@QEAAX$$QEAV<lambda_2>@?BA@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@Z@_N@Z@@@YAXHHPEBD$$QEAV1?8???$IterateRows@V<lambda_1>@?1???$TransformRGB@V<lambda_2>@?BA@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@FloatBitMap_t@@QEAAX$$QEAV<lambda_2>@?BA@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@Z@@CSOAContainer@@QEAAX$$QEAV1?1???$TransformRGB@V<lambda_2>@?BA@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@FloatBitMap_t@@QEAAX$$QEAV<lambda_2>@?BA@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@Z@_N@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
+.?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_1>@?8???$IterateRows@V<lambda_1>@?1???$TransformRGB@V<lambda_3>@?BJ@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@FloatBitMap_t@@QEAAX$$QEAV<lambda_3>@?BJ@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@Z@@CSOAContainer@@QEAAX$$QEAV1?1???$TransformRGB@V<lambda_3>@?BJ@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@FloatBitMap_t@@QEAAX$$QEAV<lambda_3>@?BJ@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@Z@_N@Z@@@YAXHHPEBD$$QEAV1?8???$IterateRows@V<lambda_1>@?1???$TransformRGB@V<lambda_3>@?BJ@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@FloatBitMap_t@@QEAAX$$QEAV<lambda_3>@?BJ@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@Z@@CSOAContainer@@QEAAX$$QEAV1?1???$TransformRGB@V<lambda_3>@?BJ@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@FloatBitMap_t@@QEAAX$$QEAV<lambda_3>@?BJ@??GenerateDistanceFieldFromTriangles@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HPEBHHHHW4DistanceFieldGeneratorAlgorithm_t@@@Z@@Z@_N@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
+.?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_1>@?8???$IterateRows@V<lambda_1>@?1??RemoveInteriorISOSurfaceSamples@CSOAContainer@@QEAAXHMH@Z@@CSOAContainer@@QEAAX$$QEAV1?1??RemoveInteriorISOSurfaceSamples@2@QEAAXHMH@Z@_N@Z@@@YAXHHPEBD$$QEAV1?8???$IterateRows@V<lambda_1>@?1??RemoveInteriorISOSurfaceSamples@CSOAContainer@@QEAAXHMH@Z@@CSOAContainer@@QEAAX$$QEAV1?1??RemoveInteriorISOSurfaceSamples@2@QEAAXHMH@Z@_N@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
+.?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_1>@?8???$IterateRows@V<lambda_6>@?1??GenerateDistanceFieldFromTrianglesUsingHeatMethod@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHH@Z@@CSOAContainer@@QEAAX$$QEAV<lambda_6>@?1??GenerateDistanceFieldFromTrianglesUsingHeatMethod@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHH@Z@_N@Z@@@YAXHHPEBD$$QEAV1?8???$IterateRows@V<lambda_6>@?1??GenerateDistanceFieldFromTrianglesUsingHeatMethod@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHH@Z@@CSOAContainer@@QEAAX$$QEAV<lambda_6>@?1??GenerateDistanceFieldFromTrianglesUsingHeatMethod@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHH@Z@_N@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
+.?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_1>@?8???$IterateSlices@V<lambda_3>@?1??GenerateDistanceFieldFromTrianglesUsingHeatMethod@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHH@Z@@CSOAContainer@@QEAAX$$QEAV<lambda_3>@?1??GenerateDistanceFieldFromTrianglesUsingHeatMethod@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHH@Z@_N@Z@@@YAXHHPEBD$$QEAV1?8???$IterateSlices@V<lambda_3>@?1??GenerateDistanceFieldFromTrianglesUsingHeatMethod@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHH@Z@@CSOAContainer@@QEAAX$$QEAV<lambda_3>@?1??GenerateDistanceFieldFromTrianglesUsingHeatMethod@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHH@Z@_N@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
+.?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_1>@?8???$IterateSlices@V<lambda_3>@?1??GenerateDistanceFieldFromTrianglesWithVoting@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHH@Z@@CSOAContainer@@QEAAX$$QEAV<lambda_3>@?1??GenerateDistanceFieldFromTrianglesWithVoting@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHH@Z@_N@Z@@@YAXHHPEBD$$QEAV1?8???$IterateSlices@V<lambda_3>@?1??GenerateDistanceFieldFromTrianglesWithVoting@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHH@Z@@CSOAContainer@@QEAAX$$QEAV<lambda_3>@?1??GenerateDistanceFieldFromTrianglesWithVoting@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHH@Z@_N@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
+.?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_1>@?BD@??ChartMeshes@@YA?AW4StaticLightingResult_t@@PEAVIMapBuilderContext@@W4LightmapEncoding_t@NStaticLightingConstants@@AEBV?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@_NPEAV?$CUtlVector@UPartitionedMeshData_t@@HV?$CUtlMemory@UPartitionedMeshData_t@@H@@@@@Z@@@YAXHHPEBD$$QEAV1?BD@??ChartMeshes@@YA?AW4StaticLightingResult_t@@PEAVIMapBuilderContext@@W4LightmapEncoding_t@NStaticLightingConstants@@AEBV?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@_NPEAV?$CUtlVector@UPartitionedMeshData_t@@HV?$CUtlMemory@UPartitionedMeshData_t@@H@@@@@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
 .?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_1>@?P@??CompileClutterForLayer@CWorldRendererBuilderNode@@AEAAXHAEAUWorldNode_t@@@Z@@@YAXHHPEBD$$QEAV1?P@??CompileClutterForLayer@CWorldRendererBuilderNode@@AEAAXHAEAUWorldNode_t@@@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
-.?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_2>@?1??GenerateDistanceFieldFromTrianglesWithVoting@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHMH@Z@@@YAXHHPEBD$$QEAV<lambda_2>@?1??GenerateDistanceFieldFromTrianglesWithVoting@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHMH@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
+.?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_2>@?1??GenerateDistanceFieldFromTrianglesUsingHeatMethod@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHH@Z@@@YAXHHPEBD$$QEAV<lambda_2>@?1??GenerateDistanceFieldFromTrianglesUsingHeatMethod@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHH@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
 .?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_2>@?9??QuarterSize@FloatBitMap_t@@QEAAXPEAV3@@Z@@@YAXHHPEBD$$QEAV<lambda_2>@?9??QuarterSize@FloatBitMap_t@@QEAAXPEAV4@@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
-.?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_2>@?L@??ChartMeshes@@YA?AW4StaticLightingResult_t@@PEAVIMapBuilderContext@@AEBV?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@AEBV?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@_NPEAV?$CUtlVector@V?$shared_ptr@UChartableMeshData_t@@@std@@HV?$CUtlMemory@V?$shared_ptr@UChartableMeshData_t@@@std@@H@@@@PEAV?$CUtlVector@UPartitionedMeshData_t@@HV?$CUtlMemory@UPartitionedMeshData_t@@H@@@@@Z@@@YAXHHPEBD$$QEAV<lambda_2>@?L@??ChartMeshes@@YA?AW4StaticLightingResult_t@@PEAVIMapBuilderContext@@AEBV?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@AEBV?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@_NPEAV?$CUtlVector@V?$shared_ptr@UChartableMeshData_t@@@std@@HV?$CUtlMemory@V?$shared_ptr@UChartableMeshData_t@@@std@@H@@@@PEAV?$CUtlVector@UPartitionedMeshData_t@@HV?$CUtlMemory@UPartitionedMeshData_t@@H@@@@@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
-.?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_2>@?L@??GenerateDistanceFieldFromTrianglesUsingHeatMethod@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HHMH@Z@@@YAXHHPEBD$$QEAV<lambda_2>@?L@??GenerateDistanceFieldFromTrianglesUsingHeatMethod@CVoxelArray@@QEAAXPEBV?$Vec3D@M@@HHMH@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
+.?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_2>@?BE@??ChartMeshes@@YA?AW4StaticLightingResult_t@@PEAVIMapBuilderContext@@W4LightmapEncoding_t@NStaticLightingConstants@@AEBV?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@_NPEAV?$CUtlVector@UPartitionedMeshData_t@@HV?$CUtlMemory@UPartitionedMeshData_t@@H@@@@@Z@@@YAXHHPEBD$$QEAV<lambda_2>@?BE@??ChartMeshes@@YA?AW4StaticLightingResult_t@@PEAVIMapBuilderContext@@W4LightmapEncoding_t@NStaticLightingConstants@@AEBV?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@_NPEAV?$CUtlVector@UPartitionedMeshData_t@@HV?$CUtlMemory@UPartitionedMeshData_t@@H@@@@@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
+.?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_2>@?CI@??GenerateDistanceFieldFromTrianglesWithVoting@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHH@Z@@@YAXHHPEBD$$QEAV<lambda_2>@?CI@??GenerateDistanceFieldFromTrianglesWithVoting@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHH@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
 .?AV?$CParallelLambdaJob@V<lambda_1>@?M@??BuildChartTree@NUVChartPacker@@YAXAEAV?$CUtlVector@PEAUChart_t@NUVChartPacker@@HV?$CUtlMemory@PEAUChart_t@NUVChartPacker@@H@@@@HH0H@Z@@CParallelProcessLauncher@@
 .?AV?$CParallelLambdaJob@V<lambda_2>@?1??GenerateRelaxedConesCPU@@YAXIIPEBEIIPEAEIIMM@Z@@CParallelProcessLauncher@@
 .?AV?$CParallelLambdaJob@V<lambda_2>@?1??MergeMeshes@CVisibilityMeshMerger@@QEAAXAEBV?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@AEAV?$CUtlVector@V?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@HV?$CUtlMemory@V?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@H@@@@PEAV4@@Z@@CParallelProcessLauncher@@
@@ -9077,6 +9051,7 @@ $prefix_element$
 .?AV?$CParamLookupHelper@_K@@
 .?AV?$CParamLookupHelper@_N@@
 .?AV?$CParameter@VCAdditiveSynthInstanceView@CVoiceContainerStaticAdditiveSynth@@H@CVoiceContainerBase@@
+.?AV?$CParameter@VCDistanceBlendInstance@@M@CVoiceContainerBase@@
 .?AV?$CParameter@VCFMSineInstance@CVoiceContainerRealtimeFMSineWave@@M@CVoiceContainerBase@@
 .?AV?$CParameter@VCGranulatorInstance@CVoiceContainerGranulator@@H@CVoiceContainerBase@@
 .?AV?$CParameter@VCGranulatorInstance@CVoiceContainerGranulator@@M@CVoiceContainerBase@@
@@ -9232,6 +9207,8 @@ $prefix_element$
 .?AV?$CToolAttrDirectMemberAccess@UVMixOscDesc_t@@VCMixOsc@@@@
 .?AV?$CToolAttrDirectMemberAccess@UVMixShaperDesc_t@@VCMixShaper@@@@
 .?AV?$CToolAttrDirectMemberAccess@UVMixUtilityDesc_t@@VCMixUtility@@@@
+.?AV?$CToolAttrDirectMemberAccess@V?$CUtlVector@EHV?$CUtlMemory@EH@@@@VCNmGraphDocParameterizedClipSelectorNode@@@@
+.?AV?$CToolAttrDirectMemberAccess@V?$CUtlVector@EHV?$CUtlMemory@EH@@@@VCNmGraphDocParameterizedSelectorNode@@@@
 .?AV?$CToolAttrDirectMemberAccess@V?$CUtlVector@MHV?$CUtlMemory@MH@@@@VCMixControlInputArray@@@@
 .?AV?$CToolAttrDirectMemberAccess@V?$CUtlVector@MHV?$CUtlMemory@MH@@@@VCMixSteamAudioPathing@@@@
 .?AV?$CToolAttrDirectMemberAccess@V?$CUtlVector@UBoneWeight_t@CNmBoneMaskDefinition@@HV?$CUtlMemory@UBoneWeight_t@CNmBoneMaskDefinition@@H@@@@VCNmBoneMaskDefinition@@@@
@@ -9407,6 +9384,7 @@ $prefix_element$
 .?AV?$CToolAttrGetForModifyAccess@V?$CUtlVector@HHV?$CUtlMemory@HH@@@@VCModelDocTestStruct@@@@
 .?AV?$CToolAttrGetForModifyAccess@V?$CUtlVector@HHV?$CUtlMemory@HH@@@@VCPulseDoc_Outflow_IntSwitch@@@@
 .?AV?$CToolAttrGetForModifyAccess@V?$CUtlVector@PEAVCPulseEditableMethodArg@@HV?$CUtlMemory@PEAVCPulseEditableMethodArg@@H@@@@VCPulseDoc_Inflow_Method@@@@
+.?AV?$CToolAttrGetForModifyAccess@V?$CUtlVector@PEAVCPulseEditableMethodArg@@HV?$CUtlMemory@PEAVCPulseEditableMethodArg@@H@@@@VCPulseDoc_PublicOutputDefinition@@@@
 .?AV?$CToolAttrGetForModifyAccess@V?$CUtlVector@UPulseDynamicOutflowDef_t@@HV?$CUtlMemory@UPulseDynamicOutflowDef_t@@H@@@@VCPulseDocNodeDynamicOutflowsAttr@@@@
 .?AV?$CToolAttrGetForModifyAccess@V?$CUtlVector@UPulseTimelineEventDefinition_t@@HV?$CUtlMemory@UPulseTimelineEventDefinition_t@@H@@@@VCPulseDoc_Step_Timeline@@@@
 .?AV?$CToolAttrGetForModifyAccess@V?$CUtlVector@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@HV?$CUtlMemory@V?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@H@@@@VCMapTestNode@@@@
@@ -9442,7 +9420,6 @@ $prefix_element$
 .?AV?$CToolAttrGetForModifyAccess@VCPiecewiseCurve@@VCMapTestNode@@@@
 .?AV?$CToolAttrGetForModifyAccess@VCPiecewiseCurve@@VCModelDocAnimMarkupCurveBase@@@@
 .?AV?$CToolAttrGetForModifyAccess@VCPulseEditableType@@VCPulseDoc_Inflow_Method@@@@
-.?AV?$CToolAttrGetForModifyAccess@VCPulseEditableType@@VCPulseDoc_PublicOutputDefinition@@@@
 .?AV?$CToolAttrGetForModifyAccess@VCPulseEditableType@@VCPulseDoc_Step_CreateTempVar@@@@
 .?AV?$CToolAttrGetForModifyAccess@VCPulseEditableType@@VCPulseEditableMethodArg@@@@
 .?AV?$CToolAttrGetForModifyAccess@VCPulseEditableType@@VCPulseEditableValue@@@@
@@ -10029,7 +10006,6 @@ $prefix_element$
 .?AV?$CToolAttrGetSetAccess@W4ModelDocTestEnum_t@@VCModelDocTestStruct@@@@
 .?AV?$CToolAttrGetSetAccess@W4MotionResistance_t@CModelDocBasePhysicsJoint@@V2@@@
 .?AV?$CToolAttrGetSetAccess@W4MotionType_t@CModelDocExtractMotion@@V2@@@
-.?AV?$CToolAttrGetSetAccess@W4MovementGait_t@@VCPulseScriptedSequenceDataForEditor@@@@
 .?AV?$CToolAttrGetSetAccess@W4NameMode_t@CModelDocBaseBreakPiece@@V2@@@
 .?AV?$CToolAttrGetSetAccess@W4OutputFormat_t@CMapTerrainLayerComposite@@V2@@@
 .?AV?$CToolAttrGetSetAccess@W4ParametricMeshChannelSwizzle_t@@VCModelDocMeshModifier_MeshOpBakeTextureToVertexData@@@@
@@ -10062,6 +10038,7 @@ $prefix_element$
 .?AV?$CToolAttrGetSetAccess@W4RenderMode_t@CModelDocRenderMeshMarkup@@V2@@@
 .?AV?$CToolAttrGetSetAccess@W4ScriptedHeldWeaponBehavior_t@@VCPulseScriptedSequenceDataForEditor@@@@
 .?AV?$CToolAttrGetSetAccess@W4ScriptedMoveTo_t@@VCPulseScriptedSequenceDataForEditor@@@@
+.?AV?$CToolAttrGetSetAccess@W4SharedMovementGait_t@@VCPulseScriptedSequenceDataForEditor@@@@
 .?AV?$CToolAttrGetSetAccess@W4SpawnEntity_t@CModelDocBaseBreakPiece@@V2@@@
 .?AV?$CToolAttrGetSetAccess@W4StaticOverlayProjectionMode_t@@VCMapStaticOverlay@@@@
 .?AV?$CToolAttrGetSetAccess@W4SteamAudioImportedProbeType_t@@VCSteamAudioImportedProbeBoxNode@@@@
@@ -11472,6 +11449,7 @@ $prefix_element$
 .?AV?$IToolAttrConcreteDataAccess@UVMixOscDesc_t@@@@
 .?AV?$IToolAttrConcreteDataAccess@UVMixShaperDesc_t@@@@
 .?AV?$IToolAttrConcreteDataAccess@UVMixUtilityDesc_t@@@@
+.?AV?$IToolAttrConcreteDataAccess@V?$CUtlVector@EHV?$CUtlMemory@EH@@@@@@
 .?AV?$IToolAttrConcreteDataAccess@V?$CUtlVector@HHV?$CUtlMemory@HH@@@@@@
 .?AV?$IToolAttrConcreteDataAccess@V?$CUtlVector@MHV?$CUtlMemory@MH@@@@@@
 .?AV?$IToolAttrConcreteDataAccess@V?$CUtlVector@PEAVCPulseEditableMethodArg@@HV?$CUtlMemory@PEAVCPulseEditableMethodArg@@H@@@@@@
@@ -11565,7 +11543,6 @@ $prefix_element$
 .?AV?$IToolAttrConcreteDataAccess@W4ModelDocTestEnum_t@@@@
 .?AV?$IToolAttrConcreteDataAccess@W4MotionResistance_t@CModelDocBasePhysicsJoint@@@@
 .?AV?$IToolAttrConcreteDataAccess@W4MotionType_t@CModelDocExtractMotion@@@@
-.?AV?$IToolAttrConcreteDataAccess@W4MovementGait_t@@@@
 .?AV?$IToolAttrConcreteDataAccess@W4NameMode_t@CModelDocBaseBreakPiece@@@@
 .?AV?$IToolAttrConcreteDataAccess@W4NmCachedValueMode_t@@@@
 .?AV?$IToolAttrConcreteDataAccess@W4NmEasingOperation_t@@@@
@@ -11609,6 +11586,7 @@ $prefix_element$
 .?AV?$IToolAttrConcreteDataAccess@W4ScriptedHeldWeaponBehavior_t@@@@
 .?AV?$IToolAttrConcreteDataAccess@W4ScriptedMoveTo_t@@@@
 .?AV?$IToolAttrConcreteDataAccess@W4SearchRule_t@CNmGraphDocIDEventConditionNode@@@@
+.?AV?$IToolAttrConcreteDataAccess@W4SharedMovementGait_t@@@@
 .?AV?$IToolAttrConcreteDataAccess@W4SpawnEntity_t@CModelDocBaseBreakPiece@@@@
 .?AV?$IToolAttrConcreteDataAccess@W4StateType_t@CNmGraphDocStateNode@@@@
 .?AV?$IToolAttrConcreteDataAccess@W4StaticOverlayProjectionMode_t@@@@
@@ -11680,7 +11658,6 @@ $prefix_element$
 .?AV?$IToolAttr_TypedValue@W4ModelDocTestEnum_t@@@@
 .?AV?$IToolAttr_TypedValue@W4MotionResistance_t@CModelDocBasePhysicsJoint@@@@
 .?AV?$IToolAttr_TypedValue@W4MotionType_t@CModelDocExtractMotion@@@@
-.?AV?$IToolAttr_TypedValue@W4MovementGait_t@@@@
 .?AV?$IToolAttr_TypedValue@W4NameMode_t@CModelDocBaseBreakPiece@@@@
 .?AV?$IToolAttr_TypedValue@W4NmCachedValueMode_t@@@@
 .?AV?$IToolAttr_TypedValue@W4NmEasingOperation_t@@@@
@@ -11724,6 +11701,7 @@ $prefix_element$
 .?AV?$IToolAttr_TypedValue@W4ScriptedHeldWeaponBehavior_t@@@@
 .?AV?$IToolAttr_TypedValue@W4ScriptedMoveTo_t@@@@
 .?AV?$IToolAttr_TypedValue@W4SearchRule_t@CNmGraphDocIDEventConditionNode@@@@
+.?AV?$IToolAttr_TypedValue@W4SharedMovementGait_t@@@@
 .?AV?$IToolAttr_TypedValue@W4SpawnEntity_t@CModelDocBaseBreakPiece@@@@
 .?AV?$IToolAttr_TypedValue@W4StateType_t@CNmGraphDocStateNode@@@@
 .?AV?$IToolAttr_TypedValue@W4StaticOverlayProjectionMode_t@@@@
@@ -11771,9 +11749,11 @@ $prefix_element$
 .?AV?$_Func_base@PEAVCAnimGraphDoc_Condition@@PEAVCAnimGraphDoc_ConditionContainer@@PEBD@std@@
 .?AV?$_Func_base@PEAVCAnimGraphDoc_MotionParameter@@PEAVCAnimGraphDoc_MotionParameterManager@@PEBD@std@@
 .?AV?$_Func_base@PEAVCAnimGraphDoc_Motor@@PEAVCMovementComponent@@PEBD@std@@
+.?AV?$_Func_base@PEAVCNavMesh@@$$V@std@@
 .?AV?$_Func_base@PEAVCPulseDoc_BaseRequirement@@PEAVCPulseDoc@@@std@@
 .?AV?$_Func_base@PEAVIAnimParameter@@PEAVCAnimGraphDoc_ParameterManager@@PEBD@std@@
 .?AV?$_Func_base@PEAVIAnimTag@@PEAVCAnimGraphDoc_TagManager@@PEBD@std@@
+.?AV?$_Func_base@PEBDPEBD@std@@
 .?AV?$_Func_base@PEBDPEBUCStateAction@@@std@@
 .?AV?$_Func_base@PEBVIAnimGraphDoc_ParameterProvider@@PEBVCAnimGraphDoc_MotionNodeBuilder@@@std@@
 .?AV?$_Func_base@PEBVIAnimParameter@@PEBUCAnimGraphDoc_ParamSpanSample@@@std@@
@@ -11821,7 +11801,7 @@ $prefix_element$
 .?AV?$_Func_base@XAEBULightId_t@CComputeBakedShadowAssignment@@_NH@std@@
 .?AV?$_Func_base@XAEBVCBasePulseDomainValueInfo@@@std@@
 .?AV?$_Func_base@XDH@std@@
-.?AV?$_Func_base@XM@std@@
+.?AV?$_Func_base@XHH@std@@
 .?AV?$_Func_base@XPEAUPulseSequencePointConnectivity_t@@@std@@
 .?AV?$_Func_base@XPEAUPulseSequencePointProperties_t@@@std@@
 .?AV?$_Func_base@XPEAVCActionComponent@@AEBVCUtlString@@@std@@
@@ -11845,6 +11825,7 @@ $prefix_element$
 .?AV?$_Func_base@XPEAVCAnimGraphDoc_TagManager@@PEAVIAnimTag@@@std@@
 .?AV?$_Func_base@XPEAVCAnimScriptComponent@@AEBVCUtlString@@@std@@
 .?AV?$_Func_base@XPEAVCDampedValueComponent@@AEBVCUtlString@@@std@@
+.?AV?$_Func_base@XPEAVCDistanceBlendInstance@@AEBM@std@@
 .?AV?$_Func_base@XPEAVCDmeImage@@PEAV1@@std@@
 .?AV?$_Func_base@XPEAVCFMSineInstance@CVoiceContainerRealtimeFMSineWave@@AEBM@std@@
 .?AV?$_Func_base@XPEAVCGranulatorInstance@CVoiceContainerGranulator@@AEBH@std@@
@@ -11881,6 +11862,7 @@ $prefix_element$
 .?AV?$_Func_base@_NV?$SchemaMetaInfoHandle_t@VCSchemaClassInfo@@@@@std@@
 .?AV?$_Func_base@_NVCUtlStringToken@@@std@@
 .?AV?$_Func_impl_no_alloc@P6A?AV?$CBufferStringN@$0BE@@@PEBVCAnimGraphDoc_StateTransition@@@ZV1@PEBV2@@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_1>@?1???$AddMatrixToMatrix@$00VCVariableMatrix@@V1@@MatrixMath@@YAXAEBVCVariableMatrix@@PEAV3@@Z@XHH@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1???$MakeNetVarCallback@VCAimMatrixUpdateNode@@E@@YA?AV?$function@$$A6AXAEAVCAnimUpdateContext@@E@Z@std@@PEBVCAimMatrixUpdateNode@@P84@EBAXAEAVCAnimUpdateContext@@E@Z@Z@XAEAV5@E@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1???$MakeNetVarCallback@VCAnimStateMachineUpdater@@H@@YA?AV?$function@$$A6AXAEAVCAnimUpdateContext@@H@Z@std@@PEBVCAnimStateMachineUpdater@@P84@EBAXAEAVCAnimUpdateContext@@H@Z@Z@XAEAV5@H@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1???$MakeNetVarCallback@VCAnimationLayer@@H@@YA?AV?$function@$$A6AXAEAVCAnimUpdateContext@@H@Z@std@@V?$CPackedDataOffset@VCAnimationLayer@@@@P8CAnimationLayer@@EAAXAEAVCAnimUpdateContext@@H@Z@Z@XAEAV6@H@std@@
@@ -11905,6 +11887,8 @@ $prefix_element$
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1???$MakeNetVarCallback@VCSelectorUpdateNode@@E@@YA?AV?$function@$$A6AXAEAVCAnimUpdateContext@@E@Z@std@@PEBVCSelectorUpdateNode@@P84@EBAXAEAVCAnimUpdateContext@@E@Z@Z@XAEAV5@E@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1???$MakeNetVarCallback@VCStateMachineUpdateNode@@E@@YA?AV?$function@$$A6AXAEAVCAnimUpdateContext@@E@Z@std@@PEBVCStateMachineUpdateNode@@P84@EBAXAEAVCAnimUpdateContext@@E@Z@Z@XAEAV5@E@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1???$MakeNetVarCallback@VCTargetSelectorUpdateNode@@E@@YA?AV?$function@$$A6AXAEAVCAnimUpdateContext@@E@Z@std@@PEBVCTargetSelectorUpdateNode@@P84@EBAXAEAVCAnimUpdateContext@@E@Z@Z@XAEAV5@E@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_1>@?1???$MatrixMultiply@$00VCVariableMatrix@@V1@@MatrixMath@@YAXAEBV?$CSparseMatrixBase@M@@AEBVCVariableMatrix@@PEAV4@@Z@XHH@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_1>@?1???$ScaleMatrix@$00VCVariableMatrix@@@MatrixMath@@YAXAEAVCVariableMatrix@@M@Z@XHH@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1???0CPulseDoc_BaseFlow@@QEAA@XZ@XPEAUPulseSequencePointConnectivity_t@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1???0CPulseDoc_BaseInflow@@QEAA@XZ@XPEAUPulseSequencePointConnectivity_t@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1???0CPulseDoc_BaseOutflow@@QEAA@XZ@XPEAUPulseSequencePointConnectivity_t@@@std@@
@@ -11918,23 +11902,23 @@ $prefix_element$
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1???0CPulseDoc_Step_CallMethod@@QEAA@XZ@XPEAUPulseSequencePointConnectivity_t@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1???0CPulseDoc_Step_FireCursors@@QEAA@XZ@XPEAUPulseSequencePointProperties_t@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1???0CPulseDoc_Step_Timeline@@QEAA@XZ@XPEAUPulseSequencePointConnectivity_t@@@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_1>@?1???0CPulseOutflowPort@@QEAA@PEBVCPulseDoc_BaseFlow@@VCUtlSymbolLarge@@W4OutflowVisualPriority_t@@PEBD3_N@Z@XPEAUPulseSequencePointConnectivity_t@@@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_1>@?1???0CPulseOutflowPort@@QEAA@PEBVCPulseDoc_BaseFlow@@VCGlobalSymbol@@W4OutflowVisualPriority_t@@PEBD3_N@Z@XPEAUPulseSequencePointConnectivity_t@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1???R1?1??ResolveEachReference@CLayoutContentParsed@@UEAAXAEBV?$function@$$A6AXPEBDAEBV?$function@$$A6AXPEBD@Z@std@@AEBV?$function@$$A6AXPEBD_N@Z@2@@Z@std@@@Z@QEBA@PEAU?$CContentASTNode@W4ELayoutNodeType@@@panorama@@@Z@XPEBD@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1???R1?1??ResolveEachReference@CStyleContent@@UEAAXAEBV?$function@$$A6AXPEBDAEBV?$function@$$A6AXPEBD@Z@std@@AEBV?$function@$$A6AXPEBD_N@Z@2@@Z@std@@@Z@QEBA@PEAU?$CContentASTNode@W4EStyleNodeType@@@panorama@@@Z@XPEBD@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1???R1?L@??SimulateParticles@CParticleMgr@@AEAAXAEAV?$CUtlVectorFixedGrowableCompat@UParticleSimListItem_t@CParticleMgr@@$0EAA@H@@@Z@QEBA@XZ@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1???R<lambda_2>@?1??ProcessReceivedLightingPackets@NLightBaker@@YA_NAEAUSubmitLightingContext_t@4@AEAVCLightBakeTarget@@@Z@QEBA@AEAV?$CUtlVector@V?$CSmartPtr@VCThreadedJob@@VCRefCountAccessor@@@@HV?$CUtlMemory@V?$CSmartPtr@VCThreadedJob@@VCRefCountAccessor@@@@H@@@@PEBDAEAVFloatBitMap_t@@HH@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??AccumulateDependencies@CAnimGraphDoc_SubGraph@@QEBAXAEAV?$CUtlHashtable@VCUtlString@@Uempty_t@@U?$DefaultHashFunctor@VCUtlString@@@@U?$DefaultEqualFunctor@VCUtlString@@@@Uundefined_t@@V?$CUtlMemory@V?$CUtlHashtableEntry@VCUtlString@@Uempty_t@@@@H@@$0A@@@@Z@XPEBVCAnimGraphDoc_Node@@AEBVCAnimNodePath@@@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??AmeliorateBlockCompressionArtefacts_RepackCharts@@YAXAEAUPackingGeometry_t@@PEAULightmap_t@@AEAV?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@H@Z@XAEAM@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??AppendExtensionLibrariesToEntityClassInScope_R@@YAXPEAVGDclass@@PEAVISchemaSystemTypeScope@@AEAV?$CUtlOrderedSet@PEAVGDclass@@@@@Z@XAEBUCGapScopedType_t@@PEBVPulseMethodBindingInfo_t@@@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??AmeliorateBlockCompressionArtefacts_RepackCharts@@YAXAEAUPackingGeometry_t@@PEAULightmap_t@@AEAV?$CUtlVector@UPartitionedMeshData_t@@HV?$CUtlMemory@UPartitionedMeshData_t@@H@@@@H@Z@XAEAM@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??ApplyMapVariableOverrideValuesToTargetMap@CMapPrefab@@AEBAXXZ@PEBDPEBD@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??AssignBakedShadowIndices@CResourceCompilerMap@@AEAAXPEAVIMapBuilderContext@@PEAVCMapDoc@@@Z@XAEBULightId_t@CComputeBakedShadowAssignment@@_NH@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??BackCompatUpdate@CAnimGraphDoc_Graph@@QEAA_NXZ@XPEAVCAnimGraphDoc_Node@@AEBVCAnimNodePath@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??BackCompatUpdate@CAnimGraphDoc_GraphMotionItem@@UEAA_NXZ@XPEAVCAnimGraphDoc_Node@@AEBVCAnimNodePath@@@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??BindInstanceParams@CVoiceContainerDistanceBlender@@UEAAXAEAV?$CUtlVector@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@HV?$CUtlMemory@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@H@@@@@Z@XPEAVCDistanceBlendInstance@@AEBM@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??BindInstanceParams@CVoiceContainerGranulator@@MEAAXAEAV?$CUtlVector@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@HV?$CUtlMemory@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@H@@@@@Z@XPEAVCGranulatorInstance@3@AEBH@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??BindInstanceParams@CVoiceContainerRandomSampler@@MEAAXAEAV?$CUtlVector@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@HV?$CUtlMemory@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@H@@@@@Z@XPEAVCRandomSamplerInstanceView@3@AEBH@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??BindInstanceParams@CVoiceContainerRealtimeFMSineWave@@MEAAXAEAV?$CUtlVector@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@HV?$CUtlMemory@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@H@@@@@Z@XPEAVCFMSineInstance@3@AEBM@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??BindInstanceParams@CVoiceContainerStaticAdditiveSynth@@MEAAXAEAV?$CUtlVector@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@HV?$CUtlMemory@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@H@@@@@Z@XPEAVCAdditiveSynthInstanceView@3@AEBH@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??BindingForClass@CParticleDomainInfo@@QEAAPEBUParticleDomainMethodBindingLookup_t@@AEBUCGapScopedType_t@@@Z@XAEBU5@PEBVPulseMethodBindingInfo_t@@@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??Build@CLightImportanceTree@@QEAAXAEAV?$CUtlVector@UImportanceLightScalar_t@CLightImportanceTree@@HV?$CUtlMemory@UImportanceLightScalar_t@CLightImportanceTree@@H@@@@PEAVCGlViewBuffer@@@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??CleanupIntermediateCruft@CMapBuilderContext@@AEAAXXZ@_NPEBD@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??ClearIntermediateDirectory@CMapBuilderContext@@UEAAXPEBD@Z@_NPEBD@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??CollectAreasAssociatedWithMovableMesh@CNavMesh@@AEAAXI_NAEAV?$CUtlVector@PEAVCNavArea@@HV?$CUtlMemory@PEAVCNavArea@@H@@@@@Z@XAEBI@std@@
@@ -11945,6 +11929,7 @@ $prefix_element$
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??CompileItemImages@CResourceCompilerDotaItemSet@@AEAA_NAEAVCUtlBuffer@@PEAVIResourceCompilerContext@@@Z@XPEBD@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??CompileNovels@CResourceCompilerDotaVisualNovels@@AEAA_NAEAVCUtlBuffer@@PEAVIResourceCompilerContext@@@Z@XPEBD@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??CompileStyleResource@CResourceCompilerPanorama@@AEAA_NPEAVIResourceCompilerContext@@PEBURawContentSource@panorama@@AEBV?$CUtlVectorFixedGrowable@PEBD$07H@@PEA_N@Z@XPEBDAEBV?$function@$$A6AXPEBD@Z@std@@AEBV?$function@$$A6AXPEBD_N@Z@9@@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??CreateAndLoadNavMeshFromVPK@@YAPEAVCNavMesh@@PEBVIVPhysics2World@@AEBVCUtlString@@@Z@PEAV3@$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??CreateLeafChoiceWrapperThunk@@YA?AV?$function@$$A6AXVHToolAttrTarget@@PEBVIBaseToolAttr@@PEAV?$CUtlVector@UToolAttrGenericChoice_t@@HV?$CUtlMemory@UToolAttrGenericChoice_t@@H@@@@@Z@std@@P6AXPEAV?$CUtlVector@ULeafPropertyChoice_t@@HV?$CUtlMemory@ULeafPropertyChoice_t@@H@@@@@Z@Z@XVHToolAttrTarget@@PEBVIBaseToolAttr@@PEAV?$CUtlVector@UToolAttrGenericChoice_t@@HV?$CUtlMemory@UToolAttrGenericChoice_t@@H@@@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??DebugDrawFailedLights@CLightOverlapRenderable@@AEAAXPEAVCToolRenderContext@@@Z@XAEBULightId_t@CComputeBakedShadowAssignment@@_NH@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??DeleteStaleVPKSubFile@@YAXPEAVIResourceCompilerContext@@PEBD@Z@_NPEBD@std@@
@@ -11978,10 +11963,12 @@ $prefix_element$
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?3??FindAndCompilePanoramaReferencesFromKV3@@YA_NPEAVIResourceCompilerContext@@PEAVKeyValues3@@@Z@XPEBD@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?3??InitSimpleConnectivity@CPulseInflowPort@@IEAAXPEBVCPulseSequencePoint@@@Z@XPEAUPulseSequencePointConnectivity_t@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?4??Finalize_Internal@CVoiceContainerGranulator@@UEAA_NXZ@_N$$V@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_1>@?4??SAXPY2@MatrixMath@@YAXMV?$span@$$CBM$0?0@std@@V?$span@M$0?0@5@M01@Z@XHH@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?5??AddParticleDomainBindings@@YAXAEAVGameData@@@Z@XPEBUParticleDomainLeafElement_t@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?5??UnzipVpk@@YAXPEBD00AEAVCVpkOutputFileRegistry@@_N@Z@XPEBX@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?6??FilterInY@CSOAContainer@@QEAAXHVIntAABB_t@@HPEBM_N@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?6??FilterInZ@CSOAContainer@@QEAAXHVIntAABB_t@@HPEBM_N@Z@X$$V@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_1>@?7???$InnerProduct@$00@MatrixMath@@YAMPEBM0H@Z@XHH@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?8??BuildSACustomDimensions@@YA_NPEAVIResourceCompilerContext@@PEAVCMapWorld@@PEAVIVPhysics2World@@PEAVIHammerMapNode@@W4SteamAudioProbeGenerationType_t@@_N5USteamAudioProbeSettings_t@@W4SteamAudioCustomDataRebakeOptions_t@@@Z@_NPEBD@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?8??BuildSACustomMaterials@@YA_NPEAVIResourceCompilerContext@@PEAVCMapWorld@@PEAVIVPhysics2World@@PEAVIHammerMapNode@@W4SteamAudioProbeGenerationType_t@@_N5USteamAudioProbeSettings_t@@W4SteamAudioCustomDataRebakeOptions_t@@@Z@_NPEBD@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?8??BuildSACustomOcclusion@@YA_NPEAVIResourceCompilerContext@@PEAVCMapWorld@@PEAVIVPhysics2World@@PEAVIHammerMapNode@@W4SteamAudioProbeGenerationType_t@@_N5USteamAudioCustomDataOcclusionSettings_t@@USteamAudioProbeSettings_t@@W4SteamAudioCustomDataRebakeOptions_t@@@Z@_NPEBD@std@@
@@ -11994,7 +11981,7 @@ $prefix_element$
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?BI@??SyncClothState@CPhysicsObject@@AEAAXPEBVCMapNode@@W4CopyClothStateFlags_t@@@Z@_NVCUtlStringToken@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?CA@??FrameUpdate@CMapDoc@@QEAAXM_N0@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?CC@??QuarterSizeAttrWithBoxFilter@CSOAContainer@@QEAAXAEBV3@HHPEAVCCallQueue@@@Z@X$$V@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_1>@?CH@??RunVrad3@NLightBaker@@YA_NAEBUSubmitLightingContext_t@3@AEBUPackingGeometry_t@@AEBV?$CUtlVector@UEnvLightProbe_t@@HV?$CUtlMemory@UEnvLightProbe_t@@H@@@@AEBV?$CUtlVector@UEnvFogIrradianceVolume_t@@HV?$CUtlMemory@UEnvFogIrradianceVolume_t@@H@@@@PEAVIMapBuilderContext@@II@Z@XM@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_1>@?CK@??AppendExtensionLibrariesToEntityClassInScope_R@@YAXPEAVGDclass@@PEAVISchemaSystemTypeScope@@AEAV?$CUtlOrderedSet@PEAVGDclass@@@@@Z@XAEBUCGapScopedType_t@@PEBVPulseMethodBindingInfo_t@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?CM@??LoadAndRenderBatch@CResourceCompilerMorphSet@@AEAAXPEAVCDmElement@@PEAVIMorphCompileInstance@@AEBV?$CUtlVector@Us_deltaname_t@CResourceCompilerMorphSet@@HV?$CUtlMemory@Us_deltaname_t@CResourceCompilerMorphSet@@H@@@@@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?DC@??RunGraphUpdate@CAnimUpdateContextBuilder@@QEAAXPEBVCAnimUpdateNodeBase@@PEAVCPoseUpdateResources@@_N2@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?L@??SimulateParticles@CParticleMgr@@AEAAXAEAV?$CUtlVectorFixedGrowableCompat@UParticleSimListItem_t@CParticleMgr@@$0EAA@H@@@Z@X$$V@std@@
@@ -12021,16 +12008,16 @@ $prefix_element$
 .?AV?$_Func_impl_no_alloc@V<lambda_2>@?1???0CPulseDoc_Step_CallMethod@@QEAA@XZ@XPEAUPulseSequencePointProperties_t@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_2>@?1???0CPulseDoc_Step_FireCursors@@QEAA@XZ@XPEAUPulseSequencePointConnectivity_t@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_2>@?1???0CPulseDoc_Step_Timeline@@QEAA@XZ@XPEAUPulseSequencePointProperties_t@@@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_2>@?1???0CPulseOutflowPort@@QEAA@PEBVCPulseDoc_BaseFlow@@VCUtlSymbolLarge@@W4OutflowVisualPriority_t@@PEBD3_N@Z@XPEAUPulseSequencePointProperties_t@@@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_2>@?1???0CPulseOutflowPort@@QEAA@PEBVCPulseDoc_BaseFlow@@VCGlobalSymbol@@W4OutflowVisualPriority_t@@PEBD3_N@Z@XPEAUPulseSequencePointProperties_t@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_2>@?1???R<lambda_1>@?1??ResolveEachReference@CLayoutContentParsed@@UEAAXAEBV?$function@$$A6AXPEBDAEBV?$function@$$A6AXPEBD@Z@std@@AEBV?$function@$$A6AXPEBD_N@Z@2@@Z@std@@@Z@QEBA@PEAU?$CContentASTNode@W4ELayoutNodeType@@@panorama@@@Z@XPEBD_N@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_2>@?1???R<lambda_1>@?1??ResolveEachReference@CStyleContent@@UEAAXAEBV?$function@$$A6AXPEBDAEBV?$function@$$A6AXPEBD@Z@std@@AEBV?$function@$$A6AXPEBD_N@Z@2@@Z@std@@@Z@QEBA@PEAU?$CContentASTNode@W4EStyleNodeType@@@panorama@@@Z@XPEBD_N@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_2>@?1??AccumulateDependencies@CAnimGraphDoc_SubGraph@@QEBAXAEAV?$CUtlHashtable@VCUtlString@@Uempty_t@@U?$DefaultHashFunctor@VCUtlString@@@@U?$DefaultEqualFunctor@VCUtlString@@@@Uundefined_t@@V?$CUtlMemory@V?$CUtlHashtableEntry@VCUtlString@@Uempty_t@@@@H@@$0A@@@@Z@XPEBV3@@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_2>@?1??AppendExtensionLibrariesToEntityClassInScope_R@@YAXPEAVGDclass@@PEAVISchemaSystemTypeScope@@AEAV?$CUtlOrderedSet@PEAVGDclass@@@@@Z@XAEBUCGapScopedType_t@@PEBVPulseEventBindingInfo_t@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_2>@?1??BindInstanceParams@CVoiceContainerGranulator@@MEAAXAEAV?$CUtlVector@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@HV?$CUtlMemory@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@H@@@@@Z@XPEAVCGranulatorInstance@3@AEBH@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_2>@?1??BindInstanceParams@CVoiceContainerStaticAdditiveSynth@@MEAAXAEAV?$CUtlVector@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@HV?$CUtlMemory@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@H@@@@@Z@XPEAVCAdditiveSynthInstanceView@3@AEBH@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_2>@?1??CompileLayoutResource@CResourceCompilerPanorama@@AEAA_NPEAVIResourceCompilerContext@@PEBURawContentSource@panorama@@AEBV?$CUtlVectorFixedGrowable@PEBD$07H@@PEA_N@Z@XPEBDAEBV?$function@$$A6AXPEBD@Z@std@@AEBV?$function@$$A6AXPEBD_N@Z@9@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_2>@?1??CompileStyleResource@CResourceCompilerPanorama@@AEAA_NPEAVIResourceCompilerContext@@PEBURawContentSource@panorama@@AEBV?$CUtlVectorFixedGrowable@PEBD$07H@@PEA_N@Z@XPEBDAEBV?$function@$$A6AXPEBD@Z@std@@AEBV?$function@$$A6AXPEBD_N@Z@9@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_2>@?1??InitializeChartUVs@NUVChartPacker@@YAXAEAV?$CUtlVector@UChart_t@NUVChartPacker@@HV?$CUtlMemory@UChart_t@NUVChartPacker@@H@@@@AEAV?$CUtlVector@PEAUChart_t@NUVChartPacker@@HV?$CUtlMemory@PEAUChart_t@NUVChartPacker@@H@@@@PEBV?$Vec2D@M@@PEBIMII@Z@_NAEBQEAUChart_t@3@AEBQEAU73@@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_2>@?1??UpdateMovableMeshTransform@CNavGeometryManager@@QEAAXIAEBVmatrix3x4a_t@@@Z@XHH@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_2>@?1??UpdateSpontaneousEntryPoint@CPulseDoc_Flow_Generic@@AEAAXXZ@XPEAUPulseSequencePointProperties_t@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_2>@?3??InitSimpleConnectivity@CPulseInflowPort@@IEAAXPEBVCPulseSequencePoint@@@Z@XPEAUPulseSequencePointProperties_t@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_2>@?4??RenderASTNode@@YAXAEAVCUtlBuffer@@IPEAVCContentSourceMap@@PEBU?$CContentASTNode@W4EStyleNodeType@@@panorama@@H@Z@XDH@std@@
@@ -12040,6 +12027,7 @@ $prefix_element$
 .?AV?$_Func_impl_no_alloc@V<lambda_2>@?BH@??Normalize3ComponentVectorInAttributes@CSOAContainer@@QEAAXHHHV?$Vec3D@M@@_N1@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_2>@?BH@??Normalized3x3SobelEdgeFilterFrom@CSOAContainer@@QEAAXAEBV3@HHH_N@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_2>@?BJ@??RefineNode@RayTracingEnvironment@@AEAAXHPEBHHPEBUTriangleBounds_t@@V?$Vec3D@M@@2HPEAVCUtlMultiJobProcessor@@@Z@X$$V@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_2>@?CK@??AppendExtensionLibrariesToEntityClassInScope_R@@YAXPEAVGDclass@@PEAVISchemaSystemTypeScope@@AEAV?$CUtlOrderedSet@PEAVGDclass@@@@@Z@XAEBUCGapScopedType_t@@PEBVPulseEventBindingInfo_t@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_2>@?DE@??QuarterSizeAttrWithBoxFilter@CSOAContainer@@QEAAXAEBV3@HHPEAVCCallQueue@@@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_2>@CAnimGraphDoc_SelectorNode@@_NPEBV2@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_2>@CAnimGraphDoc_StateStatusCondition@@_NPEBV2@@std@@
@@ -12049,15 +12037,15 @@ $prefix_element$
 .?AV?$_Func_impl_no_alloc@V<lambda_3>@?1??BindInstanceParams@CVoiceContainerGranulator@@MEAAXAEAV?$CUtlVector@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@HV?$CUtlMemory@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@H@@@@@Z@XPEAVCGranulatorInstance@3@AEBM@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_3>@?1??CompileLayoutResource@CResourceCompilerPanorama@@AEAA_NPEAVIResourceCompilerContext@@PEBURawContentSource@panorama@@AEBV?$CUtlVectorFixedGrowable@PEBD$07H@@PEA_N@Z@XPEBDAEBV?$function@$$A6AXPEBD@Z@std@@AEBV?$function@$$A6AXPEBD_N@Z@9@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_3>@?3??InitSimpleConnectivity@CPulseInflowPort@@IEAAXPEBVCPulseSequencePoint@@@Z@XPEAUPulseSequencePointConnectivity_t@@@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_3>@?BM@??MakeNode_R@CLightImportanceTree@@AEAAXHHHHHPEAV?$CUtlVector@UImportanceLightScalar_t@CLightImportanceTree@@HV?$CUtlMemory@UImportanceLightScalar_t@CLightImportanceTree@@H@@@@PEAVCThreadMutex@@PEAVCUtlMultiJobProcessor@@@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_3>@CAnimGraphDoc_SelectorNode@@_NPEBV2@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_3>@CAnimGraphDoc_StateStatusCondition@@_NPEBV2@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_4>@?1???0CPulseDoc_BaseFlow@@QEAA@XZ@XPEAUPulseSequencePointProperties_t@@@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_4>@?1??AmeliorateBlockCompressionArtefacts_RepackCharts@@YAXAEAUPackingGeometry_t@@PEAULightmap_t@@AEAV?$CUtlVector@VCMeshListEntry@@HV?$CUtlMemory@VCMeshListEntry@@H@@@@H@Z@XAEAM@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_4>@?1??AmeliorateBlockCompressionArtefacts_RepackCharts@@YAXAEAUPackingGeometry_t@@PEAULightmap_t@@AEAV?$CUtlVector@UPartitionedMeshData_t@@HV?$CUtlMemory@UPartitionedMeshData_t@@H@@@@H@Z@XAEAM@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_4>@?1??BindInstanceParams@CVoiceContainerGranulator@@MEAAXAEAV?$CUtlVector@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@HV?$CUtlMemory@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@H@@@@@Z@XPEAVCGranulatorInstance@3@AEBM@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_4>@?3??InitSimpleConnectivity@CPulseInflowPort@@IEAAXPEBVCPulseSequencePoint@@@Z@XPEAUPulseSequencePointProperties_t@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_5>@?1??BindInstanceParams@CVoiceContainerGranulator@@MEAAXAEAV?$CUtlVector@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@HV?$CUtlMemory@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@H@@@@@Z@XPEAVCGranulatorInstance@3@AEBM@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_5>@?3??InitSimpleConnectivity@CPulseInflowPort@@IEAAXPEBVCPulseSequencePoint@@@Z@XPEAUPulseSequencePointConnectivity_t@@@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_5>@?BI@??GenerateDistanceFieldFromTrianglesUsingHeatMethod@CVoxelArray@@IEAAXPEBV?$Vec3D@M@@HHH@Z@XHH@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_6>@?1??BindInstanceParams@CVoiceContainerGranulator@@MEAAXAEAV?$CUtlVector@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@HV?$CUtlMemory@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@H@@@@@Z@XPEAVCGranulatorInstance@3@AEBM@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_6>@?3??InitSimpleConnectivity@CPulseInflowPort@@IEAAXPEBVCPulseSequencePoint@@@Z@XPEAUPulseSequencePointProperties_t@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_7>@?1??BindInstanceParams@CVoiceContainerGranulator@@MEAAXAEAV?$CUtlVector@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@HV?$CUtlMemory@V?$unique_ptr@VCParameterBase@CVoiceContainerBase@@U?$default_delete@VCParameterBase@CVoiceContainerBase@@@std@@@std@@H@@@@@Z@XPEAVCGranulatorInstance@3@AEBM@std@@
@@ -12456,6 +12444,8 @@ $prefix_element$
 .?AVCArrayElementAccess@?$CConcreteToolAttr@$$BY03W4MapTestNodeEnum_t@@VCMapTestNode@@X@@
 .?AVCArrayElementAccess@?$CConcreteToolAttr@$$BY07VCFilterStage@@VCMixEQ8@@X@@
 .?AVCArrayElementAccess@?$CConcreteToolAttr@$$BY07VCUtlString@@VCMixSum@@X@@
+.?AVCArrayElementAccess@?$CConcreteToolAttr@V?$CUtlVector@EHV?$CUtlMemory@EH@@@@VCNmGraphDocParameterizedClipSelectorNode@@X@@
+.?AVCArrayElementAccess@?$CConcreteToolAttr@V?$CUtlVector@EHV?$CUtlMemory@EH@@@@VCNmGraphDocParameterizedSelectorNode@@X@@
 .?AVCArrayElementAccess@?$CConcreteToolAttr@V?$CUtlVector@HHV?$CUtlMemory@HH@@@@VCMapDocTestStruct@@X@@
 .?AVCArrayElementAccess@?$CConcreteToolAttr@V?$CUtlVector@HHV?$CUtlMemory@HH@@@@VCMapTestNode@@X@@
 .?AVCArrayElementAccess@?$CConcreteToolAttr@V?$CUtlVector@HHV?$CUtlMemory@HH@@@@VCModelDocTestNode@@X@@
@@ -12464,6 +12454,7 @@ $prefix_element$
 .?AVCArrayElementAccess@?$CConcreteToolAttr@V?$CUtlVector@MHV?$CUtlMemory@MH@@@@VCMixControlInputArray@@X@@
 .?AVCArrayElementAccess@?$CConcreteToolAttr@V?$CUtlVector@MHV?$CUtlMemory@MH@@@@VCMixSteamAudioPathing@@X@@
 .?AVCArrayElementAccess@?$CConcreteToolAttr@V?$CUtlVector@PEAVCPulseEditableMethodArg@@HV?$CUtlMemory@PEAVCPulseEditableMethodArg@@H@@@@VCPulseDoc_Inflow_Method@@X@@
+.?AVCArrayElementAccess@?$CConcreteToolAttr@V?$CUtlVector@PEAVCPulseEditableMethodArg@@HV?$CUtlMemory@PEAVCPulseEditableMethodArg@@H@@@@VCPulseDoc_PublicOutputDefinition@@X@@
 .?AVCArrayElementAccess@?$CConcreteToolAttr@V?$CUtlVector@UBoneWeight_t@CNmBoneMaskDefinition@@HV?$CUtlMemory@UBoneWeight_t@CNmBoneMaskDefinition@@H@@@@VCNmBoneMaskDefinition@@X@@
 .?AVCArrayElementAccess@?$CConcreteToolAttr@V?$CUtlVector@UCSelectableSubgraph@@HV?$CUtlMemory@UCSelectableSubgraph@@H@@@@VCMixSubgraphSwitch@@X@@
 .?AVCArrayElementAccess@?$CConcreteToolAttr@V?$CUtlVector@UCondition_t@CNmGraphDocStateEventConditionNode@@HV?$CUtlMemory@UCondition_t@CNmGraphDocStateEventConditionNode@@H@@@@VCNmGraphDocStateEventConditionNode@@X@@
@@ -12634,7 +12625,6 @@ $prefix_element$
 .?AVCClassInputOutputBase@@
 .?AVCClassOutput@@
 .?AVCClassifiedMeshList@CWorldRendererBuilderNode@@
-.?AVCClientProcess@KubeJobs@@
 .?AVCClothSettingsAnimTag@@
 .?AVCCollapseMaterialMeshList@CWorldRendererBuilderNode@@
 .?AVCCollisionPropertyInfo@@
@@ -12701,12 +12691,12 @@ $prefix_element$
 .?AVCDecoderInstance@CVoiceContainerBase@@
 .?AVCDefinition@CNmBoneMaskValueNode@@
 .?AVCDefinition@CNmBoolValueNode@@
-.?AVCDefinition@CNmChildGraphNode@@
 .?AVCDefinition@CNmExternalGraphNode@@
 .?AVCDefinition@CNmFloatValueNode@@
 .?AVCDefinition@CNmGraphNode@@
 .?AVCDefinition@CNmIDValueNode@@
 .?AVCDefinition@CNmPoseNode@@
+.?AVCDefinition@CNmReferencedGraphNode@@
 .?AVCDefinition@CNmTargetValueNode@@
 .?AVCDefinition@CNmValueNode@@
 .?AVCDefinition@CNmVectorValueNode@@
@@ -12718,6 +12708,7 @@ $prefix_element$
 .?AVCDirectPlaybackAnimNodeInstance@@
 .?AVCDirectPlaybackUpdateNode@@
 .?AVCDirectionalBlendUpdateNode@@
+.?AVCDistanceBlendInstance@@
 .?AVCDistanceRemainingMetricEvaluator@@
 .?AVCDmElement@@
 .?AVCDmElementFactoryDefault@@
@@ -13689,6 +13680,7 @@ $prefix_element$
 .?AVCNavHullVDataFileManager@@
 .?AVCNavMesh@@
 .?AVCNavPoly@@
+.?AVCNavToolsPhysicsInterface@@
 .?AVCNewParticleEffect@@
 .?AVCNmAdditiveBlendTask@@
 .?AVCNmAndNode@@
@@ -13710,7 +13702,6 @@ $prefix_element$
 .?AVCNmCachedPoseWriteTask@@
 .?AVCNmCachedTargetNode@@
 .?AVCNmCachedVectorNode@@
-.?AVCNmChildGraphNode@@
 .?AVCNmClipDocEvent@@
 .?AVCNmClipDocEvent_Foot@@
 .?AVCNmClipDocEvent_FrameSnap@@
@@ -13777,7 +13768,6 @@ $prefix_element$
 .?AVCNmGraphDocCachedIDNode@@
 .?AVCNmGraphDocCachedTargetNode@@
 .?AVCNmGraphDocCachedVectorNode@@
-.?AVCNmGraphDocChildGraphNode@@
 .?AVCNmGraphDocClipNode@@
 .?AVCNmGraphDocClipSelectorNode@@
 .?AVCNmGraphDocCommentNode@@
@@ -13836,6 +13826,7 @@ $prefix_element$
 .?AVCNmGraphDocParameterizedSelectorNode@@
 .?AVCNmGraphDocPoseResultNode@@
 .?AVCNmGraphDocReferencePoseNode@@
+.?AVCNmGraphDocReferencedGraphNode@@
 .?AVCNmGraphDocResultNode@@
 .?AVCNmGraphDocRootMotionOverrideNode@@
 .?AVCNmGraphDocSelectorBaseNode@@
@@ -13898,6 +13889,7 @@ $prefix_element$
 .?AVCNmPoseNode@@
 .?AVCNmReferencePoseNode@@
 .?AVCNmReferencePoseTask@@
+.?AVCNmReferencedGraphNode@@
 .?AVCNmRootMotionEvent@@
 .?AVCNmRootMotionOverrideNode@@
 .?AVCNmSampleTask@@
@@ -14148,7 +14140,6 @@ $prefix_element$
 .?AVCPulseGraphDef@@
 .?AVCPulseInValuePort_CreateTempVar@@
 .?AVCPulseInValuePort_DoNotNotifyListeners@@
-.?AVCPulseInValuePort_FireOutputParam@@
 .?AVCPulseInValuePort_MethodArg@@
 .?AVCPulseInValuePort_Return@@
 .?AVCPulseInValuePort_SetAnimGraphParamValue@@
@@ -14490,7 +14481,6 @@ $prefix_element$
 .?AVCUndoFlattenLayers@@
 .?AVCUndoHistory@@
 .?AVCUtilityVMixEditorState@@
-.?AVCUtlGrid@@
 .?AVCUtlMultiJobProcessor@@
 .?AVCUtlStackMachineBuilder@@
 .?AVCUtlTokenizer@@
@@ -14511,6 +14501,7 @@ $prefix_element$
 .?AVCVirtualAnimParameter@@
 .?AVCVisibilityMgr@@
 .?AVCVoiceContainerBlender@@
+.?AVCVoiceContainerDistanceBlender@@
 .?AVCVoiceContainerEnvelope@@
 .?AVCVoiceContainerLoopTrigger@@
 .?AVCVoiceContainerNull@@
@@ -14518,7 +14509,6 @@ $prefix_element$
 .?AVCVoiceContainerSet@@
 .?AVCVoiceContainerSwitch@@
 .?AVCVolumetricFogControllerHelper@@
-.?AVCVrad3DistributedProcess@@
 .?AVCVsndInputNodeDesc@@
 .?AVCWarningLoggingListener@?A0x2b03652b@@
 .?AVCWayPointHelperUpdateNode@@
@@ -14658,7 +14648,6 @@ $prefix_element$
 .?AVIKV3TransferInterface_GameTime_Load@@
 .?AVIKV3TransferInterface_GameTime_Save@@
 .?AVIKV3TransferInterface_ResourceLoad@@
-.?AVIKV3TransferInterface_UtlSymbolLarge@@
 .?AVIKV3TransferInterface_Worldspace_Load@@
 .?AVIKV3TransferInterface_Worldspace_Save@@
 .?AVILaunchableDLL@@
@@ -14667,6 +14656,7 @@ $prefix_element$
 .?AVIManipulatorTarget@@
 .?AVIMapBuilder@@
 .?AVIMapBuilderContext@@
+.?AVIMapDocExternalToolReferenceOwner@@
 .?AVIMapDocReloadListener@@
 .?AVIMapEditScope@@
 .?AVIMapFileReference@@
@@ -14694,6 +14684,7 @@ $prefix_element$
 .?AVIMovementComponentInstance@@
 .?AVINavEditMeshChangeListener@@
 .?AVINavMovableMeshListener@@
+.?AVINavPhysicsInterface@@
 .?AVIP4ConfigFileCache@@
 .?AVIPairedSequenceComponentInstance@@
 .?AVIParallelPoseOperation@@
@@ -14709,6 +14700,8 @@ $prefix_element$
 .?AVIPolyMeshTextureAlgorithmAxes@@
 .?AVIPoseAccessor@@
 .?AVIProceduralUpdateJob@@
+.?AVIPulseDocPortListForCaller@@
+.?AVIPulseDocSignatureOwner@@
 .?AVIPulseEditableTypeScope@@
 .?AVIPulseEditableValueModificationListener@@
 .?AVIPulseEditorLoadCallbacks@@
@@ -15127,7 +15120,6 @@ $prefix_element$
 /RIv
 /audio:In
 /audio:Out
-/bin/sh $KUBEJOBS_INPUT_DIR/vrad3_copy_to_worker.sh
 /lightmaps/
 /maps/
 /particle_snapshots/node_%s.vsnap
@@ -15178,9 +15170,7 @@ $prefix_element$
 0123456789)"
 02V8[
 05=k
-08@HR@D
-08@J`
-08B@D
+08@JP"9
 08bX
 09,h
 0;Q5[
@@ -15215,9 +15205,9 @@ $prefix_element$
 1280x720
 12v)
 14 (default)
+15:13:21
 15\tr\
 16-byte data pool
-16:25:15
 1:1: Tokens : ( PLUS | MINUS | MUL | DIV | COMMA | LPAREN | RPAREN | EQUALS | PERCENT | INT | FLOAT | ID | ML_COMMENT | SL_COMMENT | NL | WS );
 1:1: Tokens : ( T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | BOOLLITERAL | ID | INTEGERLITERAL | HEXINTEGERLITERAL | FLOATLITERAL | COMMENT | WS );
 1:1: Tokens : ( T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | TOK_COLON | OPEN_BRACE | CLOSE_BRACE | OPEN_PAREN | CLOSE_PAREN | OPEN_BRACKET | CLOSE_BRACKET | SEMICOLON | OP_EQUAL | COMMA | DOUBLE_AND | NEGATIVE_TOK | DOUBLE_OR | LITERAL_TRUE | LITERAL_FALSE | POS_INTLITERAL | POS_FLOATLITERAL | ID | DOUBLE_QUOTED_STRING | SINGLE_QUOTED_STRING | SINGLE_LINE_COMMENT | ML_COMMENT | WS | UNRECOGNIZED );
@@ -15241,11 +15231,11 @@ $prefix_element$
 1u+@A
 1xT$
 1}oP
+2 h8
 2)252Y2]2c2k2o2u2w2{2
 2)Ab`
 2+~,@\r;Zj09
 2-bone solver that does not have singularities that Perlin does, and should be used as a default starting point for 2 bone solves.
-20e8
 20t\f
 241:1: FLOAT : ( ( MINUS )? ( DIGIT )+ '.' ( DIGIT )* ( EXP )? ( FLOATSUFFIX )? | ( MINUS )? ( DIGIT )+ ( EXP )? ( FLOATSUFFIX )? | ( MINUS )? '.' ( DIGIT )+ ( EXP )? ( FLOATSUFFIX )? );
 24U\n
@@ -15263,16 +15253,17 @@ $prefix_element$
 2DBlendEditor
 2DBlendFromAnimation
 2I y)
+2P"9
 2PostProcessing
 2Tm=#
 2Uiwp"9
 2Zq)
 2\fWQx
 2\rlhp
-2\vpt
+2\vp0
+2\vpdO
 2^pV
 2_BONE_IK
-2`b3
 2a"l
 2bT~
 2cb:RO
@@ -15308,6 +15299,7 @@ $prefix_element$
 4)#bH
 4)m1
 4-byte data pool
+406(
 474E4U4W4c4i4m4
 488:1: POS_FLOATLITERAL : ( ( DIGIT )+ '.' ( DIGIT )* ( EXPONENT )? | '.' ( DIGIT )+ ( EXPONENT )? | ( DIGIT )+ EXPONENT );
 4<Td
@@ -15405,10 +15397,7 @@ $prefix_element$
 851Pe
 8<pl
 8= zp
-8@J@D
 8A6j
-8B@D
-8B`b3
 8Blend (Masked): %.2f%%
 8GZS
 8SIffK5W
@@ -15450,7 +15439,6 @@ $prefix_element$
 9r#xV
 : lexer error %d :\n\t%s at offset %d, 
 :':+:1:K:Q:[:c:g:m:y:
-:0e8
 :: <NO TARGET BONE>
 :BAD OBJECT
 :Blowfish part of OpenSSL 1.0.2j  26 Sep 2016
@@ -15604,7 +15592,7 @@ $prefix_element$
 ??1TryCatch@v8@@QEAA@XZ
 ??1Utf8Value@String@v8@@QEAA@XZ
 ?BoneSetup
-?CNmGraphDefinition
+?CNmGraphDefinition::ExternalGraphSlot_t
 ?Compile@Script@v8@@SA?AV?$MaybeLocal@VScript@v8@@@2@V?$Local@VContext@v8@@@2@V?$Local@VString@v8@@@2@PEAVScriptOrigin@2@@Z
 ?Create@FbxIOSettings@fbxsdk@@SAPEAV12@PEAVFbxManager@2@PEBD@Z
 ?Create@FbxManager@fbxsdk@@SAPEAV12@XZ
@@ -15622,8 +15610,7 @@ $prefix_element$
 ?HAI\t81\t9dcG'
 ?HP4
 ?HasCaught@TryCatch@v8@@QEBA_NXZ
-?Oct 10 2024
-?PermModelData_t
+?Nov 21 2024
 ?TestCheckpoint: %s
 ?Unspecified
 ?VBH;
@@ -15644,19 +15631,17 @@ $prefix_element$
 @%s_lookFrame_0
 @%s_lookFrame_1
 @%s_lookFrame_2
-@08N|
 @0pp
-@60m
-@6pa
+@6Pd
 @BH]f
 @CMixControlAutomatic
 @Enable SIMD code path for shoebox reverb processor.
-@HPX`hv
 @Integer overflow in %s
 @MClassIsParticleFloat
 @MfKZ
 @Pgl
 @Pu\rm
+@V@const char *__cdecl Reflection::Internal::GetFuncName<class CAnimNodeInstanceBase>(void)
 @WE]X
 @X!pf
 @Zs3
@@ -15664,8 +15649,8 @@ $prefix_element$
 @dKb]
 @define
 @define 
-@echo off\n
 @fff>fff>fff>fff>
+@htp
 @i1V
 @import
 @keyframes
@@ -15744,7 +15729,6 @@ A<fP
 A>x8
 AA Compromise
 AABB_t
-AABB_t(min=%g, max=%g)
 AACompromise
 AC2,h
 ACCESS_DESCRIPTION
@@ -16059,7 +16043,6 @@ Add Foot Motion
 Add Margin
 Add R%d <- R%d + R%d
 Add Radius
-Add Root Motion If Needed
 Add World Collision Radius
 Add a bone to the bindpose skeleton
 Add a hold to shorter animations in the blend to match frame counts on all blends
@@ -16074,6 +16057,7 @@ AddEdgeToFace
 AddExtraAttributeStream
 AddGravity
 AddManifest: SaveToFile "%s" failed!\n
+AddMatrixToMatrix
 AddNewLayer
 AddUndoElement '%s'\n
 AddVertexToEdge
@@ -16156,7 +16140,6 @@ Align Frame Type
 Align RX
 Align RY
 Align RZ
-Align Root Motion With Move Direction
 Align TX
 Align TY
 Align TZ
@@ -16256,6 +16239,7 @@ An integer value attribute that is not directly associated with a member variabl
 An offset to use for positioning the chain.  Optional.
 AnalogBalance
 Analysis Container
+Analysis Window
 Anchor Angles
 Anchor Origin
 And R%d <- R%d && R%d
@@ -16394,6 +16378,10 @@ Animation Configuration File
 Animation Driven
 Animation Graph Compiler Version
 Animation IK Rig Compiler Version
+Animation Movement Heading
+Animation Movement Heading At End
+Animation Only
+Animation Or Procedural
 Animation Order
 Animation Pose
 Animation Skeleton Compiler Version
@@ -16561,7 +16549,7 @@ Assign a material to faces.
 Assign a secondary vertex data channel with each vertex element origin assigned per vertex.
 Assign color values to face vertices.
 Assign to All Faces
-AssignClusters(), C:\buildworker\citadel_rel_win64\build\src\modeldoc_lib\modeldoc_groommeshfile.cpp:509
+AssignClusters(), C:\buildworker\citadel_rel_win64\build\src\modeldoc_lib\modeldoc_groommeshfile.cpp:513
 AssignMaterialToFaces
 AssignMaterialToOverlay
 AssignSmoothingModeToEdges
@@ -16679,6 +16667,7 @@ B64_READ_ASN1
 B64_READ_PKCS7
 B64_WRITE_ASN1
 B64_WRITE_PKCS7
+B8G"
 B8G8R8A8_UNORM
 B8G8R8X8_UNORM
 B8Z"h
@@ -16806,6 +16795,7 @@ BN_rshift
 BN_to_ASN1_ENUMERATED
 BN_to_ASN1_INTEGER
 BN_usub
+BNavStepHeight
 BOOL ABSENT
 BOOLEAN
 BOOLLITERAL
@@ -17100,6 +17090,7 @@ Blender
 Blending
 Blends
 Blends a single track to multiple outputs based on a single control input.  This works similarly to the blend node, but in reverse.  It will always be blending to a contiguous set of outputs.  The control value will move the signal along the list of outputs.
+Blends two containers according to distance curves.
 Blends two containers.
 Blends up to 8 vsnds to an impulse response.
 Block Non-Path Movement
@@ -17272,7 +17263,6 @@ Buffer too small
 Build
 Build Adjacency      
 Build Backfaces
-Build Light Importance Tree
 Build Settings
 Build Sides
 Build physics world
@@ -17339,7 +17329,6 @@ C:\buildworker\citadel_rel_win64\build\src\bitmap\tinyexr_impl.cpp
 C:\buildworker\citadel_rel_win64\build\src\bonesetup\clabelleddebughelper.cpp
 C:\buildworker\citadel_rel_win64\build\src\common\opensslwrapper.cpp
 C:\buildworker\citadel_rel_win64\build\src\entity2\entitykeyvalues.cpp
-C:\buildworker\citadel_rel_win64\build\src\lightinglib\streamingpathtracer.cpp
 C:\buildworker\citadel_rel_win64\build\src\mapdoclib\areafootprinthelper.cpp
 C:\buildworker\citadel_rel_win64\build\src\mapdoclib\grasstilemgr.cpp
 C:\buildworker\citadel_rel_win64\build\src\mapdoclib\hammerclipboard.cpp
@@ -17368,8 +17357,10 @@ C:\buildworker\citadel_rel_win64\build\src\mapdoclib\tagvisualization.cpp
 C:\buildworker\citadel_rel_win64\build\src\mapdoclib\tileinstanceset.cpp
 C:\buildworker\citadel_rel_win64\build\src\mapdoclib\tilesetmapmgr.cpp
 C:\buildworker\citadel_rel_win64\build\src\mathlib\extended\generic_expr.g
+C:\buildworker\citadel_rel_win64\build\src\mathlib\voxelarray_sdf.cpp
 C:\buildworker\citadel_rel_win64\build\src\mathlib\voxelarray_sdf_heatmethod.cpp
 C:\buildworker\citadel_rel_win64\build\src\modeldoc_lib\modeldoc_texture_generator.cpp
+C:\buildworker\citadel_rel_win64\build\src\navlib\nav_mesh.cpp
 C:\buildworker\citadel_rel_win64\build\src\panorama_content\contentcontext.cpp
 C:\buildworker\citadel_rel_win64\build\src\panorama_content\stylecontent.cpp
 C:\buildworker\citadel_rel_win64\build\src\particleslib\particle_property.cpp
@@ -17386,6 +17377,7 @@ C:\buildworker\citadel_rel_win64\build\src\sounddoc_lib\vmix_node_steamaudiodire
 C:\buildworker\citadel_rel_win64\build\src\sounddoc_lib\vmix_node_steamaudiohybridreverb.cpp
 C:\buildworker\citadel_rel_win64\build\src\sounddoc_lib\vmix_node_stereodelay.cpp
 C:\buildworker\citadel_rel_win64\build\src\texturelib\extract.cpp
+C:\buildworker\citadel_rel_win64\build\src\tier0_perproject\keyvalues3.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0_perproject\vnotifyapi.cpp
 C:\buildworker\citadel_rel_win64\build\src\toolrenderutils\renderablebinding.cpp
 C:\buildworker\citadel_rel_win64\build\src\toolrenderutils\toolmatsysutils.cpp
@@ -17395,12 +17387,10 @@ C:\buildworker\citadel_rel_win64\build\src\utils\resourcecompiler\compilechoreos
 C:\buildworker\citadel_rel_win64\build\src\utils\resourcecompiler\compiledotaherolist.cpp
 C:\buildworker\citadel_rel_win64\build\src\utils\resourcecompiler\compilepanorama.cpp
 C:\buildworker\citadel_rel_win64\build\src\utils\resourcecompiler\compilesound.cpp
-C:\buildworker\citadel_rel_win64\build\src\utils\resourcecompiler\compiletestresource.cpp
 C:\buildworker\citadel_rel_win64\build\src\utils\resourcecompiler\compiletexture.cpp
 C:\buildworker\citadel_rel_win64\build\src\utils\resourcecompiler\compiletexture_mip_processors.cpp
 C:\buildworker\citadel_rel_win64\build\src\utils\resourcecompiler\mapbuilder\lightbaker.cpp
 C:\buildworker\citadel_rel_win64\build\src\utils\resourcecompiler\mapbuilder\mapbuildercontext.cpp
-C:\buildworker\citadel_rel_win64\build\src\utils\resourcecompiler\mapbuilder\staticlightingprocessor.cpp
 C:\buildworker\citadel_rel_win64\build\src\utils\resourcecompiler\mapbuilder\uvchartpacker.cpp
 C:\buildworker\citadel_rel_win64\build\src\utils\resourcecompiler\mapbuilder\worldrendererbuilder.cpp
 C:\buildworker\citadel_rel_win64\build\src\utils\resourcecompiler\mapbuilder\worldrendererbuildernode.cpp
@@ -17786,6 +17776,7 @@ CFutureFacingMetricEvaluator
 CFutureVelocityMetricEvaluator
 CGP%AI
 CGlobalSymbol
+CGlobalSymbolCaseSensitive
 CGraphPreviewList
 CGrassMaterialSlot
 CGridRenderBlock::UpdateVertices(240): 
@@ -17835,8 +17826,6 @@ CLeafUpdateNode
 CLeanMatrixInstanceData
 CLeanMatrixUpdateNode
 CLevelsColorCorrectionLayer
-CLightImportanceTree::Build(), C:\buildworker\citadel_rel_win64\build\src\public\lightinglib\streamingpathtracer.h:425
-CLightImportanceTree::MakeNode_R
 CLocalContrastLayer
 CLookAtUpdateNode
 CMAC
@@ -18159,9 +18148,11 @@ CMoverUpdateNode
 CNavArea::PostLoad: Corrupt navigation data. Cannot connect Navigation Areas.\n
 CNavArea::PostLoad: Corrupt navigation ladder data. Cannot connect Navigation Areas.\n
 CNavGenParams - Nav mesh requests project default generation parameters but actual parameters\n  used during construction differ from defaults. Please re-export the map.\n
+CNavGeometryManager::UpdateMovableMeshTransform
 CNavHullPresetVData
 CNavHullVData
 CNavMesh::AddNavArea - Adding nav area to mesh with no grid extents defined.
+CNavMesh::CreateArea
 CNavMesh::GetGroundHeight
 CNavMesh::GetNearestNavArea
 CNavMesh::Update
@@ -18202,7 +18193,6 @@ CNmCachedPoseReadTask
 CNmCachedPoseWriteTask
 CNmCachedTargetNode::CDefinition
 CNmCachedVectorNode::CDefinition
-CNmChildGraphNode::CDefinition
 CNmClip
 CNmClipDocEvent
 CNmClipDocEventTrack
@@ -18263,8 +18253,8 @@ CNmFootstepEventIDNode::CDefinition
 CNmFootstepEventPercentageThroughNode::CDefinition
 CNmFrameSnapEvent
 CNmGraphDataSet
-CNmGraphDefinition::ChildGraphSlot_t
-CNmGraphDefinition::ExternalGraphSlot_t
+CNmGraphDefinition
+CNmGraphDefinition::ReferencedGraphSlot_t
 CNmGraphDocAndNode
 CNmGraphDocAnimationPoseNode
 CNmGraphDocBlend1DNode
@@ -18284,7 +18274,6 @@ CNmGraphDocCachedFloatNode
 CNmGraphDocCachedIDNode
 CNmGraphDocCachedTargetNode
 CNmGraphDocCachedVectorNode
-CNmGraphDocChildGraphNode
 CNmGraphDocClipNode
 CNmGraphDocClipSelectorNode
 CNmGraphDocCommentNode
@@ -18350,6 +18339,7 @@ CNmGraphDocParameterizedClipSelectorNode
 CNmGraphDocParameterizedSelectorNode
 CNmGraphDocPoseResultNode
 CNmGraphDocReferencePoseNode
+CNmGraphDocReferencedGraphNode
 CNmGraphDocResultNode
 CNmGraphDocRootMotionOverrideNode
 CNmGraphDocSelectorBaseNode
@@ -18430,6 +18420,7 @@ CNmPreviewArchetype
 CNmPreviewArchetype::SecondarySkeleton_t
 CNmReferencePoseNode::CDefinition
 CNmReferencePoseTask
+CNmReferencedGraphNode::CDefinition
 CNmRootMotionData
 CNmRootMotionData::SamplingMode_t
 CNmRootMotionEvent
@@ -18838,7 +18829,6 @@ CResourceCompilerSound:  unable to write to %s (read-only?)!!\n
 CResourceCompilerSystem::GenerateResourceFile
 CResourceCompilerSystem::InstallTestFilesystem
 CResourceCompilerSystem::UninstallTestFilesystem
-CResourceCompilerTestResource::PreSaveFixup
 CResourceCompilerTexture::ApplyImageProcessors(435): Error applying image processor "%s" to input texture "%s" for file "%s"!\n
 CResourceCompilerTexture::ApplyImageProcessors(469): Error applying image processor LegacySource1InvertNormals to input texture "%s" for file "%s"!\n
 CResourceCompilerTexture::ApplyImageProcessors(478): Error applying image processor "%s" to input texture "%s" for file "%s"!\n
@@ -18889,7 +18879,6 @@ CRootMotion
 CRootUpdateNode
 CS2 Econ Item Compiler Version
 CS2 Item missing required '%s' key
-CSOAContainer(%d x %d x %d 
 CSOAContainer::FilterInX(), C:\buildworker\citadel_rel_win64\build\src\tier0_perproject\utlsoacontainer.cpp:2514
 CSOAContainer::IterateSlices
 CSPName
@@ -19160,21 +19149,21 @@ CTextureFrame::GenerateMips_SphericalHarmonics(818): Single input texture width 
 CTextureFrame::GenerateMips_SphericalHarmonics(823): Single input texture height (%d) is not divisible by 3, expecting a 4x3 grid!\n
 CTextureFrame::GenerateMips_SphericalHarmonics(855): Cannot filter 3D texture %dx%dx%d!\n
 CTextureFrame::LoadMipLevelFromDisk(4534): Error calling LoadFromFile() for texture "%s"!\n
-CTextureObject::CreateFramesFromColor(2367): Error! Cannot parse element %d from color for texture "%s"!\n
-CTextureObject::IsImageType(3244): Error! Unknown ImageType_t %d specified!\n
-CTextureObject::ReadFromFile(2414): Error! ( pVtexInputTexture == NULL )!\n
-CTextureObject::ReadFromFile(2420): Error! pVtexInputTexture has an empty string!\n
-CTextureObject::ReadFromFile(2445): Error! pVtexInputTexture cannot be an absolute path! Found "%s"\n
-CTextureObject::ReadFromFile(2452): Error reading texture options txt file for "%s"\n
-CTextureObject::ReadFromFile(2554): Error calling LoadFromFile() for texture "%s"!\n
-CTextureObject::ReadFromFile(2634): Error calling LoadFromFile() for texture "%s"!\n
-CTextureObject::ReadFromFile(2666): Error getting image out of the .mks sheet for "%s"!\n
-CTextureObject::ReadFromFile(2703): Mip 0 of face %d in frame %d has dimensions %dx%dx%d instead of %dx%dx%d for "%s"!\n
-CTextureObject::ReadFromFile(2725): Error applying image processor Brightness to input texture "%s" for file "%s"!\n
-CTextureObject::ReadFromFile(2737): Error applying image processor HeightToNormal to input texture "%s" for file "%s"!\n
-CTextureObject::ReadFromFile(3150): Error 3DSliceWidth %d exceeds input texture "%s" width %d for file "%s"!\n
-CTextureObject::ReadFromFile(3161): Error 3DSliceHeight %d exceeds input texture "%s" height %d for file "%s"!\n
-CTextureObject::ReadFromFile(3172): Error 3DSliceCount %d exceeds input texture "%s" maximum %dx%d slice count %d for file "%s"!\n
+CTextureObject::CreateFramesFromColor(2378): Error! Cannot parse element %d from color for texture "%s"!\n
+CTextureObject::IsImageType(3255): Error! Unknown ImageType_t %d specified!\n
+CTextureObject::ReadFromFile(2425): Error! ( pVtexInputTexture == NULL )!\n
+CTextureObject::ReadFromFile(2431): Error! pVtexInputTexture has an empty string!\n
+CTextureObject::ReadFromFile(2456): Error! pVtexInputTexture cannot be an absolute path! Found "%s"\n
+CTextureObject::ReadFromFile(2463): Error reading texture options txt file for "%s"\n
+CTextureObject::ReadFromFile(2565): Error calling LoadFromFile() for texture "%s"!\n
+CTextureObject::ReadFromFile(2645): Error calling LoadFromFile() for texture "%s"!\n
+CTextureObject::ReadFromFile(2677): Error getting image out of the .mks sheet for "%s"!\n
+CTextureObject::ReadFromFile(2714): Mip 0 of face %d in frame %d has dimensions %dx%dx%d instead of %dx%dx%d for "%s"!\n
+CTextureObject::ReadFromFile(2736): Error applying image processor Brightness to input texture "%s" for file "%s"!\n
+CTextureObject::ReadFromFile(2748): Error applying image processor HeightToNormal to input texture "%s" for file "%s"!\n
+CTextureObject::ReadFromFile(3161): Error 3DSliceWidth %d exceeds input texture "%s" width %d for file "%s"!\n
+CTextureObject::ReadFromFile(3172): Error 3DSliceHeight %d exceeds input texture "%s" height %d for file "%s"!\n
+CTextureObject::ReadFromFile(3183): Error 3DSliceCount %d exceeds input texture "%s" maximum %dx%d slice count %d for file "%s"!\n
 CTileMeshFace
 CTileSetGrassParameters
 CTileSetMaterialSet
@@ -19238,7 +19227,6 @@ CUtlDict<float,class CDefFastCaselessStringLess>::Insert
 CUtlDict<struct CompileNameMapping_t *,class CDefFastCaselessStringLess>::Insert
 CUtlDict<struct ConceptParams_t,class CDefFastCaselessStringLess>::Insert
 CUtlDict<struct empty_t,class CDefFastCaselessStringLess>::Insert
-CUtlGrid::Voxelize(), C:\buildworker\citadel_rel_win64\build\src\tier2\utlgrid.cpp:238
 CUtlHashtable
 CUtlLeanVector
 CUtlLeanVectorFixedGrowable
@@ -19281,6 +19269,7 @@ CUtlLeanVectorImpl<class CUtlLeanVectorFixedGrowableBase<struct NmGraphDocPin_t,
 CUtlLeanVectorImpl<class CUtlLeanVectorFixedGrowableBase<struct NmGraphDocPin_t,4,int>,struct NmGraphDocPin_t,int>::InsertBeforeGetPtr
 CUtlLeanVectorImpl<class CUtlLeanVectorFixedGrowableBase<struct VfxVariableIndexData_t,2,int>,struct VfxVariableIndexData_t,int>::AddMultipleToTail
 CUtlLeanVectorImpl<class CUtlLeanVectorFixedGrowableBase<unsigned char,12,short>,unsigned char,short>::AddMultipleToTail
+CUtlLeanVectorImpl<class CUtlLeanVectorFixedGrowableBase<unsigned char,5,int>,unsigned char,int>::InsertBeforeGetPtr
 CUtlNTree overflow!\n
 CUtlOctree
 CUtlOrderedMap
@@ -19317,6 +19306,7 @@ CUtlRBTree<struct CNavPairMap<unsigned int,unsigned int>::TU_t,class CLessFunc<&
 CUtlRBTree<struct CNavPairMap<unsigned int,unsigned int>::TU_t,class CLessFunc<&public: static bool __cdecl CNavPairMap<unsigned int,unsigned int>::LessThanFunc_UT(struct CNavPairMap<unsigned int,unsigned int>::TU_t const &,struct CNavPairMap<unsigned int,unsigned int>::TU_t const &)>,unsigned int,class CUtlMemory<struct UtlRBTreeNode_t<struct CNavPairMap<unsigned int,unsigned int>::TU_t,unsigned int>,unsigned int> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<char const *,class CUtlString,class CDefFastCaselessStringLess,int>::Node_t,class CUtlOrderedMapBase<char const *,class CUtlString,class CDefFastCaselessStringLess,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<char const *,class CUtlString,class CDefFastCaselessStringLess,int>::Node_t,int>,int> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<class CDotaTileSelectionItem,int,class CDefLess<class CDotaTileSelectionItem>,int>::Node_t,class CUtlOrderedMapBase<class CDotaTileSelectionItem,int,class CDefLess<class CDotaTileSelectionItem>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CDotaTileSelectionItem,int,class CDefLess<class CDotaTileSelectionItem>,int>::Node_t,int>,int> >::Insert
+CUtlRBTree<struct CUtlOrderedMapBase<class CGlobalSymbol,class CStrongHandleCopyable<struct InfoForResourceTypeIPulseGraphDef>,class CDefLess<class CGlobalSymbol>,int>::Node_t,class CUtlOrderedMapBase<class CGlobalSymbol,class CStrongHandleCopyable<struct InfoForResourceTypeIPulseGraphDef>,class CDefLess<class CGlobalSymbol>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CGlobalSymbol,class CStrongHandleCopyable<struct InfoForResourceTypeIPulseGraphDef>,class CDefLess<class CGlobalSymbol>,int>::Node_t,int>,int> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<class CMapNode *,int,class CDefLess<class CMapNode *>,int>::Node_t,class CUtlOrderedMapBase<class CMapNode *,int,class CDefLess<class CMapNode *>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CMapNode *,int,class CDefLess<class CMapNode *>,int>::Node_t,int>,int> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<class CMapNode const *,int,class CDefLess<class CMapNode const *>,int>::Node_t,class CUtlOrderedMapBase<class CMapNode const *,int,class CDefLess<class CMapNode const *>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CMapNode const *,int,class CDefLess<class CMapNode const *>,int>::Node_t,int>,int> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<class CMeshEdge,int,class CDefLess<class CMeshEdge>,int>::Node_t,class CUtlOrderedMapBase<class CMeshEdge,int,class CDefLess<class CMeshEdge>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CMeshEdge,int,class CDefLess<class CMeshEdge>,int>::Node_t,int>,int> >::Insert
@@ -19329,16 +19319,13 @@ CUtlRBTree<struct CUtlOrderedMapBase<class CUtlString,class CUtlString,class CDe
 CUtlRBTree<struct CUtlOrderedMapBase<class CUtlString,class CUtlVector<class CBasePropData *,int,class CUtlMemory<class CBasePropData *,int> > *,class CDefStringLess,unsigned short>::Node_t,class CUtlOrderedMapBase<class CUtlString,class CUtlVector<class CBasePropData *,int,class CUtlMemory<class CBasePropData *,int> > *,class CDefStringLess,unsigned short>::CKeyLess,unsigned short,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CUtlString,class CUtlVector<class CBasePropData *,int,class CUtlMemory<class CBasePropData *,int> > *,class CDefStringLess,unsigned short>::Node_t,unsigned short>,unsigned short> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<class CUtlString,struct WorldLayerEntry_t,class CDefStringLess,unsigned short>::Node_t,class CUtlOrderedMapBase<class CUtlString,struct WorldLayerEntry_t,class CDefStringLess,unsigned short>::CKeyLess,unsigned short,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CUtlString,struct WorldLayerEntry_t,class CDefStringLess,unsigned short>::Node_t,unsigned short>,unsigned short> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<class CUtlSymbolLarge,class CMapNode *,class CLessFunc<&private: static bool __cdecl CMapWorld::NodeNameLessFunc(class CUtlSymbolLarge const &,class CUtlSymbolLarge const &)>,int>::Node_t,class CUtlOrderedMapBase<class CUtlSymbolLarge,class CMapNode *,class CLessFunc<&private: static bool __cdecl CMapWorld::NodeNameLessFunc(class CUtlSymbolLarge const &,class CUtlSymbolLarge const &)>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CUtlSymbolLarge,class CMapNode *,class CLessFunc<&private: static bool __cdecl CMapWorld::NodeNameLessFunc(class CUtlSymbolLarge const &,class CUtlSymbolLarge const &)>,int>::Node_t,int>,int> >::Insert
-CUtlRBTree<struct CUtlOrderedMapBase<class CUtlSymbolLarge,class CStrongHandleCopyable<struct InfoForResourceTypeIPulseGraphDef>,class CDefLess<class CUtlSymbolLarge>,int>::Node_t,class CUtlOrderedMapBase<class CUtlSymbolLarge,class CStrongHandleCopyable<struct InfoForResourceTypeIPulseGraphDef>,class CDefLess<class CUtlSymbolLarge>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CUtlSymbolLarge,class CStrongHandleCopyable<struct InfoForResourceTypeIPulseGraphDef>,class CDefLess<class CUtlSymbolLarge>,int>::Node_t,int>,int> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<class CUtlSymbolLarge,int,class CDefLess<class CUtlSymbolLarge>,int>::Node_t,class CUtlOrderedMapBase<class CUtlSymbolLarge,int,class CDefLess<class CUtlSymbolLarge>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CUtlSymbolLarge,int,class CDefLess<class CUtlSymbolLarge>,int>::Node_t,int>,int> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<class CUtlSymbolLarge,struct DmMemoryInfo_t,class CDefLess<class CUtlSymbolLarge>,unsigned short>::Node_t,class CUtlOrderedMapBase<class CUtlSymbolLarge,struct DmMemoryInfo_t,class CDefLess<class CUtlSymbolLarge>,unsigned short>::CKeyLess,unsigned short,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CUtlSymbolLarge,struct DmMemoryInfo_t,class CDefLess<class CUtlSymbolLarge>,unsigned short>::Node_t,unsigned short>,unsigned short> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<class ISceneWorld *,class CUtlVector<struct HProjectedDecal__ *,int,class CUtlMemory<struct HProjectedDecal__ *,int> > *,class CDefLess<class ISceneWorld *>,int>::Node_t,class CUtlOrderedMapBase<class ISceneWorld *,class CUtlVector<struct HProjectedDecal__ *,int,class CUtlMemory<struct HProjectedDecal__ *,int> > *,class CDefLess<class ISceneWorld *>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class ISceneWorld *,class CUtlVector<struct HProjectedDecal__ *,int,class CUtlMemory<struct HProjectedDecal__ *,int> > *,class CDefLess<class ISceneWorld *>,int>::Node_t,int>,int> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<class IUndoable *,unsigned int,class CDefLess<class IUndoable *>,int>::Node_t,class CUtlOrderedMapBase<class IUndoable *,unsigned int,class CDefLess<class IUndoable *>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class IUndoable *,unsigned int,class CDefLess<class IUndoable *>,int>::Node_t,int>,int> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<class KeyValues3 const *,void *,class CDefLess<class KeyValues3 const *>,unsigned short>::Node_t,class CUtlOrderedMapBase<class KeyValues3 const *,void *,class CDefLess<class KeyValues3 const *>,unsigned short>::CKeyLess,unsigned short,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class KeyValues3 const *,void *,class CDefLess<class KeyValues3 const *>,unsigned short>::Node_t,unsigned short>,unsigned short> >::Insert
-CUtlRBTree<struct CUtlOrderedMapBase<class RayTracingEnvironment const *,int,class CDefLess<class RayTracingEnvironment const *>,int>::Node_t,class CUtlOrderedMapBase<class RayTracingEnvironment const *,int,class CDefLess<class RayTracingEnvironment const *>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class RayTracingEnvironment const *,int,class CDefLess<class RayTracingEnvironment const *>,int>::Node_t,int>,int> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<class Vec3D<float>,class CUtlVector<class Vec3D<float>,int,class CUtlMemory<class Vec3D<float>,int> >,struct CSTSDKBaseClass::CVectorLess,int>::Node_t,class CUtlOrderedMapBase<class Vec3D<float>,class CUtlVector<class Vec3D<float>,int,class CUtlMemory<class Vec3D<float>,int> >,struct CSTSDKBaseClass::CVectorLess,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class Vec3D<float>,class CUtlVector<class Vec3D<float>,int,class CUtlMemory<class Vec3D<float>,int> >,struct CSTSDKBaseClass::CVectorLess,int>::Node_t,int>,int> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<enum DmElementHandle_t,enum DmElementHandle_t,class CDefLess<enum DmElementHandle_t>,int>::Node_t,class CUtlOrderedMapBase<enum DmElementHandle_t,enum DmElementHandle_t,class CDefLess<enum DmElementHandle_t>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<enum DmElementHandle_t,enum DmElementHandle_t,class CDefLess<enum DmElementHandle_t>,int>::Node_t,int>,int> >::Insert
-CUtlRBTree<struct CUtlOrderedMapBase<int,bool,class CDefLess<int>,int>::Node_t,class CUtlOrderedMapBase<int,bool,class CDefLess<int>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<int,bool,class CDefLess<int>,int>::Node_t,int>,int> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<int,class CModelDocLocalHierarchy const *,class CDefLess<int>,int>::Node_t,class CUtlOrderedMapBase<int,class CModelDocLocalHierarchy const *,class CDefLess<int>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<int,class CModelDocLocalHierarchy const *,class CDefLess<int>,int>::Node_t,int>,int> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<int,class CNavHullPresetVData *,class CDefLess<int>,int>::Node_t,class CUtlOrderedMapBase<int,class CNavHullPresetVData *,class CDefLess<int>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<int,class CNavHullPresetVData *,class CDefLess<int>,int>::Node_t,int>,int> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<int,class CNavHullVData *,class CDefLess<int>,int>::Node_t,class CUtlOrderedMapBase<int,class CNavHullVData *,class CDefLess<int>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<int,class CNavHullVData *,class CDefLess<int>,int>::Node_t,int>,int> >::Insert
@@ -19395,13 +19382,13 @@ CVcn
 CVectorQuantizer
 CVertexListSceneObject
 CVertexSelectionSetDataElement
-CVfx::CreateFromVcs(7471): Error opening file %s\n
-CVfx::CreateFromVcs(7559): VCS %s Unserialize failed\n
-CVfx::CreateFromVcs(7573): VCS %s Unserialize hit EOF\n
-CVfx::ValidateMD5FromVcs(7705): Error opening file %s\n
-CVfx::ValidateMD5FromVcs(7712): Error calling SkipAndValidateVCSHeader() for %s\n
+CVfx::CreateFromVcs(7516): Error opening file %s\n
+CVfx::CreateFromVcs(7604): VCS %s Unserialize failed\n
+CVfx::CreateFromVcs(7618): VCS %s Unserialize hit EOF\n
+CVfx::ValidateMD5FromVcs(7750): Error opening file %s\n
+CVfx::ValidateMD5FromVcs(7757): Error calling SkipAndValidateVCSHeader() for %s\n
 CVfxProgramData::CalcStaticComboIdFromValues
-CVfxProgramData::FindOrLoadStaticComboData(4014): Error! Ref count !=0 for static combo data cache entry!\n
+CVfxProgramData::FindOrLoadStaticComboData(4059): Error! Ref count !=0 for static combo data cache entry!\n
 CVfxStaticComboData::Decompress
 CVibranceColorCorrectionLayer
 CVignetteLayer
@@ -19414,6 +19401,7 @@ CVoiceContainerBase
 CVoiceContainerBlender
 CVoiceContainerDecayingSineWave
 CVoiceContainerDefault
+CVoiceContainerDistanceBlender
 CVoiceContainerEnvelope
 CVoiceContainerEnvelopeAnalyzer
 CVoiceContainerGranulator
@@ -19431,7 +19419,6 @@ CVoiceContainerStaticAdditiveSynth::CGainScalePerInstance
 CVoiceContainerStaticAdditiveSynth::CHarmonic
 CVoiceContainerStaticAdditiveSynth::CTone
 CVoiceContainerSwitch
-CVoxelArray( m_vOrigin=%? m_vScale=%? m_bounds=%? %? )
 CVoxelVisibility
 CW Limit
 CWayPointHelperInstanceData
@@ -19441,8 +19428,8 @@ CWorldRendererBuilder::Build
 CWorldRendererBuilder::CompileAndSaveNodes
 CWorldRendererBuilder::CreateRayTracingEnvironment
 CWorldRendererBuilderNode::BakeLightMaps
-CWorldRendererBuilderNode::FixTJunctionEdgeCracks(), C:\buildworker\citadel_rel_win64\build\src\utils\resourcecompiler\mapbuilder\worldrendererbuildernode.cpp:1873
-CWorldRendererBuilderNode::FixTJunctionEdgeCracks(), C:\buildworker\citadel_rel_win64\build\src\utils\resourcecompiler\mapbuilder\worldrendererbuildernode.cpp:1960
+CWorldRendererBuilderNode::FixTJunctionEdgeCracks(), C:\buildworker\citadel_rel_win64\build\src\utils\resourcecompiler\mapbuilder\worldrendererbuildernode.cpp:1844
+CWorldRendererBuilderNode::FixTJunctionEdgeCracks(), C:\buildworker\citadel_rel_win64\build\src\utils\resourcecompiler\mapbuilder\worldrendererbuildernode.cpp:1931
 CWorldRendererBuilderNode::LoadMaterialsInMeshList
 CZeroPoseUpdateNode
 C[L6
@@ -19577,8 +19564,6 @@ Cannot find sequence %s\n
 Cannot find source animation :: %s
 Cannot find tag with ID %i
 Cannot fit morph into atlas: "%s"
-Cannot flood fill light probe volume %d - invalid center\n
-Cannot flood fill light probe volume %d - no empty space near center\n
 Cannot handle 'any' type in literal value
 Cannot handle argument type '%s' in '%s'
 Cannot handle argument types '%s' and '%s' in '%s'
@@ -19669,7 +19654,8 @@ Channels
 Char=
 Character Space - 
 Chart
-Charting %i meshes instances 
+Charting %i shared meshes 
+Charting %i unique meshes 
 Check Prefab Load Problems
 Check Requirement
 Check Type
@@ -19685,7 +19671,6 @@ Child 1
 Child 2
 Child Bind Rotation
 Child Body
-Child Graph
 Child Mesh Mesh cannot be empty
 Child Mesh Name
 Child Offset Attachment Name
@@ -20263,6 +20248,7 @@ Could not determine full file path for sky texture %s\n
 Could not determine full path for resource '%s' - check your VPROJECT.\n
 Could not determine tag type
 Could not determine type of outparam Result
+Could not execute '%s' a required object was missing
 Could not execute '%s' because this graph domain does not support the required IGapHost
 Could not find animation bone named '%s' for rename.
 Could not find bone with name '%s' or '%s'
@@ -20349,6 +20335,7 @@ Cubic
 Cull Distance
 Cull Random
 Cull Unskinned Verts
+Current LOD
 Current Rotation Velocity
 Current Rotation Velocity Metric
 Current Sync Event ID
@@ -20757,6 +20744,7 @@ DefaultCropSize
 DefaultGrassMaterial
 DefaultGridTileSet
 DefaultGridTileSet2
+DefaultHitgroupName
 DefaultMapBuilders
 DefaultMaterialGroup
 DefaultMaterialName
@@ -20854,6 +20842,7 @@ DestroyFakeEntity( handle %d)\n
 Detach From Owner
 Detail Objects
 DetailDistance
+Detected a zero weight for an option, this is not allowed!
 Detected an event outside the range of the clip - event will be ignored!
 Detected an event that extends outside the range of the - event will be clamped to the duration of the clip!
 DevShader
@@ -20956,6 +20945,7 @@ Display as voxels
 Dissolved edge
 Distance
 Distance Between Control Points Scale
+Distance Blender
 Distance Fade Scale
 Distance Offset
 Distance Remaining
@@ -21802,7 +21792,6 @@ Element.CNmGraphDocCachedFloatNode
 Element.CNmGraphDocCachedIDNode
 Element.CNmGraphDocCachedTargetNode
 Element.CNmGraphDocCachedVectorNode
-Element.CNmGraphDocChildGraphNode
 Element.CNmGraphDocClipNode
 Element.CNmGraphDocClipSelectorNode
 Element.CNmGraphDocCurrentSyncEventIDNode
@@ -21848,6 +21837,7 @@ Element.CNmGraphDocOrientationWarpNode
 Element.CNmGraphDocParameterizedClipSelectorNode
 Element.CNmGraphDocParameterizedSelectorNode
 Element.CNmGraphDocReferencePoseNode
+Element.CNmGraphDocReferencedGraphNode
 Element.CNmGraphDocRootMotionOverrideNode
 Element.CNmGraphDocSelectorBaseNode
 Element.CNmGraphDocSelectorConditionNode
@@ -22391,7 +22381,7 @@ Extract TY
 Extract TZ
 ExtractMotion
 ExtractMotionEditor
-ExtractSheetDataFromBuffer(2305): Encountered an error calling CAmalgamatedTexture->LoadFromFile on buffer-arg "%s"!\n
+ExtractSheetDataFromBuffer(2316): Encountered an error calling CAmalgamatedTexture->LoadFromFile on buffer-arg "%s"!\n
 ExtractSheetDataFromFile(618): Encountered an error (see above) loading MKS: %s\n
 Extraneous token
 Extrapolate Movement
@@ -22416,7 +22406,6 @@ FABRIK
 FAILED (%.2f seconds)\n
 FBX filename suffix
 FBXSystem001
-FCurrent LOD
 FDA~i
 FEATURES
 FEMode_t
@@ -22744,7 +22733,6 @@ Failed to compile utility node!\n
 Failed to compile value
 Failed to compile vmix graph: %s (%s)\n
 Failed to compile vocoder node!\n
-Failed to compress lightmap_info.dat / lightmap_packing_geometry.dat, exit code %i
 Failed to compress secondary animation!
 Failed to compute channel layout.\n
 Failed to compute mesh tangents for mesh using material %s -- %s\n
@@ -22804,17 +22792,14 @@ Failed to load %s!\n
 Failed to load %s: %s\n
 Failed to load FGD
 Failed to load FGD file '%s'.
-Failed to load JSON.  Error message was: %s, raw line was: %s\n
 Failed to load Model %s, which is required by AnimGraph %s\n
 Failed to load asset config file: '%s'\n
 Failed to load bind pose reference file (%s)
 Failed to load compiled asset for '%s'. Possible compile failure.
-Failed to load compiled meshes for prop %s!\n
 Failed to load compiled resource: %s
 Failed to load document kv3 data: %s
 Failed to load map "%s"!\n
 Failed to load map "%s", because one of the prefabs failed to load!\n
-Failed to load map %s\n
 Failed to load mesh for prop %s, lod %i!\n
 Failed to load meshes for model %s!\n
 Failed to load model for clutter: %s!\n
@@ -22833,9 +22818,7 @@ Failed to read channel names from .rts file
 Failed to read data for %s\n
 Failed to read file.  Filename: %s
 Failed to read secondary animation data!
-Failed to remove %s files from %s\n
 Failed to remove %s from %s\n
-Failed to run zstd to compress scene_info.dat: path: %s, exit code %i
 Failed to save "%s" (kv3 error %s)!\n
 Failed to save FLC record
 Failed to save expanded template and/or flattened concept params when compiling %s\n
@@ -22876,6 +22859,7 @@ FakeEntity_tAPI!GetIntValue
 FakeEntity_tAPI!GetName
 FakeEntity_tAPI!SetAndGetIntValue
 FakeEntity_tAPI!SetIntValue
+Fallback
 Fallback hinge
 Falloff
 False Value
@@ -23075,8 +23059,10 @@ FireCursors
 Fires a series of child cursors at the specified times.
 Fires multiple child cursors simultaneously, and optionally waits for completion. Similar to Timeline or Parallel Branch.
 First
+First Curve
 First Frame
 First Point
+First Sound
 First Value
 FirstFrame
 Fit Transform to Model
@@ -23130,6 +23116,7 @@ FlipHemisphere
 FlipHemisphereNegate
 Float
 Float Abs
+Float Bitmap Failure
 Float Clamp
 Float Comparison
 Float Curve
@@ -23205,6 +23192,7 @@ Foot Cycle Override start frame is less than zero
 Foot Cycle Override toe land frame is larger than the number of frames
 Foot Cycle Override toe land frame is less than zero
 Foot Cycle Override toe lift frame is larger than the number of frames
+Foot Cycle Override toe lift frame is less than zero
 Foot Lock node (%s): Failed to find foot with name "%s"
 Foot Lock node (%s): No feet defined; node will do nothing 
 Foot Locking
@@ -23448,6 +23436,7 @@ GameInput
 GameOutput
 Gameplay Identifier
 Gaussian
+General
 General math expression for arithmetic and logic, using a c-style syntax.<br><br>Supports:<ul><li>bool, int, float, string types</li><li>basic math operators: + - * / %</li><li>boolean operators: ! || &&</li><li>comparison operators</li><li>some simple functions: pow, clamp, sin, cos, min, max</li><li>nested parenthesis</li><li>References to graph variables (by name)</li><li>Exposing a parameter port by using a name with a dollar-sign prefix ($arg)</li></ul>
 GeneralNames
 GeneralString
@@ -23462,6 +23451,7 @@ Generate decal UVs on the specified channel
 Generate the grid by placing N x N children.
 GenerateDecalUVs
 GenerateDistanceFieldFromTrianglesUsingHeatMethod
+GenerateDistanceFieldFromTrianglesWithVoting
 GenerateInt
 GenerateIntWithResult
 GenerateMips_AnisoNormal
@@ -23980,7 +23970,6 @@ IKV3TransferInterface_EHandle_Save
 IKV3TransferInterface_GameTime_Load
 IKV3TransferInterface_GameTime_Save
 IKV3TransferInterface_ResourceLoad
-IKV3TransferInterface_UtlSymbolLarge
 IKV3TransferInterface_Worldspace_Load
 IKV3TransferInterface_Worldspace_Save
 IMMEDIATE_HALT
@@ -24183,6 +24172,7 @@ Implicit
 Import Bone Scales
 Import Bone Scales only applies to FBX and DMX input files, will be ignored for %s files
 Import Mode
+Import Options
 Import Scale
 ImportFilterEditor
 Imported PhysAuthFx Cloth
@@ -24309,7 +24299,6 @@ Inherit all
 Inhibit Policy Mapping
 InitCCITTFax3
 InitDependencyCounters
-InitKubeJobsSearchPath
 Initial Repulsion Velocity
 Initial Scalar Noise
 Initial Value
@@ -24325,6 +24314,7 @@ Innate Ability
 Inner Angle
 Inner Stopping Radius
 Inner radius from the placement position where the model can appear.
+InnerProduct
 Inparam connection not a child of a node
 Input
 Input %d
@@ -24550,6 +24540,7 @@ Invoke a method within this graph.
 IquO
 IrradVolumeOuterHull
 IrradVolumeVoxels
+Is Angle
 Is Array
 Is Attachable Prop
 Is Bone ID
@@ -24691,7 +24682,6 @@ KMBo8[
 KQSlB
 KRB5
 KSV<
-KUBEJOBS_PATH
 KV3 Compiler Version
 KV3 load transfer failed: %s\n
 KV3 save transfer failed: %s
@@ -24741,9 +24731,6 @@ KsF8
 Ksg4X
 KuBEN
 KubeJobs
-KubeJobs::CClientProcess::Run
-KubeJobs::CClientProcess::RunKubeJob
-Kubejobs failed to run, logs:\n
 K{"Kb,p
 K|oT
 L Ankle
@@ -24930,7 +24917,6 @@ Lifespan from distance to world
 Lifetime Pre-Age Noise
 Lifetime Random
 Lifetime from Time to Impact
-Light Importance Tree... 
 Light Probe %s
 Light mapper didn't return valid triangles: failing.\n
 LightCookie
@@ -25013,7 +24999,7 @@ LoadFromInMemoryEXR( %s ) failed.\n
 LoadKV3Object error: %s\n
 LoadKV3ObjectInPlace error: %s\n
 LoadLibraryW
-LoadMaterialForBuilder
+LoadMaterialsForBuilder
 LoadVfxAndFeatureCombo(1448): Error opening shader "%s" from mod "%s"\n
 LoadVfxAndFeatureCombo(1480): ERROR! Can't load %s, dynamic shader compile failed loading!\n
 LoadVfxAndFeatureCombo(1525): Error calling GetAllShaderVariables() on %s!\n
@@ -25040,7 +25026,6 @@ Local Space Bone
 Local hierarchy end frame cannot be before tail frame
 Local hierarchy peak frame cannot be before start frame
 Local hierarchy tail frame cannot be before peak frame
-Local kubejobs process exited with %i\n
 Local space position translation to apply to the current transform
 Local space rotation (in degrees) to apply to the current transform
 LocalHierarchy
@@ -25284,6 +25269,8 @@ MPulseEditorHeaderText
 MPulseEditorIsControlFlowNode
 MPulseEditorSubHeaderText
 MPulseExpressionAlias
+MPulseFunctionDisableRequirements
+MPulseFunctionHiddenInTool
 MPulseGraphHook
 MPulseInstanceDomainInfo
 MPulseInstanceFunction
@@ -25547,6 +25534,7 @@ Max distance to consider a sub branch
 Max ground slope to be considered walkable.
 Max horizontal offset over which to create a jump connection ( actually a parameter into the true threshold function ).
 Max number of LODs
+Max number of Nav Areas limit reached (%i).
 Max total triangle count (all LODs)
 Max total vertex count (all LODs)
 Max triangle count of LOD0
@@ -25724,7 +25712,7 @@ Mirror the model across the x-axis
 Mirror the model across the y-axis
 Mirror the model across the z-axis
 MirrorAcrossPlane
-Mismatch parameter type for child graph '%s', parent type: '%s', child type: '%s'
+Mismatch parameter type for referenced graph '%s', parent type: '%s', referenced type: '%s'
 Mismatched Token Exception
 Mismatched set
 Mismatched skeleton detected for specified clip (%s), this will be ignored.
@@ -25913,7 +25901,6 @@ MoveDirection
 MoveHeading
 MoveHeadingRelativeToLookHeading
 MoveSpeed
-MoveSpeedId_t
 Movement
 Movement Basic
 Movement Component
@@ -25930,7 +25917,7 @@ Movement Max Velocity
 Movement Tolerance
 Movement Velocity Parameter
 MovementData
-MovementGait_t
+MovementGaitId_t
 MovementSettings
 MovementSettingsEditor
 Mover
@@ -25940,7 +25927,6 @@ Mq~h
 MrFW
 Mtb\t4
 Mul R%d <- R%d * R%d
-Mulitply object tint
 Multi Quadratic
 Multi-Bone Skinning
 Multi-take source animations not supported
@@ -25956,6 +25942,7 @@ Multiplier
 Multiplier = %.2f
 Multiply *
 Multiply current tint
+Multiply object tint
 Multiply two numbers.<br>Represented in expressions as <tt>VALUE1 * VALUE2</tt>
 Multiply with the current color tint value.
 Multiply with the object level color tint and replace the current color value.
@@ -26048,9 +26035,9 @@ NIST/X9.62/SECG curve over a 192 bit prime field
 NISTP224_PRE_COMP_NEW
 NISTP256_PRE_COMP_NEW
 NISTP521_PRE_COMP_NEW
-NLightBaker::ProcessReceivedLightingPackets(), C:\buildworker\citadel_rel_win64\build\src\utils\resourcecompiler\mapbuilder\lightbaker.cpp:1727
-NLightBaker::ProcessReceivedLightingPackets(), C:\buildworker\citadel_rel_win64\build\src\utils\resourcecompiler\mapbuilder\lightbaker.cpp:1778
-NLightBaker::ProcessReceivedLightingPackets(), C:\buildworker\citadel_rel_win64\build\src\utils\resourcecompiler\mapbuilder\lightbaker.cpp:1853
+NLightBaker::ProcessReceivedLightingPackets(), C:\buildworker\citadel_rel_win64\build\src\utils\resourcecompiler\mapbuilder\lightbaker.cpp:1210
+NLightBaker::ProcessReceivedLightingPackets(), C:\buildworker\citadel_rel_win64\build\src\utils\resourcecompiler\mapbuilder\lightbaker.cpp:1261
+NLightBaker::ProcessReceivedLightingPackets(), C:\buildworker\citadel_rel_win64\build\src\utils\resourcecompiler\mapbuilder\lightbaker.cpp:1333
 NLightBaker::RunVrad3
 NO TARGET
 NO X509_NAME
@@ -26149,7 +26136,6 @@ NavMeshWireframe
 NavRegionMergeSize
 NavRegionMinSize
 NavSmallAreaOnEdgeRemovalSize
-NavStepHeight
 NavSystem
 NavTileSize
 NavVertsPerPoly
@@ -26167,6 +26153,7 @@ NeedsLightProbe
 NeedsStaticLPV
 Neg R%d <- -R%d
 Negative -
+Negative distances on border, most negative distance=%f
 Negative duration is not supported!
 Negative speed scale is not supported!
 Neither
@@ -26224,7 +26211,6 @@ New pose parameter name:
 New scaleset name:
 New sphere mesh name:
 New weightlist name:
-NewFiles
 Newly tilted bone.
 Next edge after queue update
 Next edge before queue update
@@ -26458,7 +26444,6 @@ NotModelHasAnimgraph
 NotUsingAnimGraph
 Note
 Nothing to light.\n
-Nov 13 2024
 NrPn
 Nu6Q
 Nudge
@@ -26468,14 +26453,12 @@ Num Branches
 Num Child Cursors
 Num Iterations
 Num Iterations 
-NumCols()=%? NumRows()=%? NumSlices()=%? nUniformDim=%?\n
 Number
 Number of Points
 Number of Sides
 Number of bone effected
 Number of instances of this object and its children to be placed.
 Number of samples per pixel.
-Number of sections
 NumberOfInks
 Nw!qB
 NwJ\rH
@@ -26725,6 +26708,7 @@ Option C
 Option Display Name
 Option Labels
 Option Value Name
+Option Weights
 Option_t
 Optional ID
 Optional bone to use as the root transform.
@@ -26754,6 +26738,8 @@ Orientation Warp failed since there is not enough time left to warp or we're pas
 Orientation warp failed since there wasnt a valid target direction set!
 Orientation warp will never rotate angle larger than this even if it means not passing through the preferred rotation direction
 OrientationWarpNodeInstanceData_t
+OrientationWarpRootMotionSource_t
+OrientationWarpTargetOffsetMode_t
 Origin
 Original
 Original Bone Name
@@ -26870,12 +26856,13 @@ P-224
 P-256
 P-384
 P-521
-P08@J`
-P08Jp^:
-P08N|
+P08@JP"9
+P08J`a:
 P1\t98"
-P2@D
+P2P"9
 P5[1
+P6pn
+P:P"9
 PAGN_4
 PANEL
 PANEL_ATTRIBUTE
@@ -27148,7 +27135,6 @@ PM_TYPE_INVALID
 PM_TYPE_NAMED_VALUE_EHANDLE
 PM_TYPE_NAMED_VALUE_MODEL
 POINT
-POINTER
 POLICYINFO
 POLICYQUALINFO
 POLICY_CONSTRAINTS
@@ -27436,7 +27422,6 @@ PerVertexLighting
 PerVertexLighting$0
 PerViewConstantBufferVR_t
 PerViewConstantBuffer_t
-PercentComplete0To1
 Percentage Through State
 Percentage Through Sync Event
 PercentageThroughState
@@ -27448,6 +27433,7 @@ Perform a trace in a direction from a specified origin and stop when a surface i
 Perlin
 PermEntityLumpData_t
 PermModelDataAnimatedMaterialAttribute_t
+PermModelData_t
 PermModelExtPart_t
 PermModelInfo_t
 PermModelInfo_t::FlagEnum
@@ -27534,7 +27520,6 @@ Pick the source animation file
 Pick the source file
 Pick the source geo cache file
 Pick the source hair file
-Pick the source mesh
 Pick the source mesh file
 Pick the source proxy mesh
 Pick the target body:
@@ -27553,7 +27538,6 @@ Pivot Paint Trunk.
 PivotPaint
 PivotToolSnapToBBox
 PixarLog
-Pj@D
 Place In Radius
 Place Multiple
 Place On Attachment
@@ -27585,7 +27569,7 @@ Play All Instances In Sync
 Play In Reverse
 Play Scene
 Play Scripted Sequence on NPC
-Play Sequence on NPC
+Play Sequence on NPC/Prop Dynamic
 Play Subscene
 Play VCD
 Play on Client
@@ -27601,7 +27585,7 @@ Playback:m_flForcedCycle
 Player Input Motor
 PlayerInputAnimMotorInstance
 PlayerInputMotorInstanceData_t
-Plays a Sequence on an actor and calls each of the trigger outflows when a corresponding anim event is fired.
+Plays a Sequence on an actor/prop_dynamic and calls each of the trigger outflows when a corresponding anim event is fired.
 Plays a VCD and calls each of the trigger outflows when the corresponding trigger event fires.
 Plays a selected vsnd on playback.
 Plays a single channel of silence.
@@ -27609,8 +27593,6 @@ Plays sound with envelope.
 Please add a mesh enclosing the player navigable space with toolslightmapres.vmat applied to it.\n
 Please make sure you deleted history on the mesh before exporting.\nThe mesh apparently has %d vertices, but %d blendWeights in field %s, while having %d weights per vertex\n
 Please move your current gameinfo.gi agent settings to a %s file and create a %s file with a 'default' entry containing all the nav nulls. Then add "NavHullsPreset" "default" to your gameinfo.gi file. For now we'll continue to load the agent settings but this path is deprecated ( antonioc@ ).
-Please override CKubeJobsProcess::FormatLocalTask!
-Please override KubeJobs::CClientProcess::FormatRemoteTask!
 Please specify parent for the cluster
 Pm8A?
 PmR"H?
@@ -27740,7 +27722,6 @@ Premature EOL
 Premature end-of-file encountered.
 Premature end-of-partition0 encountered.
 Prepare
-Preprocessing %i shared meshes for charting 
 Preprocessing Lights 
 PreserveCoverage
 Preset File
@@ -27804,6 +27785,7 @@ Proc-Type: 4,
 Procedural
 Procedural Hit Reactions
 Procedural Hit Reacts
+Procedural Only
 Procedural Settings
 Process32First
 Process32Next
@@ -28176,8 +28158,9 @@ RSA_verify_PKCS1_PSS
 RSA_verify_PKCS1_PSS_mgf1
 RSDS
 RT60 for low, mid, and high frequency bands for the probe.
-R\fpt
 R\r1>Vp
+R\vp0
+R\vpdO
 R]Di
 R_T5Y
 Radial Basis Function Type
@@ -28283,6 +28266,7 @@ Reference to file which contains one or meshes to be used a physics mesh.
 Reference to list of vsnd files or other containers.
 Reference to missing animation %s
 ReferenceBlackWhite
+Referenced Graph
 Regenerate curve on compile
 Register Test Checkpoint
 RegisterEventSourceW
@@ -28612,13 +28596,13 @@ Root Height Damping
 Root Motion
 Root Motion Blend
 Root Motion Override
+Root Motion Source
 Root Motion Speed
 Root Motion Turn Speed
 Root Motion Velocity
 Root Motion Velocity Vector
 Root Motion Weight
 Root Offset
-Root motion will be added using the damping configuration below if there is no root motion in the input animation left
 Root node must be named 'root', found '%s'.
 Root of a smart prop, contains a list of elements to evaluate.
 Root offset vector will be added to the position of all root bones
@@ -28674,8 +28658,6 @@ Rule
 Rule '%s' using inlined criteria, which are no longer supported
 Rule Condition
 Run Targeted Stack
-Run VRAD3 
-RunKubeJob: %s|%s|%s
 Runtime is referencing editor-only config '%s'
 RxT\f0<1
 Rxy3
@@ -28695,6 +28677,7 @@ S2zw
 S8#w
 S<Fb
 S<hN-AO
+SAXPY2
 SA_HRTFINTEROP_BILINEAR
 SA_HRTFINTEROP_NEAREST
 SA_OCCLUSIONMODE_FREQDEPENDENT
@@ -29023,6 +29006,7 @@ ScaleGrid0
 ScaleGrid10
 ScaleGrid1024
 ScaleGridDot
+ScaleMatrix
 ScaleMode_t
 ScaleMotion
 ScaleSet
@@ -29079,7 +29063,9 @@ SearchBothStateAndAnimEvents
 SearchOnlyAnimEvents
 SearchOnlyStateEvents
 Second
+Second Curve
 Second Point
+Second Sound
 Second Value
 Secondary Aim At
 Secondary Aim Origin
@@ -29336,6 +29322,7 @@ Shapes
 Shapes controlled by this incremental control
 Shapes suppressed when this shape is active
 Shared Environment
+SharedMovementGait_t
 Sharpen
 Sharpen%d
 Sharpen1
@@ -29588,7 +29575,6 @@ SmartPropReferences
 SmartPropSpace_t
 SmartPropVariableValueEditor( comparison )
 SmartPropVariableValueEditor()
-Smooth Damping Duration
 Smooth Iterations
 Smooth Normals Across UV Seams
 Smooth Rate
@@ -30228,6 +30214,7 @@ Target Move Speed
 Target Name
 Target Objects
 Target Offset
+Target Offset Mode
 Target Offset Parameter
 Target Orientation
 Target Orientation parameter is invalid!
@@ -30323,7 +30310,6 @@ TexCoord2OffsetByModelV
 TexCoord2OffsetStepSizeU
 TexCoord2OffsetStepSizeV
 TexCoord2ScaleByModelUOrigin
-TexCoord2ScaleByModelV
 TexCoord2ScaleByModelVOrigin
 TexCoordOffsetByModelU
 TexCoordOffsetByModelV
@@ -30662,6 +30648,7 @@ Too many simultaneously active particle systems!\n
 Too much
 Took %.3f seconds to create selection set for hidden nodes\n
 Took %llums to rebuild surface mesh\n
+Tool
 Tool Brushes
 Tool Material
 ToolAttributes
@@ -30828,7 +30815,6 @@ TwoBone
 TwoBoneIK does not have a valid end effector attachment.\n
 TwoBoneIK does not have a valid target attachment.\n
 TwoBoneIK node has invalid IK chain.\n
-TwoBoneIKSettings_t
 TwoBone_Translate
 Type 0=time domain, 1 = freq domain
 Type of data stored inside the probe.
@@ -30891,7 +30877,7 @@ UV Map Planar Custom
 UV Mapping
 U\8h(
 U^Pg
-UberWeld(), C:\buildworker\citadel_rel_win64\build\src\utils\resourcecompiler\mapbuilder\staticlightingprocessor.cpp:1492
+UberWeld(), C:\buildworker\citadel_rel_win64\build\src\utils\resourcecompiler\mapbuilder\staticlightingprocessor.cpp:1603
 Ugi<
 Un-inertial Rods
 UnInvalid
@@ -30912,7 +30898,6 @@ Unable to determine mod from file "%s"!\n
 Unable to find EnvMap/LPV with entity name == %s\n
 Unable to find fgd file %s!\n
 Unable to get input signature for material '%s'\n
-Unable to kubejobsw!\n
 Unable to load: "%s"\n
 Unable to load: %s. Error: %s\n
 Unable to load: %s\n
@@ -30926,7 +30911,6 @@ Unable to read resource file %s!\n
 Unable to rename bone from '%s' to '%s', %s[%s] failed to apply bone rename
 Unable to rename bone from '%s' to '%s', due to conflict with new name.
 Unable to run Vrad3.\n
-Unable to run zstd, specified path of %s
 Unable to set packing mode.
 Unable to set type unless you're creating untyped elements!\n
 Unabled to parse frame images.\n
@@ -31113,6 +31097,7 @@ Use Custom Duration
 Use Expensive Tangents
 Use Flat Color
 Use For Collision
+Use For Custom Bake
 Use For Occlusion
 Use For Pathing
 Use For Reverb
@@ -31337,11 +31322,6 @@ VPhysXJoint_t
 VPhysXJoint_t::Flags_t
 VPhysXRange_t
 VPhysics2ShapeDef_t
-VRAD3 (local) 
-VRAD3 - Failed to write scene_info.dat\n
-VRAD3 Combine
-VRAD3 Combine\n
-VRAD3 Distribute
 VRAD3-GPU 
 VRAD3_PATH
 VSInputSignature
@@ -31392,7 +31372,6 @@ Values
 Valve Make Sheet File
 Valve Map File
 Valve Material File
-Valve Path Trace Scene Info V0001
 Valve Texture Configuration File
 ValveBiped
 ValveSMMem:%s
@@ -31572,8 +31551,6 @@ Voronoi Plane Primitive
 Vortices
 Voxel volume (%i components)
 VoxelVisBlockOffset_t
-Voxelize Fog Irradiance Volume... 
-Voxelize Light Probe Volumes... 
 Vp>u
 Vrad3_Init_SearchPath
 Vsnd Container
@@ -31778,7 +31755,6 @@ With Hands
 With Value
 Wmn|CH
 Wn4'
-WorkerCommunicationData
 World
 World Collision
 World Collision Penetration
@@ -32003,7 +31979,6 @@ XWY]
 XYD%
 XYZ, Luv
 X\tQo
-X`hr@D
 Xd3h
 XfJ7
 XjfR
@@ -32077,6 +32052,7 @@ ZIPVSetField
 ZL9L
 ZLIB
 ZLONG
+ZP"9
 ZSz@
 ZXF,`i
 Z\tV_sinhf
@@ -32117,7 +32093,6 @@ Z~wl
 [Default] General information
 [ERR] Not enough memory, shop for some more RAM. See you!\n
 [ERR] index type too small for provided number of points!\n
-[EXPERIMENTAL] The amount of time it will take for the warp to happen. If non zero Damping configuration is completely ignored.
 [FAIL]
 [HEX DUMP]:
 [HTiW
@@ -32154,7 +32129,6 @@ Z~wl
 \W%08lX
 \Y|W2
 \\MVT
-\bin\
 \f%\f/\f1\fA\f[\f_\fa\fm\fs\fw\f
 \f7ig
 \f<<0A1pq
@@ -32190,13 +32164,13 @@ Z~wl
 \n*** A feature alias in %s doesn't start with "F_"! Aborting shader compile!\n\n
 \n*** A feature in %s doesn't start with "F_"! Aborting shader compile!\n\n
 \n*** A static combo in %s doesn't start with "S_"! Aborting shader compile!\n\n
-\n*** CVfx::ParseCombosAndRulesFromFileHelper(6253): Error opening file "%s"!\n\n
-\n*** CVfx::ParseDescriptionFromFile(6149): Error opening file "%s"!\n\n
-\n*** CVfx::ParseDevBoolFromFile(6076): Error opening file "%s"!\n\n
-\n*** CVfx::ParseFeaturesFromFile(5763): Error opening file "%s"!\n\n
-\n*** CVfx::ParseIncludeFiles(5722): Error opening include file in features list"%s"!\n\n
-\n*** CVfx::ParseModesFromFile(5572): Error opening file "%s"!\n\n
-\n*** CVfx::ParseVersionFromFile(6110): Error opening file "%s"!\n\n
+\n*** CVfx::ParseCombosAndRulesFromFileHelper(6298): Error opening file "%s"!\n\n
+\n*** CVfx::ParseDescriptionFromFile(6194): Error opening file "%s"!\n\n
+\n*** CVfx::ParseDevBoolFromFile(6121): Error opening file "%s"!\n\n
+\n*** CVfx::ParseFeaturesFromFile(5808): Error opening file "%s"!\n\n
+\n*** CVfx::ParseIncludeFiles(5767): Error opening include file in features list"%s"!\n\n
+\n*** CVfx::ParseModesFromFile(5617): Error opening file "%s"!\n\n
+\n*** CVfx::ParseVersionFromFile(6155): Error opening file "%s"!\n\n
 \n*** Combo "%s" in %s doesn't match a known combo source!\n\n
 \n*** Combo "%s" in %s either does not follow the 0..N format, is not a valid dynamic combo name, or doesn't match an existing feature or mode argument!\n\n
 \n*** Combo "%s" in %s has arg %s that doesn't match an existing feature!\n\n
@@ -32257,7 +32231,6 @@ Z~wl
 \n// Lightmap Block %d:\n
 \n// Lightmap Combine:\n
 \n// Lightmap Init:\n
-\n0e8
 \n5a=Z
 \n:82H
 \nBake Lighting\n
@@ -32271,24 +32244,21 @@ Z~wl
 \nVCS file version is %d instead of %d for %s\n
 \nWrite %s Failed!\n
 \n[ERR] Not enough memory, shop for some more RAM. See you!\n
-\n\fae9
 \n\n ******   LIGHTMAP PACKER ERROR   ******* \n\n Failed to pack charts - please specify a higher resolution lightmap \n\n ******   LIGHTMAP PACKER ERROR   ******* \n\n
 \n\n... Building '%s'\n
 \n\nIf not bad formatting, could be because comments stripping is off, and a comment had a single quote.\n
-\n\nKubeJobs command: %s\n\n
 \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
 \n\tIPSec/IKE/Oakley curve #3 over a 155 bit binary field.\n\tNot suitable for ECDSA.\n\tQuestionable extension field!
 \n\tIPSec/IKE/Oakley curve #4 over a 185 bit binary field.\n\tNot suitable for ECDSA.\n\tQuestionable extension field!
 \ndummyfilename.tif
 \ng default\n
+\npTB
 \nqYu
 \ntM(ie-V
 \panorama\
 \r!\r+\r-\r=\r?\rO\rU\ri\ry\r
 \r@h!Aq8
 \rB6uZ
-\rFloat Bitmap Failure
-\rFoot Cycle Override toe lift frame is less than zero
 \rKT8v
 \rLAM
 \rMinghuaQu\f
@@ -32510,7 +32480,6 @@ _inLoopDelta
 _include
 _info
 _jPo
-_kubejobs
 _left
 _legacy
 _light
@@ -32556,9 +32525,9 @@ _xU`u
 _zero
 _}eOk
 `28)fk
+`2P"9
 `3?New@Array@v8@@SA?AV?$Local@VArray@v8@@@2@PEAVIsolate@2@H@Z
-`60i
-`6pu
+`6Px
 `:zQF
 `D$daM-l
 `DZG
@@ -32568,6 +32537,7 @@ _}eOk
 `VX:H
 `fPw.\vM
 `h9T~
+`htp
 `o_je
 `yNT
 a null shared library handle was used
@@ -32584,7 +32554,6 @@ a;Tg
 a?76
 a@XZ
 aA0k
-aBv|
 aD/x
 aDSS
 aECDH
@@ -32738,7 +32707,6 @@ align_tx
 align_ty
 align_tz
 allMips
-all_combine:\n
 allow_direct_return
 allow_facet_lookup
 allow_flex_length
@@ -33110,8 +33078,8 @@ a|gj(
 a|w9i
 b <= sizeof ctx->buf
 b <= sizeof ctx->final
+b h8
 b0M%
-b0e8
 b2i_PVK_bio
 b5o-
 b=G3
@@ -33121,6 +33089,7 @@ bB"`3
 bCompileVariation
 bFailOnCancel
 bFired
+bIsAngle
 bIsEndState
 bIsFinished
 bIsInputToGraph
@@ -33155,9 +33124,9 @@ b\fzUkm
 b\tV_sscanf_s
 b]jY
 b_action_restart
+b_movement_code_driven
 b_movement_type_restart
 b_override_timing
-b`b3
 backFacingAngle
 back_solve_influence_threshold
 back_solve_joints
@@ -33500,8 +33469,6 @@ bspline
 bt1+
 bu\N
 buffer
-build matrix
-build-note: |\n  %s (%s)\n  %s\n
 build_backfaces
 build_sides
 buildingName
@@ -33905,7 +33872,6 @@ combo
 command not supported
 command takes input
 command takes no input
-commandLine
 comment
 commentary
 common libcrypto routines
@@ -34192,7 +34158,6 @@ const char *__cdecl Reflection::Internal::GetFuncName<class CAnimGraphSettingsGr
 const char *__cdecl Reflection::Internal::GetFuncName<class CAnimInputDamping>(void)
 const char *__cdecl Reflection::Internal::GetFuncName<class CAnimMotorInstance*>(void)
 const char *__cdecl Reflection::Internal::GetFuncName<class CAnimMotorInstance>(void)
-const char *__cdecl Reflection::Internal::GetFuncName<class CAnimNodeInstanceBase>(void)
 const char *__cdecl Reflection::Internal::GetFuncName<class CAnimParameterBase*>(void)
 const char *__cdecl Reflection::Internal::GetFuncName<class CAnimParameterBase>(void)
 const char *__cdecl Reflection::Internal::GetFuncName<class CAnimParameterConflict>(void)
@@ -34568,6 +34533,7 @@ coordinates
 coordinates out of range
 copositional_vertices
 copy
+copy_child_payload_to_own_subkey
 core.null
 corner%d
 corner%d_to_camera
@@ -34745,7 +34711,6 @@ d2i_TS_RESP
 d2i_X509_PKEY
 d35P
 d4\tp
-d:\temp\lighttree.gl
 d=%-2d hl=%ld l=%4ld 
 d=%-2d hl=%ld l=inf  
 dAN"
@@ -34801,7 +34766,6 @@ debugLightmapSets
 debug_chart_color
 debug_malloc
 debug_malloc2
-debug_path_trace_scene_info.dat
 debugvisgeo
 decal
 decalDepth
@@ -34899,7 +34863,6 @@ descriptions
 deselect_edges
 deselect_faces
 deselect_vertices
-dest soa
 dest_mesh
 destinationIndicator
 destinationType
@@ -34983,6 +34946,7 @@ disableShadows2
 disable_compression
 disable_dxt_padding
 disable_morph
+disable_requirements
 disable_update_during_drag
 disabled for fips
 disabledInLowQuality
@@ -35024,7 +34988,6 @@ distancetotarget
 distinguishedName
 distpoint
 distpoint already set
-disttotri
 div by zero
 dlBNvz!/u{1?cmR^
 dmdName
@@ -35044,8 +35007,6 @@ do_no_cast_shadows
 do_not_discard
 do_not_modify_existing
 doapr()
-docker-image: %s\n
-docker.valve.org/kubejobs/worker-base:1
 document
 documentAuthor
 documentIdentifier
@@ -35060,7 +35021,6 @@ domainComponent
 domainRelatedObject
 domain_entity_class_hint
 dominators
-don@valvesoftware.com
 donotcollapse
 dot2
 dot3
@@ -35141,6 +35101,7 @@ dumptris
 duplicate compression id
 duplicate node name: %s is both a bone and cloth node
 duplicate zone id
+duplicating mesh when using prop instancing
 durationTime
 duration_info
 dvcs
@@ -35153,6 +35114,10 @@ dynamicparams
 dynlock
 e+3E
 e>Cu
+eAnimationMovementHeading
+eAnimationMovementHeadingAtEnd
+eAnimationOnly
+eAnimationOrProcedural
 eBeL
 eC z
 eContent
@@ -35162,12 +35127,15 @@ eFast
 eFrameSelection
 eGenerateResourceNameFromFileName: Invalid extension specified in file name "%s"!\n
 eInvalid
+eLiteralValue
 eMedium
 eMoveWithGait
 eMovement
 eN.d\tA
 eNULL
 eODj
+eParameter
+eProceduralOnly
 eSlow
 eTU\n
 eTask
@@ -35247,7 +35215,6 @@ ecdsa-with-SHA384
 ecdsa-with-SHA512
 ecdsa-with-Specified
 ecgroup too large for cipher
-echo %s
 econitems
 ecp_nistz256_get_affine
 ecp_nistz256_mult_precompute
@@ -35255,7 +35222,6 @@ ecp_nistz256_points_mul
 ecp_nistz256_pre_comp_new
 ecp_nistz256_set_words
 ecp_nistz256_windowed_mul
-eddie@valvesoftware.com
 edge0
 edge1
 edge2
@@ -35323,7 +35289,6 @@ email:%s
 emailAddress
 emailCA
 emailProtection
-emails-on-failure:\n
 embeddedTarget
 embedded_animation
 embedded_distancefield
@@ -35438,7 +35403,6 @@ envelope_inches
 enveloped-data
 environmentmapped
 environmentmappeddynamic
-ephemeral-storage
 eq.high
 eq.low
 eq.mid
@@ -35627,6 +35591,8 @@ fSpeedScale
 fUnh\
 f\fn\nr\rt\tv\v\\''""||
 f\trixZ
+f_movement_current_speed
+f_movement_target_speed
 faceData
 faceDataIndices
 faceEdgeIndices
@@ -35734,11 +35700,6 @@ firetrigger
 first num too large
 first octet invalid
 fiv.exr
-fiv_compute:\n
-fiv_finish:\n
-fiv_indirect_%d_%d_%d.dat
-fiv_init:\n
-fiv_voxels.dat
 fixedValue
 fixed_blend
 fixed_blend_val
@@ -35758,6 +35719,7 @@ flAnticipationTime
 flAxialModelDist
 flAxialModelWeights
 flBias
+flBias=%?\n
 flBounciness
 flCurvature
 flCurvatureRadius
@@ -35789,7 +35751,6 @@ flNodeWeight0
 flPointDamping
 flRadius
 flRelaxationFactor
-flResidualDotResidual=%?\n
 flSearchRadius
 flSlack
 flSpringConstant
@@ -35817,6 +35778,11 @@ flat
 flat_color
 flatten log %p lc[%d]
 flattenPropsWithBakedLighting
+flc_columns
+flc_count
+flc_file_ids
+flc_file_list
+flc_lines
 flexMax
 flexMin
 flexNoSplit
@@ -35913,6 +35879,7 @@ forward_color
 fpnS
 frac
 fraction
+frags%d.png
 frame %s{r=0},%s{g=a},%s{b=0},%s{a=a} %s
 frameEnd
 frameIncrement
@@ -36148,8 +36115,6 @@ game:tools/images/pulse_editor/port_visibility_hidden.png
 game:tools/images/pulse_editor/port_visibility_visible.png
 game:tools/images/vmixtool/dsp_sum.png
 gameSoundName
-gameUnitModel
-gamefile
 gameitemclass
 gamepath
 gameplay_identifier
@@ -36411,6 +36376,7 @@ hexkey
 hhwi
 hiddenFlags
 hiddenGroups
+hidden_in_tool
 hidden_in_tools
 hideType
 hideValue
@@ -36461,7 +36427,7 @@ horizontal differencing
 horizontal_pose_param_name
 houdini
 houseIdentifier
-hpz`
+hpzP"9
 hr_H
 hsequence
 http request
@@ -36911,7 +36877,6 @@ inherit_owner_name
 inhibitAnyPolicy
 inhibitPolicyMapping
 init bounds
-init deep zbuffers
 init failed
 initialMass
 initial_filter_string
@@ -36925,7 +36890,6 @@ innerconeangle
 input
 input not initialized
 input not reduced
-input-paths :\n
 inputMax
 inputMin
 inputName
@@ -36936,6 +36900,7 @@ inputValue0
 inputValue1
 input_axis
 input_deps
+input_output_cpp
 input_stream_name
 inputs
 insert
@@ -37118,6 +37083,7 @@ is_default_inflow
 is_default_outflow
 is_essential_piece
 is_game_event
+is_gamefile
 is_general
 is_global
 is_length_explicit
@@ -37176,6 +37142,7 @@ jHLy
 jLTKTz
 jNXcA
 jOJw"
+jP"9
 jTuf
 jV*d9O
 j[6Z
@@ -37192,7 +37159,6 @@ jitteriterations
 jitterscale
 jitterscale_vector
 jklmnopqrstuvwxyzyxwvutsrqponmlkj
-job_name
 joint-iso-itu-t
 jointCount
 jointIndices
@@ -37450,11 +37416,9 @@ lighting_only_tint_color
 lightingorigin
 lightmap
 lightmap.exr
-lightmapCPU
 lightmapChartPackIterations
 lightmapCompressionDisabled
 lightmapDisableFiltering
-lightmapLocalCompile
 lightmapMaxResolution
 lightmapMipCount
 lightmapNoWeld
@@ -37463,9 +37427,7 @@ lightmapTextureArg
 lightmapVRadQuality
 lightmap_chart_color.exr
 lightmap_info.dat
-lightmap_info.dat.zst
 lightmap_packing_geometry.dat
-lightmap_packing_geometry.dat.zst
 lightmap_queries
 lightmap_query_data.kv3
 lightmapres
@@ -37485,7 +37447,6 @@ limit_to_world
 limiterAttackMS
 limiterLookaheadMS
 limiterReleaseMS
-limits
 limits_enabled
 line
 lineOrder
@@ -37497,16 +37458,8 @@ linear_freqeuncy
 linear_frequency
 linear_interp
 lineartogamma
-linuxsteamrt64/libSDL3.so.0
-linuxsteamrt64/libfilesystem_stdio.so
-linuxsteamrt64/libsteam_api.so
-linuxsteamrt64/libtier0.so
-linuxsteamrt64/vrad3
-linuxsteamrt64/vrad3_copy_to_worker.sh
 list cannot be null
 list error
-lm_combine:\n
-lm_compute:\n
 loadAtRuntime
 loadIfNested
 loadMipLevels
@@ -37515,7 +37468,6 @@ loading cert dir
 loading defaults
 loading took %.3f msec\n
 loading_screen
-local-output-dir : results\n
 localKeyID
 local_attach_point_offset
 local_attachment_offset_name
@@ -37575,14 +37527,9 @@ lower_hemisphere_is_black
 lowprecisionuv
 lowprecisionuv1
 lpv_%d_ambientcube.exr
-lpv_%d_direct_%d_%d_%d.dat
 lpv_%d_dlshd.exr
-lpv_%d_indirect_%d_%d_%d.dat
 lpv_atlas_ambientcube.exr
 lpv_atlas_dlshd.exr
-lpv_combine:\n
-lpv_compute:\n
-lpv_init_%d:\n
 luminaire_anisotropy
 luminaire_shape
 luminaire_size
@@ -37944,6 +37891,7 @@ m_NamedConfigs
 m_NamedValue
 m_NamedValueDomain
 m_NamedValueLocals
+m_NavAreas.Count() < CNavAreaMarker::MAX_NUM_NAV_AREAS
 m_NestedElements
 m_No
 m_NodeBases
@@ -38234,11 +38182,9 @@ m_b2D_TRI
 m_bAcceptParentMaterialDrivenDecals
 m_bActive
 m_bAddBoneToRenderMesh
-m_bAddRootMotionIfNeeded
 m_bAgentEnabled
 m_bAlignOrientation
 m_bAlignOrientation == false
-m_bAlignRootMotionWithMoveDirection
 m_bAllZeros
 m_bAllocated
 m_bAllowAtEnd
@@ -38359,6 +38305,7 @@ m_bEnableLinearLimit
 m_bEnableLinearMotor
 m_bEnableLockBreaking
 m_bEnablePerspectiveCorrection
+m_bEnablePhaseMatching
 m_bEnablePreferredRotationDirection
 m_bEnableRootHeightDamping
 m_bEnableRotationCorrection
@@ -38443,6 +38390,7 @@ m_bInterruptThenResume
 m_bInverse
 m_bInverted
 m_bIsAdditive
+m_bIsAngle
 m_bIsAttachableProp
 m_bIsAttachment
 m_bIsBoneID
@@ -38808,7 +38756,6 @@ m_capsules
 m_centroidVectors
 m_channelName
 m_child
-m_childGraphSlots
 m_childLumps
 m_choiceChangeMethod
 m_choiceMethod
@@ -38844,6 +38791,7 @@ m_colMoveChildArrow
 m_colNumber
 m_colOther
 m_colParentAssets
+m_colParentAssetsBroken
 m_colRecentExecEndColor
 m_colRecentExecRequirementFailEndColor
 m_colRecentExecRequirementFailStartColor
@@ -38902,6 +38850,8 @@ m_currentSequenceIndex
 m_currentStateStartTime
 m_currentTransitionIndex
 m_curve
+m_curve1
+m_curve2
 m_curvePointsB
 m_curvePointsG
 m_curvePointsR
@@ -38965,15 +38915,16 @@ m_eConflictType
 m_eCorrectionMethod
 m_eFrameSelection
 m_eLinearRootMotionMode
-m_eMovementGait
 m_eParamType
 m_ePreferredRotationDirection
 m_eRbfType
+m_eRootMotionSource
 m_eScriptType
 m_eSimSpace
 m_eSource
 m_eTagBehavior
 m_eTarget
+m_eTargetOffsetMode
 m_eTimingSource
 m_eType
 m_easeTime
@@ -39020,6 +38971,7 @@ m_externalMethodTargetGraph
 m_extraBufferBinding
 m_extraVertexStreamOverrides
 m_extraVertexStreams
+m_fAnalysisWindowMs
 m_fDefaultValue
 m_fDuration
 m_fFalloff
@@ -39035,6 +38987,7 @@ m_fSwitchDistances
 m_facingDamping
 m_facingTarget
 m_facingTargetParam
+m_fallbackChild
 m_feedbackFilter
 m_feet
 m_fetch
@@ -39472,6 +39425,7 @@ m_flParticleSimulationRate
 m_flPathingDistanceRatio
 m_flPathingMixLevel
 m_flPhase
+m_flPhaseMatchingMaxRootMotionSkip
 m_flPitchBounce
 m_flPitchDamping
 m_flPitchFriction
@@ -39565,8 +39519,6 @@ m_flSkyboxBloomStrength
 m_flSlopeIncoming
 m_flSlopeOutgoing
 m_flSlowDownStrength
-m_flSmoothDampingDuration
-m_flSmoothDampingSpeed
 m_flSnappingIncrement
 m_flSpacing
 m_flSpacingLength
@@ -40084,7 +40036,6 @@ m_nChannels
 m_nChartPackIterations
 m_nChild
 m_nChildCursors
-m_nChildGraphIdx
 m_nChildNodeIdx
 m_nChildren
 m_nChoice
@@ -40168,6 +40119,7 @@ m_nExtraIterations
 m_nExtraPressureIterations
 m_nFace
 m_nFacingMode
+m_nFallbackNodeIdx
 m_nFalseValueNodeIdx
 m_nFieldDataStates
 m_nFileCRC
@@ -40395,6 +40347,7 @@ m_nRedCyanBalH
 m_nRedCyanBalM
 m_nRedCyanBalS
 m_nRefCounter
+m_nReferencedGraphIdx
 m_nReg
 m_nReg0
 m_nReg1
@@ -40562,6 +40515,7 @@ m_operator
 m_option
 m_optionLabels
 m_optionNodeIndices
+m_optionWeights
 m_optionalID
 m_options
 m_orientationHandle
@@ -40755,6 +40709,7 @@ m_refPhysGroupMasks
 m_refPhysicsData
 m_refPhysicsHitboxData
 m_refSequenceGroups
+m_referencedGraphSlots
 m_referencedParamGroups
 m_referencedTagGroups
 m_reflectivity
@@ -40804,6 +40759,7 @@ m_sConflictDesc
 m_sDebugName
 m_sEventName
 m_sHitGroupName
+m_sId
 m_sLabel
 m_sLastSequenceName
 m_sLegacyOptions
@@ -41335,6 +41291,7 @@ mapkeys
 mapkeys_is_suggestion
 maps/error.vmap
 maps\
+maps\%s.nav
 mapsequences
 margin
 markupAttributes
@@ -41571,7 +41528,6 @@ minmipsize
 minroughness
 mins
 minsize=
-minval=%g maxvalue=%g
 minvalue
 mipLevels
 mip_algorithm
@@ -41849,6 +41805,7 @@ nVirtElem
 nWeight
 nWhichOutflowA
 nWhichOutflowB
+nX=%? nY=%?\n
 nYieldArg1
 n\r2S
 n\tV_strtok
@@ -41902,8 +41859,6 @@ networkFacing
 networkMode
 networkpath
 neutral_creeps
-new gen soa=
-new soa=
 newLine
 new_bone_name
 new_name
@@ -41914,6 +41869,7 @@ newer crl not newer
 nextDecalID
 nextUpdate
 nextupdate before thisupdate
+nfrags%d.png
 nhsR
 niceFiltered
 niv <= EVP_MAX_IV_LENGTH
@@ -42067,7 +42023,6 @@ nolod
 nombstr
 nomerge
 nomip
-non cubical voxel size = %g in GenerateDistanceFieldFromTrianglesWithVoting
 non fips dsa method
 non fips method
 non fips rsa method
@@ -42092,7 +42047,6 @@ normal_3d
 normal_map
 normal_modulate_factor
 normalize
-normalize gradients
 normalize to target level %.2f LUFS (%.2f scale)\n
 normalize_safe
 normals
@@ -42170,7 +42124,6 @@ num_particles
 num_points
 num_refs
 num_samples
-num_sections
 num_tracks
 num_values
 number=%d, address=%08lX\n
@@ -42296,7 +42249,6 @@ orientationY
 orientationZ
 orientation_shift_priority
 orientation_type
-orig soa=
 orig_len >= md_size
 origin  {   "x" "%f"  "y" "%f"  "z" "%f" }
 origin_key
@@ -42376,10 +42328,8 @@ p.other
 p.ppBasis
 p.prime
 p.tpBasis
-p08@H^|
-p0j@N:
-p2@D
-p2`b3
+p0j0Q:
+p2P"9
 p2{l
 p4Z3
 p4client
@@ -42387,15 +42337,15 @@ p4lib
 p4port
 p5Z3
 p5\nL,
+p6 u
 p618
-p6@r
 p@0pqE5tsO?|1
 pAsyncRet2
 pCheckpointName
 pD4t
 pDescription
 pEvent != nullptr
-pFP]
+pF0`
 pG_*h
 pIp 
 pNode->eType == EStyleNodeType::STYLE_SELECTOR
@@ -42540,7 +42490,6 @@ pattern
 payload + padding <= 16381
 payload_path_marker
 payment gateway capabilities
-pb@D
 pbeWithMD2AndDES-CBC
 pbeWithMD2AndRC2-CBC
 pbeWithMD5AndCast5CBC
@@ -42554,7 +42503,7 @@ pbeWithSHA1And40BitRC2-CBC
 pbeWithSHA1And40BitRC4
 pbeWithSHA1AndDES-CBC
 pbeWithSHA1AndRC2-CBC
-pc64 Nov 13 2024 16:25:18
+pc64 Nov 21 2024 15:12:45
 pcPathLengthConstraint
 peak_attr
 peak_cycle
@@ -42583,7 +42532,6 @@ personalSignature
 personalTitle
 perspectivecorrection
 pervertexlighting
-peted@valvesoftware.com
 pfmscale
 phonememap
 photo
@@ -42601,6 +42549,7 @@ physicsInteractsWith
 physicsSimplificationError
 physicsSimplificationOverride
 physicsType
+physics_only_model
 physics_pool_hint
 physicsbuilder
 physicsjoint_conical
@@ -42769,7 +42718,6 @@ postfix_lines
 postion_lock_to_controlpoint
 postocclusionquery
 postprocessing
-postsweep=
 posture
 posture_nohands
 posxyz
@@ -42824,7 +42772,6 @@ preset
 presetGroups
 presetRemap
 presets
-presweep=
 preview_animation_priority
 preview_as_rope
 preview_end_index
@@ -42867,7 +42814,6 @@ problems getting password
 problems mapping cipher functions
 procedural
 process
-processing
 processor
 processor.setimpulseresponse
 processor.setnameinput
@@ -42943,6 +42889,7 @@ public_key
 pulse_domain
 pulse_domain_value_entity_names
 pulse_editor
+pulse_editor_map_entities
 pulse_feature_tag
 pulse_graph_domain
 pulse_inflows
@@ -43012,10 +42959,8 @@ rRfKR
 rX&O0
 rZ1VwGf5
 rZPM
-r\fpx
 r\tV_tand
 r\vDi
-r\vpt
 r_freezeparticles
 r_limit_particle_job_duration
 r_particle_max_detail_level
@@ -43045,8 +42990,6 @@ randomSeed
 random_spawn_chance
 randomizable
 range
-rasterize deep zbuffers
-rasterize took %? secs
 rate_max
 rate_min
 rawControlNames
@@ -43091,6 +43034,7 @@ record length mismatch
 record too large
 record too small
 recordingstate
+recurse
 recursive
 reduction
 refOrientation
@@ -43125,7 +43069,6 @@ remap_to_min
 remapping vertex %d[w%d] invalid: %d->%d >= %d
 remapping vertex %d[w%d] invalid: %d->? >= %d
 remaps
-remote-working-dir : /tmp/\n
 removable
 removeDC
 removeFromCRL
@@ -43181,7 +43124,6 @@ request not signed
 requestExtensions
 requestList
 requestorName
-requests
 requireExplicitPolicy
 required cipher missing
 required compresssion algorithm missing
@@ -43211,6 +43153,7 @@ resourcecompiler: Encountered empty file in manifest "%s"\n
 resourcecompiler: Encountered error reading mesh data "%s"!\n
 resourcecompiler: Error serializing compiled file "%s"\n
 resourcecompiler: Error serializing compiled file for "%s"\n
+resourcecompiler: Failed to LoadKV3 "%s": %s\n
 resourcecompiler: Failed to load ClientToolsInfo for mod '%s'\n
 resourcecompiler: Failed to load ServerToolsInfo for mod '%s'\n
 resourcecompiler: Failed to load expected changelogs file "%s"\n
@@ -43261,7 +43204,6 @@ result too large
 result too small
 result_left
 result_right
-results/outputs
 retransmit:  message %d non-existant\n
 returned
 reuse cert length not zero
@@ -43381,7 +43323,6 @@ rtcSetDeviceErrorFunction
 rtcSetSharedGeometryBuffer
 rule
 run length compression
-run_vrad3
 rw4rs
 rwbuffer
 rwbyteaddressbuffer
@@ -43426,10 +43367,12 @@ sT5w!
 sV u\t
 s\tor
 s_Instance
+s_defaultPaddingAroundNodes
 s_defaultTrack
 s_defaultVariationID
 s_flExplicitCurTime
 s_minSize
+s_nVersion
 s_pfnRtlGenRandom && s_pfnRtlGenRandom( buf, num )
 saJ!
 sacustombake_threads
@@ -43491,8 +43434,6 @@ scalesettings
 scanline
 scattering
 scene
-scene_info.dat
-scene_info.dat.zst
 scene_info.kv3
 scene_meshes.dmx
 scene_ramp
@@ -43507,7 +43448,6 @@ screenWindowWidth
 screen_height_for_aspect
 screen_width_for_aspect
 script-gpu.vrad3
-script.vrad3
 script_path
 scripted_sequence
 scriptlist
@@ -43533,8 +43473,6 @@ sdf_postweep.png
 sdf_presweep.png
 sdktools/bin/tscompiler.js
 sdktools/bin/win64/typescriptcompiler/typescript.js
-sdktools\bin\kubejobsw.exe
-sdktools\bin\zstd
 sdsiCertificate
 searchGuide
 second
@@ -43802,7 +43740,6 @@ setext-miAuth
 setext-pinAny
 setext-pinSecure
 setext-track2
-setlocal\n
 settings.m_additiveType != CNmClipDocument::AdditiveType_t::None
 settingsAgentBorderErosion
 settingsAgentEnabled
@@ -44005,6 +43942,7 @@ slice
 slice_type
 slope
 slot full
+slow
 slow_pulse_nofade
 slow_strobe
 slow_strong_pulse
@@ -44057,7 +43995,6 @@ solidCollisionAtZeroWeight
 solidclass
 solidity
 soloname
-solve
 solver
 sort_priority
 soundEventScript
@@ -44273,9 +44210,7 @@ sslv3 alert unsupported certificate
 sslv3 rollback attack
 stLDp
 stack_instance_name
-stage
 staggerinterval
-staging
 standard
 standardAttributeName
 standard_speeds
@@ -44403,7 +44338,6 @@ submix.outputx2
 submix.process
 submix.spectrum
 subscene
-substage
 subtreeMaximumQuality
 subtreeMinimumQuality
 suggestion_name
@@ -44531,9 +44465,6 @@ target_value
 targetname
 targetposition
 targets
-task-timeout-seconds: %d\n
-taskId
-tasks :\n
 tbsRequest
 tbsResponseData
 td5)
@@ -44544,7 +44475,6 @@ teleportclip
 teletexTerminalIdentifier
 telexNumber
 template
-templates
 tension_compress_scale
 tension_stretch_scale
 terminates
@@ -44555,6 +44485,7 @@ terrain_elemment_graph_category
 tessellationSpacing
 test_%dx%dx%d.tga
 test_enum
+test_payload
 tetra
 tex_source1
 texcoord
@@ -45187,7 +45118,6 @@ uninertial_rods
 uninitialized
 union 
 uniqueMember
-unitType
 unitless_damping
 universalstring is wrong length
 unknown alert type
@@ -45381,6 +45311,7 @@ vSphere
 vVOnPlane1
 vW3N&
 v\v$m8
+v_movement_direction
 valid
 validGrassTile
 validity
@@ -45502,6 +45433,7 @@ verticaltolerance
 vertices
 verticesHeight
 verticesWater
+very_fast
 vfx_dx11
 vfx_vulkan
 vfxc
@@ -45568,21 +45500,15 @@ vortex_cell_size
 vortex_choppiness
 vortex_count
 vortex_max_speed_mph
-vote
-voting took %? secs
 voume_random_min_scale
 voxel_size
 voxelize
-voxellize normals
-voxels_%d.dat
 vparams
 vphzc
 vpost
 vptest
 vqw0\nU
-vrad3 %s %s -threads %d -outdir %s
 vrad3.exe -map %s -script script-gpu.vrad3 -aftermath -aftermath_full -vulkan -gpuraytracing -allthreads -unbufferedio
-vrad3.exe -map %s -script script.vrad3 -entrypoint all_combine -threads %i -indir %s
 vrad3LargeBlockSize
 vrad_brush_cast_shadows
 vrr1
@@ -45696,6 +45622,7 @@ wind_drag
 wind_speed_mph
 windage
 window
+window_ms
 wirebox
 wirebox_local
 wireframe_backfaces
@@ -45709,7 +45636,6 @@ wizard_title
 wlLYP
 wm"h
 wn)*T$4?5z
-worker-prep-command : %s\n
 world
 world.vrman
 world.vwrld
@@ -45831,8 +45757,8 @@ z>Hz
 zDconst char *__cdecl Reflection::Internal::GetFuncName<class CFootPinningPoseOperation>(void)
 zF):O4
 zG2m8
+zP"9
 zRXU 
-zbuf%1d%1d%1d.png
 zero dir
 zero_unselected
 zero_value
@@ -45843,8 +45769,6 @@ zlib compression
 znear
 zone
 zstd
-zstd --threads=0 -4 lightmap_info.dat lightmap_packing_geometry.dat
-zstd compress
 zxNIjo
 zz2K
 {5`q@roz?

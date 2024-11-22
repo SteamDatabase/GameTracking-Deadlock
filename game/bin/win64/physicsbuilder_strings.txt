@@ -1,5 +1,3 @@
-   + Meshes      :: %d\n
-   + Source Node :: %s( %s )\n
   Bad Fax Lines: %lu\n
   Consecutive Bad Fax Lines: %lu\n
   Fax DCS: %s\n
@@ -17,7 +15,6 @@
  (%lu = 0x%lx)\n
  (%u = 0x%x)\n
  (deprecated)
- * MeshSet :: %s\n
  * Requested DmAttribute of value of type "%s" From DmAttribute "%s" which is type "%s"\n
  -testmode
  255
@@ -108,6 +105,8 @@ $prefix_element$
 %s :: No bone defined
 %s :: Remove Anim Channel "%s" From %s\n
 %s F=%d V=%d hE=%d
+%s allocation count overflow
+%s allocation count overflow( add %llu + current %llu > max %llu )\n
 %s channel
 %s compression support is not configured
 %s encoding %s %d format %s %d %s\n
@@ -164,6 +163,8 @@ $prefix_element$
 %s: cannot handle zero strip size
 %s: cannot handle zero tile size
 %s: invalid TIFF directory; tags are not sorted in ascending order
+%s: invalid nBeforeIndex %d\n
+%s: invalid nSize %d\n
 %s: unknown field with tag %d (0x%x) encountered
 %s: wrong data type %d for "%s"; tag ignored
 %s: zlib error: %s
@@ -218,6 +219,7 @@ $prefix_element$
 *** line error: 'rgb+a' packing cannot pack image '%s' belonging to sequences %d and %d!\n
 *** line error: incompatible packmode change when %d sequences already defined!\n
 *** line error: invalid sequence type '%s', packing 'flat' allows only 'sequence-rgba'!\n
+*?mesh_calculate_curvature_smooth_pass_count
 +Advanced Options
 +Animation
 +Branch Animation - Pivot Paint
@@ -4061,7 +4063,7 @@ $prefix_element$
 .?AV?$CMutableRefCountBase@VCRefMT@@@@
 .?AV?$CMutableRefCounted@V?$CMutableRefCountBase@VCRefMT@@@@@@
 .?AV?$COpaqueStructAttributeWrapper@VCPiecewiseCurve@@VCModelDocAnimMarkupCurveBase@@@@
-.?AV?$CParallelLambdaJob@V<lambda_1>@?1??AssignClusters@@YAXAEBV?$CUtlVector@V?$VectorND@$08@@HV?$CUtlMemory@V?$VectorND@$08@@H@@@@AEAV?$CUtlVector@HHV?$CUtlMemory@HH@@@@0AEBVCVertexKDTree@@@Z@@CParallelProcessLauncher@@
+.?AV?$CParallelLambdaJob@V<lambda_1>@?1??AssignClusters@@YAXAEBV?$CUtlVector@V?$VectorND@$08@@HV?$CUtlMemory@V?$VectorND@$08@@H@@@@AEAV?$CUtlVector@HHV?$CUtlMemory@HH@@@@0AEBV?$KDTree@V?$VectorND@$08@@@kdt@@@Z@@CParallelProcessLauncher@@
 .?AV?$CParallelProcessorAbstract@V?$CParallelProcessor@UBentNormalComputationJob_t@@V?$CFuncJobItemProcessor@UBentNormalComputationJob_t@@@@$00@@@@
 .?AV?$CParallelProcessorAbstract@V?$CParallelProcessor@UCavityMapComputationJob_t@@V?$CFuncJobItemProcessor@UCavityMapComputationJob_t@@@@$00@@@@
 .?AV?$CParallelProcessorAbstract@V?$CParallelProcessor@UPointOcclusionMapComputationJob_t@@V?$CFuncJobItemProcessor@UPointOcclusionMapComputationJob_t@@@@$00@@@@
@@ -6166,7 +6168,6 @@ $prefix_element$
 // \t\t\t\t\t\t"BA_INT_DANGER"\t\tbreak out of this anim only if threatened\n
 // \t\t\t\t\t\t"BA_INT_NONE"\t\tbreak out only when time runs out. No external influence will break me out.\n
 // \t\t\t\t\t\t"BA_INT_PLAYER"\t\tbreak out of this anim if I can see the player, or I'm threatened\n
-0tUU
 0x%llx
 16-byte data pool
 1D Blend Has No Referenced Animations
@@ -6179,8 +6180,6 @@ $prefix_element$
 2DBlend
 2DBlendEditor
 2DBlendFromAnimation
-2\vpL
-2\vpp
 2_BONE_IK
 4-byte data pool
 5;FJ$,XEK4<
@@ -6198,7 +6197,6 @@ $prefix_element$
 ; tris:
 ;sfm_v2
 <!-- DMXVersion
-<FeetSettings
 <INVALID_RBF_TYPE>
 <NONE>
 <\tV_log2f
@@ -6220,7 +6218,7 @@ $prefix_element$
 @%s_lookFrame_1
 @%s_lookFrame_2
 @Integer overflow in %s
-@m_vNormal
+@m_vCenter
 @unnamed_%d
 A box shape which cloth collides with.
 A capsule shape which cloth collides with.
@@ -6485,7 +6483,7 @@ Assign a material to faces.
 Assign a secondary vertex data channel with each vertex element origin assigned per vertex.
 Assign color values to face vertices.
 Assign to All Faces
-AssignClusters(), C:\buildworker\citadel_rel_win64\build\src\modeldoc_lib\modeldoc_groommeshfile.cpp:509
+AssignClusters(), C:\buildworker\citadel_rel_win64\build\src\modeldoc_lib\modeldoc_groommeshfile.cpp:513
 Assigns a color value to a material attribute over a frame range.
 Assigns a floating point value to a material attribute over a frame range.
 Assigns all vertex weights to the specified bone.
@@ -6529,7 +6527,6 @@ Average face normals after resetting them.
 Avoids normal seams on UV boundaries. Turning it off is faster and saves some GPU memory.
 B channel
 B channel not found!\n
-B v2
 B-Spline
 B5G5R5A1_UNORM
 B5G6R5_UNORM
@@ -7846,6 +7843,7 @@ FaxRecvTime
 FaxSubAddress
 FeEffectName
 Feet
+FeetSettings
 FieldOfViewCotangent
 File not found: %s
 File not open for reading
@@ -8204,6 +8202,7 @@ Internal Pressure
 Internal Render Resolution
 Internal error, unknown tag 0x%x
 InteroperabilityIFDOffset
+Invalid
 Invalid Empty Animations, Src Frame Count :: %d, Dst Frame Count :: %d
 Invalid KV3 syntax for args: %s (%s)
 Invalid Peak %.2g for Incremental Shape "%s", valid range [0.0, 1.0]
@@ -8351,7 +8350,7 @@ LipsV
 LoadEXRImageFromMemory failed! Error message: %s\n
 LoadFromInMemoryEXR( %s ) failed.\n
 LoadKV3ObjectInPlace error: %s\n
-LoadMaterialForBuilder
+LoadMaterialsForBuilder
 Local Angles
 Local Attachment Offset
 Local Drag
@@ -8654,7 +8653,6 @@ MorphStereoControl
 Motion Bias
 Motion Type
 Move the bone to the center of the current vertex selection.
-MoveSpeedId_t
 Movement Basic
 Movement Dampen Relative to Control Point
 Movement Lock to Bone
@@ -8663,7 +8661,7 @@ Movement Maintain Position Along Path
 Movement Match Particle Velocities
 Movement Max Velocity
 Movement Tolerance
-MovementGait_t
+MovementGaitId_t
 MovementSettings
 MovementSettingsEditor
 MovieSettings
@@ -8847,7 +8845,7 @@ Overrides the target VSNAP resource (defaults to "particles/models/%model_name%/
 Overwrite all bone data
 Overwrite existing flags only
 Overwriting existing wrinkle map data on mesh
-P VU
+P4Lg
 PARENT
 PF\n%d %d\n-1.000000\n
 POINT
@@ -8954,7 +8952,6 @@ Pick the source animation file
 Pick the source file
 Pick the source geo cache file
 Pick the source hair file
-Pick the source mesh
 Pick the source mesh file
 Pick the source proxy mesh
 Pick the target body:
@@ -9052,7 +9049,6 @@ Prismatic joint.
 Procedural
 PropWorldOrigin
 Proxies
-PtUU
 Push Out
 Push mesh faces outward along their local normal. Optionally build shell geometry.
 PushBack
@@ -9124,7 +9120,6 @@ R8_UNORM
 R9G9B9E5_SHAREDEXP
 ROTATION
 RSDS
-R\fpL
 R_T5Y
 Radial Basis Function Type
 Radius
@@ -9410,6 +9405,7 @@ Shape Match
 Shapes
 Shapes controlled by this incremental control
 Shapes suppressed when this shape is active
+SharedMovementGait_t
 Shear Stretch
 Should it be considered an error if this bone isn't found to rename?
 Should we straighten face island if the displacement is this much? (inches)
@@ -10048,7 +10044,6 @@ ZIPVSetField
 [%f %f %f %f]
 [%s] Forced dmxconvert - Finished [%s] in %0.2f secs. Please re-save or upconvert this asset!\n
 [choices
-\fp\v`tUU
 \nclass 
 \ndummyfilename.tif
 \ng default\n
@@ -10059,7 +10054,6 @@ ZIPVSetField
 \tV_fpclassifyd
 \tV_frexpf
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tUnsupported PSD color mode!\n
-\vptUU
 _CustomCommand
 _CustomCommand%d
 _InFrameSpine
@@ -10906,6 +10900,7 @@ falloff
 falloff_left
 falloff_right
 far_field_only
+fast
 fast_strobe
 fbx2dmx
 features
@@ -11649,7 +11644,6 @@ m_driveSpringTwist
 m_driveSpringX
 m_driveSpringY
 m_driveSpringZ
-m_eMovementGait
 m_eRbfType
 m_elasticity
 m_embeddedKeyvalues
@@ -11959,6 +11953,7 @@ m_roughnessFactor
 m_sAttachmentName
 m_sBoneName
 m_sHitGroupName
+m_sId
 m_sMorphChannelName
 m_sName
 m_sSurfaceProperty
@@ -12008,7 +12003,6 @@ m_twistLowLimitValue
 m_vAngularTargetVelocity
 m_vBallOffset
 m_vBasePosition
-m_vCenter
 m_vCentroid
 m_vConeApex
 m_vEyePosition
@@ -12025,6 +12019,7 @@ m_vMaxBounds
 m_vMidpointPositionMS
 m_vMin
 m_vMinBounds
+m_vNormal
 m_vOffset
 m_vOrthographicAreas
 m_vPoint0
@@ -12145,7 +12140,6 @@ merge_behavior
 merge_meshes
 meshUtilsKeyValues
 mesh_calculate_curvature_smooth_invert
-mesh_calculate_curvature_smooth_pass_count
 mesh_calculate_curvature_smooth_weight
 mesh_node_name
 meshfilereference
@@ -12395,6 +12389,7 @@ overwrite_existing
 overwrite_existing_flags_only
 ownerlog
 owns_polymorphic_data
+p4Lg
 p\r0\fP!b
 packmode
 paint_only_fronds
@@ -12555,7 +12550,6 @@ propattr_flatten_into_parent_row
 propdataname
 proxyType
 pseudo-
-ptUU
 pushoff
 pushout_strength
 pvTarget
@@ -12568,7 +12562,6 @@ quad_bend_tolerance
 quadratic
 quaternion log
 quaternion_array
-r\vpL
 radius0_key
 radius1_key
 radiusScale
@@ -12807,6 +12800,7 @@ slave_channel
 slaves
 slice
 slice_type
+slow
 slow_pulse_nofade
 slow_strobe
 slow_strong_pulse
@@ -13458,6 +13452,7 @@ vertex_to_edge
 vertex_to_face
 vertical_pose_param_name
 verticaltolerance
+very_fast
 videoTarget
 virtual_vertex_distance
 virtualvolumetexture

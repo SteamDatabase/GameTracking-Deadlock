@@ -4,8 +4,12 @@
 %s - unknown or invalid world '%s'\n
 %s - unknown world layer '%s'\n
 %s DynamicAtr:%s = '%s'\n
+%s allocation count overflow
+%s allocation count overflow( add %llu + current %llu > max %llu )\n
 %s( No I/O Connections )\n
 %s0x%08X:%s = "%s"\n
+%s: invalid nBeforeIndex %d\n
+%s: invalid nSize %d\n
 %s== World '%s' Entity Lump '%s': %d entities ==\n
 %sEntity %d (%s '%s'):\n
 %sI/O Connections:\n
@@ -72,6 +76,9 @@
 .vwnod
 0 = Density corresponds to blade existance, 1 = Density corresponds to blade height, 2 = Both 0 and 1
 0 = Off, 1 = Low, 2 = Med, 3 = high, 4 = ultra
+0Lg\v
+2\vpLg\v
+6rB\r
 <<NULL ENTITY LUMP>>
 <no classname>
 <no targetname>
@@ -127,6 +134,7 @@ Couldn't ReadTexturePixels when creating grass.\n
 Creating %i scene objects for node %i\n
 D_VERTEX_LIGHTING
 Deletion List:\n
+DualHull
 Dump all of the worlds that we know about
 Dump the contents of an entity lump
 EntityIOConnectionData_t
@@ -157,6 +165,7 @@ GrassTileInit
 GrassTileInputLayout
 GrassTileVB
 GrassTint.vtex
+HITGROUP_INVALID
 Hitbox indexing is incorrect for set %s, hitbox %s. Hitboxes will not be setup properly.\n
 IKV3TransferInterface_ResourceLoad
 Inconsistent treatment of '%s' (existing key is %s)!\n
@@ -186,6 +195,7 @@ MeshDrawPrimitiveFlags_t
 Missing required transfer interface: %s
 Model conversion: %d conversions in %.3fsec (%.3fms each)\n
 MountWorldVPK() ++%s is at refcount %d\n
+MovementGaitId_t
 MovementSettings
 NOT an attr
 No DATA block for resource '%s'\n
@@ -228,6 +238,9 @@ ResourceCompiler/BakedLighting/Version
 ResourceCompiler/DefaultMapBuilders/bakedlighting
 ResourceCompiler/DefaultMapBuilders/dontrequirebakedlighting
 SceneObject_t
+Should we straighten face island if the displacement is this much? (inches)
+Should we try to straighten an island of faces deviating from their average normal (tangent)?
+Should we try to straighten two faces connected to this edge? (tangent)
 Show or hide the specified world layer
 TanFrameQuat
 Tried to load resource reference '%s' from a value without a resource reference specific type.
@@ -288,6 +301,11 @@ ekv_%08x
 entity_lump_list
 entity_lump_spew
 entity_lump_spew %s %s
+fast
+hullivr_edge_merge_tan
+hullivr_faceisland_merge_disp
+hullivr_faceisland_merge_tan
+hullivr_version
 keyValues3Data
 kv 0x%p AddRef refcount == %d\n
 kv 0x%p Release refcount == %d\n
@@ -411,6 +429,7 @@ m_pSemanticName
 m_paramMap
 m_renderable
 m_renderableModel
+m_sId
 m_sceneObjectLayerIndices
 m_sceneObjects
 m_skin
@@ -438,6 +457,7 @@ maps/%s/world_visibility.vvis
 maps\
 materials/grass/grasstile.vmat
 matrix3x4_t
+medium
 mesh_calculate_curvature_smooth_invert
 mesh_calculate_curvature_smooth_pass_count
 mesh_calculate_curvature_smooth_weight
@@ -445,6 +465,7 @@ model_default_preview_sequence_name
 model_dump_convert_info
 modellib
 optionallycompressedtangentframe
+pLg\v
 posxyz
 r_drawworld
 r_grass_allow_flattening
@@ -469,12 +490,14 @@ r_world_wind_smooth_time
 r_world_wind_strength
 resourcesystem
 sc_allow_precomputed_vismembers
+slow
 standard
 tangent
 tangentu_signv
 targetname
 texcoord
 values
+very_fast
 vmap
 w8#o
 world renderer - 

@@ -46,6 +46,10 @@ $?InstantiateModule@Module@v8@@QEAA?AV?$Maybe@_N@2@V?$Local@VContext@v8@@@2@P6A?
 %s - Could not find blackboard instance for %s
 %s - Could not find blackboard reference %s: %u (%s)
 %s [%u] - %s\n
+%s allocation count overflow
+%s allocation count overflow( add %llu + current %llu > max %llu )\n
+%s: invalid nBeforeIndex %d\n
+%s: invalid nSize %d\n
 %s::%s (%u)
 &%?Int32Value@Value@v8@@QEBA?AV?$Maybe@H@2@V?$Local@VContext@v8@@@2@@Z
 '?IsExternal@Value@v8@@QEBA_NXZ
@@ -87,7 +91,6 @@ $?InstantiateModule@Module@v8@@QEAA?AV?$Maybe@_N@2@V?$Local@VContext@v8@@@2@P6A?
 .?AV<lambda_3>@?$GapBindingSchemaEnumTraits_t@W4PulseTestEnumShape_t@@@@
 .?AV?$CBaseAppSystem@VIPulseSystem@@@@
 .?AV?$CKV3ResourceTypeManager@$0GFHDGMHFHAHG@@@
-.?AV?$CKV3Transfer_UtlSymbolLargeInterface@V?$CUtlSymbolTableLargeBase@$00$0IAA@VCThreadNullMutex@@@@@@
 .?AV?$CTier0AppSystem@VIPulseSystem@@$0A@@@
 .?AV?$CTier1AppSystem@VIPulseSystem@@$0A@@@
 .?AV?$CTier2AppSystem@VIPulseSystem@@$0A@@@
@@ -180,7 +183,6 @@ $?InstantiateModule@Module@v8@@QEAA?AV?$Maybe@_N@2@V?$Local@VContext@v8@@@2@P6A?
 .?AVIKV3TransferInterface_EHandle_Save@@
 .?AVIKV3TransferInterface_GameTime_Load@@
 .?AVIKV3TransferInterface_GameTime_Save@@
-.?AVIKV3TransferInterface_UtlSymbolLarge@@
 .?AVIKV3TransferInterface_Worldspace_Load@@
 .?AVIKV3TransferInterface_Worldspace_Save@@
 .?AVIPulseGraphDef@@
@@ -194,10 +196,11 @@ $?InstantiateModule@Module@v8@@QEAA?AV?$Maybe@_N@2@V?$Local@VContext@v8@@@2@P6A?
 .?AVV8WeakWrapperBase@V8HelpersImpl@@
 .vjs_c
 .vts_c
-0LV\t
+0tr\t
 1:1: Tokens : ( T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | TOK_COLON | OPEN_BRACE | CLOSE_BRACE | OPEN_PAREN | CLOSE_PAREN | OPEN_BRACKET | CLOSE_BRACKET | SEMICOLON | OP_EQUAL | COMMA | DOUBLE_AND | NEGATIVE_TOK | DOUBLE_OR | LITERAL_TRUE | LITERAL_FALSE | POS_INTLITERAL | POS_FLOATLITERAL | ID | DOUBLE_QUOTED_STRING | SINGLE_QUOTED_STRING | SINGLE_LINE_COMMENT | ML_COMMENT | WS | UNRECOGNIZED );
 2?MakeWeak@api_internal@v8@@YAXPEA_KPEAXP6AXAEBV?$WeakCallbackInfo@X@2@@ZW4WeakCallbackType@2@@Z
 2?Message@TryCatch@v8@@QEBA?AV?$Local@VMessage@v8@@@2@XZ
+2\vptr\t
 3?New@Integer@v8@@SA?AV?$Local@VInteger@v8@@@2@PEAVIsolate@2@H@Z
 3?New@Number@v8@@SA?AV?$Local@VNumber@v8@@@2@PEAVIsolate@2@N@Z
 3?New@ObjectTemplate@v8@@SA?AV?$Local@VObjectTemplate@v8@@@2@PEAVIsolate@2@V?$Local@VFunctionTemplate@v8@@@2@@Z
@@ -327,10 +330,12 @@ C:\buildworker\citadel_rel_win64\build\src\public\tier0\check_cast.h
 C:\buildworker\citadel_rel_win64\build\src\public\tier0\utlmap.h
 C:\buildworker\citadel_rel_win64\build\src\pulse_runtime_lib\pulse_graph_def.cpp
 C:\buildworker\citadel_rel_win64\build\src\pulse_runtime_lib\pulse_test_domain.cpp
+C:\buildworker\citadel_rel_win64\build\src\tier0_perproject\keyvalues3.cpp
 CBasePulseGraphInstance
 CBufferString
 CELL_INVOKE
 CGlobalSymbol
+CGlobalSymbolCaseSensitive
 CHUNK_LEAP
 CHUNK_LEAP_COND
 CIRCLE
@@ -473,6 +478,7 @@ CPulseTestFuncs_LibraryA!GetFloatValue
 CPulseTestFuncs_LibraryA!GetIntValue
 CPulseTestFuncs_LibraryA!GetStringValue
 CPulseTestFuncs_LibraryA!GetStringWithDefault
+CPulseTestFuncs_LibraryA!GetVectorLengthWithRef
 CPulseTestFuncs_LibraryA!LibraryDestroyFakeEntity
 CPulseTestFuncs_LibraryA!LibraryFindFakeEntityByName
 CPulseTestFuncs_LibraryA!LibrarySpawnFakeEntity
@@ -536,7 +542,7 @@ CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CPulse_RegisterInfo,int>,stru
 CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct PGDInstruction_t,int>,struct PGDInstruction_t,int>::InsertBeforeGetPtr
 CUtlOrderedMap
 CUtlOrderedMap<class PulseCursorID_t,struct PulseGraphExecutionHistoryCursorDesc_t *,class CDefLess<class PulseCursorID_t>,int>::FindElement
-CUtlRBTree<struct CUtlOrderedMapBase<class CUtlSymbolLarge,class CBasePulseGraphInstance *,class CDefLess<class CUtlSymbolLarge>,int>::Node_t,class CUtlOrderedMapBase<class CUtlSymbolLarge,class CBasePulseGraphInstance *,class CDefLess<class CUtlSymbolLarge>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CUtlSymbolLarge,class CBasePulseGraphInstance *,class CDefLess<class CUtlSymbolLarge>,int>::Node_t,int>,int> >::Insert
+CUtlRBTree<struct CUtlOrderedMapBase<class CGlobalSymbol,class CBasePulseGraphInstance *,class CDefLess<class CGlobalSymbol>,int>::Node_t,class CUtlOrderedMapBase<class CGlobalSymbol,class CBasePulseGraphInstance *,class CDefLess<class CGlobalSymbol>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CGlobalSymbol,class CBasePulseGraphInstance *,class CDefLess<class CGlobalSymbol>,int>::Node_t,int>,int> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<class PulseCursorID_t,struct PulseGraphExecutionHistoryCursorDesc_t *,class CDefLess<class PulseCursorID_t>,int>::Node_t,class CUtlOrderedMapBase<class PulseCursorID_t,struct PulseGraphExecutionHistoryCursorDesc_t *,class CDefLess<class PulseCursorID_t>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class PulseCursorID_t,struct PulseGraphExecutionHistoryCursorDesc_t *,class CDefLess<class PulseCursorID_t>,int>::Node_t,int>,int> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<class PulseDocNodeID_t,struct PulseGraphExecutionHistoryNodeDesc_t *,class CDefLess<class PulseDocNodeID_t>,int>::Node_t,class CUtlOrderedMapBase<class PulseDocNodeID_t,struct PulseGraphExecutionHistoryNodeDesc_t *,class CDefLess<class PulseDocNodeID_t>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class PulseDocNodeID_t,struct PulseGraphExecutionHistoryNodeDesc_t *,class CDefLess<class PulseDocNodeID_t>,int>::Node_t,int>,int> >::Insert
 CUtlString
@@ -575,6 +581,7 @@ Convert from a raw floating-point time to a Game Time that will be saved/loaded 
 Convert from a world-space to local-space vector
 Copy R%d <- R%d
 Cosine of angle, in degrees (0 -> 1, 90 -> 0)
+Could not execute '%s' a required object was missing
 Could not execute '%s' because this graph domain does not support the required IGapHost
 Couldn't load KV3 for resource: %s
 CreateFakeEntity( "%s", "%s" ) -> idx %d (handle %d)\n
@@ -728,6 +735,7 @@ Get Int Value
 Get Name
 Get String Value
 Get String With Default
+Get Vector Length With Ref
 Get the 'ValueA' number off the cursor.
 Get the 'ValueB' number off the cursor.
 Get the 'ValueX' number off the graph instance.
@@ -760,7 +768,6 @@ IKV3TransferInterface_EHandle_Save
 IKV3TransferInterface_GameTime_Load
 IKV3TransferInterface_GameTime_Save
 IKV3TransferInterface_ResourceLoad
-IKV3TransferInterface_UtlSymbolLarge
 IKV3TransferInterface_Worldspace_Load
 IKV3TransferInterface_Worldspace_Save
 IMMEDIATE_HALT
@@ -796,6 +803,7 @@ JUMP
 JUMP_COND
 Jump to Instr I%d
 JumpOrLeap( C%d:I%d )
+KV3 save transfer failed: %s
 Keep a history of all instructions run on a per graph basis.
 Keep running normally.
 KeyValues3
@@ -864,6 +872,7 @@ MPulseEditorHeaderIcon
 MPulseEditorHeaderText
 MPulseEditorIsControlFlowNode
 MPulseExpressionAlias
+MPulseFunctionDisableRequirements
 MPulseGraphHook
 MPulseInstanceDomainInfo
 MPulseInstanceFunction
@@ -1060,6 +1069,7 @@ RESOURCE_TYPE_PULSE_GRAPH_DEF
 RETURN_VALUE
 RETURN_VOID
 RSDS
+R\fptr\t
 Raise pen.
 Random Float
 Random Integer
@@ -1233,11 +1243,11 @@ Yield, Resume=%s
 [Test] Int Value 50
 [Test] Random Yes/No Outflow
 \n    near %s\n    
-\nPLV\t
 \t The lexer was matching from line %d, offset %d, which\n\t 
 \tV_fmodd
 \tV_fpclassifyd
 \tV_frexpf
+\vptr\t
 __CursorQueue__
 __ExternalMethodParent__
 __FireCursorsParent__
@@ -1313,6 +1323,11 @@ flTime
 flValue
 flWaitValue
 flWakeTime
+flc_columns
+flc_count
+flc_file_ids
+flc_file_list
+flc_lines
 gamma
 generic_exprLexerNew
 generic_exprLexerNewSSD
@@ -1504,6 +1519,7 @@ pValue
 pYieldArg2
 pending_events
 previous_value
+ptr\t
 publicMethods
 pulse_debug_print
 pulse_editor
@@ -1517,6 +1533,7 @@ pulse_save_execution_history_limit
 pulse_system.dll
 pulse_test_example_suggestion
 r\tV_tand
+r\vptr\t
 resourcesystem
 s_Instance
 s_flExplicitCurTime
@@ -1529,6 +1546,7 @@ strBindingName
 strCellDesc
 tagName
 tagValue
+testRef
 test_pulse
 tools/images/pulse_editor/cursor_kill.png
 tools/images/pulse_editor/cursor_tag.png

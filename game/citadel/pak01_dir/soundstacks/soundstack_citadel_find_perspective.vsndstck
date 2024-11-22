@@ -36,7 +36,6 @@
 			{
 				name = "owner_entity_index_public_field_is_invalid"
 				input_execute = "1.0"
-				execute_once = true
 				operator = "math_float"
 				apply = "equal"
 				input1 = "@public.owner_entity_index"
@@ -46,7 +45,6 @@
 			{
 				name = "use_entity_index_for_perspective"
 				input_execute = "1.0"
-				execute_once = true
 				operator = "math_float"
 				apply = "or"
 				input1 = "@owner_entity_index_public_field_is_invalid.output"
@@ -55,14 +53,12 @@
 			
 			{
 				name = "entity_source_info"
-				execute_once = true
 				operator = "game_get_source_info"
 				source = "entity"
 			},
 			
 			{
 				name = "switch_owner_entity_index"
-				execute_once = true
 				operator = "ctrl_switch_float"
 				input_switch = "@use_entity_index_for_perspective.output"
 				input1 = "@public.owner_entity_index"
@@ -74,6 +70,29 @@
 				execute_once = false
 				operator = "game_entity_perspective"
 				input_owner_entity_index = "@switch_owner_entity_index.output"
+			},
+			
+			{
+				name = "math_perpective_is_team"
+				input_execute = "1.0"
+				execute_once = false
+				operator = "math_float"
+				apply = "equal"
+				input1 = "@game_entity_perspective.output"
+				input2 = "1.0"
+			},
+			
+			{
+				name = "output"
+				operator = "util_null"
+				operator_variables = 
+				{
+					perpective_is_team = 
+					{
+						data_type = "float"
+						value = "@math_perpective_is_team.output"
+					}
+				}
 			},
 		]
 	}

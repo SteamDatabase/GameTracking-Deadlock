@@ -1016,6 +1016,19 @@
 			duck_to_percent = 100
 			ducker_threshold = 20
 		},
+		{
+			name = "Dmg-Victim-Bypass"
+			path_substring = ""
+			class_substring = ""
+			chan_type = ""
+			sndlvl_min = 0
+			sndlvl_max = 20
+			priority = 60
+			is_ducked = 0
+			causes_ducking = 0
+			duck_to_percent = 100
+			ducker_threshold = 20
+		},
 	]
 	SoundMixers = 
 	{
@@ -1645,36 +1658,19 @@
 				lvl = 1.0
 				dsp = 0.0
 			},
+			{
+				mixgroup = "Dmg-Victim-Bypass"
+				vol = 0.5
+				solo = 0.0
+				mute = 0.0
+				lvl = 1.0
+				dsp = 0.0
+			},
 		]
 	}
 	MixLayers = 
 	{
-		"Abilities-Ducker" = 
-		{
-			Mixers = 
-			[
-				{
-					mixgroup = "Ability-Tea"
-					vol = 1.0
-					lvl = 0.0
-					dsp = 1.0
-					solo = 0.0
-					mute = 0.5
-				},
-			]
-			Triggers = 
-			[
-				{
-					trigger = "Ability-Pla"
-					threshold = 0.0
-					mixamount = 1.0
-					attack = 0.1
-					release = 0.2
-					max_trigger_amounts = true
-				},
-			]
-		}
-		"Ability-Dramatic" = 
+		"ml-ability-pla" = 
 		{
 			Mixers = 
 			[
@@ -1703,33 +1699,20 @@
 					vol = 0.3
 				},
 			]
-			Triggers = [  ]
-		}
-		"Ambience-Duck" = 
-		{
-			Mixers = 
-			[
-				{
-					mixgroup = "Ambience-Details"
-					vol = 1.0
-					lvl = 0.0
-					dsp = 1.0
-					solo = 0.0
-					mute = 0.5
-				},
-			]
 			Triggers = 
 			[
 				{
-					trigger = "Weapons-Pla"
-					threshold = 0.0
+					trigger = "Ability-Pla"
+					threshold = 0.5
 					mixamount = 1.0
-					attack = 2.0
-					release = 8.0
+					attack = 0.1
+					release = 0.25
+					use_trigger_amount = false
+					max_trigger_amounts = true
 				},
 			]
 		}
-		Announcer = 
+		"ml-announcer" = 
 		{
 			Mixers = 
 			[
@@ -1754,14 +1737,15 @@
 			[
 				{
 					trigger = "Announcer"
-					threshold = 0.0
+					threshold = 0.01
 					mixamount = 1.0
 					attack = 0.1
 					release = 0.25
+					use_trigger_amount = false
 				},
 			]
 		}
-		"Announcer-Tutorial" = 
+		"ml-announcer-tutorial" = 
 		{
 			Mixers = 
 			[
@@ -1778,14 +1762,15 @@
 			[
 				{
 					trigger = "Announcer-Tutorial"
-					threshold = 0.0
+					threshold = 0.01
 					mixamount = 1.0
 					attack = 0.1
 					release = 0.2
+					use_trigger_amount = false
 				},
 			]
 		}
-		"Dmg-Receive" = 
+		"ml-dmg-receive" = 
 		{
 			Mixers = 
 			[
@@ -1795,7 +1780,7 @@
 					dsp = 1.0
 					solo = 0.0
 					mute = 0.0
-					vol = 0.9
+					vol = 0.75
 				},
 				{
 					mixgroup = "Weapons-Tea"
@@ -1965,20 +1950,35 @@
 					mute = 0.0
 					vol = 0.5
 				},
+				{
+					mixgroup = "Dmg-Victim-Bypass"
+					lvl = 0.0
+					dsp = 1.0
+					solo = 0.0
+					mute = 0.0
+					vol = 0.5
+				},
 			]
 			Triggers = 
 			[
 				{
-					trigger = "DMG-Receive-Trigger"
-					threshold = 0.0
+					trigger = "Hit-Victim"
+					threshold = 0.2
 					mixamount = 1.0
 					attack = 0.0
-					release = 0.25
+					release = 0.1
 					use_trigger_amount = false
+				},
+				{
+					trigger = "Dmg-Victim"
+					threshold = 0.2
+					mixamount = 1.0
+					attack = 0.0
+					release = 0.1
 				},
 			]
 		}
-		"Game-Pause" = 
+		"ml-game-pause" = 
 		{
 			Mixers = 
 			[
@@ -2009,7 +2009,7 @@
 			]
 			Triggers = [  ]
 		}
-		"Game-PostGame" = 
+		"ml-game-postgame" = 
 		{
 			Mixers = 
 			[
@@ -2062,10 +2062,11 @@
 					mixamount = 1.0
 					attack = 0.1
 					release = 0.1
+					use_trigger_amount = false
 				},
 			]
 		}
-		"Game-PregameWait" = 
+		"ml-game-pregamewait" = 
 		{
 			Mixers = 
 			[
@@ -2136,7 +2137,7 @@
 			]
 			Triggers = [  ]
 		}
-		MapObjective = 
+		"ml-map-objective" = 
 		{
 			Mixers = 
 			[
@@ -2181,11 +2182,11 @@
 					mixamount = 1.0
 					attack = 0.1
 					release = 0.5
-					use_trigger_amount = true
+					use_trigger_amount = false
 				},
 			]
 		}
-		"Ult-Ducker" = 
+		"ml-ult-pla" = 
 		{
 			Mixers = 
 			[
@@ -2218,14 +2219,15 @@
 			[
 				{
 					trigger = "Ult-Pla"
-					threshold = 0.0
+					threshold = 0.25
 					mixamount = 1.0
 					attack = 0.1
 					release = 0.1
+					use_trigger_amount = true
 				},
 			]
 		}
-		"VO-Menu" = 
+		"ml-vo-menu" = 
 		{
 			Mixers = 
 			[
@@ -2242,14 +2244,15 @@
 			[
 				{
 					trigger = "VO-Hero-Pick"
-					threshold = 0.0
+					threshold = 0.01
 					mixamount = 1.0
 					attack = 0.1
 					release = 0.5
+					use_trigger_amount = false
 				},
 			]
 		}
-		"VO-Ult" = 
+		"ml-vo-ult" = 
 		{
 			Mixers = 
 			[
@@ -2338,10 +2341,11 @@
 			[
 				{
 					trigger = "VO-Hero-Ult-Pla"
-					threshold = 0.0
-					mixamount = 0.25
+					threshold = 0.01
+					mixamount = 0.5
 					attack = 0.1
 					release = 0.1
+					use_trigger_amount = false
 				},
 				{
 					trigger = "VO-Hero-Ult-Tea"
@@ -2359,7 +2363,7 @@
 				},
 			]
 		}
-		"Weapon-Ducker" = 
+		"ml-weapons-pla" = 
 		{
 			Mixers = 
 			[
@@ -2387,15 +2391,32 @@
 					vol = 0.5
 					mute = 0.0
 				},
+				{
+					mixgroup = "Ambience-Details"
+					lvl = 0.0
+					dsp = 1.0
+					solo = 0.0
+					mute = 0.0
+					vol = 0.25
+				},
+				{
+					mixgroup = "Ambience-Bed"
+					lvl = 0.0
+					dsp = 1.0
+					solo = 0.0
+					mute = 0.0
+					vol = 0.5
+				},
 			]
 			Triggers = 
 			[
 				{
 					trigger = "Weapons-Pla"
-					threshold = 0.0
+					threshold = 0.5
 					mixamount = 1.0
-					attack = 0.1
-					release = 0.1
+					attack = 0.0
+					release = 0.15
+					use_trigger_amount = false
 				},
 			]
 		}

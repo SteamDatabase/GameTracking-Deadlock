@@ -39,6 +39,17 @@
 							property_help = "Set by code."
 						}
 					}
+					block_team_owned_hit = 
+					{
+						data_type = "bool"
+						value = "false"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_damage"
+							property_help = "Set by code."
+						}
+					}
 					volume_falloff_min = 
 					{
 						data_type = "float"
@@ -241,6 +252,29 @@
 			},
 			
 			{
+				name = "citadel_find_perspective"
+				operator = "sos_import_stack"
+				import_stack = "citadel_find_perspective"
+				auto_connect_public_fields = "true"
+			},
+			
+			{
+				name = "block_team_owned_hit_test"
+				operator = "math_float"
+				apply = "and"
+				input1 = "@citadel_find_perspective::output.perpective_is_team"
+				input2 = "@public.hit_world"
+			},
+			
+			{
+				name = "exec_block_team_owned"
+				operator = "sos_goto"
+				execute_once = "true"
+				input_execute = "@block_team_owned_hit_test.output"
+				input_goto_end = "true"
+			},
+			
+			{
 				name = "block_hit_world_test"
 				operator = "math_float"
 				apply = "and"
@@ -281,6 +315,16 @@
 				input1 = "@public.mixer_mixgroup_attacker"
 				input2 = "@public.mixer_mixgroup_victim"
 				input3 = "@public.mixer_mixgroup_other"
+			},
+			
+			{
+				name = "switch_vmix_send"
+				execute_once = "true"
+				operator = "ctrl_switch3_string"
+				input_index = "@citadel_damage_info::output.damage_index"
+				input1 = "main"
+				input2 = "hit-victim-bus"
+				input3 = "main"
 			},
 			
 			{
@@ -428,6 +472,11 @@
 					{
 						data_type = "string"
 						value = "@switch_instance_attenuator_group_name.output"
+					}
+					send_name = 
+					{
+						data_type = "string"
+						value = "@switch_vmix_send.output"
 					}
 				}
 			},

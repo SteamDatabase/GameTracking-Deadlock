@@ -79,6 +79,9 @@
 %s : %s = '%s'
 %s Gathering field offsets in %s\n
 %s SendMessages %s failed with EResult %d\n
+%s allocation count overflow
+%s allocation count overflow( %llu > %llu )\n
+%s allocation count overflow( add %llu + current %llu > max %llu )\n
 %s ambiguous, field exists in serializer '%s' field %d\n
 %s depth %d\n
 %s encoding as %d bits '
@@ -112,10 +115,6 @@
 %s:  value %u: count %d\n
 %s: !CanPacket() - SNPQueueTime=%.1fms.\n
 %s: !CanPacket() - m_bSuppressingTransmit.\n
-%s: ProcessPacket reliable failed with unreasonable nUncompressedSize (%d).
-%s: SendMessage %s failed with k_EResultLimitExceeded, crashing connection.
-%s: SendMessage reliable failed AllocateMessage (%d).
-%s: SendMessage unreliable failed AllocateMessage (%d).
 %s: field %s has MNetworkSendProxyRecipientsFilter but is not declared using CNetworkVarEmbeddedNotFlattened\n
 %s: field %s has MNetworkSendProxyRecipientsFilter but type '%s' is not declared DECLARE_EMBEDDED_NETWORKVAR_NOTFLATTENED()\n
 %s: max array count of %d, removing callback for invalid element %d\n
@@ -248,14 +247,13 @@
 0 bit issue, spot 2
 0 bit issue, spot 3
 0 bit issue, spot 4
-2\vpT
+2\vp0
+2\vpd
 2tx12dw124v12
 4O3 
-8BP9
+8B A
 <classname> <fieldname>:  spew why field was excluded from networking for classname.
 @ inf
-@08N
-@HPX`hv
 Accepting Steam Net connection %s\n
 AckSeqNum
 Activates/deactivates net message validation
@@ -278,7 +276,7 @@ Average Number of Field Paths     :  %8.3f\n
 BetaUniverse
 Bitfield
 BufType
-Buffer overflow in net channel %s
+Buffer overflow
 BuildDelta
 BuildDeltaProperties fieldDataBuf
 BuildEntityClassNetworkSerializer
@@ -405,6 +403,7 @@ CUtlDict<class CSchemaClassField_Dynamic *,class CDefFastCaselessStringLess>::In
 CUtlDict<struct CWriteSerializersStableVersionDatabase::OrderedVariants_t *,class CDefFastCaselessStringLess>::Insert
 CUtlDict<struct NetworkFieldSerializerGroup_t *,class CDefFastCaselessStringLess>::Insert
 CUtlDict<struct empty_t,class CDefFastCaselessStringLess>::Insert
+CUtlLeanVectorBase<struct FieldMetaInfo_t,int>::EnsureCapacity
 CUtlLeanVectorImpl<class CUtlLeanVectorFixedGrowableBase<struct CFieldPath::Path_t,6,int>,struct CFieldPath::Path_t,int>::AddMultipleToTail
 CUtlLeanVectorImpl<class CUtlLeanVectorFixedGrowableBase<unsigned int,3,int>,unsigned int,int>::AddMultipleToTail
 CUtlRBTree<int,class CDefLess<int>,unsigned short,class CUtlMemory<struct UtlRBTreeNode_t<int,unsigned short>,unsigned short> >::Insert
@@ -491,7 +490,7 @@ ERROR: Field %s::%s unable to deduce unserializer for type (%s)!\n
 Enable optimization of slow path that makes HLTV CPU consumption high in AnimGraph-using mods. Will switch to this on by default soon.
 Encode
 Encountered 2 fields "%s" and "%s" in struct "%s" using the same change callback with different change callback types!\n
-Encountered message on net channel %s with an invalid network category! [net message %s]
+Encountered message with an invalid network category! [net message %s]
 End of stream
 Error installing message handlers into a net channel: missing handlers in channel %s!\n
 Error parsing message type %d (%s)
@@ -602,6 +601,7 @@ MNetworkVarsAtomic
 MNetworkVarsDisable
 MResourceTypeForInfoType
 MakeSerializersMatchByMeta failed for %s\n
+Max number of messages that can be queued in a netchan receive buffer
 Max polymorphic variants to spew when spewing a flattened serializer.
 Maximum number of messages to allow waiting in queue after processing; exceeding this disconnects the client. 0 == no limit
 Maximum number of messages to process from a client in a single frame (0 == no limit).
@@ -638,7 +638,9 @@ NetChanTransmitUnreliable
 NetChannel '%s':\n
 NetMessage '%s' still using auto-assigned, has to generate id from name CUtlStringToken hashcode = %d\n
 NetSteamConn
+Netchan '%s' closed unexpectedly: %s\n
 Netchan [%s] already associated with hconn #%u, but now we are getting messages on new hconn #%u using the same 'from' address\n
+Netchan queued message new high water mark reached by %s at %d messages\n
 Network System Initialized\n
 Network field tried to use a priority that has not been registered!\n
 Network socket '%s' opened on port %d\n
@@ -668,9 +670,7 @@ Opened Steam Net Connection on socket '%s' to %s, connection %s\n
 Order,'From','To',Bits\n
 OutSeqNumAck
 Overrides IP for multihomed hosts
-P08J`
-P08N
-P6P\v
+P08J0
 PACKET_STATUS_DROPPED
 PACKET_STATUS_INVALID
 PACKET_STATUS_NORMAL
@@ -731,6 +731,7 @@ QueueChange
 QueueReplayCompatFieldChange( %s ): can't place MNetworkReplayCompatField callback on a fully fake struct (e.g., a pointed to component or object), game code should move callback on entity %d to a C_BaseEntity derived class!\n
 QueueTimeMS
 RSDS
+R\vp0
 RadianEuler
 ReadFields
 Recv
@@ -752,6 +753,9 @@ SDR ping location: %s\n
 SDR relay network status: %s (%d %d %d)\n
 Schema
 Send
+SendMessage %s failed with k_EResultLimitExceeded, crashing connection.
+SendMessage reliable failed AllocateMessage (%d).
+SendMessage unreliable failed AllocateMessage (%d).
 Serialized nonresident asset %s.
 Server will not buffer more than N kb from connected clients
 Server will not buffer more than N messages from connected clients
@@ -810,6 +814,7 @@ TimeTable
 Toggle field path tracing to file\n
 Too many incoming messages on channel (%s) %d remain queued, limit per-frame is %d.\n
 Too many proxies for serializer %s.
+Too many queued messages (%d)
 Too many queued messages on channel (%s) %d queued, limit is %d.\n
 Total
 UDP -> %s: sz=%5i seq=%5i ack=%5i rel=%1i tm=%8.3f\n
@@ -822,6 +827,8 @@ Unexpected argument '%s'\n
 Unexpected end of string.
 Unknown jitter profile '%s'.\n
 Unknown message type %u
+Unreasonable reliable nUncompressedSize (%d).
+Unreasonable unreliable nUncompressedSize (%d).
 Unreliable header too small
 UnreliableNetSize
 UnreliableSize
@@ -856,6 +863,7 @@ WriteFields
 WriteToBuffer Message %s is not initialized! Probably missing required fields!\n
 Writing %d bits for path %s of serializer %s entity %d, this will fail to parse\n
 [ Net Message Info: %s ]\n
+[%s] Queued message count %d exceeds net_chan_recvbuf_messages=%d.  Allowing due to engine_frametime_warnings_enable=false\n
 [%s] high frame misdelivery %.1f%%, %d/%d of %d frames dropped/reordered, %.0fms ping\n
 [%s] misdelivery %.1f%%, %d/%d of %d frames dropped/reordered, %.0fms ping\n
 [%s] setting extremely high timeout\n
@@ -982,6 +990,7 @@ matrix3x4a_t
 nIndex != m_priorityToOrderMap.InvalidIndex()
 nPriority != NETWORK_FIELD_CHANGE_DEFAULT_PRIORITY
 net_captureculldata
+net_chan_recvbuf_messages
 net_channels
 net_compresspackets_minsize
 net_connections_stats
@@ -1048,8 +1057,7 @@ out-of-order
 outgoing_data_bytespersecond
 outgoing_sequence
 outgoing_sequence_start
-p08@H^
-p2P9
+p2 A
 pFSField
 packet_status
 parallel
