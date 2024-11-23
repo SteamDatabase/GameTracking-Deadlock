@@ -431,6 +431,7 @@
 		"reset_voice_on_input_stallout"         "0"
 		"voice_input_stallout"                  "0.5"
 		"cl_usesocketsforloopback" "1"
+		"cl_poll_network_early" "0"
 
 		// For perf reasons, since we don't use source-based DSP:
 		"disable_source_soundscape_trace"       "1"
