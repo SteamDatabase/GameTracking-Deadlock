@@ -356,7 +356,7 @@
 #.CPlayer_GetLastPlayedTimes_Request
 #.CPublishedFile_GetDetails_Response"9
 #.CPublishedFile_Unsubscribe_Request
-#<EMantleNone
+#<CCitadelPlayerPawn_GraphController
 #AbandonMatchPrompt_Cancel
 #AbandonMatchPrompt_Confirm
 #AbandonMatchPrompt_Countdown
@@ -877,6 +877,7 @@
 #Citadel_ProfileCard_StatTitle_Wins
 #Citadel_ProfileCard_StatValue_Int
 #Citadel_Profile_Loss
+#Citadel_Profile_Skill_Arrow_Tooltip_%i
 #Citadel_Profile_Stats_All
 #Citadel_Profile_Stats_Assists
 #Citadel_Profile_Stats_Healing
@@ -2182,7 +2183,6 @@ $hRh
 (.CPlayer_SetPerFriendPreferences_Request
 (0'yX
 (0x%08X)'??'
-(4 5O
 (5Me
 (5jP
 (ACTIVE)
@@ -11350,7 +11350,7 @@ $hRh
 .steammessages_unified_base.steamworkssdk.proto"d\n"CCloud_GetUploadServerInfo_Request
 .steammessages_unified_base.steamworkssdk.proto"t\n CPublishedFile_Subscribe_Request
 .steammessages_unified_base.steamworkssdk.proto"{\n)COAuthToken_ImplicitGrantNoPrompt_Request
-.tUV
+.tcV
 .text$
 .vcd
 .vmat
@@ -11407,13 +11407,14 @@ $hRh
 0 0 0 196
 0 100
 0 255
+0 4V
 0 = narrow, 1 = med (default), 2 = wide
 0 = slow, 1 = medium (default), 2 = fast
 0 = small, 1 = med (default), 2 = large
 0 == ( pInstance->GetOwnerEntity()->GetEntityIdentity()->GetFlags() & EF_IN_STAGING_LIST )
 0 member, 1 invite, 2 spectator
 0.CPlayer_UpdateSteamAnnouncementLastRead_Request
-00XV
+00fV
 02V8[
 05=k
 08@HR
@@ -11457,7 +11458,7 @@ $hRh
 0e\r8
 0pp@5tqE?|sO541
 0tU+xc:
-0vtUV
+0vtcV
 0x%4.4x 
 0x%X
 0x%X 
@@ -11656,7 +11657,7 @@ $hRh
 2\r.CameraAction
 2\r.ECommendType
 2\rlhp
-2\vp0XV
+2\vp0fV
 2^pV
 2a"l
 2bT~
@@ -11744,7 +11745,6 @@ $hRh
 4\n\rOldDetails_V0
 4\n\vPersonaName
 4f h
-4g\D
 4tpD
 4zj@1;IJ
 5'0v2ZP
@@ -11784,21 +11784,20 @@ $hRh
 6(Optional) Type of game the published file represents.
 6,2K
 6-zeZ
-60b\
-60f\
+60p\
+60t\
 62$|S)6f
 64CK\vH
 65535
 65535"
 65535"j\n
 65535B$
+6666666666666666 
 666666666666666666666666666666666666666666666666\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\.\ssl\s3_enc.c
-6666666666666666P
 67-s
 6?NumberValue@Value@v8@@QEBA?AV?$Maybe@N@2@V?$Local@VContext@v8@@@2@@Z
 6H,N
 6O|T%
-6P2\
 6Qd=
 6Returns the URL of the proper cloud server for a user.
 6True if the operation was successful, false otherwise.
@@ -12184,7 +12183,7 @@ $hRh
 ?uWS
 ?x29
 @!@%@+@1@?@C@E@]@a@g@m@
-@08NtUV
+@08NtcV
 @0pp
 @?SlowGetInternalField@Object@v8@@AEAA?AV?$Local@VData@v8@@@2@H@Z
 @BH]f
@@ -12204,12 +12203,12 @@ $hRh
 @\n\fSingleObject
 @dKb]
 @fff>fff>fff>fff>
-@ftUV
+@ftcV
 @i1V
 @keyframes 
 @keyframes '%s'\r\n{\r\n
 @n2w
-@ntUV
+@ntcV
 A bias on the lerp
 A capsule light entity
 A comma separated list of hero IDs that hold the currently high priority Hero Labs roster heroes
@@ -13203,7 +13202,6 @@ BAcceptsInput
 BAdjustingVolume
 BAscendantHasClass
 BC (default)
-BCCitadel_Modifier_Fear
 BCDFGHJKMNPQRSTVWXYZ0123456789
 BC_DEFAULT
 BC_EMPTY
@@ -14561,7 +14559,6 @@ CCitadelPlayerClipComponentReferencedPtr
 CCitadelPlayerController
 CCitadelPlayerPawn
 CCitadelPlayerPawnBase
-CCitadelPlayerPawn_GraphController
 CCitadelPlayerPawn_GraphController2
 CCitadelPlayerPawn_GraphController2_EDeathSequence
 CCitadelPlayerPawn_GraphController2_EFlinchType
@@ -15344,6 +15341,7 @@ CCitadel_Modifier_Fathom_ScaldingSpray_Target
 CCitadel_Modifier_Fathom_ScaldingSpray_Target_VData
 CCitadel_Modifier_Fathom_ScaldingSpray_WeaponDamage
 CCitadel_Modifier_FealtyTarget
+CCitadel_Modifier_Fear
 CCitadel_Modifier_FearWatcher
 CCitadel_Modifier_FearWatcherVData
 CCitadel_Modifier_Fear_VData
@@ -22110,6 +22108,15 @@ ELEMENT_ACCESS
 ELEMENT_ACCESS_COLOR_RGB
 ELEMENT_ACCESS_VEC3
 ELF0
+ELOSCheck
+ELOSCheck_BodyCenter
+ELOSCheck_BodyCenter_IgnoreObscureBlockers
+ELOSCheck_Bounds
+ELOSCheck_Bounds_IgnoreObscureBlockers
+ELOSCheck_FibonacciSphere
+ELOSCheck_Head
+ELOSCheck_Head_IgnoreObscureBlockers
+ELOSCheck_None
 ELaneTrooperKill
 ELashGrappleState
 ELashGrappleState_HangingInAir
@@ -22163,6 +22170,7 @@ EMantle128
 EMantle32
 EMantle64
 EMantle96
+EMantleNone
 EMantleType
 EMarkerCount
 EMarkerShopTunnelExit
@@ -23214,7 +23222,6 @@ FOLIAGE_ANIMATION_PIVOT
 FORCE_CAPTION
 FORM
 FORMAT
-FP1\
 FROG.\n
 FSR Upscale
 FTYPEDESC_ADDITIONAL_FIELDS
@@ -24864,12 +24871,14 @@ How close to the crosshair to be.  Hints are next to the crosshair when by thems
 How damage to this part is handled.
 How far a dash jump will send you forward.  This is on top of the ~8m already traveled by the dash.
 How far away before we stop showing in world deny events.
+How far back a target must dash during the melee attack delay window  in order to dodge a pending hit
 How far back the spectator camera should be
 How far forward from the plane of hero and camera forward to move the shoot position
 How far forward the mantle will move the player onto the ledge
 How far in front of player to trace when looking for mantle ledges.
 How far in front of the shoot position to check if the eyes can see for turning on the shoot lean
 How far out of the players effective gun range do we show the health bar
+How far to the side a target must dash during the melee attack delay window  in order to dodge a pending hit
 How far we'll trace to see if the wall we collided with is close enough to trigger a wall jump
 How far we'll trace using the player's velocity to find a wall to jump off of
 How fast bullets return to their normal speed after exiting a time warp
@@ -28557,6 +28566,7 @@ OwnGameplayInfo
 OwnedByFriends
 OwnedByList
 OwnerContext
+P 4V
 P!bxo
 P(UH 
 P-192
@@ -28566,12 +28576,12 @@ P-384
 P-521
 P08@J
 P08J
-P08NtUV
+P08NtcV
 P1\t98"
 P2P ping to "%s". Timed out after %.2fms\n
 P2P_Messages
 P5[1
-P6 b\
+P6 p\
 PAGN_4
 PANEL_ID
 PANORAMA_LAYOUTFILE
@@ -29097,6 +29107,7 @@ Perf
 PerfectBurstWeaponPower
 Perform client side prediction.
 Perform server side lag compensation of weapon firing events.
+PerformanceArrow
 PerformanceMode
 PerformanceMode_t
 Permanent Identifier
@@ -29260,7 +29271,7 @@ Plots
 Plots view angles yaw at various stages of the frame/tick in Tracy.
 Pm8A?
 PmR"H?
-PntUV
+PntcV
 Point entity.
 Point under crosshair
 PointOrientConstraint_t
@@ -29873,7 +29884,7 @@ RUMBLE_SHOTGUN_DOUBLE
 RUMBLE_SHOTGUN_SINGLE
 RUMBLE_SMG1
 RUMBLE_STOP_ALL
-R\fp0XV
+R\fp0fV
 R\n\nBookReward
 R\n\rincludekvtags
 R\r1>Vp
@@ -33785,6 +33796,7 @@ UtilRemoveDefferalSystem
 Uv1t
 Uz_G3=
 V07;m
+V0j\
 V2I_ASIDENTIFIERS
 V2I_AUTHORITY_INFO_ACCESS
 V2I_AUTHORITY_KEYID
@@ -34622,8 +34634,8 @@ XYD%
 X\tQo
 X`hr
 Xd3h
-Xf J\
-Xf@K\
+Xf X\
+Xf@Y\
 XfJ7
 XjfR
 XqgA+
@@ -34832,7 +34844,7 @@ Z~wl
 \f]ne3
 \fdhWTh
 \fiaR
-\fp\v`0XV
+\fp\v`0fV
 \ful2
 \fy&3Gl
 \l:ArR
@@ -35841,6 +35853,7 @@ Z~wl
 \tMatchID_t"Z\n#CMsgClientToGCSpectateLobbyResponse
 \tMatchID_t"{\n$CMsgServerToGCUpdateLobbyServerState
 \tNone\n
+\tP 4V
 \tParam BasePlayerWeapon returned NULL!\n
 \tParam selecting string is out of range!\n
 \tPartyID_t
@@ -35952,12 +35965,14 @@ Z~wl
 \vGt5
 \vHCK/
 \vNCE\v
+\vP 4V
 \vUY6[E
 \v\vTSG
 \v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r
 \vj0k
 \vjC7
-\vp0XV
+\vp 4V
+\vp0fV
 ]1h=bfz
 ]FhSD}
 ]GT7]
@@ -36029,9 +36044,10 @@ _to_curve_
 _tools_event_desc
 _xU`u
 _}eOk
-`0XV
+`0fV
 `28)fk
 `3?New@Array@v8@@SA?AV?$Local@VArray@v8@@@2@PEAVIsolate@2@H@Z
+`6Pk\
 `:zQF
 `D$daM-l
 `DZG
@@ -36042,15 +36058,14 @@ _}eOk
 `\n\rvector_values
 `adjustor{
 `fPw.\vM
-`ftUV
+`ftcV
 `generic-class-parameter-
 `generic-method-parameter-
 `generic-type-
 `h9T~
-`ht 5O
 `local static destructor helper'
 `non-type-template-parameter
-`ntUV
+`ntcV
 `o_je
 `template static data member constructor helper'
 `template static data member destructor helper'
@@ -36074,7 +36089,7 @@ a5<p
 a;Tg
 a@XZ
 aA0k
-aBvtUV
+aBvtcV
 aD/x
 aDSS
 aECDH
@@ -38517,6 +38532,7 @@ citadel_unit_status_healthbar_smallest_max_health
 citadel_unit_status_healthbar_width_base
 citadel_unit_status_healthbar_width_per_health
 citadel_unit_status_height
+citadel_unit_status_hide_names
 citadel_unit_status_max_delta_decay_rate
 citadel_unit_status_max_distance_distance
 citadel_unit_status_max_distance_scale
@@ -38528,6 +38544,7 @@ citadel_unit_status_old_draw_local
 citadel_unit_status_old_fadeout_dist
 citadel_unit_status_old_health_pips_per_row
 citadel_unit_status_old_height
+citadel_unit_status_old_hide_names
 citadel_unit_status_old_opaque_dist_sq
 citadel_unit_status_old_show_stats
 citadel_unit_status_old_transparent_dist_sq
@@ -41456,7 +41473,7 @@ friendship_timestamps
 from
 from_crate
 fsr2_output_target
-ftUV
+ftcV
 fuchsia
 fulfilled_item_id
 full_charge
@@ -41821,7 +41838,6 @@ g|FeW\v
 g|MT
 h&eC
 h*Ax
-h0.r
 h0XB
 h2Wl
 h2n_\
@@ -47161,6 +47177,7 @@ m_eLaunchType
 m_eLeapState
 m_eLockonState
 m_eLootType
+m_eLosCheck
 m_eMantleType
 m_eMatchMode
 m_eMelee
@@ -47373,6 +47390,7 @@ m_flAutoReplenishClip
 m_flAutoRideSpeed
 m_flAutoRunTime
 m_flAveWindSpeed
+m_flBackDashDodgeDist
 m_flBackDoorProtectionRange
 m_flBackdoorProtectionDamageMitigationFromPlayers
 m_flBackgroundBorderHeight
@@ -47544,6 +47562,7 @@ m_flCrouching
 m_flCurScroll
 m_flCurWeight
 m_flCurWeightOnClient
+m_flCurrBuildup
 m_flCurrentGustLifetime
 m_flCurrentGustTimer
 m_flCurrentHealingAmount
@@ -48457,6 +48476,7 @@ m_flShootingLockoutAfterJump
 m_flShootingUpSpreadPenalty
 m_flShotTimeScaleEndTime
 m_flShotTimeScaleLingerDuration
+m_flSideDashDodgeDist
 m_flSideMoveReduction
 m_flSideMoveSpeed
 m_flSightRangeNPCs
@@ -51487,7 +51507,6 @@ modifier_citadel_can_damage_tier3phase2_boss
 modifier_citadel_chain_lightning
 modifier_citadel_chain_lightningeffect
 modifier_citadel_charged_tackle_active
-modifier_citadel_charged_tackle_prepare
 modifier_citadel_cheater_curse
 modifier_citadel_chrono_time_wall_aura
 modifier_citadel_chrono_time_wall_effect
@@ -52440,7 +52459,7 @@ nsRevocationUrl
 nsSGC
 nsSslServerName
 nssslserver
-ntUV
+ntcV
 null before block missing
 null is wrong length
 null parameter
@@ -52751,6 +52770,7 @@ owner_entity_index
 owner_id
 ownername
 owns
+p 4V
 p is not prime
 p not prime
 p!PcA1|
@@ -52762,8 +52782,8 @@ p.other
 p.ppBasis
 p.prime
 p.tpBasis
-p08@H^tUV
-p0XV
+p08@H^tcV
+p0fV
 p2p_FightingGame_Connection
 p2p_FightingGame_GameData
 p2p_Ping
@@ -52782,7 +52802,7 @@ p5Z3
 p5\nL,
 p618
 p>?Set@Template@v8@@QEAAXV?$Local@VName@v8@@@2@V?$Local@VData@v8@@@2@W4PropertyAttribute@2@@Z
-p>tUV
+p>tcV
 p@0pqE5tsO?|1
 pAsyncRet2
 pCheckpointName
@@ -53564,7 +53584,7 @@ playsoundscape
 playtime_2weeks
 playtime_forever
 plum
-pntUV
+pntcV
 point
 point arithmetic failure
 point at infinity
@@ -53963,7 +53983,7 @@ rZPM
 r\n\vstart_index
 r\tV_tand
 r\vDi
-r\vp0XV
+r\vp0fV
 r_AirboatViewDampenDamp
 r_AirboatViewDampenFreq
 r_AirboatViewZHeight
@@ -57338,7 +57358,7 @@ vqw0\nU
 vscripts
 vscroll
 vsvg
-vtUV
+vtcV
 vv == NULL
 vwnod
 vxml_c
@@ -57616,7 +57636,7 @@ z/B,9d
 z<d2
 z>Hz
 z?ff
-zDm_flCurrBuildup
+zDmodifier_citadel_charged_tackle_prepare
 zEX9
 zF):O4
 zFar
