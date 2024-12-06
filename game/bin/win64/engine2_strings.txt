@@ -122,13 +122,11 @@
  %4u client frames = %12s bytes\n
  %i refs\n
  (08@HPX`hpx
- (08@HPX`j0
- (08@HPXbP
- (08@HPZ0
- (08@HRP
- (08@J0
- (08@JP
- (0X`hpzP
+ (08@HPX`j
+ (08@HPXb
+ (08@HPZ
+ (08@HR
+ (0X`hpz
  (Texture)
  (default = .tga + .wav file)\n
  (fallback, started with 
@@ -410,6 +408,7 @@
 #Valve_Reject_Hidden_Game
 #Valve_Reject_Single_Player
 #\n\npause_type
+#\tV_isdigit_str
 #bML"
 #end\n
 $#GameUI_Disconnect_BadServerPassword
@@ -614,10 +613,12 @@ $tI(knN
 %s appended
 %s client
 %s code, bind name '%s' (%u), scan code '%s' (%u)\n
+%s console spew to %s\n
 %s down %s impdown %s impup %s frac: [%.2f, %.2f]\n
 %s is not a valid demo file\n
 %s is too big.  Asks for %d user commands, but our history only holds %d\n
 %s kicked by %s (%s)\n
+%s screenshot to %s\n
 %s serializer on %s\n
 %s server
 %s server-side manifest
@@ -735,6 +736,7 @@ $tI(knN
 &Sgw
 &\n"SPAWN_GROUP_IS_INITIAL_SPAWN_GROUP
 &\n"eQueryCvarValueStatus_CvarNotFound
+&\tV_isnand
 &final
 '#GameUI_Disconnect_BadSpectatorPassword
 '#GameUI_Disconnect_DifferentClassTables
@@ -752,7 +754,6 @@ $tI(knN
 '\n#eQueryCvarValueStatus_CvarProtected
 '\n#k_EProtoDebugVisibility_ValveServer
 '\n\fworldgroupid
-'\tV_isdigit_str
 'k|7O
 (#GameUI_Disconnect_LoopLevelLoadActivate
 (#GameUI_Disconnect_RemoteProblem_BadCert
@@ -762,37 +763,24 @@ $tI(knN
 (*MARK) must have an argument
 (*VERB) not recognized
 (0`hpx
-(13Q
 (27>?<:20./-(
 (64-bit process)
 (8GXgw
-(9bQ
-(9eQ
-(9gQ
+(96R
+(9pQ
 (?R or (?[+-]digits must be followed by )
-(AHQ
-(AKQ
-(AnQ
-(AyQ
 (Direct Routing)
-(EAQ
-(ENQ
-(EYQ
-(IZQ
-(M8Q
-(M9Q
-(MBQ
-(MhQ
-(MxQ
-(MzQ
+(IxQ
+(M9R
+(Q5R
 (QfT
 (Relay)
 (Untested Direct Routing)
-(UwQ
-(YJQ
-(YXQ
+(UqQ
+(UrQ
 (\n\fstring_table
 (\n\vCCSGameInfo
+(\r"+\n\tESyncType
 (\t"9\n\fCCLCMsg_Move
 (\t"<\n\fCSVCMsg_Menu
 (\t"\r\n\vCNETMsg_NOP"'\n
@@ -815,6 +803,7 @@ $tI(knN
 (\v2&.google.protobuf.MethodDescriptorProto
 (\v2'.google.protobuf.ServiceDescriptorProto
 (\v2(.google.protobuf.SourceCodeInfo.Location
+(\v2).CDemoRecovery.DemoInitialSpawnGroupEntry
 (\v2).CGameInfo.CDotaGameInfo.CHeroSelectEvent
 (\v2).google.protobuf.EnumValueDescriptorProto
 (\v2,.CSVCMsg_PacketEntities.alternate_baseline_t
@@ -835,14 +824,10 @@ $tI(knN
 (\v2\v.CMsgVector
 (\v2\v.CMsgVector"O\n
 (\v2\v.CMsg_CVars"
-(a3Q
-(afQ
 (cannot determine missing fields for lite message)
 (dump took %.1fms)\n
-(eaQ
-(iPQ
-(ikQ
-(mMQ
+(epQ
+(izQ
 (merge 
 (no landmark)
 (no reason given)
@@ -850,18 +835,12 @@ $tI(knN
 (none)
 (null)
 (nullptr)
-(qTQ
 (root)
 (secure mode enabled, connected to Steam3) 
 (secure mode enabled, disconnected from Steam3) 
 (syU
-(uCQ
-(uKQ
-(uLQ
-(uVQ
+(u1R
 (unknown)
-(yOQ
-(ypQ
 )", which is not defined. The innermost scope is searched first in name resolution. Consider using a leading '.'(i.e., "(.
 )#GameUI_Disconnect_PureServer_ClientExtra
 )#GameUI_Disconnect_RemoteProblem_BadCrypt
@@ -894,7 +873,6 @@ $tI(knN
 *StO9>T
 *\f*\f*\f*\f*\f*\f*\f*\f*\f*\f*\f*\f*\f*\f*\f*\f
 *\n"host_computationtime_std_deviation
-*\tV_isnand
 *h\n\vDIALOG_TYPE
 *zvC
 ++CBaseSpawnGroup
@@ -964,6 +942,7 @@ $tI(knN
 -allocfailmb
 -allocwarnmb
 -allow_non_tools_paths
+-applaunch %d
 -auto -title "auto_bug %04d-%02d-%02d %02d:%02d:%02d"
 -bugvoice
 -component
@@ -1189,6 +1168,7 @@ $tI(knN
 .?AV?$CDemoMessagePB@$0A@VCDemoStop@@@@
 .?AV?$CDemoMessagePB@$0BA@VCDemoAnimationData@@@@
 .?AV?$CDemoMessagePB@$0BB@VCDemoAnimationHeader@@@@
+.?AV?$CDemoMessagePB@$0BC@VCDemoRecovery@@@@
 .?AV?$CDemoMessagePB@$0L@VCDemoCustomDataCallbacks@@@@
 .?AV?$CDemoMessagePB@$0M@VCDemoUserCmd@@@@
 .?AV?$CDemoMessagePB@$0N@VCDemoFullPacket@@@@
@@ -1217,6 +1197,7 @@ $tI(knN
 .?AV?$CNetMessagePB@$0?0VNetMessageSplitscreenUserChanged@@$0L@$00$0A@@@
 .?AV?$CNetMessagePB@$0BA@VCBidirMsg_RebroadcastGameEvent@@$04$00$00@@
 .?AV?$CNetMessagePB@$0BB@VCBidirMsg_RebroadcastSource@@$04$00$00@@
+.?AV?$CNetMessagePB@$0BD@VCBidirMsg_PredictionEvent@@$0A@$0A@$0A@@@
 .?AV?$CNetMessagePB@$0BE@VCCLCMsg_ClientInfo@@$09$00$0A@@@
 .?AV?$CNetMessagePB@$0BF@VCCLCMsg_Move@@$07$0A@$0A@@@
 .?AV?$CNetMessagePB@$0BG@VCCLCMsg_VoiceData@@$05$0A@$0A@@@
@@ -1543,6 +1524,7 @@ $tI(knN
 .?AVCBaseServerSpawnGroupCreatePrerequisite@@
 .?AVCBaseSpawnGroup@@
 .?AVCBenchmarkService@@
+.?AVCBidirMsg_PredictionEvent@@
 .?AVCBidirMsg_RebroadcastGameEvent@@
 .?AVCBidirMsg_RebroadcastGameEvent_t@@
 .?AVCBidirMsg_RebroadcastSource@@
@@ -1615,6 +1597,8 @@ $tI(knN
 .?AVCDemoPlaybackLoop@@
 .?AVCDemoPlayer@@
 .?AVCDemoRecorder@@
+.?AVCDemoRecovery@@
+.?AVCDemoRecovery_DemoInitialSpawnGroupEntry@@
 .?AVCDemoSaveGame@@
 .?AVCDemoSendTables@@
 .?AVCDemoSpawnGroups@@
@@ -1813,6 +1797,7 @@ $tI(knN
 .?AVCProtobufBinding@?$CNetMessagePB@$0?0VNetMessageSplitscreenUserChanged@@$0L@$00$0A@@@
 .?AVCProtobufBinding@?$CNetMessagePB@$0BA@VCBidirMsg_RebroadcastGameEvent@@$04$00$00@@
 .?AVCProtobufBinding@?$CNetMessagePB@$0BB@VCBidirMsg_RebroadcastSource@@$04$00$00@@
+.?AVCProtobufBinding@?$CNetMessagePB@$0BD@VCBidirMsg_PredictionEvent@@$0A@$0A@$0A@@@
 .?AVCProtobufBinding@?$CNetMessagePB@$0BE@VCCLCMsg_ClientInfo@@$09$00$0A@@@
 .?AVCProtobufBinding@?$CNetMessagePB@$0BF@VCCLCMsg_Move@@$07$0A@$0A@@@
 .?AVCProtobufBinding@?$CNetMessagePB@$0BG@VCCLCMsg_VoiceData@@$05$0A@$0A@@@
@@ -2051,6 +2036,7 @@ $tI(knN
 .?AVIDebugVisualizerMgr@@
 .?AVIDemoBuffer@@
 .?AVIDemoMessage@@
+.?AVIDemoMessageFileInfo@@
 .?AVIDemoMessageSink@@
 .?AVIDemoPlaybackLoop@@
 .?AVIDemoPlayer@@
@@ -2288,6 +2274,7 @@ $tI(knN
 .\n\fentity_index
 .arc
 .arj
+.bak
 .bsp
 .bss
 .cfg
@@ -2383,10 +2370,10 @@ $tI(knN
 0123456789abcdef
 0123456789abcdefghijklmnopqrstuvwxyz
 08@HP
-08@HR0
-08@JP
-08B0
+08@HR
+08@J
 08\fj
+09:29:31
 0: Force z prepass off. 1: Force on. -1: Don't force
 0: Use normals reconstructed from depth. 1: Output correct normals in z prepass.
 0: run all send jobs on main thread; 1: send jobs run asynchronously (except on dedicated server); 2: send jobs asynchronously; 3: send jobs run in parallel but block to not overlap the next tick; 4: main server clients' send jobs run in parallel, then HLTV server jobs; this approximately matches pre-async profile for a single HLTV server configuration
@@ -2396,11 +2383,8 @@ $tI(knN
 0B_u
 0C&C
 0E>X
-0PH<
 0T.Q
-0TR<
 0X8b?~
-0XW?
 0\n\vserializers
 0\r5"t
 0\r50h
@@ -2417,7 +2401,6 @@ $tI(knN
 1.2.11
 11Y@
 127.0.0.1
-15:13:19
 16777215"R\n\nCMsg_CVars
 16777215B$
 1>O\kw
@@ -2450,12 +2433,11 @@ $tI(knN
 2Hax
 2NK?
 2Ogx
+2Pl#
 2Z4\nf
 2\f8Kf
 2\r.PrefetchType"h\n
 2\rU2t
-2\vpTR<
-2\vpXW?
 2i0/
 3 FB
 3$EE\f
@@ -2488,6 +2470,7 @@ $tI(knN
 5J5J5J5J5J5J5J5J5J5J5J5J5J5J5J5Jx
 5QbcP<61&
 5\n\vnested_type
+5\tV_log10f
 5c;3E
 5m8>8=t
 5y?4
@@ -2498,6 +2481,7 @@ $tI(knN
 6NK>
 6\fXO>\ntA
 6\n\fmessage_type
+6\tV_log2_uint
 6s?fBbEcJYG[I[NYVP\B]@f;g<h<u4{,
 6tmT
 6uu?>
@@ -2518,7 +2502,6 @@ $tI(knN
 87g}
 8>0RF>
 8@HP:
-8@J0
 8A3b
 8Ccosf
 8Smt
@@ -2526,6 +2509,8 @@ $tI(knN
 8\n\textension
 8\n\vdescriptors
 8b  16-May-2010
+8i#R
+8inQ
 8ke?;
 8}WW`
 9*ubC'
@@ -2536,7 +2521,6 @@ $tI(knN
 9Z=K7
 9\n\noneof_decl
 9\n\vplayer_info
-9\tV_log10f
 9_rO\r
 9a&g
 9o|R:
@@ -2545,7 +2529,7 @@ $tI(knN
 : Tried to copy from a message with a different type. to: 
 : failed to parse contents
 ::ExecGameTypeCfg
-:\tV_log2_uint
+:\tV_logf
 ;1cb
 ;7Nh
 ;?0123456789:;<=>?
@@ -2576,7 +2560,6 @@ $tI(knN
 =\n\npicks_bans
 =cQ6
 =e2m
-=fff?fff?fff?fff?
 =imb;D
 =rF`JXKXWJYB[Cd;l2x(z%a+N2SNTQXKVJWGZI]J]Jm(r$u"u"
 >0|t?z7
@@ -2588,8 +2571,8 @@ $tI(knN
 >K7z6
 >O-p?A6
 >Rdx
->\tV_logf
 >cQ6
+>fff?fff?fff?fff?
 >jtm}S
 >qxs
 >qxs?
@@ -2953,8 +2936,6 @@ $tI(knN
 @ Current  :  %s\n
 @08@HPX`hpx
 @08N
-@0iN
-@5qR
 @HPX
 @HPX&I
 @HPX`hv
@@ -2969,7 +2950,6 @@ A!;I2
 A2r>
 A7/s
 A>pP&
-AA:P
 ABCDEFGHIJKLMNOPQRSTUVWXYZ
 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/
 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_
@@ -3018,7 +2998,6 @@ AddMessage
 AddResourceInternal: %s\n
 AddSpawnMessageToDemoSpawnGroups storing message %s (spawn group %s)\n
 AddSpawnMessageToDemoSpawnGroups: Failed to serialize CNETMsg_SpawnGroup_Load_t\n
-AddSpawnMessageToDemoSpawnGroups: Failed to serialize spawn group\n
 AddString
 AddUGCResources: %s\n
 AddUInt32
@@ -3211,7 +3190,11 @@ Broadcast on GOTV[%d] started\n
 Broadcast on GOTV[%d] stopped\n
 Broadcast server debug overlays
 Broadcast server debug overlays traffic
+BroadcastMessage:  Recipient Filter for message type %s (reliable: %s) with bogus client slot (%i) in list of %i clients\n
+BroadcastMessage: Init message being created after signon buffer has been transmitted\n
+BroadcastMessage: Init message would overflow signon buffer!\n
 BroadcastMessage: Reliable broadcast message overflow for client %s\n
+BroadcastMessage: Reliable filter message overflow for client %s\n
 Broadcast[%d] IO Failure, Http code %d on %s\n
 Broadcast[%d] Re-sending signon data\n
 Broadcast[%d] Recording started at %s\n
@@ -3277,18 +3260,18 @@ C:\buildworker\citadel_rel_win64\build\src\engine2\loopmoderemoteconnect.cpp
 C:\buildworker\citadel_rel_win64\build\src\engine2\networkgameclient.cpp
 C:\buildworker\citadel_rel_win64\build\src\engine2\networkgameclient.cpp:2721
 C:\buildworker\citadel_rel_win64\build\src\engine2\networkgameclient.cpp:3520
-C:\buildworker\citadel_rel_win64\build\src\engine2\networkgameclient.cpp:4229
-C:\buildworker\citadel_rel_win64\build\src\engine2\networkgameclient.cpp:4517
+C:\buildworker\citadel_rel_win64\build\src\engine2\networkgameclient.cpp:4235
+C:\buildworker\citadel_rel_win64\build\src\engine2\networkgameclient.cpp:4523
 C:\buildworker\citadel_rel_win64\build\src\engine2\networkgameclientbase.cpp
-C:\buildworker\citadel_rel_win64\build\src\engine2\networkgameclientbase.cpp:2724
-C:\buildworker\citadel_rel_win64\build\src\engine2\networkgameclientbase.cpp:4187
-C:\buildworker\citadel_rel_win64\build\src\engine2\networkgameclientbase.cpp:4225
+C:\buildworker\citadel_rel_win64\build\src\engine2\networkgameclientbase.cpp:2749
+C:\buildworker\citadel_rel_win64\build\src\engine2\networkgameclientbase.cpp:4212
+C:\buildworker\citadel_rel_win64\build\src\engine2\networkgameclientbase.cpp:4250
 C:\buildworker\citadel_rel_win64\build\src\engine2\networkgameserver.cpp:1176
 C:\buildworker\citadel_rel_win64\build\src\engine2\networkgameserverbase.cpp
-C:\buildworker\citadel_rel_win64\build\src\engine2\networkgameserverbase.cpp:2934
-C:\buildworker\citadel_rel_win64\build\src\engine2\networkgameserverbase.cpp:5496
-C:\buildworker\citadel_rel_win64\build\src\engine2\networkgameserverbase.cpp:5562
-C:\buildworker\citadel_rel_win64\build\src\engine2\networkgameserverbase.cpp:5627
+C:\buildworker\citadel_rel_win64\build\src\engine2\networkgameserverbase.cpp:2935
+C:\buildworker\citadel_rel_win64\build\src\engine2\networkgameserverbase.cpp:5520
+C:\buildworker\citadel_rel_win64\build\src\engine2\networkgameserverbase.cpp:5586
+C:\buildworker\citadel_rel_win64\build\src\engine2\networkgameserverbase.cpp:5651
 C:\buildworker\citadel_rel_win64\build\src\engine2\networkp2pservice.cpp
 C:\buildworker\citadel_rel_win64\build\src\engine2\networkserverservice.cpp
 C:\buildworker\citadel_rel_win64\build\src\engine2\networkstringtable.cpp
@@ -3331,6 +3314,7 @@ CAppSystemDict:Unable to load module %s (Dependency of %s), error %d\n
 CAsyncShaderCompilePrequisite
 CBaseSpawnGroup::SetParentSpawnGroup
 CBenchmarkService
+CBidirMsg_PredictionEvent
 CBidirMsg_RebroadcastGameEvent
 CBidirMsg_RebroadcastSource
 CBroadcastPlayer::StrideDemoPacket
@@ -3358,7 +3342,6 @@ CCommand::Tokenize: Encountered command which overflows the tokenizer buffer.. S
 CConnectGameClientPrerequisite
 CConnectRelayPrerequisite
 CCreateGameClientPrerequisite
-CDemo::Play: failed to create demo net channel for %s\n
 CDemoAnimationData
 CDemoAnimationHeader
 CDemoClassInfo
@@ -3373,6 +3356,7 @@ CDemoFile: %s Read DEM_StringTables at %d\n
 CDemoFile: %s Read stringtable DEM_FullPacket at %d\n
 CDemoFile: %s adjust m_nStartTick:%d\n
 CDemoFile: %s bStopReading tick:%d playbacktick:%d\n
+CDemoFile: %s handle packet :%d t=%d\n
 CDemoFile: %s iFullPacketGoto:%d (tick:%d) m_nSkipToTick:%d GetPlaybackTick():%d\n
 CDemoFile: %s return m_DemoPacket tick: %d\n
 CDemoFile: %s table:%s iCurrent:%d (tick:%d) iSkipTo:%d (tick:%d)\n
@@ -3380,6 +3364,9 @@ CDemoFile: %s tick:%d iFullPacketGoto:%d\n
 CDemoFile: %s tick:%d m_iFullPacketGoto:%d PlaybackTick:%d\n
 CDemoFile: %s: Not skipping svcmsg '%s'\n
 CDemoFile: %s: Skipping '%s'\n
+CDemoFile: CDemoFile::WriteMessage DEM_FileHeader at offset 0, updating demo header\n
+CDemoFile: CDemoFile::WriteMessage DEM_FileInfo cur offset %d, updating demo header\n
+CDemoFile: CDemoFile::WriteMessage DEM_SpawnGroups cur offset %d, updating demo header\n
 CDemoFile: Close '%s'\n
 CDemoFile: Flush '%s'\n
 CDemoFile: Open(%s) %s DemoBufferType:%d\n
@@ -3389,13 +3376,14 @@ CDemoFile: [%d] ReadMessage: %s Size:%d\n
 CDemoFile: [%d] ReadMessageType: %s @ %d\n
 CDemoFile: [%d] WriteBytes: %d\n
 CDemoFile: [%d] WriteMessage: %s @ %d Size:%d\n
+CDemoFile::GetNetCmd
 CDemoFile::Open: couldn't open file %s for %s.\n
 CDemoFile::Open: file already open.\n
 CDemoFile::ReadMessage() snappy::RawUncompress failed.\n
+CDemoFile::ReadMessage: [%i] Get overflow %s requested %d, avail %d bytes\n
 CDemoFileHeader
 CDemoFullPacket
 CDemoPlayer::FullPacketGoto
-CDemoPlayer::GetNetCmd
 CDemoPlayer::LoadSpawnGroups Preloading spawngroup %s\n
 CDemoPlayer::LoadSpawnGroups Premanifest update spawngroup %s\n
 CDemoPlayer::PlayDemo:  Demo filename is empty or invalid\n
@@ -3404,10 +3392,33 @@ CDemoPlayer::RemoveMessagesForSkip
 CDemoPlayer::SetIgnorePacketsForResourceLoading(%s)\n
 CDemoPlayer::SkipToTick
 CDemoPlayer::StartPlayback
+CDemoPlayer::StartPlayback: couldn't open demo file '%s'\n
+CDemoPlayer::StartPlayback: failed to create demo net channel for '%s'\n
+CDemoPlayer::StartPlayback: failed to read demo header for '%s'\n
+CDemoPlayer::StartPlayback: incomplete demo %s, unable to repair!\n
+CDemoPlayer::StartPlayback: incomplete demo, %s last good message start [%d], file size [%d]\n
+CDemoPlayer::TryRecoverDemoFile: adding missing CDemoStop_t\n
+CDemoPlayer::TryRecoverDemoFile: backing up original demo to '%s'\n
+CDemoPlayer::TryRecoverDemoFile: failed to parse spawn group message.  %s\n
+CDemoPlayer::TryRecoverDemoFile: fixing playback time %.2f sec, %d ticks, %d frames (tick interval %f = %g fps)\n
+CDemoPlayer::TryRecoverDemoFile: processing %d recovery records\n
+CDemoPlayer::TryRecoverDemoFile: recovered demo into '%s', processing took %.2f msec\n
+CDemoPlayer::TryRecoverDemoFile: truncating and seeking to [%d]\n
+CDemoPlayer::TryRecoverDemoFile: unable to copy '%s' to '%s'\n
+CDemoPlayer::TryRecoverDemoFile: unable to open demo %s for write\n
+CDemoPlayer::TryRecoverDemoFile: unable to read contents of '%s'\n
+CDemoPlayer::TryRecoverDemoFile: unable to recover '%s', backup file '%s' already exists!\n
+CDemoPlayer::UpconvertDemoIfNecessary:  demo file version '%s' engine version '%s' on file '%s'.\n
+CDemoPlayer::UpconvertDemoIfNecessary:  demo upconversion failed, reason: %s\n
+CDemoPlayer::UpconvertDemoIfNecessary:  demo upconversion to '%s' succeeded, playback using converted file %s\n
+CDemoPlayer::UpconvertDemoIfNecessary:  unable to get demo version from '%s'.\n
+CDemoPlayer::UpconvertDemoIfNecessary:  unable to load demo upconverter (%s)\n
+CDemoPlayer::UpconvertDemoIfNecessary:  upconverting demo file '%s'.\n
 CDemoRecorder::OnCrashed:  Finalizing demo file due to crash!\n
 CDemoRecorder::ParseMessage: Failed to serialize message\n
 CDemoRecorder::StartRecording( %s ) calling ForceDemoRecordingFullUpdateAfterNextDeltaPacket to await next delta update before forcing a full update\n
 CDemoRecorder::WriteNetMessage: Failed to serialize %s\n
+CDemoRecorder::WriteSpawnGroups()\n
 CDemoSendTables
 CDemoSpawnGroups
 CDemoStringTables
@@ -3580,7 +3591,8 @@ CHLTVServer::StartRelay: WriteClassInfosBuffer %s.\n
 CHLTVServer::StartRelay: WriteSendTables %s.\n
 CHLTVServer::UpdateHibernationState:  Terminating after relaying game.\n
 CHLTVServer::UpdateTick
-CHLTVServerAsync::ExpandDeltaFrameToFullFrame(), C:\buildworker\citadel_rel_win64\build\src\engine2\hltvserver_async.cpp:1091
+CHLTVServerAsync::ExecuteDelayedCall StartAutoRecordingCall_t with start tick == 0\n
+CHLTVServerAsync::ExpandDeltaFrameToFullFrame(), C:\buildworker\citadel_rel_win64\build\src\engine2\hltvserver_async.cpp:1101
 CHandle
 CHeroSelectEvent
 CHostStateMgr::QueueNewRequest( %s, %u )\n
@@ -3732,6 +3744,7 @@ CNetworkGameClient::OnPreserveEntity
 CNetworkGameClient::ProcessClassInfo: create on client %s\n
 CNetworkGameClient::ProcessClassInfo: creating client serializers from local server serializers (crc %u, server api %s)\n
 CNetworkGameClient::ProcessClassInfo: parsing serializers from cache due to matching crc %u\n
+CNetworkGameClient::ProcessTick( -1 ), ignoring during demo playback\n
 CNetworkGameClient::SendMoveInternal: Send delayed due to !CanPacket, tick=%d\n
 CNetworkGameClient::SetSignonState: end %i
 CNetworkGameClient::SetSignonState: start %i
@@ -3748,6 +3761,7 @@ CNetworkGameClientBase::ProcessClassInfo parsing %d server classes\n
 CNetworkGameClientBase::SynchronizeAndBlockUntilLoaded
 CNetworkGameServer::ActivateServer
 CNetworkGameServer::PackEntities
+CNetworkGameServerBase::BroadcastMessage
 CNetworkGameServerBase::ConnectClient( name='%s', remote='%s' )\n
 CNetworkGameServerBase::ReplyConnection
 CNetworkGameServerBase::SetServerState (%s -> %s)\n
@@ -3924,6 +3938,7 @@ CUtlDict<class CPureServerWhitelist::CCommand *,class CDefFastCaselessStringLess
 CUtlDict<int,class CDefFastCaselessStringLess>::Insert
 CUtlDict<struct CPrerequisiteDescriptionHelper::Analysis_t,class CDefFastCaselessStringLess>::Insert
 CUtlDict<struct `void __cdecl cl_checkdeclareclasses(class CCommandContext const &,class CCommand const &)'::`2'::Entry_t,class CDefFastCaselessStringLess>::Insert
+CUtlDict<struct empty_t,class CDefFastCaselessStringLess>::Insert
 CUtlLinkedList overflow! (exhausted index range)\n
 CUtlLinkedList overflow! (exhausted memory allocator)\n
 CUtlMemory_RawAllocator<class CUtlHashtableEntry<unsigned int,struct empty_t> >::EnsureCapacity
@@ -4229,6 +4244,7 @@ CreateSimpleThread
 CreateStringTable @%d\n
 CreateThread
 CreateThreadpoolWork
+CreateToolhelp32Snapshot
 Creating %s\n
 Creating NetChan for user %d '%s' @ %s\n
 Cr~l
@@ -4298,6 +4314,7 @@ DebugInfo
 DebugUI
 DebugVisualizerMgr
 Debugger
+Dec  6 2024
 December
 DeclareCurrentThreadIsMainThread
 DecodeClassBaseline: NULL instance baseline table
@@ -4337,14 +4354,12 @@ Demo fast skipping disabled. Fullpackets_version != DEMOFILE_FULLPACKETS_VERSION
 Demo paused at server tick %i\n
 Demo playback finished ( %.1f seconds, %i render frames, %.2f fps).\n
 Demo playback options:\n
-Demo recorded for game '%s', current game is '%s' [demo_allow_game_mismatch = %d]\n
-Demo recorded with '%s' addons, currently have '%s' addons.\n
 Demo recording custom data for unregistered callback.\n
-Demo upconversion failed, reason: %s\n
-Demo upconversion to '%s' succeeded, playback using converted file : %s\n
 DemoAutoRecorder
+DemoFile
 DemoFileHeader: %s\n
 DemoFileInfo: %s\n
+DemoInitialSpawnGroupEntry
 DemoPlaybackFinished
 DemoPlaybackStarted
 DemoPlayer
@@ -4685,6 +4700,7 @@ FYLh.o
 FZ?w
 F\n%NETWORK_DISCONNECT_DISCONNECT_BY_USER
 F\n\foptimize_for
+F\tV_powf
 Fail to schedule the chore!
 Failed
 Failed To Load '%s'! VConsole Communication Disabled!\n
@@ -4720,8 +4736,8 @@ Failed to parse input ConVar '%s' from string '%s'\n
 Failed to parse network ConVar '%s' from string '%s'\n
 Failed to parse spawn group message.  %s\n
 Failed to parse spawn group messaqge.  %s\n
-Failed to read demo header on '%s'.\n
 Failed to read file %s, configFileType %d, nSlot %d\n
+Failed to save
 Failed to save unsupported class
 Failed to serialize KV3 to JSON.  %s\n
 Failed to serialize one usercommand?
@@ -4901,6 +4917,7 @@ GOTV[%d] not active.\n
 GOTV[%u]\n
 GPU Frame Time
 GPUTimeAvgMS,GPUTimeRangeMS,GPUTimeMinMS,GPUTimeMaxMS,rendersystemdll,width,height,msaa\n
+G\tV_qsort
 Game
 Game Engine
 Game Server is not running\n
@@ -5052,6 +5069,7 @@ GetStringTypeW
 GetSystemTimeAsFileTime
 GetSystemTimePreciseAsFileTime
 GetTempPath2W
+GetThreadLocalStackAllocator
 GetTimeFormatEx
 GetTimeFormatW
 GetTimeZoneInformation
@@ -5060,7 +5078,7 @@ GetUInt64
 GetUserDefaultLCID
 GetUserDefaultLocaleName
 GetUserObjectInformationW
-GetUserSetting: cvar '%s' unknown.\n
+GetUserSetting: userinfo cvar '%s' unknown on player slot %d (%s).\n
 GetWin32ConsoleCursorColumnIndex
 GetWindowRect
 Giz{~z
@@ -5086,7 +5104,7 @@ H.FM
 HD?0
 HGR9\f
 HH:mm:ss
-HIrR
+HIxQ
 HKR~
 HLTV
 HLTV Broadcast
@@ -5099,7 +5117,7 @@ HLTV:  SetSignonState( %s )\n
 HLTV:maxplayers set to %i\n
 HLTV_CopyNewEntity: GetDynamicBaseline(%d) failed.
 HSR_GAME_REMOTE_CHANGELEVEL_RECONNECT
-H\rqR
+H\tV_qsort_s
 HammerMapLoader001
 Hangul
 Hanunoo
@@ -5121,11 +5139,10 @@ Hit rate
 Hits/m
 Hltv Replay
 Hltv Replay failure: HLTV frame is not ready\n
-Hltv Replay failure: Hltv replay is not allowed in this game\n
+Hltv Replay failure: Hltv replay is not enabled\n
 Hltv Replay failure: already in replay\n
 Hltv Replay failure: requests are rate limited to no more than 1 per %g seconds\n
 Hltv replay delay %u cannot match the requested delay %u\n
-HltvReplayAllowed
 Host SourceTV[0] port
 Host SourceTV[1] port
 Host activate: %s\n
@@ -5140,7 +5157,6 @@ Host_EndGame: %s\n
 Hostname for server.
 How long to show the message about Killer Replay after death. The best setting is a bit shorter than spec_replay_autostart_delay + spec_replay_leadup_time + spec_replay_winddown_time
 How often to flash demo recording/playback overlay (0 - disable overlay, -1 - show always)
-HqrR
 HudUpdate
 Huffman code size table overflow
 Huffman table 0x%02x was not defined
@@ -5314,7 +5330,6 @@ JPEGMEM
 JSType
 J\n NETWORK_DISCONNECT_SNAPSHOTERROR
 J\n'NETWORK_DISCONNECT_DISCONNECT_BY_SERVER
-J\tV_powf
 January
 Javanese
 JiYMm
@@ -5326,6 +5341,7 @@ JustInTime Resource Spawn Group
 JustInTimeManifest
 JwMW
 K32EnumPageFilesA
+K32GetModuleFileNameExA
 KERNEL32.dll
 KNQ\rMO
 KW<S
@@ -5333,7 +5349,6 @@ K\n!NETWORK_DISCONNECT_INTERNAL_ERROR
 K\n#NETWORK_DISCONNECT_TICKMSG_OVERFLOW
 K\n$NETWORK_DISCONNECT_STEAM_AUTHINVALID
 K\n'NETWORK_DISCONNECT_CLIENT_DIFFERENT_MAP
-K\tV_qsort
 Kaithi
 Kannada
 Katakana
@@ -5380,7 +5395,6 @@ LWW>
 L\n!NETWORK_DISCONNECT_HLTVRESTRICTED
 L\n!NETWORK_DISCONNECT_KICKED_SUICIDE
 L\n!NETWORK_DISCONNECT_LOOPDEACTIVATE
-L\tV_qsort_s
 Label
 Language
 Last received command number going in reverse from server!  (Out of order delivery?)  %d -> (%d+%d=%d)
@@ -5529,6 +5543,7 @@ M\n$NETWORK_DISCONNECT_REJECT_SERVERFULL
 M\n&NETWORK_DISCONNECT_STEAM_AUTHCANCELLED
 M\n'NETWORK_DISCONNECT_REJECT_SINGLE_PLAYER
 M\n(NETWORK_DISCONNECT_SERVER_REQUIRES_STEAM
+M\tV_roundf
 Main 3D Window
 MainLoop
 MainLoop returning\n
@@ -5786,7 +5801,6 @@ Not supported.
 Note that enum values use C++ scoping rules, meaning that enum values are siblings of their type, not children of it.  Therefore, "
 Note: Changes to sv_pure take effect when the next map is loaded.\n
 Note: should use "addip" instead of "banip".\n
-Nov 21 2024
 November
 Now recording to "%s", immediate mode, recorded length so far is %s.\n
 Now recording to "%s", recorded length so far is %s.\n
@@ -5884,6 +5898,7 @@ Only DXT1/DXT5 online texture compression supported.\n
 Only SourceTV Master can record demos instantly.\n
 Only one instance of the game can be running at one time.
 Open a VConsole subtool.
+OpenProcess
 Opened demo frame stats file '%s'\n
 Opened temporary file %s
 Opens an asset in it's primary editor of choice. Specify the full path to the asset from the mod directory.
@@ -5907,11 +5922,9 @@ Override Fog color: %f %f %f\n
 Overrides the SourceTV master root address.
 Overrides the max players reported to prospective clients
 Overriding minidump handler with Engine2MinidumpFunction\n
-P08@JP
-P08J`
+P08@J
+P08J
 P08N
-P6 x?
-P6pl?
 P:S;A
 P?fff?33s?{
 P@HPX`hpx\f
@@ -5926,7 +5939,6 @@ PLAYBACK: ReadReplayMessage waiting for next tick at clientTick=%d\n
 PNG\r\n
 POSIX collating elements are not supported
 POSIX named classes are supported only within a class
-PPH<
 PPNe
 PQ${ZM
 PREP
@@ -6130,7 +6142,6 @@ Player
 Player %d%s
 Player %s attempting reconnect, but prior connection still active\n
 Player %s reconnecting, disconnecting prior connection\n
-Playing %sdemo from '%s'.\n
 Playing '%s'\n
 Playing Broadcast (%s)
 Playing Demo (%s)
@@ -6189,6 +6200,8 @@ ProcesPacketEntitiesWorkItems_Combined_Sort
 ProcesPacketEntitiesWorkItems_Decode
 ProcesPacketEntitiesWorkItems_ReadFieldList
 Process priority: %s, main thread priority: %s\n
+Process32First
+Process32Next
 Process: %s, OS: %s\n
 ProcessBaselineAck: invalid packed entity bit (%i)\n
 ProcessClassInfo: can't allocate %d C_ServerClassInfos.\n
@@ -6238,7 +6251,6 @@ Q\n&NETWORK_DISCONNECT_TEMPENTMSG_OVERFLOW
 Q\n*NETWORK_DISCONNECT_CLIENT_CONSISTENCY_FAIL
 Q\n+NETWORK_DISCONNECT_CLIENT_UNABLE_TO_CRC_MAP
 Q\n,NETWORK_DISCONNECT_REJECT_SERVERAUTHDISABLED
-Q\tV_roundf
 Qkkbal
 Quantization table 0x%02x was not defined
 Quantizing to %d = %d*%d*%d colors
@@ -6303,7 +6315,7 @@ RP_PAUSE
 RP_TOGGLEPAUSE
 RSDS.Ak//
 RST%d
-R\fpTR<
+R\tV_sincosf
 RaiseException
 RandomFloat
 RandomInt
@@ -6377,6 +6389,7 @@ Release
 ReleaseMessage
 ReleaseSRWLockExclusive
 ReleaseThreadHandle
+Reliable message (type %s) discarded.
 Reload the most recent saved game.
 Reloading demo file '%s'
 Remote Connect (%s)
@@ -6451,6 +6464,7 @@ ResourceHandleUtils001
 ResourceManifestRegistry001
 ResourceSystem013
 Response arrived from %s [%u] v%d t%u\n
+Restarting application ID %d via Steam...\n
 Restore previously pushed convars and config values
 RestoreWin32ConsoleColor
 Restoring Save (%s)
@@ -6560,6 +6574,7 @@ STEAM_
 STEAM_ID_LAN
 STEAM_ID_PENDING
 STRING
+ST_Tick
 SUNLIGHT/SHADOW ATLAS IN FULL USE HERE.
 SV:  % 3d %40.40s not resolved\n
 SV:  %d/%s:  requested resolve all %d changes, actually resolved only %d changes\n
@@ -6637,8 +6652,6 @@ Saurashtra
 Save convars and config values
 Save the ban list to file.
 Saved '%s' to SteamRemoteStorage, %d bytes OK\n
-Saved console spew to %s\n
-Saved screenshot to %s\n
 Saved user config file '%s': type %d\n
 Saves current key bindings to disk.
 Saves out the user config values.
@@ -6880,6 +6893,7 @@ Shutdown request received. Server will shutdown when empty.\n
 ShutdownSource2Logging\n
 Signon
 Signon Connected (Build)
+Signon Message %s [%d]\n
 Signon buffer overflowed %i bytes!!!\n
 SignonState
 Similar to tv_grouprelaydata, but controls whether or not the voice channels should be routed into the grouped data for the relays
@@ -7125,6 +7139,7 @@ StringTable %s
 SubmitThreadpoolWork
 Successfully disabled priority boost.\n
 Successfully enabled priority boost.\n
+Successfully saved
 Suffix to append to the console log, may be changed to reopen the log
 Suggested field numbers for 
 Summary of %d frames.  (%d frames excluded from analysis.)\n
@@ -7172,6 +7187,7 @@ T\n&NETWORK_DISCONNECT_BAD_SERVER_PASSWORD
 T\n&NETWORK_DISCONNECT_MESSAGE_PARSE_ERROR
 T\n)NETWORK_DISCONNECT_REQUEST_HOSTSTATE_IDLE
 T\n+NETWORK_DISCONNECT_STEAM_VAC_CHECK_TIMEDOUT
+T\tV_sinf
 Ta?jib?
 Tagalog
 Tagbanwa
@@ -7492,6 +7508,7 @@ Use fast frame skipping when available for demo_goto commands.
 Use fog_override convars instead of world fog data
 Use networkvar system.
 Use parallel processing of snapshot reading if above this many entries.
+Use this to tell Steam to relaunch the app right after existing
 UsecCmdLatency
 Used by the client to inform the server of their desired queue length.  Derived from cl_tickpacket_recvmargin_desired and cl_tickpacket_desired_queuelength
 User Messages
@@ -7557,7 +7574,6 @@ VWebm001
 V\n&NETWORK_DISCONNECT_KICKED_NOSTEAMLOGIN
 V\n&NETWORK_DISCONNECT_PURESERVER_MISMATCH
 V\n'NETWORK_DISCONNECT_CREATE_SERVER_FAILED
-V\tV_sincosf
 V_AppearsToBeANumber
 V_AreSlashesCorrect
 V_CopyMemory3D
@@ -7651,9 +7667,6 @@ WARNING
 WARNING! TextConsole::Init: Could not attach console hook.\n
 WARNING:  FlushEntityPacket, %s
 WARNING:  Steam Servers Disconnected
-WARNING: %s has invalid DEM_FileHeader.\n
-WARNING: %s has invalid DEM_FileInfo.\nThis probably means the engine crashed while recording the .dem file and it was not finalized.\n
-WARNING: %s pre-dates demo versioning, will need to be upconverted.\n
 WARNING: CEngineWatchdogThread is killing the process: %s
 WARNING: Failed to find startup tool '%s'\n
 WARNING: Failed to load startup asset '%s'\n
@@ -7712,6 +7725,7 @@ WSAVERNOTSUPPORTED
 WSWSAECONNABORTEDAEINTR
 W\n,NETWORK_DISCONNECT_REJECT_CONNECT_FROM_LOBBY
 W\n,NETWORK_DISCONNECT_REJECT_RESERVED_FOR_LOBBY
+W\tV_snprintf
 WaNd?
 WaitForInputIdle
 WaitForSingleObject
@@ -7743,6 +7757,7 @@ When enabled, this will use a uniquely generated server code to authenticate rel
 When encoding entity deltas, append on a random number of extra bytes.  This happens after sv_dev_entitydeltapadding_min_size.
 When encoding entity deltas, if the delta size is < N bytes, then shove in N dummy bytes.  This happens before sv_dev_entitydeltapadding_extra_min/sv_dev_entitydeltapadding_extra_max
 When encoding entity deltas, instead of unreliably deducing explicit deletions, actually send list of existing but not networked entities (dont_transmit list) to each client.
+When packing entities, check that recipient bits match for fast path packing.
 When r_low_latency is enabled, this moves the low latency sleep on tick frames to happen after client simulation.
 When receiving packets out of sequence, wait this many seconds for missing sequences to arrive
 When the client is catching up in low frame rate situations, should we run client simulate more than once a frame?
@@ -7815,12 +7830,10 @@ X\n'NETWORK_DISCONNECT_BADSPECTATORPASSWORD
 X\n'NETWORK_DISCONNECT_DIFFERENTCLASSTABLES
 X\n'NETWORK_DISCONNECT_KICKED_NOSTEAMTICKET
 X\n(NETWORK_DISCONNECT_INVALID_MESSAGE_ERROR
-X\tV_sinf
-X`hr0
+X`hr
 Xn1G
 Xr?9
 XsBI
-Y"sR
 Y8a:
 Y>kX>M
 YSb2
@@ -7865,7 +7878,6 @@ Zq",9\fB
 [Unreliable payload]
 [Voice payload]
 [\n+NETWORK_DISCONNECT_REJECT_INVALIDCONNECTION
-[\tV_snprintf
 [aOni*{
 [client]
 [h1R
@@ -7907,6 +7919,7 @@ Zq",9\fB
 \fV0U
 \fV4U
 \fX\fm\vH\vH\vm\v
+\f\tV_fopen
 \g is not followed by a braced, angle-bracketed, or quoted name/number or by a plain number
 \n    Actual    : 
 \n    Field type: 
@@ -7949,6 +7962,7 @@ Zq",9\fB
 \n\fCLC_Messages
 \n\fCNETMsg_Tick
 \n\fDEM_FileInfo
+\n\fDEM_Recovery
 \n\fDEM_SaveGame
 \n\fDEM_SyncTick
 \n\fDIALOG_ENTRY
@@ -8020,6 +8034,7 @@ Zq",9\fB
 \n\ndependency
 \n\ndeprecated
 \n\ndimensions
+\n\nevent_data
 \n\nevent_mask
 \n\nevent_name
 \n\nevent_time
@@ -8042,12 +8057,14 @@ Zq",9\fB
 \n\nval_string
 \n\nval_uint64
 \n\nvoice_data
+\n\rCDemoRecovery
 \n\rCDemoSyncTick"$\n
 \n\rCDotaGameInfo
 \n\rCSVCMsg_Print
 \n\rDEM_ClassInfo
 \n\rEDemoCommands
 \n\rMethodOptions
+\n\rST_UserCmdNum
 \n\rSignonState_t
 \n\rTYPE_SFIXED32
 \n\rTYPE_SFIXED64
@@ -8082,7 +8099,6 @@ Zq",9\fB
 \n\ryou_hear_them
 \n\tCGameInfo
 \n\tDEM_Error
-\n\tV_fflush
 \n\tbit_count
 \n\tbuild_num
 \n\tcmdstring
@@ -8106,6 +8122,7 @@ Zq",9\fB
 \n\tsignature
 \n\tsound_num
 \n\tsvc_dummy
+\n\tsync_type
 \n\ttickcount
 \n\ttype_name
 \n\tval_float
@@ -8167,6 +8184,7 @@ Zq",9\fB
 \n\vsvc_SetView
 \n\vtable_flags
 \n\vvoice_level
+\n\vwas_created
 \nbit length overflow\n
 \nbl code %2d 
 \nbl counts: 
@@ -8196,6 +8214,7 @@ Zq",9\fB
 \r\n\tTYPE_ENUM
 \r\n\tsvc_Print
 \r\r\f\f\f\f\v\v\v\n\n\n\t\t\t\t\t\t
+\r\tV_fopenUTF8
 \rmj>zjZ
 \t"%s" has %d known peers:\n
 \t"%s" has no known peers.\n
@@ -8209,9 +8228,7 @@ Zq",9\fB
 \tN1a
 \tV_expf
 \tV_fclose
-\tV_fmodf
-\tV_fopen
-\tV_fopenUTF8
+\tV_fflush
 \tV_fprintf
 \tV_ftell
 \tV_fwrite
@@ -8266,15 +8283,15 @@ Zq",9\fB
 \vSimulationTicks
 \vSource
 \vVyC
+\v\tV_fmodf
 \vbasetypes.h
 \vm\vm\vm\vH\vm\vm\v
 \vm\vm\vm\vm\vH\v
 \vnJH
-\vpPH<
-\vpTR<
 \vxYT
 ] is an invalid data character in JavaScript compatibility mode
 ]\n,NETWORK_DISCONNECT_REJECT_INVALIDRESERVATION
+]\tV_sscanf
 ]u9g
 ^<V7w
 ^RfN>
@@ -8333,11 +8350,7 @@ _whitelist.txt
 `-uRQg
 `3Q"X
 `?m'_?&~]?(
-`M1Q
-`MvR
 `RTTI
-`Y0Q
-`a6Q
 `anonymous namespace'
 `copy constructor closure'
 `default constructor closure'
@@ -8379,7 +8392,6 @@ a numbered reference must not be zero
 a&M-=Z]<i*k)n-t&q&p&|
 a6>r
 a?wSa?\
-a\tV_sscanf
 a\v4+Wk
 abcdefghijklmnopqrstuvwxyz
 abortflag
@@ -8461,6 +8473,7 @@ b#M**y`Bl+o(u,{ x$w!
 b0xNA;;|E)!
 b3>7
 b?qq
+b\tV_stricmp_fast
 backColorBuffer
 backDepthBuffer
 backbuffer,
@@ -8501,6 +8514,7 @@ benchframe
 benchframe <demoname> <frame> <tgafilename>: takes a snapshot of a particular frame in a demo\n
 benchmark time,
 beta
+bi_PredictionEvent
 bi_RebroadcastGameEvent
 bi_RebroadcastSource
 bi_RelayPacket
@@ -8571,7 +8585,7 @@ cameraman_scoreboard
 can't find client frame for world snapshot %d (%d) on server tick %d
 can't instant_replay_skip, no client\n
 can't instant_replay_skip_live, no client\n
-can't play back, no CNetworkGameClient for demo '%s'!!!\n
+can't play back, no CNetworkGameClient for demo '%s'\n
 can't playdemo '%s', currently recording '%s'\n
 can't playdemo '%s', disallowed\n
 can't reach here.
@@ -8774,7 +8788,6 @@ core
 core.stop_all_soundevents
 corrupted stream
 cosh
-couldn't Open demo file '%s'.\n
 count
 cpu_id
 cpu_level
@@ -8828,6 +8841,7 @@ dQy/
 dRL>
 d\n-NETWORK_DISCONNECT_KICKED_COMPETITIVECOOLDOWN
 d\n-NETWORK_DISCONNECT_LOCALPROBLEM_NETWORKCONFIG
+d\tV_strlower_fast
 data
 data error
 data_compressed
@@ -8844,8 +8858,14 @@ defaultSceneEnabled
 delay
 delete
 delta
-demo file version '%s' engine version '%s' on file '%s'.\n
+demo
+demo file version '%s' .\n
+demo has invalid DEM_FileHeader.\n
+demo has invalid DEM_FileInfo and .dem file not finalized (e.g. engine crash while recording).\n
 demo header buffer is %d bytes\n
+demo pre-dates demo versioning, will need to be upconverted.\n
+demo recorded for game '%s', current game is '%s' [demo_allow_game_mismatch = %d]\n
+demo recorded with '%s' addons, currently have '%s' addons\n
 demo tick,frame start time,frame start delta,frame swap time,frame swap delta,FPS variability\n\n
 demo.proto
 demo_allow_game_mismatch
@@ -8962,6 +8982,7 @@ engine_no_focus_sleep
 engine_no_focus_sleep_vconsole_suppress
 engine_ostype
 engine_platform_name_extended
+engine_relaunch_app_before_exiting
 engine_render_only
 engine_rendersystem_init
 engine_rendersystem_shader_model
@@ -8987,6 +9008,7 @@ escape
 etype
 eu?u
 event
+event_id
 event_t
 eventid
 events
@@ -9017,8 +9039,8 @@ fD""B
 fD>b
 fDD"AUDT$t
 fP~V
+fR7@
 fWi?
-f\tV_stricmp_fast
 fabs
 failed
 failed to get memory
@@ -9192,12 +9214,13 @@ group %u not async loaded
 group%d
 grp:%si
 guid
+h%xQ
 h0'D
 h>1my
 hJ4%
 hPU3
 h\n,NETWORK_DISCONNECT_REMOTE_TIMEOUT_CONNECTING
-h\tV_strlower_fast
+h\tV_strtod
 has_pvs_vis_bits_deprecated
 header crc mismatch
 heartbeat\n
@@ -9246,12 +9269,10 @@ hostname
 hostname : %s\n
 hostname_in_client_status
 hostport
-hpzP
 hscript
 hscript_lightbinding
 http Send %.3f ms ave, %.3f ms max\n
 http://localhost:8080
-hy%Q
 i3V.
 i91k
 iController
@@ -9284,6 +9305,7 @@ info reporting only
 info_player_start
 ingameui
 initial update
+initial_spawn_group
 inity
 input_button_code_is_scan_code_scd
 input_button_code_is_scan_code_scd %u\n
@@ -9443,7 +9465,6 @@ kstCu
 l6qnk
 l:Iv
 lDa>
-l\tV_strtod
 l`UROM=;98310-*)(&$"
 label
 landmarkname
@@ -9531,7 +9552,6 @@ m_bMarkedForRemoval
 m_bRenderOnly
 m_bScheduleSendTickPacket
 m_bThreadsActive
-m_bVisibleinPVS
 m_bool
 m_designerName
 m_fDataObjectTypes
@@ -9678,6 +9698,7 @@ memory_used_mb
 menu_key_values
 meshsystem
 message
+message read failure,
 message size
 message_set_wire_format
 meta 
@@ -9827,6 +9848,7 @@ o9sp
 o?GS
 oG!t
 oI>O7
+o\tV_tanf
 o\v3b
 objc_class_prefix
 objectid
@@ -9918,17 +9940,13 @@ p0p@
 p2p_listpeers
 p2p_ping "%s"
 p4edit
-p6Pm?
 p@HPX`h\f
 pClass
 pClass->m_ClassID(%i) >= %i\n
 pClient
 pCm)
-pF@s?
 pH\fy
-pPH<
 pServerClass
-pTR<
 pYa(bu
 p\r0\fP
 package
@@ -9995,6 +10013,7 @@ players
 players  : %i humans, %i bots (%i max) (%s) (%s)\n
 players_networkids
 playing %d: %s\n
+playing %s from '%s'\n
 playsound
 playsound 
 playsound <soundname>
@@ -10069,7 +10088,6 @@ rA?7
 rEy5
 rFg7
 r\tVr.>T
-r\vpTR<
 r_add_views_in_pre_output
 r_always_render_all_windows
 r_aspectratio
@@ -10241,7 +10259,6 @@ s5J5J5J5J5J5J5J5J5J5J5J5J5J5J5J5Jx
 sAmTb
 sHF'
 sUIL\s
-s\tV_tanf
 s_EntComponentInfo
 satisfied
 save
@@ -10382,6 +10399,7 @@ space
 span
 spare error
 spawn    : %d\n
+spawn_group_message
 spawngroup
 spawngroup_ignore_timeouts
 spawngrouphandle
@@ -10436,6 +10454,7 @@ stats_print_gpu requires stats_collect_gpu to be true.\n
 stats_print_gpu requires stats_display to be set greater than 0.\n
 status
 status_json
+steam.exe
 steam.inf
 steam_api64.dll
 steam_appid.txt
@@ -10477,6 +10496,7 @@ sv_cheats
 sv_cheats 1\n%s\n
 sv_clientrates
 sv_cluster
+sv_connectionless_legacy_events_allowed
 sv_cq_min_queue
 sv_debug_overlays_bandwidth
 sv_debug_overlays_broadcast
@@ -10544,6 +10564,7 @@ sv_rcon_log
 sv_rcon_maxfailures
 sv_rcon_minfailures
 sv_rcon_minfailuretime
+sv_recipients_check
 sv_region
 sv_replaysdir
 sv_reserve_slots_for_reconnecting_players_kick_prior
@@ -10594,6 +10615,7 @@ svc_SplitScreen
 svc_UpdateStringTable
 svc_UserMessage
 symbols
+sync_val_uint32
 syntax
 syntax error in subpattern name (missing terminator)
 synthetic_default
@@ -10785,8 +10807,6 @@ uint64
 uint64s
 uj?I
 unable to compute full path for '%s'\n
-unable to get demo version from '%s'.\n
-unable to load demo upconverter (%s)\n
 unable to record server classes\n
 unbind
 unbind <key> [splitscreen player] : remove commands from a key\n
@@ -10826,7 +10846,6 @@ unreserved
 unscaledViewport
 unsigned
 unverified_lazy
-upconverting demo file '%s'.\n
 update_baseline
 updated
 updated_entries

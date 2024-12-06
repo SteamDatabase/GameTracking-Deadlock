@@ -155,8 +155,7 @@
 		"LoadScriptEntities" "0"
 		"UsesBakedLighting" "1"
 		"UseAnalyticGrid" "0"
-		"SupportsDisplacementMapping" "1"
-		"DisplacementMappingSelectionDepthBias" "1024"
+		"SupportsDisplacementMapping" "0"
 		"SteamAudioEnabled"				"1"
 		"LatticeDeformerEnabled"		"1"
 	}
@@ -398,6 +397,7 @@
 		"sv_minrate"	"98304"
 		"sv_maxunlag"	"0.200"
 		"cl_clock_buffer_ticks"	"1"
+		"cl_interp_ratio" "0"
 
 		// Spew warning when adding/removing classes to/from the top of the hierarchy
 		"panorama_classes_perf_warning_threshold_ms" "0.75"
@@ -421,6 +421,9 @@
 		
 		// voip
 		"voice_in_process"			            "1"
+
+		// Sound debugging
+		"snd_report_audio_nan" "1"
 
 		"voice_always_sample_mic"               
 		{

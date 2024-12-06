@@ -21,14 +21,12 @@
 #line 1 "
 #undef
 $Globals
-%s %s[ %d ];\n
 %s allocation count overflow
 %s allocation count overflow( %llu > %llu )\n
 %s() isn't a known function.
 %s[line %d:%d] 
 %s\%s_%08X%08X%08X%08X.vshadercache
 'AppendStructuredBuffer'
-'BindlessTexture2D'
 'Buffer'
 'BufferPointer'
 'ByteAddressBuffer'
@@ -36,7 +34,7 @@ $Globals
 'ConsumeStructuredBuffer'
 'ExternalDescriptorSet'
 'FakeBindlessTexture2D'
-'INCLUDE_BINDLESS_CONSTANTS'
+'Ptr'
 'RWBuffer'
 'RWByteAddressBuffer'
 'RWStructuredBuffer'
@@ -83,6 +81,7 @@ $Globals
 'layout'
 'linear'
 'matrix'
+'namespace'
 'nointerpolation'
 'noperspective'
 'packoffset'
@@ -110,6 +109,7 @@ $Globals
 'vector'
 'void'
 'volatile'
+()* loopback of 110:4: ( struct_member_decl | function_definition )*
 (channel = 
 (end of input).\n\t This indicates a poorly specified lexer RULE\n\t or unterminated input element such as: "STRING["]\n
 *** ERROR! VS input struct member "%s" is missing semantic annotation!\n
@@ -180,8 +180,8 @@ $Globals
 *** Feature source "%s" on bool variable "%s" must stay in the range 0..1!\n
 *** Feature source "%s" on variable "%s" can only be set to an int, bool or float!\n
 *** Unknown source "%s" on variable "%s"!\n
-*** VfxReadAndPrepForDynamicShaderCompileMaterialEditor(1157): Error opening file "%s"!\n\n
-*** VfxReadAndPrepForDynamicShaderCompileMaterialEditor(1167): Error masking unused parts for "%s"!\n\n
+*** VfxReadAndPrepForDynamicShaderCompileMaterialEditor(1175): Error opening file "%s"!\n\n
+*** VfxReadAndPrepForDynamicShaderCompileMaterialEditor(1185): Error masking unused parts for "%s"!\n\n
 ***Error! Variable %s is not an input texture\n
 *.vshadercache
 , at offset %d
@@ -211,13 +211,12 @@ $Globals
 0x%X
 1:1: Tokens : ( T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | BOOLLITERAL | ID | INTEGERLITERAL | HEXINTEGERLITERAL | FLOATLITERAL | COMMENT | WS );
 1:1: Tokens : ( T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | T__64 | T__65 | T__66 | T__67 | T__68 | T__69 | T__70 | T__71 | T__72 | T__73 | T__74 | T__75 | T__76 | T__77 | T__78 | T__79 | T__80 | T__81 | T__82 | T__83 | T__84 | T__85 | T__86 | T__87 | T__88 | T__89 | T__90 | T__91 | T__92 | T__93 | T__94 | T__95 | T__96 | T__97 | T__98 | T__99 | T__100 | T__101 | T__102 | T__103 | T__104 | T__105 | T__106 | T__107 | T__108 | T__109 | T__110 | T__111 | T__112 | T__113 | T__114 | T__115 | T__116 | T__117 | T__118 | T__119 | T__120 | T__121 | T__122 | T__123 | T__124 | T__125 | T__126 | T__127 | T__128 | T__129 | T__130 | CONSTANT_REGISTER | DXC_DESCRIPTOR_SPACE | PACK_OFFSET | VECTOR_TYPE | MATRIX_TYPE | STATIC | ID | INTEGERLITERAL | FLOATLITERAL | STRINGLITERAL | WS | LINE | PRAGMA | UNKNOWN );
-2\vpT
-77:1: element : ( struct_decl | function_definition | groupshared_defintion | variable_definition[ false ] | constant_buffer | type_def | bindless_constant_def | auto_bindless_texture2d_binding | valve_compiler_option | slang_enum | slang_interface | slang_extension | semicolon= ';' );
+77:1: element : ( struct_decl | function_definition | groupshared_defintion | variable_definition[ false ] | constant_buffer | type_def | valve_compiler_option | slang_enum | slang_interface | slang_extension | slang_namespace | semicolon= ';' );
 7xicuU
+8\tV_log2f
 : lexer error %d :\n\t%s at offset %d, 
 <DOWN>
 <EOR>
-<\tV_log2f
 <invalid>
 <missing 
 <no text for the token>
@@ -267,7 +266,6 @@ Base recognizer function recover called by unknown parser type - provide overrid
 Base recognizer function recoverFromMismatchedSet called by unknown parser type - provide override for this function\n
 Base recognizer function recoverFromMismatchedToken called by unknown parser type - provide override for this function\n
 Bindless texture %s is using implicit sampler, use explicit samplers.
-BindlessConstants_t g_constants[ %d ];\n
 BlendEnable
 BlendEnable0
 BlendEnable1
@@ -483,6 +481,7 @@ MIRROR_ONCE
 MODES
 MainCs
 MainGs
+MainMs
 MainPs
 MainVs
 MaterialID
@@ -499,6 +498,7 @@ MatrixScale
 MatrixTranslate
 MaxAniso
 MaxLOD
+Mesh Shader
 MinLOD
 MipBias
 Mismatched Token Exception
@@ -550,7 +550,6 @@ RWTexture1DArray
 RWTexture2D
 RWTexture2DArray
 RWTexture3D
-R\fpT
 Raytracing Shader
 RaytracingAccelerationStructure
 Recognition Exception
@@ -679,7 +678,6 @@ WRAP
 Wrong number of items in value for annotation %s. Ignoring annotation.\n
 ZERO
 [Index: 
-[[disable_array_flattening]] Texture2D %s[ %d ] : layout( set = %d, binding = %d );
 [[vk::push_constant]] GlobalsBDAPushConstant_t g_GlobalsBDAPushConstant;\n
 \n    near %s\n    
 \n*** Error masking unused parts! Unknown text found. This is usually caused by a '{' or '}' not tabbed properly or an invalid declaration at the global scope. (line %d):\n%s\n\n
@@ -689,7 +687,6 @@ ZERO
 \t %s = transpose( %s );\n
 \t %s = vk::RawBufferLoad<%s>( address + %i*4 );\n
 \t The lexer was matching from line %d, offset %d, which\n\t 
-\tV_exp2f
 \tV_towlower
 \t_V_strcspn
 \tuint64_t nGlobalsBDAPerStage[ 6 ];\n};\n
@@ -758,7 +755,6 @@ bool4
 buffer
 byteaddressbuffer
 cbuffer
-cbuffer %s {\n
 channelMipAlgorithm_
 channelOutputColorSpace_%s
 channelSwizzle_%s
@@ -783,10 +779,10 @@ errors
 exp2
 expression
 externaldescriptorset
+f\tV_strspn
 features
 fileExt
 fillBufferExt
-float __g_Padding_%d;\n
 float2
 float3
 float3x3
@@ -798,8 +794,6 @@ g_bindless_%s[ %s ]
 g_bindless_%s_%s[ %s ]
 g_bindless_Sampler
 g_boolAttr_
-g_constants
-g_constants[ g_nDataIdx ].%s
 g_float2Attr_
 g_float3Attr_
 g_float4Attr_
@@ -845,7 +839,6 @@ int3
 int4
 intersection
 is also the end of the line, so you must check your lexer rules\n
-j\tV_strspn
 layer
 layeroverride
 lerp
@@ -857,6 +850,7 @@ linear
 log2
 looks like this:\n\t\t%.*s\n
 minPrecision
+ms_6_5
 near '%c' :\n
 near char(%#02X) :\n
 normalize
@@ -867,7 +861,6 @@ ps_4_0
 ps_4_1
 ps_5_0
 ps_6_0
-r\vpT
 radians
 random
 range%d
@@ -907,7 +900,6 @@ srgb
 static %s %s;\n
 step
 struct
-struct BindlessConstants_t {\n
 struct GS_INPUT
 struct GlobalsBDAPushConstant_t\n{\n
 struct PS_INPUT
