@@ -160,7 +160,83 @@
 							property_group = "Blends"
 						}
 					}
+					enable_shop_music_crossfade = 
+					{
+						data_type = "bool"
+						value = "false"
+						_system_properties = 
+						{
+							display_group = "normal"
+							property_group = "Volume"
+							property_help = "Enables/disables crossfading for this emitter with respect to closest active shop."
+						}
+					}
+					crossfade_distance_to_shop = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+							"[ 1.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "advanced"
+							display_edit_type = "field_curve_2d_editor"
+							property_group = "Perspective - Mix Layers"
+						}
+					}
 				}
+			},
+			
+			{
+				name = "get_opvar_val_min_shop_distance"
+				operator = "opvar_get_float"
+				input_execute = "@public.enable_shop_music_crossfade"
+				input_stack_name = "citadel_global_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "min_shop_distance"
+				input_use_namespace = "false"
+			},
+			
+			{
+				name = "remap_min_shop_distance"
+				input_execute = "@public.enable_shop_music_crossfade"
+				operator = "math_curve_2d"
+				input = "@get_opvar_val_min_shop_distance.output"
+				public_field_name = "public.crossfade_distance_to_shop"
+			},
+			
+			{
+				name = "volume_to_gain"
+				input_execute = "@public.enable_shop_music_crossfade"
+				operator = "math_db_to_gain"
+				input = "@public.volume"
+			},
+			
+			{
+				name = "math_volume_shop_distance_mult"
+				input_execute = "@public.enable_shop_music_crossfade"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@volume_to_gain.output"
+				input2 = "@remap_min_shop_distance.output"
+			},
+			
+			{
+				name = "scaled_volume_db"
+				input_execute = "@public.enable_shop_music_crossfade"
+				operator = "math_gain_to_db"
+				input = "@math_volume_shop_distance_mult.output"
+			},
+			
+			{
+				name = "switch_scale_shop_volume"
+				operator = "ctrl_switch_float"
+				input_switch = "@public.enable_shop_music_crossfade"
+				input1 = "@public.volume"
+				input2 = "@scaled_volume_db.output"
 			},
 			
 			{
@@ -207,6 +283,11 @@
 				auto_connect_public_fields = "true"
 				operator_variables = 
 				{
+					volume = 
+					{
+						data_type = "float"
+						value = "@switch_scale_shop_volume.output"
+					}
 					position_offset = 
 					{
 						data_type = "float3"

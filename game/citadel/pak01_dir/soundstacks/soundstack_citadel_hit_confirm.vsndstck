@@ -248,6 +248,39 @@
 							property_help = "The name of the branch that the group evaluates."
 						}
 					}
+					volume_offset_attacker_db = 
+					{
+						data_type = "float"
+						value = "0.f"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "Volume"
+							property_help = "Volume in db offset for attacker."
+						}
+					}
+					volume_offset_victim_db = 
+					{
+						data_type = "float"
+						value = "0.f"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "Volume"
+							property_help = "Volume in db offset for victim."
+						}
+					}
+					volume_offset_other_db = 
+					{
+						data_type = "float"
+						value = "0.f"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "Volume"
+							property_help = "Volume in db offset for other."
+						}
+					}
 				}
 			},
 			
@@ -402,12 +435,35 @@
 			},
 			
 			{
+				name = "switch_volume_offset"
+				execute_once = "true"
+				operator = "ctrl_switch3_float"
+				input_index = "@citadel_damage_info::output.damage_index"
+				input0 = "@public.volume_offset_attacker_db"
+				input1 = "@public.volume_offset_victim_db"
+				input2 = "@public.volume_offset_other_db"
+			},
+			
+			{
+				name = "math_volume_offset"
+				operator = "math_float"
+				apply = "add"
+				input1 = "@public.volume"
+				input2 = "@switch_volume_offset.output"
+			},
+			
+			{
 				name = "citadel_default_3d"
 				operator = "sos_import_stack"
 				import_stack = "citadel_default_3d"
 				auto_connect_public_fields = "true"
 				operator_variables = 
 				{
+					volume = 
+					{
+						data_type = "float"
+						value = "@math_volume_offset.output"
+					}
 					volume_falloff_max = 
 					{
 						data_type = "float"
