@@ -219,7 +219,7 @@
 
 		BakedLighting
 		{
-			Version 3
+			Version 4
 			LightmapChannels
 			{
 				direct_light_shadows 1
@@ -241,6 +241,7 @@
 					CompressedFormat DXT1
 				}
 			}
+			LightmapGutterSize 2 // For bicubic filtering
 			UseStaticLightProbes 0
 			LPVAtlas 1
 		}
