@@ -25,7 +25,7 @@
 		volume_offset_team = -6.000000
 		volume_offset_opponent = -1.000000
 		volume_offset_neutral = -4.000000
-		volume_enemy_targeting_boost = 5.000000
+		volume_enemy_targeting_boost = 3.000000
 		recency_bias_max_scale = 0.550000
 		volume_falloff_use_curve_editor = true
 		volume_falloff_curve_db_player = 
@@ -186,7 +186,7 @@
 		volume_offset_team = -6.000000
 		volume_offset_opponent = -1.000000
 		volume_offset_neutral = -4.000000
-		volume_enemy_targeting_boost = 5.000000
+		volume_enemy_targeting_boost = 3.000000
 		recency_bias_max_scale = 1.000000
 		doppler_on = 1.000000
 		doppler_factor = 5.000000
@@ -209,7 +209,7 @@
 		volume_offset_team = -6.000000
 		volume_offset_opponent = -1.000000
 		volume_offset_neutral = -4.000000
-		volume_enemy_targeting_boost = 5.000000
+		volume_enemy_targeting_boost = 3.000000
 		recency_bias_max_scale = 1.000000
 		play_from_listener_player = 0.000000
 		position_force_from_input = true
@@ -218,6 +218,7 @@
 	{
 		base = "Base.Weapon"
 		preload_vsnds = true
+		mix_group_prefix = "NPC"
 		max_distance_recipient_filter = 3500.000000
 		volume_falloff_use_curve_editor = false
 		block_distance_max = 4000.000000
@@ -267,6 +268,12 @@
 	Base.Ability = 
 	{
 		type = "citadel_perspective_default"
+		position_offset = 
+		[
+			0.000000,
+			0.000000,
+			50.000000,
+		]
 		max_distance_recipient_filter = 3500.000000
 		mix_group_prefix = "Ability"
 		block_volume_min = -1.000000
@@ -464,6 +471,12 @@
 		base = "Base.Ability"
 		doppler_on = 1.000000
 		doppler_factor = 4.000000
+		position_offset = 
+		[
+			0.000000,
+			0.000000,
+			0.000000,
+		]
 		volume_enemy_targeting_boost = 0.000000
 		volume_falloff_min_player = 200.000000
 		volume_falloff_min_team = 200.000000
@@ -563,6 +576,7 @@
 	Base.Footsteps = 
 	{
 		type = "citadel_footsteps"
+		enable_velocity_volume_scaling = 1.000000
 		max_distance_recipient_filter = 2220.000000
 		mix_group_prefix = "Movement"
 		occlusion_volume_blend_distance_min = 250.000000
@@ -784,6 +798,7 @@
 	{
 		base = "Base.Footsteps"
 		mix_group_prefix = "Reload"
+		enable_velocity_volume_scaling = 0.000000
 		mono_downmix_enabled = 1.000000
 		mono_downmix_max_distance = 0.000000
 		mono_downmix_min_distance = 0.000000
@@ -804,6 +819,7 @@
 	{
 		base = "Base.Footsteps"
 		limiter_stop_oldest = false
+		enable_velocity_volume_scaling = 0.000000
 		volume_falloff_max = 1800.000000
 		block_volume_min = 0.001000
 		block_duration = 0.020000
@@ -817,11 +833,33 @@
 		volume_falloff_max_team = 800.000000
 		volume_falloff_max_opponent = 1800.000000
 		volume_falloff_max_neutral = 1200.000000
-		volume = -16.000000
-		volume_offset_player = -6.000000
+		volume_offset_player = 0.000000
 		volume_offset_team = -6.000000
 		volume_offset_opponent = 3.000000
 		volume_offset_neutral = -6.000000
+		volume = -3.000000
+		vsnd_files = 
+		[
+			"sounds/player/foley/shared/foley_light/default_foley_01.vsnd",
+			"sounds/player/foley/shared/foley_light/default_foley_02.vsnd",
+			"sounds/player/foley/shared/foley_light/default_foley_03.vsnd",
+			"sounds/player/foley/shared/foley_light/default_foley_04.vsnd",
+			"sounds/player/foley/shared/foley_light/default_foley_05.vsnd",
+			"sounds/player/foley/shared/foley_light/default_foley_06.vsnd",
+			"sounds/player/foley/shared/foley_light/default_foley_07.vsnd",
+			"sounds/player/foley/shared/foley_light/default_foley_08.vsnd",
+			"sounds/player/foley/shared/foley_light/default_foley_09.vsnd",
+			"sounds/player/foley/shared/foley_light/default_foley_light_01.vsnd",
+			"sounds/player/foley/shared/foley_light/default_foley_light_02.vsnd",
+			"sounds/player/foley/shared/foley_light/default_foley_light_03.vsnd",
+			"sounds/player/foley/shared/foley_light/default_foley_light_04.vsnd",
+			"sounds/player/foley/shared/foley_light/default_foley_light_05.vsnd",
+			"sounds/player/foley/shared/foley_light/default_foley_light_06.vsnd",
+			"sounds/player/foley/shared/foley_light/default_foley_light_07.vsnd",
+			"sounds/player/foley/shared/foley_light/default_foley_light_08.vsnd",
+			"sounds/player/foley/shared/foley_light/default_foley_light_09.vsnd",
+		]
+		vsnd_duration = 0.745875
 	}
 	Base.Damage.Send = 
 	{
@@ -1016,6 +1054,9 @@
 		limiter_stop_oldest = true
 		instance_attenuator_enabled = 1.000000
 		block_team_owned_hit = true
+		block_match_this_event = true
+		block_duration = 0.020000
+		volume_falloff_use_curve_editor = true
 		instance_count_offset_amount_db = 
 		[
 			
@@ -1041,6 +1082,36 @@
 				10.000000,
 				-30.000000,
 				-3.333333,
+				0.000000,
+				0.000000,
+				0.000000,
+			],
+		]
+		volume_falloff_curve_db = 
+		[
+			
+			[
+				0.005714,
+				0.300000,
+				1.083000,
+				1.083000,
+				2.000000,
+				3.000000,
+			],
+			
+			[
+				300.236633,
+				0.300000,
+				0.000000,
+				-0.604430,
+				0.000000,
+				0.000000,
+			],
+			
+			[
+				400.000000,
+				-60.000000,
+				-0.604430,
 				0.000000,
 				0.000000,
 				0.000000,
@@ -1814,5 +1885,13 @@
 				0.000000,
 			],
 		]
+	}
+	Base.Footsteps.JumpLand = 
+	{
+		base = "Base.Footsteps"
+		volume = 0.000000
+		enable_velocity_volume_scaling = 0.000000
+		vsnd_files = "sounds/player/foley/shared/foley_heavy/default_jump_land_01.vsnd"
+		vsnd_duration = 0.832472
 	}
 }

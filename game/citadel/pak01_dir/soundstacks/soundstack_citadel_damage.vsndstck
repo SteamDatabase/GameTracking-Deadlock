@@ -380,13 +380,66 @@
 			},
 			
 			{
+				name = "get_player_health_fraction_buffer_change"
+				operator = "opvar_get_float"
+				input_execute = "1.0"
+				input_stack_name = "citadel_relevance_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "player_health_fraction_buffer_change"
+			},
+			
+			{
+				name = "get_audio_health_change_damage_priority_threshold"
+				operator = "convar_get"
+				convar = "audio_health_change_damage_priority_threshold"
+			},
+			
+			{
+				name = "health_change_less_than_amount"
+				execute_once = "true"
+				input_execute = "1.0"
+				operator = "math_float"
+				apply = "less_than"
+				input1 = "@get_player_health_fraction_buffer_change.output"
+				input2 = "-.02"
+			},
+			
+			{
+				name = "accumulate_sidechain_conditions"
+				operator = "math_accumulate12_float"
+				apply = "add"
+				input1 = "@citadel_damage_info::output.inverse_is_chip_damage"
+				input2 = "@health_change_less_than_amount.output"
+				input3 = "0.0"
+				input4 = "0.0"
+				input5 = "0.0"
+				input6 = "0.0"
+				input7 = "0.0"
+				input8 = "0.0"
+				input9 = "0.0"
+				input10 = "0.0"
+				input11 = "0.0"
+				input12 = "0.0"
+			},
+			
+			{
+				name = "sidechain_conditions_met"
+				execute_once = "true"
+				input_execute = "1.0"
+				operator = "math_float"
+				apply = "greater_than"
+				input1 = "@accumulate_sidechain_conditions.output"
+				input2 = "0.0"
+			},
+			
+			{
 				name = "eval_damage_sidechain_enabled"
 				execute_once = "true"
 				input_execute = "1.0"
 				operator = "math_float"
 				apply = "mult"
 				input1 = "@public.triggers_damage_sidechain"
-				input2 = "@citadel_damage_info::output.inverse_is_chip_damage"
+				input2 = "@sidechain_conditions_met.output"
 			},
 			
 			{

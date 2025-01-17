@@ -93,7 +93,86 @@
 							property_group = "citadel_footsteps"
 						}
 					}
+					enable_velocity_volume_scaling = 
+					{
+						data_type = "float"
+						value = "1.0"
+						_system_properties = 
+						{
+							property_group = "citadel_footsteps"
+						}
+					}
+					velocity_max = 
+					{
+						data_type = "float"
+						value = "200.0"
+						_system_properties = 
+						{
+							property_group = "citadel_footsteps"
+						}
+					}
+					velocity_min = 
+					{
+						data_type = "float"
+						value = "50.0"
+						_system_properties = 
+						{
+							property_group = "citadel_footsteps"
+						}
+					}
 				}
+			},
+			
+			{
+				name = "db_to_linear"
+				operator = "math_db_to_gain"
+				input = "@public.volume"
+			},
+			
+			{
+				name = "source_info"
+				operator = "game_get_source_info"
+			},
+			
+			{
+				name = "get_entity_info"
+				input_execute = "1"
+				operator = "game_entity_info"
+				input_entity_index = "@source_info.output_entity_index"
+			},
+			
+			{
+				name = "remap_velocity_normalized"
+				operator = "math_remap_float"
+				input = "@get_entity_info.output_velocity"
+				input_min = "@public.velocity_min"
+				input_max = "@public.velocity_max"
+				input_map_min = "0.000000"
+				input_map_max = "1.000000"
+				clamp_range = "true"
+			},
+			
+			{
+				name = "enable_velocity_scaling"
+				operator = "ctrl_switch_float"
+				input_switch = "@public.enable_velocity_volume_scaling"
+				input1 = "1"
+				input2 = "@remap_velocity_normalized.output"
+			},
+			
+			{
+				name = "mult_volume_by_velocity_scalar"
+				operator = "math_float"
+				execute_once = "false"
+				apply = "mult"
+				input1 = "@db_to_linear.output"
+				input2 = "@enable_velocity_scaling.output"
+			},
+			
+			{
+				name = "linear_to_db"
+				operator = "math_gain_to_db"
+				input = "@mult_volume_by_velocity_scalar.output"
 			},
 			
 			{
@@ -152,6 +231,11 @@
 					{
 						data_type = "string"
 						value = "@switch_vsnd_files_field_name.output"
+					}
+					volume = 
+					{
+						data_type = "float"
+						value = "@linear_to_db.output"
 					}
 				}
 			},
