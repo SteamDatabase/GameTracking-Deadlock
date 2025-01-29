@@ -160,9 +160,6 @@
  ' ) - 3 G M Q _ c e i w } 
  (!!! ERROR: NO HITGROUP FOUND IN HITBOXES NOR PHYSICS SHAPES: THIS WON'T BE DESTRUCTIBLE !!!)
  (%ld unused bits)\n
- (08@HPX`jPC
- (08@HPZPC
- (08@JPC
  (Dirty Animation)
  (Eluded)
  (INVALID PSS PARAMETERS)\n
@@ -192,6 +189,8 @@
  - edit pos (%0.3f, %0.3f, %0.3f)\n
  - hull index = %d\n
  - vert %d = (%0.3f, %0.3f, %0.3f)\n
+ .P5U
+ .p5U
  8f\ff
  : Extraneous input - expected %s ...\n
  : Extraneous input - expected <EOF>\n
@@ -560,7 +559,7 @@ $g#8lu#
 $gender
 $hRh 
 $light_emissive
-$tIObserverMode_t
+$tIcitadel_death_replay_enabled
 %%%d.%ds [%%3.3s] (%%5d) %%%d.%ds:
 %%%d.%ds [%%s::%%s] 
 %%s  %%c %%10s : %c%%%ds%c %%s
@@ -1948,6 +1947,7 @@ $tIObserverMode_t
 .?AUCitadelCameraVertOffsetOperationDef_t@@
 .?AUCitadelHeroData_t@@
 .?AUCitadelItemVData@@
+.?AUCitadelStolenAbilitySlot_t@@
 .?AUDynamicAbilityValues_t@@
 .?AUEntityRenderAttribute_t@@
 .?AUFakeEntityDerivedA_t@@
@@ -1973,6 +1973,7 @@ $tIObserverMode_t
 .?AUSimpleConstraintSoundProfile@@
 .?AUSquadModeInfo_t@@
 .?AUStatViewerModifierValues_t@@
+.?AUStolenAbilityPair_t@@
 .?AUTranslationTrack_t@@
 .?AUVDataInitInfo_t@@
 .?AUVPhysicsCollisionAttribute_t@@
@@ -8761,6 +8762,7 @@ $tIObserverMode_t
 .?AVNetworkVar_m_animationController@CBodyComponentBaseAnimGraph@@
 .?AVNetworkVar_m_audio@CPlayer_CameraServices@@
 .?AVNetworkVar_m_collisionAttribute@CCollisionProperty@@
+.?AVNetworkVar_m_eStolenInSlot@CCitadelBaseAbility@@
 .?AVNetworkVar_m_flArrivalTime@CCitadel_Ability_Nano_Pounce@@
 .?AVNetworkVar_m_flArrivalTime@CCitadel_Ability_Nano_Pounce_Instant@@
 .?AVNetworkVar_m_flArrivalTime@CCitadel_Ability_Shiv_KillingBlow@@
@@ -9277,10 +9279,10 @@ $tIObserverMode_t
 0 = no debug, 1 = draw waypoint path
 0 = none, 1 = non-autosave, 2 = always, 3 = bug_only
 0 == ( pInstance->GetOwnerEntity()->GetEntityIdentity()->GetFlags() & EF_IN_STAGING_LIST )
+00yO
 02V8[
+04\vT
 05=k
-08@HRPC
-08BPC
 08bX
 09,h
 0: Draw nothing at waypoints; 1: Draw a tick mark at waypoints; 2: Draw a shape around waypoints.
@@ -9289,7 +9291,6 @@ $tIObserverMode_t
 0=normal, 1=rebirth, 2=rejuvenator
 0M2~@p
 0W/5
-0XEg
 0Z@q
 0\n+k_EMsgClientToGCRemoveItemAttributeResponse
 0\n+k_EMsgGCRequestCrateEscalationLevelResponse
@@ -9314,7 +9315,6 @@ $tIObserverMode_t
 0\n\vstyle_index
 0\r0#0)070;0U0Y0[0g0q0y0}0
 0e\r8
-0pVO
 0pp@5tqE?|sO541
 0tU+xc:
 0x%s
@@ -9438,7 +9438,7 @@ $tIObserverMode_t
 2\r%2h
 2\r.CameraAction
 2\rlhp
-2\vpt
+2\vp4\vT
 2^pV
 2_tasks_left
 2a"l
@@ -9488,7 +9488,6 @@ $tIObserverMode_t
 3w2URu
 3wQ]
 3|rN>
-4#\r07
 4)#bH
 4)m1
 474E4U4W4c4i4m4
@@ -9622,9 +9621,7 @@ $tIObserverMode_t
 851Pe
 8<pl
 8= zp
-8@JPC
 8A6j
-8BPC
 8GZS
 8SIffK5W
 8TZvrv<
@@ -9635,7 +9632,6 @@ $tIObserverMode_t
 8\n4STEAMLEARN_SNAPSHOT_PROJECT_ERROR_INVALID_PROJECT_ID
 8\n4k_EGCMsgInitiateTradeResponse_Target_Already_Trading
 8\n4k_EGCMsgInitiateTradeResponse_Trade_Banned_Initiator
-8\nPC
 8\n\nmatch_info
 8\n\nobjectives
 8\n\rdeath_details
@@ -9846,10 +9842,10 @@ $tIObserverMode_t
 ?333?333?
 ?33s?
 ?CEntityIOOutput
-?EButtonSide_Top
-?EInvalidDesc
+?CPhysicsShake
 ?HAI\t81\t9dcG'
 ?HP4
+?Record the animgraph for a specified hero
 ?TestCheckpoint: %s
 ?VBH;
 ?\n1increase_spring_strength_to_keep_target_on_screen
@@ -9860,24 +9856,24 @@ $tIObserverMode_t
 ?\n\rmatch_outcome
 ?d86L
 ?dt]X
-?env_instructor_hint
 ?expr
 ?fff?
 ?gwL
 ?jOb
 ?kv 0x%p AddRef refcount == %d\n
+?m_OnReachedValueZero
 ?m_Stops
 ?srJO
 ?tya
 ?uWS
 ?x29
 @!@%@+@1@?@C@E@]@a@g@m@
+@08Nd
 @0pp
-@2PC
 @333?
 @BH]f
 @BoneSetup
-@HPX`hv 
+@HVP
 @MfKZ
 @Pgl
 @Pu\rm
@@ -9933,6 +9929,7 @@ ABORT_DO_NOT_APPLY_DAMAGE
 ABS BBox
 AC2,h
 ACCESS_DESCRIPTION
+ACEnvVolumetricFogVolume
 ACHIEVEMENT_EVENT_
 ACID
 ACPT_STATE
@@ -10149,7 +10146,6 @@ ALERT
 ALG_MODULE_INIT
 ALL:!EXPORT:!LOW:!aNULL:!eNULL:!SSLv2
 ALWAYSGIB
-ALimit on number of jobs that will be run(serially) in a frame. - 1 = no limit
 AMMO_FLAG_MAX
 AMMO_FORCE_DROP_IF_CARRIED
 AMMO_POSITION_COUNT
@@ -10169,13 +10165,13 @@ ANSI X9.62
 ANTLR3_EXCEPTION number %d (%08X).\n
 ANTLR3_EXCEPTION: %s\n
 ANY PRIVATE KEY
+ANavigation_t
 AOE Attack
 AOERadius
 APPEND_EXP
 APPSYSTEM: In ConnectGameInterfaces(), s_nRegistrationCount is %d!\n
 APPSYSTEM: In ConnectGameInterfaces(), tried to use different connection modes!\n
 APPSYSTEM: In ReconnectGameInterface(), tried to use different connection modes!\n
-APeY
 ASCII
 ASIDENTIFIERCHOICE_CANONIZE
 ASIDENTIFIERCHOICE_IS_CANONICAL
@@ -10484,13 +10480,13 @@ After this many players have abandoned a match, no longer penalize additional ab
 After this many seconds of being basically stationary, the ragdoll will go to sleep.
 After using a zipline, players will have this air drag value applied to them until they touch the ground.
 Ag*g*
+Ag_debug_doors
 Aim At
 Aim Pitch in Hero Testing
 AimAt
 AimFOV
 AimTargetManager
 AimZoomDuration
-Ainfo_mid_boss_spawn
 Air Dash Stuff
 Air Jump
 Air-Drag after using a wall jump
@@ -10548,6 +10544,7 @@ AlternativeSorting
 Always
 AlwaysUpdateOff
 AlwaysUpdateOn
+Am_flRoamingSpeed
 Amber
 Ambient
 Ambient Sound
@@ -10808,11 +10805,11 @@ BAD-TYPE
 BADFUNCTIONPOINTER
 BASIC_CONSTRAINTS
 BC (default)
-BCSoundEnvelope
 BC_DEFAULT
 BC_EMPTY
 BC_PARTICLE_SYSTEM_OVERRIDE
 BC_PROP_GROUP_OVERRIDE
+BDisplays soundevent name played at it's 3d position
 BEAM_ENTPOINT
 BEAM_ENTS
 BEAM_HOSE
@@ -10926,7 +10923,6 @@ BOOLEAN
 BOT TEST: Bot %s failed moving to node %s\n
 BPE_StringCommand
 BPE_Teleport
-BPeY
 BREAKABLE
 BRUSHSOLID_ALWAYS
 BRUSHSOLID_NEVER
@@ -11197,6 +11193,7 @@ BloodSpillDPSPercent
 BloodSpillDuration
 BlurVisionRange
 Blurry up through this distance.
+Bm_LockedTargetModifier
 BoX5
 Body
 Body Component Scriptdesc
@@ -12727,6 +12724,7 @@ CCitadel_Ability_VoidSphere
 CCitadel_Ability_VoidSphereVData
 CCitadel_Ability_Weapon_BossTier2
 CCitadel_Ability_Weapon_BossTier3
+CCitadel_Ability_WingBlast
 CCitadel_Ability_Wraith_RapidFire
 CCitadel_Ability_Wraith_RapidFireVData
 CCitadel_Ability_WreckerGarbageSuck
@@ -13984,7 +13982,6 @@ CEnvTilt
 CEnvTracer
 CEnvViewPunch
 CEnvVolumetricFogController
-CEnvVolumetricFogVolume
 CEnvWind
 CEnvWindShared
 CEnvWindShared::WindAveEvent_t
@@ -15602,7 +15599,6 @@ CPhysicsProp '%s' has become an obstacle after spawning.  Probably need to updat
 CPhysicsProp::CrateType_t
 CPhysicsPropOverride
 CPhysicsPropRespawnable
-CPhysicsShake
 CPhysicsSpring
 CPhysicsWire
 CPiecewiseCurve
@@ -16018,6 +16014,7 @@ CSoundAreaEntityOrientedBox
 CSoundAreaEntitySphere
 CSoundEnt
 CSoundEnt pool is low on sounds due to high number of clients.\n
+CSoundEnvelope
 CSoundEventAABBEntity
 CSoundEventEntity
 CSoundEventEntityAlias_snd_event_point
@@ -16784,6 +16781,7 @@ CitadelStatsDisplay_t
 CitadelStatsSpiritDisplay_t
 CitadelStatsVitalityDisplay_t
 CitadelStatsWeaponDisplay_t
+CitadelStolenAbilitySlot_t
 CitadelTVDirector
 CitadelTrackedAbilityProjectileCreateInfo_t
 CitadelUserMessageIds
@@ -16899,7 +16897,7 @@ CloseToolhelp32Snapshot
 Cloth
 CloudHeight
 Cluster
-Cnav_path_optimizer_debug
+Cnav_path_debug_compute_with_open_goal
 Code Signing
 Code forced %s(%s), to be the target of scripted sequence %s, but it can't play it.\n
 Code=
@@ -17591,7 +17589,6 @@ DYNAMIC_LOAD
 DYNAMIC_SET_DATA_CTX
 D\n\fentity_index
 D\n\nItemDetail
-D\vPJ
 D_ER
 D_ERROR
 D_FEAR
@@ -17965,7 +17962,6 @@ Displays citadel_dialog sound stack debug.
 Displays debug draws about the given entity(ies) animgraph\n\tArguments:   \t{entity_name} / {class_name} / {entity_index} / {no argument = pick what player is looking at}
 Displays detailed text debugging information about the all the tasks of the selected NPC current schedule (See Overlay Text)\n\tArguments:   \t{entity_name} / {class_name} / {entity_index} / {no argument = pick what player is looking at}
 Displays labelled body locations of NPCs.\n\tArguments:   \t{entity_name} / {class_name} / {entity_index} / {no argument = pick what player is looking at}
-Displays soundevent name played at it's 3d position
 Displays stats about how many EvaluatePose calls are unused
 Displays stats about which animations are updating
 Displays text debugging information about the given entity(ies) [near the player] on top of the entity (See Overlay Text)\n\t2 Arguments:   \t<Radius> <{entity_name} / {class_name} / {entity_index} / {no argument = pick what player is looking at}>
@@ -18374,6 +18370,7 @@ EButtonSide_Bottom
 EButtonSide_Center
 EButtonSide_Left
 EButtonSide_Right
+EButtonSide_Top
 EC PARAMETERS
 EC PRIVATE KEY
 EC lib
@@ -18796,6 +18793,7 @@ EHeroSwap
 EIh\v
 EInButtonState
 EInvalid
+EInvalidDesc
 EItemPurchase
 EItemSale
 EItemSlotType_All
@@ -19689,6 +19687,7 @@ Entity_Facing_Mode_Use_Path
 Ents Registered for Animation Update: %i\n
 EovVY
 Ep0u
+EppY
 Epsilon now %f\n
 Eq R%d <- R%d == R%d
 Eric Young's PKCS#1 RSA
@@ -19920,7 +19919,6 @@ FUNC_DOOR_SPAWN_OPEN
 FU\n-XP
 FV|FgUV
 F\n ParticleFreezeTransitionOverride
-F\nPC
 F\n\finventories2
 F\n\finventories3
 F\n\trow_range
@@ -20033,7 +20031,6 @@ Favorites
 FavoritesKV
 FearDuration
 FeetSettings
-Fents
 Ff,n
 Fgi?)
 Fi:je
@@ -20129,6 +20126,7 @@ Fire Entity's Action Input with passed Vector - you own the memory
 Fire Input
 Fire Rate
 Fire Trigger
+Fire User Entity IO
 Fire a game event without broadcasting to the client.
 Fire a game event.
 Fire an entity output
@@ -20884,7 +20882,6 @@ GlobalState
 GlobalSymbol
 GlobalSys
 GlowProxySize
-Gm_iChangedVariables
 Go to the last position you told an NPC to go.
 Go to tick %u in History
 GoDormant
@@ -22832,6 +22829,7 @@ LightningStrikeRadius
 LightningStrikes
 Like ai_disable but you manually specify the state (with a 0 or 1) instead of toggling it.
 Limit Count
+Limit on number of jobs that will be run(serially) in a frame. - 1 = no limit
 LimitThink
 Line
 Line %i
@@ -24594,7 +24592,6 @@ NavigateToTarget
 Navigation
 Navigation mesh was generated with non-default agent settings.
 Navigation mesh was generated with non-default agent settings.  Please re-build map.\n
-Navigation_t
 Navmesh poly %d connected to %d with zero-width portal\n
 NearestEntityDistance
 NearestPath
@@ -24991,6 +24988,7 @@ Objective Health Growth
 Objective Health Regen
 ObjectivesParams_t
 ObserverInterpState_t
+ObserverMode_t
 Obsolete / Unused
 Obsolete.  Replaced by npc_combat
 Obstruction %f\n
@@ -25466,9 +25464,10 @@ P-224
 P-256
 P-384
 P-521
-P08JpE
+P08J0h
+P08Nd
+P0yO
 P1\t98"
-P2PC
 P5[1
 PAGN_4
 PANEL_ID
@@ -25953,8 +25952,6 @@ Pitch
 Pitch (aiming down) for bots when using a friendly ability
 PitchShift
 Pivot
-PjH>
-PjPC
 Place a message in the telemetry timeline
 PlaceDistance
 PlaceSatVolumeEvent_t
@@ -26124,7 +26121,6 @@ PowerUp Gold
 PowerUp Permanent
 PowerUp Temp
 PowerUpStages
-PpVO
 Pr"V
 PreDetonateDuration
 PreGameWait
@@ -26577,7 +26573,7 @@ RUMBLE_STOP_ALL
 R\nP!V
 R\n\nBookReward
 R\r1>Vp
-R\vpt
+R\vp4\vT
 R]Di
 RadiationThink
 Radius
@@ -26651,7 +26647,6 @@ Recoil
 Recommended Distance
 Recommended distance this movement traverses
 Record that the function was called
-Record the animgraph for a specified hero
 Recording leaving penalty for account %u. Match time %u, time stamp %u, reason %u\n
 Recording memory stats to file %s\n
 Recv msg %u (%s), %u bytes\n
@@ -28573,7 +28568,6 @@ Signout temporarily failed for lobby %llu with status code %u. Backing off for r
 SilenceBombSpeed
 SilenceDuration
 SilenceOnDrain
-SilenceOnHeavyDuration
 SilenceRadius
 SimpleConstraintSoundProfile
 SimpleConstraintSoundProfile::SimpleConstraintsSoundProfileKeypoints_t
@@ -29054,6 +29048,7 @@ Stinger.Tutorial.Complete
 Stinger.YrTeam_CartActivated
 Stinger.YrTeam_CartNearTarget
 StitchPath has incorrect ending\n
+StolenAbilityPair_t
 Stomp
 Stomp (both legs)
 Stomp (left leg)
@@ -29854,7 +29849,6 @@ The minimum distance that a target entity can move before triggering a repath to
 The minimum height difference of the player origin from the ledge for this type to be selected
 The minimum number of minutes a match needs to be in order to be considered valid for replay uploading
 The most we'll adjust your speed in the input direction when performing an air jump
-The move type to switch to.  Some move types will have weird behaviors when swapped to, ie: MOVETYPE_SYNC
 The name of the weapon entity to spawn for this NPC weapon.
 The nav mesh needs a full nav_analyze\n
 The number of minutes required between memory samples. Set to 0 to disable memory sampling
@@ -30218,7 +30212,6 @@ UF_FAIL_INVALID_LOCATION
 UF_FAIL_INVALID_TEAM
 UF_FAIL_INVALID_TYPE
 UF_SUCCESS
-UHaY
 UI Messages
 UI.Match.End
 UI.Shop.Ability.Train
@@ -30626,6 +30619,7 @@ VOTE_FAILED_TEAM_CANT_CALL
 VOTE_FAILED_TRANSITIONING_PLAYERS
 VOTE_FAILED_WAITINGFORPLAYERS
 VOTE_FAILED_YES_MUST_EXCEED_NO
+VP.U
 VPhysicsCollisionAttribute_t
 VR_HAND_HAPTIC_PULSE_LIGHT
 VR_HAND_HAPTIC_PULSE_MEDIUM
@@ -31334,7 +31328,6 @@ XRJ2
 XWY]
 XYD%
 X\tQo
-X`hrPC
 Xd3h
 XfJ7
 XjfR
@@ -31576,7 +31569,7 @@ Z~wl
 \f]ne3
 \fdhWTh
 \fiaR
-\fp\v`pVO
+\fp\v`0yO
 \ful2
 \fy&3Gl
 \l:ArR
@@ -32446,6 +32439,7 @@ Z~wl
 \ri1I
 \rjwB\t
 \roKK
+\rppY
 \rrCj
 \rstyle_index_t
 \rusercmd.proto"
@@ -32475,7 +32469,7 @@ Z~wl
 \tBy default, additional arguments are of the form [{ "key1" "value1" "key2" "value2" }]\n
 \tCurrent Gold: %d Spent: %d Level: %d\n
 \tDelta: %2.f\n
-\tECCitadel_Ability_WingBlast
+\tESilenceOnHeavyDuration
 \tGoTo
 \tHAI8xpH\f
 \tHero: %s \n
@@ -32489,8 +32483,8 @@ Z~wl
 \tMatchID_t"{\n$CMsgServerToGCUpdateLobbyServerState
 \tMax uptime scheduled Shutdown: %u (%u seconds from now)\n
 \tNone\n
+\tP0yO
 \tPartyID_t
-\tPpVO
 \tPrivate script scope:
 \tPublic script scope:
 \tRead %s\t%s%s%s,\tOffs 0x%04x\n
@@ -32531,14 +32525,14 @@ Z~wl
 \vGt5
 \vHCK/
 \vNCE\v
-\vPpVO
+\vP0yO
 \vUY6[E
 \v\vTSG
 \v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r
-\v`pVO
+\v`0yO
 \vj0k
 \vjC7
-\vppVO
+\vp0yO
 ]1h=bfz
 ]FhSD}
 ]GT7]
@@ -32608,8 +32602,8 @@ _to_curve_
 _tools_event_desc
 _xU`u
 _}eOk
+`0yO
 `28)fk
-`2PC
 `:zQF
 `D$daM-l
 `DZG
@@ -32618,8 +32612,6 @@ _}eOk
 `VX:H
 `\n\rvector_values
 `adjustor{
-`bPC
-`dPC
 `fPw.\vM
 `generic-class-parameter-
 `generic-method-parameter-
@@ -32628,7 +32620,6 @@ _}eOk
 `local static destructor helper'
 `non-type-template-parameter
 `o_je
-`pVO
 `template static data member constructor helper'
 `template static data member destructor helper'
 `template-parameter
@@ -32652,6 +32643,7 @@ a5<p
 a;Tg
 a@XZ
 aA0k
+aBvd
 aD/x
 aDSS
 aECDH
@@ -34567,7 +34559,6 @@ citadel_create_unit
 citadel_crosshair_out_of_range_dist
 citadel_dash_cast_ability
 citadel_death_linger_time
-citadel_death_replay_enabled
 citadel_death_replay_post_death_time
 citadel_death_replay_pre_death_time
 citadel_death_replay_pre_death_time_quick
@@ -36631,6 +36622,7 @@ entitysummary
 entitytable_t
 entries
 entry context menu
+ents
 enum 
 enum_description
 enum_value_description
@@ -36662,6 +36654,7 @@ env_funnel
 env_global
 env_glow
 env_gradient_fog
+env_instructor_hint
 env_instructor_vr_hint
 env_laser
 env_light_probe_volume
@@ -37424,7 +37417,6 @@ g]i/H
 g_SoundPatchCount
 g_debug_angularsensor
 g_debug_constraint_sounds
-g_debug_doors
 g_debug_transitions
 g_pEngineServiceMgr->AnyExternalAddonsMounted()
 g_pGameSaveRestoreBlockSet
@@ -38449,6 +38441,7 @@ info_hint
 info_hint at (%0.2f, %0.2f, %0.2f) with no hint type.\n
 info_ladder_dismount
 info_landmark
+info_mid_boss_spawn
 info_mini_map_marker
 info_nav_space
 info_neutral_move_node
@@ -40656,6 +40649,7 @@ m_IsFrozenParticle
 m_IsPunchableParticle
 m_Item
 m_ItemModel
+m_ItemSlotType
 m_JarExplodeParticle
 m_JumpParticle
 m_KevlarChannelParticle
@@ -40726,7 +40720,6 @@ m_LingerParticle
 m_Listeners
 m_LockOnStartTime
 m_LockedOnParticle
-m_LockedTargetModifier
 m_LockingOnParticle
 m_Locomotion_Facing
 m_LogicBranchList
@@ -41006,7 +40999,6 @@ m_OnReachedPosition
 m_OnReachedStart
 m_OnReachedValueCustom
 m_OnReachedValueOne
-m_OnReachedValueZero
 m_OnRemove
 m_OnResumed
 m_OnRevitilized
@@ -41083,6 +41075,7 @@ m_OnVariantInt
 m_OnVariantString
 m_OnVariantVector
 m_OnVariantVoid
+m_OnWaitingForPlayersToJoin
 m_OpvarValueString
 m_OrbsDenied
 m_OrbsSecured
@@ -41470,6 +41463,7 @@ m_StatueInvis
 m_StatusEffect
 m_StealWatcherModifier
 m_StimPakModifier
+m_StolenAbilityID
 m_StompEnemyImpactSound
 m_StompExplosionSound
 m_StompImpactEffect
@@ -42288,6 +42282,7 @@ m_bInvertState_2
 m_bInvertState_3
 m_bInvis
 m_bIsActive
+m_bIsActivelyStolen
 m_bIsAnimationEnabled
 m_bIsAttacking
 m_bIsAxisLocal
@@ -43120,6 +43115,8 @@ m_eStatCategory
 m_eStatType
 m_eState
 m_eStatsUsageFlags
+m_eStolenInSlot
+m_eStolenSlot
 m_eTelepunchState
 m_eTimeScaleSource
 m_eTransitionedToPathNodeAction
@@ -44690,7 +44687,6 @@ m_flRiseMaxSpeed
 m_flRiseSpeed
 m_flRiseTime
 m_flRisingTime
-m_flRoamingSpeed
 m_flRollStartTime
 m_flRopeForceScale
 m_flRopeRadius
@@ -45537,6 +45533,7 @@ m_iBulletsToFullyClaimOrb
 m_iBurstShotCount
 m_iBurstShotCount == 1
 m_iCatRecallHealth
+m_iChangedVariables
 m_iClassIgnore
 m_iClassIgnore2
 m_iClip
@@ -48232,6 +48229,7 @@ m_vecStartPosition
 m_vecStartingPos
 m_vecStartingPosition
 m_vecStatViewerModifierValues
+m_vecStolenAbilities
 m_vecStompedEnemies
 m_vecStressPositionA
 m_vecStressPositionB
@@ -49579,7 +49577,6 @@ nav_obstruction_draw_island
 nav_obstruction_draw_island_hull
 nav_obstruction_draw_movefail_blocking
 nav_path_debug
-nav_path_debug_compute_with_open_goal
 nav_path_draw_areas
 nav_path_draw_arrow
 nav_path_draw_climb_segments
@@ -49594,6 +49591,7 @@ nav_path_fixup_gap_segments
 nav_path_jump_process_debug
 nav_path_optimize
 nav_path_optimize_portals
+nav_path_optimizer_debug
 nav_path_record_draw_last_fail
 nav_path_record_enable
 nav_pathfind_debug_log
@@ -50186,6 +50184,7 @@ objective_mask_change
 objective_mask_team0
 objective_mask_team1
 objective_position
+objective_spirit_resist_experiment
 objective_team
 objectives_mask_legacy
 objectives_mask_team0
@@ -50384,9 +50383,11 @@ p.other
 p.ppBasis
 p.prime
 p.tpBasis
-p2PC
+p08@H^d
+p0yO
 p2{l
 p4Z3
+p4\vT
 p5Z3
 p5\nL,
 p618
@@ -50404,7 +50405,6 @@ pDefault
 pDescription
 pEnt
 pField
-pFire User Entity IO
 pG_*h
 pHitEntity
 pIp 
@@ -50420,6 +50420,7 @@ pSPo
 pSourceFunc
 pSpawnedEntityName
 pSpecified
+pThe move type to switch to.  Some move types will have weird behaviors when swapped to, ie: MOVETYPE_SYNC
 pTraceA
 pTraceB
 pTraceStringA
@@ -50655,7 +50656,6 @@ payload_path_marker
 payment gateway capabilities
 payment_row_usd
 payment_us_usd
-pbPC
 pbeWithMD2AndDES-CBC
 pbeWithMD2AndRC2-CBC
 pbeWithMD5AndCast5CBC
@@ -51060,7 +51060,6 @@ pound
 pp == NULL || *pp != NULL
 pp&c
 ppBasis
-ppVO
 pqualid
 pre idle done
 pre mac length too long
@@ -54451,7 +54450,6 @@ z(ov
 z/B,9d
 z<d2
 z>Hz
-zDm_OnWaitingForPlayersToJoin
 zF):O4
 zFar
 zG2m8
