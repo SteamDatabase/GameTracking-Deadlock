@@ -150,6 +150,16 @@
 							property_group = "Position"
 						}
 					}
+					send_occlusion_to_blend_container = 
+					{
+						data_type = "bool"
+						value = "false"
+						_system_properties = 
+						{
+							display_group = "normal"
+							property_group = "Blends"
+						}
+					}
 					send_distance_to_blend_container = 
 					{
 						data_type = "bool"
@@ -394,7 +404,6 @@
 				apply = "mult"
 				input1 = "@retrigger_interval_random.output"
 				input2 = "1.000000"
-				__remap_input2 = "retrigger_interval"
 			},
 			
 			{
@@ -468,12 +477,6 @@
 						data_type = "bool"
 						value = "false"
 					}
-					public.source_soundscape = 
-					{
-						operator_arg_field = "true"
-						data_type = "int"
-						value = "@public.source_soundscape"
-					}
 					public.first_trigger_use_delay = 
 					{
 						operator_arg_field = "true"
@@ -489,7 +492,7 @@
 				operator = "math_float"
 				apply = "mult"
 				input1 = "@does_not_retrigger_sound.output"
-				input2 = "@start_vsnd.output_voice_finished"
+				input2 = "@start_retrigger.output_event_finished"
 			},
 			
 			{
@@ -507,6 +510,14 @@
 				operator = "soundevent_control"
 				input_add_dependent = "1.000000"
 				input_clear_dependencies = "@calc_event_finished_or_stopped.output"
+			},
+			
+			{
+				name = "set_occlusion_blend"
+				operator = "container_set_param_number"
+				input_execute = "@public.send_occlusion_to_blend_container"
+				input_value = "@citadel_default_3d::citadel_base_3d::occlusion_filter.output"
+				input_name = "Occlusion"
 			},
 			
 			{

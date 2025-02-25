@@ -1,14 +1,19 @@
 /* Prettified by Source 2 Viewer - https://valveresourceformat.github.io */
 
-@import url("s2r://panorama/styles/citadel_shared_colors.vcss_c");
 @define sans: Retail Demo, Noto Sans, sans-serif;
 @define sansMono: Retail Text Demo, Noto Sans;
 @define serif: Forevs Demo, Reaver, serif;
 @define baseText: #FFEFD7;
 @define baseBorder: #444444ff;
 @define selectedTextBackgroundColor: #66666633;
+@define colorEnemy: #FF410D;
 @define goldColor: #FFED79;
 @define blueAPTextColor: #80EEFF;
+@define colorCommonOffWhite: rgb(243, 240, 231);
+@define colorCommonOffWhiteA35: rgba(243, 240, 231, 0.35);
+@define colorCommonDarkGray: #2e2c27;
+@define colorCommonDarkestGray: #1a1a1a;
+@define colorGold: #FFED79;
 @define offWhite: #FFEFD7;
 @define offBlack: #10130D;
 @define silvered: #C6C6C6;
@@ -45,6 +50,15 @@
 @define spiritColor: #8A55B3;
 @define spiritDarkColor: #613484;
 @define spiritDarkerColor: #362147;
+@define ingameHudBlur: gaussian(2,2,2);
+@define menuBlur: mipmapgaussian( 4, 4, 4);
+@define weaponColor: #E58A00;
+@define weaponColorFaded: #FFA82622;
+@define armorColor: #00FF99;
+@define armorColorFaded: #00FF9922;
+@define techColor: #00DDFF;
+@define techColorFaded: #245359;
+@define favColor: #FFDB4C;
 @define rank0Color: #333333;
 @define rank1Color: #6A3E1E;
 @define rank2Color: #882355;
@@ -82,6 +96,10 @@
 @define wraithColor: #944D78;
 @define wreckerColor: #7F2DB1;
 @define yamatoColor: #6E9080;
+@define laneYellowColor: #F9D506;
+@define laneBlueColor: #437CDC;
+@define lanePurpleColor: #C241A8;
+@define laneGreenColor: #309746;
 @define akimboColor: #C7B4AB;
 @define ballistaColor: #BD63A4;
 @define kaliColor: #D7AE61;
@@ -179,6 +197,16 @@ Label
 	font-size: 16px;
 	font-weight: medium;
 	opacity: 0.6;
+}
+
+Label
+{
+	font-family: sans;
+}
+
+#TitleLabel
+{
+	max-width: 600px;
 }
 
 .PrimaryButton
@@ -1646,8 +1674,8 @@ SimpleContextMenu .ContextMenuBody Button
 
 SimpleContextMenu .ContextMenuBody Label
 {
-	font-size: 40px;
-	color: white;
+	font-size: 20px;
+	font-weight: bold;
 	horizontal-align: left;
 }
 
@@ -1701,6 +1729,8 @@ CitadelTooltipProfileCard #Contents
 	height: 40px;
 	width: 40px;
 	background-size: 100% 100%;
+	background-texture-size: 80px 80px;
+	background-repeat: no-repeat;
 }
 
 .keybind
@@ -1710,6 +1740,31 @@ CitadelTooltipProfileCard #Contents
 	color: #fff;
 	padding: 3px;
 	font-weight: semi-bold;
+}
+
+.MouseButton1
+{
+	background-image: url("s2r://panorama/images/glyphs/mouse1.vsvg");
+}
+
+.MouseButton2
+{
+	background-image: url("s2r://panorama/images/glyphs/mouse2.vsvg");
+}
+
+.MouseButton3
+{
+	background-image: url("s2r://panorama/images/glyphs/mouse3.vsvg");
+}
+
+.MouseButton4
+{
+	background-image: url("s2r://panorama/images/glyphs/mouse4.vsvg");
+}
+
+.MouseButton5
+{
+	background-image: url("s2r://panorama/images/glyphs/mouse5.vsvg");
 }
 
 .PlayerFeedbackContainer
@@ -1985,6 +2040,7 @@ CitadelTooltipProfileCard #Contents
 .CommendToast
 {
 	padding-right: 4px;
+	horizontal-align: right;
 }
 
 .CommendToast Label
@@ -2175,5 +2231,74 @@ SimpleContextMenu .ContextMenuBody Button:enabled:hover Label
 SimpleContextMenu .ContextMenuBody Button:disabled Label
 {
 	color: #444444;
+}
+
+@define mousepanningcursorsize: 64px;
+#MousePanningImage
+{
+	wash-color: #ffffffff;
+	visibility: visible;
+	width: mousepanningcursorsize;
+	height: mousepanningcursorsize;
+	z-index: 10;
+	opacity: 0.0;
+	transition-property: opacity;
+	transition-duration: 0.4s;
+	transition-timing-function: ease-in-out;
+}
+
+.MousePanning #MousePanningImage
+{
+	opacity: 0.5;
+}
+
+CitadelHTMLPanel TextTooltip
+{
+	opacity: 0.0;
+}
+
+.InlineAttributeIcon
+{
+	width: 20px;
+	height: 20px;
+	margin-right: 2px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.InlineAttributeIcon.Fortitude
+{
+	background-image: url("s2r://panorama/images/shop/keystat_fortitude_png.vtex");
+}
+
+.InlineAttributeIcon.Courage
+{
+	background-image: url("s2r://panorama/images/shop/keystat_courage_png.vtex");
+}
+
+.InlineAttributeIcon.Spirit
+{
+	background-image: url("s2r://panorama/images/shop/keystat_spirit_png.vtex");
+}
+
+.InlineAttributeName
+{
+	font-weight: bold;
+}
+
+.InlineAttributeName.Fortitude
+{
+	color: #7bb02a;
+}
+
+.InlineAttributeName.Courage
+{
+	color: #9d620b;
+}
+
+.InlineAttributeName.Spirit
+{
+	color: #e1a0ff;
 }
 

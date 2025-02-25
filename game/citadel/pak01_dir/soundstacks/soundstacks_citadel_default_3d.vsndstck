@@ -39,6 +39,153 @@
 							property_group = "VSND Files"
 						}
 					}
+					vsnd_start_track2 = 
+					{
+						data_type = "bool"
+						value = "true"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					vsnd_files_track2_name = 
+					{
+						data_type = "string"
+						value = "track_02"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					vsnd_files_track2 = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = 
+						[
+							"sounds/common/null.vsnd",
+						]
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					vsnd_files_field_name_track2 = 
+					{
+						data_type = "string"
+						value = "vsnd_files_track2"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					vsnd_files_track2_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					vsnd_start_track3 = 
+					{
+						data_type = "bool"
+						value = "true"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					vsnd_files_track3_name = 
+					{
+						data_type = "string"
+						value = "track_03"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					vsnd_files_track3 = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = 
+						[
+							"sounds/common/null.vsnd",
+						]
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					vsnd_files_field_name_track3 = 
+					{
+						data_type = "string"
+						value = "vsnd_files_track3"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					vsnd_files_track3_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					vsnd_start_track4 = 
+					{
+						data_type = "bool"
+						value = "true"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					vsnd_files_track4_name = 
+					{
+						data_type = "string"
+						value = "track_04"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					vsnd_files_track4 = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = 
+						[
+							"sounds/common/null.vsnd",
+						]
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					vsnd_files_field_name_track4 = 
+					{
+						data_type = "string"
+						value = "vsnd_files_track4"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					vsnd_files_track4_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
 					vsnd_selection_type = 
 					{
 						data_type = "enum"
@@ -194,6 +341,42 @@
 			},
 			
 			{
+				name = "get_vsnd2"
+				operator = "opvar_get_vsnd"
+				execute_once = "true"
+				check_event_data = "true"
+				input_operator_name = "public"
+				input_field_name = "@public.vsnd_files_field_name_track2"
+				input_use_namespace = "false"
+				array_selection_type = "@public.vsnd_selection_type"
+				input_index = "@public.vsnd_selection_index"
+			},
+			
+			{
+				name = "get_vsnd3"
+				operator = "opvar_get_vsnd"
+				execute_once = "true"
+				check_event_data = "true"
+				input_operator_name = "public"
+				input_field_name = "@public.vsnd_files_field_name_track3"
+				input_use_namespace = "false"
+				array_selection_type = "@public.vsnd_selection_type"
+				input_index = "@public.vsnd_selection_index"
+			},
+			
+			{
+				name = "get_vsnd4"
+				operator = "opvar_get_vsnd"
+				execute_once = "true"
+				check_event_data = "true"
+				input_operator_name = "public"
+				input_field_name = "@public.vsnd_files_field_name_track4"
+				input_use_namespace = "false"
+				array_selection_type = "@public.vsnd_selection_type"
+				input_index = "@public.vsnd_selection_index"
+			},
+			
+			{
 				name = "citadel_base_3d"
 				operator = "sos_import_stack"
 				import_stack = "citadel_base_3d"
@@ -316,18 +499,99 @@
 			},
 			
 			{
+				name = "opvar_get_vsnd2_is_valid"
+				input_execute = "1.000000"
+				execute_once = "true"
+				operator = "opvar_get_vsnd_is_valid"
+				input = "@get_vsnd2.output"
+			},
+			
+			{
+				name = "opvar_math_vsnd2_is_valid"
+				input_execute = "1.0"
+				execute_once = "true"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@opvar_get_vsnd2_is_valid.output"
+				input2 = "@public.vsnd_start_track2"
+			},
+			
+			{
+				name = "opvar_get_vsnd3_is_valid"
+				input_execute = "1.000000"
+				execute_once = "true"
+				operator = "opvar_get_vsnd_is_valid"
+				input = "@get_vsnd3.output"
+			},
+			
+			{
+				name = "opvar_math_vsnd3_is_valid"
+				input_execute = "1.0"
+				execute_once = "true"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@opvar_get_vsnd3_is_valid.output"
+				input2 = "@public.vsnd_start_track3"
+			},
+			
+			{
+				name = "opvar_get_vsnd4_is_valid"
+				input_execute = "1.000000"
+				execute_once = "true"
+				operator = "opvar_get_vsnd_is_valid"
+				input = "@get_vsnd4.output"
+			},
+			
+			{
+				name = "opvar_math_vsnd4_is_valid"
+				input_execute = "1.0"
+				execute_once = "true"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@opvar_get_vsnd4_is_valid.output"
+				input2 = "@public.vsnd_start_track4"
+			},
+			
+			{
+				name = "volume_db_to_gain_track2"
+				operator = "math_db_to_gain"
+				input = "@public.vsnd_files_track2_vol_offset_db"
+			},
+			
+			{
+				name = "volume_db_to_gain_track3"
+				operator = "math_db_to_gain"
+				input = "@public.vsnd_files_track3_vol_offset_db"
+			},
+			
+			{
+				name = "volume_db_to_gain_track4"
+				operator = "math_db_to_gain"
+				input = "@public.vsnd_files_track4_vol_offset_db"
+			},
+			
+			{
 				name = "start_vmix"
 				operator = "vmix_voice_start"
 				input_execute = "1"
 				input_track1 = "track_01"
-				input_start2 = "0.000000"
-				input_start3 = "0.000000"
-				input_start4 = "0.000000"
+				input_track2 = "@public.vsnd_files_track2_name"
+				input_track3 = "@public.vsnd_files_track3_name"
+				input_track4 = "@public.vsnd_files_track4_name"
+				input_start2 = "@opvar_math_vsnd2_is_valid.output"
+				input_start3 = "@opvar_math_vsnd3_is_valid.output"
+				input_start4 = "@opvar_math_vsnd4_is_valid.output"
 				input_start5 = "0.000000"
 				input_start6 = "0.000000"
 				input_start7 = "0.000000"
 				input_start8 = "0.000000"
 				input_vsnd1 = "@get_vsnd.output"
+				input_vsnd2 = "@get_vsnd2.output"
+				input_vsnd3 = "@get_vsnd3.output"
+				input_vsnd4 = "@get_vsnd4.output"
+				input_volume2 = "@volume_db_to_gain_track2.output"
+				input_volume3 = "@volume_db_to_gain_track3.output"
+				input_volume4 = "@volume_db_to_gain_track4.output"
 				execute_once = "false"
 				input_should_pause = "@public.vsnd_pause_with_game"
 				input_should_play_tail = "@public.vsnd_play_loop_release"

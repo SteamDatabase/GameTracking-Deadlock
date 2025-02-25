@@ -27,6 +27,7 @@
 								<DropDown id="UILanguage" />
 							</Panel>
 							<CitadelSettingsCheckbox class="extraTopMargin" convar="citadel_quickbuy_auto_buy_enable" text="#citadel_quickbuy_auto_buy_enable" onmouseover="UIShowTextTooltipStyled( #citadel_quickbuy_auto_buy_enable_tooltip , OptionsTooltip)" onmouseout="UIHideTextTooltip()" />
+							<CitadelSettingsCheckbox convar="citadel_quickbuy_purchase_prompts_enable" text="#citadel_quickbuy_purchase_prompts_enable" onmouseover="UIShowTextTooltipStyled( #citadel_quickbuy_purchase_prompts_enable_tooltip , OptionsTooltip)" onmouseout="UIHideTextTooltip()" />
 							<CitadelSettingsCheckbox class="focusWindowUnpauseCheckbox" convar="citadel_activate_window_on_unpause" text="#citadel_settings_active_window_unpause" onmouseover="UIShowTextTooltipStyled( #citadel_settings_active_window_unpause_tooltip , OptionsTooltip)" onmouseout="UIHideTextTooltip()" />
 						</Panel>
 						<Panel id="SkillRatingSection">
@@ -37,7 +38,7 @@
 						</Panel>
 						<Panel class="LeftRightFlow">
 							<Label text="#Citadel_Settings_Telemetry_SectionHeader" class="SectionHeader telemetryLargeTopMargin" />
-							<Panel class="InfoIcon TelemetryInfoIcon" onmouseover="UIShowTextTooltip( #citadel_settings_telemtry_settings_info_desc );" onmouseout="UIHideTextTooltip();" onactivate="ExternalBrowserGoToURL(https://help.steampowered.com/en/faqs/view/5E6F-5B36-5485-F6B9 );" />
+							<Panel class="InfoIcon TelemetryInfoIcon" onmouseover="UIShowTextTooltip( #citadel_settings_telemtry_settings_info_desc );" onmouseout="UIHideTextTooltip();" onactivate="ExternalBrowserGoToURL(https://help.steampowered.com/faqs/view/5E6F-5B36-5485-F6B9 );" />
 						</Panel>
 						<Panel class="SectionHeaderLine" />
 						<CitadelSettingsCheckbox convar="citadel_show_telemetry_settings" text="#citadel_settings_show_telemtry_settings" />
@@ -205,6 +206,8 @@
 									<RadioButton text="#citadel_settings_upscaling_none" value="0" class="EnumButton" id="UpscalingNone" group="upscaling" />
 									<RadioButton text="#citadel_settings_upscaling_fsr" value="1" class="EnumButton" id="UpscalingFSR" group="upscaling" />
 									<RadioButton text="#citadel_settings_upscaling_fsr2" value="2" class="EnumButton" id="UpscalingFSR2" group="upscaling" />
+									<RadioButton text="#citadel_settings_upscaling_fsr3" value="3" class="EnumButton" id="UpscalingFSR3" group="upscaling" />
+									<RadioButton text="#citadel_settings_upscaling_dlss" value="4" class="EnumButton" id="UpscalingDLSS" group="upscaling" />
 								</CitadelSettingsEnum>
 								<CitadelSettingsSlider id="RenderQuality" convar="mat_viewportscale" min="0.4" max="1.0" percentage="true" text="#citadel_settings_renderquality" onmouseover="UIShowTextTooltip( #citadel_settings_renderquality_desc )" onmouseout="UIHideTextTooltip()" />
 								<CitadelSettingsEnum class="HorizontalEnum" convar="mat_viewportscale" text="#citadel_settings_fsr2scaling" id="RenderQualityFSR2Enum" onmouseover="UIShowTextTooltip( #citadel_settings_fsr2scaling_desc )" onmouseout="UIHideTextTooltip()">
@@ -213,6 +216,17 @@
 									<RadioButton text="#citadel_settings_fsr2scaling_balanced" value="0.588235" class="EnumButton" id="Fsr2ScalingBalanced" group="renderqualityfsr2" />
 									<RadioButton text="#citadel_settings_fsr2scaling_quality" value="0.666667" class="EnumButton" id="Fsr2ScalingQuality" group="renderqualityfsr2" />
 									<RadioButton text="#citadel_settings_fsr2scaling_native" value="1.000000" class="EnumButton" id="Fsr2ScalingNative" group="renderqualityfsr2" />
+								</CitadelSettingsEnum>
+								<CitadelSettingsEnum class="HorizontalEnum" convar="r_citadel_dlss_settings_mode" text="#citadel_settings_dlssscaling" id="RenderQualityDLSSEnum" onactivate="CitadelUpscalingValueChanged();" onmouseover="UIShowTextTooltip( #citadel_settings_dlssscaling_desc )" onmouseout="UIHideTextTooltip()">
+									<RadioButton text="#citadel_settings_dlssscaling_auto" value="0" class="EnumButton" id="DLSSScalingAuto" group="renderqualitydlss" />
+									<RadioButton text="#citadel_settings_dlssscaling_performance" value="1" class="EnumButton" id="DLSSScalingPerformance" group="renderqualitydlss" />
+									<RadioButton text="#citadel_settings_dlssscaling_balanced" value="2" class="EnumButton" id="DLSSScalingBalanced" group="renderqualitydlss" />
+									<RadioButton text="#citadel_settings_dlssscaling_quality" value="3" class="EnumButton" id="DLSSScalingQuality" group="renderqualitydlss" />
+									<RadioButton text="#citadel_settings_dlssscaling_DLAA" value="4" class="EnumButton" id="DLSSScalingDLAA" group="renderqualitydlss" />
+								</CitadelSettingsEnum>
+								<CitadelSettingsEnum class="HorizontalEnum" convar="r_dlss_preset" text="#citadel_settings_dlsstechnology" id="RenderQualityDLSSTechnology" onmouseover="UIShowTextTooltip( #citadel_settings_dlsstechnology_desc )" onmouseout="UIHideTextTooltip()">
+									<RadioButton text="#citadel_settings_dlsstechnology_cnn" value="5" class="EnumButton" id="DLSSTechnologyCNN" group="dlsstechnology" />
+									<RadioButton text="#citadel_settings_dlsstechnology_transformer" value="10" class="EnumButton" id="DLSSTechnologyTransformer" group="dlsstechnology" />
 								</CitadelSettingsEnum>
 								<CitadelSettingsSlider id="FsrRcasSharpness" convar="r_citadel_fsr_rcas_sharpness" min="0.0" max="1.0" percentage="true" text="#citadel_settings_fsr_rcas_sharpness" onmouseover="UIShowTextTooltip( #citadel_settings_fsr_rcas_sharpness_desc )" onmouseout="UIHideTextTooltip()" />
 								<CitadelSettingsSlider id="Fsr2Sharpness" convar="r_citadel_fsr2_sharpness" min="0.0" max="1.0" percentage="true" text="#citadel_settings_fsr2_sharpness" onmouseover="UIShowTextTooltip( #citadel_settings_fsr2_sharpness_desc )" onmouseout="UIHideTextTooltip()" />
@@ -260,7 +274,6 @@
 									<Panel class="advancedvideo">
 										<CitadelSettingsCheckbox convar="r_arealights" text="#citadel_settings_area_lights" onmouseover="UIShowTextTooltip( #citadel_settings_area_lights_desc )" onmouseout="UIHideTextTooltip()" />
 										<CitadelSettingsCheckbox convar="r_depth_of_field" text="#citadel_settings_depth_of_field" onmouseover="UIShowTextTooltip( #citadel_settings_depth_of_field_desc )" onmouseout="UIHideTextTooltip()" />
-										<CitadelSettingsCheckbox convar="r_citadel_mboit" text="#citadel_settings_mboit" onmouseover="UIShowTextTooltip( #citadel_settings_mboit_desc )" onmouseout="UIHideTextTooltip()" />
 									</Panel>
 								</Panel>
 							</Panel>
@@ -466,17 +479,6 @@
 									<CitadelSettingsKeyBinder id="AbilityUpgrade4Binder" text="#citadel_keybind_upgrade_ability4" bind="AbilityUpgrade4" />
 									<CitadelSettingsKeyBinder id="MeleeBinder" text="#citadel_keybind_melee" bind="AbilityMelee" />
 									<CitadelSettingsKeyBinder id="HeldItemBinder" text="#citadel_keybind_held_item" bind="HeldItem" />
-									<Panel class="ModeOptionContainer">
-										<Panel class="TopBottomFlow">
-											<Label class="ModeOption" text="#citadel_settings_cancel_ability_mode" />
-											<Label class="ModeOptionDesc" text="#citadel_settings_cancel_ability_mode_desc" />
-										</Panel>
-										<CitadelSettingsEnumDropDown id="CancelModeDropDown" class="modeDropDown" convar="cl_citadel_cancel_ability_mode" onmouseout="UIHideTextTooltip()">
-											<Label text="#citadel_settings_cancel_ability_mode_ability_key" id="ability" value="0" onmouseover="UIShowTextTooltip( #citadel_settings_cancel_ability_mode_ability_key_tooltip )" onmouseout="UIHideTextTooltip()" />
-											<Label text="#citadel_settings_cancel_ability_mode_cancel_key" id="cancel" value="1" onmouseover="UIShowTextTooltip( #citadel_settings_cancel_ability_mode_cancel_key_tooltip )" onmouseout="UIHideTextTooltip()" />
-											<Label text="#citadel_settings_cancel_ability_mode_either" id="either" value="2" onmouseover="UIShowTextTooltip( #citadel_settings_cancel_ability_mode_either_tooltip )" onmouseout="UIHideTextTooltip()" />
-										</CitadelSettingsEnumDropDown>
-									</Panel>
 									<CitadelSettingsKeyBinder id="CancelAbilityBinder" text="#citadel_keybind_cancel_ability" bind="CancelAbility" />
 									<Panel class="ModeOptionContainer">
 										<Label class="ModeOption" text="#citadel_settings_alt_cast_mode" />
@@ -658,6 +660,7 @@
 									<Label text="#citadel_settings_glyph_lock_mode_gamepad" id="boost" value="2" onmouseover="UIShowTextTooltipStyled( #citadel_settings_glyph_lock_mode_tooltip_gamepad, OptionsTooltip)" onmouseout="UIHideTextTooltip()" />
 								</CitadelSettingsEnumDropDown>
 							</Panel>
+							<CitadelSettingsCheckbox convar="steaminput_glyph_use_universal_face_buttons" text="#citadel_settings_glyph_universal_toggle" />
 						</Panel>
 					</Panel>
 				</Panel>

@@ -8,7 +8,7 @@ CitadelHud
 
 #PopupManager
 {
-	z-index: 1001;
+	z-index: 9999;
 }
 
 #ContextMenuManager
@@ -413,8 +413,9 @@ CitadelHudModifierIcons
 	padding-right: 14px;
 	border-radius: 50px;
 	padding: 15px 30px;
-	background-color: #000000aa;
+	background-color: #00000033;
 	z-index: 5;
+	world-blur: ingameHudBlur;
 }
 
 .action_binding .InlineGlyph
@@ -1639,6 +1640,24 @@ CitadelHudModifierIcons
 	z-index: 999;
 }
 
+#HudMinimapContainer
+{
+	width: 380px;
+	height: 380px;
+	background-color: rgba(0, 0, 0, 0.5);
+	transition-property: width,height;
+	transition-duration: 0.1s;
+	border-radius: 200px;
+	vertical-align: center;
+	horizontal-align: center;
+	world-blur: ingameHudBlur;
+}
+
+.useZoomedMinimap #HudMinimapContainer
+{
+	overflow: clip;
+}
+
 #minimap_frame
 {
 	width: 380px;
@@ -1663,18 +1682,6 @@ CitadelHudModifierIcons
 	width: 100%;
 	height: 100%;
 	background-color: #0000;
-}
-
-#hud_minimap
-{
-	width: 380px;
-	height: 380px;
-	background-color: #0000;
-	transition-property: width,height;
-	transition-duration: 0.1s;
-	border-radius: 200px;
-	vertical-align: center;
-	horizontal-align: center;
 }
 
 #join_team
@@ -2265,8 +2272,7 @@ CitadelTooltipManager
 	horizontal-align: right;
 	background-color: #911717ee;
 	border-radius: 8px;
-	width: 190px;
-	min-height: 90px;
+	max-width: 200px;
 	visibility: collapse;
 }
 
@@ -2275,14 +2281,74 @@ CitadelTooltipManager
 	visibility: visible;
 }
 
+#SafeToAbandonIndicator .NotScoredLabel
+{
+	visibility: collapse;
+}
+
+#SafeToAbandonIndicator .MinimizeSafeToLeave
+{
+	vertical-align: top;
+	horizontal-align: right;
+}
+
+#SafeToAbandonIndicator .CloseButton
+{
+	width: 25px;
+	height: 25px;
+	background-size: auto 50%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url("s2r://panorama/images/icons/icon_x.vsvg");
+	background-color: none;
+	wash-color: offWhite;
+}
+
+.MinimizeSafeToLeave #SafeToAbandonIndicator .CloseButton
+{
+	background-image: url("s2r://panorama/images/icons/icon_plus_white_png.vtex");
+	background-size: auto 75%;
+}
+
+.NotScored #SafeToAbandonIndicator
+{
+	background-color: #179117ee;
+}
+
+.NotScored #SafeToAbandonIndicator .NotScoredLabel
+{
+	visibility: visible;
+}
+
+.NotScored #SafeToAbandonIndicator .SafeToAbandonLabel
+{
+	visibility: collapse;
+}
+
+.NotScored #SafeToAbandonIndicator .MinimizeSafeToLeave
+{
+	visibility: collapse;
+}
+
+.NotScored #SafeToAbandonIndicator Label
+{
+	margin-right: 0px;
+}
+
 #SafeToAbandonIndicator Label
 {
 	padding: 8px;
+	margin-right: 18px;
 	vertical-align: center;
 	horizontal-align: center;
 	text-align: center;
 	font-weight: bold;
 	opacity: 0.75;
+}
+
+.MinimizeSafeToLeave #SafeToAbandonIndicator Label
+{
+	visibility: collapse;
 }
 
 #GameOverButtonContainer
@@ -2307,7 +2373,7 @@ CitadelTooltipManager
 	margin-right: 40px;
 }
 
-.connectedToHeroTesting #stats_game_clock,.connectedToHeroTesting #minimap_persp,.connectedToHeroTesting #ObjectivesMap,.connectedToHeroTesting .top_left_team_panel,.connectedToHeroTesting .top_right_team_panel
+.connectedToHeroTesting #stats_game_clock,.connectedToHeroTesting:not(.isDefaultMap) #minimap_persp,.connectedToHeroTesting:not(.isDefaultMap) #ObjectivesMap,.connectedToHeroTesting .top_left_team_panel,.connectedToHeroTesting .top_right_team_panel
 {
 	visibility: collapse;
 }
@@ -2340,6 +2406,26 @@ CitadelTooltipManager
 .replay_playback .abilitiesContainer.gShopOpen
 {
 	margin-bottom: 0px;
+}
+
+.spec_mode .abilitiesContainer
+{
+	opacity: 0;
+}
+
+.spec_mode #StatsAndModsContainer
+{
+	visibility: collapse;
+}
+
+.spec_mode.player_selected .abilitiesContainer
+{
+	opacity: 1;
+}
+
+.spec_mode.player_selected #StatsAndModsContainer
+{
+	visibility: visible;
 }
 
 #APContainer
@@ -3118,7 +3204,7 @@ CitadelPlayerLevelRewards
 	vertical-align: bottom;
 	horizontal-align: left;
 	flow-children: down;
-	margin-bottom: 170px;
+	margin-bottom: 200px;
 	width: 280px;
 	visibility: collapse;
 }
@@ -3401,5 +3487,42 @@ CitadelHudSoulAPContainer.ShowGoldAndAPOnHud
 .connectedToHeroTesting #minimap_persp.forceShowMinimap
 {
 	visibility: visible;
+}
+
+#MinimapRevealPanel
+{
+	horizontal-align: center;
+	vertical-align: center;
+	margin-top: 700px;
+	flow-children: right;
+}
+
+#MinimapRevealPanel Panel
+{
+	height: 40px;
+	width: 40px;
+	background-size: 100% 100%;
+	margin-right: 5px;
+	margin-left: 5px;
+}
+
+#EVisibleByEnemyPlayer
+{
+	background-image: url("s2r://panorama/images/misc/reveal_sight_png.vtex");
+}
+
+#EVisibleFromAttackingEnemyPlayer
+{
+	background-image: url("s2r://panorama/images/misc/reveal_dmg_png.vtex");
+}
+
+#EVisibleByNPC
+{
+	background-image: url("s2r://panorama/images/npcs/trooper_psd.vtex");
+}
+
+#EVisibleByObjective
+{
+	background-image: url("s2r://panorama/images/minimap/objective_icon_t1.vsvg");
 }
 

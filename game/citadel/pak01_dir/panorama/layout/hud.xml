@@ -50,17 +50,19 @@
 		<CitadelPlayerLevelRewards id="LevelRewards" />
 		<CitadelHudReportCard id="hud_reportcard" />
 		<CitadelHudPlayerIntents id="hud_playerintents" />
-		<PopupManager id="PopupManager" hittest="false" />
 		<CitadelHudChat id="HudChat" />
 		<CitadelHudQuickResponse id="CitadelQuickResponse" />
 		<CitadelGameOverDisplay id="GameOverDisplay" />
 		<CitadelChatWheel id="ChatWheel" />
+		<CitadelRadialAbilities id="RadialAbilitiesMenu" />
 		<Panel id="party_ctn">
 			<CitadelPartyInviteList id="partyinvites" />
 		</Panel>
 		<Panel id="TimerContainer" />
 		<Panel id="SafeToAbandonIndicator">
-			<Label text="#SafeToAbandon_Text" />
+			<Button class="MinimizeSafeToLeave CloseButton" onactivate="$.GetContextPanel().ToggleClass(&apos;MinimizeSafeToLeave&apos;)" />
+			<Label class="SafeToAbandonLabel" text="#SafeToAbandon_Text" />
+			<Label class="NotScoredLabel" text="#NotScored_Text" />
 		</Panel>
 		<Panel id="gameplay_hud" class="gameplay_hud" hittest="false">
 			<GlobalClassListener classes="gShopOpen" />
@@ -81,6 +83,7 @@
 			</Panel>
 			<TeamChatStatus id="teamChatStatus" />
 			<Panel id="gameplay_hud_alive" hittest="false">
+				<Panel id="MinimapRevealPanel" hittest="false" hittestchildren="false" />
 				<CitadelHudScreenEffects_Silenced id="silenced_screen_effect" />
 				<CitadelHudScreenEffects_Stunned id="stunned_screen_effect" />
 				<CitadelHudScreenEffects_HornetScope id="scope_screen_effect" />
@@ -144,7 +147,9 @@
 				<Panel id="minimap_persp" hittest="false">
 					<Panel id="minimap_container" hittest="false">
 						<Panel id="minimap_blur" hittest="false" />
-						<HudMinimap id="hud_minimap" acceptsinput="false" acceptsfocus="false" />
+						<Panel id="HudMinimapContainer">
+							<HudMinimap id="hud_minimap" acceptsinput="false" acceptsfocus="false" />
+						</Panel>
 						<Panel id="minimap_frame" hittest="false" />
 					</Panel>
 				</Panel>
@@ -244,6 +249,7 @@
 		<Panel id="StatsAndModsContainer" hittest="false">
 			<GlobalClassListener id="DamageReportGlobalClassListener" classes="gBrowsingBuilds gEditingBuilds gShopOpen gScoreboardOpen" />
 			<Panel id="LowerLeft" hittest="false">
+				<CitadelStatusEffect id="StatusEffects" display_location="bottom_left" />
 				<CitadelHudSoulAPContainer id="gold_and_ap_container" />
 				<Panel class="ModsContainer" hittest="false">
 					<Panel id="WeaponModsContainer" class="ModSection WeaponMods" onmouseover="CitadelShowStatsTooltip( EItemSlotType_WeaponMod );" onmouseout="CitadelHideStatsTooltip();">
@@ -323,24 +329,25 @@
 			<Panel id="join_team_mid" hittest="true">
 				<Panel class="join_team_box">
 					<Panel class="join_team_play" onactivate="CitadelJoinTeam(-1); PlaySoundEffect( UI.TeamPick.Select );" hittest="true" onmouseover="PlaySoundEffect( UI.TeamPick.Hover );">
-						<Label class="join_team_auto" text="CHOOSE HERO" />
-						<Label class="join_team_full_warning" text="MATCH IS FULL" />
+						<Label class="join_team_auto" text="#Citadel_Hud_ChooseHero" />
+						<Label class="join_team_full_warning" text="#Citadel_Hud_MatchFull" />
 						<Panel class="join_team_specific">
-							<Label class="join_team_team" text="TEAM:" />
-							<Label class="join_team_autoselect" text="AUTO-SELECT" onactivate="CitadelJoinTeam(-1); PlaySoundEffect( UI.TeamPick.Select );" />
+							<Label class="join_team_team" text="#Citadel_Hud_TeamChoice" />
+							<Label class="join_team_autoselect" text="#Citadel_Hud_AutoSelect" onactivate="CitadelJoinTeam(-1); PlaySoundEffect( UI.TeamPick.Select );" />
 							<Label class="join_team_humans" text="#citadel_east_team_name" onactivate="CitadelJoinTeam(2); PlaySoundEffect( UI.TeamPick.Select );" />
 							<Label class="join_team_aliens" text="#citadel_west_team_name" onactivate="CitadelJoinTeam(3); PlaySoundEffect( UI.TeamPick.Select );" />
 						</Panel>
 					</Panel>
 				</Panel>
 				<Panel class="join_team_spectate" onactivate="CitadelJoinTeam(1); PlaySoundEffect( UI.TeamPick.Select );" onmouseover="PlaySoundEffect( UI.TeamPick.Hover );">
-					<Label text="SPECTATE" />
+					<Label text="#Citadel_Hud_Spectate" />
 				</Panel>
 			</Panel>
 		</Panel>
 		<CitadelPingIndicator id="PingIndicator" hittest="false" />
 		<CitadelContextMenuManager id="ContextMenuManager" hittest="false" />
 		<ToastManager id="ToastManager" hittest="false" toastduration="5s" maxtoastsvisible="4" />
+		<PopupManager id="PopupManager" hittest="false" />
 		<CitadelTooltipManager id="TooltipManager" hittest="false" />
 		<HudPerfStatsBasics hittest="false" />
 	</CitadelHud>

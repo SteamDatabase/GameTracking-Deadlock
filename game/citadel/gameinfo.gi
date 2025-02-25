@@ -107,6 +107,12 @@
 		"AlwaysPreloadTexturesInGame" "0"
 	}
 
+	NVNGX
+	{
+		AppID 103371621
+		SupportsDLSS 1
+	}
+
 	Engine2
 	{
 		HasModAppSystems 1
@@ -125,6 +131,7 @@
 	SoundSystem
 	{
 		SteamAudioEnabled            "1"
+		WaveDataCacheSizeMB          "256"
 	}
 	Sounds
 	{
@@ -202,6 +209,8 @@
 			OptimizeForMeshlets 1
 			TrianglesPerMeshlet 64	// Maximum valid value currently is 126
 			UseMikkTSpace 1
+            EncodeVertexBuffer 1
+            EncodeIndexBuffer 1
 		}
 
 		WorldRendererBuilder
@@ -220,6 +229,7 @@
 		BakedLighting
 		{
 			Version 4
+			ImportanceVolumeTransitionRegion 512            // distance we transition from high to low resolution charts 
 			LightmapChannels
 			{
 				direct_light_shadows 1
@@ -273,6 +283,7 @@
 		{
 			CompilerVersion "1"
 		//	CompileForCompare "1"
+			CompileStacksStrict "1"
 		}
 		VisBuilder
 		{
@@ -381,8 +392,6 @@
 	{
 		"EnableParticleShaderFeatureBranching"	"1"
 		"Float16HDRBackBuffer" "1"
-		"ParticlePixelCBSlot" "4"
-		"ParticleVertexCBSlot" "4"
 		"PET_SupportFadingOpaqueModels" "1"
 		"Features" "non_homogenous_forward_layer_only"
 	}
@@ -399,12 +408,15 @@
 		"sv_maxunlag"	"0.200"
 		"cl_clock_buffer_ticks"	"1"
 		"cl_interp_ratio" "0"
+		"cl_async_usercmd_send" "false"
 
 		// Spew warning when adding/removing classes to/from the top of the hierarchy
 		"panorama_classes_perf_warning_threshold_ms" "0.75"
 
 		// Panorama - enable minidumps on JS exceptions
 		"panorama_js_minidumps" "1"
+		// Enable the render target cache optimization.
+		"panorama_disable_render_target_cache" "0"
 
 		// too expensive (500MB+) to load this
 		"snd_steamaudio_load_reverb_data" "0"
@@ -472,6 +484,8 @@
 		"snd_event_browser_focus_events" "true"
 
 		"cl_max_particle_pvs_aabb_edge_length" "100"
+
+		"citadel_enable_vdata_sound_preload" "true"
 	}
 
 	Memory

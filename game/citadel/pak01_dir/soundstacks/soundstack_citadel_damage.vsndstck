@@ -28,6 +28,28 @@
 							property_help = "Base volume for sound in db."
 						}
 					}
+					volume_victim_npc_offset_db = 
+					{
+						data_type = "float"
+						value = "-4.0"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "citadel_damage - Volume"
+							property_help = "The amount the sound is attenuated if the vicitim is an NPC."
+						}
+					}
+					victim_is_npc = 
+					{
+						data_type = "bool"
+						value = "false"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_damage - Volume"
+							property_help = "set in code."
+						}
+					}
 					volume_falloff_min = 
 					{
 						data_type = "float"
@@ -253,33 +275,6 @@
 							property_help = "When viewing the victim, this enables mixgroup sidechaining."
 						}
 					}
-					damage_instance_attenuator_enabled = 
-					{
-						data_type = "float"
-						value = "1.0"
-						_system_properties = 
-						{
-							display_group = "Normal"
-							property_group = "citadel_damage - Instance Attenuator"
-							property_help = "Enables, disables gain adjustment relative to number of damage instances."
-						}
-					}
-					damage_instance_offset_amount = 
-					{
-						data_type = "float6"
-						soundevent_data = "true"
-						value = 
-						[
-							"[ 0.005714, 0.3, 1.083, 1.083, 2.0, 3.0 ]",
-							"[ 1.0, 1.0, 0.227125, 0.227125, 2.0, 3.0 ]",
-						]
-						_system_properties = 
-						{
-							display_group = "advanced"
-							property_group = "citadel_damage"
-							display_edit_type = "field_curve_2d_editor"
-						}
-					}
 					inflictor_position = 
 					{
 						data_type = "float3"
@@ -300,6 +295,17 @@
 							display_group = "Normal"
 							property_group = "Blocking"
 							property_help = "The server and client may query this value to see if it should play the sound from game code."
+						}
+					}
+					instance_attenuator_group_name_prefix = 
+					{
+						data_type = "string"
+						value = "damage-"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "Instance Attenuator"
+							property_help = "Sets the prefix of the instance attenuator group name."
 						}
 					}
 				}
@@ -502,16 +508,6 @@
 			},
 			
 			{
-				name = "switch_group_instance_atten"
-				execute_once = "true"
-				operator = "ctrl_switch3_string"
-				input_index = "@citadel_damage_info::output.damage_index"
-				input1 = "attacker"
-				input2 = "victim"
-				input3 = "other"
-			},
-			
-			{
 				name = "switch_vmix_send"
 				execute_once = "true"
 				operator = "ctrl_switch3_string"
@@ -522,48 +518,32 @@
 			},
 			
 			{
-				name = "join_damage_instance_attenuator_group"
-				input_execute = "@public.damage_instance_attenuator_enabled"
+				name = "switch_group_instance_atten"
 				execute_once = "true"
-				operator = "soundevent_group_join"
-				input_group_name = "damage_instance_attenuator"
-				input_match_string = "@switch_group_instance_atten.output"
+				operator = "ctrl_switch3_string"
+				input_index = "@citadel_damage_info::output.damage_index"
+				input1 = "attacker"
+				input2 = "victim"
+				input3 = "other"
 			},
 			
 			{
-				name = "get_damage_instance_attenuator_kv3"
-				execute_once = "false"
-				input_execute = "@public.damage_instance_attenuator_enabled"
-				operator = "soundevent_group_get_float"
-				input_group_result = "@join_damage_instance_attenuator_group.output_result"
-				input_name = "current_count"
+				name = "concat_attenuator_name"
+				operator = "math_string"
+				input_execute = "1"
+				input1 = "@public.instance_attenuator_group_name_prefix"
+				input2 = "@switch_group_instance_atten.output"
+				apply = "add"
 			},
 			
 			{
-				name = "get_group_result_info"
-				execute_once = "true"
-				operator = "soundevent_group_info"
-				input_group_result = "@join_damage_instance_attenuator_group.output_result"
-			},
-			
-			{
-				name = "evaluate_opvar_instance_atten"
-				operator = "math_curve_2d"
-				input_execute = "@public.damage_instance_attenuator_enabled"
-				input = "@get_damage_instance_attenuator_kv3.output"
-				public_field_name = "public.damage_instance_offset_amount"
-				input_scale_x = "1.0"
-				input_scale_y = "1.0"
-			},
-			
-			{
-				name = "volume_offset_instance_mult"
+				name = "mult_volume_offset_npc"
 				execute_once = "true"
 				input_execute = "1.0"
 				operator = "math_float"
 				apply = "mult"
-				input1 = "@public.damage_instance_attenuator_enabled"
-				input2 = "@evaluate_opvar_instance_atten.output"
+				input1 = "@public.victim_is_npc"
+				input2 = "@public.volume_victim_npc_offset_db"
 			},
 			
 			{
@@ -573,8 +553,8 @@
 				input1 = "@public.volume"
 				input2 = "@eval_health_curve_result.output"
 				input3 = "@chip_damage_offset_result.output"
-				input4 = "@volume_offset_instance_mult.output"
-				input5 = "0.0"
+				input4 = "0.0"
+				input5 = "@mult_volume_offset_npc.output"
 				input6 = "0.0"
 				input7 = "0.0"
 				input8 = "0.0"
@@ -666,8 +646,17 @@
 						data_type = "string"
 						value = "@switch_vmix_send.output"
 					}
+					instance_attenuator_name = 
+					{
+						data_type = "string"
+						value = "@concat_attenuator_name.output_string"
+					}
 				}
 			},
 		]
+		_system_properties = 
+		{
+			display_game = "citadel"
+		}
 	}
 }

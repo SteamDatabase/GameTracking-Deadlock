@@ -167,8 +167,17 @@ $hRh
 %s------%s%s
 %s------%s--%s%s
 %s: (%d bit)\n
+%s: Unable to create energy field [%d]\n
+%s: Unable to create hybrid reverb estimator [%d]\n
+%s: Unable to create impulse response [%d]\n
+%s: Unable to create partitioned impulse response [%d]\n
+%s: Unable to create partitioner [%d]\n
 %s: Unable to create probe array (%d)\n
 %s: Unable to create probe batch(%d)\n
+%s: Unable to create probe lookup [%d]\n
+%s: Unable to create probe neighborhood [%d]\n
+%s: Unable to create reconstructor [%d]\n
+%s: Unable to create reverb estimator [%d]\n
 %s: Unable to create serialized object (%d)\n
 %s: Unable to find serialized probe batch data\n
 %s: Unable to load data: %s\n
@@ -290,6 +299,9 @@ $hRh
 .?AVCSource3DProcessor@@
 .?AVCSteamAudio@@
 .?AVCSteamAudioMaterialList@@
+.?AVCSteamAudioPartitioner@@
+.?AVCSteamAudioPartitioningTask@@
+.?AVCSteamAudioReverbSimulator@@
 .?AVCSteamAudioScene@@
 .?AVCSteamAudioSimulationData@@
 .?AVCSteamAudioSource@@
@@ -638,6 +650,7 @@ $hRh
 2Zq)
 2\fWQx
 2\rlhp
+2\vp|y
 2^pV
 2a"l
 2bT~
@@ -1456,11 +1469,14 @@ CSteamAudioBakedPathingData
 CSteamAudioBakedReverbData
 CSteamAudioBakedReverbData::KV3TransferPostLoadFn
 CSteamAudioBakedReverbData::KV3TransferPostSaveFn
+CSteamAudioPartitioner::CSteamAudioPartitioner
+CSteamAudioPartitioningTask::CSteamAudioPartitioningTask
 CSteamAudioProbeData
 CSteamAudioProbeData::KV3TransferPostLoadFn
 CSteamAudioProbeData::KV3TransferPostSaveFn
 CSteamAudioProbeData::SetProbes
 CSteamAudioProbeData::SetSerializedData
+CSteamAudioReverbSimulator::CSteamAudioReverbSimulator
 CSteamAudioScene::BakeDimensions
 CSteamAudioScene::BakeMaterials
 CSteamAudioScene::BakeOcclusion
@@ -1471,12 +1487,13 @@ CSteamAudioSimulationData::ImportMaterialsData
 CSteamAudioSimulationData::ImportOcclusionData
 CSteamAudioSimulationData::ImportPathingData
 CSteamAudioSimulationData::ImportReverbData
+CSteamAudioSource::CSteamAudioSource
 CT Certificate SCTs
 CT Precertificate Poison
 CT Precertificate SCTs
 CT Precertificate Signer
-CUtlRBTree<struct CUtlOrderedMapBase<class CUtlStringToken,int,class CDefLess<class CUtlStringToken>,int>::Node_t,class CUtlOrderedMapBase<class CUtlStringToken,int,class CDefLess<class CUtlStringToken>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CUtlStringToken,int,class CDefLess<class CUtlStringToken>,int>::Node_t,int>,int> >::Insert
-CUtlSortVector<struct ChunkHashFraction_t,class ChunkHashFractionLess_t,class CUtlVector<struct ChunkHashFraction_t,int,class CUtlMemory<struct ChunkHashFraction_t,int> > >::Find
+CUtlRBTree<struct CUtlOrderedMapBase<class CUtlStringToken,int,class CDefLess<class CUtlStringToken>,int>::Node_t,class CUtlOrderedMapBase<class CUtlStringToken,int,class CDefLess<class CUtlStringToken>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CUtlStringToken,int,class CDefLess<class CUtlStringToken>,int>::Node_t,int>,int,0> >::Insert
+CUtlSortVector<struct ChunkHashFraction_t,class ChunkHashFractionLess_t,class CUtlVector<struct ChunkHashFraction_t,int,class CUtlMemory<struct ChunkHashFraction_t,int,0> > >::Find
 CVcn
 C[L6
 C\lVQ
@@ -2047,7 +2064,6 @@ EXTENDED_KEY_USAGE
 EXTERNAL
 E[3M
 E\nQc
-E\tV_powd
 EdiPartyName
 EdiPartyName:<unsupported>
 Ee{5
@@ -3049,6 +3065,7 @@ RSA_verify_PKCS1_PSS
 RSA_verify_PKCS1_PSS_mgf1
 RSDS
 R\r1>Vp
+R\vp|y
 R]Di
 Rbg.E
 ReadConsoleInputW
@@ -3455,6 +3472,7 @@ UTF8STRING
 UTF8String
 UUUUUUUUUUUUUU<o(
 UUUUUUUUUUUa\f\v
+U\tV_powd
 U^Pg
 Ugi<
 Unable to create Ambisonics decode effect [%d]\n
@@ -3814,6 +3832,7 @@ Z~wl
 \n------- Steam Audio Baked Reverb Statistics ------\n
 \n5a=Z
 \n:82H
+\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
 \n\tIPSec/IKE/Oakley curve #3 over a 155 bit binary field.\n\tNot suitable for ECDSA.\n\tQuestionable extension field!
 \n\tIPSec/IKE/Oakley curve #4 over a 185 bit binary field.\n\tNot suitable for ECDSA.\n\tQuestionable extension field!
 \nqYu
@@ -3844,6 +3863,7 @@ Z~wl
 \tHAI8xpH\f
 \tJm_9
 \tLa0+
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\v\n\v\n\v\n\v\n\v\n\v\n\v\n\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\r\f\r\f\r\f\r\f\r\f\r\f\r\f\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r
 \toRE
 \ttqE5
 \t}BzJ88
@@ -3872,7 +3892,6 @@ _Ek6b]
 _Lx6
 _OPENSSL_isservice
 _YWL
-_dir.vpk
 _flt.vpk
 _g@Cg
 _jPo
@@ -4590,7 +4609,6 @@ digital envelope routines
 digitalSignature
 dinfo
 dirName
-directory
 directory services (X.500)
 directory services - algorithms
 dirname error
@@ -5437,20 +5455,33 @@ iplDirectivityCalculate
 iplDistanceAttenuationCalculate
 iplEmbreeDeviceCreate
 iplEmbreeDeviceRelease
+iplEnergyFieldCreate
+iplEnergyFieldRelease
 iplHRTFCreate
 iplHRTFRelease
-iplImpulseResponse2AddChannel
-iplImpulseResponse2AddSample
+iplHybridReverbEffectApply
+iplHybridReverbEffectCreate
+iplHybridReverbEstimatorCreate
+iplHybridReverbEstimatorEstimate
+iplHybridReverbEstimatorRelease
 iplImpulseResponse2Create
 iplImpulseResponse2GetChannel
 iplImpulseResponse2GetNumSamples
 iplImpulseResponse2Release
 iplImpulseResponse2Reset
-iplImpulseResponse2SetChannel
-iplImpulseResponse2SetChannelDelayed
-iplImpulseResponse2SetSample
-iplImpulseResponse2Swap
 iplImpulseResponse2SwapSource
+iplImpulseResponseCreate
+iplImpulseResponseGetChannel
+iplImpulseResponseGetNumChannels
+iplImpulseResponseGetNumSamples
+iplImpulseResponseRelease
+iplImpulseResponseReset
+iplImpulseResponseSwap
+iplOverlapSaveFIRCreate
+iplOverlapSaveFIRRelease
+iplPartitionerCreate
+iplPartitionerPartition
+iplPartitionerRelease
 iplPathBakerBake
 iplPathBakerCancelBake
 iplPathEffectApply
@@ -5478,7 +5509,11 @@ iplProbeBatchGetProbeArray
 iplProbeBatchLoad
 iplProbeBatchLoadCompressed
 iplProbeBatchLoadNonUniform
+iplProbeBatchLookupBakedReflections
+iplProbeBatchLookupCreate
+iplProbeBatchLookupRelease
 iplProbeBatchRelease
+iplProbeBatchRetain
 iplProbeBatchSave
 iplProbeNeighborhoodCalculateWeights
 iplProbeNeighborhoodCheckOcclusion
@@ -5489,24 +5524,18 @@ iplProbeNeighborhoodGetProbe
 iplProbeNeighborhoodRelease
 iplProbeNeighborhoodReset
 iplProbeNeighborhoodResize
+iplReconstructorCreate
+iplReconstructorReconstruct
+iplReconstructorRelease
 iplReflectionsBakerBake
 iplReflectionsBakerCancelBake
-iplReflectionsEffect2Apply
-iplReflectionsEffect2Create
-iplReflectionsEffect2Release
-iplReflectionsEffect2SetBuffer
-iplReflectionsEffect2SetFloat
-iplReflectionsEffect2SetInt32
-iplReflectionsPartitioner2AddTask
-iplReflectionsPartitioner2Commit
-iplReflectionsPartitioner2Create
-iplReflectionsPartitioner2Release
-iplReflectionsPartitioner2RemoveTask
-iplReflectionsPartitioner2Retain
-iplReflectionsPartitioner2RunTasks
+iplReverbEstimatorApplyScale
+iplReverbEstimatorCreate
+iplReverbEstimatorRelease
 iplSceneCommit
 iplSceneCreate
 iplSceneRelease
+iplSceneRetain
 iplSceneSave
 iplSceneSaveOBJ
 iplSerializedObjectCreate
@@ -5746,6 +5775,7 @@ m_reverbCompressionSettings
 m_reverbSettings
 m_vecInOut
 m_vecMaterialTokens
+m_vecMaterialWeights
 m_vecOcclusion
 m_vecSize
 ma\v\r01!

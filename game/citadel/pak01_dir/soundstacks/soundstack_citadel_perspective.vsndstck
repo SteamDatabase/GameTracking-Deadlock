@@ -16,7 +16,11 @@
 				operator = "util_null"
 				operator_variables = 
 				{
-					import_public_opvars = "citadel_default_3d"
+					import_public_opvars = 
+					[
+						"citadel_default_3d",
+						"citadel_distance_falloff",
+					]
 					volume_falloff_min_player = 
 					{
 						data_type = "float"
@@ -189,6 +193,74 @@
 							display_group = "advanced"
 							display_edit_type = "field_curve_2d_editor"
 							property_group = "Perspective - Volume Falloff"
+						}
+					}
+					initial_reflection_send_curve_db_player = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+							"[ 1.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "advanced"
+							display_edit_type = "field_curve_2d_editor"
+							property_group = "Perspective - Volume Falloff"
+							property_help = "Initial reflection volume amount in db over distance."
+						}
+					}
+					initial_reflection_send_curve_db_team = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+							"[ 1.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "advanced"
+							display_edit_type = "field_curve_2d_editor"
+							property_group = "Perspective - Volume Falloff"
+							property_help = "Initial reflection volume amount in db over distance."
+						}
+					}
+					initial_reflection_send_curve_db_opponent = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+							"[ 1.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "advanced"
+							display_edit_type = "field_curve_2d_editor"
+							property_group = "Perspective - Volume Falloff"
+							property_help = "Initial reflection volume amount in db over distance."
+						}
+					}
+					initial_reflection_send_curve_db_neutral = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+							"[ 1.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "advanced"
+							display_edit_type = "field_curve_2d_editor"
+							property_group = "Perspective - Volume Falloff"
+							property_help = "Initial reflection volume amount in db over distance."
 						}
 					}
 					volume_enemy_targeting_boost = 
@@ -520,6 +592,36 @@
 							display_group = "player"
 						}
 					}
+					hrtf_on_team = 
+					{
+						data_type = "float"
+						value = "1.0"
+						_system_properties = 
+						{
+							property_group = "Perspective"
+							display_group = "player"
+						}
+					}
+					hrtf_on_opponent = 
+					{
+						data_type = "float"
+						value = "1.0"
+						_system_properties = 
+						{
+							property_group = "Perspective"
+							display_group = "player"
+						}
+					}
+					hrtf_on_neutral = 
+					{
+						data_type = "float"
+						value = "1.0"
+						_system_properties = 
+						{
+							property_group = "Perspective"
+							display_group = "player"
+						}
+					}
 					hpf_non_player_enabled = 
 					{
 						data_type = "float"
@@ -661,6 +763,27 @@
 							property_help = "The server and client may query this value to see if it should play the sound from game code."
 						}
 					}
+					max_audible_distance_enemy = 
+					{
+						data_type = "float"
+						value = "-1.000000"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_enemy_audible_sound"
+							property_help = "Set via operator below that works out the x-max of the enemy attenuation curve."
+						}
+					}
+					is_enemy_audible_sound = 
+					{
+						data_type = "bool"
+						value = "true"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_enemy_audible_sound"
+						}
+					}
 				}
 			},
 			
@@ -766,6 +889,16 @@
 			},
 			
 			{
+				name = "perspective_switch_initial_reflection_field_name"
+				operator = "logic_perspective_switch_string"
+				input_participant_perspective = "@citadel_find_perspective::game_entity_perspective.output"
+				input_player_value = "public.initial_reflection_send_curve_db_player"
+				input_team_value = "public.initial_reflection_send_curve_db_team"
+				input_opponent_value = "public.initial_reflection_send_curve_db_opponent"
+				input_neutral_value = "public.initial_reflection_send_curve_db_neutral"
+			},
+			
+			{
 				name = "perspective_switch_volume"
 				operator = "logic_perspective_switch_float"
 				input_participant_perspective = "@citadel_find_perspective::game_entity_perspective.output"
@@ -839,9 +972,9 @@
 				operator = "logic_perspective_switch_float"
 				input_participant_perspective = "@citadel_find_perspective::game_entity_perspective.output"
 				input_player_value = "@public.hrtf_on_player"
-				input_team_value = 1.000000
-				input_opponent_value = 1.000000
-				input_neutral_value = 1.000000
+				input_team_value = "@public.hrtf_on_team"
+				input_opponent_value = "@public.hrtf_on_opponent"
+				input_neutral_value = "@public.hrtf_on_neutral"
 			},
 			
 			{
@@ -932,7 +1065,7 @@
 				name = "get_entity_relevance_value"
 				operator = "entity_info_relevance"
 				input_execute = "1"
-				input_entity_index = "@public.owner_entity_index"
+				input_entity_index = "@citadel_find_perspective::output.entity_index"
 			},
 			
 			{
@@ -1085,6 +1218,11 @@
 						data_type = "string"
 						value = "@send_name_switch.output"
 					}
+					initial_reflection_curve_field_name = 
+					{
+						data_type = "string"
+						value = "@perspective_switch_initial_reflection_field_name.output"
+					}
 				}
 			},
 			
@@ -1105,6 +1243,55 @@
 				input_name = ""
 				input_position = "@citadel_default_3d::citadel_base_3d::add_position_offset.output"
 			},
+			
+			{
+				name = "evaluate_opvar_falloff_curve"
+				operator = "math_curve_2d"
+				input_execute = "1.0"
+				input = "@citadel_default_3d::citadel_base_3d::distance_filter.output"
+				public_field_name = "public.volume_falloff_curve_db_opponent"
+				input_scale_x = "1.0"
+				input_scale_y = "1.0"
+			},
+			
+			{
+				name = "max_distance_switch"
+				operator = "ctrl_switch_float"
+				input_switch = "@public.volume_falloff_use_curve_editor"
+				input1 = "@public.volume_falloff_max_opponent"
+				input2 = "@evaluate_opvar_falloff_curve.output_x_max"
+			},
+			
+			{
+				name = "math_calc_max_enemy_distance"
+				input_execute = "@public.is_enemy_audible_sound"
+				operator = "math_float"
+				apply = "add"
+				input1 = "@citadel_default_3d::citadel_base_3d::distance_filter.output"
+				input2 = "@max_distance_switch.output"
+			},
+			
+			{
+				name = "set_opvar_max_distance_query"
+				operator = "opvar_set_float"
+				input = "@math_calc_max_enemy_distance.output"
+				input_execute = "1.0"
+				input_operator_name = "public"
+				input_field_name = "max_audible_distance_enemy"
+				input_use_namespace = "false"
+				input_get_parent = "true"
+			},
+			
+			{
+				name = "citadel_enemy_audible_sound"
+				operator = "sos_import_stack"
+				import_stack = "citadel_enemy_audible_sound"
+				auto_connect_public_fields = "true"
+			},
 		]
+		_system_properties = 
+		{
+			display_game = "citadel"
+		}
 	}
 }

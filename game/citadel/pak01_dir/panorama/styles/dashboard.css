@@ -722,7 +722,7 @@ PopupManager
 {
 	padding: 0px 100px;
 	height: 100%;
-	width: 580px;
+	width: 680px;
 	flow-children: down;
 	transition-property: transform;
 	transition-duration: 0.15s;
@@ -753,6 +753,14 @@ PopupManager
 	margin: 80px 0px 30px 0px;
 }
 
+#DashboardBlur
+{
+	width: 100%;
+	height: 100%;
+	opacity: 1;
+	blur: menuBlur;
+}
+
 #dashboard_movie
 {
 	horizontal-align: middle;
@@ -763,7 +771,6 @@ PopupManager
 
 .in_matchmaking #dashboard_movie
 {
-	blur: gaussian(4.0);
 	opacity: 0.6;
 	saturation: 0;
 }
@@ -911,6 +918,8 @@ PopupManager
 .menuButtonLabel
 {
 	horizontal-align: middle;
+	white-space: nowrap;
+	text-overflow: shrink;
 }
 
 #quit
@@ -1468,9 +1477,10 @@ PopupManager
 	horizontal-align: right;
 	vertical-align: bottom;
 	width: 600px;
-	margin: 0px 40px 40px 0px;
+	margin: 0px 20px 20px 0px;
 	flow-children: down;
 	visibility: collapse;
+	background-color: #00000001;
 }
 
 #matchmaking_status
@@ -1788,8 +1798,8 @@ PopupManager
 #RecommendFriend
 {
 	flow-children: right;
-	background-color: offWhite;
-	background-color: gradient( linear, 100% 0%, 0% 0%, from( #007E7C30 ), to( #00E4E130 ) );
+	background-color: #80ffbb08;
+	border: 1px solid #a6ffcf09;
 	width: 100%;
 	padding: 15px 20px;
 }
@@ -1815,17 +1825,24 @@ PopupManager
 #RecommendButton
 {
 	width: 210px;
-	margin: 0px;
+	margin-right: 20px 0px 0px 0px;
 	vertical-align: middle;
+}
+
+.SecondaryButton
+{
+	margin: 0px;
 }
 
 #DiscordForumInvite
 {
 	flow-children: down;
 	background-color: offWhite;
-	background-color: gradient( linear, 100% 0%, 0% 0%, from( #333c9d30 ), to( #53588f60 ) );
+	background-color: #80d4ff08;
+	border: 1px solid #a6ffcf09;
 	width: 100%;
 	padding: 15px 20px;
+	margin-bottom: 4px;
 	visibility: visible;
 }
 
@@ -2158,13 +2175,8 @@ PopupManager
 {
 	horizontal-align: right;
 	margin: 20px 410px 0px 0px;
-	visibility: visible;
-	z-index: 101;
-}
-
-.connectedToGame #StatusIcons
-{
 	visibility: collapse;
+	z-index: 101;
 }
 
 #Announcements
@@ -2477,6 +2489,7 @@ Label.PlayTitle
 .smallButton .playoptionLabel
 {
 	font-size: 26px;
+	line-height: normal;
 }
 
 .smallButton .subHeader.playoptionLabel
@@ -2489,6 +2502,7 @@ Label.PlayTitle
 #Option_HeroLabs:not(.heroLabsUnlocked) .subHeader.playoptionLabel
 {
 	visibility: visible;
+	height: 35px;
 }
 
 #BotDifficultyDropDown
@@ -2532,7 +2546,7 @@ Label.PlayTitle
 
 #Option_HeroLabs.heroLabsUnlocked #DescArea
 {
-	height: 50px;
+	height: 54px;
 }
 
 #Option_HeroLabs.heroLabsUnlocked #DescArea Label.lockedDesc
@@ -2600,6 +2614,19 @@ Label.PlayTitle
 	border-radius: 5px;
 	transition-property: background-color, pre-transform-scale2d, padding;
 	transition-duration: 0.2s;
+}
+
+#Option_ExploreMap.playoption
+{
+	border: 1px solid #32b4cb50;
+	background-color: #32b4cb04;
+}
+
+.newTag
+{
+	background-color: #32b4cb;
+	border-radius: 3px;
+	padding: 0px 3px;
 }
 
 .largeButton.option2
@@ -3200,7 +3227,8 @@ Label.playModeDesc
 
 #TimeSegmentContainerHeroLabs
 {
-	background-color: #62E762;
+	background-color: courageBrightColor&70;
+	brightness: 1.7;
 	width: 150px;
 	padding: 3px 5px;
 	border-radius: 3px;
@@ -3377,6 +3405,13 @@ Label.playModeDesc
 	background-img-opacity: 0.3;
 }
 
+#Option_ExploreMap
+{
+	background-image: url("s2r://panorama/images/main_menu/menu_images/menu_play_exploremap_psd.vtex");
+	background-size: cover;
+	background-img-opacity: 0.3;
+}
+
 #Option_Lobby
 {
 	background-image: url("s2r://panorama/images/main_menu/menu_images/menu_play_custom_match_horizontal_psd.vtex");
@@ -3402,6 +3437,11 @@ Label.playModeDesc
 }
 
 #Option_Ranked
+{
+	visibility: collapse;
+}
+
+#Option_BotMatch
 {
 	visibility: collapse;
 }
@@ -3447,7 +3487,32 @@ Label.playModeDesc
 	visibility: visible;
 }
 
-.connectedToHeroTesting #HeroTestingShop,.in_matchmaking #matchmakeLeave,.disconnected #connect,.disconnected #citadeltv,.connectedToGame #resume,.connectedToGame #disconnect,.connectedToGame #exittesting,.connectedToGame.isSpectator #disconnect_spectator,.connectedToGame #spectate,.connectedToGame.in_post_game #disconnect_spectator
+.connectedToHeroTesting #HeroTestingShop,.in_matchmaking #matchmakeLeave,.disconnected #connect,.disconnected #citadeltv,.connectedToGame #resume,.connectedToGame #exittesting,.connectedToGame.isSpectator #disconnect_spectator,.connectedToGame #spectate,.connectedToGame.in_post_game #disconnect_spectator
+{
+	visibility: visible;
+}
+
+#disconnect
+{
+	visibility: collapse;
+}
+
+.connectedToGame #lobbyleave
+{
+	visibility: visible;
+}
+
+.connectedToGame.isSpectator #lobbyleave,.connectedToHeroTesting #lobbyleave
+{
+	visibility: collapse;
+}
+
+.connectedToGame.SafeToAbandon #disconnect
+{
+	visibility: collapse;
+}
+
+.connectedToGame.SafeToAbandon #lobbyleave
 {
 	visibility: visible;
 }
@@ -3497,12 +3562,12 @@ Label.playModeDesc
 	visibility: collapse;
 }
 
-.SafeToAbandon #label_leave
+.NoPromptToLeave #label_leave,.SafeToAbandon #label_leave
 {
 	visibility: visible;
 }
 
-.SafeToAbandon #label_abadon
+.NoPromptToLeave #label_abandon,.SafeToAbandon #label_abandon
 {
 	visibility: collapse;
 }
@@ -3664,7 +3729,7 @@ Label.playModeDesc
 	wash-color: white;
 	transform-origin: 50% 50%;
 	transform: none;
-	transition-property: transform, blur, saturation, wash-color, opacity, hue-rotation, pre-transform-scale2d;
+	transition-property: transform, saturation, wash-color, opacity, hue-rotation, pre-transform-scale2d;
 	transition-duration: 0.45s;
 	transition-delay: 0.0s;
 	transition-timing-function: ease-in;
@@ -3740,7 +3805,6 @@ Label.playModeDesc
 	animation-duration: 5s;
 	ignore-parent-flow: true;
 	opacity: 0;
-	blur: gaussian( 15 );
 }
 
 @keyframes 'play_bg_anim'
@@ -3899,9 +3963,25 @@ Label.playModeDesc
 	animation-iteration-count: infinite;
 }
 
+#Option_ExploreMap .new_button
+{
+	background-color: #3bcfe9;
+}
+
 .nav_menu_item:hover .new_button
 {
 	margin-right: 0px;
+}
+
+#Option_ExploreMap .new_button
+{
+	visibility: visible;
+	horizontal-align: center;
+	margin-left: 0px;
+	vertical-align: top;
+	ignore-parent-flow: true;
+	horizontal-align: right;
+	border-radius: 0px 0px 0px 3px;
 }
 
 .NewPlayerIcon
@@ -4062,9 +4142,11 @@ Label.playModeDesc
 
 .precache
 {
-	background-image: url("s2r://panorama/images/glyphs/mouse1_psd.vtex");
-	background-image: url("s2r://panorama/images/glyphs/mouse2_psd.vtex");
-	background-image: url("s2r://panorama/images/glyphs/mouse3_psd.vtex");
+	background-image: url("s2r://panorama/images/glyphs/mouse1.vsvg");
+	background-image: url("s2r://panorama/images/glyphs/mouse2.vsvg");
+	background-image: url("s2r://panorama/images/glyphs/mouse3.vsvg");
+	background-image: url("s2r://panorama/images/glyphs/mouse4.vsvg");
+	background-image: url("s2r://panorama/images/glyphs/mouse5.vsvg");
 }
 
 #TooltipManager #SeasonalAchievement2024Tooltip
@@ -4106,5 +4188,86 @@ Label.playModeDesc
 	x: 500px;
 	y: 100px;
 	background-color: rgba(255, 255, 255, 0.5);
+}
+
+#ThreeLaneMapContainer
+{
+	flow-children: down;
+	width: 100%;
+	height: 200px;
+	margin-bottom: 4px;
+	padding: 20px;
+	background-image: url("s2r://panorama/images/main_menu/three_lane_map_db_image_psd.vtex");
+	background-size: 100% 100%;
+	background-color: #00000001;
+}
+
+#ThreeLaneMapContainer:hover
+{
+	brightness: 1.35;
+}
+
+.threeLanes
+{
+	font-weight: bold;
+	text-transform: none;
+	color: offWhite;
+	text-shadow: 0px 0px 12px 1.0 #000000;
+}
+
+.threeLanes.h1
+{
+	font-family: serif;
+	font-size: 44px;
+	letter-spacing: 1px;
+	line-height: 0px;
+	text-transform: uppercase;
+	margin-bottom: -8px;
+}
+
+.threeLanes.h2
+{
+	font-size: 18px;
+	color: #afa495;
+}
+
+.threeLanes.push
+{
+	text-transform: uppercase;
+	color: ritualGreenLight;
+}
+
+.threeLanes.a
+{
+	vertical-align: bottom;
+	font-weight: semi-bold;
+	font-size: 14px;
+	text-decoration: underline;
+	padding-top: 24px;
+	color: #afa495aa;
+}
+
+.threeLanes .threeLanesUpdateClass
+{
+	font-size: 24px;
+	text-transform: uppercase;
+	color: #afa495;
+}
+
+.mapGameplayUpdate
+{
+	width: 100%;
+	background-color: black;
+	text-align: center;
+	padding: 5px;
+	font-weight: bold;
+}
+
+.newThreeLanesLabel
+{
+	color: #75b11e;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 24px;
 }
 

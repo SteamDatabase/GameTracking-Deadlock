@@ -1,0 +1,105 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_initial_reflection_send = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					import_public_opvars = "citadel_perspective_default"
+					enable_initial_reflection_send = 
+					{
+						data_type = "bool"
+						value = "false"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "citadel_initial_reflection_send"
+							property_help = "Toggles the delay send."
+						}
+					}
+					initial_reflection_curve_field_name = 
+					{
+						data_type = "string"
+						value = "public.initial_reflection_send_db_distance"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_initial_reflection_send"
+							property_help = "Name of the float6 field that represents the send value over distance curve."
+						}
+					}
+					initial_reflection_send_db_distance = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+							"[ 1.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "advanced"
+							display_edit_type = "field_curve_2d_editor"
+							property_group = "citadel_initial_reflection_send"
+						}
+					}
+					distance = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "citadel_initial_reflection_send"
+							property_help = "The current distance from sound origin to listener."
+						}
+					}
+				}
+			},
+			
+			{
+				name = "evaluate_opvar_send_amount"
+				operator = "math_curve_2d"
+				input_execute = "@public.enable_initial_reflection_send"
+				input = "@public.distance"
+				public_field_name = "@public.initial_reflection_curve_field_name"
+				input_scale_x = "1.0"
+				input_scale_y = "1.0"
+			},
+			
+			{
+				name = "evaluate_opvar_send_amount_to_linear"
+				operator = "math_db_to_gain"
+				input = "@evaluate_opvar_send_amount.output"
+				input_execute = "@public.enable_initial_reflection_send"
+			},
+			
+			{
+				name = "math_enable_delay_send"
+				input_execute = "1.0"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@public.enable_initial_reflection_send"
+				input2 = "@evaluate_opvar_send_amount_to_linear.output"
+			},
+			
+			{
+				name = "voicegraph_send"
+				input_execute = "1.0"
+				operator = "vmix_voicegraph_input"
+				input_name = "initial_reflection_send_vol"
+				input = "@math_enable_delay_send.output"
+			},
+		]
+		_system_properties = 
+		{
+			display_game = "citadel"
+		}
+	}
+}

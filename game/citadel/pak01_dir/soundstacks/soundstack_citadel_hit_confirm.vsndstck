@@ -281,6 +281,28 @@
 							property_help = "Volume in db offset for other."
 						}
 					}
+					victim_is_npc = 
+					{
+						data_type = "bool"
+						value = "false"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "Volume"
+							property_help = "Set in code."
+						}
+					}
+					volume_offset_victim_is_npc_db = 
+					{
+						data_type = "float"
+						value = "0.f"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "Volume"
+							property_help = "The volume offset for attacker if the vicitim is an npc."
+						}
+					}
 				}
 			},
 			
@@ -409,6 +431,24 @@
 			},
 			
 			{
+				name = "accumulate_npc_offset"
+				operator = "math_accumulate12_float"
+				apply = "mult"
+				input1 = "1.0"
+				input2 = "@public.victim_is_npc"
+				input3 = "@public.volume_offset_victim_is_npc_db"
+				input4 = "1.0"
+				input5 = "1.0"
+				input6 = "1.0"
+				input7 = "1.0"
+				input8 = "1.0"
+				input9 = "1.0"
+				input10 = "1.0"
+				input11 = "1.0"
+				input12 = "1.0"
+			},
+			
+			{
 				name = "accumulate_force_position_input"
 				operator = "math_accumulate12_float"
 				apply = "add"
@@ -445,11 +485,19 @@
 			},
 			
 			{
+				name = "math_volume_npc_offset"
+				operator = "math_float"
+				apply = "add"
+				input1 = "@accumulate_npc_offset.output"
+				input2 = "@switch_volume_offset.output"
+			},
+			
+			{
 				name = "math_volume_offset"
 				operator = "math_float"
 				apply = "add"
 				input1 = "@public.volume"
-				input2 = "@switch_volume_offset.output"
+				input2 = "@math_volume_npc_offset.output"
 			},
 			
 			{
@@ -537,5 +585,9 @@
 				}
 			},
 		]
+		_system_properties = 
+		{
+			display_game = "citadel"
+		}
 	}
 }

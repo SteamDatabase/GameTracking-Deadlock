@@ -26,27 +26,6 @@ Label
 	padding: 5px 0px;
 }
 
-.exit_button
-{
-	width: 48px;
-	height: 48px;
-	background-color: rgba( 255, 255, 255, 0.02 );
-	horizontal-align: right;
-	background-image: url("s2r://panorama/images/control_icons/purgatory_png.vtex");
-	background-size: 100% 100%;
-}
-
-.exit_button:hover
-{
-	brightness: 2.0;
-}
-
-.spacer
-{
-	height: 50px;
-	width: 100%;
-}
-
 .ZooHeader
 {
 	padding: 30px 0px 30px 0px;
@@ -57,12 +36,66 @@ Label
 	border-bottom: 1px solid black;
 }
 
-.ZooHeaderText
+.ZooHeader .ZooHeaderText
 {
 	color: white;
 	font-size: 32px;
 	width: 100%;
 	vertical-align: center;
+}
+
+.ZooHeader .TabsContainer
+{
+	margin-left: 200px;
+	height: 100%;
+	flow-children: right;
+}
+
+.ZooHeader .TabsContainer TabButton
+{
+	vertical-align: center;
+	margin: 0px 12px;
+}
+
+.ZooHeader .TabsContainer TabButton Label
+{
+	color: #999;
+	font-size: 32px;
+}
+
+.ZooHeader .TabsContainer TabButton:hover
+{
+	brightness: 2.0;
+}
+
+.ZooHeader .TabsContainer TabButton:active
+{
+	brightness: 1.5;
+}
+
+.ZooHeader .TabsContainer TabButton:selected Label
+{
+	color: white;
+}
+
+.ZooHeader .exit_button
+{
+	width: 48px;
+	height: 48px;
+	background-color: rgba( 255, 255, 255, 0.02 );
+	horizontal-align: right;
+	background-image: url("s2r://panorama/images/control_icons/purgatory_png.vtex");
+	background-size: 100% 100%;
+}
+
+.ZooHeader .exit_button:hover
+{
+	brightness: 2.0;
+}
+
+.ZooHeader .exit_button:active
+{
+	brightness: 1.5;
 }
 
 .ZooSubtitle
@@ -79,19 +112,15 @@ Label
 	visibility: collapse;
 }
 
-.TabsContainer
+.ZooContainerPanel:selected
 {
-	margin-left: 200px;
-	height: 100%;
+	visibility: visible;
 }
 
-.ZooHeaderTabButton
+.GlyphWithLabel
 {
-	color: white;
-	font-size: 32px;
-	vertical-align: center;
-	margin-left: 10px;
-	margin-right: 10px;
+	flow-children: right;
+	margin: 1px;
 }
 
 .ZooHeaderTabButton:hover
@@ -99,15 +128,219 @@ Label
 	brightness: 3.0;
 }
 
-.ShowingTextTab #TextPanelContainer,.ShowingButtonTab #ButtonPanelContainer
+.ShowingTextTab #TextPanelContainer,.ShowingButtonTab #ButtonPanelContainer,.ShowingGlyphTab #GlyphPanelContainer,.ShowingBindTab #BindPanelContainer,.ShowingInlineGlyphTab #InlineGlyphPanelContainer,.ShowingBlendBlurTab #BlendBlurPanelContainer
 {
 	visibility: visible;
 }
 
-.ShowingTextTab .TextButton,.ShowingButtonTab .ButtonsButton
+.ShowingTextTab .TextButton,.ShowingButtonTab .ButtonsButton,.ShowingGlyphTab .GlyphButton,.ShowingBindTab .BindButton,.ShowingInlineGlyphTab .InlineGlyphButton,.ShowingBlendBlurTab .BlendBlurButton
 {
 	brightness: 1.5;
 	color: offWhite;
+}
+
+#MyBlendBlurFitParent
+{
+	blur: mipmapgaussian( 3, 3, 3);
+}
+
+#MyBlendBlurFitParent2
+{
+	blur: mipmapgaussian( 3, 3, 3);
+}
+
+#MyBlendBlurFitParent3
+{
+	blur: mipmapgaussian( 3, 3, 3);
+}
+
+@keyframes 'blur-fade-out'
+{
+	0%
+	{
+		blur: mipmapgaussian( 5, 5, 5 );
+	}
+	
+	100%
+	{
+		blur: mipmapgaussian( 0, 0, 0);
+	}
+	
+}
+
+@keyframes 'blur-fade-in'
+{
+	0%
+	{
+		blur: mipmapgaussian( 0, 0, 0 );
+	}
+	
+	100%
+	{
+		blur: mipmapgaussian( 5, 5, 5);
+	}
+	
+}
+
+.TheBlurAnimIn
+{
+	animation-name: blur-fade-in;
+	animation-timing-function: ease-in-out;
+	animation-duration: 2s;
+	animation-fill-mode: both;
+}
+
+.TheBlurAnimOut
+{
+	animation-name: blur-fade-out;
+	animation-timing-function: ease-in-out;
+	animation-duration: 2s;
+	animation-fill-mode: both;
+}
+
+#BlurTest1
+{
+	width: 500px;
+	height: 600px;
+	position: 100px 50px 0px;
+	background-color: #ffffff01;
+	vertical-align: top;
+	opacity: 1.0;
+	font-size: 24px;
+	color: white;
+	padding: 10px 24px;
+}
+
+#BlurTest2
+{
+	width: 400px;
+	height: 300px;
+	position: 400px 200px 0px;
+	background-color: #00ff0010;
+	font-size: 24px;
+	color: white;
+	padding: 10px 24px;
+	animation-name: ChangePositionAndSize;
+	animation-timing-function: ease-in-out;
+	animation-duration: 4s;
+	animation-iteration-count: infinite;
+}
+
+@keyframes 'ChangePositionAndSize'
+{
+	0%
+	{
+		position: 400px 200px 0px;
+		width: 400px;
+		height: 300px;
+	}
+	
+	50%
+	{
+		position: 200px 300px 0px;
+		width: 300px;
+		height: 500px;
+	}
+	
+	100%
+	{
+		position: 400px 200px 0px;
+		width: 400px;
+		height: 300px;
+	}
+	
+}
+
+#BlurTest3
+{
+	width: 20%;
+	height: 20%;
+	position: 700px 0px 0px;
+	background-color: #0000ff10;
+	font-size: 24px;
+	color: white;
+	padding: 10px 24px;
+	transform: rotateZ( 45deg ) translateX( 250px ) translateY( 150px );
+}
+
+#BlurTest4
+{
+	width: 20%;
+	height: 20%;
+	position: 1200px 100px 0px;
+	background-color: #ffffff05;
+	font-size: 24px;
+	color: black;
+	padding: 10px 24px;
+	transform: translateX( 100px ) translateY( 100px ) rotateZ( 0deg );
+	animation-name: AnimateTransform;
+	animation-timing-function: ease-in-out;
+	animation-duration: 4s;
+	animation-iteration-count: infinite;
+}
+
+#BlurTest5
+{
+	width: 420px;
+	height: 420px;
+	border: 1px solid #00000000;
+	padding-top: 48px;
+}
+
+#BlurTest5Text
+{
+	width: 128px;
+	height: 128px;
+	horizontal-align: center;
+	vertical-align: center;
+	text-align: center;
+	background-color: none;
+	font-size: 24px;
+	font-weight: bold;
+	color: white;
+	padding: 24px;
+}
+
+.dashboard_movie
+{
+	horizontal-align: middle;
+	width: 100%;
+	height: 100%;
+	opacity: 1;
+}
+
+.dashboard_movie_masked
+{
+	width: 1920px;
+	height: 1080px;
+}
+
+.BlurMask1
+{
+	width: 420px;
+	height: 420px;
+	position: 1400px 400px 0px;
+	background-color: #ffffff05;
+	opacity-mask: url("s2r://panorama/images/masks/mask_test_star_psd.vtex");
+}
+
+@keyframes 'AnimateTransform'
+{
+	0%
+	{
+		transform: translateX( 100px ) translateY( 100px ) rotateZ( 0deg ) scaleX(1.0) scaleY(1.0);
+	}
+	
+	50%
+	{
+		transform: translateX( 200px ) translateY( 200px ) rotateZ( 90deg ) scaleX(1.5) scaleY(0.5);
+	}
+	
+	100%
+	{
+		transform: translateX( 100px ) translateY( 100px ) rotateZ( 0deg ) scaleX(1.0) scaleY(1.0);
+	}
+	
 }
 
 .IgnoreFlow

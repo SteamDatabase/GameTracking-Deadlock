@@ -1,6 +1,5 @@
 /* Prettified by Source 2 Viewer - https://valveresourceformat.github.io */
 
-@import url("s2r://panorama/styles/citadel_shared_colors.vcss_c");
 @define offWhite: #FFEFD7;
 @define offBlack: #10130D;
 @define playerDetailsWidthNewTopbar: 100px;
@@ -64,6 +63,7 @@ CitadelHudTopBar.showNewTopbar
 	background-color: #00000090;
 	ignore-parent-flow: true;
 	font-family: 'New Spirit Trial';
+	world-blur: ingameHudBlur;
 }
 
 .WaitingForHudUpdate .GameClock
@@ -118,6 +118,12 @@ CitadelHudTopBarTeam.team2
 CitadelHudTopBarTeam.friend
 {
 	horizontal-align: left;
+}
+
+.connectedToHeroTesting CitadelHudTopBarTeam.friend #PlayersContainer
+{
+	flow-children: left;
+	margin-right: 20px;
 }
 
 CitadelHudTopBarTeam.enemy
@@ -373,26 +379,6 @@ CitadelModsPurchasedPanel#mod_universal_locked
 	brightness: 2;
 }
 
-CitadelHudTopBarPlayer.LaneNum1 .HeroContentsCoinBackground,CitadelHudTopBarPlayer.LocalPlayer.LaneNum1 .HeroContentsCoinBackground,CitadelHudTopBarPlayer.SpectatorTarget.LaneNum1 .HeroContentsCoinBackground
-{
-	wash-color: laneYellowColor;
-}
-
-CitadelHudTopBarPlayer.LaneNum3 .HeroContentsCoinBackground,CitadelHudTopBarPlayer.LocalPlayer.LaneNum3 .HeroContentsCoinBackground,CitadelHudTopBarPlayer.SpectatorTarget.LaneNum3 .HeroContentsCoinBackground
-{
-	wash-color: laneGreenColor;
-}
-
-CitadelHudTopBarPlayer.LaneNum4 .HeroContentsCoinBackground,CitadelHudTopBarPlayer.LocalPlayer.LaneNum4 .HeroContentsCoinBackground,CitadelHudTopBarPlayer.SpectatorTarget.LaneNum4 .HeroContentsCoinBackground
-{
-	wash-color: laneBlueColor;
-}
-
-CitadelHudTopBarPlayer.LaneNum6 .HeroContentsCoinBackground,CitadelHudTopBarPlayer.LocalPlayer.LaneNum6 .HeroContentsCoinBackground,CitadelHudTopBarPlayer.SpectatorTarget.LaneNum6 .HeroContentsCoinBackground
-{
-	wash-color: lanePurpleColor;
-}
-
 .HeroContentsCoinOuterBorder
 {
 	height: 100%;
@@ -445,7 +431,7 @@ CitadelHudTopBarPlayer.LaneNum6 .HeroContentsCoinBackground,CitadelHudTopBarPlay
 	wash-color: laneYellowColor;
 }
 
-.LaneNum3 .HeroContentsCoinInnerBorder
+.LaneNum3 .HeroContentsCoinInnerBorder,.is3LaneMap .LaneNum6 .HeroContentsCoinInnerBorder
 {
 	wash-color: laneGreenColor;
 }
@@ -1573,6 +1559,7 @@ CitadelHudTopBarPlayer:not(.UltimateCooldownReady) #UltimateAbilityIcon
 	text-align: center;
 	horizontal-align: center;
 	color: black;
+	text-overflow: shrink;
 }
 
 #ChatTextContainer
@@ -1768,24 +1755,8 @@ CitadelHeroImage.isResponseImage
 	height: 30px;
 	horizontal-align: center;
 	background-color: #52506100;
-}
-
-.showNewTopbar #PlayerNameNWContainer
-{
-	flow-children: down;
-	width: 90px;
-	height: 100px;
-	padding-top: 60px;
-	margin-top: 25px;
-	horizontal-align: center;
-	background-color: #52506100;
-	overflow: noclip;
-}
-
-.wants_scoreboard .showNewTopbar #PlayerNameNWContainer,.gDetailView .showNewTopbar #PlayerNameNWContainer
-{
-	background-color: #525061FF;
-	background-color: gradient( linear, 0% 0%, 0% 100%, from( #52506100 ), color-stop( 0.2, #525061FF ), to( #525061FF ) );
+	transition-property: opacity;
+	transition-duration: 0.07s;
 }
 
 #PlayerModsContainer
@@ -1796,11 +1767,6 @@ CitadelHeroImage.isResponseImage
 	margin: 0px 0px 10px 0px;
 	overflow: noclip;
 	visibility: collapse;
-}
-
-.showNewTopbar CitadelHudTopBarPlayer:selected #PlayerModsContainer,.showNewTopbar CitadelHudTopBarPlayer:selected #PlayerAbilitiesContainer
-{
-	visibility: visible;
 }
 
 .objDamageLabel
@@ -2071,6 +2037,7 @@ CitadelHudTopBar.ShowingRight CitadelScoreboardMods
 	min-height: 30px;
 	max-height: 60px;
 	border-radius: 0px 0px 5px 5px;
+	world-blur: ingameHudBlur;
 }
 
 .TeamScore.Right
@@ -2256,7 +2223,7 @@ CitadelHudTopBar.ShowingRight CitadelScoreboardMods
 	width: 150px;
 }
 
-.connectedToHeroTesting .LaneContainer
+.connectedToHeroTesting:not(.isDefaultMap) .LaneContainer
 {
 	visibility: collapse;
 }

@@ -26,6 +26,7 @@
  (Build: %s)
  (Limited User)
  (UBR: %lu)
+ (from %s%s)
  (including user space up to 63 bits)
  + %u header stack frames
  + full mem debug
@@ -56,6 +57,7 @@
  with base 
 !AxU
 !TdM
+!link
 "%s" = "%s"
 "%s","%s",%s,"%s"\n
 "0x%llX"
@@ -77,6 +79,7 @@
 #include is NULL 
 #int#
 #nyf
+#vpulse1
 $Ib?s
 $eax
 $ebp
@@ -195,6 +198,7 @@ $xmm9
 %i.%i.%i.%i:%i
 %lld
 %llu
+%llu %s entries but no formats were defined\n
 %llu,%u,%u,%s\r\n
 %ls [wstring, len = %d]
 %s %s %s %s\n
@@ -204,9 +208,12 @@ $xmm9
 %s (%d) : %s
 %s (%d) : %s\n
 %s (before "%s")
+%s (tweaked to NOT wait for child outflows)
+%s - Calling a table API on '%s'
 %s -contextstart %d -codefile "%s" -codeline %d
 %s bytes used out of %s bytes available (%.2f%%)
 %s is out of range for KeyValues, which doesn't support signed 64-bit numbers
+%s not expected here.  A valid JSON document should be a single object, which begins with '{' and ends with '}'
 %s not expected here.  Missing ',' or ']'?
 %s not expected here.  Missing ',' or '}'?
 %s not expected here.  Missing ':'?
@@ -395,7 +402,6 @@ $xmm9
 ( cubGap & 15 ) == 0
 (Missing)
 (None)
-(UQ5
 (Unaccounted)
 (Unknown Cause)
 (d$5V
@@ -411,7 +417,6 @@ $xmm9
 (wPu@
 (yaX
 ) %%%d.%ds 
-)05\thY0
 )14:;EFIJ^de
 )14:EFIJNOde\
 )EIWde
@@ -545,7 +550,6 @@ $xmm9
 .?AVCProcessPipeRead@@
 .?AVCProcessUtils@@
 .?AVCQueueOps@TSListTests@@
-.?AVCSerialJobExecutor@CThreadPool@@
 .?AVCSimpleLoggingListener@@
 .?AVCStdFunctionJob@@
 .?AVCStdIOFormatOutputStream@@
@@ -749,13 +753,12 @@ $xmm9
 127.0.0.1
 1A26b
 1DBlend
-1Ia8Y0
+1IaX
 1icl
 1wsHp
 2,THh
 28~v
-2\vp8
-2\vpD
+2\vpL
 2aNuE
 3 FB
 3+5<t
@@ -794,7 +797,6 @@ $xmm9
 7?GX
 7Cxl2i5n
 7Of 
-7WXZ0
 7h>?8
 7jU'9
 7yp>
@@ -959,6 +961,7 @@ $xmm9
 ??0CMiniDumpCommentBuilderBase@@QEAA@XZ
 ??0CModuleListSnapshot@@QEAA@PEAE_K@Z
 ??0CPSApiFunctionsLoader@@QEAA@XZ
+??0CPoolAllocator@@QEAA@I@Z
 ??0CRecursionCallStackMarker@@QEAA@_N@Z
 ??0CRunProcess@@QEAA@PEBDH@Z
 ??0CRunProcess@@QEAA@XZ
@@ -1012,8 +1015,8 @@ $xmm9
 ??0CUtlSymbolTable@@QEAA@HH_N@Z
 ??0CVDbgHelpSymbolModule@@QEAA@XZ
 ??0CVDwarfSymbolModule@@QEAA@XZ
-??0CVProfNode@@IEAA@PEBDAEAUVProfBudgetGroupCallSite@@N@Z
-??0CVProfNode@@QEAA@PEBDPEAV0@AEAUVProfBudgetGroupCallSite@@@Z
+??0CVProfNode@@IEAA@PEBDAEAUVProfBudgetGroupCallSite@@NAEBVCUtlSourceLocation@@@Z
+??0CVProfNode@@QEAA@PEBDPEAV0@AEAUVProfBudgetGroupCallSite@@AEBVCUtlSourceLocation@@@Z
 ??0CVProfile@@QEAA@XZ
 ??0CVirtualMachineCallStackTranslationEncoder@@QEAA@PEBD@Z
 ??0CVirtualMemorySnapshot@@QEAA@XZ
@@ -1050,6 +1053,7 @@ $xmm9
 ??1CMiniDumpCommentBuilderBase@@UEAA@XZ
 ??1CPSApiFunctionsLoader@@QEAA@XZ
 ??1CPathString@@QEAA@XZ
+??1CPoolAllocator@@QEAA@XZ
 ??1CScopeCreatedOrDestroyedHandler@CThreadLocalScope@@QEAA@XZ
 ??1CSingleAppInstance@@QEAA@XZ
 ??1CStackTop_Base@@IEAA@XZ
@@ -1230,6 +1234,7 @@ $xmm9
 ?Allocate3D@CUtl3DAllocator2@@QEAA_NHHHPEAURect3D_t@@@Z
 ?Allocate3D@CUtl3DAllocator@@QEAA_NHHH_NPEAURect3D_t@@@Z
 ?Allocate@COneTimeEvent@@SAPEAV1@XZ
+?Allocate@CPoolAllocator@@QEAA?AUHandle_t@1@II@Z
 ?Allocate@CStringPool_CI@@QEAAPEBDPEBD@Z
 ?AllocationCount@CUtlScratchMemoryPool@@QEBA_KXZ
 ?Append@CUtlString@@QEAAXPEBD@Z
@@ -1267,6 +1272,7 @@ $xmm9
 ?BuildMidpoint@CVertexKDTree@@QEAAXPEBMHH@Z
 ?BuildMidpointFromVertexSubSet@CVertexKDTree@@QEAAXPEBMHPEBHH@Z
 ?BuildNode@CVertexKDTree@@AEAAHHH@Z
+?CH:1
 ?CalcBudgetGroupTimes_Recursive@CVProfile@@QEAAXPEAVCVProfNode@@PEAIHM@Z
 ?CalcStackDepth@CThread@@QEAA_KPEAX@Z
 ?Capture@CCallStackCapture@@QEAAXP6AHIPEAPEAXHH@ZII@Z
@@ -1323,6 +1329,7 @@ $xmm9
 ?CreatePeerKey@KeyValues@@QEAAPEAV1@PEBD@Z
 ?CurrentFileFullPath@CDirIterator@@QEAAPEBDXZ
 ?DebugPrintKV3@@YAXPEBVKeyValues3@@@Z
+?Debug_GetAllocationsSnapshot@CPoolAllocator@@QEBAXPEAV?$CUtlVector@UHandle_t@CPoolAllocator@@HV?$CUtlMemory@UHandle_t@CPoolAllocator@@H$0A@@@@@@Z
 ?DecodeFromNativePointer@CVirtualMachineCallStackTranslationEncoder@@QEAAIPEBXPEAVCBufferString@@1PEAI@Z
 ?DefaultExtension@CBufferString@@QEAAPEBDPEBD@Z
 ?DelayAllQueuedCommands@CCommandBuffer@@QEAAXH@Z
@@ -1375,28 +1382,28 @@ $xmm9
 ?EnsureReady@CPSApiFunctionsLoader@@AEAAXXZ
 ?EnsureTrailingSlash@CBufferString@@QEAAPEBDD_N@Z
 ?EnterScope@CVProfNode@@QEAAXXZ
-?EnterScope@CVProfile@@QEAAXPEBD_NAEAUVProfBudgetGroupCallSite@@@Z
-?EnterScopeChecked@CVProfile@@QEAAXPEBD_NAEAUVProfBudgetGroupCallSite@@@Z
-?EnterScopeInternal@?$VProfScopeHelper@$00$00@@SAP6AXXZPEBD@Z
-?EnterScopeInternal@?$VProfScopeHelper@$00$0A@@@SAP6AXXZPEBD@Z
-?EnterScopeInternal@?$VProfScopeHelper@$01$00@@SAP6AXXZPEBD@Z
-?EnterScopeInternal@?$VProfScopeHelper@$01$0A@@@SAP6AXXZPEBD@Z
-?EnterScopeInternal@?$VProfScopeHelper@$02$00@@SAP6AXXZPEBD@Z
-?EnterScopeInternal@?$VProfScopeHelper@$02$0A@@@SAP6AXXZPEBD@Z
-?EnterScopeInternal@?$VProfScopeHelper@$03$00@@SAP6AXXZPEBD@Z
-?EnterScopeInternal@?$VProfScopeHelper@$03$0A@@@SAP6AXXZPEBD@Z
-?EnterScopeInternal@?$VProfScopeHelper@$0A@$00@@SAP6AXXZPEBD@Z
-?EnterScopeInternal@?$VProfScopeHelper@$0A@$0A@@@SAP6AXXZPEBD@Z
-?EnterScopeInternalBudgetFlags@?$VProfScopeHelper@$00$00@@SAP6AXXZPEBDAEAUVProfBudgetGroupCallSite@@@Z
-?EnterScopeInternalBudgetFlags@?$VProfScopeHelper@$00$0A@@@SAP6AXXZPEBDAEAUVProfBudgetGroupCallSite@@@Z
-?EnterScopeInternalBudgetFlags@?$VProfScopeHelper@$01$00@@SAP6AXXZPEBDAEAUVProfBudgetGroupCallSite@@@Z
-?EnterScopeInternalBudgetFlags@?$VProfScopeHelper@$01$0A@@@SAP6AXXZPEBDAEAUVProfBudgetGroupCallSite@@@Z
-?EnterScopeInternalBudgetFlags@?$VProfScopeHelper@$02$00@@SAP6AXXZPEBDAEAUVProfBudgetGroupCallSite@@@Z
-?EnterScopeInternalBudgetFlags@?$VProfScopeHelper@$02$0A@@@SAP6AXXZPEBDAEAUVProfBudgetGroupCallSite@@@Z
-?EnterScopeInternalBudgetFlags@?$VProfScopeHelper@$03$00@@SAP6AXXZPEBDAEAUVProfBudgetGroupCallSite@@@Z
-?EnterScopeInternalBudgetFlags@?$VProfScopeHelper@$03$0A@@@SAP6AXXZPEBDAEAUVProfBudgetGroupCallSite@@@Z
-?EnterScopeInternalBudgetFlags@?$VProfScopeHelper@$0A@$00@@SAP6AXXZPEBDAEAUVProfBudgetGroupCallSite@@@Z
-?EnterScopeInternalBudgetFlags@?$VProfScopeHelper@$0A@$0A@@@SAP6AXXZPEBDAEAUVProfBudgetGroupCallSite@@@Z
+?EnterScope@CVProfile@@QEAAXPEBD_NAEAUVProfBudgetGroupCallSite@@AEBVCUtlSourceLocation@@@Z
+?EnterScopeChecked@CVProfile@@QEAAXPEBD_NAEAUVProfBudgetGroupCallSite@@AEBVCUtlSourceLocation@@@Z
+?EnterScopeInternal@?$VProfScopeHelper@$00$00@@SAP6AXXZPEBDAEBVCUtlSourceLocation@@@Z
+?EnterScopeInternal@?$VProfScopeHelper@$00$0A@@@SAP6AXXZPEBDAEBVCUtlSourceLocation@@@Z
+?EnterScopeInternal@?$VProfScopeHelper@$01$00@@SAP6AXXZPEBDAEBVCUtlSourceLocation@@@Z
+?EnterScopeInternal@?$VProfScopeHelper@$01$0A@@@SAP6AXXZPEBDAEBVCUtlSourceLocation@@@Z
+?EnterScopeInternal@?$VProfScopeHelper@$02$00@@SAP6AXXZPEBDAEBVCUtlSourceLocation@@@Z
+?EnterScopeInternal@?$VProfScopeHelper@$02$0A@@@SAP6AXXZPEBDAEBVCUtlSourceLocation@@@Z
+?EnterScopeInternal@?$VProfScopeHelper@$03$00@@SAP6AXXZPEBDAEBVCUtlSourceLocation@@@Z
+?EnterScopeInternal@?$VProfScopeHelper@$03$0A@@@SAP6AXXZPEBDAEBVCUtlSourceLocation@@@Z
+?EnterScopeInternal@?$VProfScopeHelper@$0A@$00@@SAP6AXXZPEBDAEBVCUtlSourceLocation@@@Z
+?EnterScopeInternal@?$VProfScopeHelper@$0A@$0A@@@SAP6AXXZPEBDAEBVCUtlSourceLocation@@@Z
+?EnterScopeInternalBudgetFlags@?$VProfScopeHelper@$00$00@@SAP6AXXZPEBDAEAUVProfBudgetGroupCallSite@@AEBVCUtlSourceLocation@@@Z
+?EnterScopeInternalBudgetFlags@?$VProfScopeHelper@$00$0A@@@SAP6AXXZPEBDAEAUVProfBudgetGroupCallSite@@AEBVCUtlSourceLocation@@@Z
+?EnterScopeInternalBudgetFlags@?$VProfScopeHelper@$01$00@@SAP6AXXZPEBDAEAUVProfBudgetGroupCallSite@@AEBVCUtlSourceLocation@@@Z
+?EnterScopeInternalBudgetFlags@?$VProfScopeHelper@$01$0A@@@SAP6AXXZPEBDAEAUVProfBudgetGroupCallSite@@AEBVCUtlSourceLocation@@@Z
+?EnterScopeInternalBudgetFlags@?$VProfScopeHelper@$02$00@@SAP6AXXZPEBDAEAUVProfBudgetGroupCallSite@@AEBVCUtlSourceLocation@@@Z
+?EnterScopeInternalBudgetFlags@?$VProfScopeHelper@$02$0A@@@SAP6AXXZPEBDAEAUVProfBudgetGroupCallSite@@AEBVCUtlSourceLocation@@@Z
+?EnterScopeInternalBudgetFlags@?$VProfScopeHelper@$03$00@@SAP6AXXZPEBDAEAUVProfBudgetGroupCallSite@@AEBVCUtlSourceLocation@@@Z
+?EnterScopeInternalBudgetFlags@?$VProfScopeHelper@$03$0A@@@SAP6AXXZPEBDAEAUVProfBudgetGroupCallSite@@AEBVCUtlSourceLocation@@@Z
+?EnterScopeInternalBudgetFlags@?$VProfScopeHelper@$0A@$00@@SAP6AXXZPEBDAEAUVProfBudgetGroupCallSite@@AEBVCUtlSourceLocation@@@Z
+?EnterScopeInternalBudgetFlags@?$VProfScopeHelper@$0A@$0A@@@SAP6AXXZPEBDAEAUVProfBudgetGroupCallSite@@AEBVCUtlSourceLocation@@@Z
 ?EnterScopeNode@CVProfile@@QEAAXPEAVCVProfNode@@@Z
 ?EnumerateEncodingIndices@CVirtualMachineCallStackTranslationEncoder@@QEAAXP6A_NPEAV1@IPEBD1IPEAX@Z2@Z
 ?EnumerateLoadedModules64_@CDbgHelpFunctionsLoader@@QEAAHPEAXP6AHPEB_W_KK0@Z0@Z
@@ -1428,7 +1435,7 @@ $xmm9
 ?FindElfVirtualSize@CModuleListSnapshot@@SA_KPEBX_K1@Z
 ?FindEntry@CEnvironmentBlock@@QEBAHPEBDPEAPEBD_N@Z
 ?FindFileName@CUtlFilenameSymbolTable@@QEBAIPEBD@Z
-?FindInsertionPoint@CEventDispatcher_Base@@IEAAHAEBV?$CUtlVector@UEventListenerInfo_t@CEventDispatcher_Base@@HV?$CUtlMemory@UEventListenerInfo_t@CEventDispatcher_Base@@H@@@@H@Z
+?FindInsertionPoint@CEventDispatcher_Base@@IEAAHAEBV?$CUtlVector@UEventListenerInfo_t@CEventDispatcher_Base@@HV?$CUtlMemory@UEventListenerInfo_t@CEventDispatcher_Base@@H$0A@@@@@H@Z
 ?FindKey@KeyValues@@QEAAPEAV1@PEBD_N@Z
 ?FindKey@KeyValues@@QEAAPEAV1@VHKeySymbol@@@Z
 ?FindKey@KeyValues@@QEBAPEBV1@PEBD@Z
@@ -1439,7 +1446,7 @@ $xmm9
 ?FindModuleVirtualSize@CModuleListSnapshot@@SA_KPEBX_K@Z
 ?FindNode@CVProfile@@QEAAPEAVCVProfNode@@PEAV2@PEBD@Z
 ?FindOrAddFileName@CUtlFilenameSymbolTable@@QEAAIPEBD@Z
-?FindOrCreateChild@CVProfNode@@QEAAPEAV1@PEBDAEAUVProfBudgetGroupCallSite@@@Z
+?FindOrCreateChild@CVProfNode@@QEAAPEAV1@PEBDAEAUVProfBudgetGroupCallSite@@AEBVCUtlSourceLocation@@@Z
 ?FindOrCreateCounter@CVProfile@@QEAAPEA_KPEBDW4CounterGroup_t@@@Z
 ?FindPageWithSpace@CUtlMemoryBlockAllocator@@AEBAHI@Z
 ?FindScopeForThreadHandle@CThreadLocalScope@@SAPEAV1@PEAUThreadHandle_t__@@@Z
@@ -1522,6 +1529,7 @@ $xmm9
 ?FormatV@CUtlString@@QEAAHPEBDPEAD@Z
 ?Formatting_AdjustIndentation@@YAXH@Z
 ?Free3D@CUtl3DAllocator2@@QEAAXAEBURect3D_t@@@Z
+?Free@CPoolAllocator@@QEAAXUHandle_t@1@@Z
 ?Free@CRawAllocator@@SAXW4RawAllocatorType_t@@PEAX_K@Z
 ?Free@CUtlMemoryArena@@QEAAIPEAE@Z
 ?Free@CUtlMemoryPoolBase@@QEAAXPEAX@Z
@@ -1536,7 +1544,7 @@ $xmm9
 ?FreeToAllocPoint@CMemoryStack@@QEAAXI_N@Z
 ?FreeToAllocPoint@CUtlScratchMemoryPool@@QEAAXUUtlScratchMemoryPoolMark_t@@@Z
 ?FromString@KeyValues@@SAPEAV1@PEBD0PEAPEBD@Z
-?GenerateDataReport@CVProfile@@QEAAXPEAV?$CUtlVector@UVProfDataReportItem_t@@HV?$CUtlMemory@UVProfDataReportItem_t@@H@@@@@Z
+?GenerateDataReport@CVProfile@@QEAAXPEAV?$CUtlVector@UVProfDataReportItem_t@@HV?$CUtlMemory@UVProfDataReportItem_t@@H$0A@@@@@@Z
 ?GenerateRandomNumber_Locked@?$CUniformRandomStreamImpl@VCThreadNullMutex@@@@AEAAHXZ
 ?GenerateRandomNumber_Locked@?$CUniformRandomStreamImpl@VCThreadNullVerificationMutex@@@@AEAAHXZ
 ?GenerateRandomNumber_Locked@?$CUniformRandomStreamImpl@VCThreadSpinMutex@@@@AEAAHXZ
@@ -1555,7 +1563,8 @@ $xmm9
 ?GetBudgetGroupName@CVProfile@@SAPEBDH@Z
 ?GetChangedFile@CDirTreeWatchManager@@QEAA_NPEAVCBufferString@@PEAUFioBaseFileInfo_t@@@Z
 ?GetChangedFile@CDirWatcher@@QEAA_NPEAVCBufferString@@@Z
-?GetChangedFiles@CDirWatcher@@QEAAIPEAVCUtlBuffer@@PEAV?$CUtlVector@PEADHV?$CUtlMemory@PEADH@@@@@Z
+?GetChangedFiles@CDirWatcher@@QEAAIPEAVCUtlBuffer@@PEAV?$CUtlVector@PEADHV?$CUtlMemory@PEADH$0A@@@@@@Z
+?GetClassKind@CThread@@QEBA?AW4CThreadClassKind_t@@XZ
 ?GetClientData@CVProfNode@@QEBAHXZ
 ?GetColor@KeyValues@@QEBA?AVColor@@PEBDAEBV2@@Z
 ?GetColumnHeader@CGridStringPrinter@@QEBA?AVCUtlString@@H@Z
@@ -1570,6 +1579,7 @@ $xmm9
 ?GetCurTimeLessChildren@CVProfNode@@QEBANXZ
 ?GetCurrentAllocPoint@CUtlScratchMemoryPool@@QEBA?AUUtlScratchMemoryPoolMark_t@@XZ
 ?GetCurrentCThread@CThread@@SAPEAV1@XZ
+?GetCurrentCThreadClassKind@CThread@@SA?AW4CThreadClassKind_t@@XZ
 ?GetCurrentFiber@CFiber@@SAPEAV1@XZ
 ?GetCurrentIndexCount@CVirtualMachineCallStackTranslationEncoder@@QEAAIXZ
 ?GetCurrentKV3FormatVersionForExtension@@YA?AUKV3ID_t@@PEBDPEA_N@Z
@@ -1621,8 +1631,8 @@ $xmm9
 ?GetLineOffsetBitMask@CVirtualMachineCallStackTranslationEncoder@@QEAA_KXZ
 ?GetLineOffsetBitShift@CVirtualMachineCallStackTranslationEncoder@@QEAAIXZ
 ?GetLineOffsetPostShiftedSignBitMask@CVirtualMachineCallStackTranslationEncoder@@QEAA_KXZ
-?GetLines@CGridStringPrinter@@QEBAXAEAV?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@_N@Z
-?GetListenerNames_Base@CEventDispatcher_Base@@IEAAXAEBV?$CUtlVector@UEventListenerInfo_t@CEventDispatcher_Base@@HV?$CUtlMemory@UEventListenerInfo_t@CEventDispatcher_Base@@H@@@@PEAV?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@@Z
+?GetLines@CGridStringPrinter@@QEBAXAEAV?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H$0A@@@@@_N@Z
+?GetListenerNames_Base@CEventDispatcher_Base@@IEAAXAEBV?$CUtlVector@UEventListenerInfo_t@CEventDispatcher_Base@@HV?$CUtlMemory@UEventListenerInfo_t@CEventDispatcher_Base@@H$0A@@@@@PEAV?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H$0A@@@@@@Z
 ?GetMappingBaseAddress@CVirtualMachineCallStackTranslationEncoder@@QEAA_KXZ
 ?GetMappingSize@CVirtualMachineCallStackTranslationEncoder@@QEAAIXZ
 ?GetMemoryUsage@CUtlSymbolTable@@QEBA_KXZ
@@ -1656,6 +1666,7 @@ $xmm9
 ?GetSTUBFunctionTable@CCallStackStatsGatherer_Base@@SAPEBU?$CallStackGatherer_FunctionTable_Template@VCCallStackStatsGatherer_Base@@@detail@@XZ
 ?GetScopeListMutex@CThreadLocalScope@@SAAEAVCThreadSpinMutex@@XZ
 ?GetSize@CMemoryStack@@QEBAHXZ
+?GetSourceLocation@CVProfNode@@QEBAAEBVCUtlSourceLocation@@XZ
 ?GetSourceServerPathForFile@CVSymbolModule@@QEAAPEBDPEBDPEAVCBufferString@@@Z
 ?GetStartPointer@CMiniDumpComment@@QEAAPEADXZ
 ?GetStartPointer@CMiniDumpComment@@QEBAPEBDXZ
@@ -1694,6 +1705,7 @@ $xmm9
 ?GetVarValue@CEnvironmentBlock@@QEBAPEBDH@Z
 ?GetWinLevelRevision@CPUInformation@@SA_NPEAG0@Z
 ?GrowByChunks@CBufferString@@QEAAHHH@Z
+?GrowPool@CPoolAllocator@@QEAAXI@Z
 ?HEAP WARNING: memory block at %p appears to be corrupt\n
 ?HandleFirstWriteLockTransition@CEventRWLock@@IEAAXAEAVCEventListNode@@@Z
 ?HandleToString@CCountedStringPool_CI@@QEBAPEBDG@Z
@@ -1847,7 +1859,7 @@ $xmm9
 ?LockForWrite@CThreadRWLock@@QEAAXPEBDH@Z
 ?LockMutex@CDbgHelpFunctionsLoader@@QEAAXXZ
 ?LogFailureOutput@CRunProcess@@QEAA_NHH@Z
-?LoggingSystem_GetLogCapture@@YAXPEAV?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@_N@Z
+?LoggingSystem_GetLogCapture@@YAXPEAV?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H$0A@@@@@_N@Z
 ?LoggingSystem_GetLogCapture@@YAXPEAVCMiniDumpComment@@_N@Z
 ?LoggingSystem_GetLogCaptureForMiniDump@@YA_NPEAVCMiniDumpComment@@_NPEBD@Z
 ?LoggingSystem_IsChannelEnabled@@YA_NHW4LoggingVerbosity_t@@@Z
@@ -1878,6 +1890,8 @@ $xmm9
 ?MaxAvailableAllocSize@CUtlMemoryArena@@QEAAIXZ
 ?MaxConversionLength@CUtlCharConversion@@QEBAHXZ
 ?MemUsage@CUtlMemoryBlockAllocator@@QEBA_KXZ
+?MemoryBegin@CUtlMemoryArena@@QEBAPEBEXZ
+?MemoryEnd@CUtlMemoryArena@@QEBAPEBEXZ
 ?MergeFrom@KeyValues@@QEAAXPEBV1@W4MergeKeyValuesOp_t@1@@Z
 ?MergeFromTemporary@KeyValues@@QEBAPEAVCTemporaryKeyValues@@PEBV1@W4MergeKeyValuesOp_t@1@@Z
 ?MoveFrom@CBufferString@@QEAAXAEAV1@@Z
@@ -1981,7 +1995,7 @@ $xmm9
 ?RecursiveSaveToLocalizationFile@KeyValues@@QEAAXPEAVIFileSystem@@PEAXH_N@Z
 ?ReferenceString@CCountedStringPool_CI@@QEAAPEBDPEBD@Z
 ?ReferenceStringHandle@CCountedStringPool_CI@@QEAAGPEBD@Z
-?RegisterEventListener_Base@CEventDispatcher_Base@@IEAAXAEBVCUtlAbstractDelegate@@I_NAEAV?$CUtlVector@UEventListenerInfo_t@CEventDispatcher_Base@@HV?$CUtlMemory@UEventListenerInfo_t@CEventDispatcher_Base@@H@@@@HPEBD@Z
+?RegisterEventListener_Base@CEventDispatcher_Base@@IEAAXAEBVCUtlAbstractDelegate@@I_NAEAV?$CUtlVector@UEventListenerInfo_t@CEventDispatcher_Base@@HV?$CUtlMemory@UEventListenerInfo_t@CEventDispatcher_Base@@H$0A@@@@@HPEBD@Z
 ?Release@CThreadCrossProcessMutex@@QEAA_NXZ
 ?Release@CThreadMultiWaitSemaphore@@QEAAXXZ
 ?Release@CThreadSemaphore@@QEAA_NHPEAH@Z
@@ -2189,7 +2203,7 @@ $xmm9
 ?SpewStrings@CUtlFilenameSymbolTable@@QEAAXXZ
 ?SpinLockForWrite@CThreadSpinRWLock@@AEAAXPEBDHI@Z
 ?Split@CSplitString@@AEAAXPEBDHPEAPEBDH_N@Z
-?SplitCommands@CCommandBuffer@@SAXPEBDHPEAV?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@@Z
+?SplitCommands@CCommandBuffer@@SAXPEBDHPEAV?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H$0A@@@@@@Z
 ?SplitPathAndPattern@CDirIterator@@IEAA_NPEBDPEAVCUtlString@@1@Z
 ?SplitString@CUtlStringList@@AEAAXPEBDPEBQEBDH@Z
 ?StackWalk64_@CDbgHelpFunctionsLoader@@QEAAHKPEAX0PEAU_tagSTACKFRAME64@@0P6AH0_K0KPEAK@ZP6APEAX02@ZP6A_K02@ZP6A_K00PEAU_tagADDRESS64@@@Z@Z
@@ -2219,7 +2233,7 @@ $xmm9
 ?SupportsInlineContext_@CDbgHelpFunctionsLoader@@QEAA_NXZ
 ?Suspend@CThread@@QEAAIXZ
 ?Swap@CUtlBuffer@@QEAAXAEAV1@@Z
-?Swap@CUtlBuffer@@QEAAXAEAV?$CUtlMemory@EH@@@Z
+?Swap@CUtlBuffer@@QEAAXAEAV?$CUtlMemory@EH$0A@@@@Z
 ?Swap@CUtlString@@QEAAXAEAV1@@Z
 ?SwapFieldToTargetEndian@CByteswap@@QEAAXPEAX0PEAUtypedescription_t@@@Z
 ?SwapFieldsToTargetEndian@CByteswap@@QEAAXPEAX0PEAUdatamap_t@@@Z
@@ -2245,6 +2259,8 @@ $xmm9
 ?SymInitialize_@CDbgHelpFunctionsLoader@@QEAAHPEAXPEB_WH@Z
 ?SymLoadModule64_@CDbgHelpFunctionsLoader@@QEAA_KPEAX0PEB_W1_KK@Z
 ?SymLoadModuleEx_@CDbgHelpFunctionsLoader@@QEAA_KPEAX0PEB_W1_KKPEAU_MODLOAD_DATA@@K@Z
+?SymNext_@CDbgHelpFunctionsLoader@@QEAAHPEAXPEAU_SYMBOL_INFOW@@@Z
+?SymPrev_@CDbgHelpFunctionsLoader@@QEAAHPEAXPEAU_SYMBOL_INFOW@@@Z
 ?SymQueryInlineTrace_@CDbgHelpFunctionsLoader@@QEAAHPEAX_KK11PEAK2@Z
 ?SymRefreshModuleList_@CDbgHelpFunctionsLoader@@QEAAHPEAX@Z
 ?SymRegisterCallbackW64_@CDbgHelpFunctionsLoader@@QEAAHPEAXP6AH0K_K1@Z1@Z
@@ -2323,7 +2339,7 @@ $xmm9
 ?UnlockWrite_LockForRead@CThreadSpinRWLock@@QEAA?AW4RWLockTranstionResult_t@@PEBDH@Z
 ?UnpackIntoStructure@KeyValues@@QEAAXPEBUKeyValuesUnpackStructure@@PEAX@Z
 ?UnqualifiedFilenameAlloc@CUtlString@@QEBA?AV1@XZ
-?UnregisterEventListener_Base@CEventDispatcher_Base@@IEAA_NAEBVCUtlAbstractDelegate@@AEAV?$CUtlVector@UEventListenerInfo_t@CEventDispatcher_Base@@HV?$CUtlMemory@UEventListenerInfo_t@CEventDispatcher_Base@@H@@@@@Z
+?UnregisterEventListener_Base@CEventDispatcher_Base@@IEAA_NAEBVCUtlAbstractDelegate@@AEAV?$CUtlVector@UEventListenerInfo_t@CEventDispatcher_Base@@HV?$CUtlMemory@UEventListenerInfo_t@CEventDispatcher_Base@@H$0A@@@@@@Z
 ?Unserialize@netadr_t@@QEAA_NAEAVbf_read@@@Z
 ?Update@CSHA1@@QEAAXPEBXI@Z
 ?UpdateSourceIndex@CVSymbolModule@@QEAA_NPEBXH_NPEA_N@Z
@@ -2336,22 +2352,22 @@ $xmm9
 ?V_GetUTF8BytesNeeded@@YAHPEBDH@Z
 ?V_GetUTF8BytesNeeded@@YAHPEBIH@Z
 ?V_GetUTF8BytesNeeded@@YAHPEB_WH@Z
-?V_JoinNumbers@@YAPEBDDAEBV?$CUtlVector@HHV?$CUtlMemory@HH@@@@PEAVCUtlString@@@Z
-?V_JoinNumbers@@YAPEBDDAEBV?$CUtlVector@IHV?$CUtlMemory@IH@@@@PEAVCUtlString@@@Z
-?V_JoinNumbers@@YAPEBDDAEBV?$CUtlVector@MHV?$CUtlMemory@MH@@@@PEAVCUtlString@@@Z
-?V_JoinNumbers@@YAPEBDDAEBV?$CUtlVector@NHV?$CUtlMemory@NH@@@@PEAVCUtlString@@@Z
-?V_JoinNumbers@@YAPEBDDAEBV?$CUtlVector@_JHV?$CUtlMemory@_JH@@@@PEAVCUtlString@@@Z
-?V_JoinNumbers@@YAPEBDDAEBV?$CUtlVector@_KHV?$CUtlMemory@_KH@@@@PEAVCUtlString@@@Z
+?V_JoinNumbers@@YAPEBDDAEBV?$CUtlVector@HHV?$CUtlMemory@HH$0A@@@@@PEAVCUtlString@@@Z
+?V_JoinNumbers@@YAPEBDDAEBV?$CUtlVector@IHV?$CUtlMemory@IH$0A@@@@@PEAVCUtlString@@@Z
+?V_JoinNumbers@@YAPEBDDAEBV?$CUtlVector@MHV?$CUtlMemory@MH$0A@@@@@PEAVCUtlString@@@Z
+?V_JoinNumbers@@YAPEBDDAEBV?$CUtlVector@NHV?$CUtlMemory@NH$0A@@@@@PEAVCUtlString@@@Z
+?V_JoinNumbers@@YAPEBDDAEBV?$CUtlVector@_JHV?$CUtlMemory@_JH$0A@@@@@PEAVCUtlString@@@Z
+?V_JoinNumbers@@YAPEBDDAEBV?$CUtlVector@_KHV?$CUtlMemory@_KH$0A@@@@@PEAVCUtlString@@@Z
 ?V_RandomString@@YA?AVCUtlString@@H@Z
 ?V_SanitizeTextForCommandLine@@YAPEBDPEBDPEAVCBufferString@@_N@Z
-?V_SplitNumbers@@YAHPEBDDAEAV?$CUtlVector@HHV?$CUtlMemory@HH@@@@@Z
-?V_SplitNumbers@@YAHPEBDDAEAV?$CUtlVector@IHV?$CUtlMemory@IH@@@@@Z
-?V_SplitNumbers@@YAHPEBDDAEAV?$CUtlVector@MHV?$CUtlMemory@MH@@@@@Z
-?V_SplitNumbers@@YAHPEBDDAEAV?$CUtlVector@NHV?$CUtlMemory@NH@@@@@Z
-?V_SplitNumbers@@YAHPEBDDAEAV?$CUtlVector@_JHV?$CUtlMemory@_JH@@@@@Z
-?V_SplitNumbers@@YAHPEBDDAEAV?$CUtlVector@_KHV?$CUtlMemory@_KH@@@@@Z
-?V_SplitString@@YAXPEBD0AEAV?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H@@@@_N@Z
-?V_SplitStringInPlace@@YAXPEADPEBDAEAV?$CUtlVector@PEBDHV?$CUtlMemory@PEBDH@@@@@Z
+?V_SplitNumbers@@YAHPEBDDAEAV?$CUtlVector@HHV?$CUtlMemory@HH$0A@@@@@@Z
+?V_SplitNumbers@@YAHPEBDDAEAV?$CUtlVector@IHV?$CUtlMemory@IH$0A@@@@@@Z
+?V_SplitNumbers@@YAHPEBDDAEAV?$CUtlVector@MHV?$CUtlMemory@MH$0A@@@@@@Z
+?V_SplitNumbers@@YAHPEBDDAEAV?$CUtlVector@NHV?$CUtlMemory@NH$0A@@@@@@Z
+?V_SplitNumbers@@YAHPEBDDAEAV?$CUtlVector@_JHV?$CUtlMemory@_JH$0A@@@@@@Z
+?V_SplitNumbers@@YAHPEBDDAEAV?$CUtlVector@_KHV?$CUtlMemory@_KH$0A@@@@@@Z
+?V_SplitString@@YAXPEBD0AEAV?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H$0A@@@@@_N@Z
+?V_SplitStringInPlace@@YAXPEADPEBDAEAV?$CUtlVector@PEBDHV?$CUtlMemory@PEBDH$0A@@@@@@Z
 ?V_UnicodeAdvance@@YAPEADPEADH@Z
 ?V_UnicodeAdvance@@YAPEAIPEAIH@Z
 ?V_UnicodeAdvance@@YAPEA_WPEA_WH@Z
@@ -2423,6 +2439,7 @@ $xmm9
 ?rAj
 ?s_iCurrentUniqueNodeID@CVProfNode@@1HA
 ?ysB
+@"xs1
 @^8U)zj
 @aQY
 @pn>6
@@ -2472,6 +2489,7 @@ ANIMATION_TYPE_FIT_LIFETIME
 ANIMATION_TYPE_FIXED_RATE
 APPSYSTEM: In ConnectInterfaces(), s_nRegistrationCount is %d!\n
 ARCHIVE
+ASYNC_FIRE_AND_FORGET
 ATTEMPTED TO DECOMMIT OWNED MEMORY STACK SPACE\n
 AUUUUUU
 AVX 
@@ -2548,6 +2566,7 @@ ApplyDiffs
 April
 AreFileApisANSI
 Arenas
+Assert
 AssertDlgThread
 Assertion Dialog could not be created. Breaking in debugger.\n
 Assertion Dialog could not be created. Ignoring assertion. Run under the debugger to break instead.\n
@@ -2574,12 +2593,14 @@ AuthenticAMD
 AutoLayer
 Available flags to search for: \n
 Average %.2f fps, %.2f ms per frame\n
+B(91
 B,fK
 BC1%M
 BC?>6t9^\tc:>
 BF>^G
 BOOL
 BTcq
+B\vP\n0
 Bad Shortcut
 Bad exponent in floating point number
 Bad expression operator: '%c%c', expected C style boolean expression operator.
@@ -2985,7 +3006,7 @@ CDirectPlaybackAnimNode
 CDirectionalBlendAnimNode
 CDistanceRemainingMetric
 CDwarfVector capacity overflow\n
-CDwarfVector<char *>::GetInsertPtr
+CDwarfVector<char const *>::GetInsertPtr
 CDwarfVector<char>::GetInsertPtr
 CDwarfVector<enum VSymbolKind_t>::GetInsertPtr
 CDwarfVector<struct CDwarfFile::SSection>::GetInsertPtr
@@ -3022,9 +3043,7 @@ CFA offset set to invalid value (%llu)\n
 CFA register set to invalid value (%llu)\n
 CFA set_loc uses an invalid address\n
 CFI def_cfa_expression not supported\n
-CFI expression not supported\n
 CFI restore_state without pushed state\n
-CFI val_expression not supported\n
 CFacingHeadingCondition
 CFinishedCondition
 CFloatAnimParameter
@@ -3141,6 +3160,8 @@ CPulseCell_Outflow_NPCScriptedMoveTo
 CPulseCell_Outflow_NPCUseScriptedAbility
 CPulseDocNodeDynamicOutflowsAttr
 CPulseNode_
+CPulseServerFuncs!FindEntity
+CPulseServerFuncs!FindEntityByClassnameWithinRadius
 CQuantizedFloatEncoder::AssignRangeMultiplier
 CQuaternionAnimParameter
 CRC32_GetTableEntry
@@ -3290,13 +3311,13 @@ CUtlMemory_RawAllocator<struct CUtlMemoryBlockAllocator::MemPage_t>::SetRawAlloc
 CUtlMemory_RawAllocator<unsigned int>::EnsureCapacity
 CUtlMemory_RawAllocator<unsigned int>::Grow
 CUtlRBTree overflow with %u elements!\n
-CUtlRBTree<char const *,class CDefFastCaselessStringLess,unsigned short,class CUtlMemory<struct UtlRBTreeNode_t<char const *,unsigned short>,unsigned short> >::Insert
-CUtlRBTree<struct CUtlOrderedMapBase<class HKeySymbol,bool,class CDefLess<class HKeySymbol>,int>::Node_t,class CUtlOrderedMapBase<class HKeySymbol,bool,class CDefLess<class HKeySymbol>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class HKeySymbol,bool,class CDefLess<class HKeySymbol>,int>::Node_t,int>,int> >::Insert
-CUtlRBTree<struct CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::Node_t,class CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::Node_t,int>,int> >::Insert
-CUtlRBTree<struct CUtlOrderedMapBase<struct CVirtRangeMap::VirtRange_t,struct CVirtRangeMap::VirtDesc_t,class CDefLess<struct CVirtRangeMap::VirtRange_t>,int>::Node_t,class CUtlOrderedMapBase<struct CVirtRangeMap::VirtRange_t,struct CVirtRangeMap::VirtDesc_t,class CDefLess<struct CVirtRangeMap::VirtRange_t>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<struct CVirtRangeMap::VirtRange_t,struct CVirtRangeMap::VirtDesc_t,class CDefLess<struct CVirtRangeMap::VirtRange_t>,int>::Node_t,int>,int> >::Insert
-CUtlRBTree<struct ConVarOrConCommand,class CLessFunc<&bool __cdecl ConCommandBaseLessFunc(struct ConVarOrConCommand const &,struct ConVarOrConCommand const &)>,unsigned short,class CUtlMemory<struct UtlRBTreeNode_t<struct ConVarOrConCommand,unsigned short>,unsigned short> >::Insert
-CUtlRBTree<struct ConVarOrConCommand,class CLessFunc<&bool __cdecl ConVarSortFunc(struct ConVarOrConCommand const &,struct ConVarOrConCommand const &)>,int,class CUtlMemory<struct UtlRBTreeNode_t<struct ConVarOrConCommand,int>,int> >::Insert
-CUtlRBTree<void *,class CDefLess<void *>,int,class CUtlMemory<struct UtlRBTreeNode_t<void *,int>,int> >::Insert
+CUtlRBTree<char const *,class CDefFastCaselessStringLess,unsigned short,class CUtlMemory<struct UtlRBTreeNode_t<char const *,unsigned short>,unsigned short,0> >::Insert
+CUtlRBTree<struct CUtlOrderedMapBase<class HKeySymbol,bool,class CDefLess<class HKeySymbol>,int>::Node_t,class CUtlOrderedMapBase<class HKeySymbol,bool,class CDefLess<class HKeySymbol>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class HKeySymbol,bool,class CDefLess<class HKeySymbol>,int>::Node_t,int>,int,0> >::Insert
+CUtlRBTree<struct CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::Node_t,class CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::Node_t,int>,int,0> >::Insert
+CUtlRBTree<struct CUtlOrderedMapBase<struct CVirtRangeMap::VirtRange_t,struct CVirtRangeMap::VirtDesc_t,class CDefLess<struct CVirtRangeMap::VirtRange_t>,int>::Node_t,class CUtlOrderedMapBase<struct CVirtRangeMap::VirtRange_t,struct CVirtRangeMap::VirtDesc_t,class CDefLess<struct CVirtRangeMap::VirtRange_t>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<struct CVirtRangeMap::VirtRange_t,struct CVirtRangeMap::VirtDesc_t,class CDefLess<struct CVirtRangeMap::VirtRange_t>,int>::Node_t,int>,int,0> >::Insert
+CUtlRBTree<struct ConVarOrConCommand,class CLessFunc<&bool __cdecl ConCommandBaseLessFunc(struct ConVarOrConCommand const &,struct ConVarOrConCommand const &)>,unsigned short,class CUtlMemory<struct UtlRBTreeNode_t<struct ConVarOrConCommand,unsigned short>,unsigned short,0> >::Insert
+CUtlRBTree<struct ConVarOrConCommand,class CLessFunc<&bool __cdecl ConVarSortFunc(struct ConVarOrConCommand const &,struct ConVarOrConCommand const &)>,int,class CUtlMemory<struct UtlRBTreeNode_t<struct ConVarOrConCommand,int>,int,0> >::Insert
+CUtlRBTree<void *,class CDefLess<void *>,int,class CUtlMemory<struct UtlRBTreeNode_t<void *,int>,int,0> >::Insert
 CUtlString::FormatV
 CUtlStringTokenSystem could not open database file "%s" for writing. Aborting update operation\n
 CUtlStringTokenSystem could not update token database "%s" because the file is read-only.\n
@@ -3305,6 +3326,8 @@ CUtlSymbolTableLargeBase
 CV@@R
 CVAR_
 CVDbgHelpSymbolModule::WriteBreakpadCfiInfo
+CVProfNode_Unaccounted
+CVProfile
 CVectorAnimParameter
 CWD>~3
 CWayPointHelperAnimNode
@@ -3456,7 +3479,6 @@ Can't convert an empty string to float64\n
 Can't convert an empty string to int64\n
 Can't convert an empty string to uint64\n
 Can't open file (%s) passed to -testscript
-Can't specify a specific multi-arch slice for a non-multi-arch binary\n
 Can't specify both a CPU architecture and slice index\n
 Can't write binary data to a text buffer.
 CancelIo
@@ -3643,6 +3665,7 @@ DWARF WARNING: arange terminator not at the end of a set\n
 DWARF deferred symbols
 DWARF: 
 DWARF:   %s build ID does not match %s, ignoring\n
+DWARF:   %s does not have a matching CPU arch slice, ignoring\n
 DWARF:   %s does not have debug info, ignoring\n
 DWARF:   '%s' is zero-length, ignoring\n
 DWARF:   can't open %s\n
@@ -3875,6 +3898,8 @@ FindClose
 FindDiffs
 FindDiffsForLargeFiles
 FindDiffsLowMemory
+FindEntByClassNameWithin
+FindEntByName
 FindFirstFileExW
 FindFirstFileW
 FindGlobalSymbol
@@ -3939,7 +3964,6 @@ GameDVR_Enabled
 GameResourceServiceClientV001
 GameResourceServiceServerV001
 GameUIService_001
-General
 GenericGameData
 Generic_x86
 GenuineIntel
@@ -4105,7 +4129,6 @@ Hit end of input before closing quote (%c)
 Hit end of line before closing quote (%c)
 Hj`F
 HostStateMgr001
-I7HZ0
 I;u>A
 IAnimAction
 IAnimClipData
@@ -4268,7 +4291,7 @@ ISolveIKChainAnimNode
 ISubGraphAnimNode
 ISubGraphManager
 ITALIAN
-I\zH68Z0
+I\zH6X
 Ignore
 Ignore All Asserts
 Ignore For 24 Hours
@@ -4306,8 +4329,7 @@ InitializeProcThreadAttributeList
 InitializeSListHead
 InitializeSRWLock
 InitializeSecurityDescriptor
-Inline attr without data1 value\n
-Input contains no data
+Inline attr without expected value\n
 InputService_001
 InputStackSystemVersion001
 InputSystemVersion001
@@ -4342,6 +4364,7 @@ Invalid arange header address size\n
 Invalid arange header segment size\n
 Invalid arange range, start 0x%llx - size 0x%llx, table at offset 0x%x\n
 Invalid arange start address 0x%llx (base 0x%llx), table at offset 0x%x\n
+Invalid attr line_strp offset 0x%llx\n
 Invalid attr strp offset 0x%llx\n
 Invalid attribute value 0x%llx\n
 Invalid common encodings block location (0x%x : 0x%x)\n
@@ -4354,7 +4377,6 @@ Invalid data for member '%s'
 Invalid data.
 Invalid default-arg index\n
 Invalid extended instruction size\n
-Invalid fat binary slice %u (slices %u)\n
 Invalid file index %d\n
 Invalid form value 0x%llx\n
 Invalid header
@@ -4363,6 +4385,8 @@ Invalid high PC value 0x%llx (base 0x%llx)\n
 Invalid include directory index\n
 Invalid index block location (0x%x : 0x%x)\n
 Invalid indirect form 0x%llx\n
+Invalid line header address size\n
+Invalid line header segment size\n
 Invalid line header size\n
 Invalid low PC value 0x%llx (base 0x%llx)\n
 Invalid member name '%s'
@@ -4385,6 +4409,8 @@ Invalid set_address instruction\n
 Invalid set_discriminator size\n
 Invalid settings for bin_shards
 Invalid settings for slab_sizes
+Invalid source header %s format content type %llu\n
+Invalid source header %s format form %llu\n
 Invalid statement list line info offset %llx\n
 Invalid substitution seq-id\n
 Invalid template-param index\n
@@ -4432,11 +4458,25 @@ KV Conditional: Unknown symbol %s\n
 KV3 EHANDLEs cannot be serialized
 KV3 instances cannot be set to an unspecified specific type
 KV3 pointers cannot be serialized
+Keeping "%s" cvar value, specified on cmdline\n
 Kernel32.dll
 KeyValueCache001
 KeyValues Error: %s in file %s\n
 KeyValues3: pre-allocated array memory is too small for %u elements (%u bytes available, %u bytes needed)\n
 KeyValues3: pre-allocated table memory is too small for %u members (%u bytes available, %u bytes needed)\n
+KeyValues3::FindOrCreateMember
+KeyValues3::GetKV3MemberName
+KeyValues3::GetMember
+KeyValues3::GetMemberCount
+KeyValues3::GetMemberName
+KeyValues3::GetTable
+KeyValues3::HasInvalidMemberNames
+KeyValues3::Internal_CreateMemberAimedAtExternalName
+KeyValues3::Internal_FindMember
+KeyValues3::Internal_FindOrCreateMemberAimedAtExternalName
+KeyValues3::OverlayKeysFrom
+KeyValues3::RemoveMember
+KeyValues3::RenameMember
 KeyValues::ParseIncludedKeys: Couldn't load included keyvalue file %s\n
 KeyValues::SaveToFile: couldn't open file "%s" in path "%s".\n
 KeyValuesFromJSON
@@ -4469,6 +4509,7 @@ Launch Debugger
 LdrLockLoaderLock
 LdrLockLoaderLock() probe error. Unable to unlock the loader lock. Please report this to Dave K. You can run with "-noloaderlockprobe" to work around this issue.\n
 LdrUnlockLoaderLock
+Leaked KeyValues blocks: %d\n
 LeaveCriticalSection
 LengthOfMatchingPaths
 LerpCPs
@@ -4482,7 +4523,6 @@ Line %d: Invalid literal value "%s"
 Line %d: Invalid value "%s"
 Line info at 0x%x refers to non-existent CU\n
 LinearDelta
-Linkage name using unhandled form (%u)\n
 Linkage name without string value\n
 Linux
 Linux 2.2
@@ -4651,6 +4691,7 @@ MiniDumpRegisterForUnhandledExceptions
 MiniDumpWriteDump
 Minidump Notes
 Minidump summary missing
+MinidumpAgeLogs
 MinidumpDefaultWriteCallback
 MinidumpDefaultWriteCallbackInit
 MinidumpLog
@@ -4782,14 +4823,12 @@ OpenEventA
 OpenFileMappingA
 OpenProcess
 OpenThread
-Ordered constructor wrapped type has no default constructor.\n\tYou must construct it with ORDERED_CONSTRUCT macro in the dependency resolution function.\n
 Out of keyvalue string space
 Out of logging channels.\n
 Out of memory allocation hash_item_t
 Out of range abbrev code %llu\n
 Out of range abbrev tag %llu\n
 Out of range compilation unit code %llu\n
-Out of thread ids. Decrease the number of threads or increase MAX_RECYCLEABLE_THREAD_IDS so we can recycle more\n
 Out-of-range conf value
 OutDefault
 Outflow_
@@ -4959,7 +4998,7 @@ Plat_EventUnregister
 Plat_EventWriteTransfer
 Plat_ExitProcess
 Plat_ExpandEnvVars
-Plat_FatalErrorFunc
+Plat_FatalError
 Plat_FileExists
 Plat_FileIsReadOnly
 Plat_FileSize
@@ -5026,7 +5065,6 @@ Plat_GetShellWindow
 Plat_GetSteamLoginWithAccessCode
 Plat_GetSystemLoad
 Plat_GetTempDirectory
-Plat_GetThreadIndex
 Plat_GetTime
 Plat_GetTimeString
 Plat_GetUserName
@@ -5195,6 +5233,7 @@ PostProcessingSystem_001
 PostQuitMessage
 PowerGetActiveScheme
 PowrProf.dll
+Pp91
 Prediction
 PreviewAttachmentModel
 PreviewBoneAttachedModel
@@ -5239,9 +5278,8 @@ RPCRT4.dll
 RSDSvE
 RUSSIAN
 RVfQp
-R\fpD
-R\vp8
-R\vpD
+R\fpL
+R\vpL
 RaiseException
 RandomFloat
 RandomFloatExp
@@ -5249,9 +5287,12 @@ RandomGaussianFloat
 RandomInt
 RandomSeed
 Range end value 0x%llx out of virtual bound 0x%x\n
+Range length overflows\n
 Range list entry without a default base address\n
 Range list outside of .debug_ranges\n
+Range list outside of .debug_rnglists\n
 Range list without .debug_ranges\n
+Range list without .debug_rnglists\n
 Range start value 0x%llx out of virtual bound 0x%x\n
 Ranges attr without a section offset\n
 Read off the end of DWARF CFI\n
@@ -5278,10 +5319,15 @@ Read off the end of compilation unit debug info\n
 Read off the end of frame data (table ID)\n
 Read off the end of frame data (table size)\n
 Read off the end of line data\n
+Read off the end of source %s data\n
+Read off the end of source header data (%s entry count)\n
+Read off the end of source header data (%s format count)\n
+Read off the end of source header data (%s format entry)\n
 Read off the end of the compilation unit debug info (depth %u, %u byte overflow)\n
 Read off the end of the file name table\n
 Read off the end of the include path table\n
 Read off the end of the opcode size table\n
+Read past the end of rnglists data\n
 ReadConsoleW
 ReadDirectoryChangesW
 ReadFile
@@ -5572,6 +5618,7 @@ SSRVOPT_GUIDPTR match\n
 STACK CFI %x
 STACK CFI INIT %x %x
 STATETAGBEHAVIOR_ACTIVE_WHILE_CURRENT
+STATETAGBEHAVIOR_ACTIVE_WHILE_FULLY_BLENDED
 STATETAGBEHAVIOR_FIRE_ON_ENTER
 STATETAGBEHAVIOR_FIRE_ON_ENTER_AND_EXIT
 STATETAGBEHAVIOR_FIRE_ON_EXIT
@@ -5697,6 +5744,11 @@ SoundOpSystemEdit001
 SoundOperators
 SoundService_001
 SoundSystem001
+Source %s entry dir index (%llu) out of range (%u)\n
+Source %s entry has multiple dir index values\n
+Source %s entry has multiple path values\n
+Source %s entry is a dir index but no dirs were given\n
+Source %s entry path not provided\n
 Source file not found.
 Source line end address before start address\n
 Source line end address out of range\n
@@ -5772,6 +5824,8 @@ Step_CallMethod
 Step_CallMethod node %d referenced unknown method %d
 Step_EntFire
 Step_Generic
+Step_SetVar
+Step_Timeline
 Stop has been called on %p\n
 StrReplaceChar
 StretchBlt
@@ -5811,6 +5865,8 @@ SymGetSourceFileTokenW
 SymGetSourceVarFromTokenW
 SymInitializeW
 SymLoadModuleExW
+SymNextW
+SymPrevW
 SymQueryInlineTrace
 SymRefreshModuleList
 SymRegisterCallbackW64
@@ -5965,6 +6021,7 @@ TlsGetValue
 TlsSetValue
 To broadcast a minidump, you must provide a summary of what you were doing.
 Too few compact unwind index entries (0x%x)\n
+Too many %s entries (%llu)\n
 Too many CIE initial instructions (%u)\n
 Too many FDE instructions (%u)\n
 Too many channel specifiers (max: %d).\n
@@ -6029,7 +6086,6 @@ Unable to determine CPU Frequency\n
 Unable to determine ELF default base address\n
 Unable to determine Mach-O default base address\n
 Unable to determine buffer encoding.
-Unable to find CPU arch %u slice in Mach-O fat binary\n
 Unable to load COM\n
 Unable to load SDL\n
 Unable to load oleaut32\n
@@ -6076,6 +6132,7 @@ Unexpected nested comp dir\n
 Unhandled DWARF CFI 0x%x\n
 Unhandled DWARF attribute form 0x%x\n
 Unhandled WAIT_ABANDONED in WaitForMultipleObjects
+Unhandled rnglists op %u\n
 Unhandled unresolved name\n
 UnhandledExceptionFilter
 UniqueIdFromString
@@ -6089,7 +6146,7 @@ Unknown compilation unit abbrev code\n
 Unknown compilation unit header version %u\n
 Unknown exception
 Unknown extended instruction 0x%x\n
-Unknown line header version\n
+Unknown line header version %u\n
 Unknown pointer encoding relation 0x%x\n
 Unknown pointer encoding representation 0x%x\n
 Unknown reader format version %u
@@ -6116,8 +6173,10 @@ Unsupported Mach-O machine type %d\n
 Unsupported allocation alignment (%llu), max is %u\n
 Unsupported binary encoding id.
 Unsupported compact unwind version %u (expected %u)\n
+Unsupported compilation unit type %u\n
 Unsupported define_file instruction\n
 Unsupported escape character '\%c'
+Unsupported inline attr value %llu\n
 Unsupported maximum number of instruction operations %d\n
 Unsupported primitive value type %u
 Unsupported text encoding id.
@@ -6309,6 +6368,7 @@ V_StringToVector2D
 V_StringToVector4D
 V_StripAndPreserveHTML
 V_StripAndPreserveHTMLCore
+V_StripExcessTrailingZeros
 V_StripFilename
 V_StripLeadingSlash
 V_StripLeadingWhitespace
@@ -6368,11 +6428,13 @@ V_ZSTD_createDCtx
 V_ZSTD_createDDict_byReference
 V_ZSTD_decompress
 V_ZSTD_decompress_usingDDict
+V_ZSTD_defaultCLevel
 V_ZSTD_freeCCtx
 V_ZSTD_freeDCtx
 V_ZSTD_getDictID_fromDDict
 V_ZSTD_getDictID_fromFrame
 V_ZSTD_getFrameContentSize
+V_ZSTD_maxCLevel
 V_abort
 V_acosd
 V_acosf
@@ -6563,6 +6625,7 @@ V_wcstoi64
 V_wcstoui64
 ValidateStringFormatSpecifiers
 Value
+Value_Generic
 Valve.Source
 VariableDefinition
 VariantClear
@@ -6576,6 +6639,7 @@ VerifyVersionInfoA
 VerifyVersionInfoW
 Version
 Vgh$
+Vh:1
 Virtual Memory %s Report for PID %u\n
 Virtual memory regions sorted by size:\n
 VirtualAlloc
@@ -6590,9 +6654,10 @@ Vrad3_001
 Vtube
 VtuneApi32e.dll
 W 7x
-W)lQ
+W)lQP91
 W/q#IX
 W4vC
+WARNING
 WARNING: %s Denied a request to load '%s'\n
 WARNING: %u CFI problems encountered\n
 WARNING: Command buffer full... ignoring!\n%s\n
@@ -6743,9 +6808,9 @@ ZwSetTimerResolution
 \n\nCMiniDumpComment encountered an error while generating the comment
 \nh?oT
 \nk>oB
-\r%s not expected here.  A valid JSON document should be a single object, which begins with '{' and ends with '}'
 \r00000000-0000-0000-0000-000000000000
-\rAssert
+\rGeneral
+\rInput contains no data
 \r\f\v\v\n\n\t\t\t\t\t
 \rmj>zjZ
 \sdktools\bin
@@ -6763,6 +6828,7 @@ ZwSetTimerResolution
 \t\t\t\n\t\v\t\f\t\r\t
 \t`M1k
 \tcQr
+\th91
 \tkE>fvw
 \ttier0.dll
 \u must be followed by exactly 4 hex digits
@@ -6771,6 +6837,7 @@ ZwSetTimerResolution
 \v_dbghelp_home_linked
 \v_dbghelp_home_unlinked
 \veBV
+]8s1
 ]P4H
 ]u9g
 ]xEc
@@ -7177,8 +7244,10 @@ debug_aranges
 debug_frame
 debug_info
 debug_line
+debug_line_str
 debug_pubnames
 debug_ranges
+debug_rnglists
 debug_str
 decay
 decay_dirty
@@ -7202,6 +7271,7 @@ diff buffer overrun
 differences
 differences 
 dioxXu
+directory
 directory not empty
 dirty_bytes
 dirty_decay_ms
@@ -7252,6 +7322,8 @@ encoding
 end_frame
 end_time
 english
+entityName
+entityType
 entity_name
 epoch
 error
@@ -7298,6 +7370,7 @@ face
 faceMergeAngle
 failed\n
 false
+file
 file exists
 file index mismatch\n
 file too large
@@ -7310,6 +7383,7 @@ fixedlength
 flDurationSec
 flMaxDistance
 flMinDistance
+flSearchRadius
 flStopRadius
 flYawTolerance
 flags
@@ -7503,6 +7577,7 @@ k>RU
 kernel32.dll
 l6qnk
 l<}2l
+l=!x91
 lDa>
 lQ?2
 lR(g 
@@ -7586,6 +7661,7 @@ m_Class
 m_Color
 m_ColorChoices
 m_ColorScale
+m_Comment
 m_Constraints
 m_ControlRigData
 m_Curve
@@ -7602,6 +7678,7 @@ m_DestInflowName
 m_DirectionSpace
 m_DisallowedSurfaceProperties
 m_DisplayName
+m_DoNotNotifyListeners
 m_DomainValue
 m_EHandle
 m_Elements
@@ -7612,6 +7689,8 @@ m_EndEffectorTargetBone
 m_Ent
 m_EntityNPC
 m_EntityTarget
+m_EntityType
+m_EventDefinitions
 m_EventName
 m_ExpectedArg0Name
 m_ExpectedArg0Type
@@ -7706,6 +7785,7 @@ m_bDisableOperator
 m_bDiscardIfNotOnSurface
 m_bDistributeInCPRange
 m_bDoBonesOrientAlongPositiveX
+m_bDoNotNotifyListeners
 m_bEnabled
 m_bFitCycleToLifetime
 m_bFogParticles
@@ -7757,6 +7837,7 @@ m_bUseOrientation
 m_bUseRawMeshGroup
 m_bUseWorldLocation
 m_bViewModelEffect
+m_bWaitForChildOutflows
 m_baseChildID
 m_baseInput
 m_baseInputConnection
@@ -7947,6 +8028,7 @@ m_nCP
 m_nCPField
 m_nCPInput
 m_nCPin
+m_nCallMode
 m_nClusterSizeMax
 m_nClusterSizeMin
 m_nCollisionMode
@@ -8180,7 +8262,6 @@ nOffset < m_nAllocationSize
 nSwitchValue
 nTries < 10000000
 n\f"pA3Q
-n\f"pA3QX
 n]?iJ
 nactive_huge
 nactive_nonhuge
@@ -8210,6 +8291,7 @@ nexttoken
 nfills
 nflushes
 nhbins
+nhs1
 nhugifies
 nlextents
 nmalloc
@@ -8368,6 +8450,8 @@ pKp\nZ
 pMessage
 pName
 pParam
+pSearchFromEntity
+pStartEntity
 pSwitchValue
 pTarget
 pTraceString
@@ -8469,7 +8553,6 @@ r9T6
 rNm>)
 rT+6ZNw
 r\tVr.>T
-r\vpD
 radius
 radius0
 radius1
@@ -8592,7 +8675,6 @@ stop_instantly
 stop_on_seq_change
 stream timeout
 string
-string offset too large (0x%llx)\n
 string pointed to by the global variable malloc_conf
 string pointed to by the global variable malloc_conf_2_conf_harder
 string pointer is null
@@ -8600,7 +8682,6 @@ string specified via --with-malloc-conf
 string too long
 string_token
 stringtokendatabase.txt
-strp offset too large (0x%llx)\n
 strtab
 subclass
 substitution doesn't start with 'S'\n
@@ -8612,7 +8693,6 @@ symbol
 symsrv.dll
 symtab
 t#tvI
-t/0A
 table
 tail_frame
 tanf
@@ -8805,10 +8885,12 @@ vpcf8
 vpcf9
 vpk:
 vpulse
-vpulse1
 vpulse10
 vpulse11
 vpulse12
+vpulse13
+vpulse14
+vpulse15
 vpulse2
 vpulse3
 vpulse4
@@ -8855,6 +8937,7 @@ xYiu
 x`tm6
 xmalloc
 xqkfa]YUQMJGDA><97520.,*('%#! 
+xrY8
 xu37
 xuRCk
 y9*O
@@ -8885,6 +8968,7 @@ zs}O
 {}[]()=&, \t\n'"*;
 {}[]=, \t\n'":|;
 |jPZ
+~'091
 ~DSTRCT
 ~NX4
 ~cU4

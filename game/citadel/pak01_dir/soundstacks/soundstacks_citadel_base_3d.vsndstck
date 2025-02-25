@@ -765,6 +765,44 @@
 							property_help = "citadel_send_selector"
 						}
 					}
+					enable_initial_reflection_send = 
+					{
+						data_type = "bool"
+						value = "false"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "citadel_initial_reflection_send"
+							property_help = "Toggles the initial reflection send."
+						}
+					}
+					initial_reflection_curve_field_name = 
+					{
+						data_type = "string"
+						value = "public.initial_reflection_send_db_distance"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_initial_reflection_send"
+							property_help = "Name of the float6 field that represents the send value over distance curve."
+						}
+					}
+					initial_reflection_send_db_distance = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+							"[ 1.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "advanced"
+							display_edit_type = "field_curve_2d_editor"
+							property_group = "citadel_initial_reflection_send"
+						}
+					}
 					reverb_use_curve = 
 					{
 						data_type = "float"
@@ -881,15 +919,6 @@
 							property_group = "Hrtf"
 						}
 					}
-					effect_owning_graph = 
-					{
-						data_type = "string"
-						value = "main"
-						_system_properties = 
-						{
-							property_group = "Effects"
-						}
-					}
 					use_pathing_render = 
 					{
 						data_type = "float"
@@ -928,24 +957,6 @@
 						{
 							display_group = "advanced"
 							property_group = "Pathing"
-						}
-					}
-					effect_input_name = 
-					{
-						data_type = "string"
-						value = ""
-						_system_properties = 
-						{
-							property_group = "Effects"
-						}
-					}
-					effect_to_apply = 
-					{
-						data_type = "string"
-						value = ""
-						_system_properties = 
-						{
-							property_group = "Effects"
 						}
 					}
 					use_uiposition = 
@@ -1176,7 +1187,6 @@
 			{
 				name = "source_info"
 				operator = "game_get_source_info"
-				source = "entity"
 			},
 			
 			{
@@ -1395,14 +1405,6 @@
 				operator = "math_filter_float"
 				input = "@distance_to_source_updated.output"
 				input_max_velocity = "@public.distance_max_velocity"
-			},
-			
-			{
-				name = "ApplyEffect"
-				operator = "vmix_apply_effect"
-				input_owning_graph = "@public.effect_owning_graph"
-				input_effect_name = "@public.effect_input_name"
-				input_subgraph_name = "@public.effect_to_apply"
 			},
 			
 			{
@@ -2144,6 +2146,21 @@
 					{
 						data_type = "float"
 						value = "@public.occlusion_volume_blend_distance_max"
+					}
+				}
+			},
+			
+			{
+				name = "citadel_initial_reflection_send"
+				operator = "sos_import_stack"
+				import_stack = "citadel_initial_reflection_send"
+				auto_connect_public_fields = "true"
+				operator_variables = 
+				{
+					distance = 
+					{
+						data_type = "float"
+						value = "@distance_filter.output"
 					}
 				}
 			},

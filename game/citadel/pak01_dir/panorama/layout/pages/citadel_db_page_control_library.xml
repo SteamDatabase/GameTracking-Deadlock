@@ -4,17 +4,22 @@
 		<include src="s2r://panorama/styles/citadel_base_styles.vcss_c" />
 		<include src="s2r://panorama/styles/citadel_shared_colors.vcss_c" />
 		<include src="s2r://panorama/styles/pages/citadel_db_page_control_library.vcss_c" />
+		<include src="s2r://panorama/styles/citadel_ui_keyboard_glyph.vcss_c" />
 	</styles>
 	<CitadelDevControlLibrary oncancel="CitadelToggleControlZoo();">
 		<Panel class="ZooHeader">
 			<Label class="ZooHeaderText" text="Control Zoo" />
-			<Panel class="LeftRightFlow TabsContainer">
-				<Label class="ZooHeaderTabButton TextButton" text="Text" onactivate="CitadelChangeZooTab( 0 );" />
-				<Label class="ZooHeaderTabButton ButtonsButton" text="Buttons" onactivate="CitadelChangeZooTab( 1 );" />
+			<Panel class="TabsContainer">
+				<TabButton id="TextTab" text="Text" group="zoo_tabs" selected="true" />
+				<TabButton id="ButtonsTab" text="Buttons" group="zoo_tabs" />
+				<TabButton id="GlyphsTab" text="Glyphs" group="zoo_tabs" />
+				<TabButton id="BindsTab" text="Binds" group="zoo_tabs" />
+				<TabButton id="InlineGlyphTab" text="Inline Glyph" group="zoo_tabs" />
+				<TabButton id="BlendBlurTab" text="Blend+Blur" group="zoo_tabs" />
 			</Panel>
 			<Button id="exit_button" class="exit_button header_tab" onactivate="CitadelToggleControlZoo(); CitadelPlayUISound( EMainMenuActivate )" />
 		</Panel>
-		<Panel id="TextPanelContainer" class="ZooContainerPanel">
+		<TabContents tabid="TextTab" class="ZooContainerPanel" group="zoo_tabs" selected="true">
 			<Label class="h1 display uppercase" text="H1 Display" />
 			<Label class="h1" text="H1 Standard" />
 			<Label class="h2 display uppercase" text="H2 Display" />
@@ -24,13 +29,240 @@
 			<Label class="body_lg" text="Body Copy Large" />
 			<Label class="body_md" text="Body Copy Medium" />
 			<Label class="body_sm" text="Body Copy Small" />
-		</Panel>
-		<Panel id="ButtonPanelContainer" class="ZooContainerPanel">
+			<Label class="InlineAttributesTest" text="Fortitude: {g:citadel_inline_attribute:&apos;Fortitude&apos;}" html="true" />
+			<Label class="InlineAttributesTest" text="Spirit: {g:citadel_inline_attribute:&apos;Spirit&apos;}" html="true" />
+			<Label class="InlineAttributesTest" text="Courage: {g:citadel_inline_attribute:&apos;Courage&apos;}" html="true" />
+		</TabContents>
+		<TabContents tabid="ButtonsTab" class="ZooContainerPanel" group="zoo_tabs">
 			<CitadelAvatarImage id="AvatarImage" />
 			<Label class="ZooSubtitle" text="Dev Options:" />
 			<Button id="Launch_Dev1v1" onactivate="CitadelToggleControlZoo(); CitadelPlayUISound( ESocialMenuHover )">
 				<Label text="1v1 Testing Mode" />
 			</Button>
-		</Panel>
+			<TextButton text="Tarot Test" onactivate="CitadelToggleControlZoo(); CitadelPlayUISound( ESocialMenuHover ); CitadelShowTarotPage()" />
+		</TabContents>
+		<TabContents tabid="GlyphsTab" class="ZooContainerPanel" group="zoo_tabs">
+			<Label class="h3" text="KeyBoard/Mouse raw glyphs" />
+			<Panel class="GlyphWithLabel">
+				<CitadelKeyboardGlyph id="Mouse1" buttoncode="mouse1" />
+				<CitadelKeyboardGlyph id="Mouse2" buttoncode="mouse2" />
+				<CitadelKeyboardGlyph id="Mouse3" buttoncode="mouse3" />
+				<CitadelKeyboardGlyph id="Mouse4" buttoncode="mouse4" />
+				<CitadelKeyboardGlyph id="Mouse5" buttoncode="mouse5" />
+				<CitadelKeyboardGlyph id="EscapeKey" buttoncode="ESCAPE" />
+				<CitadelKeyboardGlyph id="AKey" buttoncode="a" />
+				<CitadelKeyboardGlyph id="TestNone" />
+			</Panel>
+			<Label class="h3" text="KeyBoard/Mouse raw glyphs with modifiers" />
+			<Panel class="GlyphWithLabel">
+				<CitadelKeyboardGlyph id="Mouse1" buttoncode="mouse4" modifierbuttoncode="ALT" />
+				<CitadelKeyboardGlyph id="EscapeKey" buttoncode="ESCAPE" modifierbuttoncode="SHIFT" />
+				<CitadelKeyboardGlyph id="AKey" buttoncode="a" modifierbuttoncode="CTRL" />
+				<CitadelKeyboardGlyph id="PlatformSpecfic" buttoncode="RWIN" modifierbuttoncode="LWIN" />
+				<CitadelKeyboardGlyph id="TwoModifiers" buttoncode="mouse5" modifierbuttoncode="SHIFT" />
+				<CitadelKeyboardGlyph id="TestOnlyHasModifier" modifierbuttoncode="ALT" />
+			</Panel>
+			<Label class="h3" text="Test unbound" />
+			<Panel class="GlyphWithLabel">
+				<CitadelGamePadGlyph id="NoBinding" actionorigin="None" />
+				<Label text=" Gamepad glyph for &apos;No button bound&apos;." />
+			</Panel>
+			<Panel class="GlyphWithLabel">
+				<CitadelKeyboardGlyph id="NoBinding" buttoncode="None" />
+				<Label text=" Keyboard binding for &apos;No button bound&apos;." />
+			</Panel>
+			<Label class="h3" text="Default Style (no extra options)" />
+			<Panel class="GlyphWithLabel">
+				<CitadelGamePadGlyph id="GamePadGlyph_PS4_Triangle" actionorigin="PS4_Triangle" />
+				<CitadelGamePadGlyph id="GamePadGlyph_PS4_Circle" actionorigin="PS4_Circle" />
+				<CitadelGamePadGlyph id="GamePadGlyph_PS4_Square" actionorigin="PS4_Square" />
+				<CitadelGamePadGlyph id="GamePadGlyph_PS4_X" actionorigin="PS4_X" />
+				<Label text="All Defaults: SVG. Style: Dark. Solid: On." />
+			</Panel>
+			<Panel class="GlyphWithLabel">
+				<CitadelGamePadGlyph id="GamePadGlyph_PNG_Triangle" actionorigin="PS4_Triangle" usesvg="false" />
+				<CitadelGamePadGlyph id="GamePadGlyph_PNG_Circle" actionorigin="PS4_Circle" usesvg="false" />
+				<CitadelGamePadGlyph id="GamePadGlyph_PNG_Square" actionorigin="PS4_Square" usesvg="false" />
+				<CitadelGamePadGlyph id="GamePadGlyph_PS4_X" actionorigin="PS4_X" usesvg="false" />
+				<Label text="Using PNG Representation" />
+			</Panel>
+			<Label class="h3" text="Different Glyph Styles (Solid On)" />
+			<Panel class="GlyphWithLabel">
+				<CitadelGamePadGlyph id="GamePadGlyph_Knockout_Triangle" actionorigin="PS4_Triangle" glyphstyle="knockout" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Knockout_Circle" actionorigin="PS4_Circle" glyphstyle="knockout" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Knockout_Square" actionorigin="PS4_Square" glyphstyle="knockout" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Knockout_Cross" actionorigin="PS4_X" glyphstyle="knockout" />
+				<Label text="Glyph Style: Knockout" />
+			</Panel>
+			<Panel class="GlyphWithLabel">
+				<CitadelGamePadGlyph id="GamePadGlyph_Light_Triangle" actionorigin="PS4_Triangle" glyphstyle="light" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Light_Circle" actionorigin="PS4_Circle" glyphstyle="light" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Light_Square" actionorigin="PS4_Square" glyphstyle="light" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Light_Cross" actionorigin="PS4_X" glyphstyle="light" />
+				<Label text="Glyph Style: Light" />
+			</Panel>
+			<Panel class="GlyphWithLabel">
+				<CitadelGamePadGlyph id="GamePadGlyph_Dark_Triangle" actionorigin="PS4_Triangle" glyphstyle="dark" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Dark_Circle" actionorigin="PS4_Circle" glyphstyle="dark" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Dark_Square" actionorigin="PS4_Square" glyphstyle="dark" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Dark_Cross" actionorigin="PS4_X" glyphstyle="dark" />
+				<Label text="Glyph Style: Dark (default)" />
+			</Panel>
+			<Label class="h3" text="Toggle Solid Property (Solid Off)" />
+			<Panel class="GlyphWithLabel">
+				<CitadelGamePadGlyph id="GamePadGlyph_Solid_Triangle_Knockout" actionorigin="PS4_Triangle" glyphstyle="knockout" solid="false" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Solid_Circle_Knockout" actionorigin="PS4_Circle" glyphstyle="knockout" solid="false" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Solid_Square_Knockout" actionorigin="PS4_Square" glyphstyle="knockout" solid="false" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Solid_X_Knockout" actionorigin="PS4_X" glyphstyle="knockout" solid="false" />
+				<Label text="Solid Property: Knockout" />
+			</Panel>
+			<Panel class="GlyphWithLabel">
+				<CitadelGamePadGlyph id="GamePadGlyph_Solid_Triangle_Light" actionorigin="PS4_Triangle" glyphstyle="light" solid="false" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Solid_Circle_Light" actionorigin="PS4_Circle" glyphstyle="light" solid="false" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Solid_Square_Light" actionorigin="PS4_Square" glyphstyle="light" solid="false" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Solid_X_Light" actionorigin="PS4_X" glyphstyle="light" solid="false" />
+				<Label text="Solid Property: Light" />
+			</Panel>
+			<Panel class="GlyphWithLabel">
+				<CitadelGamePadGlyph id="GamePadGlyph_Solid_Triangle_Dark" actionorigin="PS4_Triangle" glyphstyle="dark" solid="false" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Solid_Circle_Dark" actionorigin="PS4_Circle" glyphstyle="dark" solid="false" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Solid_Square_Dark" actionorigin="PS4_Square" glyphstyle="dark" solid="false" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Solid_X_Dark" actionorigin="PS4_X" glyphstyle="dark" solid="false" />
+				<Label text="Solid Property: Dark" />
+			</Panel>
+			<Label class="h3" text="Toggle Neutral Property (Neutral On)" />
+			<Panel class="GlyphWithLabel">
+				<CitadelGamePadGlyph id="GamePadGlyph_Neutral_Triangle_Knockout" actionorigin="PS4_Triangle" glyphstyle="knockout" neutral="true" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Neutral_Circle_Knockout" actionorigin="PS4_Circle" glyphstyle="knockout" neutral="true" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Neutral_Square_Knockout" actionorigin="PS4_Square" glyphstyle="knockout" neutral="true" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Neutral_X_Knockout" actionorigin="PS4_X" glyphstyle="knockout" neutral="true" />
+				<Label text="Neutral Property: Knockout" />
+			</Panel>
+			<Panel class="GlyphWithLabel">
+				<CitadelGamePadGlyph id="GamePadGlyph_Neutral_Triangle_Light" actionorigin="PS4_Triangle" glyphstyle="light" neutral="true" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Neutral_Circle_Light" actionorigin="PS4_Circle" glyphstyle="light" neutral="true" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Neutral_Square_Light" actionorigin="PS4_Square" glyphstyle="light" neutral="true" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Neutral_X_Light" actionorigin="PS4_X" glyphstyle="light" neutral="true" />
+				<Label text="Neutral Property: Light" />
+			</Panel>
+			<Panel class="GlyphWithLabel">
+				<CitadelGamePadGlyph id="GamePadGlyph_Neutral_Triangle_Dark" actionorigin="PS4_Triangle" glyphstyle="dark" neutral="true" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Neutral_Circle_Dark" actionorigin="PS4_Circle" glyphstyle="dark" neutral="true" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Neutral_Square_Dark" actionorigin="PS4_Square" glyphstyle="dark" neutral="true" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Neutral_X_Dark" actionorigin="PS4_X" glyphstyle="dark" neutral="true" />
+				<Label text="Neutral Property: Dark" />
+			</Panel>
+			<Label class="h3" text="Neutral On and Solid Off" />
+			<Panel class="GlyphWithLabel">
+				<CitadelGamePadGlyph id="GamePadGlyph_Neutral_SolidOff_Triangle_Knockout" actionorigin="PS4_Triangle" glyphstyle="knockout" neutral="true" solid="false" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Neutral_SolidOff_Circle_Knockout" actionorigin="PS4_Circle" glyphstyle="knockout" neutral="true" solid="false" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Neutral_SolidOff_Square_Knockout" actionorigin="PS4_Square" glyphstyle="knockout" neutral="true" solid="false" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Neutral_SolidOff_X_Knockout" actionorigin="PS4_X" glyphstyle="knockout" neutral="true" solid="false" />
+				<Label text="Neutral On, Solid Off: Knockout" />
+			</Panel>
+			<Panel class="GlyphWithLabel">
+				<CitadelGamePadGlyph id="GamePadGlyph_Neutral_SolidOff_Triangle_Light" actionorigin="PS4_Triangle" glyphstyle="light" neutral="true" solid="false" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Neutral_SolidOff_Circle_Light" actionorigin="PS4_Circle" glyphstyle="light" neutral="true" solid="false" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Neutral_SolidOff_Square_Light" actionorigin="PS4_Square" glyphstyle="light" neutral="true" solid="false" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Neutral_SolidOff_X_Light" actionorigin="PS4_X" glyphstyle="light" neutral="true" solid="false" />
+				<Label text="Neutral On, Solid Off: Light" />
+			</Panel>
+			<Panel class="GlyphWithLabel">
+				<CitadelGamePadGlyph id="GamePadGlyph_Neutral_SolidOff_Triangle_Dark" actionorigin="PS4_Triangle" glyphstyle="dark" neutral="true" solid="false" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Neutral_SolidOff_Circle_Dark" actionorigin="PS4_Circle" glyphstyle="dark" neutral="true" solid="false" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Neutral_SolidOff_Square_Dark" actionorigin="PS4_Square" glyphstyle="dark" neutral="true" solid="false" />
+				<CitadelGamePadGlyph id="GamePadGlyph_Neutral_SolidOff_X_Dark" actionorigin="PS4_X" glyphstyle="dark" neutral="true" solid="false" />
+				<Label text="Neutral On, Solid Off: Dark" />
+			</Panel>
+			<Label class="h3" text="Different PNG Sizes" />
+			<Panel class="GlyphWithLabel">
+				<CitadelGamePadGlyph id="GamePadGlyph_PNG_Small" actionorigin="PS4_Triangle" usesvg="false" pngsize="small" />
+				<CitadelGamePadGlyph id="GamePadGlyph_PNG_Medium" actionorigin="PS4_Circle" usesvg="false" pngsize="medium" />
+				<CitadelGamePadGlyph id="GamePadGlyph_PNG_Large" actionorigin="PS4_Square" usesvg="false" pngsize="large" />
+				<Label text="PNG Sizes: Small, Medium, Large" />
+			</Panel>
+		</TabContents>
+		<TabContents tabid="BindsTab" class="ZooContainerPanel" group="zoo_tabs">
+			<Label class="h3" text="Get all keys and gamepad buttons &apos;Attack&apos; action definition." />
+			<Panel class="GlyphWithLabel">
+				<CitadelBinding id="KB_Or_Controller_Example" action="Attack" />
+			</Panel>
+			<Label class="h3" text="Get all keys and gamepad buttons &apos;Attack&apos; action definition." />
+			<Panel class="GlyphWithLabel">
+				<CitadelBinding id="StylePassDownTest_KO" action="Attack" glyphstyle="knockout" solid="false" />
+				<CitadelBinding id="StylePassDownTest_Light" action="Attack" glyphstyle="light" solid="false" />
+				<CitadelBinding id="StylePassDownTest_Dark" action="Attack" glyphstyle="dark" solid="false" />
+			</Panel>
+			<Label class="h3" text="Get all keys bound to citadel_keys&apos; &apos;AbilityUpgrade1&apos; action definition. Testing Modifiers " />
+			<Panel class="GlyphWithLabel">
+				<CitadelKeyboardBinding id="GamePadBinding_Roll" action="AbilityUpgrade1" />
+			</Panel>
+			<Label class="h3" text="Get all keys bound to citadel_keys&apos; &apos;Mantle&apos; action definition. Testing Multiples bind sources." />
+			<Panel class="GlyphWithLabel">
+				<CitadelKeyboardBinding id="GamePadBinding_Roll" action="Mantle" />
+			</Panel>
+			<Label class="h3" text="Get &apos;Roll&apos; from all action sets (Test multiple binds) " />
+			<Panel class="GlyphWithLabel">
+				<CitadelGamePadBinding id="GamePadBinding_Roll" action="Roll" />
+			</Panel>
+			<Label class="h3" text="Get action &apos;SpectatorFlyUp&apos; from actionset &apos;SpectatorControls&apos; " />
+			<Panel class="GlyphWithLabel">
+				<CitadelGamePadBinding id="GamePadBinding_SpectatorFlyUp" action="SpectatorFlyUp" actionset="SpectatorControls" />
+			</Panel>
+			<Label class="h3" text="Same again with different glyph styles" />
+			<Panel class="GlyphWithLabel">
+				<CitadelGamePadBinding id="GamePadBinding_SpectatorFlyUp_KO" action="SpectatorFlyUp" actionset="SpectatorControls" glyphstyle="knockout" solid="false" />
+				<CitadelGamePadBinding id="GamePadBinding_SpectatorFlyUp_Light" action="SpectatorFlyUp" actionset="SpectatorControls" glyphstyle="light" solid="false" />
+				<CitadelGamePadBinding id="GamePadBinding_SpectatorFlyUp_Dark" action="SpectatorFlyUp" actionset="SpectatorControls" glyphstyle="dark" solid="false" />
+			</Panel>
+		</TabContents>
+		<TabContents tabid="InlineGlyphTab" class="ZooContainerPanel" group="zoo_tabs">
+			<Label class="h3" text="Inline Glyphs" />
+			<Label text="Press {g:citadel_keybind:&apos;AbilityMelee&apos;} to perform a melee attack." html="true" />
+			<Label text="Use {g:citadel_keybind:&apos;Ability1&apos;} to activate your first ability." html="true" />
+			<Label text="Press {g:citadel_keybind:&apos;Ability2&apos;} to use your second ability." html="true" />
+			<Label text="Activate your third ability with {g:citadel_keybind:&apos;Ability3&apos;}." html="true" />
+			<Label text="Use {g:citadel_keybind:&apos;Ability4&apos;} to trigger your fourth ability." html="true" />
+			<Label text="Equip Item 1 with {g:citadel_keybind:&apos;Item1&apos;}." html="true" />
+			<Label text="Equip Item 2 using {g:citadel_keybind:&apos;Item2&apos;}." html="true" />
+			<Label text="Press {g:citadel_keybind:&apos;Item3&apos;} to access Item 3." html="true" />
+			<Label text="Use {g:citadel_keybind:&apos;Item4&apos;} to equip Item 4." html="true" />
+			<Label text="Press {g:citadel_keybind:&apos;Mantle&apos;} to climb over obstacles." html="true" />
+			<Label text="Open the hero sheet with {g:citadel_keybind:&apos;OpenHeroSheet&apos;}." html="true" />
+			<Label text="Purchase quickbuy items with {g:citadel_keybind:&apos;PurchaseQuickbuy&apos;}." html="true" />
+			<Label text="Roll to evade attacks using {g:citadel_keybind:&apos;Roll&apos;}." html="true" />
+			<Label text="Hold {g:citadel_keybind:&apos;Crouch&apos;} to crouch." html="true" />
+			<Label text="Press {g:citadel_keybind:&apos;CrouchToggle&apos;} to toggle crouch." html="true" />
+			<Label text="View the scoreboard with {g:citadel_keybind:&apos;Scoreboard&apos;}." html="true" />
+			<Label text="Reload your weapon using {g:citadel_keybind:&apos;Reload&apos;}." html="true" />
+			<Label text="Press {g:citadel_keybind:&apos;ExtraInfo&apos;} for additional information." html="true" />
+			<Label text="Use {g:citadel_keybind:&apos;AltCast&apos;} for an alternate ability cast." html="true" />
+			<Label text="Watch your last death replay with {g:citadel_keybind:&apos;ReplayDeath&apos;}." html="true" />
+			<Label text="Move forward with {g:citadel_keybind:&apos;MoveForward&apos;}." html="true" />
+			<Label text="Move backward using {g:citadel_keybind:&apos;MoveBackwards&apos;}." html="true" />
+		</TabContents>
+		<TabContents tabid="BlendBlurTab" class="ZooContainerPanel" group="zoo_tabs">
+			<Label class="h3" text="Testing the BlurTargets...." />
+			<Panel>
+				<CitadelBlurTarget id="MyBlendBlurFitParent2" blurrects="BlurTest4">
+					<CitadelBlurTarget id="MyBlendBlurFitParent" blurrects="BlurTest1 BlurTest2 BlurTest3">
+						<Image src="s2r://panorama/images/main_menu/bg_city_png.vtex" />
+						<MoviePanel class="dashboard_movie" src="file://{resources}/videos/main_menu/menu_streets_loop2.webm" autoplay="onload" disableactivatepause="true" scaling="stretch-to-cover-preserve-aspect" repeat="true" disableaudio="true" />
+					</CitadelBlurTarget>
+					<Label id="BlurTest1" text="Click on this panel to test blur animation\nLMB Fade in\nRMB Fade Out" onactivate="$( &apos;#MyBlendBlurFitParent&apos; ).RemoveClass( &apos;TheBlurAnimOut&apos; );$( &apos;#MyBlendBlurFitParent&apos; ).RemoveClass( &apos;TheBlurAnimIn&apos; );$( &apos;#MyBlendBlurFitParent&apos; ).AddClass( &apos;TheBlurAnimIn&apos; );" oncontextmenu="$( &apos;#MyBlendBlurFitParent&apos; ).RemoveClass( &apos;TheBlurAnimOut&apos; );$( &apos;#MyBlendBlurFitParent&apos; ).RemoveClass( &apos;TheBlurAnimIn&apos; );$( &apos;#MyBlendBlurFitParent&apos; ).AddClass( &apos;TheBlurAnimOut&apos; );" />
+					<Label id="BlurTest2" text="This panel tests animating position, width and height" />
+					<Label id="BlurTest3" text="This panel has a transform on it:\n translateX( 150px ) translateY( 150px ) rotateZ( 45deg )" />
+				</CitadelBlurTarget>
+				<Label id="BlurTest4" text="This panel has an animated transform on it" />
+				<Panel class="BlurMask1">
+					<CitadelBlurTarget id="MyBlendBlurFitParent3" blurrects="BlurTest5">
+						<MoviePanel class="dashboard_movie_masked" src="file://{resources}/videos/main_menu/menu_streets_loop2.webm" autoplay="onload" disableactivatepause="true" scaling="stretch-to-cover-preserve-aspect" repeat="true" disableaudio="true" />
+					</CitadelBlurTarget>
+					<Panel id="BlurTest5">
+						<Label id="BlurTest5Text" text="OPACITY MASK" />
+					</Panel>
+				</Panel>
+			</Panel>
+		</TabContents>
 	</CitadelDevControlLibrary>
 </root>

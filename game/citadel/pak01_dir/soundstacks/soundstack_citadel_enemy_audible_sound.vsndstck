@@ -1,0 +1,99 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_enemy_audible_sound = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					is_enemy_audible_sound = 
+					{
+						data_type = "bool"
+						value = "true"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "citadel_enemy_audible_sound"
+							property_help = "Whether or not a sound contributes to the enemy audible sound calculation."
+						}
+					}
+					owner_entity_index = 
+					{
+						data_type = "float"
+						value = "-1.0"
+					}
+				}
+			},
+			
+			{
+				name = "get_viewing_entity_index"
+				operator = "opvar_get_float"
+				input_execute = "1.0"
+				input_stack_name = "citadel_relevance_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "viewing_entity_index"
+			},
+			
+			{
+				name = "is_viewing_valid_entity"
+				input_execute = "@public.is_enemy_audible_sound"
+				operator = "math_float"
+				apply = "greater_than"
+				input1 = "@get_viewing_entity_index.output"
+				input2 = "0.0"
+			},
+			
+			{
+				name = "is_viewing_owning_entity"
+				input_execute = "@public.is_enemy_audible_sound"
+				operator = "math_float"
+				apply = "equal"
+				input1 = "@get_viewing_entity_index.output"
+				input2 = "@public.owner_entity_index"
+			},
+			
+			{
+				name = "accumulate_join_conditions"
+				operator = "math_accumulate12_float"
+				apply = "mult"
+				input1 = "@is_viewing_valid_entity.output"
+				input2 = "@is_viewing_owning_entity.output"
+				input3 = "@public.is_enemy_audible_sound"
+				input4 = "1.0"
+				input5 = "1.0"
+				input6 = "1.0"
+				input7 = "1.0"
+				input8 = "1.0"
+				input9 = "1.0"
+				input10 = "1.0"
+				input11 = "1.0"
+				input12 = "1.0"
+			},
+			
+			{
+				name = "join_enemy_audible_sound_group"
+				execute_once = "true"
+				input_execute = "@accumulate_join_conditions.output"
+				operator = "soundevent_group_join"
+				input_group_name = "enemy_audible_sound"
+				input_match_string = ""
+			},
+			
+			{
+				name = "get_group_result_info"
+				execute_once = "true"
+				input_execute = "@accumulate_join_conditions.output"
+				operator = "soundevent_group_info"
+				input_group_result = "@join_enemy_audible_sound_group.output_result"
+			},
+		]
+		_system_properties = 
+		{
+			display_game = "citadel"
+		}
+	}
+}

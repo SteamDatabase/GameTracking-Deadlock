@@ -34,6 +34,7 @@ $Globals
 'ConsumeStructuredBuffer'
 'ExternalDescriptorSet'
 'FakeBindlessTexture2D'
+'ParameterBlock'
 'Ptr'
 'RWBuffer'
 'RWByteAddressBuffer'
@@ -61,6 +62,8 @@ $Globals
 'TextureCube'
 'TextureCubeArray'
 'VALVE'
+'__extension'
+'__generic'
 'bool'
 'cbuffer'
 'centroid'
@@ -79,6 +82,7 @@ $Globals
 'int'
 'interface'
 'layout'
+'let'
 'linear'
 'matrix'
 'namespace'
@@ -102,6 +106,7 @@ $Globals
 'string'
 'struct'
 'tbuffer'
+'typealias'
 'typedef'
 'uint'
 'uniform'
@@ -109,7 +114,7 @@ $Globals
 'vector'
 'void'
 'volatile'
-()* loopback of 110:4: ( struct_member_decl | function_definition )*
+()* loopback of 112:4: ( struct_member_decl | type_def | slang_typealias | attribute | function_definition | ( struct_decl ( ';' )? ) )*
 (channel = 
 (end of input).\n\t This indicates a poorly specified lexer RULE\n\t or unterminated input element such as: "STRING["]\n
 *** ERROR! VS input struct member "%s" is missing semantic annotation!\n
@@ -210,10 +215,10 @@ $Globals
 // Relocated $Globals\n
 0x%X
 1:1: Tokens : ( T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | BOOLLITERAL | ID | INTEGERLITERAL | HEXINTEGERLITERAL | FLOATLITERAL | COMMENT | WS );
-1:1: Tokens : ( T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | T__64 | T__65 | T__66 | T__67 | T__68 | T__69 | T__70 | T__71 | T__72 | T__73 | T__74 | T__75 | T__76 | T__77 | T__78 | T__79 | T__80 | T__81 | T__82 | T__83 | T__84 | T__85 | T__86 | T__87 | T__88 | T__89 | T__90 | T__91 | T__92 | T__93 | T__94 | T__95 | T__96 | T__97 | T__98 | T__99 | T__100 | T__101 | T__102 | T__103 | T__104 | T__105 | T__106 | T__107 | T__108 | T__109 | T__110 | T__111 | T__112 | T__113 | T__114 | T__115 | T__116 | T__117 | T__118 | T__119 | T__120 | T__121 | T__122 | T__123 | T__124 | T__125 | T__126 | T__127 | T__128 | T__129 | T__130 | CONSTANT_REGISTER | DXC_DESCRIPTOR_SPACE | PACK_OFFSET | VECTOR_TYPE | MATRIX_TYPE | STATIC | ID | INTEGERLITERAL | FLOATLITERAL | STRINGLITERAL | WS | LINE | PRAGMA | UNKNOWN );
-77:1: element : ( struct_decl | function_definition | groupshared_defintion | variable_definition[ false ] | constant_buffer | type_def | valve_compiler_option | slang_enum | slang_interface | slang_extension | slang_namespace | semicolon= ';' );
+1:1: Tokens : ( T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | T__64 | T__65 | T__66 | T__67 | T__68 | T__69 | T__70 | T__71 | T__72 | T__73 | T__74 | T__75 | T__76 | T__77 | T__78 | T__79 | T__80 | T__81 | T__82 | T__83 | T__84 | T__85 | T__86 | T__87 | T__88 | T__89 | T__90 | T__91 | T__92 | T__93 | T__94 | T__95 | T__96 | T__97 | T__98 | T__99 | T__100 | T__101 | T__102 | T__103 | T__104 | T__105 | T__106 | T__107 | T__108 | T__109 | T__110 | T__111 | T__112 | T__113 | T__114 | T__115 | T__116 | T__117 | T__118 | T__119 | T__120 | T__121 | T__122 | T__123 | T__124 | T__125 | T__126 | T__127 | T__128 | T__129 | T__130 | T__131 | T__132 | T__133 | T__134 | T__135 | T__136 | T__137 | CONSTANT_REGISTER | DXC_DESCRIPTOR_SPACE | PACK_OFFSET | VECTOR_TYPE | MATRIX_TYPE | STATIC | EXPORT | ID | INTEGERLITERAL | FLOATLITERAL | STRINGLITERAL | WS | LINE | PRAGMA | UNKNOWN );
+2\vpT%
+77:1: element : ( struct_decl | attribute | function_definition | groupshared_defintion | variable_definition[ false ] | constant_buffer | type_def | valve_compiler_option | slang_enum | slang_interface | slang_extension | slang_namespace | slang_typealias | semicolon= ';' );
 7xicuU
-8\tV_log2f
 : lexer error %d :\n\t%s at offset %d, 
 <DOWN>
 <EOR>
@@ -315,7 +320,7 @@ COMPARISON_MIN_POINT_MAG_LINEAR_MIP_POINT
 COMPARISON_MIN_POINT_MAG_MIP_LINEAR
 CONSTANT_REGISTER
 CUtlLeanVectorFixedGrowableBase<unsigned char,12,short>::EnsureCapacity
-CUtlRBTree<struct CUtlOrderedMapBase<class CUtlString,class CVfxParsedShaderParam *,class CDefStringLess,unsigned short>::Node_t,class CUtlOrderedMapBase<class CUtlString,class CVfxParsedShaderParam *,class CDefStringLess,unsigned short>::CKeyLess,unsigned short,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CUtlString,class CVfxParsedShaderParam *,class CDefStringLess,unsigned short>::Node_t,unsigned short>,unsigned short> >::Insert
+CUtlRBTree<struct CUtlOrderedMapBase<class CUtlString,class CVfxParsedShaderParam *,class CDefStringLess,unsigned short>::Node_t,class CUtlOrderedMapBase<class CUtlString,class CVfxParsedShaderParam *,class CDefStringLess,unsigned short>::CKeyLess,unsigned short,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CUtlString,class CVfxParsedShaderParam *,class CDefStringLess,unsigned short>::Node_t,unsigned short>,unsigned short,0> >::Insert
 CUtlStreamBuffer does not support TEXT_BUFFER's use CUtlBuffer\n
 CVfxD3dInclude::Open(101): Cannot read file "%s"\n
 CVfxD3dInclude::Open(116): Cannot find include file %s\n
@@ -351,10 +356,10 @@ D3DCompile
 D3DCompiler_47.dll
 D3DDisassemble
 D3DPreprocess
-D3DPreprocess() failed with no error message! CVfxDx11::GetAllShaderVariables(1030): \n
+D3DPreprocess() failed with no error message! CVfxDx11::GetAllShaderVariables(1029): \n
 D3DReflect
 D3DStripShader
-D3DXPreprocess() failed with no error message! CVfxDx11::CompileShaderAndGetVariables(636): \n
+D3DXPreprocess() failed with no error message! CVfxDx11::CompileShaderAndGetVariables(635): \n
 DECR
 DECR_SAT
 DEFAULT
@@ -398,12 +403,13 @@ EQUAL
 ERROR!
 ESC_SEQ
 EXPONENT
+EXPORT
 Early exit
 Enum
 Error adding shader to cache\n
 Error loading D3D compiler DLL %s!\n
-Error masking unused parts for vfx file CVfxDx11::CompileShaderAndGetVariables(604): \n
-Error opening vfx file CVfxDx11::CompileShaderAndGetVariables(592): \n
+Error masking unused parts for vfx file CVfxDx11::CompileShaderAndGetVariables(603): \n
+Error opening vfx file CVfxDx11::CompileShaderAndGetVariables(591): \n
 Error while running preprocessor over shader code:\n%s
 Error: D3DCompile() failed with no error string!
 Error: Invalid shader variable reference in expression: %s can't be used in expression because it is not an artist-editable variable\n
@@ -434,6 +440,7 @@ HEXINTEGERLITERAL
 HEX_DIGIT
 HLSL lexer encountered %d %s\n
 HLSL parser encountered %d %s\n
+H\tV_log2f
 HeightBlend
 HeightCorrection
 HighPrecisionBlendEnable
@@ -456,7 +463,7 @@ InvTextureDim
 InvViewportSize
 Invalid character '%c' in swizzle operation. Only xyzw or rgba are allowed.
 Invalid descriptor set name used in layout specifier
-Invalid shader program CVfxDx11::CompileShaderAndGetVariables(551): \n
+Invalid shader program CVfxDx11::CompileShaderAndGetVariables(550): \n
 Invalid shader program for %s()\n
 Invalid value data type for annotation %s\n
 KEEP
@@ -533,6 +540,7 @@ PRAGMA
 PROGRAM
 PS_RENDER_STATE
 PS_RTX
+Parameter '%s' has the same name in two constant buffers: '%s' and '%s'\n
 Pixel Shader
 Pixel Shader Render State
 PixelFragment
@@ -550,6 +558,7 @@ RWTexture1DArray
 RWTexture2D
 RWTexture2DArray
 RWTexture3D
+R\fpT%
 Raytracing Shader
 RaytracingAccelerationStructure
 Recognition Exception
@@ -687,6 +696,8 @@ ZERO
 \t %s = transpose( %s );\n
 \t %s = vk::RawBufferLoad<%s>( address + %i*4 );\n
 \t The lexer was matching from line %d, offset %d, which\n\t 
+\tV_atof
+\tV_exp2f
 \tV_towlower
 \t_V_strcspn
 \tuint64_t nGlobalsBDAPerStage[ 6 ];\n};\n
@@ -702,6 +713,7 @@ __FeatureToInt__
 __RenderStateLiteral__
 __SetByArtistAndExpression__
 __SetByArtist__
+__init
 _maxRes
 _sampler
 antlr3BaseRecognizerNew
@@ -779,7 +791,6 @@ errors
 exp2
 expression
 externaldescriptorset
-f\tV_strspn
 features
 fileExt
 fillBufferExt
@@ -861,6 +872,7 @@ ps_4_0
 ps_4_1
 ps_5_0
 ps_6_0
+r\vpT%
 radians
 random
 range%d
@@ -921,6 +933,7 @@ uioptions
 uistep
 uitype
 unorm float
+v\tV_strspn
 vfx_dx11
 vfx_dx11.dll
 vfx_vulkan

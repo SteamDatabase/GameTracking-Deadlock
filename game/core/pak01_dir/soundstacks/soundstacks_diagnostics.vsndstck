@@ -552,7 +552,7 @@
 					soundevent_01 = 
 					{
 						soundevent_data = "true"
-						data_type = "string"
+						data_type = "sndevt"
 						value = ""
 						_system_properties = 
 						{
@@ -575,7 +575,7 @@
 			
 			{
 				name = "get_soundevent_01"
-				operator = "opvar_get_string"
+				operator = "opvar_get_sndevt"
 				input_execute = "1"
 				check_event_data = "true"
 				input_operator_name = "public"
@@ -589,6 +589,7 @@
 				name = "start_soundevent_01"
 				operator = "soundevent_start"
 				input_spawn_oneshots = "1.000000"
+				spawn_orphans = 1
 				input_execute = 1
 				input_start = 1
 				soundevent_name = "@get_soundevent_01.output"
@@ -1150,7 +1151,7 @@
 			{
 				name = "update_test_start_vsnd"
 				operator = "vmix_voice_start"
-				input_execute_once = "true"
+				execute_once = "true"
 				input_vsnd1 = "sounds/diagnostics/sin_1024hz_-3db_lp.vsnd"
 				input_start = "@get_event_info.output_unstopped"
 				input_speaker_volumes = "[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]"
@@ -1253,7 +1254,7 @@
 			{
 				name = "update_test_start_vsnd"
 				operator = "vmix_voice_start"
-				input_execute_once = "true"
+				execute_once = "true"
 				input_vsnd1 = "sounds/diagnostics/sin_1024hz_-3db_lp.vsnd"
 				input_start = "@get_event_info.output_unstopped"
 				input_speaker_volumes = "[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]"
@@ -1342,7 +1343,7 @@
 			{
 				name = "update_test_start_vsnd"
 				operator = "vmix_voice_start"
-				input_execute_once = "true"
+				execute_once = "true"
 				input_vsnd1 = "sounds/diagnostics/beep.vsnd"
 				input_start = "@play_or_stop.output"
 				input_speaker_volumes = "[0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]"
@@ -1390,7 +1391,7 @@
 			{
 				name = "update_test_start_vsnd"
 				operator = "vmix_voice_start"
-				input_execute_once = "true"
+				execute_once = "true"
 				input_vsnd1 = "sounds/diagnostics/sin_1024hz_-3db_lp.vsnd"
 				input_start = "@get_event_info.output_unstopped"
 				input_speaker_volumes = "[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]"
@@ -1507,7 +1508,7 @@
 			{
 				name = "update_test_start_vsnd"
 				operator = "vmix_voice_start"
-				input_execute_once = "true"
+				execute_once = "true"
 				input_vsnd1 = "sounds/diagnostics/beep.vsnd"
 				input_start = "@play_or_stop.output"
 				input_speaker_volumes = "[0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]"
@@ -3104,7 +3105,7 @@
 				name = "dont_exit"
 				operator = "sos_goto"
 				input_execute = "0.000000"
-				input_exit = "0.000000"
+				input_goto_end = "0.000000"
 			},
 			
 			{
@@ -3932,7 +3933,6 @@
 			
 			{
 				name = "update_test_opvar_get_float"
-				input = "6"
 				operator = "opvar_get_float"
 				input_operator_name = "public"
 				input_field_name = "test_enum_field"
@@ -4100,19 +4100,16 @@
 			{
 				name = "update_test_rand1"
 				operator = "math_random_float"
-				input_seed = "-1.000000"
 			},
 			
 			{
 				name = "update_test_rand2"
 				operator = "math_random_float"
-				input_seed = "-1.000000"
 			},
 			
 			{
 				name = "update_test_rand3"
 				operator = "math_random_float"
-				input_seed = "-1.000000"
 			},
 		]
 		_system_properties = 
@@ -4858,8 +4855,8 @@
 				operator = "math_randomize_float"
 				execute_once = "true"
 				input = "@public.pitch"
-				input_min = "@public.pitch_rand_min"
-				input_max = "@public.pitch_rand_max"
+				input_rand_min = "@public.pitch_rand_min"
+				input_rand_max = "@public.pitch_rand_max"
 			},
 			
 			{
@@ -4902,7 +4899,6 @@
 			{
 				name = "source_info_test"
 				operator = "game_get_source_info"
-				source = "entity"
 			},
 			
 			{
@@ -5807,7 +5803,6 @@
 				operator = "math_curve_2d_6knot"
 				input_execute = "1"
 				input = "@public.input"
-				curve_defintion_type = "vector"
 				curve_type = "spline"
 				execute_once = "1.000000"
 				input_vector = "@get_curve_6knot.output"
@@ -6380,7 +6375,6 @@
 				operator = "container_sample_curve"
 				input_time = "@get_event_info.output_elapsed_time"
 				input_default = "0.0"
-				input_index = "0"
 				input_container = "@get_vsnd.output"
 			},
 			
@@ -6388,6 +6382,33 @@
 				name = "***ENV:"
 				operator = "util_print_float"
 				input = "@sample_env_curve.output"
+			},
+		]
+		_system_properties = 
+		{
+			display_game = "diagnostics"
+		}
+	}
+	test_empty = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					input1 = 
+					{
+						data_type = "float"
+						value = "0"
+						_system_properties = 
+						{
+							display_group = "Normal"
+						}
+					}
+				}
 			},
 		]
 		_system_properties = 

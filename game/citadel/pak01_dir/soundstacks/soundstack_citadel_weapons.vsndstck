@@ -1,0 +1,253 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_weapons = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "_builtins"
+				operator = "sos_builtins"
+				_voicegraph = "citadel.weapons"
+			},
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					import_public_opvars = "citadel_perspective_default"
+					owner_entity_index = 
+					{
+						data_type = "float"
+						value = "-1.0"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_weapons"
+							property_help = "set by code"
+						}
+					}
+					fire_rate_percent = 
+					{
+						data_type = "float"
+						value = "-1.0"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_weapons"
+							property_help = "set by code"
+						}
+					}
+					fire_rate_percent_curve_db_offset = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]",
+							"[ 1.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "advanced"
+							display_edit_type = "field_curve_2d_editor"
+							property_group = "Volume"
+							property_help = "Maps fire rate percentage (x) to volume in db (y)"
+						}
+					}
+					continuous_fire_elapsed_time = 
+					{
+						data_type = "float"
+						value = "-1.0"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_weapons"
+							property_help = "set by code"
+						}
+					}
+					continuous_fire_time_curve_db_offset = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]",
+							"[ 1.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "advanced"
+							display_edit_type = "field_curve_2d_editor"
+							property_group = "Volume"
+							property_help = "Maps fire time (x) to volume in db (y)"
+						}
+					}
+					play_low_ammo = 
+					{
+						data_type = "bool"
+						value = "false"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_weapons"
+							property_help = "set by code"
+						}
+					}
+					vsnd_low_ammo = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = 
+						[
+							"sounds/gameplay/low_ammo_indicator_01.vsnd",
+							"sounds/gameplay/low_ammo_indicator_02.vsnd",
+							"sounds/gameplay/low_ammo_indicator_03.vsnd",
+							"sounds/gameplay/low_ammo_indicator_04.vsnd",
+							"sounds/gameplay/low_ammo_indicator_05.vsnd",
+							"sounds/gameplay/low_ammo_indicator_06.vsnd",
+							"sounds/gameplay/low_ammo_indicator_07.vsnd",
+							"sounds/gameplay/low_ammo_indicator_08.vsnd",
+							"sounds/gameplay/low_ammo_indicator_09.vsnd",
+						]
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					low_ammo_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					vsnd_tail = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = 
+						[
+							"sounds/common/null.vsnd",
+						]
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					tail_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					clip_fraction = 
+					{
+						data_type = "float"
+						value = "1.0"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+				}
+			},
+			
+			{
+				name = "voicegraph_send"
+				input_execute = "1.0"
+				operator = "vmix_voicegraph_input"
+				input_name = "clip_fraction"
+				input = "@public.clip_fraction"
+			},
+			
+			{
+				name = "remap_fire_rate_percent"
+				operator = "math_curve_2d"
+				input = "@public.fire_rate_percent"
+				public_field_name = "public.fire_rate_percent_curve_db_offset"
+			},
+			
+			{
+				name = "remap_continuous_fire_time"
+				operator = "math_curve_2d"
+				input = "@public.continuous_fire_elapsed_time"
+				public_field_name = "public.continuous_fire_time_curve_db_offset"
+			},
+			
+			{
+				name = "volume_accumulate"
+				operator = "math_accumulate12_float"
+				apply = "add"
+				input1 = "@public.volume"
+				input2 = "@remap_fire_rate_percent.output"
+				input3 = "@remap_continuous_fire_time.output"
+				input4 = "0.0"
+				input5 = "0.0"
+				input6 = "0.0"
+				input7 = "0.0"
+				input8 = "0.0"
+				input9 = "0.0"
+				input10 = "0.0"
+				input11 = "0.0"
+				input12 = "0.0"
+			},
+			
+			{
+				name = "citadel_perspective_default"
+				operator = "sos_import_stack"
+				import_stack = "citadel_perspective_default"
+				auto_connect_public_fields = "true"
+				operator_variables = 
+				{
+					volume = 
+					{
+						data_type = "float"
+						value = "@volume_accumulate.output"
+					}
+					vsnd_start_track2 = 
+					{
+						data_type = "bool"
+						value = "@public.play_low_ammo"
+					}
+					vsnd_files_field_name_track2 = 
+					{
+						data_type = "string"
+						value = "vsnd_low_ammo"
+					}
+					vsnd_files_track2_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "@public.low_ammo_vol_offset_db"
+					}
+					vsnd_files_track2_name = 
+					{
+						data_type = "string"
+						value = "low_ammo"
+					}
+					vsnd_files_field_name_track3 = 
+					{
+						data_type = "string"
+						value = "vsnd_tail"
+					}
+					vsnd_files_track3_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "@public.tail_vol_offset_db"
+					}
+					vsnd_files_track3_name = 
+					{
+						data_type = "string"
+						value = "tail"
+					}
+				}
+			},
+		]
+	}
+}

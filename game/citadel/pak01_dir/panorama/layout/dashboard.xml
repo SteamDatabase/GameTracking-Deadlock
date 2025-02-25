@@ -25,12 +25,14 @@
 			</Panel>
 		</snippet>
 	</snippets>
-	<CitadelDB class="dashboard hasNewGettingStarted introMovieActive" oncancel="CitadelNavigateBack();">
+	<CitadelDB class="dashboard introMovieActive" oncancel="CitadelNavigateBack();">
 		<Panel id="BackgroundContainer" hittest="false" hittestchildren="false">
 			<Panel id="BGOverlay" />
 			<ScenePanel id="HeroRosterScenePanel" map="ui/hero_select" scene_data_name="hero_selection" hero_animgraph_enum="HeroSelect" parent_entity_name="hero_root" camera="portrait_camera" use_hero_map="true" sound="PORTRAIT_SOUND_MODE_ALL_SOUNDS" rotateonhover="true" allowrotation="false" require-composition-layer="true" />
-			<MoviePanel id="dashboard_movie" src="file://{resources}/videos/main_menu/menu_streets_loop2.webm" disableactivatepause="true" scaling="stretch-to-cover-preserve-aspect" repeat="true" disableaudio="true" />
-			<MoviePanel id="intro_movie" src="file://{resources}/videos/main_menu/menu_streets_intro.webm" disableactivatepause="true" scaling="stretch-to-cover-preserve-aspect" repeat="false" autoplay="onload" disableaudio="true" />
+			<CitadelBlurTarget id="DashboardBlur" blurrects="ThreeLaneMapContainer DiscordForumInvite RecommendFriend">
+				<MoviePanel id="dashboard_movie" src="file://{resources}/videos/main_menu/menu_streets_loop2.webm" disableactivatepause="true" scaling="stretch-to-cover-preserve-aspect" repeat="true" disableaudio="true" />
+				<MoviePanel id="intro_movie" src="file://{resources}/videos/main_menu/menu_streets_intro.webm" disableactivatepause="true" scaling="stretch-to-cover-preserve-aspect" repeat="false" autoplay="onload" disableaudio="true" />
+			</CitadelBlurTarget>
 		</Panel>
 		<Panel id="BGColor" hittest="false" />
 		<Panel id="ForegroundContainer" hittest="false">
@@ -57,7 +59,7 @@
 										</Panel>
 									</Panel>
 								</Button>
-								<Button id="Option_PlayersVsBots" class="playoption option2 largeButton" onactivate="CitadelPlayMenuCoopMatchmaking(); CitadelPlayUISound( EMainMenuActivate )" onmouseover="CitadelPlayUISound( EMainMenuHover )" onmouseout="">
+								<Button id="Option_PlayersVsBots" class="playoption option2 largeButton" onactivate="CitadelPlayMenuBotMatchPopup(); CitadelPlayUISound( EMainMenuActivate )" onmouseover="CitadelPlayUISound( EMainMenuHover )" onmouseout="">
 									<Panel class="TextArea">
 										<Panel id="DescArea">
 											<Label text="#menu_play_botmatchmaking_desc" class="playModeDesc" />
@@ -78,6 +80,22 @@
 											<Panel id="TitleArea">
 												<Label text="#menu_sandbox" class="playoptionLabel" />
 											</Panel>
+										</Panel>
+									</Button>
+									<Button id="Option_ExploreMap" class="playoption option1 smallButton" onactivate="CitadelExploreMap(); CitadelPlayUISound( EMainMenuActivate )" onmouseover="CitadelPlayUISound( EMainMenuHover )" onmouseout="">
+										<Panel id="UnavailableOverlay">
+											<Label text="#menu_play_unavailable_in_party" />
+										</Panel>
+										<Panel class="TextArea">
+											<Panel id="DescArea">
+												<Label text="#menu_play_explore_map_desc" class="playModeDesc" />
+											</Panel>
+											<Panel id="TitleArea">
+												<Label text="#menu_explore_map" class="playoptionLabel" />
+											</Panel>
+										</Panel>
+										<Panel class="new_button">
+											<Label text="#menu_new_tag" />
 										</Panel>
 									</Button>
 									<Button id="Option_BotMatch" class="playoption option2 smallButton" onactivate="CitadelPlayMenuBotMatchPopup(); CitadelPlayUISound( EMainMenuActivate )" onmouseover="CitadelPlayUISound( EMainMenuHover )" onmouseout="">
@@ -369,9 +387,14 @@
 							<Label class="match_queue_text unranked_mm_paused" text="#Citadel_Playtest_MatchmakingPaused" />
 						</Panel>
 					</Panel>
+					<Panel id="ThreeLaneMapContainer" onactivate="CitadelShowThreeLaneMapUpdate();">
+						<Label class="threeLanes push" text="#menu_new_tag" html="true" />
+						<Label class="threeLanes h1" text="#Citadel_Three_Lanes" html="true" />
+						<Label class="threeLanes h2" text="#Citadel_Map_Gameplay_Update" />
+						<Label class="threeLanes a" text="#Citadel_LearnMore" html="true" />
+					</Panel>
 					<Panel id="DiscordForumInvite">
 						<Label class="accountIntro" text="#Citadel_Playtest_CreateAccountsTitle" />
-						<Label class="accountDesc" text="#Citadel_Playtest_CreateAccountsBody" />
 						<Panel id="ButtonRow">
 							<Button id="ForumButton" class="SecondaryButton fill light hasIcon" onactivate="CitadelJoinForum(); CitadelPlayUISound( ESocialMenuHover )">
 								<Panel class="ForumIcon buttonIcon" />
@@ -386,11 +409,11 @@
 						</Panel>
 					</Panel>
 					<Panel id="RecommendFriend">
-						<Label class="recommendIntro" text="#Citadel_Playtest_RecommendInfo" />
 						<Button id="RecommendButton" class="SecondaryButton fill hasIcon light" onactivate="CitadelSubmitPlaytestUser(); CitadelPlayUISound( ESocialMenuHover )">
 							<Panel class="FriendsIcon buttonIcon" />
 							<Label text="#Citadel_Playtest_RecommendButton" />
 						</Button>
+						<Label class="recommendIntro" text="#Citadel_Playtest_RecommendInfo" />
 					</Panel>
 				</Panel>
 				<Panel id="hover_tips">

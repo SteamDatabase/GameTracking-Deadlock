@@ -18,6 +18,10 @@
 @define bgColorDark: #909090;
 @define abilityDamageBarColor: #8A55B3;
 @define weaponDamageBarColor: #af731d;
+@define abilityDamageBarColorDecreased: #5A3593;
+@define weaponDamageBarColorDecreased: #875100;
+@define abilityDamageBarColorIncreased: #8c4379;
+@define weaponDamageBarColorIncreased: #8c501b;
 @define tooltipBGolor: #5f5f5f;
 @define tooltipBGColorDark: #282828;
 @define tooltipBGColorMid: #515151;
@@ -32,6 +36,8 @@
 	width: 25px;
 	height: 100px;
 	margin: 5px 9px;
+	margin-right: 5px;
+	horizontal-align: center;
 }
 
 .DamageRatioProgressBar.Horizontal
@@ -45,6 +51,35 @@
 	background-color: weaponDamageBarColor;
 }
 
+.DamageRatioProgressBar #WeaponBarAdjusted,.DamageRatioProgressBar #AbilityBarAdjusted
+{
+	horizontal-align: right;
+	height: 100%;
+	background-color: #1E2616;
+}
+
+.DamageRatioProgressBar #WeaponBarAdjusted
+{
+	border: 2px dashed weaponDamageBarColor;
+	background-color: weaponDamageBarColorDecreased;
+}
+
+.hasIncreasedDamage .DamageRatioProgressBar #WeaponBarAdjusted
+{
+	background-color: weaponDamageBarColorIncreased;
+}
+
+.DamageRatioProgressBar #AbilityBarAdjusted
+{
+	border: 2px dashed abilityDamageBarColor;
+	background-color: abilityDamageBarColorDecreased;
+}
+
+.hasIncreasedDamage .DamageRatioProgressBar #AbilityBarAdjusted
+{
+	background-color: abilityDamageBarColorIncreased;
+}
+
 .DamageRatioProgressBar .ProgressBarMiddle
 {
 	background-color: abilityDamageBarColor;
@@ -54,6 +89,11 @@
 {
 	width: fit-children;
 	margin-right: 0px;
+}
+
+.HudDamageReport.Tab .Header
+{
+	width: fit-children;
 }
 
 .HudDamageReport.Tab .DamageSection,.HudDamageReport.Tab .TimeControl
@@ -85,7 +125,6 @@
 
 .HudDamageReport.Compact
 {
-	width: fit-children;
 	margin-right: 0px;
 }
 
@@ -94,31 +133,24 @@
 	visibility: collapse;
 }
 
-.HudDamageReport.Compact .Header .DamageReportHeader
-{
-	font-size: 18px;
-	margin-right: 0px;
-}
-
-.HudDamageReport.Compact .Header #ViewingHeroImage
-{
-	max-height: 40px;
-	margin: 4px;
-}
-
 .HudDamageReport.Compact .DamageByHero
 {
 	visibility: collapse;
 }
 
-.HudDamageReport.Compact .Header
-{
-	width: 400px;
-}
-
 .HudDamageReport.Compact .TopDamageSources
 {
 	visibility: collapse;
+}
+
+.DamageReportHeader.LastRespawn
+{
+	visibility: collapse;
+}
+
+.ShowingLastLife.Compact .DamageReportHeader.LastRespawn,.ShowingLastLife.Outgoing .DamageReportHeader.LastRespawn
+{
+	visibility: visible;
 }
 
 .HudDamageReport.Outgoing .Header .DamageReportHeader.Received
@@ -161,7 +193,7 @@
 	vertical-align: top;
 	horizontal-align: right;
 	z-index: 199;
-	margin-top: 130px;
+	margin-top: 230px;
 	width: 470px;
 	border-radius: 5px 0px 0px 5px;
 	border: 1px solid #ffffff01;
@@ -225,12 +257,13 @@
 {
 	flow-children: down;
 	background-color: #1E2616;
-	z-index: 2;
+	horizontal-align: right z-index: 2;
 	opacity: 0.98;
 }
 
 .HudDamageReport .Header
 {
+	width: 470px;
 	margin-left: 0px;
 	padding: 10px;
 	flow-children: right;
@@ -381,7 +414,6 @@
 .HudDamageReport .DamageSection #DamageByHero
 {
 	flow-children: right;
-	height: 180px;
 	padding: 0px;
 	horizontal-align: center;
 }
@@ -415,7 +447,7 @@
 
 .HudDamageReport .DamageSection #DamageByHero .HeroDamageColumn .HeroIconContainer
 {
-	max-height: 55px;
+	max-height: 45px;
 	horizontal-align: center;
 }
 
@@ -449,6 +481,7 @@
 	horizontal-align: center;
 	font-weight: semi-bold;
 	color: offWhite;
+	visibility: collapse;
 }
 
 .NoDisplayedDamage .HudDamageReport .DamageSection .TopDamageSources
@@ -631,7 +664,6 @@
 {
 	width: 36px;
 	height: 36px;
-	opacity: 0.9;
 	vertical-align: center;
 	horizontal-align: center;
 }
@@ -639,30 +671,35 @@
 .HudDamageRows #Data .AbilityDamageContainer .AbilityDamageBarContainer
 {
 	width: 100%;
+	flow-children: right;
 }
 
 .HudDamageRows #Data .AbilityDamageContainer .AbilityDamageBarContainer .DamageRatioProgressBar
 {
-	width: 100%;
-	background-color: #982F2F30;
+	width: fill-parent-flow(1.0);
 }
 
-.HudDamageRows #Data .AbilityDamageContainer .AbilityDamageBarContainer .DamageValue
+.HudDamageRows #Data .AbilityDamageContainer .AbilityDamageBarContainer .DamageValueContainer
 {
+	width: 50px;
+	height: 80%;
 	vertical-align: center;
-	horizontal-align: right;
-	height: 40px;
-	min-width: 50px;
+	background-color: #00000090;
+}
+
+.HudDamageRows #Data .AbilityDamageContainer .AbilityDamageBarContainer .DamageValueContainer .DamageValue
+{
+	horizontal-align: center;
+	vertical-align: center;
 	text-align: center;
 	font-weight: semi-bold;
 	font-size: 16px;
-	margin-right: 10px;
-	padding: 9px 10px;
-	background-color: #00000090;
+	text-overflow: shrink;
 }
 
 .HudDamageRows #Data .AbilityDamageContainer .AbilityDamageBarContainer .DamageBarInner
 {
+	ignore-parent-flow: true;
 	margin-left: 10px;
 	flow-children: right;
 	vertical-align: center;
@@ -684,35 +721,43 @@
 	margin-left: 5px;
 	font-weight: semi-bold;
 	font-size: 17px;
+	max-width: 140px;
+	max-height: 36px;
+	text-overflow: shrink;
+}
+
+.HudDamageRows #Data .AbilityDamageContainer .AbilityDamageBarContainer .DamageBarInner .ExtraInfoContainer
+{
+	flow-children: right;
+	vertical-align: center;
+	horizontal-align: right;
 }
 
 .HudDamageRows #Data .AbilityDamageContainer .AbilityDamageBarContainer .DamageBarInner .killing_blow
 {
-	vertical-align: bottom;
-	horizontal-align: right;
-	margin-left: 40px;
 	visibility: collapse;
 	background-size: contain;
 	background-position: center;
 	background-repeat: no-repeat;
-	width: 100px;
+	width: 80px;
 	height: 35px;
+	margin-left: 5px;
 	x: -24px;
 	y: -11px;
 	z-index: 100;
 }
 
-.HudDamageRows #Data .AbilityDamageContainer .AbilityDamageBarContainer .DamageBarInner .Hits
+.HudDamageRows #Data .AbilityDamageContainer .AbilityDamageBarContainer .DamageBarInner .Hits,.HudDamageRows #Data .AbilityDamageContainer .AbilityDamageBarContainer .DamageBarInner .Adjusted
 {
-	color: #ffffff50;
+	color: #ffffff80;
 	vertical-align: center;
 	horizontal-align: center;
-	margin-left: 10px;
+	margin-left: 5px;
 	font-size: 12px;
 	font-weight: semi-bold;
 	background-color: #00000070;
 	border-radius: 3px;
-	padding: -2px 5px 2px 5px;
+	padding: 3px 2px 3px 5px;
 	visibility: collapse;
 }
 
@@ -802,6 +847,21 @@
 }
 
 .LocalPlayerDead .HudDamageRows #Data .AbilityDamageContainer.isKillingBlow .AbilityDamageBarContainer .killing_blow
+{
+	visibility: visible;
+}
+
+.HudDamageReport .HudDamageRows #Data .AbilityDamageContainer.ShowHits .AbilityDamageBarContainer .Hits
+{
+	visibility: visible;
+}
+
+.HudDamageRows #Data .AbilityDamageContainer.hasIncreasedDamage .AbilityDamageBarContainer .PercentIncreased
+{
+	visibility: visible;
+}
+
+.HudDamageRows #Data .AbilityDamageContainer.hasDecreasedDamage .AbilityDamageBarContainer .PercentDecreased
 {
 	visibility: visible;
 }
