@@ -80,6 +80,8 @@
 			FakeReorderDelay 0
 			FakeJitter "off"
 		}
+
+		"SkipRedundantChangeCallbacks"	"1"
 	}
 
 	RenderSystem
