@@ -407,7 +407,8 @@
 			"max"		"1000000"
 		}
 		"sv_minrate"	"98304"
-		"sv_maxunlag"	"0.200"
+		"sv_maxunlag"	"0.500"
+		"sv_maxunlag_player" "0.200"
 		"cl_clock_buffer_ticks"	"1"
 		"cl_interp_ratio" "0"
 		"cl_async_usercmd_send" "false"
