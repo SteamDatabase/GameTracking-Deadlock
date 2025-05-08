@@ -3,67 +3,85 @@
 	<styles>
 		<include src="s2r://panorama/styles/citadel_base_styles.vcss_c" />
 		<include src="s2r://panorama/styles/ability_icons.vcss_c" />
-		<include src="s2r://panorama/styles/citadel_shared_colors.vcss_c" />
 		<include src="s2r://panorama/styles/citadel_shop_mod_view.vcss_c" />
 	</styles>
 	<snippets>
 		<snippet name="ComponentOfModSnippet">
 			<Panel class="componentModIconContainer">
 				<Image id="componentModIcon" />
-				<Image id="componentOwnedIcon" />
+				<Panel id="componentOwnedIcon" />
 			</Panel>
 		</snippet>
 	</snippets>
-	<CitadelShopMod class="mod_view" hittest="true">
-		<Panel id="background" hittestchildren="false">
-			<Panel class="mod_backer" />
-			<Panel class="modIconContainer">
-				<Panel class="mod_icon" />
-				<Panel class="defensive_icon" />
+	<CitadelShopMod class="mod_view">
+		<Panel id="background" hittest="false" hittestchildren="false">
+			<Panel id="ItemCostContainer">
+				<Label id="ItemCost" text="{d:item_cost}" />
 			</Panel>
-			<Panel class="active_tag">
-				<Label id="ActiveTag" text="#item_info_active" />
-				<Label id="ActiveSlotsFull" text="#item_info_actives_full" />
-			</Panel>
-			<Panel class="imbue_tag">
-				<Label id="ImbueTag" text="#item_info_imbue" />
-			</Panel>
-			<Panel class="mod_name_area">
-				<Label class="modName" text="{s:mod_name}" />
-			</Panel>
-			<Panel class="modStatusCol">
-				<Image class="recommended_icon" src="s2r://panorama/images/upgrades/recommended_star_psd.vtex" />
-				<Image class="quickbuy_icon" src="s2r://panorama/images/upgrades/quickbuy_icon_psd.vtex" />
-				<Image class="purchasedIcon" src="s2r://panorama/images/upgrades/checkmark_purchased_psd.vtex" />
-				<Image class="componentIcon" src="s2r://panorama/images/upgrades/lock_icon_psd.vtex" />
-			</Panel>
-			<Label id="NewLabel" class="new_tag" text="#item_info_new" />
-			<Panel id="SellOverlay">
-				<Panel class="MessageContent">
-					<Label class="SellLabel" text="#item_info_sell" />
-					<Label class="ItemName" text="{s:mod_name}" />
-					<Panel class="SellCost">
-						<Image class="goldIcon" />
-						<Label id="SellCostAmount" text="{i:sell_cost}" />
+			<Panel id="ModCard">
+				<Panel class="modIconContainer">
+					<Panel class="mod_icon" />
+					<Image id="ModIconImage" />
+					<Panel id="TierContainer">
+						<Panel class="tier_bg" />
+						<Panel id="mod_tier_label" hittest="false" hittestchildren="false" />
+					</Panel>
+					<Label id="NewLabel" class="new_tag" text="#item_info_new" />
+					<Panel class="imbue_tag">
+						<Label id="ImbueTag" text="#item_info_imbue" />
+					</Panel>
+					<Panel id="UpgradeAvailable" />
+				</Panel>
+				<Panel class="mod_name_area">
+					<Label class="modName" text="{s:mod_name}" />
+				</Panel>
+				<Panel class="paperWear" />
+				<Panel class="paperTexture" />
+				<Panel class="paperBevel" />
+				<Panel class="active_tag">
+					<Panel class="active_backer" />
+					<Label id="ActiveTag" text="#item_info_active" />
+				</Panel>
+				<Panel id="Outline" />
+				<Panel id="SellOverlay">
+					<Panel class="MessageContent">
+						<Label class="SellLabel" text="#item_info_sell" />
+						<Label class="ItemName" text="{s:mod_name}" />
+						<Panel class="SellCost">
+							<Image class="goldIcon" />
+							<Label id="SellCostAmount" text="{i:sell_cost}" />
+						</Panel>
 					</Panel>
 				</Panel>
 			</Panel>
+			<Panel class="modStatusCol">
+				<Image class="recommended_icon" src="s2r://panorama/images/upgrades/recommended_star_psd.vtex" />
+				<Image class="quickbuy_icon" src="s2r://panorama/images/icons/icon_cart.vsvg" />
+				<Image class="purchasedIcon" src="s2r://panorama/images/upgrades/checkmark_purchased_psd.vtex" />
+				<Image class="componentIcon" src="s2r://panorama/images/upgrades/lock_icon_psd.vtex" />
+			</Panel>
 			<Panel id="ComponentsContainer" />
-			<Panel id="Outline" />
 			<Panel id="ReturnToShop">
 				<Panel class="MessageContent">
 					<Label class="ReturnLabel" text="#item_info_no_shop" />
 				</Panel>
 			</Panel>
-			<Panel id="CantAfford">
+			<Panel id="PurchasingDisabled">
 				<Panel class="MessageContent">
-					<Label class="CantAffordLabel" text="#item_info_cant_afford" />
+					<Label class="PurchasingDisabledLabel" text="#item_info_purchasing_disabled" />
 				</Panel>
 			</Panel>
-			<Panel id="ActivesFull">
+			<Panel id="DisabledForPlaytest">
 				<Panel class="MessageContent">
-					<Label class="ActivesFullLabel" text="#item_info_actives_full" />
+					<Label class="ItemDisabledLabel" text="#item_disabled_playtest" />
 				</Panel>
+			</Panel>
+			<Panel id="CantAfford">
+				<Panel class="MessageContent" />
+			</Panel>
+			<Panel id="ItemPurchased">
+				<Panel class="MessageContent" />
+				<Panel id="SoldSticker" />
 			</Panel>
 			<Panel id="AddToBuild">
 				<Panel class="MessageContent">

@@ -160,6 +160,33 @@
 							property_help = "Set by code."
 						}
 					}
+					damage_effectiveness = 
+					{
+						data_type = "float"
+						value = "1.0"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_damage"
+							property_help = "Set by code."
+						}
+					}
+					damage_effectiveness_curve_db = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+							"[ 1.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "advanced"
+							property_group = "citadel_damage"
+							display_edit_type = "field_curve_2d_editor"
+						}
+					}
 					chip_damage_offset_db = 
 					{
 						data_type = "float"
@@ -547,6 +574,13 @@
 			},
 			
 			{
+				name = "math_curve_effectiveness_db_offset"
+				operator = "math_curve_2d"
+				input = "@public.damage_effectiveness"
+				public_field_name = "public.damage_effectiveness_curve_db"
+			},
+			
+			{
 				name = "volume_accumulate"
 				operator = "math_accumulate12_float"
 				apply = "add"
@@ -555,7 +589,7 @@
 				input3 = "@chip_damage_offset_result.output"
 				input4 = "0.0"
 				input5 = "@mult_volume_offset_npc.output"
-				input6 = "0.0"
+				input6 = "@math_curve_effectiveness_db_offset.output"
 				input7 = "0.0"
 				input8 = "0.0"
 				input9 = "0.0"

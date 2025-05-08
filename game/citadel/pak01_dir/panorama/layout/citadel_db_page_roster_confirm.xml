@@ -5,7 +5,7 @@
 		<include src="s2r://panorama/styles/citadel_db_page_shared.vcss_c" />
 		<include src="s2r://panorama/styles/citadel_db_page_roster_confirm.vcss_c" />
 	</styles>
-	<CitadelRosterConfirmPage class="DashboardPage" oncancel="CitadelNavigateBack();" hittest="false">
+	<CitadelRosterConfirmPage class="DashboardPage" oncancel="CitadelNavigateBack();" hittest="false" dashboardclass="isShowingRosterConfirmPage">
 		<Panel id="HeroTitleContainer" class="PageTitle">
 			<Label id="ModeLabel" class="PageTitle" text="{s:mode_name}" />
 		</Panel>
@@ -22,8 +22,12 @@
 				<Label class="desc space_bottom heroLabInstructions" text="#Citadel_Roster_Instructions_Desc_HeroLabs" html="true" />
 				<Panel id="RosterCardImage" />
 				<Panel id="KeybindHints">
-					<Label class="hint" html="true" text="#Citadel_Roster_Instructions_Select" />
-					<Label class="hint" html="true" text="#Citadel_Roster_Instructions_Prefer" />
+					<Panel id="SelectPanel">
+						<Label class="hint" html="true" text="#Citadel_Roster_Instructions_Select" />
+					</Panel>
+					<Panel id="PreferPanel">
+						<Label class="hint" html="true" text="#Citadel_Roster_Instructions_Prefer" />
+					</Panel>
 				</Panel>
 			</Panel>
 			<Panel id="NoHeroSelectedContainer" class="TopBottomFlow">
@@ -34,7 +38,7 @@
 			</Panel>
 		</Panel>
 		<Panel id="ConfirmButtonContainer">
-			<Panel id="ConfirmButton" onactivate="CitadelConfirmHeroChoice(); CitadelPlayUISound( EPlayButtonClicked );">
+			<Panel id="ConfirmButton" onactivate="CitadelConfirmHeroChoice()">
 				<Label text="{s:confirm_text}" />
 				<Image class="eastArrow" src="s2r://panorama/images/icons/arrow.vsvg" />
 			</Panel>

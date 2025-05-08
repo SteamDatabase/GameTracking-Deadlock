@@ -4256,7 +4256,7 @@
 				operator = "math_float"
 				apply = "less_than"
 				input1 = "@get_event_info.output_elapsed_time"
-				input2 = "1"
+				input2 = "100"
 			},
 			
 			{
@@ -4276,7 +4276,7 @@
 				{
 					interval = 
 					{
-						value = "0.250000"
+						value = "0.50000"
 					}
 					pitch = 
 					{
@@ -4444,6 +4444,128 @@
 		{
 			display_game = "diagnostics"
 		}
+	}
+	test_vmix_voice_sends = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					volume = 
+					{
+						data_type = "float"
+						value = "1.000000"
+					}
+					balance = 
+					{
+						data_type = "float"
+						value = "1.000000"
+					}
+					vgraph = 
+					{
+						data_type = "string"
+						value = "test.mix8"
+					}
+					track1 = 
+					{
+						data_type = "string"
+						value = "sounds/misc/null.vsnd"
+					}
+					track2 = 
+					{
+						data_type = "string"
+						value = "sounds/misc/null.vsnd"
+					}
+					vsnd_files1 = 
+					{
+						data_type = "vsnd"
+						value = "sounds/misc/null.vsnd"
+					}
+					vsnd_files2 = 
+					{
+						data_type = "vsnd"
+						value = "sounds/misc/null.vsnd"
+					}
+					volume_test_input = 
+					{
+						data_type = "float"
+						value = "1.000000"
+					}
+					memory_type = 
+					{
+						data_type = "float"
+						value = "0"
+					}
+				}
+			},
+			
+			{
+				name = "get_event_info"
+				operator = "soundevent_get_info"
+			},
+			
+			{
+				name = "set_builtins"
+				operator = "sos_set_builtins"
+				input_voicegraph = "@public.vgraph"
+			},
+			
+			{
+				name = "volume_fan"
+				operator = "util_float_to_speakers"
+				input = "@public.volume"
+			},
+			
+			{
+				name = "speakers_limit"
+				operator = "math_speakers"
+				apply = "mult"
+				left_front = "1.000000"
+				right_front = "0.666000"
+				center = "1.000000"
+				lfe = "0.666000"
+				left_rear = "1.000000"
+				right_rear = "0.666000"
+				input2 = "@volume_fan.output"
+			},
+			
+			{
+				name = "start_vmix"
+				operator = "vmix_voice_start"
+				input_track1 = "@public.track1"
+				input_track2 = "@public.track2"
+				input_vsnd1 = "@public.vsnd_files1"
+				input_vsnd2 = "@public.vsnd_files2"
+				execute_once = "false"
+				input_execute = "1.000000"
+				input_start = "@get_event_info.output_unstopped"
+				input_speaker_volumes = "@speakers_limit.output"
+				input_pitch = "1.000000"
+				input_memory_type = "@public.memory_type"
+			},
+			
+			{
+				name = "allvoices_submix_send"
+				operator = "vmix_mixgraph_send"
+				input_execute = "1.0"
+				input = "1.0"
+				submix_name = "AllVoices"
+				send_type = "named"
+			},
+			
+			{
+				name = "amped_bus_voices_submix_send"
+				operator = "vmix_mixgraph_send"
+				input_execute = "1.0"
+				input = "0.0"
+				submix_name = "amped_buss"
+				send_type = "named"
+			},
+		]
 	}
 	test_vmix_8track = 
 	{
@@ -4746,6 +4868,29 @@
 					{
 						data_type = "float"
 						value = "1.111000"
+					}
+				}
+			},
+		]
+		_system_properties = 
+		{
+			display_game = "diagnostics"
+		}
+	}
+	test_import_opvar_field = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					import_public_field_test = 
+					{
+						data_type = "public_opvar"
+						value = "test_simple_public_field"
 					}
 				}
 			},

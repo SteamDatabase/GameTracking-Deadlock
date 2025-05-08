@@ -7,7 +7,6 @@
 		scale_priority_over_distance = true
 		enable_combat_blocking = true
 		combat_blocking_priority_threshold = 380.000000
-		limiter_match_entity = 1.000000
 		volume_fade_out = 0.100000
 		block_distance_max = 3000.000000
 		volume_falloff_min_player = 99999.000000
@@ -180,26 +179,70 @@
 	}
 	Base.Hero.VO.Death = 
 	{
-		type = "citadel_default_3d"
+		type = "citadel_perspective_default"
 		mixer_mixgroup = "VO-Hero-Death"
-		send_name = "hero_vo_death"
 		delay = 0.100000
 		volume_fade_out = 0.100000
-		volume = 0.000000
+		volume = 3.000000
+		vsnd_files_track1_name = "hero_vo_death"
 		volume_falloff_floor = 1.000000
-		position_offset = 
-		[
-			0.000000,
-			0.000000,
-			50.000000,
-		]
+		play_from_listener_player = 1.000000
+		send_name_player = "hero_death_vo"
+		send_name_neutral = "hero_death_vo"
+		send_name_opponent = "hero_death_vo"
+		send_name_team = "hero_death_vo"
+		hrtf_on_player = 0.000000
+		hrtf_on_team = 0.000000
+		hrtf_on_opponent = 0.000000
+		hrtf_on_neutral = 0.000000
+		spread_max_value_player = 1.000000
+		spread_max_value_team = 0.100000
+		spread_max_value_opponent = 0.100000
+		spread_max_value_neutral = 0.100000
 		spread_min_value = 0.000000
-		spread_max_value = 0.000000
-		hrtf_on = 1.000000
+		position_force_from_player = true
 		occlusion_min = 0.300000
-		occlusion_scale = 0.900000
+		occlusion_scale_non_player = 0.900000
 		occlusion_volume_blend_distance_min = 1200.000000
 		occlusion_volume_blend_distance_max = 2500.000000
+		_builtins._voicegraph = "citadel.hero_death_vo"
+	}
+	Base.Hero.VO.Zipline = 
+	{
+		base = "Base.Hero.VO"
+		mix_group_prefix = ""
+		mixer_mixgroup = "VO-Hero-Zipline"
+		occlusion_min = 1.000000
+		volume_falloff_min_team = 99999.000000
+		volume_falloff_max_team = 99999.000000
+		volume_falloff_use_curve_editor = false
+		spread_max_value_team = 0.600000
+		spread_min_value = 0.600000
+		volume_offset_team = 0.000000
+		block_distance_max = 18432.000000
+		scale_priority_over_distance = false
+		reverb_use_curve = 1.000000
+		reverb_falloff_curve = 
+		[
+			
+			[
+				0.000000,
+				0.000000,
+				1.083000,
+				1.083000,
+				2.000000,
+				3.000000,
+			],
+			
+			[
+				0.700000,
+				0.800000,
+				0.227125,
+				0.227125,
+				2.000000,
+				3.000000,
+			],
+		]
 	}
 	Base.VO.2d = 
 	{
@@ -260,7 +303,6 @@
 	{
 		type = "citadel_perspective_default"
 		mix_group_prefix = "VO-NPC"
-		limiter_match_entity = 1.000000
 		volume_fade_out = 0.100000
 		block_distance_max = 3000.000000
 		volume_falloff_min_player = 99999.000000
@@ -358,6 +400,51 @@
 		base = "Base.Hero.VO"
 		enable_combat_blocking = false
 		volume = -6.000000
+		volume_falloff_max_team = 3250.000000
+		priority_scale_max_distance = 3250.000000
+		block_distance_max = 3250.000000
+		health_volume_enabled = true
+		low_health_fraction_vol_offset_threshold = 0.400000
+		low_health_volume_offset_db = 9.000000
+		volume_falloff_curve_db_team = 
+		[
+			
+			[
+				0.000000,
+				0.000000,
+				0.000000,
+				0.000000,
+				0.000000,
+				0.000000,
+			],
+			
+			[
+				204.741379,
+				0.000000,
+				0.000000,
+				-0.003145,
+				0.000000,
+				0.000000,
+			],
+			
+			[
+				2800.563232,
+				-6.000000,
+				0.005327,
+				0.005327,
+				2.000000,
+				3.000000,
+			],
+			
+			[
+				3500.000000,
+				-20.000000,
+				-0.213061,
+				-0.213061,
+				3.000000,
+				1.000000,
+			],
+		]
 	}
 	Base.Hero.VO.Death.3d = 
 	{
@@ -367,7 +454,9 @@
 	{
 		base = "Base.Hero.VO"
 		enable_combat_blocking = false
-		volume = -21.000000
+		volume = -14.000000
+		volume_offset_opponent = 3.000000
+		volume_offset_team = -6.000000
 	}
 	Base.Hero.VO.Dash.3d = 
 	{

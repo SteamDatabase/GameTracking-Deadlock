@@ -179,6 +179,7 @@ $hRh
 %s: Unable to create reconstructor [%d]\n
 %s: Unable to create reverb estimator [%d]\n
 %s: Unable to create serialized object (%d)\n
+%s: Unable to created compressed data [%d]\n
 %s: Unable to find serialized probe batch data\n
 %s: Unable to load data: %s\n
 %s: Unable to load probe batch (%d)\n
@@ -589,6 +590,7 @@ $hRh
 /'/)/A/E/K/M/Q/W/o/u/}/
 /2x1
 /5dJ
+/CSoundSystemLowLevel
 /RIv
 /usr/local/ssl
 /usr/local/ssl/cert.pem
@@ -596,10 +598,12 @@ $hRh
 /usr/local/ssl/lib/engines
 /usr/local/ssl/private
 /zt1
+0 = use biquad instead of svf, 1 = use vectorized svf, 2 = use scalar svf
 02V8[
 05=k
 08bX
 09,h
+0: distance ratio only. 1: deviation only (1/r). 2: deviation only (linear). 3: Mode 0 and Mode 1, 4: Mode 0 and Mode 2
 0;Q5[
 0<cz
 0M2~@p
@@ -650,7 +654,7 @@ $hRh
 2Zq)
 2\fWQx
 2\rlhp
-2\vp|y
+2\vp4
 2^pV
 2a"l
 2bT~
@@ -1107,7 +1111,6 @@ B64_WRITE_ASN1
 B64_WRITE_PKCS7
 B8Z"h
 B>J7I
-B?33
 BAD ENUMERATED
 BAD INTEGER
 BAD RECURSION DEPTH\n
@@ -1234,9 +1237,12 @@ BakePathData: Max probes (%u) limit exceeded (%d). Bake cancelled.\n
 BakePathData: No probes generated. Bake cancelled.\n
 BakePathData: Unable to create probe batch. [%d]\n
 BakeReverb: Cancelled\n
-BakeReverb: Max probes (%u) limit exceeded (%d). Bake cancelled.\n
+BakeReverb: Max probes (%u) limit exceeded (%d), even after enabling clustering. Bake cancelled.\n
+BakeReverb: Max probes (%u) limit exceeded (%d). Forcing clustering on.\n
 BakeReverb: No probes generated. Bake cancelled.\n
-BakeReverb: Unable to create compressed probe batch. (%d)\n
+BakeReverb: Unable to create cluster map. (%d)\n
+BakeReverb: Unable to create clustered probe array. (%d)\n
+BakeReverb: Unable to create clustered probe batch. (%d)\n
 BakeReverb: Unable to create probe array. (%d)\n
 BakeReverb: Unable to create probe batch. (%d)\n
 Basic OCSP Response
@@ -1467,8 +1473,10 @@ CSteamAudioBakedMaterialsData
 CSteamAudioBakedOcclusionData
 CSteamAudioBakedPathingData
 CSteamAudioBakedReverbData
-CSteamAudioBakedReverbData::KV3TransferPostLoadFn
-CSteamAudioBakedReverbData::KV3TransferPostSaveFn
+CSteamAudioBakedReverbData::SetKV3FromProbeBatch
+CSteamAudioBakedReverbData::SetProbeBatchFromKV3
+CSteamAudioCompressedReverb
+CSteamAudioPartitioner
 CSteamAudioPartitioner::CSteamAudioPartitioner
 CSteamAudioPartitioningTask::CSteamAudioPartitioningTask
 CSteamAudioProbeData
@@ -1476,6 +1484,7 @@ CSteamAudioProbeData::KV3TransferPostLoadFn
 CSteamAudioProbeData::KV3TransferPostSaveFn
 CSteamAudioProbeData::SetProbes
 CSteamAudioProbeData::SetSerializedData
+CSteamAudioReverbSimulator
 CSteamAudioReverbSimulator::CSteamAudioReverbSimulator
 CSteamAudioScene::BakeDimensions
 CSteamAudioScene::BakeMaterials
@@ -1516,6 +1525,7 @@ CloseToolhelp32Snapshot
 Code Signing
 Code=
 Cofactor: 
+CompressBakedReverbInProbeBatch
 Content file %s is corrupt (Chunk: %s). Verify integrity of game files.\n
 Content file %s is corrupt. Hashing could not be verified. Verify integrity of game files.\n
 Content file %s is corrupt. Verify integrity of game files.\n
@@ -2070,6 +2080,7 @@ Ee{5
 EhQ,[3
 EjNG
 Email address mismatch
+Enable SIMD code path for shoebox reverb processor.
 Enable caching listener probe neighborhood for pathing.
 Enable custom HRTF loading.
 Enable perspective correction for 3D audio.
@@ -2198,6 +2209,7 @@ GRAPHICSTRING
 GTsW
 GXqN
 GXy{
+Ga?33
 GeneralNames
 GeneralString
 Generate Halton Sequence for a given order and number of samples.
@@ -2296,6 +2308,7 @@ IP Address
 IP Address:%d.%d.%d.%d
 IP Address:<invalid>
 IP address mismatch
+IPLCompressedEnergyFields
 IPLProbeBatch
 IPSec End System
 IPSec Tunnel
@@ -3065,7 +3078,6 @@ RSA_verify_PKCS1_PSS
 RSA_verify_PKCS1_PSS_mgf1
 RSDS
 R\r1>Vp
-R\vp|y
 R]Di
 Rbg.E
 ReadConsoleInputW
@@ -3329,7 +3341,6 @@ SetConsoleMode
 Sets the number of threads used for realtime reflection by Steam Audio.
 Signature verification failed.
 Sn^G
-SoundSystemLowLevel
 Sr89[
 Stack part of OpenSSL 1.0.2j  26 Sep 2016
 SteamAudio
@@ -3472,7 +3483,6 @@ UTF8STRING
 UTF8String
 UUUUUUUUUUUUUU<o(
 UUUUUUUUUUUa\f\v
-U\tV_powd
 U^Pg
 Ugi<
 Unable to create Ambisonics decode effect [%d]\n
@@ -3848,6 +3858,7 @@ Z~wl
 \rWhO
 \rY=QX
 \rYYHl
+\r\tV_atanf
 \r\vpL1
 \r^mX
 \ri1I
@@ -4033,6 +4044,7 @@ asn1 unknown field
 associatedDomain
 associatedName
 attempt to reuse session in different context
+attrib
 attributes
 authAttrs
 auth_attr
@@ -4224,6 +4236,7 @@ cNAMERecord
 cNUGK
 cRLSign
 c\r1m
+c\tV_powd
 c`FE%
 ca dn length mismatch
 ca dn too long
@@ -4765,6 +4778,8 @@ empty file structure
 empty srtp protection profile list
 enable_compressed_reverb_lookup
 enable_dc_correction_for_phase_interpolation
+enable_iir_order_8
+enable_iir_order_switching
 enable_paths_from_all_source_probes
 enable_reverb_probe_caching_for_missing_probes
 enc->iv_len <= (int)sizeof(iv)
@@ -5436,6 +5451,7 @@ invalid trust
 invalid universalstring length
 invalid utf8string
 invalid x931 digest
+invalid_hitbox
 invalidityDate
 ioctlsocket
 iplAirAbsorptionCalculate
@@ -5444,6 +5460,19 @@ iplAmbisonicsDecodeEffectCreate
 iplBinauralEffectApply
 iplBinauralEffectCreate
 iplBinauralEffectRelease
+iplCompressedEnergyFieldsBlendAndDecompress
+iplCompressedEnergyFieldsCreateEmpty
+iplCompressedEnergyFieldsCreateFromProbeBatch
+iplCompressedEnergyFieldsGetCompressedData
+iplCompressedEnergyFieldsGetDictionary
+iplCompressedEnergyFieldsGetNumBands
+iplCompressedEnergyFieldsGetNumBins
+iplCompressedEnergyFieldsGetNumChannels
+iplCompressedEnergyFieldsGetNumProbes
+iplCompressedEnergyFieldsGetNumSingularValues
+iplCompressedEnergyFieldsRelease
+iplCompressedEnergyFieldsSetCompressedData
+iplCompressedEnergyFieldsSetDictionary
 iplContextCreate
 iplContextRelease
 iplContextSetVariableBool
@@ -5456,6 +5485,9 @@ iplDistanceAttenuationCalculate
 iplEmbreeDeviceCreate
 iplEmbreeDeviceRelease
 iplEnergyFieldCreate
+iplEnergyFieldGetChannel
+iplEnergyFieldGetNumBins
+iplEnergyFieldGetNumChannels
 iplEnergyFieldRelease
 iplHRTFCreate
 iplHRTFRelease
@@ -5496,34 +5528,33 @@ iplProbeArrayResize
 iplProbeArraySetProbe
 iplProbeBatchAddProbe
 iplProbeBatchAddProbeArray
-iplProbeBatchAddProbeArrayAndCluster
 iplProbeBatchCommit
-iplProbeBatchCompress
 iplProbeBatchCreate
-iplProbeBatchCreateCompressed
-iplProbeBatchCreateNonUniform
 iplProbeBatchGetInfluencingProbes
 iplProbeBatchGetNumProbes
 iplProbeBatchGetProbe
 iplProbeBatchGetProbeArray
 iplProbeBatchLoad
-iplProbeBatchLoadCompressed
-iplProbeBatchLoadNonUniform
 iplProbeBatchLookupBakedReflections
 iplProbeBatchLookupCreate
 iplProbeBatchLookupRelease
 iplProbeBatchRelease
-iplProbeBatchRetain
 iplProbeBatchSave
+iplProbeClusterMapCreate
+iplProbeClusterMapGetData
+iplProbeClusterMapRelease
 iplProbeNeighborhoodCalculateWeights
 iplProbeNeighborhoodCheckOcclusion
 iplProbeNeighborhoodCreate
 iplProbeNeighborhoodFindNearest
 iplProbeNeighborhoodGetNumProbes
 iplProbeNeighborhoodGetProbe
+iplProbeNeighborhoodGetProbeIndex
 iplProbeNeighborhoodRelease
 iplProbeNeighborhoodReset
 iplProbeNeighborhoodResize
+iplProbeNeighborhoodSetProbeBatch
+iplProbeNeighborhoodSetProbeIndex
 iplReconstructorCreate
 iplReconstructorReconstruct
 iplReconstructorRelease
@@ -5535,7 +5566,6 @@ iplReverbEstimatorRelease
 iplSceneCommit
 iplSceneCreate
 iplSceneRelease
-iplSceneRetain
 iplSceneSave
 iplSceneSaveOBJ
 iplSerializedObjectCreate
@@ -5758,25 +5788,40 @@ mZKB
 m\ta=\ruWb
 m_bEnableClustering
 m_bEnableCompression
+m_clusteredProbes
+m_compressedClusteredData
+m_compressedData
 m_flDepthThreshold
 m_flIRDuration
 m_flProbePathRange
 m_flProbeVisRadius
 m_flProbeVisThreshold
 m_nAmbisonicsOrder
+m_nBands
+m_nBins
+m_nChannels
 m_nCubeMapResolution
 m_nNumBounces
 m_nNumRays
 m_nNumVisSamples
+m_nProbes
+m_pClusteredProbeBatch
+m_pCompressedData
 m_pProbeBatch
 m_probes
 m_reverbClusteringSettings
 m_reverbCompressionSettings
 m_reverbSettings
+m_vecClusterForProbe
+m_vecCompressedData
+m_vecDictionary
 m_vecInOut
 m_vecMaterialTokens
 m_vecMaterialWeights
-m_vecOcclusion
+m_vecNumSingularValues
+m_vecPathingDeviation
+m_vecPathingRatio
+m_vecReflectionRatio
 m_vecSize
 ma\v\r01!
 mac absent
@@ -6796,9 +6841,12 @@ smimeencrypt
 smimesign
 sm{c
 sn_d.
+snd_boxverb_simd
+snd_boxverb_simd_svf
 snd_hrtf_distance_behind
 snd_steamaudio_active_hrtf
 snd_steamaudio_baked_data_stats
+snd_steamaudio_baked_occlusion_mode
 snd_steamaudio_default_hrtf_volume_gain
 snd_steamaudio_enable_compressed_reverb_lookup
 snd_steamaudio_enable_custom_hrtf
@@ -7066,6 +7114,7 @@ tLY^m`6
 tLl 
 tLsq
 tNt5
+t\tV_sinhf
 tag mismatch
 tag value too high
 tag=

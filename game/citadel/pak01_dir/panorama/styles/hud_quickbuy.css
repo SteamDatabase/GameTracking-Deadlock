@@ -1,114 +1,157 @@
 /* Prettified by Source 2 Viewer - https://valveresourceformat.github.io */
 
-@import url("s2r://panorama/styles/citadel_shared_colors.vcss_c");
-@import url("s2r://panorama/styles/ability_icons.vcss_c");
 @import url("s2r://panorama/styles/citadel_base_styles.vcss_c");
+@import url("s2r://panorama/styles/ability_icons.vcss_c");
 @keyframes 'quickbuy_pulse'
 {
 	0%
 	{
 		brightness: 0.9;
-		pre-transform-scale2d: 0.95;
+		pre-transform-scale2d: 1;
+		box-shadow: 0px 0px 10px 3.0 shardColor;
 	}
 	
 	50%
 	{
 		brightness: 1.1;
 		pre-transform-scale2d: 1.05;
+		box-shadow: 0px 0px 30px 3.0 shardColor;
 	}
 	
 	100%
 	{
 		brightness: 0.9;
-		pre-transform-scale2d: 0.95;
+		pre-transform-scale2d: 1;
+		box-shadow: 0px 0px 10px 3.0 shardColor;
 	}
 	
 }
 
+#QuickbuyQueue
+{
+	width: 330px;
+	height: fit-children;
+	flow-children: down;
+	overflow: scroll;
+	vertical-align: top;
+	border-radius: 5px;
+}
+
 .HudQuickbuy
 {
-	vertical-align: bottom;
-	horizontal-align: right;
-	height: fit-children;
-	margin-left: 370px;
-	margin-bottom: 6px;
-	border-radius: 4px;
-	opacity: 0.5;
-	overflow: noclip;
-	padding: 5px;
+	height: 100%;
 }
 
 .gShopOpen .HudQuickbuy
 {
-	margin-left: 600px;
-	margin-bottom: 30px;
+	width: 800px;
+}
+
+.TeamSpectator .HudQuickbuy
+{
+	visibility: collapse;
+}
+
+.gEditingBuilds .HudQuickbuy
+{
+	visibility: collapse;
+}
+
+.gShopOpen .QuickbuyQueueOuter,.HudQuickbuyElement
+{
+	vertical-align: bottom;
+	horizontal-align: left;
+	margin-left: 430px;
+	margin-bottom: 20px;
+	border-radius: 4px;
+}
+
+.gShopOpen .gShopOpen .QuickbuyQueueOuter,.gShopOpen .HudQuickbuyElement
+{
+	margin-left: 540px;
+	margin-bottom: 22px;
 	opacity: 1;
 }
 
-.AspectRatio16x10 .gShopOpen .HudQuickbuy
-{
-	margin-left: 555px;
-}
-
-.gShopOpen .HudQuickbuy .Contents
+.gShopOpen .QuickbuyQueueOuter.ItemsReady,.HudQuickbuyElement.ItemsReady
 {
 	opacity: 1;
 }
 
-.ShowQueue .HudQuickbuy .Contents,.gScoreboardOpen .HudQuickbuy .Contents,.gShopOpen .HudQuickbuy .Contents
+.emptyQueueLabel
 {
-	opacity: 1;
+	ignore-parent-flow: true;
+	vertical-align: middle;
+	horizontal-align: middle;
+	text-align: center;
+	z-index: 100;
+	width: 100%;
+	visibility: collapse;
+	font-size: 16px;
+	font-weight: semi-bold;
+	opacity: 0.6;
 }
 
-.gScoreboardOpen .HudQuickbuy
+.Empty .emptyQueueLabel
 {
-	opacity: 1;
+	visibility: visible;
 }
 
-.HudQuickbuy.ItemsReady
+#HudMini
 {
-	opacity: 1;
-}
-
-.HudQuickbuy.ItemsReady .Contents
-{
-	opacity: 1;
-}
-
-.HudQuickbuy Label
-{
-	color: offBlack;
-}
-
-.Contents
-{
-	opacity: 0.1;
+	opacity: 0.2;
 	width: 70px;
 	height: 70px;
-	margin-bottom: 10px;
 	vertical-align: bottom;
-	border: 2px solid offWhite&30;
+	border: 3px solid offWhite&30;
 	border-radius: 5px;
 }
 
-.gShopOpen .Contents
+.gShopOpen #HudMini
 {
-	width: 80px;
-	height: 80px;
-	margin-bottom: 0px;
+	visibility: collapse;
+}
+
+.ItemsReady #HudMini
+{
+	opacity: 0.5;
+	border: 3px solid #ffffff50;
+	background-color: #ffffff10;
+	border: 3px solid shardColor;
+	background-color: shardColor&60;
+}
+
+.ItemsReady.InShopZone #HudMini
+{
+	opacity:1;
+	animation-name: quickbuy_pulse;
+	animation-duration: 1.3s;
+	animation-iteration-count: infinite;
+}
+
+.purchasingDisabled #HudMini
+{
+	animation-name: none;
+	border: 3px solid offWhite&30;
+	background-color: #34343466;
+}
+
+#HudMini .CostPanel
+{
+	visibility: collapse;
 }
 
 .EmptyContents
 {
 	width: 80px;
 	height: 80px;
-	visibility: collapse;
 	opacity: 1;
 	flow-children: down;
 	border-radius: 4px;
 	background-color: #ffffff05;
-	margin-bottom: 0px;
+	margin-bottom: 20px;
 	opacity: 0.5;
+	visibility: collapse;
 	border: 2px solid offWhite&10;
 }
 
@@ -131,7 +174,7 @@
 	margin-bottom: -3px;
 }
 
-.EmptyContents .rightClick
+.rightClick
 {
 	width: 30px;
 	height: 30px;
@@ -144,114 +187,9 @@
 	opacity: 0.5;
 }
 
-.ShowQueue .Empty .EmptyContents,.gScoreboardOpen .Empty .EmptyContents,.gShopOpen .Empty .EmptyContents
-{
-	visibility: visible;
-}
-
-.Empty .Contents
+.Empty #HudMini
 {
 	visibility: collapse;
-}
-
-.QuickbuyStatus
-{
-	flow-children: right;
-}
-
-.QuickbuyLabel,.QuickbuyLabelQueueSize
-{
-	opacity: 0.8;
-	visibility: collapse;
-	font-size: 14px;
-	text-transform: uppercase;
-	font-weight: bold;
-}
-
-.QuickbuyLabel
-{
-	visibility: visible;
-}
-
-.QuickbuyItem
-{
-	width: 50px;
-	padding: 4px;
-	horizontal-align: center;
-	vertical-align: center;
-	flow-children: right;
-	height: 50px;
-	box-shadow: 0px 0px 40px #00000020;
-	transition-property: width, opacity;
-	transition-duration: 0.1s;
-}
-
-.QuickbuyItem:hover
-{
-	brightness: 1.1;
-	width: 230px;
-}
-
-.QuickbuyItem:hover .NamePanel
-{
-	opacity: 1;
-}
-
-.QuickbuyItem.CanBuyItem .ReadyIcon
-{
-	opacity: 1;
-}
-
-.QuickbuyItem.Sell
-{
-	wash-color: #0000FF88;
-}
-
-.InShopZone .QuickbuyItem .ReadyIcon
-{
-	animation-name: quickbuy_pulse;
-	animation-duration: 0.8s;
-	animation-iteration-count: infinite;
-}
-
-.QuickbuyItem .NamePanel
-{
-	margin-left: 10px;
-	flow-children: down;
-	vertical-align: center;
-}
-
-.QuickbuyItem #ModIcon
-{
-	vertical-align: center;
-	horizontal-align: center;
-	margin-top: 3px;
-}
-
-.QuickbuyItem #ModName
-{
-	vertical-align: bottom;
-	width: 145px;
-	max-height: 30px;
-	text-overflow: shrink;
-	font-size: 15px;
-	font-weight: bold;
-	color: offWhite;
-}
-
-.QuickbuyItem .CostPanel
-{
-	visibility: collapse;
-	padding: 2px;
-	flow-children: right;
-	vertical-align: center;
-	horizontal-align: right;
-}
-
-.QuickbuyItem .CostPanel #ModCost
-{
-	color: shardColor;
-	text-shadow: 1px 1px 0px #00000090;
 }
 
 Label.instructionalText
@@ -292,92 +230,295 @@ Label.instructionalText .rightClick
 	background-color: blue;
 }
 
-#QuickbuyNext
+#QuickbuyShopSummary
 {
-	width: 100%;
-	height: 100%;
-	background-color: offWhite&10;
-	flow-children: none;
-}
-
-#QuickbuyNext .QuickbuyItem
-{
-	height: 100%;
-}
-
-#QuickbuyNext .NamePanel
-{
+	background-color: #888888aa;
+	width: 191px;
+	padding: 6px 10px;
+	margin-left: 320px;
+	margin-top: 0px;
+	flow-children: right;
+	border-radius: 3px;
+	margin-top: 20px;
+	background-color: #cdcdcd10;
+	border: 2px solid #ffffff10;
+	world-blur: ingameHudBlur;
 	visibility: collapse;
 }
 
-#QuickbuyNext #ModIcon
-{
-	ui-scale: 120%;
-	horizontal-align: center;
-	vertical-align: middle;
-	tooltip-position: top;
-}
-
-#QuickbuyNext CitadelModIcon
-{
-	tooltip-position: left;
-}
-
-#QuickbuyNext .QuickbuyLabel .QuickbuyLabel,.MoreThanOneItemInQueue #QuickbuyNext .QuickbuyLabel
-{
-	visibility: collapse;
-}
-
-#QuickbuyNext .QuickbuyLabel .QuickbuyLabelQueueSize,.MoreThanOneItemInQueue #QuickbuyNext .QuickbuyLabelQueueSize
+.gShopOpen #QuickbuyShopSummary
 {
 	visibility: visible;
 }
 
-.ShowQueue #QuickbuyNext .ItemReadyIndicator,.gScoreboardOpen #QuickbuyNext .ItemReadyIndicator,.gShopOpen #QuickbuyNext .ItemReadyIndicator
+#QuickbuyShopSummary #QuickbuyShopSummaryModIcon
+{
+	vertical-align: center;
+	margin-right: 10px;
+}
+
+.Empty #QuickbuyShopSummary
+{
+	opacity: 0.2;
+}
+
+.Empty #QuickbuyShopSummary .Labels
+{
+	horizontal-align: center;
+}
+
+.Empty #QuickbuyShopSummary #QuickbuyShopSummaryModIcon
 {
 	visibility: collapse;
 }
 
-#QuickbuyQueue
+#QuickbuyShopSummary .ItemsReadyLabel
 {
+	font-weight: bold;
+	font-size: 16px;
+	text-transform: uppercase;
+	opacity: 0.6;
+}
+
+#QuickbuyShopSummary .Labels
+{
+	vertical-align: center;
 	flow-children: down;
-	width: 230px;
-	visibility: collapse;
-	margin-bottom: 80px;
-	padding-bottom: 25px;
 }
 
-#QuickbuyQueue .QuickbuyLabel,#QuickbuyQueue .QuickbuyLabelQueueSize
+#QuickbuyShopSummary .BindingLabel
 {
-	visibility: collapse;
+	flow-children: right;
+	vertical-align: center;
 }
 
-#QuickbuyQueue #ModIcon
+#QuickbuyShopSummary .ShopSummaryLabel
 {
-	ui-scale: 80%;
+	font-weight: bold;
+	font-size: 16px;
 }
 
-#QuickbuyQueue .QuickbuyItem
+#QuickbuyShopSummary CitadelKeyboardGlyph
 {
-	width: 230px;
+	margin-left: 0px;
+}
+
+#QuickbuyShopSummary:active
+{
+	sound: soundMainMenuActivate;
+}
+
+#QuickbuyShopSummary:hover
+{
+	brightness: 1.1;
 	opacity: 1;
-	brightness: 0.8;
-	background-color: #555;
+	pre-transform-scale2d: 1.02;
+	transition-property: brigtness,pre-transform-scale2d;
+	transition-duration: 0.05s;
 }
 
-#QuickbuyQueue .QuickbuyItem.Odd
+.QuickbuyShopShowQueue #QuickbuyShopSummary
 {
-	background-color: #666;
+	background-color: #cdcdcd25;
+	border-radius: 3px 3px 0px 0px;
+	opacity: 1;
 }
 
-.Empty #QuickbuyQueue
+.QuickbuyShopShowQueue #QuickbuyShopSummary:hover
 {
-	padding-bottom: 0px;
+	pre-transform-scale2d: 1;
+}
+
+#QuickBuyQueueContainer
+{
+	padding-bottom: 110px;
+	vertical-align: bottom;
+}
+
+.Empty #QuickBuyQueueContainer
+{
+	visibility: collapse;
+}
+
+.gShopOpen #QuickBuyQueueContainer
+{
+	vertical-align: top;
+	horizontal-align: left;
+	visibility: visible;
+}
+
+.QuickbuyQueueOuter
+{
+	visibility: collapse;
+	background-color: #232527ee;
+	background-color: #cdcdcd05;
+	border: 2px solid #ffffff20;
+	padding: 5px;
+	flow-children: down;
+	vertical-align: bottom;
+	margin-left: 60px;
+	border-radius: 3px 0px 3px 3px;
+	world-blur: ingameHudBlur;
+}
+
+.ShowQueue .QuickbuyQueueOuter
+{
+	visibility: visible;
+	max-height: 500px;
+}
+
+.gShopOpen .QuickbuyQueueOuter
+{
+	visibility: collapse;
+	margin-left: 130px;
+	margin-top: 79px;
+	padding: 15px;
+	flow-children: down;
+	max-height: 700px;
+}
+
+.gShopOpen #CitadelHudQuickbuy.QuickbuyShopShowQueue .QuickbuyQueueOuter
+{
+	visibility: visible;
+}
+
+.QuickbuyQueueOuter .BuildOrderLabel
+{
+	vertical-align: center;
+	horizontal-align: center;
+	color: offWhite;
+	font-size: 18px;
+	padding: 10px 0px;
+	font-weight: bold;
+	text-align: center;
+	visibility: collapse;
+}
+
+.Empty .QuickbuyQueueOuter .BuildOrderLabel
+{
+	visibility: collapse;
+}
+
+.QuickbuyQueueOuter .BuildOrderSubLabel
+{
+	vertical-align: center;
+	horizontal-align: center;
+	color: offWhite&60;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.QuickbuyQueueOuter .InstructionalText
+{
+	visibility: collapse;
+	font-size: 16px;
+	font-weight: semi-bold;
+	text-align: center;
+	horizontal-align: center;
+	opacity: 0.6;
+	margin-top: 5px;
+}
+
+#AutoQueueToggleButton
+{
+	margin-bottom: 8px;
+	margin-left: 5px;
+	max-width: 100%;
+}
+
+#ToggleAutoBuyContainer
+{
+	horizontal-align: center;
+	vertical-align: bottom;
+	flow-children: right;
+}
+
+.infiniteMoney #ToggleAutoBuyContainer
+{
+	visibility: collapse;
+}
+
+#ToggleAutoBuyContainer #AutoBuyToggleButton
+{
+	max-width: 100%;
+}
+
+#ToggleAutoBuyContainer #AutoBuyToggleButton:active
+{
+	sound: soundMainMenuActivate;
+}
+
+#ToggleAutoBuyContainer .AutoBuyToggle
+{
+	visibility: collapse;
+	vertical-align: center;
+	horizontal-align: left;
+	flow-children: right;
+	width: 250px;
+}
+
+#ToggleAutoBuyContainer .AutoBuyToggle Label
+{
+	vertical-align: center;
+	margin: 8px;
+	font-size: 17px;
+	font-weight: semi-bold;
+	horizontal-align: center;
+}
+
+#ToggleAutoBuyContainer .AutoBuyToggle .AutoBuyControl
+{
+	width: 20px;
+	height: 20px;
+	vertical-align: center;
+	horizontal-align: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	margin: 4px;
+	margin-left: 20px;
+}
+
+#ToggleAutoBuyContainer .AutoBuyToggle.Off
+{
+	visibility: visible;
+}
+
+.AutoBuyEnabled #ToggleAutoBuyContainer .AutoBuyToggle.Off
+{
+	visibility: collapse;
+}
+
+#ToggleAutoBuyContainer .AutoBuyToggle.Off .AutoBuyControl
+{
+	background-image: url("s2r://panorama/images/control_icons/playbutton_psd.vtex");
+	wash-color: green;
+}
+
+#ToggleAutoBuyContainer .AutoBuyToggle.On
+{
+	visibility: collapse;
+}
+
+.AutoBuyEnabled #ToggleAutoBuyContainer .AutoBuyToggle.On
+{
+	visibility: visible;
+}
+
+#ToggleAutoBuyContainer .AutoBuyToggle.On .AutoBuyControl
+{
+	background-image: url("s2r://panorama/images/icons/icon_pause.vsvg");
+}
+
+ToggleButton Label
+{
+	font-weight: semi-bold;
+	opacity: 0.7;
 }
 
 .ReadyIcon
 {
-	ignore-parent-flow: true;
 	width: 20px;
 	height: 20px;
 	background-color: #22CC22DD;
@@ -386,12 +527,23 @@ Label.instructionalText .rightClick
 	vertical-align: bottom;
 	horizontal-align: right;
 	border: 1px solid #00000044;
+	z-index: 100;
 }
 
-#QuickbuyQueue .ReadyIcon
+.QuickbuyQueueOuter .ReadyIcon
 {
 	vertical-align: center;
-	margin-right: 5px;
+	margin: 5px;
+}
+
+.purchasingDisabled .ReadyIcon
+{
+	visibility: collapse;
+}
+
+.ToastPanel .ReadyIcon
+{
+	visibility: collapse;
 }
 
 .ItemReadyIndicator
@@ -428,26 +580,225 @@ Label.instructionalText .rightClick
 	horizontal-align: right;
 	width: 23px;
 	height: 23px;
-	background-color: #777777;
+	background-color: #ffffff05;
 	border-radius: 0px 0px 0px 50px;
 	padding: 0px 0px 3px 0px;
-	visibility: visible;
+	visibility: collapse;
 }
 
 .QueueSize .ItemReadyLabel
 {
 	vertical-align: center;
 	horizontal-align: center;
-	color: white;
+	color: offBlack;
 	font-size: 14px;
 	text-align: center;
 	font-weight: bold;
-	margin-left: 3px;
+	margin-left: 7px;
 	margin-bottom: 3px;
+	margin-top: 0px;
 }
 
-CitadelHudQuickbuy:hover #QuickbuyQueue
+.ItemsReady .QueueSize
 {
 	visibility: visible;
+	background-color: #ffffff50;
+	background-color: shardColor;
+}
+
+.purchasingDisabled .QueueSize
+{
+	visibility: collapse;
+}
+
+#QueueActions
+{
+	width: 100%;
+	flow-children: down;
+}
+
+.Empty #ClearQueueButton
+{
+	visibility: collapse;
+}
+
+#ClearQueue
+{
+	horizontal-align: center;
+	visibility: collapse;
+}
+
+#ClearQueue:hover
+{
+	brightness: 2;
+}
+
+.gShopOpen #ClearQueue
+{
+	visibility: visible;
+	visibility: collapse;
+}
+
+#KeyboardHints
+{
+	vertical-align: bottom;
+	margin-left: 510px;
+	margin-bottom: 27px;
+	flow-children: down;
+	opacity: 0.2;
+	max-width: 180px;
+	transition-property: opacity;
+	transition-duration: 0.2s;
+	visibility: collapse;
+}
+
+#KeyboardHints .itemName
+{
+	font-weight: semi-bold;
+	font-size: 18px;
+	color: offWhite&99;
+}
+
+.isWeaponItem #KeyboardHints .itemName
+{
+	color: courageBrightColor;
+}
+
+.isArmorItem #KeyboardHints .itemName
+{
+	color: fortitudeBrightColor;
+}
+
+.isTechItem #KeyboardHints .itemName
+{
+	color: spiritBrightColor;
+}
+
+.InShopZone.ItemsReady #KeyboardHints
+{
+	visibility: visible;
+}
+
+.gShopOpen #KeyboardHints,.gShopOpen .InShopZone.ItemsReady #KeyboardHints
+{
+	visibility: collapse;
+}
+
+.Empty #KeyboardHints
+{
+	margin-bottom: 25px;
+}
+
+.Empty #KeyboardHints .itemName,.Empty #KeyboardHints .buyKey
+{
+	visibility: collapse;
+}
+
+#KeyboardHints .buyKey
+{
+	background-color: shardColor;
+	border-radius: 3px;
+	padding: 2px 6px 2px 6px;
+	color: offBlack&ee;
+	font-weight: bold;
+	margin-top: 2px;
+	opacity: 1;
+}
+
+#KeyboardHints .shopKey
+{
+	vertical-align: center;
+	color: offWhite&50;
+	font-weight: semi-bold;
+	font-size: 14px;
+	margin-top: 5px;
+	opacity: 1;
+	ui-scale: 90%;
+	visibility: collapse;
+}
+
+.gShopOpen #KeyboardHints
+{
+	visibility: collapse;
+}
+
+.combatText
+{
+	visibility: collapse;
+	margin-bottom: 24px;
+}
+
+.purchasingDisabled .combatText
+{
+	visibility: visible;
+}
+
+.ItemsReady.purchasingDisabled #KeyboardHints
+{
+	opacity: 0.2;
+}
+
+.purchasingDisabled #KeyboardHints .buyKey,.purchasingDisabled #KeyboardHints .shopKey
+{
+	visibility: collapse;
+}
+
+.ItemsReady #KeyboardHints,.ItemsReady #KeyboardHints .buyKey,.ItemsReady #KeyboardHints .shopKey
+{
+	opacity: 1;
+}
+
+.PurchaseDisabledContainer
+{
+	height: 100%;
+	width: 120%;
+	z-index: 99;
+	overflow: noclip;
+	vertical-align: center;
+	horizontal-align: center;
+	visibility: collapse;
+}
+
+.purchasingDisabled .PurchaseDisabledContainer
+{
+	visibility: visible;
+}
+
+.purchasingDisabledX
+{
+	height: 8px;
+	width: 100%;
+	background-color: #FF000044;
+	vertical-align: center;
+}
+
+.disabledX1
+{
+	transform: rotateZ( 45deg );
+}
+
+.disabledX2
+{
+	transform: rotateZ( 135deg );
+}
+
+#DisabledCooldownMask
+{
+	width: 100%;
+	height: 100%;
+	background-color: offBlack&cc;
+	visibility: collapse;
+	transform: scaleX(-1);
+}
+
+.purchasingDisabled #DisabledCooldownMask
+{
+	visibility: visible;
+}
+
+VerticalScrollBar
+{
+	margin: 0px;
+	width: 15px;
 }
 

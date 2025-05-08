@@ -11,6 +11,11 @@ CitadelTooltipModDetails
 	z-index: 2;
 }
 
+.usingComponentGrouping #PrimaryTooltipContainer,.usingComponentGrouping CitadelTooltipModDetails.TooltipPositionRight #PrimaryTooltipContainer,.usingComponentGrouping CitadelTooltipModDetails.TooltipPositionLeft #PrimaryTooltipContainer
+{
+	flow-children: down;
+}
+
 CitadelTooltipModDetails.TooltipPositionRight #PrimaryTooltipContainer
 {
 	flow-children: right;
@@ -21,12 +26,7 @@ CitadelTooltipModDetails.TooltipPositionLeft #PrimaryTooltipContainer
 	flow-children: left;
 }
 
-CitadelTooltipModDetails.TooltipPositionLeft .AnnotationContainer
-{
-	horizontal-align: right;
-}
-
-CitadelTooltipModDetails.HasModifiedAbilities.ForceShowSellPrice
+.usingComponentGrouping CitadelTooltipModDetails.HasModifiedAbilities
 {
 	width: 450px;
 }
@@ -43,23 +43,33 @@ CitadelTooltipModDetails.HasModifiedAbilities
 	border-radius: 8px;
 	box-shadow: 0px 0px 20px #00000060;
 	z-index: 2;
+	background-size: cover;
 }
 
-CitadelTooltipModDetails.WeaponMod #ModTooltipContainer
+.availableAsComponent #ModTooltipContainer,.hasComponents #ModTooltipContainer
 {
-	background-color: #7f4f05;
-	background-color: #704505;
-	background-color: courageDarkColor;
+	border-radius: 8px 8px 0px 0px;
 }
 
-CitadelTooltipModDetails.ArmorMod #ModTooltipContainer
+.AttributesContainer
 {
-	background-color: fortitudeDarkColor;
+	background-color: #000000;
+	background-img-opacity: 0.8;
 }
 
-CitadelTooltipModDetails.TechMod #ModTooltipContainer
+.WeaponMod .AttributesContainer
 {
-	background-color: spiritDarkColor;
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_tooltip_bg_weapon_psd.vtex");
+}
+
+.ArmorMod .AttributesContainer
+{
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_tooltip_bg_vitality_psd.vtex");
+}
+
+.TechMod .AttributesContainer
+{
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_tooltip_bg_spirit_psd.vtex");
 }
 
 CitadelTooltipModDetails.TooltipVisible
@@ -90,21 +100,25 @@ CitadelTooltipModDetails.TooltipVisible
 .ModNameContainer
 {
 	vertical-align: center;
+	background-size: cover;
 }
 
 .WeaponMod .HeaderContainer
 {
 	background-color: weaponColorMedium;
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_tooltip_header_weapon_psd.vtex");
 }
 
 .ArmorMod .HeaderContainer
 {
 	background-color: fortitudeColor;
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_tooltip_header_vitality_psd.vtex");
 }
 
 .TechMod .HeaderContainer
 {
 	background-color: spiritColor;
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_tooltip_header_spirit_psd.vtex");
 }
 
 .PassiveTierBonus
@@ -166,7 +180,7 @@ CitadelTooltipModDetails.TooltipVisible
 
 #AbilityTypeSection
 {
-	padding: 10px 16px;
+	padding: 8px 14px 12px 14px;
 }
 
 .AppliedAttributesContainer
@@ -180,10 +194,15 @@ CitadelTooltipModDetails.TooltipVisible
 	border-radius: 5px;
 	margin-top: 15px;
 	flow-children: right;
-	min-height: 70px;
+	min-height: 80px;
 }
 
-.HasMultipleImportantProperties .StatsAppliedBackground
+.NoAppliedStats .StatsAppliedBackground
+{
+	min-height: 80px;
+}
+
+.HasMultipleImportantProperties .StatsAppliedBackground,.HasFourImportantProperties .StatsAppliedBackground
 {
 	flow-children: down;
 }
@@ -213,7 +232,6 @@ CitadelTooltipModDetails.TooltipVisible
 #AttributesSection_Innate .StatsAppliedBackground
 {
 	background-color: none;
-	min-height: 0px;
 	margin-top: 0px;
 }
 
@@ -225,7 +243,13 @@ CitadelTooltipModDetails.TooltipVisible
 	vertical-align: middle;
 	background-color: #00000066;
 	margin-left: 2px;
-	min-height: 70px;
+	min-height: 80px;
+}
+
+.ScalingStat #StatsAppliedContainer
+{
+	height: fit-children;
+	min-height: 100px;
 }
 
 .HideImportantAttribute #StatsAppliedContainer
@@ -235,7 +259,7 @@ CitadelTooltipModDetails.TooltipVisible
 	min-height: 0px;
 }
 
-.HasMultipleImportantProperties #StatsAppliedContainer
+.HasMultipleImportantProperties #StatsAppliedContainer,.HasFourImportantProperties #StatsAppliedContainer
 {
 	flow-children: right-wrap;
 	margin-top: 3px;
@@ -248,7 +272,7 @@ CitadelTooltipModDetails.TooltipVisible
 	background-color: #00000000;
 }
 
-.HasMultipleImportantProperties #StatsAppliedContainer CitadelModifiedAttributeLabel
+.HasMultipleImportantProperties #StatsAppliedContainer CitadelModifiedAttributeLabel,.HasFourImportantProperties #StatsAppliedContainer CitadelModifiedAttributeLabel
 {
 	width: 49%;
 	padding: 2px 0px;
@@ -319,17 +343,40 @@ CitadelTooltipModDetails.TooltipVisible
 	margin-right: 5px;
 }
 
-.CooldownContainer
+.CooldownContainer,.ChargeUpContainer,.StacksContainer
 {
-	horizontal-align: right;
-	ignore-parent-flow: true;
 	height: 100%;
-	background-color: #0b1313;
+	background-color: offBlack;
 	padding: 0px 20px;
 	visibility: collapse;
 }
 
+.StacksContainer
+{
+	background-color: offBlack&50;
+	padding: 0px 20px 0px 15px;
+}
+
+.StacksDescLabel
+{
+	font-size: 16px;
+	vertical-align: center;
+	margin-right: 8px;
+	opacity: 0.8;
+	font-weight: semi-bold;
+}
+
 .hasCooldown .CooldownContainer
+{
+	visibility: visible;
+}
+
+.hasChargeUp .ChargeUpContainer
+{
+	visibility: visible;
+}
+
+.hasStacks .StacksContainer
 {
 	visibility: visible;
 }
@@ -346,15 +393,42 @@ CitadelTooltipModDetails.TooltipVisible
 	margin-right: 5px;
 }
 
-#CooldownLabel
+.ChargeUpImage
+{
+	height: 22px;
+	width: 22px;
+	background-image: url("s2r://panorama/images/upgrades/property_chargeup_large_psd.vtex");
+	background-size: 100% 100%;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	vertical-align: center;
+	margin-right: 5px;
+}
+
+#CooldownLabel,#ChargeUpLabel,#StacksLabel
 {
 	margin-bottom: 1px;
 	vertical-align: middle;
 }
 
-#CooldownLabel Label
+#CooldownLabel Label,#ChargeUplabel Label,#StacksLabel
 {
 	font-weight: bold;
+}
+
+.WeaponMod .StacksContainer
+{
+	wash-color: courageBrightColor&ea;
+}
+
+.ArmorMod .StacksContainer
+{
+	wash-color: fortitudeBrightColor&ea;
+}
+
+.TechMod .StacksContainer
+{
+	wash-color: spiritBrightColor&ea;
 }
 
 .ModName
@@ -362,7 +436,7 @@ CitadelTooltipModDetails.TooltipVisible
 	font-weight: bold;
 	font-size: 28px;
 	text-shadow: 2px 2px 0px #00000030;
-	max-width: 320px;
+	max-width: 300px;
 	text-overflow: shrink;
 }
 
@@ -379,6 +453,26 @@ CitadelTooltipModDetails.TooltipVisible
 	font-size: 20px;
 	color: shardColor;
 	vertical-align: middle;
+}
+
+.cantAfford .ModCost
+{
+	color: #ffa1a1;
+}
+
+.cantAfford .goldIcon
+{
+	wash-color: #ffa1a1;
+}
+
+.connectedToHeroTesting .cantAfford .ModCost
+{
+	color: shardColor;
+}
+
+.connectedToHeroTesting .cantAfford .goldIcon
+{
+	wash-color: shardColor;
 }
 
 .ModPurchasedLabel
@@ -437,7 +531,9 @@ CitadelTooltipModDetails.TooltipVisible
 .ModInfoLabel .diminish
 {
 	font-style: italic;
-	color: #bfbbb050;
+	color: #bfbbb090;
+	font-weight: semi-bold;
+	font-size: 15px;
 }
 
 .ModInfoLabel .spacer
@@ -520,11 +616,6 @@ CitadelAltInfoPanel
 	visibility: collapse;
 }
 
-.HasAnyModifiedTextLabel CitadelAltInfoPanel
-{
-	visibility: visible;
-}
-
 .AffectedAbilitiesHeader,#AffectedAbilities
 {
 	width: 100%;
@@ -539,16 +630,19 @@ CitadelAltInfoPanel
 .WeaponMod .AffectedAbilitiesHeader
 {
 	background-color: weaponColorMedium;
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_tooltip_modifies_header_weapon_psd.vtex");
 }
 
 .ArmorMod .AffectedAbilitiesHeader
 {
 	background-color: fortitudeColor;
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_tooltip_modifies_header_vitality_psd.vtex");
 }
 
 .TechMod .AffectedAbilitiesHeader
 {
 	background-color: spiritColor;
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_tooltip_modifies_header_spirit_psd.vtex");
 }
 
 .AffectedAbilitiesHeader Label
@@ -560,38 +654,148 @@ CitadelAltInfoPanel
 
 .AffectedAbilitiesContainer
 {
-	visibility: collapse;
-	background-color: #626262;
 	width: 350px;
-	margin-left: 10px;
-	border-radius: 8px;
+	border-radius: 0px 8px 8px 0px;
+	margin-top: 9px;
+}
+
+.HeaderAttributesContainer
+{
+	flow-children: right;
+	height: 100%;
+	horizontal-align: right;
+}
+
+.AffectedAbilitiesTogglePanel
+{
+	visibility: collapse;
+	flow-children: down;
+	width: 100%;
+	height: fit-children;
+	background-color: #626262;
 	box-shadow: 0px 0px 20px #00000060;
+}
+
+.gScoreboardOpen.HasModifiedAbilities .AffectedAbilitiesTogglePanel
+{
+	visibility: visible;
+}
+
+.usingComponentGrouping .AffectedAbilitiesContainer
+{
+	horizontal-align: center;
+	margin-top: 10px;
+}
+
+#ViewImpactBox
+{
+	flow-children: down;
+	visibility: collapse;
+	ignore-parent-flow: true;
+	horizontal-align: right;
+	vertical-align: center;
+	border: 2px solid #00000070;
+	padding: 10px 10px;
+	height: 80px;
+	background-color: offBlack;
+	animation-name: viewDetailsFlash;
+	animation-iteration-count: infinite;
+	animation-duration: 2s;
+}
+
+@keyframes 'viewDetailsFlash'
+{
+	0%
+	{
+		brightness: 1;
+		background-img-opacity: 0.6;
+	}
+	
+	50%
+	{
+		brightness: 1.2;
+		opacity: 1;
+		background-img-opacity: 1;
+	}
+	
+	100%
+	{
+		brightness: 1;
+		background-img-opacity: 0.6;
+	}
+	
+}
+
+#ViewImpactBox Label
+{
+	font-weight: bold;
+	font-size: 16px;
+	margin-bottom: 2px;
+	text-shadow: 0px 0px 3px #000000;
+}
+
+.TooltipPositionRight #ViewImpactBox
+{
+	horizontal-align: left;
+	border-radius: 0px 8px 8px 0px;
+}
+
+.impactBinding
+{
+	horizontal-align: center;
+}
+
+.HasModifiedAbilities #ViewImpactBox
+{
+	visibility: visible;
+}
+
+.gScoreboardOpen.HasModifiedAbilities #ViewImpactBox
+{
+	visibility: collapse;
 }
 
 .TooltipPositionLeft .AffectedAbilitiesContainer
 {
-	margin-left: 0px;
-	margin-right: 10px;
+	border-radius: 8px 0px 0px 8px;
 }
 
-.ForceShowSellPrice .AffectedAbilitiesContainer,.HasModifiedAbilities.ForceShowSellPrice .AffectedAbilitiesContainer
-{
-	visibility: collapse;
-}
-
-CitadelTooltipModDetails.WeaponMod .AffectedAbilitiesContainer
+CitadelTooltipModDetails.WeaponMod .AffectedAbilitiesTogglePanel
 {
 	background-color: courageDarkColor;
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_tooltip_bg_modifies_weapon_psd.vtex");
+	background-size: cover;
 }
 
-CitadelTooltipModDetails.ArmorMod .AffectedAbilitiesContainer
+.WeaponMod #ViewImpactBox
+{
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_tooltip_modifies_header_weapon_psd.vtex");
+}
+
+CitadelTooltipModDetails.ArmorMod .AffectedAbilitiesTogglePanel
 {
 	background-color: fortitudeDarkColor;
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_tooltip_bg_modifies_vitality_psd.vtex");
+	background-size: cover;
 }
 
-CitadelTooltipModDetails.TechMod .AffectedAbilitiesContainer
+.ArmorMod #ViewImpactBox
+{
+	background-color: fortitudeDarkColor;
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_tooltip_modifies_header_vitality_psd.vtex");
+}
+
+CitadelTooltipModDetails.TechMod .AffectedAbilitiesTogglePanel
 {
 	background-color: spiritDarkColor;
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_tooltip_bg_modifies_spirit_psd.vtex");
+	background-size: cover;
+}
+
+.TechMod #ViewImpactBox
+{
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_tooltip_modifies_header_spirit_psd.vtex");
+	brightness: 1.5;
 }
 
 #AffectedAbilities
@@ -601,8 +805,12 @@ CitadelTooltipModDetails.TechMod .AffectedAbilitiesContainer
 
 .HasModifiedAbilities .AffectedAbilitiesContainer
 {
-	visibility: visible;
 	z-index: 1;
+}
+
+.gScoreboardOpen .HasModifiedAbilities .AffectedAbilitiesContainer
+{
+	opacity: 1;
 }
 
 .usedAsComponent .AffectedAbilitiesContainer
@@ -615,6 +823,11 @@ CitadelTooltipModDetails.TechMod .AffectedAbilitiesContainer
 	background-color: #00000060;
 	vertical-align: center;
 	width: 100%;
+}
+
+.HasFourImportantProperties .ImportantStatBox
+{
+	vertical-align: top;
 }
 
 .ImportantStatBox,.StatusEffectBox
@@ -657,66 +870,50 @@ CitadelTooltipModDetails.TechMod .AffectedAbilitiesContainer
 	horizontal-align: right;
 	ignore-parent-flow: true;
 	width: 85px;
-}
-
-#DefensiveTag
-{
-	horizontal-align: right;
-	margin-top: 20px;
-	flow-children: right;
-	background-color: #1091A5;
-	padding: 2px 5px;
-	border-radius: 2px;
 	visibility: collapse;
-}
-
-.defensive #DefensiveTag
-{
-	visibility: visible;
-}
-
-.DefensiveIcon
-{
-	width: 22px;
-	height: 22px;
-	horizontal-align: right;
-	vertical-align: bottom;
-	background-size: 70%;
-	background-repeat: no-repeat;
-	background-position: center;
-	background-image: url("s2r://panorama/images/hud/core/icon_fortitude_shield.vsvg");
-	background-img-opacity: 0.9;
-	border-radius: 2px 0px 0px 0px;
-}
-
-#DefensiveTag Label
-{
-	font-weight: bold;
-	font-style: italic;
-	font-size: 15px;
-	color: offWhite;
-	vertical-align: middle;
-	margin-left: 3px;
-	margin-bottom: 1px;
-	color: offWhite;
 }
 
 #ImportantAttributeContainer
 {
+	min-height: 80px;
 	width: 130px;
 	height: 100%;
+}
+
+.HasFourImportantProperties #ImportantAttributeContainer,.NoAppliedStats.HasFourImportantProperties #ImportantAttributeContainer
+{
+	flow-children: right-wrap;
+	width: 100%;
+	min-height: 140px;
+	height: 140px;
 }
 
 .HasMultipleImportantProperties #ImportantAttributeContainer
 {
 	flow-children: right;
 	width: 100%;
-	height: 70px;
+	height: fit-children;
+}
+
+.NoAppliedStats #ImportantAttributeContainer
+{
+	height: 100%;
 }
 
 .HasMultipleImportantProperties #ImportantAttribute
 {
 	width: fill-parent-flow( 1 );
+}
+
+.HasFourImportantProperties #ImportantAttribute
+{
+	width: 49%;
+	height: 70px;
+}
+
+#ImportantAttribute
+{
+	height: 100%;
 }
 
 #ImportantAttribute.PropertySearchMatch
@@ -749,6 +946,15 @@ CitadelTooltipModDetails.TechMod .AffectedAbilitiesContainer
 		brightness: 1;
 	}
 	
+}
+
+#ScalingStatValue
+{
+	horizontal-align: right;
+	vertical-align: top;
+	margin-right: 3px;
+	ignore-parent-flow: true;
+	ui-scale: 80%;
 }
 
 .HideImportantAttribute #ImportantAttributeContainer
@@ -804,12 +1010,12 @@ CitadelTooltipModDetails.TechMod .AffectedAbilitiesContainer
 	text-align: left;
 }
 
-.ModCostContainer,.IsPurchased .ModPurchasedContainer,.usedAsComponent .ModPurchasedContainer,.ForceShowSellPrice .ModCostContainer,.IsPurchased.ForceShowSellPrice .ModCostContainer
+.ModCostContainer,.IsPurchased .ModPurchasedContainer,.usedAsComponent .ModPurchasedContainer
 {
 	visibility: visible;
 }
 
-.IsPurchased .ModCostContainer,.usedAsComponent .ModCostContainer,.ModPurchasedContainer,.ForceShowSellPrice .ModPurchasedContainer
+.IsPurchased .ModCostContainer,.usedAsComponent .ModCostContainer,.ModPurchasedContainer
 {
 	visibility: collapse;
 }
@@ -822,7 +1028,6 @@ CitadelTooltipModDetails.TechMod .AffectedAbilitiesContainer
 	line-height: 16px;
 	padding: 0px 2px;
 	font-weight: medium;
-	width: fit-children;
 	max-height: 40px;
 	text-overflow: shrink;
 }
@@ -910,322 +1115,187 @@ CitadelTooltipModDetails.TechMod .AffectedAbilitiesContainer
 	flow-children: up;
 }
 
-#ComponentOfContainer,#ComponentUsedContainer
+.componentsSection
 {
 	width: 100%;
-	background-color: colorCommonDarkGray;
-	visibility: collapse;
-	background-color: #00000040;
+	max-width: 450px;
 	flow-children: down;
+	z-index: 100;
+	visibility: collapse;
 }
 
-.usedAsComponent #ComponentUsedContainer,.isComponentOf #ComponentOfContainer
+.hasComponents .componentsSection,.availableAsComponent .componentsSection,.usedAsComponent .componentsSection
 {
 	visibility: visible;
+}
+
+.TooltipPositionLeft .componentsSection
+{
+	horizontal-align: right;
+}
+
+.TooltipPositionLeft.HasModifiedAbilities .componentsSection
+{
+	margin-right: 10px;
+}
+
+.componentsSection .componentGroup
+{
+	flow-children: down;
+	width: fill-parent-flow( 1.0 );
+}
+
+.componentsSection .componentGroup .componentsLabel
+{
+	color: #ffffff50;
+	font-size: 14px;
+	font-weight: bold;
+	text-transform: uppercase;
+	vertical-align: middle;
+	background-color: offBlack;
+	background-img-opacity: 0.5;
+	padding: 4px 10px 2px 10px;
+	width: 100%;
+	text-align: left;
+}
+
+.WeaponMod .componentsSection .componentGroup .componentsLabel
+{
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_tooltip_bg_modifies_weapon_psd.vtex");
+}
+
+.ArmorMod .componentsSection .componentGroup .componentsLabel
+{
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_tooltip_bg_modifies_vitality_psd.vtex");
+}
+
+.TechMod .componentsSection .componentGroup .componentsLabel
+{
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_tooltip_bg_modifies_spirit_psd.vtex");
+}
+
+.componentsSection .componentGroup .componentsList
+{
+	width: 100%;
+	flow-children: right-wrap;
+	horizontal-align: left;
+	padding: 0px 5px 5px 10px;
+	background-color: offBlack;
+	background-img-opacity: 0.5;
+	border-radius: 0px 0px 5px 5px;
+}
+
+.WeaponMod .componentsSection .componentGroup .componentsList
+{
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_tooltip_bg_modifies_weapon_psd.vtex");
+}
+
+.ArmorMod .componentsSection .componentGroup .componentsList
+{
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_tooltip_bg_modifies_vitality_psd.vtex");
+}
+
+.TechMod .componentsSection .componentGroup .componentsList
+{
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_tooltip_bg_modifies_spirit_psd.vtex");
 }
 
 #ComponentsContainer
 {
-	width: 100%;
-	flow-children: down;
-	background-color: colorCommonDarkGray;
 	visibility: collapse;
-	background-color: #00000090;
 }
 
-.WeaponMod #ComponentsContainer
-{
-	background-color: courageColor;
-}
-
-.ArmorMod #ComponentsContainer
-{
-	background-color: fortitudeDarkerColor;
-}
-
-.TechMod #ComponentsContainer
-{
-	background-color: spiritDarkerColor;
-}
-
-.hasComponentMods #ComponentsContainer
+.hasComponents #ComponentsContainer
 {
 	visibility: visible;
 }
 
-#ComponentOfList,#ComponentUsedList
+#ComponentOfContainer
 {
-	flow-children: right-wrap;
-	width: fill-parent-flow( 1.0 );
-	padding: 3px 0px 8px 20px;
+	visibility: collapse;
 }
 
-#ComponentsList
+.availableAsComponent #ComponentOfContainer
 {
-	flow-children: right-wrap;
-	padding: 5px 10px 4px 15px;
+	visibility: visible;
+}
+
+#ComponentUsedContainer
+{
+	visibility: collapse;
+}
+
+.usedAsComponent #ComponentUsedContainer
+{
+	visibility: visible;
 }
 
 .componentMod
 {
 	flow-children: right;
-	background-color: #00000060;
-	border-radius: 50px;
-	margin: 2px;
+	margin-right: 8px;
 }
 
-#ComponentOfContainer .componentMod,#ComponentUsedContainer .componentMod
+.componentMod .componentModIconContainer
 {
-	margin: 5px 5px 5px 0px;
-	horizontal-align: left;
+	vertical-align: center;
+	background-color: #009CB3;
+	margin-right: 6px;
 }
 
-#ComponentOfContainer .componentOwned.componentMod,#ComponentOfContainer .IsPurchased .componentMod,#ComponentUsedContainer .componentOwned.componentMod,#ComponentUsedContainer .IsPurchased .componentMod
+.componentMod .componentModIconContainer #componentModIcon
 {
-	background-color: #00000000;
-	opacity: 0.8;
+	width: 30px;
+	height: 30px;
+	vertical-align: center;
+	opacity: 0.9;
 }
 
-.componentOwned.componentMod,.IsPurchased .componentMod
+.componentMod .componentModIconContainer .componentOwnedIcon
+{
+	width: 26px;
+	height: 26px;
+	background-image: url("s2r://panorama/images/icons/icon_checkmark.vsvg");
+	background-size: contain;
+	background-repeat: no-repeat;
+	transform: translateX(3px) translateY(3px);
+	wash-color: fortitudeBrightColor;
+	vertical-align: center;
+	horizontal-align: middle;
+	visibility: collapse;
+	img-shadow: 0px 0px 0px 3.0 offBlack;
+}
+
+.componentMod .componentModName
+{
+	color: offWhite&90;
+	font-weight: bold;
+	max-width: 200px;
+	text-overflow: shrink;
+	font-size: 14px;
+	vertical-align: middle;
+}
+
+.componentMod.componentOwned
 {
 	background-color: #00000050;
 	opacity: 0.8;
 }
 
-.componentModDetails
+.componentMod.componentOwned #componentModIcon
 {
-	flow-children: down;
-	vertical-align: center;
-	padding: 0px 15px 2px 0px;
-	background-color: offBlack&10;
-}
-
-#ComponentsLabelContainer
-{
-	vertical-align: middle;
-}
-
-.componentsLabel
-{
-	color: #ffffff90;
-	font-size: 14px;
-	font-weight: bold;
-	text-transform: uppercase;
-	padding: 0px 0px 0px 20px;
-	margin-top: 2px;
-	margin-bottom: -5px;
-}
-
-#ComponentOfContainer #ComponentsLabelContainer,#ComponentUsedContainer #ComponentsLabelContainer
-{
-	vertical-align: middle;
-	margin-right: 10px;
-	width: 152px;
-}
-
-.isComponentOf #ComponentOfContainer #ComponentsLabelContainer
-{
-	vertical-align: top;
-	margin-top: 10px;
-}
-
-#ComponentOfContainer .componentsLabel,#ComponentUsedContainer .componentsLabel
-{
-	margin: 0px;
-}
-
-.componentModIconContainer
-{
-	vertical-align: center;
-	padding: 5px;
-	background-color: #009CB3;
-	border-radius: 80px;
-	margin-right: 5px;
-}
-
-.isArmorComponent .componentModIconContainer
-{
-	background-color: fortitudeBrightColor;
-}
-
-.isWeaponComponent .componentModIconContainer
-{
-	background-color: courageBrightColor;
-}
-
-.isTechComponent .componentModIconContainer
-{
-	background-color: spiritBrightColor;
-}
-
-.owned_item .componentModIconContainer,.componentOwned .componentModIconContainer,.IsPurchased .isTechComponent .componentModIconContainer,.IsPurchased .isWeaponComponent .componentModIconContainer
-{
-	background-color: #000000;
-}
-
-#ComponentOfContainer .isWeaponComponent .componentModIconContainer,#ComponentUsedContainer .isWeaponComponent .componentModIconContainer
-{
-	background-color: courageLightColor;
-}
-
-#ComponentOfContainer .isTechComponent .componentModIconContainer,#ComponentUsedContainer .isTechComponent .componentModIconContainer
-{
-	background-color: spiritLightColor;
-}
-
-#componentModIcon
-{
-	width: 26px;
-	height: 26px;
-	border-radius: 4px;
-	vertical-align: center;
-	opacity: 0.9;
-}
-
-.owned_item #componentModIcon,.componentOwned #componentModIcon
-{
-	wash-color: colorCommonOffWhite;
-}
-
-.isTechComponent #componentModIcon
-{
-	wash-color: spiritDarkerColor;
-}
-
-.isWeaponComponent #componentModIcon
-{
-	wash-color: courageDarkerColor;
-}
-
-.isArmorComponent #componentModIcon
-{
-	wash-color: spiritDarkerColor;
-}
-
-.componentOwned #componentModIcon
-{
+	opacity: 0.3;
 	wash-color: offWhite;
 }
 
-.componentOwned.isWeaponComponent #componentModIcon
-{
-	wash-color: courageBrightColor;
-}
-
-.componentOwned.isArmorComponent #componentModIcon
-{
-	wash-color: fortitudeBrightColor;
-}
-
-.componentOwned.isTechComponent #componentModIcon
-{
-	wash-color: spiritBrightColor;
-}
-
-#componentOwnedIcon
-{
-	width: 16px;
-	height: 16px;
-	background-image: url("s2r://panorama/images/icons/icon_checkmark.vsvg");
-	background-size: contain;
-	background-repeat: no-repeat;
-	transform: translateX(3px) translateY(5px);
-	wash-color: fortitudeBrightColor;
-	vertical-align: bottom;
-	horizontal-align: right;
-	visibility: collapse;
-	img-shadow: 0px 0px 0px 3.0 offBlack;
-}
-
-.componentOwned #componentOwnedIcon
+.componentMod.componentOwned .componentOwnedIcon
 {
 	visibility: visible;
 }
 
-#ComponentOfContainer .isWeaponComponent #componentModIcon,#ComponentUsedContainer .isWeaponComponent #componentModIcon
+.componentMod.componentOwned .componentModName
 {
-	wash-color: courageColor;
-	opacity: 1;
-}
-
-#ComponentOfContainer .isTechComponent #componentModIcon,#ComponentUsedContainer .isTechComponent #componentModIcon
-{
-	wash-color: spiritColor;
-	opacity: 1;
-}
-
-#ComponentOfContainer #componentModIconContainer,#ComponentUsedContainer #componentModIconContainer
-{
-	padding: 2px;
-	margin-right: 10px;
-}
-
-#ComponentOfContainer #componentModIcon,#ComponentUsedContainer #componentModIcon
-{
-	width: 20px;
-	height: 20px;
-	border-radius: 4px;
-	vertical-align: center;
-	opacity: 0.75;
-}
-
-.componentModName
-{
-	color: rgba(243, 240, 231, 0.7);
-	font-size: 16px;
-	font-weight: semi-bold;
-	max-width: 200px;
-	text-overflow: shrink;
-}
-
-.owned_item .componentModName,.componentOwned .componentModName,.IsPurchased .componentModName
-{
-	color: rgba(243, 240, 231, 0.7);
-	margin-bottom: 0px;
-}
-
-#ComponentOfContainer .componentModName,#ComponentUsedContainer .componentModName
-{
-	color: rgba(243, 240, 231, 0.7);
-	font-style: normal;
-}
-
-.componentModOwnedDisplay
-{
-	color: colorCommonOffWhite;
-	font-size: 16px;
-	font-weight: medium;
 	font-style: italic;
-	visibility: collapse;
-	color: #ffffff;
-	opacity: 0.2;
-}
-
-.componentModRequiredDisplay
-{
-	visibility: collapse;
-}
-
-.componentRequired .componentModRequiredDisplay
-{
-	color: gold;
-	font-size: 13px;
-	font-weight: semi-bold;
-	visibility: visible;
-	font-family: sansMono;
-	visibility: collapse;
-}
-
-.componentModConsumedDisplay
-{
-	color: colorCommonOffWhite;
-	font-size: 18px;
-	visibility: collapse;
-}
-
-.owned_item .componentModConsumedDisplay
-{
-	visibility: collapse;
 }
 
 #OwnedByContainer
@@ -1235,11 +1305,6 @@ CitadelTooltipModDetails.TechMod .AffectedAbilitiesContainer
 	height: fit-children;
 	padding: 5px 2px 5px 2px;
 	flow-children: right;
-}
-
-.OwnedByFriends #OwnedByContainer
-{
-	visibility: visible;
 }
 
 .OwnedByLabel
@@ -1261,36 +1326,113 @@ CitadelTooltipModDetails.TechMod .AffectedAbilitiesContainer
 	margin-left: 15px;
 }
 
-.AnnotationContainer
+.BuildInfoContainer
 {
 	visibility: collapse;
+	margin-left: 4px;
 	width: 450px;
 	padding: 5px;
-	padding-left: 8px;
 	background-color: buildsDarkColor;
-	margin-top: 5px;
-	max-height: 60px;
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( buildsColor ), to( buildsDarkColor&ee ) );
+	border: 2px solid buildsLightColor&50;
+	flow-children: right;
+	border-radius: 5px;
 }
 
-.AnnotationContainer #AuthorAvatar
+.TooltipPositionLeft .BuildInfoContainer
 {
-	vertical-align: top;
+	horizontal-align: right;
+	margin-right: 10px;
+}
+
+.TooltipPositionRight .BuildInfoContainer
+{
+	horizontal-align: left;
+}
+
+.HasNotes .BuildInfoContainer
+{
+	visibility: visible;
+}
+
+.BuildInfoContainer .NotesContainer
+{
+	flow-children: down;
+	margin-left: 10px;
+	vertical-align: center;
+	horizontal-align: left;
+}
+
+#AuthorAvatar
+{
+	horizontal-align: left;
+	vertical-align: center;
 	width: 32px;
 	height: 32px;
 	margin: 3px;
 	margin-right: 8px;
 }
 
-.AnnotationContainer Label
+.ModifiesLabel
+{
+	max-height: 60px;
+	flow-children: right;
+	horizontal-align: left;
+	visibility: collapse;
+	horizontal-align: left;
+	vertical-align: center;
+	color: offWhite;
+	font-weight: semi-bold;
+	font-size: 16px;
+	text-overflow: shrink;
+	text-shadow: 0px 0px 3px #00000090;
+}
+
+.HasAnnotation .ModifiesLabel
+{
+	visibility: visible;
+}
+
+.BuildInfoLabel
+{
+	visibility: collapse;
+}
+
+.HasSellPriority .SellPriorityLabel
+{
+	visibility: visible;
+}
+
+.HasRequiredFlexSlots .RequiredFlexSlotsLabel
+{
+	visibility: visible;
+}
+
+.ImbueTargetContainer
+{
+	flow-children: right;
+	visibility: collapse;
+	horizontal-align: left;
+}
+
+.ImbueTargetContainer Label
 {
 	vertical-align: center;
 	color: offWhite;
 	font-weight: semi-bold;
 	font-size: 16px;
 	text-overflow: shrink;
+	text-shadow: 0px 0px 3px #00000090;
 }
 
-.HasAnnotation .AnnotationContainer
+.ImbueTargetContainer #ImbueTargetAbilityIcon
+{
+	ui-scale: 40%;
+	margin-left: 5px;
+	vertical-align: center;
+}
+
+.HasImbueTarget .ImbueTargetContainer
 {
 	visibility: visible;
 }
@@ -1305,7 +1447,23 @@ CitadelTooltipModDetails.TechMod .AffectedAbilitiesContainer
 	margin-left: 2px;
 }
 
+.HasFourImportantProperties .ImportantProperty3,.HasFourImportantProperties .ImportantProperty4
+{
+	margin-top: 2px;
+}
+
+.HasFourImportantProperties .ImportantProperty3
+{
+	margin-left: 0px;
+	margin-right: 2px;
+}
+
 .ImportantProperty3
+{
+	margin-left: 2px;
+}
+
+.ImportantProperty4
 {
 	margin-left: 2px;
 }

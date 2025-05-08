@@ -1,0 +1,65 @@
+<!-- xml reconstructed by Source 2 Viewer - https://valveresourceformat.github.io -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/citadel_base_styles.vcss_c" />
+		<include src="s2r://panorama/styles/citadel_db_page_shared.vcss_c" />
+		<include src="s2r://panorama/styles/tarot/citadel_db_page_tarot.vcss_c" />
+	</styles>
+	<snippets>
+		<snippet name="RuneInventoryItem">
+			<Panel class="RuneInventoryItem">
+				<CitadelTarotRune id="Rune" />
+				<Label class="Cost" text="{d:rune_cost}" />
+			</Panel>
+		</snippet>
+		<snippet name="PlacedRune">
+			<Panel class="PlacedRune">
+				<CitadelTarotRune id="Rune" />
+				<TextButton id="ApplyButton" class="SecondaryButton" text="Apply" />
+			</Panel>
+		</snippet>
+		<snippet name="GridRow">
+			<Panel class="GridRow" />
+		</snippet>
+		<snippet name="GridCell">
+			<Panel class="GridCell" />
+		</snippet>
+	</snippets>
+	<CitadelTarotPage class="DashboardPage" oncancel="CitadelNavigateBack();">
+		<AsyncDataPanel class="MainContents" state="{d:loading_state}">
+			<Panel class="AsyncSuccessContainer">
+				<Panel class="Header">
+					<Label class="CurrentBoardLabel" text="Current Board: " />
+					<DropDown id="SelectBoardDropDown" />
+					<Panel class="FillWidth" />
+					<Label class="SatisfiedCount" text="{d:satisfied_constraints} / {d:total_constraints} Constraints Satisfied" />
+					<TextButton id="CompleteButton" class="PrimaryButton" text="Complete Board" onactivate="CitadelTarotCompleteBoard()" />
+					<Label class="CompletedLabel" text="Board Completed" />
+					<Panel class="DebugControls">
+						<Panel class="Center">
+							<TextButton class="DebugButton PlaytestButton" text="Playtest" onactivate="CitadelTarotShowPlaytestMenu()" />
+							<TextButton class="DebugButton DebugMenuButton" text="Debug" onactivate="CitadelTarotShowDebugMenu()" />
+						</Panel>
+					</Panel>
+				</Panel>
+				<Panel class="Columns">
+					<Panel class="LeftColumn">
+						<Panel class="SelectedBoard">
+							<Panel id="BoardGrid" />
+							<Panel id="BoardTiles" />
+						</Panel>
+						<Panel id="TilesInventory" />
+					</Panel>
+					<Panel class="RightColumn">
+						<Panel class="RunesSection">
+							<Label class="EnergyTitle" text="Runic Energy" />
+							<Label class="EnergyValue" text="{d:current_energy}" />
+							<Label class="EnergyDesc" text="Spend Runic Energy to modify tiles on the board." />
+							<Panel id="RunesInventory" />
+						</Panel>
+					</Panel>
+				</Panel>
+			</Panel>
+		</AsyncDataPanel>
+	</CitadelTarotPage>
+</root>

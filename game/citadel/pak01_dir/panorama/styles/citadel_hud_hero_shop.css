@@ -7,18 +7,18 @@ CitadelHudHeroShop
 	width: 100%;
 	height: 100%;
 	color: colorCommonOffWhite;
-	z-index: 201;
-	background-color: #060e00ee;
+	background-color: #070b0be8;
 }
 
-CitadelHudHeroShop.gBrowsingBuilds
+.isShowingTrainingPage CitadelHudHeroShop
 {
-	background-color: #202020f6;
+	background-color: #060e0000;
 }
 
-CitadelHudHeroShop.gEditingBuilds
+CitadelHudHeroShop.DashboardBuilds,CitadelHudHeroShop.gEditingBuilds
 {
 	background-color: #12305df6;
+	background-color: buildsDarkerColor&f6;
 }
 
 #Shop
@@ -37,12 +37,13 @@ CitadelHudHeroShop.gEditingBuilds
 #NavPanel
 {
 	height: 100%;
-	width: 640px;
+	width: 650px;
+	margin-right: -100px;
 }
 
 .AspectRatio16x10 #NavPanel
 {
-	margin-right: 20px;
+	margin-right: -100px;
 }
 
 #ModBarGraphContainer
@@ -54,8 +55,9 @@ CitadelHudHeroShop.gEditingBuilds
 
 #ModBarGraph
 {
-	margin: 0px 10px;
 	vertical-align: center;
+	margin-right: 10px;
+	visibility: collapse;
 }
 
 #ShopNav
@@ -75,7 +77,7 @@ CitadelTrainingPage #HeroScenePanel
 
 #HeroScenePanel
 {
-	width: 90%;
+	width: 100%;
 	height: 70%;
 	ignore-parent-flow: true;
 	margin-bottom: 200px;
@@ -139,11 +141,120 @@ CitadelTrainingPage #HeroScenePanel
 	background-repeat: no-repeat;
 	background-position: left;
 	background-image: url("s2r://panorama/images/shop/shop_logo_psd.vtex");
+	visibility: collapse;
 }
 
 .Dashboard .ShopName
 {
 	margin-left: 240px;
+}
+
+#HeroStatsContainer
+{
+	flow-children: down;
+	vertical-align: bottom;
+	ignore-parent-flow: true;
+	padding: 10px 20px;
+	border-radius: 3px;
+	margin-bottom: 300px;
+	margin-left: 40px;
+	z-index: 10;
+	background-color: #ffffff05;
+	max-width: 510px;
+	visibility: collapse;
+}
+
+.isShowingTrainingPage #HeroStatsContainer,.gEditingBuilds #HeroStatsContainer,.gBrowsingBuilds #HeroStatsContainer
+{
+	visibility: collapse;
+}
+
+.heroStatsLabel
+{
+	font-size: 16px;
+	font-weight: bold;
+	color: offWhite;
+	opacity: 0.7;
+	padding: 2px 0px;
+}
+
+#HeroStatsRow
+{
+	flow-children: right;
+}
+
+.statsButton
+{
+	border: 2px solid #000000aa;
+	margin: 4px 4px 4px 0px;
+	flow-children: right;
+	background-color: #333;
+	padding: 10px;
+	border-radius: 4px;
+	tooltip-position: top;
+	transition-property: brightness;
+	transition-duration: 0.2s;
+}
+
+.statsButton:hover
+{
+	brightness: 1.5;
+}
+
+.statsButton Label
+{
+	font-weight: semi-bold;
+	font-size: 16px;
+	vertical-align: middle;
+}
+
+.stats_weapon.statsButton
+{
+	background-color: brown;
+	background-color: gradient( linear, 0% 0%, 100% 100%, from( courageDarkColor), to( courageColor&30 ) );
+}
+
+.stats_armor.statsButton
+{
+	background-color: brown;
+	background-color: gradient( linear, 0% 0%, 100% 100%, from( fortitudeDarkColor ), to( fortitudeColor&30 ) );
+}
+
+.stats_tech.statsButton
+{
+	background-color: brown;
+	background-color: gradient( linear, 0% 0%, 100% 100%, from( spiritDarkColor ), to( spiritColor&30 ) );
+}
+
+.statCategoryIcon
+{
+	width: 24px;
+	height: 24px;
+	margin-right: 5px;
+	background-size: contain;
+	horizontal-align: center;
+	vertical-align: center;
+	background-repeat: no-repeat;
+	wash-color: offWhite;
+	opacity: 0.5;
+}
+
+.stats_weapon .statCategoryIcon
+{
+	background-image: url("s2r://panorama/images/hud/core/icon_courage.vsvg");
+	wash-color: courageBrightColor;
+}
+
+.stats_armor .statCategoryIcon
+{
+	background-image: url("s2r://panorama/images/hud/core/icon_fortitude.vsvg");
+	wash-color: fortitudeBrightColor;
+}
+
+.stats_tech .statCategoryIcon
+{
+	background-image: url("s2r://panorama/images/hud/core/icon_spirit.vsvg");
+	wash-color: spiritBrightColor;
 }
 
 #GoldAPContainer
@@ -155,13 +266,13 @@ CitadelTrainingPage #HeroScenePanel
 
 .ModsPurchasedContainer
 {
-	width: 100%;
+	width: fit-children;
 	height: fit-children;
 	flow-children: right;
 	ignore-parent-flow: true;
 	vertical-align: bottom;
-	margin-bottom: 90px;
-	visibility: collapse;
+	margin-bottom: 190px;
+	margin-left: 380px;
 }
 
 .UniversalSlotsLabel
@@ -246,13 +357,109 @@ CitadelTrainingPage #HeroScenePanel
 	width: fill-parent-flow(1.0);
 }
 
+#SearchHeader
+{
+	width: 100%;
+	visibility: collapse;
+	background-color: offBlack&ee;
+	margin-left: 8px;
+}
+
+.showingSearch #SearchHeader
+{
+	visibility: visible;
+}
+
+#SearchExamples
+{
+	ignore-parent-flow: true;
+	vertical-align: top;
+	horizontal-align: left;
+	margin-left: 26px;
+	flow-children: down;
+	z-index: 99;
+	padding: 8px;
+	opacity: 0;
+	transition-property: transform, opacity;
+}
+
+.showingSearch #SearchExamples
+{
+	opacity: 1;
+}
+
+.ShowSearchExamples #SearchExamples
+{
+	opacity: 1;
+}
+
+#SearchExamples .searchTitle
+{
+	font-weight: bold;
+	font-size: 26px;
+	margin-top: 10px;
+	opacity: 0.9;
+	color: offWhite;
+}
+
+#SearchExamples .SearchExampleHeader
+{
+	opacity: 0.8;
+	padding: 10px 0px;
+}
+
+#SearchExamples > Label
+{
+	font-size: 16px;
+	font-weight: semi-bold;
+	color: offBlack;
+	max-width: 685px;
+	color: offWhite;
+}
+
+#SearchExamples > Label .highlight
+{
+	color: offWhite;
+	font-weight: bold;
+}
+
+#SearchExamples > Label .highlight_weapon
+{
+	font-weight: bold;
+	padding: 0px 2px;
+	color: offWhite;
+}
+
+#SearchExamples > Label .highlight_vitality
+{
+	font-weight: bold;
+	color: offWhite;
+}
+
+#SearchExamples > Label .highlight_spirit
+{
+	font-weight: bold;
+	color: offWhite;
+}
+
 #SearchContainer
 {
 	horizontal-align: right;
+	vertical-align: middle;
+	margin-right: 30px;
 	flow-children: down;
 	z-index: 99;
 	background-color: #CBBCA6;
-	width: 240px;
+	width: 300px;
+	border-radius: 0px;
+	background-color: none;
+	ignore-parent-flow: true;
+	visibility: collapse;
+}
+
+.showingSearch #SearchContainer
+{
+	visibility: visible;
 }
 
 #SearchContainer #SearchBox
@@ -305,59 +512,6 @@ CitadelTrainingPage #HeroScenePanel
 #SearchContainer .ShowSearchResults #ClearSearchButton
 {
 	visibility: visible;
-}
-
-#SearchExamples
-{
-	ignore-parent-flow: true;
-	vertical-align: top;
-	horizontal-align: right;
-	flow-children: down;
-	margin-top: 70px;
-	z-index: 99;
-	padding: 8px;
-	background-color: #333;
-	width: 340px;
-	border-radius: 5px 0px 5px 5px;
-	opacity: 0;
-	transition-property: transform, opacity;
-}
-
-.ShowSearchExamples #SearchExamples
-{
-	opacity: 1;
-}
-
-#SearchExamples > Label
-{
-	padding: 4px;
-	opacity: 0.5;
-	font-size: 17px;
-	font-weight: medium;
-}
-
-#SearchExamples > Label .highlight
-{
-	color: offWhite;
-	font-weight: bold;
-}
-
-#SearchExamples > Label .highlight_weapon
-{
-	color: courageBrightColor;
-	font-weight: semi-bold;
-}
-
-#SearchExamples > Label .highlight_vitality
-{
-	color: fortitudeBrightColor;
-	font-weight: semi-bold;
-}
-
-#SearchExamples > Label .highlight_spirit
-{
-	color: spiritBrightColor;
-	font-weight: semi-bold;
 }
 
 #AbilitiesButton
@@ -712,31 +866,83 @@ CitadelTrainingPage #HeroScenePanel
 
 #MainPanel
 {
-	height: 86%;
+	height: 960px;
 	width: 100%;
-	max-width: 1060px;
+	max-width: 1150px;
+	margin-top: 20px;
 }
 
 .AspectRatio16x10 #MainPanel
 {
-	max-width: 1069px;
+	max-width: 1150px;
 }
 
 .isShowingTrainingPage #MainPanel
 {
-	margin-top: 100px;
+	margin-top: 50px;
 }
 
 #ShopModsContainer
 {
 	height: 100%;
 	width: 100%;
+	flow-children: right;
 }
 
 #ShopModListsContainer
 {
 	height: 100%;
 	width: 100%;
+	background-size: cover;
+}
+
+.showingSearch #ShopModListsContainer
+{
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_shop_generic_bg_psd.vtex");
+}
+
+.showingFavorites #ShopModListsContainer
+{
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_shop_builds_bg_psd.vtex");
+}
+
+#ShopModsListWeapon
+{
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_shop_bg_weapon_psd.vtex");
+}
+
+#ShopModsListArmor
+{
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_shop_bg_vitality_psd.vtex");
+}
+
+#ShopModsListTech
+{
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_shop_bg_spirit_psd.vtex");
+}
+
+.showingFilters #ShopModListsContainer
+{
+	background-color: #3e3a34;
+	wash-color: none;
+}
+
+.usingComponentGrouping.showingWeapon #ShopModListsContainer
+{
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_shop_category_weapon_bg_psd.vtex");
+	background-color: #7e582c;
+}
+
+.usingComponentGrouping.showingArmor #ShopModListsContainer
+{
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_shop_category_vitality_bg_psd.vtex");
+	background-color: #697945;
+}
+
+.usingComponentGrouping.showingTech #ShopModListsContainer
+{
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_shop_category_spirit_bg_psd.vtex");
+	background-color: #4f3744;
 }
 
 #CurrentBuildSelection
@@ -845,25 +1051,9 @@ CitadelTrainingPage #FavoritesNav
 	font-size: 14px;
 }
 
-#WeaponNav,#FavoritesNav,#TechNav,#ArmorNav
-{
-	margin-right: 10px;
-}
-
-.isShowingHeroBuildsPage #WeaponNav,.gBrowsingBuilds #WeaponNav,.isShowingHeroBuildsPage #TechNav,.gBrowsingBuilds #TechNav,.isShowingHeroBuildsPage #ArmorNav,.gBrowsingBuilds #ArmorNav
-{
-	visibility: collapse;
-}
-
-.gEditingBuilds #WeaponNav,.gEditingBuilds #TechNav,.gEditingBuilds #ArmorNav
+.gEditingBuilds #WeaponNav,.gEditingBuilds #TechNav,.gEditingBuilds #ArmorNav,.gEditingBuilds #SearchNav
 {
 	visibility: visible;
-}
-
-#FavoritesNav
-{
-	flow-children: down;
-	min-width: 200px;
 }
 
 .TabContent
@@ -884,14 +1074,28 @@ CitadelTrainingPage #FavoritesNav
 	color: offBlack;
 }
 
+CitadelShopModsList,CitadelShopModsBuild
+{
+	opacity: 0.0;
+	transform: translateX( -20px );
+	transition-property: opacity, transform;
+	transition-duration: 0.21s;
+}
+
 .showingWeapon #ShopModsListWeapon,.showingTech #ShopModsListTech,.showingArmor #ShopModsListArmor,.showingFavorites #ShopModsSelectedBuild,.showingSearch #ShopModsListAll
 {
-	visibility: visible;
+	opacity: 1.0;
+	transform: none;
 }
 
 .showingAbility1 #AbilityDetailsPanel1,.showingAbility2 #AbilityDetailsPanel2,.showingAbility3 #AbilityDetailsPanel3,.showingAbility4 #AbilityDetailsPanel4
 {
 	opacity: 1;
+}
+
+#ShopModsListAll
+{
+	flow-children: down;
 }
 
 .techUpgradesBackground
@@ -1429,25 +1633,100 @@ CitadelFooterBar .isMouseButton .controlKeyBind
 
 #ShopNavigation
 {
-	flow-children: right;
-	width: 100%;
-	margin-top: 20px;
-	height: 60px;
+	flow-children: down;
+	width: 75px;
+	height: 100%;
 	horizontal-align: center;
+}
+
+#ToggleContainer
+{
+	width: 50px;
+	height: 50px;
+	margin-right: 10px;
+	border-radius: 3px;
+	margin-left: 8px;
+	visibility: collapse;
+}
+
+.showingFavorites #ToggleContainer,.showingSearch #ToggleContainer
+{
+	opacity: 0;
+}
+
+#ToggleContainer:hover
+{
+	brightness: 2;
+	pre-transform-scale2d: 1.05;
+}
+
+.viewToggle
+{
+	width: 100%;
+	height: 100%;
+	tooltip-position: bottom;
+}
+
+.viewToggle:hover
+{
+	sound: soundMainMenuHover;
+}
+
+.viewToggle:active
+{
+	sound: soundMainMenuActivate;
+}
+
+.viewToggle.category_view
+{
+	background-color: #CBBCA6;
+	background-image: url("s2r://panorama/images/icons/icon_grid.vsvg");
+	background-size: 50% 50%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-img-opacity: 0.8;
+	visibility: visible;
+}
+
+.viewToggle.tiers_view
+{
+	background-color: #CBBCA6;
+	background-image: url("s2r://panorama/images/icons/icon_list.vsvg");
+	background-size: 50% 50%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-img-opacity: 0.8;
+	visibility: collapse;
+}
+
+.usingComponentGrouping .viewToggle.category_view
+{
+	visibility: collapse;
+}
+
+.usingComponentGrouping .viewToggle.tiers_view
+{
+	visibility: visible;
 }
 
 .NavigationButton
 {
 	vertical-align: bottom;
-	background-color: #CBBCA6;
-	height: 100%;
-	border-radius: 5px 5px 0px 0px;
+	height: 75px;
+	width: 75px;
+	margin-bottom: 8px;
+	tooltip-position: left;
+	tooltip-body-position: 0% 0%;
 }
 
-#SearchContainer
+.NavigationButton:hover
 {
-	border-radius: 0px;
-	background-color: none;
+	brightness: 1.4;
+}
+
+.showingFavorites #FavoritesNav.NavigationButton,.showingWeapon #WeaponNav.NavigationButton,.showingArmor #ArmorNav.NavigationButton,.showingTech #TechNav.NavigationButton
+{
+	height: 210px;
 }
 
 .NavigationButtonSmall
@@ -1461,11 +1740,10 @@ CitadelFooterBar .isMouseButton .controlKeyBind
 
 .NavCategoryIcon
 {
-	height: 30px;
-	width: 30px;
+	height: 32px;
+	width: 32px;
 	background-size: contain;
 	vertical-align: center;
-	margin-right: 10px;
 	background-repeat: no-repeat;
 	background-position: center;
 }
@@ -1473,7 +1751,8 @@ CitadelFooterBar .isMouseButton .controlKeyBind
 .NavIconContainer
 {
 	vertical-align: center;
-	padding: 15px 30px 15px 30px;
+	horizontal-align: middle;
+	padding: 5px;
 }
 
 .NavIconContainerSmall
@@ -1496,6 +1775,7 @@ CitadelFooterBar .isMouseButton .controlKeyBind
 	vertical-align: middle;
 	font-weight: semi-bold;
 	horizontal-align: center;
+	visibility: collapse;
 }
 
 .DropdownIcon
@@ -1512,62 +1792,92 @@ CitadelFooterBar .isMouseButton .controlKeyBind
 	vertical-align: middle;
 }
 
-#WeaponNav .NavCategoryIcon
+#WeaponNav.NavigationButton
 {
-	background-image: url("s2r://panorama/images/hud/core/icon_courage.vsvg");
-	wash-color: #322309;
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_shop_tab_weapon_sm_psd.vtex");
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
 }
 
-.showingWeapon #WeaponNav.NavigationButton,#WeaponNav .NavHeaderColor
+.showingWeapon #WeaponNav.NavigationButton
 {
-	background-color: courageBrightColor;
-	font-weight: bold;
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_shop_tab_weapon_psd.vtex");
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	background-color: none;
+	margin-bottom: -10px;
+	z-index: 2;
 }
 
-#ArmorNav .NavCategoryIcon
+#ArmorNav.NavigationButton
 {
-	background-image: url("s2r://panorama/images/hud/core/icon_fortitude.vsvg");
-	wash-color: #322309;
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_shop_tab_vitality_sm_psd.vtex");
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
 }
 
-.showingArmor #ArmorNav.NavigationButton,#ArmorNav .NavHeaderColor
+.showingArmor #ArmorNav.NavigationButton
 {
-	background-color: fortitudeBrightColor;
-	font-weight: semi-bold;
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_shop_tab_vitality_psd.vtex");
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	margin-bottom: -10px;
+	z-index: 2;
 }
 
-#TechNav .NavCategoryIcon
+#TechNav.NavigationButton
 {
-	background-image: url("s2r://panorama/images/hud/core/icon_spirit.vsvg");
-	wash-color: #322309;
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_shop_tab_spirit_sm_psd.vtex");
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
 }
 
-.showingTech #TechNav.NavigationButton,#TechNav .NavHeaderColor
+.showingTech #TechNav.NavigationButton
 {
-	background-color: spiritBrightColor;
-	font-weight: semi-bold;
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_shop_tab_spirit_psd.vtex");
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	margin-bottom: -10px;
+	z-index: 2;
 }
 
-.showingFavorites #FavoritesNav.NavigationButton,#FavoritesNav .NavHeaderColor
+#FavoritesNav.NavigationButton
 {
-	background-color: buildsLightColor;
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_shop_tab_builds_sm_psd.vtex");
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
 }
 
-.showingWeapon #WeaponNav.NavigationButton,#WeaponNav .NavHeaderColor
+.showingFavorites #FavoritesNav.NavigationButton
 {
-	background-color: courageBrightColor;
-	font-weight: semi-bold;
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_shop_tab_builds_psd.vtex");
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	margin-bottom: -10px;
+	z-index: 2;
 }
 
-#FavoritesNav .NavCategoryIcon
+#SearchNav
 {
-	background-image: url("s2r://panorama/images/icons/icon_star.vsvg");
-	wash-color: #322309;
+	background-image: url("s2r://panorama/images/shop/catalog/catalog_shop_tab_search_sm_psd.vtex");
+	background-size: 100% 100%;
+	opacity: 0.7;
+	margin-top: 460px;
+	width: 50px;
+	height: 50px;
+	horizontal-align: right;
+	vertical-align: top;
+	ignore-parent-flow: true;
 }
 
-#FavoritesNav .NavIconContainer
+.isShowingTrainingPage #SearchNav
 {
-	padding: 11px 30px 15px 30px;
+	margin-top: 380px;
+}
+
+#SearchNav:hover,.showingSearch #SearchNav
+{
+	opacity: 1;
 }
 
 .ReadOnlyShop
@@ -1614,7 +1924,7 @@ CitadelFooterBar .isMouseButton .controlKeyBind
 	flow-children: down;
 	width: 100%;
 	padding: 70px 40px;
-	margin-top: 100px;
+	margin-top: 350px;
 	background-color: offWhite&05;
 }
 
@@ -1650,6 +1960,7 @@ CitadelFooterBar .isMouseButton .controlKeyBind
 	opacity: 0.15;
 	transition-property: opacity;
 	transition-duration: 0.1s;
+	visibility: collapse;
 }
 
 #RecentPurchasesPanel:hover
@@ -1774,5 +2085,316 @@ Label.recentTimePurchased
 .isEnemyPurchase Label.recentTimePurchased
 {
 	color: rgb(239, 103, 103);
+}
+
+#PrintScreenOverlay
+{
+	width: 100%;
+	height: 100%;
+	ignore-parent-flow: true;
+	opacity: 1;
+}
+
+#PrintScreenOverlayBG
+{
+	width: 100%;
+	height: 100%;
+	background-image: url("s2r://panorama/images/shop/print_screen_overlay_psd.vtex");
+	-s2-mix-blend-mode: multiply;
+}
+
+#PriceTag
+{
+	ignore-parent-flow: true;
+	width: 85px;
+	height: 55px;
+	padding: 10px;
+	background-image: url("s2r://panorama/images/shop/catalog/pricetag_tier1_psd.vtex");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	transform: rotateZ(-8deg);
+	vertical-align: top;
+	margin-left: 20px;
+	margin-top: 10px;
+}
+
+.ModTierHovered #PriceTag
+{
+	pre-transform-scale2d: 1;
+	animation-name: priceTag_bounce;
+	animation-iteration-count: infinite;
+	animation-duration: 2s;
+}
+
+#PriceTags
+{
+	width: 100%;
+	height: 100%;
+	visibility: collapse;
+	opacity: 0.8;
+}
+
+.priceTag
+{
+	background-size: cover;
+	padding: 10px;
+	background-image: url("s2r://panorama/images/shop/catalog/pricetag_tier1_psd.vtex");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+#Tier1PriceTag
+{
+	background-image: url("s2r://panorama/images/shop/catalog/pricetag_tier1_psd.vtex");
+	width: 75px;
+	height: 55px;
+	margin-top: 105px;
+	margin-left: 20px;
+	transform: rotateZ(-8deg);
+}
+
+#Tier2PriceTag
+{
+	background-image: url("s2r://panorama/images/shop/catalog/pricetag_tier2_psd.vtex");
+	width: 95px;
+	height: 65px;
+	transform: rotateZ(8deg);
+	horizontal-align: right;
+	margin-top: 9px;
+	margin-right: 30px;
+}
+
+#Tier3PriceTag
+{
+	background-image: url("s2r://panorama/images/shop/catalog/pricetag_tier3_psd.vtex");
+	width: 90px;
+	height: 80px;
+	transform: rotateZ(-8deg);
+	margin-top: 448px;
+	margin-left: 20px;
+}
+
+#Tier4PriceTag
+{
+	background-image: url("s2r://panorama/images/shop/catalog/pricetag_tier4_psd.vtex");
+	width: 130px;
+	height: 130px;
+	horizontal-align: right;
+	margin-top: 400px;
+	margin-right: 20px;
+}
+
+#ModTier2 #PriceTag,#ModTier4 #PriceTag
+{
+	horizontal-align: right;
+	margin-right: 30px;
+	margin-left: 0px;
+}
+
+@keyframes 'priceTag_bounce'
+{
+	0%
+	{
+		pre-transform-scale2d: 1;
+	}
+	
+	50%
+	{
+		pre-transform-scale2d: 1.2;
+	}
+	
+	100%
+	{
+		pre-transform-scale2d: 1;
+	}
+	
+}
+
+#CardHoverTest
+{
+	width: 250px;
+	height: 250px;
+	vertical-align: top;
+	ignore-parent-flow: true;
+	margin-bottom: 100px;
+	margin-right: 100px;
+	opacity: 1;
+	x: 910px;
+	y: 480px;
+}
+
+#BackgroundTexture
+{
+	background-image: url("s2r://panorama/images/shop/catalog/backer_star_test_png.vtex");
+	horizontal-align: center;
+	vertical-align: middle;
+	width: 80%;
+	height: 80%;
+	background-size: cover;
+	wash-color: courageBrightColor;
+	opacity: 0;
+	animation-name: backgroundPulse;
+	animation-duration: 5s;
+	animation-iteration-count: infinite;
+}
+
+@keyframes 'backgroundPulse'
+{
+	0%
+	{
+		transform: rotateZ(0deg);
+		pre-transform-scale2d: 1;
+	}
+	
+	20%
+	{
+		pre-transform-scale2d: 0.9;
+	}
+	
+	40%
+	{
+		pre-transform-scale2d: 1.1;
+	}
+	
+	60%
+	{
+		pre-transform-scale2d: 0.9;
+	}
+	
+	80%
+	{
+		pre-transform-scale2d: 1.1;
+	}
+	
+	100%
+	{
+		transform: rotateZ(180deg);
+		pre-transform-scale2d: 1;
+	}
+	
+}
+
+#BackgroundTexture2
+{
+	background-image: url("s2r://panorama/images/shop/catalog/backer_star_test_png.vtex");
+	horizontal-align: center;
+	vertical-align: middle;
+	width: 60%;
+	height: 60%;
+	background-size: cover;
+	wash-color: courageLightColor;
+	opacity: 0;
+	animation-name: backgroundPulse2;
+	animation-duration: 5s;
+	animation-iteration-count: infinite;
+}
+
+@keyframes 'backgroundPulse2'
+{
+	0%
+	{
+		transform: rotateZ(0deg) skew(2deg);
+		pre-transform-scale2d: 1;
+	}
+	
+	20%
+	{
+		pre-transform-scale2d: 1.1;
+	}
+	
+	40%
+	{
+		pre-transform-scale2d: 0.9;
+	}
+	
+	60%
+	{
+		pre-transform-scale2d: 1.1;
+	}
+	
+	80%
+	{
+		pre-transform-scale2d: 0.9;
+	}
+	
+	100%
+	{
+		transform: rotateZ(-180deg) skew(22deg);
+		pre-transform-scale2d: 1;
+	}
+	
+}
+
+#ShopCard
+{
+	width: 80px;
+	height: 120px;
+	horizontal-align: center;
+	vertical-align: center;
+	background-color: offWhite;
+	background-image: url("s2r://panorama/images/shop/catalog/test_card_psd.vtex");
+	background-size: cover;
+}
+
+#CardHoverTest:hover
+{
+	opacity: 1;
+}
+
+#CardHoverTest:hover #ShopCard
+{
+	pre-transform-scale2d: 1.2;
+	box-shadow: 0px 0px 20px #00000090;
+	transform: rotateZ(2deg);
+	animation-name: cardPulse;
+	animation-iteration-count: infinite;
+	animation-duration: 2s;
+}
+
+@keyframes 'cardPulse'
+{
+	0%
+	{
+		pre-transform-scale2d: 1.2;
+		transform: rotateZ(2deg);
+	}
+	
+	20%
+	{
+		pre-transform-scale2d: 1.21;
+		transform: rotateZ(0deg);
+	}
+	
+	40%
+	{
+		pre-transform-scale2d: 1.19;
+		transform: rotateZ(-2deg);
+	}
+	
+	60%
+	{
+		pre-transform-scale2d: 1.2;
+		transform: rotateZ(0deg);
+	}
+	
+	80%
+	{
+		pre-transform-scale2d: 1.21;
+		transform: rotateZ(2deg);
+	}
+	
+	100%
+	{
+		pre-transform-scale2d: 1.2;
+		transform: rotateZ(0deg);
+	}
+	
+}
+
+#CardHoverTest:hover #BackgroundTexture,#CardHoverTest:hover #BackgroundTexture2
+{
+	opacity: 1;
 }
 

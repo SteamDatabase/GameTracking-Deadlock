@@ -5,5 +5,58 @@
 		<include src="s2r://panorama/styles/citadel_db_page_shared.vcss_c" />
 		<include src="s2r://panorama/styles/citadel_db_page_home.vcss_c" />
 	</styles>
-	<CitadelHomePage class="DashboardPage" hittest="false" />
+	<CitadelHomePage class="DashboardPage" hittest="false" dashboardclass="IsShowingHomePage">
+		<ScenePanel id="HeroRosterScenePanel" map="ui/hero_select" scene_data_name="hero_selection" hero_animgraph_enum="HeroSelect" parent_entity_name="hero_root" camera="portrait_camera" use_hero_map="true" sound="PORTRAIT_SOUND_MODE_ALL_SOUNDS" rotateonhover="true" allowrotation="false" require-composition-layer="true" />
+		<Panel id="PlaytestContainer">
+			<Panel id="matchmaking_status">
+				<Panel id="playtest_status">
+					<Label class="status_label" text="#Citadel_Playtest_Status" />
+					<Label class="match_queue_text server_count" text="{s:server_count}" />
+					<Label class="match_queue_text unranked_mm_paused" text="#Citadel_Playtest_MatchmakingPaused" />
+				</Panel>
+			</Panel>
+			<Panel id="NewsContainer" onactivate="CitadelShowShopReworkUpdate();">
+				<Label class="NewsInfo push" text="#menu_new_tag" html="true" />
+				<Label class="NewsInfo h1" text="#Citadel_Shop_Rework" html="true" />
+				<Label class="NewsInfo h2" text="#Citadel_Map_Gameplay_Update" />
+				<Label class="NewsInfo a" text="#Citadel_LearnMore" html="true" />
+			</Panel>
+			<Panel id="DiscordForumInvite">
+				<Label class="accountIntro" text="#Citadel_Playtest_CreateAccountsTitle" />
+				<Panel id="ButtonRow">
+					<Button id="ForumButton" class="SecondaryButton fill light hasIcon" onactivate="CitadelJoinForum()">
+						<Panel class="ForumIcon buttonIcon" />
+						<Label class="defaultText" text="#Citadel_Playtest_JoinForum" />
+						<Label class="completedText" text="#Citadel_Playtest_JoinedForum" />
+					</Button>
+					<Button id="DiscordButton" class="SecondaryButton fill light hasIcon" onactivate="CitadelConfirmDiscord()">
+						<Panel class="DiscordIcon buttonIcon" />
+						<Label class="defaultText" text="#Citadel_Playtest_JoinDiscord" />
+						<Label class="completedText" text="#Citadel_Playtest_JoinedDiscord" />
+					</Button>
+				</Panel>
+			</Panel>
+			<Panel id="RecommendFriend">
+				<Button id="RecommendButton" class="SecondaryButton fill hasIcon light" onactivate="CitadelSubmitPlaytestUser()">
+					<Panel class="FriendsIcon buttonIcon" />
+					<Label text="#Citadel_Playtest_RecommendButton" />
+				</Button>
+				<Label class="recommendIntro" text="#Citadel_Playtest_RecommendInfo" />
+			</Panel>
+		</Panel>
+		<Panel id="SocialContainer">
+			<DBPlayerList id="PlayerList" />
+			<DBPlayerList id="EnemyPlayerList" enemy_list="true" />
+			<Panel class="PartyHighSkillRange">
+				<Panel class="warningHeader">
+					<Panel class="WarningIcon" />
+					<Label text="#MyRosterPartyHighSkillRangeTitle" />
+				</Panel>
+				<Panel class="warningDesc">
+					<Label text="#MyRosterPartyHighSkillRangeNew" html="true" />
+				</Panel>
+			</Panel>
+			<CitadelPrivilegedFeatures id="PrivilegedFeatures" />
+		</Panel>
+	</CitadelHomePage>
 </root>

@@ -3,7 +3,6 @@
 	<styles>
 		<include src="s2r://panorama/styles/citadel_base_styles.vcss_c" />
 		<include src="s2r://panorama/styles/ability_icons.vcss_c" />
-		<include src="s2r://panorama/styles/citadel_shared_colors.vcss_c" />
 		<include src="s2r://panorama/styles/avatar_image.vcss_c" />
 		<include src="s2r://panorama/styles/tooltips/citadel_mod_tooltip_shared.vcss_c" />
 		<include src="s2r://panorama/styles/tooltips/citadel_tooltip_mod_details.vcss_c" />
@@ -12,6 +11,7 @@
 		<snippet name="ImportantStatBox">
 			<Panel class="ImportantStatBox TopBottomFlow">
 				<GlobalClassListener classes="gDetailView gScoreboardOpen" />
+				<CitadelStatScalingLabel id="ScalingStatValue" />
 				<Panel class="ImportantStatContent">
 					<Panel class="ImportantStatImageValueContainer LeftRightFlow">
 						<Panel class="ImportantStatImage" />
@@ -39,9 +39,19 @@
 			<Panel class="AppliedAttributes TopBottomFlow">
 				<Panel class="CooldownHeader LeftRightFlow">
 					<Label class="ActivePassiveLabel" text="{s:ability_section_type}" />
-					<Panel class="CooldownContainer LeftRightFlow">
-						<Panel class="CooldownImage" />
-						<CitadelModifiedAttributeLabel id="CooldownLabel" />
+					<Panel class="HeaderAttributesContainer">
+						<Panel class="StacksContainer LeftRightFlow">
+							<Label class="StacksDescLabel" text="#CurrentStacks_label" />
+							<Label id="StacksLabel" text="{i:num_stacks}" />
+						</Panel>
+						<Panel class="CooldownContainer LeftRightFlow">
+							<Panel class="CooldownImage" />
+							<CitadelModifiedAttributeLabel id="CooldownLabel" />
+						</Panel>
+						<Panel class="ChargeUpContainer LeftRightFlow">
+							<Panel class="ChargeUpImage" />
+							<CitadelModifiedAttributeLabel id="ChargeUpLabel" />
+						</Panel>
 					</Panel>
 				</Panel>
 				<Panel id="AbilityTypeSection" class="TopBottomFlow" />
@@ -62,28 +72,14 @@
 			<Panel class="componentMod">
 				<Panel class="componentModIconContainer">
 					<Image id="componentModIcon" />
-					<Image id="componentOwnedIcon" />
+					<Panel class="componentOwnedIcon" />
 				</Panel>
-				<Panel class="componentModDetails">
-					<Label class="componentModName" text="{s:modName}" />
-					<Label class="componentModOwnedDisplay" text="#Citadel_ComponentOwned" />
-					<Label class="componentModRequiredDisplay" text="+{i:goldCost}" />
-					<Label class="componentModConsumedDisplay" text="" />
-				</Panel>
-			</Panel>
-		</snippet>
-		<snippet name="ComponentOfModSnippet">
-			<Panel class="componentMod">
-				<Panel class="componentModIconContainer">
-					<Image id="componentModIcon" />
-				</Panel>
-				<Panel class="componentModDetails">
-					<Label class="componentModName" text="{s:modName}" />
-				</Panel>
+				<Label class="componentModName" text="{s:modName}" />
 			</Panel>
 		</snippet>
 	</snippets>
 	<CitadelTooltipModDetails hittest="false" hittestchildren="false">
+		<GlobalClassListener classes="gDetailView gScoreboardOpen" />
 		<Panel id="PrimaryTooltipContainer">
 			<Panel id="ModTooltipContainer">
 				<Panel class="HeaderContainer">
@@ -105,31 +101,9 @@
 						<CitadelModifiedAttributeLabel id="TierBonusValue" />
 						<Label class="TierBonusLabel" text="{s:tier_bonus_type}" />
 					</Panel>
-					<Panel id="DefensiveTag">
-						<Panel class="DefensiveIcon" />
-						<Label text="Defensive" />
-					</Panel>
-				</Panel>
-				<Panel id="ComponentsContainer" class="LeftRightFlow">
-					<Panel id="ComponentsLabelContainer">
-						<Label class="componentsLabel" text="#Citadel_ComponentRequired" />
-					</Panel>
-					<Panel id="ComponentsList" />
 				</Panel>
 				<Panel class="AttributesContainer">
 					<Panel id="SectionsContainer" class="TopBottomFlow" />
-				</Panel>
-				<Panel id="ComponentUsedContainer">
-					<Panel id="ComponentsLabelContainer">
-						<Label class="componentsLabel" text="#Citadel_ComponentUseIn" />
-					</Panel>
-					<Panel id="ComponentUsedList" />
-				</Panel>
-				<Panel id="ComponentOfContainer">
-					<Panel id="ComponentsLabelContainer">
-						<Label class="componentsLabel" text="#Citadel_IsComponentOf" />
-					</Panel>
-					<Panel id="ComponentOfList" />
 				</Panel>
 				<CitadelAltInfoPanel id="AltInfoContainer" />
 				<Panel id="OwnedByContainer">
@@ -138,15 +112,42 @@
 				</Panel>
 			</Panel>
 			<Panel class="AffectedAbilitiesContainer TopBottomFlow">
-				<Panel class="AffectedAbilitiesHeader">
-					<Label class="ModifiesLabel" text="#Citadel_ItemModifies" />
+				<Panel class="AffectedAbilitiesTogglePanel">
+					<Panel class="AffectedAbilitiesHeader">
+						<Label class="ModifiesLabel" text="#Citadel_ItemModifies" />
+					</Panel>
+					<Panel id="AffectedAbilities" class="TopBottomFlow" />
 				</Panel>
-				<Panel id="AffectedAbilities" class="TopBottomFlow" />
+				<Panel id="ViewImpactBox">
+					<Label class="viewImpactLabel" text="#Citadel_ItemViewImpact" />
+					<CitadelBinding class="impactBinding" action="Scoreboard" />
+				</Panel>
 			</Panel>
 		</Panel>
-		<Panel class="AnnotationContainer LeftRightFlow">
+		<Panel class="componentsSection">
+			<Panel id="ComponentsContainer" class="componentGroup">
+				<Label class="componentsLabel" text="#Citadel_ComponentRequired" />
+				<Panel id="ComponentsList" class="componentsList" />
+			</Panel>
+			<Panel id="ComponentOfContainer" class="componentGroup">
+				<Label class="componentsLabel" text="#Citadel_IsComponentOf" />
+				<Panel id="ComponentOfList" class="componentsList" />
+			</Panel>
+			<Panel id="ComponentUsedContainer" class="componentGroup">
+				<Label class="componentsLabel" text="#Citadel_ComponentUseIn" />
+				<Panel id="ComponentUsedList" class="componentsList" />
+			</Panel>
+		</Panel>
+		<Panel class="BuildInfoContainer">
 			<CitadelAvatarImage id="AuthorAvatar" />
-			<Label class="ModifiesLabel" text="#Citadel_Item_BuildAnnotation" />
+			<Panel class="NotesContainer">
+				<Label class="ModifiesLabel" text="#Citadel_Item_Build_Annotation" />
+				<Label class="SellPriorityLabel BuildInfoLabel" text="#Citadel_Item_Build_SellPriority" />
+				<Panel class="ImbueTargetContainer">
+					<Label text="#Citadel_Item_Build_ImbueTarget" />
+					<CitadelAbilityIcon class="HideAbilityKey" id="ImbueTargetAbilityIcon" />
+				</Panel>
+			</Panel>
 		</Panel>
 	</CitadelTooltipModDetails>
 </root>

@@ -17,7 +17,7 @@
 		</snippet>
 	</snippets>
 	<CitadelHudHeroShop class="CitadelHudHeroShop gShopOpen" oncancel="CitadelExitUpgradeShop();" onactivate="">
-		<GlobalClassListener classes="gBrowsingBuilds gEditingBuilds gShopOpen" />
+		<GlobalClassListener classes="gEditingBuilds gScoreboardOpen gShopOpen" />
 		<Panel id="Shop">
 			<Panel id="NavPanel" class="TopBottomFlow">
 				<ScenePanel id="HeroScenePanel" map="ui/hero_shop/abrams_shop" use_shop_map="true" sound="PORTRAIT_SOUND_MODE_ALL_SOUNDS" shop_hero_animgraph_enum="ShopBase" parent_entity_name="hero_root" camera="point_camera" rotateonhover="true" allowrotation="false" require-composition-layer="true" />
@@ -56,57 +56,36 @@
 						</Panel>
 					</Panel>
 				</Panel>
-				<Panel class="ModsPurchasedContainer">
-					<Panel class="ModsAndActivesContainer">
-						<Panel id="SecondaryPanel">
-							<Panel id="ModBarGraphContainer">
-								<CitadelHudModBarGraph id="ModBarGraph" />
-							</Panel>
-							<Panel id="ActivesPanel" />
+				<Panel id="HeroStatsContainer">
+					<Label class="heroStatsLabel" text="#Citadel_Hero_Stats_Title" />
+					<Panel id="HeroStatsRow">
+						<CitadelHudModBarGraph id="ModBarGraph" />
+						<Panel id="WeaponStats" class="statsButton stats_weapon" onmouseover="CitadelShowStatsPanelTooltip( EItemSlotType_WeaponMod );" onmouseout="CitadelHideStatsPanelTooltip();">
+							<Panel class="statCategoryIcon" />
+							<Label text="#CitadelCategoryWeapon" />
+						</Panel>
+						<Panel id="ArmorStats" class="statsButton stats_armor" onmouseover="CitadelShowStatsPanelTooltip( EItemSlotType_Armor );" onmouseout="CitadelHideStatsPanelTooltip();">
+							<Panel class="statCategoryIcon" />
+							<Label text="#CitadelCategoryArmor" />
+						</Panel>
+						<Panel id="TechStats" class="statsButton stats_tech" onmouseover="CitadelShowStatsPanelTooltip( EItemSlotType_Tech );" onmouseout="CitadelHideStatsPanelTooltip();">
+							<Panel class="statCategoryIcon" />
+							<Label text="#CitadelCategoryTech" />
 						</Panel>
 					</Panel>
 				</Panel>
 			</Panel>
 			<Panel id="MainPanel">
-				<Panel id="SearchExamples">
-					<Label html="true" class="SearchExampleHeader" text="#CitadelShop_SearchExampleAlt" />
-				</Panel>
-				<Panel id="ShopModsContainer" class="TopBottomFlow">
+				<Panel id="ShopModsContainer">
 					<Panel id="ShopNavigation">
-						<Panel id="FavoritesNav" class="NavigationButton" onmouseactivate="CitadelShopModsActivate( EItemSlotType_Favorites );  CitadelPlayUISound( EShopFilterFavoritesClicked );">
-							<Panel class="NavHeaderColor" />
-							<Panel class="NavIconContainer LeftRightFlow">
-								<Panel class="NavCategoryIcon" />
-								<Label class="NavLabel" text="#Citadel_HeroBuilds_TabName" />
-							</Panel>
-						</Panel>
-						<Panel id="WeaponNav" class="NavigationButton" onmouseactivate="CitadelShopModsActivate( EItemSlotType_WeaponMod ); CitadelPlayUISound( EShopFilterWeaponClicked );">
-							<Panel class="NavHeaderColor" />
-							<Panel class="NavIconContainer LeftRightFlow">
-								<Panel class="NavCategoryIcon" />
-								<Label class="NavLabel" text="#CitadelCategoryWeapon" />
-							</Panel>
-						</Panel>
-						<Panel id="ArmorNav" class="NavigationButton" onmouseactivate="CitadelShopModsActivate( EItemSlotType_Armor ); CitadelPlayUISound( EShopFilterVitalityClicked );">
-							<Panel class="NavHeaderColor" />
-							<Panel class="NavIconContainer LeftRightFlow">
-								<Panel class="NavCategoryIcon" />
-								<Label class="NavLabel" text="#CitadelCategoryArmor" />
-							</Panel>
-						</Panel>
-						<Panel id="TechNav" class="NavigationButton" onmouseactivate="CitadelShopModsActivate( EItemSlotType_Tech ); CitadelPlayUISound( EShopFilterMagicClicked );">
-							<Panel class="NavHeaderColor" />
-							<Panel class="NavIconContainer LeftRightFlow">
-								<Panel class="NavCategoryIcon" />
-								<Label class="NavLabel" text="#CitadelCategoryTech" />
-							</Panel>
-						</Panel>
-						<Panel id="SearchContainer">
-							<Panel id="SearchBox">
-								<Panel id="ShopSearchIcon" onactivate="SetSearchFocus();" />
-								<TextEntry id="SearchTextEntry" acceptsfocus="true" acceptsinput="true" placeholder="#CitadelShopSearch" ontextentrychange="CitadelShopSearchTextEntryChanged()" onfocus="CitadelShopSearchTextEntryChanged()" />
-								<Button id="ClearSearchButton" onactivate="CitadelShopSearchTextEntryClear();" />
-							</Panel>
+						<Panel id="FavoritesNav" class="NavigationButton" onmouseactivate="CitadelShopModsActivate( EItemSlotType_Favorites ); PlaySoundEffect( &apos;UI.Shop.Mod.Starred.Click&apos; );" />
+						<Panel id="WeaponNav" class="NavigationButton" onmouseactivate="CitadelShopModsActivate( EItemSlotType_WeaponMod ); PlaySoundEffect( &apos;UI.Shop.Mod.Weapon.Click&apos; );" onmouseover="CitadelShowStatsPanelTooltip( EItemSlotType_WeaponMod );" onmouseout="CitadelHideStatsTooltip();" />
+						<Panel id="ArmorNav" class="NavigationButton" onmouseactivate="CitadelShopModsActivate( EItemSlotType_Armor ); PlaySoundEffect( &apos;UI.Shop.Mod.Vitality.Click&apos; );" onmouseover="CitadelShowStatsPanelTooltip( EItemSlotType_Armor );" onmouseout="CitadelHideStatsTooltip();" />
+						<Panel id="TechNav" class="NavigationButton" onmouseactivate="CitadelShopModsActivate( EItemSlotType_Tech ); PlaySoundEffect( &apos;UI.Shop.Mod.Magic.Click&apos; );" onmouseover="CitadelShowStatsPanelTooltip( EItemSlotType_Tech );" onmouseout="CitadelHideStatsTooltip();" />
+						<Panel id="SearchNav" class="NavigationButton" onmouseactivate="CitadelShopModsActivate( EItemSlotType_All ); PlaySoundEffect( &apos;UI.Shop.Mod.Search.Click&apos; );" onmouseover="UIShowTextTooltip( #CitadelShopSearch)" onmouseout="UIHideTextTooltip();" />
+						<Panel id="ToggleContainer" onactivate="CitadelToggleComponentGroupingInShop();">
+							<Panel id="ShowCategories" class="viewToggle category_view" onmouseover="UIShowTextTooltip( #Citadel_Shop_Sort_Tooltip_Categories )" onmouseout="UIHideTextTooltip()" />
+							<Panel id="ShowTiers" class="viewToggle tiers_view" onmouseover="UIShowTextTooltip( #Citadel_Shop_Sort_Tooltip_Tier )" onmouseout="UIHideTextTooltip()" />
 						</Panel>
 					</Panel>
 					<Panel id="ShopModListsContainer">
@@ -116,6 +95,25 @@
 						<CitadelShopModsList id="ShopModsListTech" category="Tech" />
 						<CitadelShopModsBuild id="ShopModsSelectedBuild" />
 						<CitadelShopModsList id="ShopModsListAll" category="All" />
+						<Panel id="SearchHeader">
+							<Panel id="SearchExamples">
+								<Label class="searchTitle" text="#CitadelShopSearch" />
+								<Label html="true" class="SearchExampleHeader" text="#CitadelShop_SearchExampleAlt" />
+							</Panel>
+							<Panel id="SearchContainer">
+								<Panel id="SearchBox">
+									<Panel id="ShopSearchIcon" onactivate="SetSearchFocus();" />
+									<TextEntry id="SearchTextEntry" acceptsfocus="true" acceptsinput="true" placeholder="#CitadelShopSearch" ontextentrychange="CitadelShopSearchTextEntryChanged()" onfocus="CitadelShopSearchTextEntryChanged()" />
+									<Button id="ClearSearchButton" onactivate="CitadelShopSearchTextEntryClear();" />
+								</Panel>
+							</Panel>
+						</Panel>
+						<Panel id="PriceTags" hittest="false">
+							<Panel id="Tier1PriceTag" class="priceTag" />
+							<Panel id="Tier2PriceTag" class="priceTag" />
+							<Panel id="Tier3PriceTag" class="priceTag" />
+							<Panel id="Tier4PriceTag" class="priceTag" />
+						</Panel>
 					</Panel>
 				</Panel>
 				<Panel id="AbilityPanelsContainer" onactivate="" hittest="false" hittestchildren="false">

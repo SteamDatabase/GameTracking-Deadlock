@@ -784,6 +784,50 @@
 							property_group = "citadel_enemy_audible_sound"
 						}
 					}
+					volume_falloff_scale_team = 
+					{
+						data_type = "float"
+						value = "1.0"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "Perspective - Volume Falloff"
+							property_help = "Max volume falloff for team perspective."
+						}
+					}
+					volume_falloff_scale_opponent = 
+					{
+						data_type = "float"
+						value = "1.0"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "Perspective - Volume Falloff"
+							property_help = "Scale volume falloff for opponent perspective."
+						}
+					}
+					volume_falloff_scale_neutral = 
+					{
+						data_type = "float"
+						value = "1.0"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "Perspective - Volume Falloff"
+							property_help = "Scale volume falloff for neutral perspective."
+						}
+					}
+					volume_falloff_scale_player = 
+					{
+						data_type = "float"
+						value = "1.0"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "Perspective - Volume Falloff"
+							property_help = "Scale volume falloff for player perspective."
+						}
+					}
 				}
 			},
 			
@@ -975,6 +1019,16 @@
 				input_team_value = "@public.hrtf_on_team"
 				input_opponent_value = "@public.hrtf_on_opponent"
 				input_neutral_value = "@public.hrtf_on_neutral"
+			},
+			
+			{
+				name = "perspective_switch_volume_falloff_scale"
+				operator = "logic_perspective_switch_float"
+				input_participant_perspective = "@citadel_find_perspective::game_entity_perspective.output"
+				input_player_value = "@public.volume_falloff_scale_player"
+				input_team_value = "@public.volume_falloff_scale_team"
+				input_opponent_value = "@public.volume_falloff_scale_opponent"
+				input_neutral_value = "@public.volume_falloff_scale_neutral"
 			},
 			
 			{
@@ -1222,6 +1276,11 @@
 					{
 						data_type = "string"
 						value = "@perspective_switch_initial_reflection_field_name.output"
+					}
+					volume_falloff_scale = 
+					{
+						data_type = "float"
+						value = "@perspective_switch_volume_falloff_scale.output"
 					}
 				}
 			},

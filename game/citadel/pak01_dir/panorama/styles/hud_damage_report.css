@@ -1,8 +1,7 @@
 /* Prettified by Source 2 Viewer - https://valveresourceformat.github.io */
 
-@import url("s2r://panorama/styles/citadel_shared_colors.vcss_c");
-@import url("s2r://panorama/styles/ability_icons.vcss_c");
 @import url("s2r://panorama/styles/citadel_base_styles.vcss_c");
+@import url("s2r://panorama/styles/ability_icons.vcss_c");
 #TimeControlDropDownDropDownMenu,.TimeControlOption
 {
 	max-width: 150px;
@@ -128,12 +127,7 @@
 	margin-right: 0px;
 }
 
-.HudDamageReport.Compact .TimeControl
-{
-	visibility: collapse;
-}
-
-.HudDamageReport.Compact .DamageByHero
+.HudDamageReport.Compact .DamageByHeroContainer
 {
 	visibility: collapse;
 }
@@ -153,6 +147,11 @@
 	visibility: visible;
 }
 
+.ShowingLastLife .TimeControl
+{
+	visibility: collapse;
+}
+
 .HudDamageReport.Outgoing .Header .DamageReportHeader.Received
 {
 	visibility: collapse;
@@ -163,7 +162,7 @@
 	visibility: visible;
 }
 
-.HudDamageReport.Outgoing .DamageByHero
+.HudDamageReport.Outgoing .DamageByHeroContainer
 {
 	visibility: collapse;
 }
@@ -183,16 +182,15 @@
 	visibility: collapse;
 }
 
-.HudDamageReport.gDetailView.gBrowsingBuilds:not(.Hidden)
+.HudDamageReport.Full .DamageControlRow
 {
-	visibility: collapse;
+	visibility: visible;
 }
 
 .HudDamageReport
 {
 	vertical-align: top;
 	horizontal-align: right;
-	z-index: 199;
 	margin-top: 230px;
 	width: 470px;
 	border-radius: 5px 0px 0px 5px;
@@ -200,11 +198,16 @@
 	font-family: sans;
 	flow-children: right;
 	transform: translateX(0px);
-	transition-duration: 0.1s;
-	transition-property: transform;
+	transition-duration: 0.2s;
+	transition-property: transform, opacity;
 	transition-timing-function: ease-in-out;
 	border-radius: 10px;
 	visibility: collapse;
+}
+
+.HudDamageReport.gDetailView
+{
+	opacity: 0;
 }
 
 .HudDamageReport.ShowAlways:not(.Hidden),.HudDamageReport.gScoreboardOpen:not(.Hidden),.dead .HudDamageReport:not(.Hidden),.spec_mode .HudDamageReport:not(.Hidden),.connectedToHeroTesting .HudDamageReport.gScoreboardOpen,.connectedToHeroTesting .HudDamageReport.gShopOpen,.connectedToHeroTesting .HudDamageReport.gDetailView
@@ -212,7 +215,7 @@
 	visibility: visible;
 }
 
-.HudDamageReport.gShopOpen.gScoreboardOpen
+.HudDamageReport.gShopOpen.gEditingBuilds
 {
 	visibility: collapse;
 }
@@ -230,8 +233,9 @@
 .HudDamageReport.gShopOpen
 {
 	opacity: 1;
-	margin-top: 150px;
-	z-index: 201;
+	margin-top: 80px;
+	z-index: 1;
+	horizontal-align: left;
 }
 
 .HudDamageReport.gShopOpen #ReportContents
@@ -266,6 +270,8 @@
 	width: 470px;
 	margin-left: 0px;
 	padding: 10px;
+	padding-top: 4px;
+	padding-bottom: 4px;
 	flow-children: right;
 	vertical-align: middle;
 	background-color: #10130D;
@@ -294,6 +300,8 @@
 	font-weight: bold;
 	margin: 4px;
 	margin-left: 10px;
+	width: 165px;
+	text-overflow: shrink;
 }
 
 .Tab .HudDamageReport .Header .DamageReportHeader
@@ -309,8 +317,7 @@
 .HudDamageReport .Header .TimeControl
 {
 	max-width: 150px;
-	margin-right: 20px;
-	margin: 4px 20px;
+	margin: 4px 10px;
 	vertical-align: center;
 	horizontal-align: right;
 }
@@ -343,6 +350,7 @@
 
 .HudDamageReport .DamageControlRow
 {
+	visibility: collapse;
 	width: 100%;
 	flow-children: right;
 	horizontal-align: center;
@@ -411,11 +419,69 @@
 	color: spiritBrightColor;
 }
 
+.HudDamageReport.ShowDamageByHero .DamageSection #DamageByHero
+{
+	visibility: visible;
+}
+
+.HudDamageReport.ShowDamageByHero .DamageSection .DamageByHeroContainer .CloseButton
+{
+	background-size: auto 50%;
+	background-image: url("s2r://panorama/images/icons/icon_x.vsvg");
+}
+
+.HudDamageReport.ShowDamageByHero .DamageSection .DamageByHeroContainer .DamageByHeroLabel
+{
+	visibility: collapse;
+}
+
+.HudDamageReport .DamageSection .DamageByHeroContainer
+{
+	horizontal-align: center;
+	width: 100%;
+}
+
+.HudDamageReport .DamageSection .DamageByHeroContainer .DamageByHeroToggle
+{
+	vertical-align: top;
+	horizontal-align: left;
+	ignore-parent-flow: true;
+	flow-children: right;
+	transition-property: brightness;
+	transition-duration: 0.1s;
+	transition-timing-function: ease;
+}
+
+.HudDamageReport .DamageSection .DamageByHeroContainer .DamageByHeroToggle:hover
+{
+	brightness: 1.2;
+}
+
+.HudDamageReport .DamageSection .DamageByHeroContainer .CloseButton
+{
+	width: 25px;
+	height: 25px;
+	margin: 4px;
+	margin-left: 8px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url("s2r://panorama/images/icons/icon_plus_white_png.vtex");
+	background-size: auto 75%;
+	background-color: none;
+	wash-color: offWhite;
+}
+
+.HudDamageReport .DamageSection .DamageByHeroContainer .DamageByHeroLabel
+{
+	vertical-align: center;
+}
+
 .HudDamageReport .DamageSection #DamageByHero
 {
 	flow-children: right;
 	padding: 0px;
 	horizontal-align: center;
+	visibility: collapse;
 }
 
 .HudDamageReport .DamageSection #DamageByHero .HeroDamageColumn
@@ -640,6 +706,7 @@
 .HudDamageRows
 {
 	padding: 10px;
+	padding-top: 5px;
 	width: 100%;
 }
 
@@ -801,9 +868,9 @@
 	background-image: url("s2r://panorama/images/hud/text_images/killing_blow/killing_blow_indonesian_png.vtex");
 }
 
-.Language_korean .killing_blow
+.Language_koreana .killing_blow
 {
-	background-image: url("s2r://panorama/images/hud/text_images/killing_blow/killing_blow_korean_png.vtex");
+	background-image: url("s2r://panorama/images/hud/text_images/killing_blow/killing_blow_koreana_png.vtex");
 }
 
 .Language_latam .killing_blow

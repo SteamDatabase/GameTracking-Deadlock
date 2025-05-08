@@ -20,7 +20,6 @@
  changes to final result of %.2f\n
 !!SyncExtref!!%s
 !I>Ct
-"\tV_fread
 # Instances Playing Required To Reach Loudest Volume
 # Instances Playing Until We Get Louder Than Quietest Volume
 #OS_Default_Device
@@ -34,7 +33,6 @@ $toolgraphs
 %*sSoundEvent Hash: %d\n
 %*smixgroup: %s\n
 %.1f / %.1f
-%\tV_frexpf
 %d channels, %d bits per sample, %d Hz\n
 %d) %s %s -> %s\n
 %d: %s (%08lx :: %08lx) %s [%.1fs]
@@ -60,21 +58,10 @@ $toolgraphs
 %s: Sound event executionlist has too many active voices (%d). Index %i : %s\n
 %s: params.pSfx is NULL.\n
 %s::Execute: Can't find operator stack %s in %s\n
-%s_%s_linear
-%s_%s_mapping_curve
-%s_KV3
-%s_mult
-%s_oldkv
-%s_random_add
-%s_random_max
-%s_random_min
-%s_random_variance
-%s_seek_speed_filter
 'Group Box Maxs' Opvar Name
 'Group Box Mins' Opvar Name
 'Should Play Cluster Child' Opvar Name
 'Should Play' Opvar Name
-'\tV_fseek
 (%2db) %6lli : %s\n
 (Expecting %s)
 (Expecting EOF)
@@ -96,6 +83,7 @@ $toolgraphs
 -36 3
 -Stop: 
 -end of input-(
+-tools
 -unknown source-
 -unknown source-(
 .?AUCAttr_m_bBassMono@?1??GetAttributeTable_Impl@VMixUtilityDesc_t@@SAXPEAV?$CUtlVector@PEAVIBaseToolAttr@@HV?$CUtlMemory@PEAVIBaseToolAttr@@H$0A@@@@@@Z@
@@ -625,6 +613,7 @@ $toolgraphs
 .?AVCSosOperatorLerpSpeakers@@
 .?AVCSosOperatorLogicPerspectiveSwitchFloat@@
 .?AVCSosOperatorLogicPerspectiveSwitchString@@
+.?AVCSosOperatorLogicSwitch12Float3@@
 .?AVCSosOperatorLogicSwitch12Float@@
 .?AVCSosOperatorLogicSwitch3Float3@@
 .?AVCSosOperatorLogicSwitch3Float@@
@@ -634,7 +623,7 @@ $toolgraphs
 .?AVCSosOperatorLogicSwitchSpeakers@@
 .?AVCSosOperatorLogicSwitchStringHandle@@
 .?AVCSosOperatorLoopFloat@@
-.?AVCSosOperatorMaterialAudioDataLookup@@
+.?AVCSosOperatorMaterialResonantSoundEventLookup@@
 .?AVCSosOperatorMathAverage8@@
 .?AVCSosOperatorMetronome@@
 .?AVCSosOperatorMixGraphInput@@
@@ -748,6 +737,8 @@ $toolgraphs
 .?AVCSubgraphSwitchAudioProcessor@@
 .?AVCSyncVSndResourceUtils@@
 .?AVCTestBlendContainer@@
+.?AVCToolEditContextQuery_Base@@
+.?AVCToolEditContextQuery_String@@
 .?AVCUtilityAudioProcessor@@
 .?AVCVMixAPI@@
 .?AVCVMixMixer@@
@@ -805,21 +796,26 @@ $toolgraphs
 .?AVIVSndParameterTable@@
 .?AVIVSoundManager@@
 .?AVIVoiceTraceKV3@@
+.custom.dimensions
+.custom.materials
+.custom.occlusion
 .vsnd
 0 14
 0 36
 0 360
 0 = use biquad instead of svf, 1 = use vectorized svf, 2 = use scalar svf
-0.000000
 0.1 10
 0.1 16000
+0\tV_fread
+0expr
 12dB
 1:1: Tokens : ( T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | TOK_COLON | OPEN_BRACE | CLOSE_BRACE | OPEN_PAREN | CLOSE_PAREN | OPEN_BRACKET | CLOSE_BRACKET | SEMICOLON | OP_EQUAL | COMMA | DOUBLE_AND | NEGATIVE_TOK | DOUBLE_OR | LITERAL_TRUE | LITERAL_FALSE | POS_INTLITERAL | POS_FLOATLITERAL | ID | DOUBLE_QUOTED_STRING | SINGLE_QUOTED_STRING | SINGLE_LINE_COMMENT | ML_COMMENT | WS | UNRECOGNIZED );
 1e<w 
-2\vp!w
+3\tV_frexpf
 488:1: POS_FLOATLITERAL : ( ( DIGIT )+ '.' ( DIGIT )* ( EXPONENT )? | '.' ( DIGIT )+ ( EXPONENT )? | ( DIGIT )+ EXPONENT );
+5\tV_fseek
 8Ccosf
-8fff?fff?fff?
+8fff?fff?fff?fff?
 : lexer error %d :\n\t%s at offset %d, 
 <DOWN>
 <EMPTY>
@@ -837,14 +833,11 @@ $toolgraphs
 >EJtM
 ?333?
 ?amN2
-?fff?fff?fff?fff?
 ?gUB
 ?l@GC
 ?none
 ?s,DT
 ?wr^a
-@%s.output
-@public.%s
 ADPCM
 ANTLR3_EXCEPTION number %d (%08X).\n
 ANTLR3_EXCEPTION: %s\n
@@ -858,13 +851,9 @@ Active ?: %s\n
 Active Voices: %d\n
 Actually dude, we didn't seem to be expecting anything here, or at least\n
 AddNewSoundEvent:  %s has a hash collision with existing %s\n
-AddSoundEvent event with empty name\n
 AddSoundEvent:  %s has a hash collision with existing %s\n
 AddSoundEvent:AddSoundEvent event with empty name\n
 AddSoundEventDefinition: Overwriting existing soundevent %s\n
-AddSoundEvents: SoundEvent %s was unable to convert to KV3.
-AddSoundEvents: SoundEvent file %s was not compiled from a KeyValues3 file and is being converted. Please recompile.\n
-AddSoundEvents: event with empty name\n
 AddStackKV3: Cannot find "operators" array in stack %s\n
 Added %s to TRASHSYNTH.\n
 Adding operator stack matching existing name: %s\n
@@ -932,7 +921,6 @@ Base recognizer function displayRecognitionError called by unknown parser type -
 Base recognizer function recover called by unknown parser type - provide override for this function\n
 Base recognizer function recoverFromMismatchedSet called by unknown parser type - provide override for this function\n
 Base recognizer function recoverFromMismatchedToken called by unknown parser type - provide override for this function\n
-BaseStack
 Bass Freq
 Bass Mono
 Below Threshold(dB)
@@ -961,7 +949,6 @@ Bytecode instruction
 C-memory-
 C:\buildworker\citadel_rel_win64\build\_build_\soundsystem\_vpc_soundsystem\default\win64\_msvc_\Retail\soundsystem.pdb
 C:\buildworker\citadel_rel_win64\build\src\mathlib\extended\generic_expr.g
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\utlmap.h
 C:\buildworker\citadel_rel_win64\build\src\soundsystem\audio_stream.cpp
 C:\buildworker\citadel_rel_win64\build\src\soundsystem\audio_stream_attached.cpp
 C:\buildworker\citadel_rel_win64\build\src\soundsystem\debug_visualizer.cpp
@@ -978,6 +965,7 @@ C:\buildworker\citadel_rel_win64\build\src\soundsystem\snd_op_sys\sos_system.cpp
 C:\buildworker\citadel_rel_win64\build\src\soundsystem\snd_op_sys\sos_system.h
 C:\buildworker\citadel_rel_win64\build\src\soundsystem\snd_wave_data.cpp
 C:\buildworker\citadel_rel_win64\build\src\soundsystem\snd_wave_mixer_mp3.cpp
+C:\buildworker\citadel_rel_win64\build\src\soundsystem\soundevent.cpp
 C:\buildworker\citadel_rel_win64\build\src\soundsystem\soundsystem.cpp
 C:\buildworker\citadel_rel_win64\build\src\soundsystem\steamaudio_wrapper.cpp
 C:\buildworker\citadel_rel_win64\build\src\soundsystem\vmix.cpp
@@ -1135,8 +1123,8 @@ CSoundSampler:\t\tSamples: %i\n
 CSoundSampler:\t\t\tSample: %s\n
 CStrongHandle
 CTSQueue<class CAsyncWaveData *,0>::Push
+CTSQueue<class CSfxTable *,0>::Push
 CTestBlendContainer
-CURVES: %d\n
 CURVE_TANGENT_FREE
 CURVE_TANGENT_MIRROR
 CURVE_TANGENT_SINE
@@ -1144,12 +1132,7 @@ CURVE_TANGENT_SPLINE
 CUtlBinaryBlock
 CUtlDict<class CSosOperator *,class CDefFastCaselessStringLess>::Insert
 CUtlDict<class CSosOperatorStack *,class CDefFastCaselessStringLess>::Insert
-CUtlDict<class CUtlString,class CDefFastCaselessStringLess>::Insert
-CUtlDict<class KeyValues *,class CDefFastCaselessStringLess>::Insert
 CUtlDict<struct CSosOperatorEvalFloat::EvalData *,class CDefFastCaselessStringLess>::Insert
-CUtlOrderedMap<char const *,class CUtlString,class CDefStringLess,unsigned short>::FindElement
-CUtlRBTree<struct CUtlOrderedMapBase<char const *,class CUtlString,class CDefStringLess,unsigned short>::Node_t,class CUtlOrderedMapBase<char const *,class CUtlString,class CDefStringLess,unsigned short>::CKeyLess,unsigned short,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<char const *,class CUtlString,class CDefStringLess,unsigned short>::Node_t,unsigned short>,unsigned short,0> >::Insert
-CUtlRBTree<struct CUtlOrderedMapBase<char const *,class KeyValues *,class CDefStringLess,unsigned short>::Node_t,class CUtlOrderedMapBase<char const *,class KeyValues *,class CDefStringLess,unsigned short>::CKeyLess,unsigned short,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<char const *,class KeyValues *,class CDefStringLess,unsigned short>::Node_t,unsigned short>,unsigned short,0> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<class CSosDependent *,int,class CDefLess<class CSosDependent *>,unsigned short>::Node_t,class CUtlOrderedMapBase<class CSosDependent *,int,class CDefLess<class CSosDependent *>,unsigned short>::CKeyLess,unsigned short,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CSosDependent *,int,class CDefLess<class CSosDependent *>,unsigned short>::Node_t,unsigned short>,unsigned short,0> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<class CUtlStringToken,struct SosOpFieldMapInfo_t *,class CDefLess<class CUtlStringToken>,int>::Node_t,class CUtlOrderedMapBase<class CUtlStringToken,struct SosOpFieldMapInfo_t *,class CDefLess<class CUtlStringToken>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CUtlStringToken,struct SosOpFieldMapInfo_t *,class CDefLess<class CUtlStringToken>,int>::Node_t,int>,int,0> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<class SoundEventGuid_t,class CSndMixGroupTrigger_t,class CDefLess<class SoundEventGuid_t>,unsigned short>::Node_t,class CUtlOrderedMapBase<class SoundEventGuid_t,class CSndMixGroupTrigger_t,class CDefLess<class SoundEventGuid_t>,unsigned short>::CKeyLess,unsigned short,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class SoundEventGuid_t,class CSndMixGroupTrigger_t,class CDefLess<class SoundEventGuid_t>,unsigned short>::Node_t,unsigned short>,unsigned short,0> >::Insert
@@ -1159,10 +1142,8 @@ CUtlRBTree<struct CUtlOrderedMapBase<unsigned short,int,class CDefLess<unsigned 
 CUtlString
 CVMixTypeManager::VMixTableInit
 CVSound
-CVSoundEventScriptTypeManager::AddSoundEvent:  %s has a hash collision with existing %s\n
 CVSoundFormat_t
 CVSoundStackScriptTypeManager::Allocate can't parse stack %s\n
-CVSoundStackScriptTypeManager::Allocate can't parse stack KV %s\n
 CVSoundStackScriptTypeManager::Allocate stack with empty name\n
 CVSoundTypeManager::CreateProceduralSfx
 CVSoundTypeManager::GetSfx
@@ -1190,6 +1171,7 @@ CVoiceContainerStaticAdditiveSynth::CGainScalePerInstance
 CVoiceContainerStaticAdditiveSynth::CHarmonic
 CVoiceContainerStaticAdditiveSynth::CTone
 CVoiceContainerSwitch
+C\nw+C
 C_Sharp
 Can't find mix layer %s\n
 Can't find mixgroup name %s for submix\n
@@ -1247,7 +1229,6 @@ Crossfade Time (s)
 CurTime: %f\n
 Currently gets info for a single operator field
 Currently sets a single float operator field
-Curves
 Cutoff Freq
 Cutoff Frequency
 DIGIT
@@ -1372,7 +1353,6 @@ Error: MixLayer Trigger entries require minimum 2 arguments after layer trigger 
 Error: MixLayer operator has invalid mix group index!\n
 Error: MixLayer operator has invalid mix layer index!\n
 Error: Operator %s, EntryMatchList has no free slots!\n
-Error: Operator %s, problems parsing operator field %s\n
 Error: Operator %s, unknown sound operator attribute %s\n
 Error: Parsing soundmixers.txt, mixgroup rules incomplete at group %s!\n
 Error: Parsing soundmixers.txt, mixgroup rules incomplete!\n
@@ -1428,7 +1408,6 @@ FILTER_SLOPE_36dB
 FILTER_SLOPE_48dB
 FILTER_SLOPE_MAX
 FILTER_UNKNOWN
-FIND ELEMENT: (%s)\n
 FREEING MATCH ENTRY:\n
 FX Mix (1.0 == wet)
 F_Sharp
@@ -1526,7 +1505,6 @@ I could not work out what I was expecting, like so many of us these days!\n
 ID of the sound device to use
 ID_CHAR
 IKV3TransferInterface_ResourceLoad
-INDEX
 If set > 0, overrides how long the decay time is on all mix graphs (in seconds).\n
 If set to 1, report more error found when playing sounds.\n
 If set to 1, show all incoming updates to vmix inputs.\n
@@ -1545,8 +1523,6 @@ Invalid arg %s set for subvoice playing %s\n
 Invalid field type %s for field %s\n
 Invert Match
 Is Oneshot
-IsValidIndex( i )
-KeyValues3::MoveMember
 Knee Width (dB)
 L?fff?33s?
 LFO Amount
@@ -1584,7 +1560,6 @@ Load all the probes from a file and display probes based on the passed on argume
 LoadKV3Object error: %s\n
 LoadKV3ObjectInPlace error: %s\n
 LoadVMixList
-Loading deferred Sound Event %s\n
 Loading mapping from %s file.\n
 LoopTrigger
 Loudest Volume
@@ -1628,7 +1603,6 @@ Max reverb gain amount for listener DSP.
 Max reverb gain amount for source-specific DSP.
 Max value property name
 Maximum Value
-MbP?expr
 Member Lifespan Time
 Mid EQ gain (dB)
 Min Index
@@ -1641,7 +1615,6 @@ Minimum Value
 Mirror
 Mismatched Token Exception
 Mismatched set
-Missing required transfer interface: %s
 Missing token
 Missing token %s
 Mix (1.0 = wet)
@@ -1732,7 +1705,6 @@ Opvar String
 Output %s: %.3f\n
 Output Balance
 Output Gain (dB)
-OutputPosToVmix
 Override
 Oversampling
 PANNER_TYPE_EQUAL_POWER
@@ -1744,7 +1716,6 @@ PCM16
 PCM8
 POS_FLOATLITERAL
 POS_INTLITERAL
-P\r0!L
 Param Name: "%s" Type: %s
 Parameter Blender
 Parameter Name
@@ -1797,15 +1768,10 @@ Prints the sizes of relevant sos classes.
 Priority Value, typically 0.0 to 1.0
 Priority volume scalar: %f
 Priority-Based Volume Multiplier, 0.0 to 1.0
-ProcessSoundEvent:  %s unable to get referenced stack %s. Soundevent deleted and removed.\n
 ProcessSoundEvent: %s Attempting to set more static groups than allowed\n
-ProcessSoundEvent: %s `field name %s either in public or event data on stack %s.\n
 ProcessSoundEvent: %s field %s has a different number of atomic elements than the field data type. Skipping\n
 ProcessSoundEvent: %s field %s has more elements than stack %s has allocated and the field is not specified as soundevent_data. Element count constrained.\n
-ProcessSoundEvent: %s found field %s with "data_type" during conversion comparison, which is no longer supported. Please add "soundevent_data" to stack %s\n
 ProcessSoundEvent: %s unable to find field name %s either in public or event data on stack %s.\n
-ProcessSoundEvent: %s unable to get "base" sound event %s, deferring load.\n
-ProcessSoundEvent: %s unable to get referenced stack %s. Soundevent load deferred.\n
 ProcessSoundEvent: Sound Event %s field %s data count doesn't match field type.\n
 ProcessSoundEvent: Sound Event %s field %s illegal empty array detected.\n
 ProcessSoundEvent: Sound Event %s, field %s: array length exceeds currently maximum of %i".\n
@@ -1855,13 +1821,13 @@ Release time (ms)
 Reload soundmixers.txt file.
 Remove all soundevents
 Remove the specified soundevent
+RemoveSoundEvents: event with empty name\n
 Resample Deinterleaved Float
 Resolve the inputs and execute one specified operator from a specified stack
 Resonance Sweep
 Result Current Count
 Result Variable Name
 Retrigger Tone
-RetriggerSoundEvent
 Reverb Depth ms
 Reverb Height ms
 Reverb Width ms
@@ -2164,10 +2130,8 @@ Tried to play random sampler before the grain table finished loading. Will start
 Tried to play tone %d on an additive synth container that only has tones 0-%d
 Triggering %s with retrigger interval = %f; maximum distance = %f\n
 Triggers
-TriggersSoundEvents
 Trimming grain for %s from %f to %f seconds\n
 UNRECOGNIZED
-U\tV_powd
 UnInvalid
 UnNegate
 UnNot
@@ -2215,7 +2179,7 @@ Usage: snd_set_physics_surface_properties <diffmaterials|diffmapping|set|overwri
 Usage: snd_sos_compare_operator_stacks <stackname> <stackname>\n
 Usage: snd_sos_pause_first_soundevent <soundevent index>\n
 Usage: snd_sos_unpause_soundevent <soundevent index>\n
-Usage: snd_steamaudio_display_probes <pathing|reverb> <display_duration> <-1|search_radius> <display_radius>.\n
+Usage: snd_steamaudio_display_probes <reverb|pathing|occlusion|dimension|materials> <display_duration> <-1|search_radius> <display_radius>.\n
 Use Vsnd File
 Use perspective correction for 3D audio only in the frontal directions.
 Used main graph %s on voice %s\n
@@ -2230,6 +2194,7 @@ VMIX_CHAN_MONO
 VMIX_CHAN_RIGHT
 VMIX_CHAN_STEREO
 VMIX_CHAN_SWAP
+VMix Name
 VMixAutoFilterDesc_t
 VMixBoxverbDesc_t
 VMixChannelOperation_t
@@ -2297,7 +2262,6 @@ VPROCESSOR_UTILITY
 VPROCESSOR_VOCODER
 VSND Container
 VSNDVEC COMPARE FAIL: %s->%s\n
-VSNDVEC COMPARE SIZE FAIL: %s->%s\n
 Value Operator Offset: %i\n
 Value Stack Offset: %i\n
 Vector2D
@@ -2330,6 +2294,8 @@ Wait: elapsed time: %f, next sync time: %f, local elapsed: %f, local sync: %f, l
 Warning: %s (error %s)!\n
 Warning: Attempting to add an addition field: %s %s\n
 Warning: Can't find sos strings file: %s!\n
+Warning: Overwriting soundevent %s in %s with one from %s in the same mod.\n
+Warning: Overwriting soundevent %s in mod %s with one from mod %s\n
 Warning: Soundevent %s attempted to generate a random entity position for the World entity index\n
 Warning: Soundevent %s, failed to get mix layer %s!\n
 Warning: Stack %s has %i VSND operators\n
@@ -2354,12 +2320,8 @@ Wrong arg count for '%s' %d, expected 2
 Wrong arg count for '%s' %d, expected 3
 Wt<c
 X<"wP
-[ 0.005714, 0.3, 1.083, 1.083, 2.0, 3.0 ]
-[ 1.0, 1.0, 0.227125, 0.227125, 2.0, 3.0 ]
-[%f,%f,%f,%f,%f,%f]
 [%s] %s : src %d : vol %.2f : time %.3f\n
 [Index: 
-\f\tV_coshf
 \n    near %s\n    
 \n%*sName: %s\n
 \n%*sName: %s\n%*sNameSpace: %s\n
@@ -2368,14 +2330,19 @@ X<"wP
 \nSOS PRINT STRING: %s: %s\n
 \nType Name: %s\n
 \nUpdate SoundEvent: %s\n
-\rp77
+\r\tV_atanf
 \t The lexer was matching from line %d, offset %d, which\n\t 
 \t dspmix %1.2f : lvol %1.2f : cvol %1.2f : rvol %1.2f : rlvol %1.2f : rrvol %1.2f\n
 \t x: %4f y: %4f z: %4f\n
 \tRefs %16s : Name (Locks)\n
+\tT`R3
 \tTrack: %s\n
 \tVOL: %f\n\tLVL: %f\n\tDSP: %f\n\tMUTE: %f\n\tSOLO: %f\n\n
 \tV_atof
+\tV_coshf
+\tV_strnchr
+\tV_strtok
+\tV_tand
 \tV_tanhf
 \t[%2d] %16.16s : %s (%d) priority: %d\n
 \t\tInstrument: %s\n
@@ -2384,31 +2351,7 @@ X<"wP
 \t_V_wcsncpy_bytes
 _CustomCommand
 _CustomCommand%d
-__current_metadata_table_stack
-__customstack
-__customstack_components
-__customstack_curve_input
-__customstack_curve_mixgraph_send
-__customstack_curve_name
-__customstack_curve_output
-__customstack_curve_submix_send
-__customstack_default_output
-__customstack_field
-__customstack_has_random
-__customstack_hidden
-__customstack_keep_at_start
-__customstack_layers
-__customstack_rand_max
-__customstack_rand_min
-__customstack_seek_speed
-__customstack_send_pos
-__customstack_vsnd
-__fields
-__move_to_end
 __procedural__
-__remap_input
-__remap_input1
-__remap_input2
 __toolspreview__
 _base
 _builtins
@@ -2523,6 +2466,7 @@ biased
 blend_ratio
 block_equal_priority
 cO~j
+c\tV_powd
 calc_angles_facing
 calc_audibility
 calc_closest_point_on_capsule
@@ -2587,6 +2531,7 @@ cputimeus
 crossfade ms
 ctrl_gate
 ctrl_switch12_float
+ctrl_switch12_float3
 ctrl_switch3_float
 ctrl_switch3_float3
 ctrl_switch3_string
@@ -2625,12 +2570,11 @@ detail_value_7
 detail_value_8
 diffmapping
 diffmaterials
+dimensions
 dipolePower
 directsound
 displayName
 display_category
-display_edit_flag
-display_edit_type
 display_game
 display_group
 distance
@@ -2672,13 +2616,9 @@ exclude_group_name
 execute_once
 exit_if_blocked
 expression
-f\tV_sinhf
 facing
 fade
 fade_type
-fff?fff?
-field_curve_2d_editor
-field_linear_atten_editor
 field_override
 fillBufferExt
 filterFreq
@@ -2719,7 +2659,6 @@ generic_exprLexerNewSSD
 generic_exprParserNew
 generic_exprParserNewSSD
 get_system_globals
-get_vsnd_%s
 graphName
 greater_than
 greater_than_or_equal
@@ -2757,7 +2696,6 @@ inputSubmix1
 inputValue0
 inputValue1
 input_
-input_%s
 input_0
 input_1
 input_2
@@ -2804,6 +2742,7 @@ input_default
 input_default_local_position
 input_default_world_position
 input_delay
+input_directionality
 input_distance
 input_distance_max
 input_distance_min
@@ -2886,7 +2825,12 @@ input_map_min
 input_master_volume
 input_match_float
 input_match_string
-input_material
+input_material_0
+input_material_0_weight
+input_material_1
+input_material_1_weight
+input_material_2
+input_material_2_weight
 input_max
 input_max_events
 input_max_gain_change_per_second
@@ -2952,7 +2896,9 @@ input_radius_max
 input_radius_min
 input_rand_max
 input_rand_min
+input_random_seed
 input_rear_stereo_scale
+input_reference_ir
 input_relevance_value
 input_reset
 input_reset_event_time_on_restart
@@ -2971,8 +2917,6 @@ input_scalar
 input_scale
 input_scale_X
 input_scale_Y
-input_scale_x
-input_scale_y
 input_should_pause
 input_should_play_tail
 input_should_save
@@ -3001,7 +2945,6 @@ input_spread_min_value
 input_stack_delay
 input_stack_name
 input_start
-input_start%d
 input_start1
 input_start2
 input_start3
@@ -3040,7 +2983,6 @@ input_threshold_mid
 input_time
 input_time_scale
 input_trace_interval
-input_track%d
 input_track1
 input_track2
 input_track3
@@ -3076,7 +3018,6 @@ input_volume8
 input_volume_pos_max
 input_volume_pos_min
 input_vsnd
-input_vsnd%d
 input_vsnd1
 input_vsnd2
 input_vsnd3
@@ -3105,10 +3046,12 @@ input_z
 inrange
 instrument
 invalid stack
+invalid_hitbox
 invalid_vsnd
 invert
 invert_match
 invert_scale
+invert_string_match
 is also the end of the line, so you must check your lexer rules\n
 is_ducked
 is_local_player_slot
@@ -3501,7 +3444,7 @@ match_event_name
 match_event_type
 match_substring
 match_this_event
-material_audiodata_lookup
+material_resonant_soundevent_lookup
 math_accumulate12_float
 math_animate_float3
 math_average8_float
@@ -3625,7 +3568,6 @@ operator_field_display_none
 operator_field_display_token
 operator_field_display_vsnd
 operator_override
-operator_stacks
 operator_variables
 operators
 opponent
@@ -3771,7 +3713,12 @@ output_position_x
 output_position_y
 output_position_z
 output_rear
-output_resonant_event
+output_resonant_event_0
+output_resonant_event_0_weight
+output_resonant_event_1
+output_resonant_event_1_weight
+output_resonant_event_2
+output_resonant_event_2_weight
 output_result
 output_reverb_eq_high
 output_reverb_eq_low
@@ -3861,6 +3808,7 @@ public.start_point
 public.sync_bpm
 public.sync_bpm_beats
 public_field_name
+public_opvar
 qWindows Audio
 quad
 quantize_multiplier
@@ -3899,9 +3847,7 @@ seek
 send
 send%d
 sendOperator
-send_mixgraph_%s
 send_type
-send_voicegraph_%s
 sequence
 sequence_index
 sequences
@@ -4013,7 +3959,6 @@ snd_side_surround_speaker_position
 snd_sos_block_global_stack
 snd_sos_block_stop_global_stack
 snd_sos_calc_angle_debug
-snd_sos_compare_kv3_native_stacks
 snd_sos_compare_operator_stacks
 snd_sos_default_update_stack
 snd_sos_enable_nan_check
@@ -4169,7 +4114,6 @@ sounds/__attached_output_stream_wrapper_%d.vsnd
 sounds/common/null.vsnd
 sounds\
 soundstacks/dsp_mix_modifiers.vdata
-soundstacks/generated/generator_templates.txt
 soundstacks/mixgraph.vmix
 soundstacks/sosstrings.txt
 soundstacks/soundeventgroups.vsndgrps
@@ -4179,7 +4123,6 @@ soundsystem_device_used
 soundsystem_lowlevel
 soundsystem_voicecontainers
 soundsysteminfo
-source
 source_soundscape
 spawn_orphans
 speaker_config
@@ -4190,7 +4133,6 @@ startVoice
 start_beat
 start_offset
 start_on_name_change
-start_vsnd
 steamaudio_blend_ir
 steamaudio_compute_customdata
 steamaudio_compute_reverb
@@ -4215,6 +4157,7 @@ submix.spectrum
 submix_name
 sync_track
 sync_type
+t\tV_sinhf
 t\tvi
 tabs
 test
@@ -4235,12 +4178,9 @@ transmissionHigh
 transmissionLow
 transmissionMid
 trigger
-u\tV_strnchr
-unfiltered_stereo
 updateVoice
 update_stack
 update_voices_low_priority
-use_%s
 use_entity_position_if_local_player
 use_local_namespace
 use_trigger_amount
@@ -4264,9 +4204,6 @@ util_print_string
 util_print_vsnd
 util_timer
 util_timer_ramp
-value%d
-value1
-value2
 values
 vector_facing_point
 velocity_zones
@@ -4322,6 +4259,4 @@ wait_for_track
 wave_type
 weights_field_name
 zG(knN
-z\tV_strtok
 ~CSosOperatorSystem: Deleting orphaned CSosOperatorStack pointer for %s via shutdown\n
-~\tV_tand

@@ -47,6 +47,7 @@
 							display_group = "advanced"
 							display_edit_type = "field_curve_2d_editor"
 							property_group = "citadel_initial_reflection_send"
+							property_help = "The initial reflection send amount in decibels over distance."
 						}
 					}
 					distance = 
@@ -58,6 +59,17 @@
 							display_group = "Normal"
 							property_group = "citadel_initial_reflection_send"
 							property_help = "The current distance from sound origin to listener."
+						}
+					}
+					post_fader_volume = 
+					{
+						data_type = "float"
+						value = "1.0"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "citadel_initial_reflection_send"
+							property_help = "The volume post volume accumulator and volume filter."
 						}
 					}
 				}
@@ -81,12 +93,21 @@
 			},
 			
 			{
+				name = "math_mult_post_fader_post_distance_curve_volume"
+				input_execute = "1.0"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@public.post_fader_volume"
+				input2 = "@evaluate_opvar_send_amount_to_linear.output"
+			},
+			
+			{
 				name = "math_enable_delay_send"
 				input_execute = "1.0"
 				operator = "math_float"
 				apply = "mult"
 				input1 = "@public.enable_initial_reflection_send"
-				input2 = "@evaluate_opvar_send_amount_to_linear.output"
+				input2 = "@math_mult_post_fader_post_distance_curve_volume.output"
 			},
 			
 			{

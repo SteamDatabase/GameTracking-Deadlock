@@ -13,6 +13,7 @@
 					import_public_opvars = 
 					[
 						"citadel_soundevent_block",
+						"citadel_distance_falloff",
 					]
 					position = 
 					{
@@ -207,6 +208,17 @@
 							display_group = "Normal"
 							property_group = "Volume"
 							property_help = "Enable curve editing. 'volume_falloff_min', 'volume_falloff_max', 'volume_falloff_curve_amount' no longer apply. 'volume_falloff_floor' still applies."
+						}
+					}
+					volume_falloff_scale = 
+					{
+						data_type = "float"
+						value = "1.0"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "Perspective - Volume Falloff"
+							property_help = "Scale volume falloff."
 						}
 					}
 					volume_atten = 
@@ -521,27 +533,7 @@
 							display_group = "advanced"
 						}
 					}
-					limiter_event_name = 
-					{
-						data_type = "string"
-						value = ""
-						_system_properties = 
-						{
-							property_group = "Limiter"
-							display_group = "advanced"
-						}
-					}
 					limiter_max = 
-					{
-						data_type = "float"
-						value = "0"
-						_system_properties = 
-						{
-							property_group = "Limiter"
-							display_group = "advanced"
-						}
-					}
-					limiter_match_type = 
 					{
 						data_type = "float"
 						value = "0"
@@ -554,27 +546,7 @@
 					limiter_match_entity = 
 					{
 						data_type = "float"
-						value = "0"
-						_system_properties = 
-						{
-							property_group = "Limiter"
-							display_group = "advanced"
-						}
-					}
-					limiter_match_event = 
-					{
-						data_type = "float"
-						value = "0"
-						_system_properties = 
-						{
-							property_group = "Limiter"
-							display_group = "advanced"
-						}
-					}
-					limiter_match_substring = 
-					{
-						data_type = "float"
-						value = "0"
+						value = "1"
 						_system_properties = 
 						{
 							property_group = "Limiter"
@@ -599,17 +571,6 @@
 						{
 							property_group = "Limiter"
 							display_group = "advanced"
-						}
-					}
-					event_type = 
-					{
-						data_type = "float"
-						value = "0.000000"
-						_system_properties = 
-						{
-							property_group = "Limiter"
-							display_group = "advanced"
-							property_help = "Event type passed to limiter."
 						}
 					}
 					event_stop_at_time = 
@@ -762,7 +723,7 @@
 						_system_properties = 
 						{
 							display_group = "advanced"
-							property_help = "citadel_send_selector"
+							property_help = "name of the track of the voice in the main mixgraph"
 						}
 					}
 					enable_initial_reflection_send = 
@@ -957,25 +918,6 @@
 						{
 							display_group = "advanced"
 							property_group = "Pathing"
-						}
-					}
-					use_uiposition = 
-					{
-						data_type = "bool"
-						value = "false"
-						_system_properties = 
-						{
-							property_group = "Position"
-						}
-					}
-					uiposition = 
-					{
-						data_type = "float3"
-						value = "[0.0, 0.0, 0.0]"
-						_system_properties = 
-						{
-							display_edit_type = "field_position_editor"
-							property_group = "Position"
 						}
 					}
 					recency_bias = 
@@ -1253,67 +1195,10 @@
 			},
 			
 			{
-				name = "uiposition_elements"
-				input_execute = "@public.use_uiposition"
-				operator = "util_elements_float3"
-				input = "@public.uiposition"
-			},
-			
-			{
-				name = "uiposition_left"
-				input_execute = "@public.use_uiposition"
-				operator = "math_scale_float3"
-				input1 = "@globals.output_listener_left"
-				input2 = "@uiposition_elements.output_0"
-			},
-			
-			{
-				name = "uiposition_forward"
-				input_execute = "@public.use_uiposition"
-				operator = "math_scale_float3"
-				input1 = "@globals.output_listener_forward"
-				input2 = "@uiposition_elements.output_1"
-			},
-			
-			{
-				name = "uiposition_up"
-				input_execute = "@public.use_uiposition"
-				operator = "math_scale_float3"
-				input1 = "@globals.output_listener_up"
-				input2 = "@uiposition_elements.output_2"
-			},
-			
-			{
-				name = "uiposition_calc_step"
-				input_execute = "@public.use_uiposition"
-				operator = "math_float3"
-				apply = "add"
-				input1 = "@uiposition_left.output"
-				input2 = "@uiposition_forward.output"
-			},
-			
-			{
-				name = "uiposition_calc"
-				input_execute = "@public.use_uiposition"
-				operator = "math_float3"
-				apply = "add"
-				input1 = "@uiposition_calc_step.output"
-				input2 = "@uiposition_up.output"
-			},
-			
-			{
-				name = "uiposition_final"
-				operator = "math_float3"
-				apply = "add"
-				input1 = "@get_entity_info.output_position"
-				input2 = "@uiposition_calc.output"
-			},
-			
-			{
 				name = "add_position_offset"
 				operator = "math_float3"
 				apply = "add"
-				input1 = "@uiposition_final.output"
+				input1 = "@get_entity_info.output_position"
 				input2 = "@public.position_offset"
 			},
 			
@@ -1553,27 +1438,16 @@
 			},
 			
 			{
-				name = "soundevent_limit_type_switch"
-				operator = "ctrl_switch_float"
-				input_switch = "@public.limiter_match_type"
-				input1 = "-1"
-				input2 = "@public.event_type"
-			},
-			
-			{
 				name = "soundevent_limit"
 				execute_once = "true"
 				operator = "soundevent_limiter"
 				input_execute = "@public.limiter_on"
 				input_max_events = "@public.limiter_max"
-				match_event_type = "@soundevent_limit_type_switch.output"
 				match_entity = "@public.limiter_match_entity"
-				match_substring = "@public.limiter_match_substring"
-				match_event_name = "@public.limiter_event_name"
 				stop_oldest = "@public.limiter_stop_oldest"
 				match_duration_type = "greater_than_or_equal"
 				match_event_duration = "@public.limiter_match_event_duration"
-				match_this_event = "@public.limiter_match_event"
+				match_this_event = "true"
 			},
 			
 			{
@@ -1682,7 +1556,7 @@
 				input_class_name = "@source_info.output_entity_classname"
 				input_is_player = "false"
 				input_soundlevel = "60"
-				input_event_type = "@public.event_type"
+				input_event_type = "0"
 			},
 			
 			{
@@ -1856,45 +1730,21 @@
 			},
 			
 			{
-				name = "reverb_send_crossfader"
-				input_execute = "1"
-				operator = "sos_import_stack"
-				import_stack = "send_crossfader"
-				auto_connect_public_fields = "false"
-				operator_variables = 
-				{
-					wet_mix = 
-					{
-						data_type = "float"
-						value = "@reverb_mixer_mult.output"
-					}
-				}
+				name = "reverb_mult_wet_mix"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@volume_filter.output"
+				input2 = "@reverb_mixer_mult.output"
 			},
 			
 			{
-				name = "occlusion_send_crossfader"
-				input_execute = "1"
-				operator = "sos_import_stack"
-				import_stack = "send_crossfader"
-				auto_connect_public_fields = "false"
-				operator_variables = 
-				{
-					wet_mix = 
-					{
-						data_type = "float"
-						value = "0"
-					}
-					wet_Y2 = 
-					{
-						data_type = "float"
-						value = "0.800000"
-					}
-					dry_Y2 = 
-					{
-						data_type = "float"
-						value = "0.200000"
-					}
-				}
+				name = "reverb_submix_send"
+				operator = "vmix_mixgraph_send"
+				input_execute = "1.000000"
+				execute_once = "false"
+				input = "@reverb_mult_wet_mix.output"
+				submix_name = "reverb"
+				send_type = "named"
 			},
 			
 			{
@@ -1962,38 +1812,6 @@
 				operator = "math_filter_float"
 				input = "@volume_accumulate_pre_reverb.output"
 				input_max_velocity = "@public.volume_filter_amount"
-			},
-			
-			{
-				name = "volume_occlusion_mult_dry"
-				operator = "math_float"
-				apply = "mult"
-				input1 = "@volume_filter.output"
-				input2 = "@occlusion_send_crossfader::output.dry"
-			},
-			
-			{
-				name = "occlusion_mult_wet_mix"
-				operator = "math_float"
-				apply = "mult"
-				input1 = "@volume_filter.output"
-				input2 = "@occlusion_send_crossfader::output.wet"
-			},
-			
-			{
-				name = "volume_mult_dry"
-				operator = "math_float"
-				apply = "mult"
-				input1 = "@volume_occlusion_mult_dry.output"
-				input2 = "@reverb_send_crossfader::output.dry"
-			},
-			
-			{
-				name = "reverb_mult_wet_mix"
-				operator = "math_float"
-				apply = "mult"
-				input1 = "@volume_filter.output"
-				input2 = "@reverb_send_crossfader::output.wet"
 			},
 			
 			{
@@ -2068,56 +1886,11 @@
 			},
 			
 			{
-				name = "citadel_send_selector"
+				name = "submix_send"
+				operator = "vmix_mixgraph_send"
 				input_execute = "1"
-				operator = "sos_import_stack"
-				import_stack = "citadel_send_selector"
-				auto_connect_public_fields = "false"
-				operator_variables = 
-				{
-					send_name = 
-					{
-						value = "@public.send_name"
-					}
-					send_volume = 
-					{
-						value = "@volume_mult_dry.output"
-					}
-				}
-			},
-			
-			{
-				name = "reverb_mult_submix_level"
-				operator = "math_float"
-				apply = "mult"
-				input1 = "@reverb_mult_wet_mix.output"
-				input2 = "@citadel_send_selector::submix_level.output"
-			},
-			
-			{
-				name = "reverb_submix_send"
-				operator = "vmix_mixgraph_send"
-				input_execute = "1.000000"
-				execute_once = "false"
-				input = "@reverb_mult_submix_level.output"
-				submix_name = "reverb"
-				send_type = "named"
-			},
-			
-			{
-				name = "occlusion_mult_submix_level"
-				operator = "math_float"
-				apply = "mult"
-				input1 = "@occlusion_mult_wet_mix.output"
-				input2 = "@citadel_send_selector::submix_level.output"
-			},
-			
-			{
-				name = "occlusion_submix_send"
-				operator = "vmix_mixgraph_send"
-				input_execute = "1.000000"
-				submix_name = "Occlusion"
-				input = "@occlusion_mult_submix_level.output"
+				input = "@volume_filter.output"
+				submix_name = "@public.send_name"
 				send_type = "named"
 			},
 			
@@ -2161,6 +1934,11 @@
 					{
 						data_type = "float"
 						value = "@distance_filter.output"
+					}
+					post_fader_volume = 
+					{
+						data_type = "float"
+						value = "@volume_filter.output"
 					}
 				}
 			},

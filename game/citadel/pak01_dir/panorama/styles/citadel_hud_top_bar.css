@@ -23,7 +23,6 @@ CitadelHudTopBar
 	horizontal-align: center;
 	flow-children: none;
 	color: offWhite;
-	z-index: 200;
 }
 
 CitadelHudTopBar.showNewTopbar
@@ -997,9 +996,14 @@ Label.KillStreakText
 	background-image: url("s2r://panorama/images/hud/text_images/kill_streak/kill_streak_indonesian_png.vtex");
 }
 
-.Language_korean .KillStreakImageText
+.Language_japanese .KillStreakImageText
 {
-	background-image: url("s2r://panorama/images/hud/text_images/kill_streak/kill_streak_korean_png.vtex");
+	background-image: url("s2r://panorama/images/hud/text_images/kill_streak/kill_streak_english_png.vtex");
+}
+
+.Language_koreana .KillStreakImageText
+{
+	background-image: url("s2r://panorama/images/hud/text_images/kill_streak/kill_streak_koreana_png.vtex");
 }
 
 .Language_latam .KillStreakImageText
@@ -1077,9 +1081,14 @@ Label.KillStreakText
 	background-image: url("s2r://panorama/images/hud/text_images/first_blood/first_blood_indonesian_png.vtex");
 }
 
-.Language_korean .FirstBloodImageText
+.Language_japanese .FirstBloodImageText
 {
-	background-image: url("s2r://panorama/images/hud/text_images/first_blood/first_blood_korean_png.vtex");
+	background-image: url("s2r://panorama/images/hud/text_images/first_blood/first_blood_english_png.vtex");
+}
+
+.Language_koreana .FirstBloodImageText
+{
+	background-image: url("s2r://panorama/images/hud/text_images/first_blood/first_blood_koreana_png.vtex");
 }
 
 .Language_latam .FirstBloodImageText
@@ -1343,16 +1352,14 @@ Label.KillStreakText
 
 .UltimateStatus
 {
-	height: 18px;
-	width: 18px;
+	height: 22px;
+	width: 22px;
 	horizontal-align: center;
 	vertical-align: bottom;
-	margin-bottom: 28px;
+	margin-bottom: 24px;
 	margin-right: 2px;
-	border-radius: 50px;
-	box-shadow: 0px 0px 15px #00000090;
+	border-radius: 50%;
 	z-index: 99;
-	background-color: black;
 	visibility: collapse;
 }
 
@@ -1363,62 +1370,81 @@ Label.KillStreakText
 	background-color: offWhite;
 }
 
-.team1 .UltimateStatus
-{
-	background-color: team1ColorNeutral;
-}
-
-.team2 .UltimateStatus
-{
-	background-color: team2ColorNeutral;
-}
-
 @keyframes 'UltimateReady'
 {
 	0%
 	{
-		pre-transform-scale2d: 1;
+		pre-transform-scale2d: 2;
+		transform: translate3d(0px, -12px, 0px);
+		brightness: 1;
 	}
 	
 	50%
 	{
-		pre-transform-scale2d: 1.2;
+		pre-transform-scale2d: 0.85;
+		transform: translate3d(0px, 4px, 0px);
+		brightness: 4;
 	}
 	
 	100%
 	{
 		pre-transform-scale2d: 1;
+		transform: translate3d(0px, 0px, 0px);
+		brightness: 1;
 	}
 	
 }
 
 #UltimateAbilityIconMini
 {
-	background-image: url("s2r://panorama/images/hud/top_bar/icon_ultimate_mini.vsvg");
-	width: 13px;
-	height: 13px;
-	margin-left: 1px;
-	margin-top: 1px;
+	vertical-align: center;
+	horizontal-align: center;
+	width: 22px;
+	height: 22px;
+	background-image: url("s2r://panorama/images/hud/top_bar/icon_ultimate_off.vsvg");
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: contain;
-	wash-color: offBlack;
+}
+
+.UltimateCooldownReady #UltimateAbilityIconMini
+{
 	vertical-align: center;
 	horizontal-align: center;
+	width: 22px;
+	height: 22px;
+	background-image: url("s2r://panorama/images/hud/top_bar/icon_ultimate.vsvg");
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	img-shadow: 0px 0px 4px 3 black;
+	opacity: 1;
+}
+
+.enemy .UltimateCooldownReady #UltimateAbilityIconMini
+{
+	background-image: url("s2r://panorama/images/hud/top_bar/icon_ultimate_enemy.vsvg");
 }
 
 .UltimateUnlocked .UltimateStatus
 {
-	background-color: #525252;
+	background-color: offBlack;
 	visibility: visible;
+	box-shadow: 0px 0px 8px 3 black;
+}
+
+.UltimateCooldownReady .UltimateStatus
+{
+	background-color: none;
+	box-shadow: none;
+	animation-name: UltimateReady;
+	animation-duration: 0.3s;
+	animation-iteration-count: 1;
 }
 
 .UltimateCooldownReady .UltimateStatusBG
 {
-	background-color: offWhite;
-	animation-name: UltimateReady;
-	animation-duration: 0.3s;
-	animation-iteration-count: 1;
+	background-color: none;
 }
 
 .Dead .UltimateStatus
@@ -1825,22 +1851,22 @@ CitadelHeroImage.isResponseImage
 	background-color: #6d6b79;
 }
 
-.PlayerNetworthContainer,CitadelHudModBarGraph,#KDAContainer,.PlayerName
+.PlayerNetworthContainer,CitadelHudItemBarGraph,#KDAContainer,.PlayerName
 {
 	visibility: collapse;
 }
 
-.wants_scoreboard CitadelHudModBarGraph,.wants_scoreboard #KDAContainer,.wants_scoreboard .PlayerName,.gDetailView CitadelHudModBarGraph,.gDetailView #KDAContainer,.gDetailView .PlayerName
+.wants_scoreboard CitadelHudItemBarGraph,.wants_scoreboard #KDAContainer,.wants_scoreboard .PlayerName,.gDetailView CitadelHudItemBarGraph,.gDetailView #KDAContainer,.gDetailView .PlayerName
 {
 	visibility: visible;
 }
 
-.LaneSwapAvailable CitadelHudModBarGraph,.LaneSwapAvailable #KDAContainer
+.LaneSwapAvailable CitadelHudItemBarGraph,.LaneSwapAvailable #KDAContainer
 {
 	visibility: collapse;
 }
 
-CitadelHudModBarGraph,#KDAContainer,.KDALabels,.StatContainer,.PlayerName
+CitadelHudItemBarGraph,#KDAContainer,.KDALabels,.StatContainer,.PlayerName
 {
 	horizontal-align: center;
 }
@@ -1850,9 +1876,9 @@ CitadelHudModBarGraph,#KDAContainer,.KDALabels,.StatContainer,.PlayerName
 	height: 30px;
 }
 
-CitadelHudModBarGraph
+CitadelHudItemBarGraph
 {
-	margin: 6px 12px;
+	margin: 1px 10px;
 }
 
 #KDAContainer
@@ -2033,11 +2059,16 @@ CitadelHudTopBar.ShowingRight CitadelScoreboardMods
 
 .TeamScore
 {
-	width: 50px;
+	width: 52px;
 	min-height: 30px;
 	max-height: 60px;
 	border-radius: 0px 0px 5px 5px;
 	world-blur: ingameHudBlur;
+}
+
+.Language_latam .TeamScore,.Language_german .TeamScore
+{
+	width: 60px;
 }
 
 .TeamScore.Right
@@ -2074,6 +2105,7 @@ CitadelHudTopBar.ShowingRight CitadelScoreboardMods
 .ScoreLabel
 {
 	horizontal-align: center;
+	padding-right: 2px;
 	font-size: 16px;
 	font-weight: bold;
 	vertical-align: center;
@@ -2249,6 +2281,31 @@ CitadelHudTopBar.ShowingRight CitadelScoreboardMods
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: bottom;
+}
+
+.Language_russian .SoulsBacker
+{
+	background-size: 72% 100%;
+}
+
+.Language_polish .SoulsBacker
+{
+	background-size: 62% 100%;
+}
+
+.Language_brazilian .SoulsBacker,.Language_czech .SoulsBacker,.Language_spanish .SoulsBacker
+{
+	background-size: 61% 100%;
+}
+
+.Language_german .SoulsBacker
+{
+	background-size: 52% 100%;
+}
+
+.Language_latam .SoulsBacker
+{
+	background-size: 46% 100%;
 }
 
 .enemy .SoulsBacker

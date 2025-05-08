@@ -13,7 +13,7 @@
 	}
 	nodegraph 0
 	perfwizard 0
-	tonemapping 1 
+	tonemapping 0 
 	GameData	"citadel.fgd"
 	
 	Localize
@@ -122,7 +122,6 @@
 		URLName citadel
 		RenderingPipeline
 		{
-			Tonemapping_UseLogLuminance 1
 			SupportsMSAA 0
 			DistanceField 1
 		}
@@ -211,8 +210,9 @@
 			OptimizeForMeshlets 1
 			TrianglesPerMeshlet 64	// Maximum valid value currently is 126
 			UseMikkTSpace 1
-            EncodeVertexBuffer 1
-            EncodeIndexBuffer 1
+			EncodeVertexBuffer 1
+			EncodeIndexBuffer 1
+			SplitDepthStream 1
 		}
 
 		WorldRendererBuilder
@@ -283,8 +283,6 @@
 		}
 		SoundStackScripts
 		{
-			CompilerVersion "1"
-		//	CompileForCompare "1"
 			CompileStacksStrict "1"
 		}
 		VisBuilder
@@ -345,6 +343,7 @@
 		CubemapFog 1
 		VolumetricFog 1
 		FrameBufferCopyFormat R11G11B10F
+		Tonemapping 0
 		
 		WellKnownLightCookies
 		{
@@ -409,6 +408,7 @@
 		"sv_minrate"	"98304"
 		"sv_maxunlag"	"0.500"
 		"sv_maxunlag_player" "0.200"
+		"sv_lagcomp_filterbyviewangle" "false"
 		"cl_clock_buffer_ticks"	"1"
 		"cl_interp_ratio" "0"
 		"cl_async_usercmd_send" "false"
@@ -470,10 +470,12 @@
 		"snd_envelope_rate"								"100.0"
 		"snd_soundmixer_update_maximum_frame_rate" 		"0"
 
+		//don't let people mess with speaker config settings.
 		"speaker_config"
 		{
 			"min"		"0"
 			"default"	"0"
+			"max"		"0"
 		}
 
 		"cq_buffer_bloat_msecs_max" "120"

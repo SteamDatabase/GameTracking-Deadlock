@@ -6,22 +6,35 @@ CitadelHud
 	height: 100%;
 }
 
-#PopupManager
+.HudCore
 {
-	z-index: 9999;
+	width: 100%;
+	height: 100%;
+	transition-property: opacity;
+	transition-duration: 0.2s;
+}
+
+.ShowEscapeMenu .HudCore
+{
+	opacity: 0.0;
+}
+
+#EscapeMenu
+{
+	opacity: 0.0;
+	transition-property: opacity;
+	transition-duration: 0.2s;
+}
+
+.ShowEscapeMenu #EscapeMenu
+{
+	opacity: 1.0;
 }
 
 #ContextMenuManager
 {
 	width: 100%;
 	height: 100%;
-	z-index: 1001;
-}
-
-#ability_tooltip
-{
-	box-shadow: fill rgba(0, 0, 0, 0.35) 0px 0px 12px 4px;
-	z-index: 1001;
 }
 
 #gameplay_hud
@@ -32,7 +45,6 @@ CitadelHud
 	transition-duration: 0.1s;
 	visibility: collapse;
 	perspective: -500;
-	z-index: 2;
 }
 
 .clamp_width
@@ -143,7 +155,6 @@ CitadelHudHeroShop.gShopOpen
 	width: 100%;
 	height: 100%;
 	visibility: collapse;
-	z-index: 204;
 }
 
 .dead:not(.deathReplayActive) #gameplay_hud_dead
@@ -265,8 +276,8 @@ Button:hover
 	height: 380px;
 	vertical-align: bottom;
 	horizontal-align: left;
-	margin-left: 235px;
-	margin-bottom: 0px;
+	margin-left: 300px;
+	margin-bottom: 30px;
 	horizontal-align: center;
 	margin-right: 1290px;
 	flow-children: none;
@@ -278,16 +289,6 @@ Button:hover
 {
 	transition-property: margin-left, ui-scale;
 	transition-duration: 0.1s;
-}
-
-.replay_playback #gold_and_ap_container
-{
-	margin-bottom: 110px;
-}
-
-.replay_playback #gold_and_ap_container.gShopOpen
-{
-	margin-bottom: 265px;
 }
 
 .GameStatePreGame #health_and_abilities_container,.GameStatePreGame #gold_and_ap_container,.GameStatePreGame CitadelHudActivePlayerStats,.GameStatePreGame CitadelHudModifiers,.GameStatePreGame Citadel_AbilityHUDPanels,.GameStatePreGameWait #health_and_abilities_container,.GameStatePreGameWait #gold_and_ap_container,.GameStatePreGameWait CitadelHudActivePlayerStats,.GameStatePreGameWait CitadelHudModifiers,.GameStatePreGameWait Citadel_AbilityHUDPanels
@@ -576,12 +577,12 @@ CitadelHudModifierIcons
 	z-index: 10;
 }
 
-.action_upgrade,.action_mantle,.action_teleport,.action_vehicle .action_zip_line,.gShopOpen .unused_ability_points .action_upgrade,.gShopOpen .can_shop .action_upgrade
+.action_upgrade,.action_zip_line,.gShopOpen .in_shop_zone .action_upgrade
 {
 	visibility: collapse;
 }
 
-.unused_ability_points .action_upgrade,.in_shop_zone .action_upgrade,.can_mantle .action_mantle,.can_teleport .action_teleport,.can_ride_vehicle .action_vehicle,.alive .can_zip_line .action_zip_line
+.in_shop_zone .action_upgrade,.alive .can_zip_line .action_zip_line
 {
 	visibility: visible;
 }
@@ -589,11 +590,6 @@ CitadelHudModifierIcons
 .connectedToHeroTesting.heroTestingDisableUpgrades:not(.in_shop_zone) .action_upgrade
 {
 	visibility: collapse;
-}
-
-.can_capture_zip_line .action_capture_zip_line
-{
-	visibility: visible;
 }
 
 .GameStatePreGame .action_upgrade,.GameStatePreGameWait .action_upgrade
@@ -985,29 +981,13 @@ CitadelHudModifierIcons
 {
 	font-size: 18px;
 	vertical-align: center;
-	margin-bottom: 2px;
+	padding: 4px;
+	margin: 2px;
 }
 
 .button_hint
 {
 	font-weight: bold;
-}
-
-.hero_panel
-{
-	width: 500px;
-	height: fit-children;
-	vertical-align: bottom;
-	horizontal-align: left;
-	margin-left: DistFromWindowBorder;
-	margin-bottom: DistFromWindowBorder;
-	visibility: collapse;
-	flow-children: down;
-}
-
-.spec_mode .hero_panel
-{
-	margin-bottom: DistFromWindowBorderWithSpecBar;
 }
 
 .team_name
@@ -1180,7 +1160,6 @@ CitadelHudModifierIcons
 	width: 100%;
 	vertical-align: center;
 	horizontal-align: center;
-	z-index: -1;
 }
 
 .ping_offscreen
@@ -1619,6 +1598,8 @@ CitadelHudModifierIcons
 	perspective: 900;
 	opacity: 1;
 	transform: translateX(0px);
+	transition-property: width,height;
+	transition-duration: 0.15s;
 }
 
 .GameStatePreGame #minimap_persp,.GameStatePreGameWait #minimap_persp
@@ -1632,22 +1613,24 @@ CitadelHudModifierIcons
 
 #minimap_container
 {
-	width: 100%;
-	height: 100%;
-	horizontal-align: right;
-	transition-property: transform;
+	width: 380px;
+	height: 380px;
+	vertical-align: center;
+	horizontal-align: center;
+	transition-property: width,height;
+	transition-duration: 0.15s;
 	transform: rotateX(0deg);
 	z-index: 999;
+	border-radius: 50%;
+	overflow: clip;
 }
 
 #HudMinimapContainer
 {
-	width: 380px;
-	height: 380px;
+	width: 105%;
+	height: 105%;
 	background-color: rgba(0, 0, 0, 0.5);
-	transition-property: width,height;
-	transition-duration: 0.1s;
-	border-radius: 200px;
+	border-radius: 50%;
 	vertical-align: center;
 	horizontal-align: center;
 	world-blur: ingameHudBlur;
@@ -1667,6 +1650,8 @@ CitadelHudModifierIcons
 	horizontal-align: center;
 	vertical-align: middle;
 	opacity: 1;
+	transition-property: width,height;
+	transition-duration: 0.15s;
 }
 
 #minimap_frame_lanes
@@ -1844,7 +1829,6 @@ CitadelHudModifierIcons
 	height: 100%;
 	background-color: #000000dd;
 	visibility: collapse;
-	z-index: 3;
 }
 
 .connectedToHeroTesting.wants_hero_select #hero_selection,.connectedToHeroTesting #hero_selection
@@ -1876,6 +1860,11 @@ CitadelHudModifierIcons
 	visibility: collapse;
 }
 
+.gShopOpen #hud_signature
+{
+	ui-scale: 75%;
+}
+
 #hud_passive_items
 {
 	height: 60px;
@@ -1903,11 +1892,6 @@ ActiveAbilitiesMenu
 	transition-property: transform;
 	transition-duration: 0.1s;
 	z-index: -1;
-}
-
-ActiveAbilitiesMenu.gBrowsingBuilds:not(.gEditingBuilds)
-{
-	visibility: collapse;
 }
 
 #hud_innate
@@ -2204,7 +2188,7 @@ ActiveAbilitiesMenu.gBrowsingBuilds:not(.gEditingBuilds)
 	color: #ffffff30;
 }
 
-.viewing_as_player .hero_panel,.viewing_as_player #hud_weapons,.viewing_as_player #hud_signature,.viewing_as_player #hud_items,.viewing_as_player #shortcut_container,.viewing_as_player #hud_passive_items,.ShowGoldAndAPOnHud #hud_signature,.ShowGoldAndAPOnHud #hud_items,.ShowGoldAndAPOnHud #hud_passive_items
+.viewing_as_player #hud_weapons,.viewing_as_player #hud_signature,.viewing_as_player #hud_items,.viewing_as_player #shortcut_container,.viewing_as_player #hud_passive_items,.ShowGoldAndAPOnHud #hud_signature,.ShowGoldAndAPOnHud #hud_items,.ShowGoldAndAPOnHud #hud_passive_items
 {
 	visibility: visible;
 }
@@ -2255,14 +2239,6 @@ CitadelTooltipManager
 {
 	height: 100%;
 	width: 100%;
-	z-index: 9999;
-}
-
-#TimerContainer
-{
-	height: 100%;
-	width: 100%;
-	visibility: collapse;
 }
 
 #SafeToAbandonIndicator
@@ -2373,6 +2349,16 @@ CitadelTooltipManager
 	margin-right: 40px;
 }
 
+.gameOverButtons:hover
+{
+	sound: soundMainMenuHover;
+}
+
+.gameOverButtons:active
+{
+	sound: soundMainMenuActivate;
+}
+
 .connectedToHeroTesting #stats_game_clock,.connectedToHeroTesting:not(.isDefaultMap) #minimap_persp,.connectedToHeroTesting:not(.isDefaultMap) #ObjectivesMap,.connectedToHeroTesting .top_left_team_panel,.connectedToHeroTesting .top_right_team_panel
 {
 	visibility: collapse;
@@ -2385,7 +2371,6 @@ CitadelTooltipManager
 	width: 1035px;
 	height: 420px;
 	overflow: noclip;
-	z-index: 9998;
 }
 
 .wants_scoreboard .abilitiesContainer,.abilitiesContainer.gDetailView
@@ -2449,6 +2434,11 @@ CitadelTooltipManager
 	visibility: visible;
 }
 
+.gShopOpen #APContainer
+{
+	visibility: collapse;
+}
+
 .APCurrencyIcon
 {
 	width: 16px;
@@ -2496,7 +2486,6 @@ CitadelTooltipManager
 	horizontal-align: center;
 	vertical-align: middle;
 	margin-left: 1235px;
-	z-index: 1000;
 	visibility: visible;
 }
 
@@ -2553,7 +2542,6 @@ CitadelTooltipManager
 
 #MidHealthWarning.localPlayerMidHealth
 {
-	animation-name: lowhealth_warning;
 	animation-duration: 4s;
 	animation-timing-function: ease-out;
 	animation-iteration-count: 1;
@@ -2561,7 +2549,6 @@ CitadelTooltipManager
 
 #LowHealthWarning.localPlayerLowHealth
 {
-	animation-name: lowhealth_warning;
 	animation-duration: 6s;
 	animation-timing-function: ease-out;
 	animation-iteration-count: infinite;
@@ -2628,13 +2615,13 @@ CitadelTooltipManager
 
 .unlockMessage,.upgradeMessage
 {
-	width: 300px;
-	background-color: #b969ff80;
 	visibility: collapse;
-	width: 240px;
+	height: 23px;
 	margin-top: 260px;
 	horizontal-align: center;
+	background-color: #b969ff80;
 	border-radius: 4px;
+	width: 240px;
 	animation-name: unlockAvailable;
 	animation-duration: 1.2s;
 	animation-iteration-count: infinite;
@@ -2654,9 +2641,11 @@ CitadelTooltipManager
 	text-transform: uppercase;
 	margin-bottom: 1px;
 	color: #ffffff;
+	vertical-align: center;
 	horizontal-align: center;
 	padding: 1px 0px;
 	text-align: center;
+	margin-top: 2px;
 }
 
 .unlock_available:not(.gShopOpen) .unlockMessage,.upgrade_available:not(.gShopOpen) .upgradeMessage
@@ -2673,6 +2662,11 @@ CitadelTooltipManager
 	animation-name: unlockAvailable;
 	animation-duration: 1.2s;
 	animation-iteration-count: infinite;
+}
+
+.connectedToHeroTesting .upgradeMessage
+{
+	visibility: collapse;
 }
 
 .unlockMessage .keybind,.upgradeMessage .keybind
@@ -2928,13 +2922,13 @@ CitadelHudSandboxTutorial
 	width: 100%;
 	height: 100%;
 	ui-scale: 100%;
-	z-index: 2000;
+	z-index: 500;
 	transition-property: ui-scale, transform, margin-bottom, margin-left;
 	transition-duration: 0.1s;
 	transition-timing-function: ease-out;
 }
 
-#StatsAndModsContainer.gBrowsingBuilds
+#StatsAndModsContainer.gEditingBuilds
 {
 	visibility: collapse;
 }
@@ -2944,6 +2938,7 @@ CitadelHudSandboxTutorial
 	horizontal-align: left;
 	vertical-align: bottom;
 	padding-top: 20px;
+	height: 100%;
 }
 
 #StatsAndModsContainer.gShopOpen #LowerLeft
@@ -2953,7 +2948,7 @@ CitadelHudSandboxTutorial
 
 #StatsAndModsContainer.gShopOpen #gold_and_ap_container,#StatsAndModsContainer.gShopOpen .ModsContainer
 {
-	ui-scale: 150%;
+	ui-scale: 140%;
 }
 
 .AspectRatio16x10 #StatsAndModsContainer.gShopOpen #gold_and_ap_container,.AspectRatio16x10 #StatsAndModsContainer.gShopOpen .ModsContainer
@@ -2988,16 +2983,6 @@ CitadelHudSandboxTutorial
 	visibility: visible;
 }
 
-CitadelHeroStats.hero_stats
-{
-	horizontal-align: left;
-	vertical-align: top;
-	margin-top: 100px;
-	margin-left: 50px;
-	height: fit-children;
-	visibility: collapse;
-}
-
 #StatsAndModsContainer .hero_stats
 {
 	background-color: offBlack&ea;
@@ -3008,22 +2993,39 @@ CitadelHeroStats.hero_stats
 {
 	horizontal-align: left;
 	vertical-align: bottom;
+	height: 102px;
+	width: 380px;
 	margin-bottom: 15px;
 	margin-left: 20px;
-	height: fit-children;
-	width: 420px;
 	flow-children: right;
 	visibility: visible;
-	ui-scale: 90%;
-	padding-top: 30px;
+	ui-scale: 110%;
+}
+
+.ModsContainer CitadelHudModBarGraph
+{
+	vertical-align: middle;
+	horizontal-align: middle;
+	padding: 0px 6px;
+}
+
+#BarGraphContainer
+{
+	height: 100%;
+	border-radius: 4px;
+	width: 60px;
+	margin: 2px;
+}
+
+.gShopOpen #BarGraphContainer
+{
+	margin-right: 5px;
+	width: 68px;
 }
 
 .ModSection
 {
 	flow-children: down;
-	margin: 0px 3px;
-	overflow: noclip;
-	padding-top: 40px;
 	transition-property: background-color, border;
 	transition-duration: 0.2s;
 }
@@ -3150,11 +3152,6 @@ CitadelHeroStats.hero_stats
 	color: spiritBrightColor;
 }
 
-.FlexMods
-{
-	height: 100%;
-}
-
 CitadelModsPurchasedPanel
 {
 	vertical-align: bottom;
@@ -3194,17 +3191,12 @@ CitadelPlayerLevelRewards
 	margin-right: 1220px;
 }
 
-.wants_scoreboard CitadelPlayerLevelRewards
-{
-	visibility: visible;
-}
-
 #hudPlayerStats
 {
 	vertical-align: bottom;
 	horizontal-align: left;
 	flow-children: down;
-	margin-bottom: 200px;
+	margin-bottom: 250px;
 	width: 280px;
 	visibility: collapse;
 }
@@ -3224,11 +3216,6 @@ CitadelPlayerLevelRewards
 	visibility: collapse;
 }
 
-CitadelGameOverDisplay
-{
-	z-index: 99;
-}
-
 CitadelHudSoulAPContainer
 {
 	visibility: collapse;
@@ -3246,7 +3233,6 @@ CitadelHudSoulAPContainer.ShowGoldAndAPOnHud
 	vertical-align: top;
 	margin: 160px 30px 30px 30px;
 	flow-children: down;
-	z-index: 1000;
 	visibility: collapse;
 }
 
@@ -3280,20 +3266,9 @@ CitadelHudSoulAPContainer.ShowGoldAndAPOnHud
 	visibility: visible;
 }
 
-#PregameCountdown
-{
-	z-index: 200;
-}
-
-#PausedInfo
-{
-	z-index: 1001;
-}
-
 #CheaterVoteBox
 {
 	visibility: collapse;
-	z-index: 1010;
 	horizontal-align: right;
 	vertical-align: top;
 	margin-top: 200px;
@@ -3524,5 +3499,25 @@ CitadelHudSoulAPContainer.ShowGoldAndAPOnHud
 #EVisibleByObjective
 {
 	background-image: url("s2r://panorama/images/minimap/objective_icon_t1.vsvg");
+}
+
+#DamageFeedbackDisplay
+{
+	height: 50%;
+	width: 300px;
+	vertical-align: bottom;
+	margin-left: 550px;
+}
+
+CitadelModBonusDisplay
+{
+	visibility: collapse;
+	vertical-align: bottom;
+	z-index: 5;
+}
+
+CitadelModBonusDisplay.showingModBonusDisplay
+{
+	visibility: visible;
 }
 

@@ -1,25 +1,109 @@
 /* Prettified by Source 2 Viewer - https://valveresourceformat.github.io */
 
-CitadelShopMod,CitadelShopMod.atMaxActiveSlots.owned
+CitadelShopMod
 {
 	min-height: 80px;
-	height: 120px;
-	width: 108px;
-	padding: 5px;
-	tooltip-position: right;
+	height: 125px;
+	width: 80px;
+	margin: 2px;
+	tooltip-position: left;
 	tooltip-body-position: 50% 50%;
+	ui-scale: 100%;
+	box-shadow: 2px 2px 12px #0007;
+	border-radius: 6px;
 	transition-property: pre-transform-scale2d;
 	transition-duration: 0.05s;
-	wash-color: colorEnemy&90;
 	opacity: 0.8;
 	brightness: 0.5;
 }
 
-CitadelShopMod.canAffordMod,CitadelShopMod.owned
+CitadelShopMod
+{
+	opacity: 0.5;
+	brightness: 0.5;
+}
+
+.boldedText
+{
+	font-weight: bold;
+}
+
+.isWeapon .boldedText
+{
+	color: courageBrightColor;
+}
+
+.isTech .boldedText
+{
+	color: spiritBrightColor;
+}
+
+.isArmor .boldedText
+{
+	color: fortitudeBrightColor;
+}
+
+.componentsNotOwned:hover #ComponentRequired
+{
+	visibility: visible;
+}
+
+CitadelShopMod.componentOwned.canAffordMod
+{
+	animation-name: componentPurchased;
+	animation-iteration-count: infinite;
+	animation-duration: 2s;
+}
+
+CitadelShopMod.componentOwned.owned,CitadelShopMod.componentOwned:hover
+{
+	animation: none;
+}
+
+CitadelShopMod.canAffordMod
+{
+	wash-color: none;
+	opacity: 0.5;
+	brightness: 0.5;
+	transition-property: opacity;
+	transition-duration: 0.1s;
+}
+
+@keyframes 'componentPurchased'
+{
+	0%
+	{
+		pre-transform-scale2d: 1;
+		brightness: 1;
+		wash-color: shardColor&30;
+	}
+	
+	50%
+	{
+		brightness: 1;
+		pre-transform-scale2d: 1.04;
+		wash-color: shardColor;
+	}
+	
+	100%
+	{
+		pre-transform-scale2d: 1;
+		brightness: 1;
+		wash-color: shardColor&30;
+	}
+	
+}
+
+CitadelShopMod.canAffordMod,CitadelShopMod.owned,CitadelShopMod.usedAsComponent
 {
 	wash-color: none;
 	opacity: 1;
 	brightness: 1;
+}
+
+CitadelShopMod.usedAsComponent,CitadelShopMod.owned
+{
+	opacity: 0.7;
 }
 
 .gEditingBuilds CitadelShopMod.recommended
@@ -27,20 +111,9 @@ CitadelShopMod.canAffordMod,CitadelShopMod.owned
 	wash-color: buildsLightColor;
 }
 
-CitadelShopMod.isActiveItem
-{
-	border-radius: 5px;
-}
-
 .ModTierHovered CitadelShopMod.isActiveItem
 {
 	border-radius: 5px;
-}
-
-CitadelShopMod.canAffordMod:hover,CitadelShopMod.owned:hover
-{
-	pre-transform-scale2d: 1.05;
-	z-index: 10;
 }
 
 .shopClosed CitadelShopMod:hover
@@ -48,9 +121,29 @@ CitadelShopMod.canAffordMod:hover,CitadelShopMod.owned:hover
 	pre-transform-scale2d: 1;
 }
 
-CitadelShopMod.owned
+CitadelShopMod.owned,CitadelShopMod.usedAsComponent
 {
 	box-shadow: none;
+}
+
+CitadelShopMod.owned:not(.IgnoreOwnership) #ModCard,CitadelShopMod.usedAsComponent #ModCard
+{
+	opacity: 0.5;
+}
+
+#CitadelModHoverTooltip CitadelShopMod.usedAsComponent #ModCard
+{
+	opacity: 1;
+}
+
+CitadelTooltipModHover CitadelShopMod.owned:not(.IgnoreOwnership) #ModCard
+{
+	opacity: 1;
+}
+
+CitadelShopMod.owned:hover #ModCard
+{
+	opacity: 1;
 }
 
 CitadelShopMod.owned:hover
@@ -58,12 +151,7 @@ CitadelShopMod.owned:hover
 	opacity: 1;
 }
 
-CitadelShopMod.atMaxActiveSlots
-{
-	brightness: 0.5;
-}
-
-CitadelShopMod.itemDisabled
+CitadelShopMod.itemDisabled,CitadelShopMod.disabledFromPurchasing
 {
 	wash-color: #00000060;
 	opacity: 0.2;
@@ -71,7 +159,7 @@ CitadelShopMod.itemDisabled
 	saturation: 0;
 }
 
-CitadelShopMod.itemDisabled:hover
+CitadelShopMod.itemDisabled:hover,CitadelShopMod.disabledFromPurchasing:hover
 {
 	pre-transform-scale2d: 1;
 }
@@ -91,21 +179,12 @@ CitadelShopMod.itemDisabled:hover
 	height: 100%;
 	width: 100%;
 	vertical-align: bottom;
-	background-color: #000000ae;
 	border-radius: 5px;
-	box-shadow: 5px 5px 2px courageDarkerColor&80;
-	background-color: offWhite;
 	ignore-parent-flow: true;
 }
 
 CitadelShopMod.canAffordMod:hover .mod_backer,CitadelShopMod.owned:hover .mod_backer,CitadelShopMod.usedAsComponent:hover .mod_backer
 {
-	box-shadow: 2px 2px 0px courageDarkerColor&80;
-}
-
-CitadelShopMod.owned .mod_backer,CitadelShopMod.usedAsComponent .mod_backer
-{
-	background-color: offBlack;
 	box-shadow: 2px 2px 0px courageDarkerColor&80;
 }
 
@@ -115,21 +194,22 @@ CitadelShopMod.owned .mod_backer,CitadelShopMod.usedAsComponent .mod_backer
 	vertical-align: center;
 	visibility: collapse;
 	width: 22px;
-	height: 22px;
+	height: 14px;
 	z-index: -1;
+	margin-left: 1px;
 	wash-color: offBlack;
 	opacity: 0.7;
 }
 
-.quickbuy .modStatusCol,.quickbuy.recommended .modStatusCol
+.isShowingTrainingPage .modStatusCol
 {
-	background-color: shardColor;
+	visibility: collapse;
 }
 
 .quickbuy #Outline
 {
-	visibility: visible;
-	wash-color: shardColor;
+	visibility: collapse;
+	wash-color: buildsLightColor;
 }
 
 .quickbuy .quickbuy_icon
@@ -165,8 +245,8 @@ CitadelShopMod.owned .mod_backer,CitadelShopMod.usedAsComponent .mod_backer
 
 .modStatusCol
 {
-	width: 30px;
-	height: 30px;
+	width: 20px;
+	height: 20px;
 	ignore-parent-flow: true;
 	vertical-align: top;
 	padding: 2px;
@@ -178,34 +258,39 @@ CitadelShopMod.owned .mod_backer,CitadelShopMod.usedAsComponent .mod_backer
 	background-color: buildsColor;
 }
 
-.spec_mode .recommended .modStatusCol
+.quickbuy .modStatusCol
+{
+	background-color: buildsLightColor;
+}
+
+.spec_mode .recommended .modStatusCol .quickbuy
 {
 	visibility: collapse;
 }
 
-.owned .modStatusCol
+.owned .modStatusCol,.usedAsComponent .modStatusCol
 {
-	background-color: offWhite&ee;
+	background-color: offBlack;
 }
 
-.usedAsComponent .modStatusCol
+.Language_brazilian .owned .modStatusCol
 {
-	background-color: offBlack&00;
+	background-color: none;
 }
 
-.isWeapon.owned .modStatusCol
+.Language_latam .owned .modStatusCol
 {
-	background-color: courageBrightColor;
+	background-color: none;
 }
 
-.isTech.owned .modStatusCol
+.Language_polish .owned .modStatusCol
 {
-	background-color: spiritBrightColor;
+	background-color: none;
 }
 
-.isArmor.owned .modStatusCol
+.Language_spanish .owned .modStatusCol
 {
-	background-color: fortitudeBrightColor;
+	background-color: none;
 }
 
 .owned.quickbuy .modStatusCol
@@ -213,66 +298,128 @@ CitadelShopMod.owned .mod_backer,CitadelShopMod.usedAsComponent .mod_backer
 	background-color: colorEnemy;
 }
 
-.isWeapon .modIconContainer
+#ItemCostContainer
 {
-	background-color: #DD9541;
-}
-
-.isArmor .modIconContainer
-{
-	background-color: fortitudeBrightColor;
-}
-
-.isWeapon.isActiveItem .modIconContainer
-{
-	background-color: courageLightColor;
-}
-
-.owned.isWeapon.isActiveItem .modIconContainer,.owned.isTech.isActiveItem .modIconContainer,.owned.isArmor.isActiveItem .modIconContainer
-{
-	background-color: offBlack;
-}
-
-.isTech .modIconContainer
-{
-	background-color: spiritBrightColor;
-}
-
-.isTech.isActiveItem .modIconContainer
-{
-	background-color: spiritLightColor;
-}
-
-.isArmor.isActiveItem .modIconContainer
-{
-	background-color: fortitudeLightColor;
-}
-
-.defensive_icon
-{
-	width: 24px;
-	height: 25px;
-	horizontal-align: right;
-	vertical-align: bottom;
-	background-color: #1091A5;
-	background-size: 70%;
-	background-repeat: no-repeat;
-	background-position: center;
-	background-image: url("s2r://panorama/images/hud/core/icon_fortitude_shield.vsvg");
-	background-img-opacity: 0.9;
-	border-radius: 2px 0px 0px 0px;
+	horizontal-align: center;
+	color: shardColor;
+	margin-bottom: 3px;
 	visibility: collapse;
 }
 
-.defensive .defensive_icon
+#Discount
 {
-	visibility: visible;
+	ignore-parent-flow: true;
+	margin-top: -30px;
 }
 
-.owned .defensive_icon
+#ItemCost
 {
-	background-color: #00000000;
-	opacity: 0.1;
+	color: red;
+	font-size: 14px;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-family: sansMono;
+}
+
+.owned #ItemCostContainer,.usedAsComponent #ItemCostContainer
+{
+	opacity: 0;
+}
+
+.canAffordMod #ItemCost
+{
+	color: shardColor;
+}
+
+#ModCard
+{
+	flow-children: down;
+	height: fit-children;
+	background-image: url("s2r://panorama/images/shop/card_backer_psd.vtex");
+	opacity-mask: url("s2r://panorama/images/shop/card_backer_png.vtex");
+	background-size: cover;
+	width: 100%;
+}
+
+.isWeapon #ModCard
+{
+	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_weapon_psd.vtex");
+}
+
+.ModTier1.isWeapon #ModCard
+{
+	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_weapon_t1_psd.vtex");
+}
+
+.ModTier2.isWeapon #ModCard
+{
+	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_weapon_t2_psd.vtex");
+}
+
+.ModTier3.isWeapon #ModCard
+{
+	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_weapon_t3_psd.vtex");
+}
+
+.ModTier4.isWeapon #ModCard
+{
+	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_weapon_t4_psd.vtex");
+}
+
+.isArmor #ModCard
+{
+	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_vitality_psd.vtex");
+}
+
+.ModTier1.isArmor #ModCard
+{
+	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_vitality_t1_psd.vtex");
+}
+
+.ModTier2.isArmor #ModCard
+{
+	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_vitality_t2_psd.vtex");
+}
+
+.ModTier3.isArmor #ModCard
+{
+	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_vitality_t3_psd.vtex");
+}
+
+.ModTier4.isArmor #ModCard
+{
+	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_vitality_t4_psd.vtex");
+}
+
+.isTech #ModCard
+{
+	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_spirit_psd.vtex");
+}
+
+.ModTier1.isTech #ModCard
+{
+	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_spirit_t1_psd.vtex");
+}
+
+.ModTier2.isTech #ModCard
+{
+	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_spirit_t2_psd.vtex");
+}
+
+.ModTier3.isTech #ModCard
+{
+	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_spirit_t3_psd.vtex");
+}
+
+.ModTier4.isTech #ModCard
+{
+	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_spirit_t4_psd.vtex");
+}
+
+#CitadelHudHeroShop CitadelShopMod.owned #ModCard,#CitadelHudHeroShop CitadelShopMod.usedAsComponent #ModCard
+{
+	background-color: offBlack;
+	background-image: none;
 }
 
 .mod_icon
@@ -288,6 +435,44 @@ CitadelShopMod.owned .mod_backer,CitadelShopMod.usedAsComponent .mod_backer
 	transition-duration: 0.3s;
 	margin: 8px;
 	wash-color: offWhite;
+}
+
+#ModIconImage
+{
+	width: 100px;
+	height: 100px;
+	vertical-align: center;
+	horizontal-align: center;
+	opacity: 1;
+	transition-property: opacity, saturation;
+	transition-duration: 0.3s;
+	visibility: collapse;
+	margin: 1px;
+}
+
+#ShopModsContainer .mod_view:nth-child(3n+1) #ModIconImage
+{
+	opacity-mask: url("s2r://panorama/images/shop/catalog/cards/icon_mask01_psd.vtex")0.5;
+}
+
+#ShopModsContainer .mod_view:nth-child(3n+2) #ModIconImage
+{
+	opacity-mask: url("s2r://panorama/images/shop/catalog/cards/icon_mask02_psd.vtex")0.5;
+}
+
+#ShopModsContainer .mod_view:nth-child(3n+3) #ModIconImage
+{
+	opacity-mask: url("s2r://panorama/images/shop/catalog/cards/icon_mask03_psd.vtex")0.5;
+}
+
+#ModIconImage
+{
+	visibility: visible;
+}
+
+.mod_icon
+{
+	visibility: collapse;
 }
 
 .isActiveItem .mod_icon
@@ -310,43 +495,42 @@ CitadelShopMod.owned .mod_backer,CitadelShopMod.usedAsComponent .mod_backer
 	wash-color: fortitudeDarkerColor;
 }
 
+.owned #ModIconImage
+{
+	brightness: 0.5;
+}
+
 .owned .mod_icon
 {
 	opacity: 1;
 }
 
-#ModTier4 .owned .mod_icon
-{
-	opacity: 1;
-	wash-color: #1a1a1a;
-}
-
-.isWeapon.usedAsComponent .mod_icon,.isWeapon.owned .mod_icon
+.isWeapon.usedAsComponent .mod_icon,.isWeapon.owned:not(.IgnoreOwnership) .mod_icon
 {
 	wash-color: courageBrightColor;
 }
 
-.isArmor.usedAsComponent .mod_icon,.isArmor.owned .mod_icon
+.isArmor.usedAsComponent .mod_icon,.isArmor.owned:not(.IgnoreOwnership) .mod_icon
 {
 	wash-color: fortitudeBrightColor;
 }
 
-.isTech.usedAsComponent .mod_icon,.isTech.owned .mod_icon
+.isTech.usedAsComponent .mod_icon,.isTech.owned:not(.IgnoreOwnership) .mod_icon
 {
 	wash-color: spiritBrightColor;
 }
 
-.isActiveItem.isWeapon.owned .mod_icon
+.isActiveItem.isWeapon.owned:not(.IgnoreOwnership) .mod_icon
 {
 	wash-color: courageLightColor;
 }
 
-.isActiveItem.isArmor.owned .mod_icon
+.isActiveItem.isArmor.owned:not(.IgnoreOwnership) .mod_icon
 {
 	wash-color: fortitudeLightColor;
 }
 
-.isActiveItem.isTech.owned .mod_icon
+.isActiveItem.isTech.owned:not(.IgnoreOwnership) .mod_icon
 {
 	wash-color: spiritLightColor;
 }
@@ -365,71 +549,135 @@ CitadelShopMod.owned .mod_backer,CitadelShopMod.usedAsComponent .mod_backer
 	ignore-parent-flow: true;
 	width: 100%;
 	height: 100%;
-	background-color: offWhite;
 }
 
 .modIconContainer
 {
 	horizontal-align: center;
 	width: 100%;
-	border-radius: 5px 5px 0px 0px;
 	height: 55px;
 }
 
-.ModTierHovered .modIconContainer
+.paperTexture
 {
-	border-radius: 5px 5px 0px 0px;
+	width: 100%;
+	height: 100%;
+	ignore-parent-flow: true;
+	background-size: 100% 100%;
+	-s2-mix-blend-mode: multiply;
+}
+
+.paperBevel
+{
+	width: 100%;
+	height: 100%;
+	ignore-parent-flow: true;
+	background-size: 100% 100%;
+	border-left: 1px solid #fc61;
+	border-top: 1px solid #fc61;
+	-s2-mix-blend-mode: screen;
+	border-radius: 6px;
+}
+
+.paperWear
+{
+	width: 100%;
+	height: 100%;
+	ignore-parent-flow: true;
+	background-size: 100% 100%;
+}
+
+.IsBeingDragged .paperTexture,.IsBeingDragged .paperBevel,.IsBeingDragged .paperWear
+{
+	visibility: collapse;
+}
+
+.BuildModEntry:nth-child(3n+1) .paperTexture,.mod_view:nth-child(3n+1) .paperTexture
+{
+	background-image: url("s2r://panorama/images/shop/catalog/cards/shopitem_papertexture01_psd.vtex");
+}
+
+.BuildModEntry:nth-child(3n+2) .paperTexture,.mod_view:nth-child(3n+2) .paperTexture
+{
+	background-image: url("s2r://panorama/images/shop/catalog/cards/shopitem_papertexture02_psd.vtex");
+}
+
+.BuildModEntry:nth-child(3n+3) .paperTexture,.mod_view:nth-child(3n+3) .paperTexture
+{
+	background-image: url("s2r://panorama/images/shop/catalog/cards/shopitem_papertexture03_psd.vtex");
+}
+
+.BuildModEntry:nth-child(4n+1) .paperWear,.mod_view:nth-child(4n+1) .paperWear
+{
+	background-image: url("s2r://panorama/images/shop/catalog/cards/shopitem_paperwear01_psd.vtex");
+}
+
+.BuildModEntry:nth-child(4n+2) .paperWear,.mod_view:nth-child(4n+2) .paperWear
+{
+	background-image: url("s2r://panorama/images/shop/catalog/cards/shopitem_paperwear02_psd.vtex");
+}
+
+.BuildModEntry:nth-child(4n+3) .paperWear,.mod_view:nth-child(4n+3) .paperWear
+{
+	background-image: url("s2r://panorama/images/shop/catalog/cards/shopitem_paperwear03_psd.vtex");
+}
+
+.BuildModEntry:nth-child(4n+4) .paperWear,.mod_view:nth-child(4n+4) .paperWear
+{
+	background-image: url("s2r://panorama/images/shop/catalog/cards/shopitem_paperwear04_psd.vtex");
+}
+
+.usedAsComponent .paperWear,.owned .paperWear
+{
+	visibility: collapse;
+}
+
+.ModTier1 .paperWear
+{
+	opacity: .5;
+}
+
+.ModTier1.isArmor .paperWear
+{
+	opacity: 1;
+	wash-color: #f3e1cc;
+}
+
+.ModTier1.isTech .paperWear
+{
+	opacity: 1;
+	wash-color: rgb(247, 232, 213);
+}
+
+.ModTier2 .paperWear
+{
+	opacity: .5;
+	wash-color: rgb(223, 192, 164);
+	wash-color: rgb(230, 209, 191);
+}
+
+.ModTier3 .paperWear
+{
+	opacity: 0.5;
+	wash-color: rgb(188, 141, 116);
+	wash-color: rgb(206, 173, 155);
+}
+
+.ModTier4 .paperWear
+{
+	opacity: .5;
+	wash-color: rgb(92, 84, 79);
+	wash-color: rgb(105, 97, 92);
+}
+
+.modIconContainer
+{
+	height: width-percentage(100%);
 }
 
 .usedAsComponent .modIconContainer,.owned .modIconContainer
 {
 	background-color: offBlack;
-}
-
-.isTier4 .owned .modIconContainer
-{
-	background-color: #ffffff00;
-	border-brush: gradient( linear, 0% 0%, 80% 100%, from( #1a1a1a ), to( #1a1a1a90 ) );
-}
-
-#ModTier4 .isWeapon .modIconContainer
-{
-	background-color: gradient( linear, 50% 100%, 0% 0%, from( courageLightColor ), to( courageColor ) );
-}
-
-#ModTier4 .isArmor .modIconContainer
-{
-	background-color: gradient( linear, 50% 100%, 0% 0%, from( fortitudeLightColor ), to( fortitudeColor ) );
-}
-
-#ModTier4 .isTech .modIconContainer
-{
-	background-color: gradient( linear, 50% 100%, 0% 0%, from( spiritLightColor ), to( spiritColor ) );
-}
-
-#ModTier4 .isWeapon.isActiveItem .modIconContainer
-{
-	background-color: gradient( linear, 50% 100%, 0% 0%, from( courageLightColor&90 ), to( courageColor&90 ) );
-}
-
-#ModTier4 .isArmor.isActiveItem .modIconContainer
-{
-	background-color: gradient( linear, 50% 100%, 0% 0%, from( fortitudeLightColor&90 ), to( fortitudeColor&90 ) );
-}
-
-#ModTier4 .isTech.isActiveItem .modIconContainer
-{
-	background-color: gradient( linear, 50% 100%, 0% 0%, from( spiritLightColor&90 ), to( spiritColor&90 ) );
-}
-
-.usedAsComponent #background,.owned #background
-{
-	opacity: 1;
-}
-
-.usedAsComponent #background:hover,.owned #background:hover
-{
-	background-color: colorCommonDarkestGray;
 }
 
 .sellWillDestroyItem.owned #background:hover .mod_icon
@@ -444,11 +692,10 @@ CitadelShopMod.owned .mod_backer,CitadelShopMod.usedAsComponent .mod_backer
 	height: 100%;
 	ignore-parent-flow: true;
 	visibility: collapse;
-	border-radius: 5px;
-	z-index: 10;
+	z-index: 15;
 }
 
-.owned:hover #SellOverlay
+.owned:hover #SellOverlay,.ForceShowSellOverlay:hover #SellOverlay,#CitadelModHoverTooltip.owned #SellOverlay
 {
 	visibility: visible;
 }
@@ -467,7 +714,7 @@ CitadelShopMod.owned .mod_backer,CitadelShopMod.usedAsComponent .mod_backer
 	width: 100%;
 	height: 20px;
 	color: #ffffff;
-	font-size: 16px;
+	font-size: 15px;
 	font-weight: bold;
 	text-align: center;
 	text-shadow: 0px 0px 5px 2.0 #000000;
@@ -480,6 +727,7 @@ CitadelShopMod.owned .mod_backer,CitadelShopMod.usedAsComponent .mod_backer
 	font-size: 14px;
 	font-weight: semi-bold;
 	text-align: center;
+	text-overflow: shrink;
 }
 
 .isTech .ItemName
@@ -490,6 +738,11 @@ CitadelShopMod.owned .mod_backer,CitadelShopMod.usedAsComponent .mod_backer
 .isWeapon .ItemName
 {
 	color: courageBrightColor;
+}
+
+.isArmor .ItemName
+{
+	color: fortitudeBrightColor;
 }
 
 .SellCost
@@ -532,11 +785,42 @@ CitadelShopMod.owned .mod_backer,CitadelShopMod.usedAsComponent .mod_backer
 	visibility: visible;
 }
 
+.shopClosed CitadelShopMod.usedAsComponent:hover #ReturnToShop
+{
+	visibility: collapse;
+}
+
+#PurchasingDisabled
+{
+	background-color: offBlack&ee;
+	width: 100%;
+	height: 100%;
+	ignore-parent-flow: true;
+	visibility: collapse;
+	border-radius: 5px;
+	z-index: 10;
+}
+
+.purchasingDisabled CitadelShopMod:hover #PurchasingDisabled
+{
+	visibility: visible;
+}
+
 .ReturnLabel
 {
 	width: 100%;
 	color: #ffffff;
 	font-size: 16px;
+	font-weight: bold;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.PurchasingDisabledLabel
+{
+	width: 100%;
+	color: #ffffff;
+	font-size: 14px;
 	font-weight: bold;
 	vertical-align: middle;
 	text-align: center;
@@ -549,13 +833,13 @@ CitadelShopMod.owned:hover #ReturnToShop
 
 #CantAfford
 {
-	background-color: offBlack&f1;
+	wash-color: #fe484880;
 	width: 100%;
 	height: 100%;
 	ignore-parent-flow: true;
 	visibility: collapse;
 	border-radius: 5px;
-	z-index: 10;
+	z-index: 9;
 }
 
 CitadelShopMod:hover #CantAfford
@@ -563,12 +847,18 @@ CitadelShopMod:hover #CantAfford
 	visibility: visible;
 }
 
-CitadelShopMod.canAffordMod:hover #CantAfford,CitadelShopMod.owned:hover #CantAfford,.shopClosed CitadelShopMod:hover #CantAfford
+#CantAfford .MessageContent
+{
+	vertical-align: top;
+	margin-top: 33px;
+}
+
+CitadelShopMod.canAffordMod #CantAfford,CitadelShopMod.owned:hover #CantAfford,.shopClosed CitadelShopMod:hover #CantAfford,.purchasingDisabled CitadelShopMod:hover #CantAfford
 {
 	visibility: collapse;
 }
 
-.shopClosed CitadelShopMod:hover #CantAfford
+.shopClosed CitadelShopMod:hover #CantAfford,.purchasingDisabled CitadelShopMod:hover #CantAfford
 {
 	visibility: collapse;
 }
@@ -576,48 +866,12 @@ CitadelShopMod.canAffordMod:hover #CantAfford,CitadelShopMod.owned:hover #CantAf
 .CantAffordLabel
 {
 	width: 100%;
-	color: #dc3939;
-	font-size: 16px;
+	font-size: 14px;
 	font-weight: bold;
-	vertical-align: middle;
+	vertical-align: top;
 	text-align: center;
-}
-
-#ActivesFull
-{
-	background-color: offBlack&ee;
-	width: 100%;
-	height: 100%;
-	ignore-parent-flow: true;
-	visibility: collapse;
-	border-radius: 5px;
-	z-index: 10;
-}
-
-CitadelShopMod.atMaxActiveSlots
-{
-	opacity: 0.9;
-	saturation: 0.8;
-}
-
-CitadelShopMod.atMaxActiveSlots #ActivesFull
-{
-	visibility: visible;
-}
-
-CitadelShopMod.atMaxActiveSlots.owned #ActivesFull
-{
-	visibility: collapse;
-}
-
-.ActivesFullLabel
-{
-	width: 100%;
-	color: #ff2a2a;
-	font-size: 16px;
-	font-weight: bold;
-	vertical-align: middle;
-	text-align: center;
+	background-color: red;
+	color: offWhite;
 }
 
 #AddToBuild
@@ -715,15 +969,31 @@ CitadelShopMod.recommended:hover #AddToBuild,CitadelShopMod.itemDisabled:hover #
 	height: fill-parent-flow(1.0);
 	width: 100%;
 	padding: 5px 2px;
-	background-color: none;
 	horizontal-align: center;
 	vertical-align: middle;
 	flow-children: down;
+	visibility: visible;
+	opacity: 1;
+}
+
+.ModTierHovered .mod_name_area
+{
+	opacity: 1;
+}
+
+.lowResolution .mod_name_area
+{
+	padding: 4px 0px;
+}
+
+.owned .mod_name_area,.usedAsComponent .mod_name_area
+{
+	background-color: offBlack;
 }
 
 .modName
 {
-	color: offBlack;
+	color: offBlack&ff;
 	font-size: 15px;
 	font-weight: bold;
 	vertical-align: center;
@@ -734,27 +1004,143 @@ CitadelShopMod.recommended:hover #AddToBuild,CitadelShopMod.itemDisabled:hover #
 	background-color: none;
 	font-family: sans;
 	text-align: center;
+	padding: 0 4px;
 }
 
-.owned .modName
+.ModTier3.isWeapon .modName
 {
-	color: offWhite&90;
+	color: black;
+	text-shadow: 0 0 12px #aa8470;
 }
 
-.usedAsComponent .modName
+.ModTier4.isWeapon .modName
 {
+	color: #d4472f;
+	color: #e4c5a1;
+}
+
+.ModTier4.isArmor .modName
+{
+	color: #70a44b;
+	color: #c2e7cd;
+}
+
+.ModTier4.isTech .modName
+{
+	color: #895ae2;
+	color: #e3d4f2;
+}
+
+.lowResolution .modName
+{
+	font-size: 14px;
+}
+
+.owned #ModCard .modName
+{
+	color: offWhite&80;
+	text-shadow: none;
+}
+
+.usedAsComponent #ModCard .modName
+{
+	color: offWhite;
 	font-style: italic;
-	color: offWhite&90;
+	opacity: 0.5;
 }
 
-.New .modName
+#TierContainer
 {
-	width: 155px;
+	width: 28px;
+	height: 28px;
+	horizontal-align: right;
+	ui-scale: 140%;
+	visibility: collapse;
 }
 
-.hover .modName
+.showingFavorites #TierContainer,.showingSearch #TierContainer
 {
-	color: white;
+	visibility: visible;
+}
+
+.tier_bg
+{
+	width: 100%;
+	height: 100%;
+	horizontal-align: right;
+	background-image: url("s2r://panorama/images/shop/tier_corner_cap.vsvg");
+	background-size: 22px;
+	background-repeat: no-repeat;
+	background-position: right 0px;
+	img-shadow: -4px 0px 10px #000000ee;
+	border-radius: 0px 1px 0px 0px;
+}
+
+.isWeapon .tier_bg
+{
+	wash-color: courageBrightColor;
+}
+
+.isArmor .tier_bg
+{
+	wash-color: fortitudeBrightColor;
+}
+
+.isTech .tier_bg
+{
+	wash-color: spiritBrightColor;
+}
+
+#mod_tier_label
+{
+	horizontal-align: right;
+	margin-top: 0px;
+	height: 8px;
+	background-size: 100% 100%;
+	margin-top: 3px;
+	margin-right: 0px;
+	z-index: 2;
+	wash-color: offBlack;
+	opacity: 1;
+}
+
+.HideModTierLabel #mod_tier_label
+{
+	visibility: collapse;
+}
+
+#PurchaseItemIcon #mod_tier_label
+{
+	ignore-parent-flow: true;
+	vertical-align: top;
+}
+
+.ModTier1 #mod_tier_label
+{
+	background-image: url("s2r://panorama/images/upgrades/tier_numbers_small_01.vsvg");
+	width: 5px;
+	margin-right: 4px;
+}
+
+.ModTier2 #mod_tier_label
+{
+	background-image: url("s2r://panorama/images/upgrades/tier_numbers_small_02.vsvg");
+	width: 7px;
+	margin-right: 3px;
+}
+
+.ModTier3 #mod_tier_label
+{
+	background-image: url("s2r://panorama/images/upgrades/tier_numbers_small_03.vsvg");
+	width: 9px;
+	margin-right: 2px;
+}
+
+.ModTier4 #mod_tier_label
+{
+	background-image: url("s2r://panorama/images/upgrades/tier_numbers_small_04.vsvg");
+	width: 11px;
+	margin-right: 1px;
 }
 
 .itemDisabled .modName
@@ -762,21 +1148,46 @@ CitadelShopMod.recommended:hover #AddToBuild,CitadelShopMod.itemDisabled:hover #
 	font-style: italic;
 }
 
-.active_tag,.imbue_tag
+.imbue_tag
 {
 	background-color: offBlack;
+	vertical-align: bottom;
 	horizontal-align: middle;
-	margin-top: 46px;
 	ignore-parent-flow: true;
 	border-radius: 2px;
+	margin: 0px;
 	visibility: collapse;
 	min-width: 60px;
-	width: fit-children;
+	width: 100%;
+}
+
+.active_tag
+{
+	vertical-align: bottom;
+	horizontal-align: middle;
+	ignore-parent-flow: true;
+	margin: 0px;
+	visibility: collapse;
+	min-width: 60px;
+	width: 100%;
+	height: 20px;
+	margin-bottom: 36px;
+	z-index: 2;
+}
+
+.active_backer
+{
+	width: 100%;
+	height: 0px;
+	background-color: #4a7a98;
+	background-color: black;
+	vertical-align: middle;
+	margin-top: 3px;
 }
 
 .imbue_tag
 {
-	background-color: spiritLightColor;
+	background-color: spiritDarkColor;
 }
 
 .isActiveItem .active_tag
@@ -789,41 +1200,41 @@ CitadelShopMod.recommended:hover #AddToBuild,CitadelShopMod.itemDisabled:hover #
 	visibility: visible;
 }
 
-#ActiveTag,#ActiveSlotsFull,#ImbueTag
+#ActiveTag,#ImbueTag
 {
 	font-size: 12px;
 	text-transform: uppercase;
+	text-overflow: shrink;
 	letter-spacing: 1px;
 	font-weight: bold;
 	padding: 0px 3px 0px 3px;
-	min-width: 60px;
-	height: 17px;
+	height: 16px;
 	text-align: center;
+	horizontal-align: center;
 }
 
 #ImbueTag
 {
-	color: spiritDarkColor;
+	color: spiritLightColor;
+	text-overflow: shrink;
 }
 
-#ActiveSlotsFull
+#ActiveTag
 {
-	color: rgb(255, 88, 88);
-}
-
-#ActiveSlotsFull,.canAffordMod .atMaxActiveSlots #NewLabel,.atMaxActiveSlots #ActiveTag
-{
-	visibility: collapse;
-}
-
-.canAffordMod .atMaxActiveSlots #ActiveSlotsFull,.canAffordMod .owned.atMaxActiveSlots.New #NewLabel
-{
-	visibility: visible;
+	background-color: #181818;
+	padding: 0px 4px;
+	font-size: 11px;
+	box-shadow: 0px 0px 30px #00000060;
+	color: offBlack&ea;
+	color: offWhite&aa;
+	letter-spacing: 0px;
+	border-radius: 2px;
 }
 
 .new_tag
 {
-	horizontal-align: right;
+	horizontal-align: center;
+	white-space: nowrap;
 	vertical-align: top;
 	text-align: center;
 	font-size: 13px;
@@ -834,12 +1245,17 @@ CitadelShopMod.recommended:hover #AddToBuild,CitadelShopMod.itemDisabled:hover #
 	color: offWhite;
 	visibility: collapse;
 	padding: -1px 5px 0px 5px;
-	border-radius: 0px 0px 0px 6px;
+	border-radius: 0px 0px 3px 3px;
 }
 
 .New .new_tag
 {
 	visibility: visible;
+}
+
+.owned.New .new_tag
+{
+	visibility: collapse;
 }
 
 .connectedToNewPlayerSandbox .new_tag,.connectedToLaneTraining .new_tag
@@ -876,9 +1292,34 @@ CitadelShopMod.recommended:hover #AddToBuild,CitadelShopMod.itemDisabled:hover #
 	wash-color: colorCommonDarkestGray;
 }
 
-.owned .purchasedIcon
+.Language_brazilian .owned .purchasedIcon
+{
+	visibility: collapse;
+	wash-color: none;
+}
+
+.Language_latam .owned .purchasedIcon
+{
+	visibility: collapse;
+	wash-color: none;
+}
+
+.Language_polish .owned .purchasedIcon
+{
+	visibility: collapse;
+	wash-color: none;
+}
+
+.Language_spanish .owned .purchasedIcon
+{
+	visibility: collapse;
+	wash-color: none;
+}
+
+.owned .purchasedIcon,.usedAsComponent .purchasedIcon
 {
 	visibility: visible;
+	wash-color: offWhite;
 }
 
 .owned.quickbuy .purchasedIcon
@@ -905,7 +1346,7 @@ CitadelShopMod.recommended:hover #AddToBuild,CitadelShopMod.itemDisabled:hover #
 {
 	horizontal-align: right;
 	vertical-align: center;
-	margin-right: 8px;
+	margin-right: 3px;
 	visibility: collapse;
 	width: 20px;
 	height: 20px;
@@ -913,19 +1354,39 @@ CitadelShopMod.recommended:hover #AddToBuild,CitadelShopMod.itemDisabled:hover #
 	opacity: 0.5;
 }
 
-.usedAsComponent .componentIcon
+.componentNotOwnedIcon
+{
+	width: 40px;
+	height: 40px;
+	visibility: collapse;
+	ignore-parent-flow: true;
+	z-index: 99999;
+	horizontal-align: center;
+	vertical-align: center;
+	wash-color: offBlack;
+}
+
+.componentsNotOwned .componentNotOwnedIcon
 {
 	visibility: visible;
 }
 
 #ComponentsContainer
 {
-	flow-children: right;
+	flow-children: down;
 	horizontal-align: right;
 	ignore-parent-flow: true;
 	width: fit-children;
 	height: 100%;
 	z-index: 9;
+	margin-top: 3px;
+	margin-right: 3px;
+	overflow: noclip;
+}
+
+#ComponentsContainer
+{
+	visibility: collapse;
 }
 
 .owned #ComponentsContainer
@@ -936,49 +1397,46 @@ CitadelShopMod.recommended:hover #AddToBuild,CitadelShopMod.itemDisabled:hover #
 .componentModIconContainer
 {
 	vertical-align: top;
-	margin-top: 31px;
-	margin-right: 5px;
-	padding: 2px;
-	background-color: offWhite;
+	margin-bottom: 1px;
+	background-color: offWhite&70;
 	border-radius: 80px;
 	overflow: noclip;
-	width: 28px;
-	height: 28px;
+	width: 22px;
+	height: 22px;
+	border: 1px solid #00000060;
+	overflow: noclip;
 }
 
 .owned .componentModIconContainer,.componentOwned .componentModIconContainer
 {
 	opacity: 1;
-	background-color: offBlack&ee;
-}
-
-.owned .componentModIconContainer,.componentOwned .componentModIconContainer,.owned .isTechComponent.componentModIconContainer,.owned .isWeaponComponent.componentModIconContainer,.owned .isArmorComponent.componentModIconContainer
-{
-	background-color: offBlack&90;
+	background-color: #000000;
+	border: 0px solid #000000;
 }
 
 #componentModIcon
 {
-	width: 20px;
-	height: 20px;
+	width: 15px;
+	height: 15px;
 	vertical-align: center;
 	horizontal-align: center;
 	opacity: 1;
+	overflow: noclip;
 }
 
 #componentOwnedIcon
 {
-	width: 16px;
-	height: 16px;
+	width: 14px;
+	height: 14px;
 	background-image: url("s2r://panorama/images/icons/icon_checkmark.vsvg");
 	background-size: contain;
 	background-repeat: no-repeat;
-	transform: translateX(0px) translateY(3px);
 	wash-color: fortitudeBrightColor;
-	vertical-align: bottom;
-	horizontal-align: right;
+	wash-color: white;
+	vertical-align: middle;
+	horizontal-align: center;
+	margin-top: 3px;
 	visibility: collapse;
-	img-shadow: 0px 0px 0px 3.0 offBlack;
 }
 
 .componentOwned #componentOwnedIcon
@@ -1006,7 +1464,7 @@ CitadelShopMod.recommended:hover #AddToBuild,CitadelShopMod.itemDisabled:hover #
 
 .owned #componentModIcon,.componentOwned #componentModIcon
 {
-	wash-color: colorCommonOffWhite;
+	wash-color: offWhite;
 	opacity: 1;
 	width: 17px;
 	height: 17px;
@@ -1021,29 +1479,9 @@ CitadelShopMod.recommended:hover #AddToBuild,CitadelShopMod.itemDisabled:hover #
 	height: 10px;
 }
 
-.componentOwned .isWeaponComponent #componentModIcon
+.componentOwned #componentModIcon
 {
-	wash-color: courageBrightColor;
-}
-
-.componentOwned .isArmorComponent #componentModIcon
-{
-	wash-color: fortitudeBrightColor;
-}
-
-.componentOwned .isTechComponent #componentModIcon
-{
-	wash-color: spiritBrightColor;
-}
-
-.owned .isTechComponent #componentModIcon
-{
-	wash-color: spiritBrightColor;
-}
-
-.owned .isWeaponComponent #componentModIcon
-{
-	wash-color: courageBrightColor;
+	visibility: collapse;
 }
 
 CitadelShopMod.owned:hover .componentModIconContainer
@@ -1051,14 +1489,133 @@ CitadelShopMod.owned:hover .componentModIconContainer
 	opacity: 0;
 }
 
+#UpgradeAvailable
+{
+	width: 70%;
+	height: 70%;
+	background-image: url("s2r://panorama/images/shop/catalog/sticker_discount_psd.vtex");
+	background-size: contain;
+	background-repeat: no-repeat;
+	horizontal-align: right;
+	visibility: collapse;
+}
+
+.Language_schinese #UpgradeAvailable
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/upgrade/sticker_upgrade_schinese_png.vtex");
+}
+
+.Language_brazilian #UpgradeAvailable
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/upgrade/sticker_upgrade_brazilian_png.vtex");
+}
+
+.Language_czech #UpgradeAvailable
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/upgrade/sticker_upgrade_czech_png.vtex");
+}
+
+.Language_french #UpgradeAvailable
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/upgrade/sticker_upgrade_french_png.vtex");
+}
+
+.Language_german #UpgradeAvailable
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/upgrade/sticker_upgrade_german_png.vtex");
+}
+
+.Language_italian #UpgradeAvailable
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/upgrade/sticker_upgrade_italian_png.vtex");
+}
+
+.Language_koreana #UpgradeAvailable
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/upgrade/sticker_upgrade_koreana_png.vtex");
+}
+
+.Language_latam #UpgradeAvailable
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/upgrade/sticker_upgrade_spanish_png.vtex");
+}
+
+.Language_polish #UpgradeAvailable
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/upgrade/sticker_upgrade_polish_png.vtex");
+}
+
+.Language_russian #UpgradeAvailable
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/upgrade/sticker_upgrade_russian_png.vtex");
+}
+
+.Language_spanish #UpgradeAvailable
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/upgrade/sticker_upgrade_spanish_png.vtex");
+}
+
+.Language_thai #UpgradeAvailable
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/upgrade/sticker_upgrade_thai_png.vtex");
+}
+
+.Language_turkish #UpgradeAvailable
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/upgrade/sticker_upgrade_turkish_png.vtex");
+}
+
+.Language_ukrainian #UpgradeAvailable
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/upgrade/sticker_upgrade_ukrainian_png.vtex");
+}
+
+.componentOwned #UpgradeAvailable
+{
+	visibility: visible;
+	animation-name: discountTag;
+	animation-iteration-count: infinite;
+	animation-duration: 2s;
+}
+
+.componentOwned.owned #UpgradeAvailable
+{
+	visibility: collapse;
+	animation: none;
+}
+
+@keyframes 'discountTag'
+{
+	0%
+	{
+		pre-transform-scale2d: 1;
+		brightness: 1;
+		wash-color: shardColor&30;
+	}
+	
+	50%
+	{
+		brightness: 2;
+		pre-transform-scale2d: 1;
+		wash-color: shardColor;
+	}
+	
+	100%
+	{
+		pre-transform-scale2d: 1;
+		brightness: 1;
+		wash-color: shardColor&30;
+	}
+	
+}
+
 #Outline
 {
 	width: 100%;
 	height: 100%;
-	border: 3px solid white;
+	border: 2px solid white;
 	z-index: 9;
 	ignore-parent-flow: true;
-	border-radius: 5px;
 	visibility: collapse;
 }
 
@@ -1068,14 +1625,304 @@ CitadelShopMod.owned:hover .componentModIconContainer
 	wash-color: white;
 }
 
+.componentOwned #Outline
+{
+	visibility: visible;
+	wash-color: shardColor;
+}
+
 .owned #Outline
+{
+	wash-color: offBlack;
+	visibility: visible;
+}
+
+.usedAsComponent #Outline
+{
+	wash-color: offBlack;
+	visibility: visible;
+}
+
+.isShowingTrainingPage #Outline
 {
 	visibility: collapse;
 }
 
-.quickbuy.owned #Outline
+#BuyOverlay
+{
+	background-color: buildsColor;
+	width: 100%;
+	ignore-parent-flow: true;
+	vertical-align: bottom;
+	visibility: collapse;
+	z-index: 100;
+}
+
+CitadelShopMod:hover #BuyOverlay
 {
 	visibility: visible;
-	wash-color: colorEnemy;
+}
+
+CitadelShopMod.owned #BuyOverlay
+{
+	visibility: collapse;
+}
+
+#BuyOverlay .MessageContent
+{
+	vertical-align: middle;
+	horizontal-align: middle;
+	width: 100%;
+	flow-children: down;
+	padding: 0px;
+}
+
+.BuyLabel
+{
+	width: 100%;
+	height: 20px;
+	font-size: 15px;
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: 1px;
+	background-color: offBlack;
+	color: offWhite;
+	visibility: collapse;
+	padding: 0px 0px 16px 0px;
+	vertical-align: top;
+}
+
+.canAffordMod .BuyLabel
+{
+	visibility: collapse;
+}
+
+.QueueLabel
+{
+	width: 100%;
+	text-align: center;
+	font-size: 10px;
+	font-weight: semi-bold;
+	text-align: center;
+	line-height: 14px;
+	background-color: buildsLightColor;
+	opacity: 1;
+	color: offBlack;
+}
+
+#InQueue,.quickbuy #NotInQueue,.quickbuy .BuyLabel
+{
+	visibility: collapse;
+}
+
+.quickbuy #InQueue
+{
+	visibility: visible;
+	color: offBlack;
+	font-size: 10px;
+	font-weight: bold;
+}
+
+.isShowingTrainingPage #BuyOverlay,.disabledFromPurchasing #BuyOverlay
+{
+	opacity: 0;
+}
+
+#DisabledForPlaytest
+{
+	background-color: offBlack&f1;
+	width: 100%;
+	height: 100%;
+	ignore-parent-flow: true;
+	visibility: collapse;
+	border-radius: 5px;
+	z-index: 10;
+}
+
+CitadelShopMod.disabledFromPurchasing:hover #DisabledForPlaytest
+{
+	visibility: visible;
+}
+
+#DisabledForPlaytest .MessageContent
+{
+	vertical-align: middle;
+	margin-top: 15px;
+}
+
+.ItemDisabledLabel
+{
+	width: 100%;
+	font-size: 16px;
+	font-weight: bold;
+	vertical-align: top;
+	text-align: center;
+}
+
+#ComponentNotOwned
+{
+	background-color: offWhite;
+	width: 30px;
+	height: 30px;
+	border-radius: 50px;
+	padding: 2px 4px;
+	horizontal-align: middle;
+	vertical-align: top;
+	margin-top: 30px;
+	ignore-parent-flow: true;
+	visibility: collapse;
+	z-index: 10;
+}
+
+.componentsNotOwned #ComponentNotOwned
+{
+	visibility: visible;
+}
+
+#ItemPurchased
+{
+	width: 100%;
+	height: 100%;
+	ignore-parent-flow: true;
+	visibility: collapse;
+	border-radius: 5px;
+	z-index: 9;
+	opacity: 1;
+}
+
+CitadelShopMod.owned:not(.IgnoreOwnership) #ItemPurchased
+{
+	visibility: visible;
+}
+
+CitadelShopMod.owned:hover #ItemPurchased,#CitadelModHoverTooltip.owned #ItemPurchased
+{
+	visibility: collapse;
+}
+
+#ItemPurchased Label
+{
+	width: 100%;
+	color: #fa4b4b;
+	font-size: 28px;
+	font-weight: bold;
+	vertical-align: top;
+	margin-bottom: 30px;
+	margin-left: 2px;
+	text-align: center;
+	text-transform: uppercase;
+	transform: rotateZ(-10deg);
+	opacity: 1;
+}
+
+#ItemPurchased #SoldSticker
+{
+	width: 90%;
+	height:100%;
+	margin-top: 13px;
+	horizontal-align: middle;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center top;
+}
+
+.Language_english #ItemPurchased #SoldSticker
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_english_psd.vtex");
+}
+
+.Language_schinese #ItemPurchased #SoldSticker
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_schinese_png.vtex");
+}
+
+.Language_brazilian #ItemPurchased #SoldSticker
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_checkmark_png.vtex");
+}
+
+.Language_czech #ItemPurchased #SoldSticker
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_czech_png.vtex");
+}
+
+.Language_french #ItemPurchased #SoldSticker
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_french_png.vtex");
+}
+
+.Language_german #ItemPurchased #SoldSticker
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_german_png.vtex");
+}
+
+.Language_italian #ItemPurchased #SoldSticker
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_italian_png.vtex");
+}
+
+.Language_indonesian #ItemPurchased #SoldSticker
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_indonesian_png.vtex");
+}
+
+.Language_japanese #ItemPurchased #SoldSticker
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_english_psd.vtex");
+}
+
+.Language_koreana #ItemPurchased #SoldSticker
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_koreana_png.vtex");
+}
+
+.Language_latam #ItemPurchased #SoldSticker
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_checkmark_png.vtex");
+}
+
+.Language_polish #ItemPurchased #SoldSticker
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_checkmark_png.vtex");
+}
+
+.Language_russian #ItemPurchased #SoldSticker
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_russian_png.vtex");
+}
+
+.Language_spanish #ItemPurchased #SoldSticker
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_checkmark_png.vtex");
+}
+
+.Language_thai #ItemPurchased #SoldSticker
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_thai_png.vtex");
+}
+
+.Language_turkish #ItemPurchased #SoldSticker
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_turkish_png.vtex");
+}
+
+.Language_ukrainian #ItemPurchased #SoldSticker
+{
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_ukrainian_png.vtex");
+}
+
+CitadelShopMod.isArmor:hover
+{
+	sound: "UI.Shop.Mod.Hover.Vitality";
+}
+
+CitadelShopMod.isWeapon:hover
+{
+	sound: "UI.Shop.Mod.Hover.Weapon";
+}
+
+CitadelShopMod.isTech:hover
+{
+	sound: "UI.Shop.Mod.Hover.Spirit";
 }
 

@@ -1,0 +1,167 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_track_shared_parameters = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					vsnd_start_track = 
+					{
+						data_type = "bool"
+						value = "true"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					vsnd_files_track_name = 
+					{
+						data_type = "string"
+						value = "track_01"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					vsnd_files_field_name = 
+					{
+						data_type = "string"
+						value = "vsnd_files"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					vsnd_track_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					track_percent_chance_to_play = 
+					{
+						data_type = "float"
+						value = "1"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					vsnd_selection_type = 
+					{
+						data_type = "enum"
+						enum_field = "opvar_get_vsnd.array_selection_type"
+						value = "random_exclusive"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					vsnd_selection_index = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+				}
+			},
+			
+			{
+				name = "get_vsnd"
+				operator = "opvar_get_vsnd"
+				execute_once = "true"
+				check_event_data = "true"
+				input_operator_name = "public"
+				input_field_name = "@public.vsnd_files_field_name"
+				input_use_namespace = "false"
+				array_selection_type = "@public.vsnd_selection_type"
+				input_index = "@public.vsnd_selection_index"
+			},
+			
+			{
+				name = "track_percent_chance_to_play_rand_float"
+				operator = "math_random_float"
+				execute_once = "true"
+				input_min = 0.000000
+				input_max = 1.000000
+			},
+			
+			{
+				name = "track_percent_chance_to_play_rand_compare"
+				operator = "math_float"
+				execute_once = "true"
+				apply = "less_than"
+				input1 = "@track_percent_chance_to_play_rand_float.output"
+				input2 = "@public.track_percent_chance_to_play"
+			},
+			
+			{
+				name = "opvar_get_vsnd_is_valid"
+				input_execute = "1.000000"
+				execute_once = "true"
+				operator = "opvar_get_vsnd_is_valid"
+				input = "@get_vsnd.output"
+			},
+			
+			{
+				name = "opvar_math_is_stopped"
+				input_execute = "1.0"
+				execute_once = "true"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@track_percent_chance_to_play_rand_compare.output"
+				input2 = "@public.vsnd_start_track"
+			},
+			
+			{
+				name = "opvar_math_vsnd_is_valid"
+				input_execute = "1.0"
+				execute_once = "true"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@opvar_get_vsnd_is_valid.output"
+				input2 = "@opvar_math_is_stopped.output"
+			},
+			
+			{
+				name = "volume_db_to_gain_track"
+				operator = "math_db_to_gain"
+				input = "@public.vsnd_track_vol_offset_db"
+			},
+			
+			{
+				name = "output"
+				operator = "util_null"
+				operator_variables = 
+				{
+					track_volume = 
+					{
+						data_type = "float"
+						value = "@volume_db_to_gain_track.output"
+					}
+					track_start = 
+					{
+						data_type = "bool"
+						value = "@opvar_math_vsnd_is_valid.output"
+					}
+					track_vsnd = 
+					{
+						data_type = "vsnd"
+						value = "@get_vsnd.output"
+					}
+				}
+			},
+		]
+	}
+}

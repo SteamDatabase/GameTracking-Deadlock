@@ -2,13 +2,12 @@
 <root>
 	<styles>
 		<include src="s2r://panorama/styles/citadel_base_styles.vcss_c" />
-		<include src="s2r://panorama/styles/citadel_shared_colors.vcss_c" />
+		<include src="s2r://panorama/styles/citadel_db_page_shared.vcss_c" />
 		<include src="s2r://panorama/styles/pages/citadel_db_page_control_library.vcss_c" />
 		<include src="s2r://panorama/styles/citadel_ui_keyboard_glyph.vcss_c" />
 	</styles>
-	<CitadelDevControlLibrary oncancel="CitadelToggleControlZoo();">
+	<CitadelControlLibraryPage class="DashboardPage" oncancel="CitadelShowHomePage();">
 		<Panel class="ZooHeader">
-			<Label class="ZooHeaderText" text="Control Zoo" />
 			<Panel class="TabsContainer">
 				<TabButton id="TextTab" text="Text" group="zoo_tabs" selected="true" />
 				<TabButton id="ButtonsTab" text="Buttons" group="zoo_tabs" />
@@ -16,8 +15,10 @@
 				<TabButton id="BindsTab" text="Binds" group="zoo_tabs" />
 				<TabButton id="InlineGlyphTab" text="Inline Glyph" group="zoo_tabs" />
 				<TabButton id="BlendBlurTab" text="Blend+Blur" group="zoo_tabs" />
+				<TabButton id="NthChildTab" text="nth-child" group="zoo_tabs" />
+				<TabButton id="ScenePanelTab" text="Scene Panel" group="zoo_tabs" />
 			</Panel>
-			<Button id="exit_button" class="exit_button header_tab" onactivate="CitadelToggleControlZoo(); CitadelPlayUISound( EMainMenuActivate )" />
+			<Button id="exit_button" class="exit_button header_tab" onactivate="CitadelShowHomePage()" />
 		</Panel>
 		<TabContents tabid="TextTab" class="ZooContainerPanel" group="zoo_tabs" selected="true">
 			<Label class="h1 display uppercase" text="H1 Display" />
@@ -34,12 +35,23 @@
 			<Label class="InlineAttributesTest" text="Courage: {g:citadel_inline_attribute:&apos;Courage&apos;}" html="true" />
 		</TabContents>
 		<TabContents tabid="ButtonsTab" class="ZooContainerPanel" group="zoo_tabs">
-			<CitadelAvatarImage id="AvatarImage" />
-			<Label class="ZooSubtitle" text="Dev Options:" />
-			<Button id="Launch_Dev1v1" onactivate="CitadelToggleControlZoo(); CitadelPlayUISound( ESocialMenuHover )">
-				<Label text="1v1 Testing Mode" />
-			</Button>
-			<TextButton text="Tarot Test" onactivate="CitadelToggleControlZoo(); CitadelPlayUISound( ESocialMenuHover ); CitadelShowTarotPage()" />
+			<CitadelAvatarImage id="AvatarImage" accountid="local" />
+			<TextButton class="SecondaryButton" text="Tarot Test" onactivate="CitadelShowTarotPage()" />
+			<TextButton class="SecondaryButton" text="Badge Gallery" onactivate="CitadelShowHeroBadgeGalleryPage()" />
+			<Panel id="Library" onactivate="CitadelShowBookLibraryPage()">
+				<Panel id="BookBacker" />
+				<Panel id="BookCover" />
+				<Panel id="BookNewViolator">
+					<Panel id="BookNewCircle" />
+					<Panel id="BookNewFrame" />
+				</Panel>
+				<Label class="ViewLabel" text="#Citadel_Dashboard_ViewLibrary" />
+			</Panel>
+			<Panel id="CardHoverTest">
+				<Panel id="BackgroundTexture" />
+				<Panel id="BackgroundTexture2" />
+				<Panel id="ShopCard" />
+			</Panel>
 		</TabContents>
 		<TabContents tabid="GlyphsTab" class="ZooContainerPanel" group="zoo_tabs">
 			<Label class="h3" text="KeyBoard/Mouse raw glyphs" />
@@ -49,6 +61,8 @@
 				<CitadelKeyboardGlyph id="Mouse3" buttoncode="mouse3" />
 				<CitadelKeyboardGlyph id="Mouse4" buttoncode="mouse4" />
 				<CitadelKeyboardGlyph id="Mouse5" buttoncode="mouse5" />
+				<CitadelKeyboardGlyph id="MouseWheelup" buttoncode="mwheelup" />
+				<CitadelKeyboardGlyph id="MouseWheelDown" buttoncode="mwheeldown" />
 				<CitadelKeyboardGlyph id="EscapeKey" buttoncode="ESCAPE" />
 				<CitadelKeyboardGlyph id="AKey" buttoncode="a" />
 				<CitadelKeyboardGlyph id="TestNone" />
@@ -183,33 +197,38 @@
 			</Panel>
 		</TabContents>
 		<TabContents tabid="BindsTab" class="ZooContainerPanel" group="zoo_tabs">
-			<Label class="h3" text="Get all keys and gamepad buttons &apos;Attack&apos; action definition." />
+			<Label class="h4" text="Get all keys and gamepad buttons &apos;Attack&apos; action definition." />
 			<Panel class="GlyphWithLabel">
 				<CitadelBinding id="KB_Or_Controller_Example" action="Attack" />
 			</Panel>
-			<Label class="h3" text="Get all keys and gamepad buttons &apos;Attack&apos; action definition." />
+			<Label class="h4" text="Ability1 first, hero gnostic, and then agnostic." />
+			<Panel class="GlyphWithLabel">
+				<CitadelBinding id="KB_Or_Controller_Example" action="Ability1" />
+				<CitadelBinding id="KB_Or_Controller_Example2" action="Ability1" heroname="Atlas" />
+			</Panel>
+			<Label class="h4" text="Get all keys and gamepad buttons &apos;Attack&apos; action definition." />
 			<Panel class="GlyphWithLabel">
 				<CitadelBinding id="StylePassDownTest_KO" action="Attack" glyphstyle="knockout" solid="false" />
 				<CitadelBinding id="StylePassDownTest_Light" action="Attack" glyphstyle="light" solid="false" />
 				<CitadelBinding id="StylePassDownTest_Dark" action="Attack" glyphstyle="dark" solid="false" />
 			</Panel>
-			<Label class="h3" text="Get all keys bound to citadel_keys&apos; &apos;AbilityUpgrade1&apos; action definition. Testing Modifiers " />
+			<Label class="h4" text="Get all keys bound to citadel_keys&apos; &apos;AbilityUpgrade1&apos; action definition. Testing Modifiers " />
 			<Panel class="GlyphWithLabel">
 				<CitadelKeyboardBinding id="GamePadBinding_Roll" action="AbilityUpgrade1" />
 			</Panel>
-			<Label class="h3" text="Get all keys bound to citadel_keys&apos; &apos;Mantle&apos; action definition. Testing Multiples bind sources." />
+			<Label class="h4" text="Get all keys bound to citadel_keys&apos; &apos;Mantle&apos; action definition. Testing Multiples bind sources." />
 			<Panel class="GlyphWithLabel">
 				<CitadelKeyboardBinding id="GamePadBinding_Roll" action="Mantle" />
 			</Panel>
-			<Label class="h3" text="Get &apos;Roll&apos; from all action sets (Test multiple binds) " />
+			<Label class="h4" text="Get &apos;Roll&apos; from all action sets (Test multiple binds) " />
 			<Panel class="GlyphWithLabel">
 				<CitadelGamePadBinding id="GamePadBinding_Roll" action="Roll" />
 			</Panel>
-			<Label class="h3" text="Get action &apos;SpectatorFlyUp&apos; from actionset &apos;SpectatorControls&apos; " />
+			<Label class="h4" text="Get action &apos;SpectatorFlyUp&apos; from actionset &apos;SpectatorControls&apos; " />
 			<Panel class="GlyphWithLabel">
 				<CitadelGamePadBinding id="GamePadBinding_SpectatorFlyUp" action="SpectatorFlyUp" actionset="SpectatorControls" />
 			</Panel>
-			<Label class="h3" text="Same again with different glyph styles" />
+			<Label class="h4" text="Same again with different glyph styles" />
 			<Panel class="GlyphWithLabel">
 				<CitadelGamePadBinding id="GamePadBinding_SpectatorFlyUp_KO" action="SpectatorFlyUp" actionset="SpectatorControls" glyphstyle="knockout" solid="false" />
 				<CitadelGamePadBinding id="GamePadBinding_SpectatorFlyUp_Light" action="SpectatorFlyUp" actionset="SpectatorControls" glyphstyle="light" solid="false" />
@@ -217,7 +236,31 @@
 			</Panel>
 		</TabContents>
 		<TabContents tabid="InlineGlyphTab" class="ZooContainerPanel" group="zoo_tabs">
-			<Label class="h3" text="Inline Glyphs" />
+			<Label class="h4" text="Simple" />
+			<Label text="Press {g:citadel_keybind:&apos;Mantle&apos;} to climb over obstacles and {g:citadel_keybind:&apos;Roll&apos;} to evade attacks." html="true" />
+			<Label class="h4" text="Get Any binds across all ActionSets for &apos;ResetCamera&apos;" />
+			<Label text="Press {g:citadel_keybind:&apos;ResetCamera&apos;} to reset the camera." html="true" />
+			<Label class="h4" text="Only show the first binding found for an action" />
+			<Label text="Just the frst {g:citadel_keybind:1st:&apos;Roll&apos;} to evade attacks." html="true" />
+			<Label class="h4" text="Force show the keyboard/mouse bind even in controller mode" />
+			<Label text="Press {g:citadel_keybind:kbm:&apos;Mantle&apos;} to climb over obstacles." html="true" />
+			<Label class="h4" text="Specify Action Set and Action: e.g.&apos;ReplayControls.ResetCamera&apos;" />
+			<Label text="Press {g:citadel_keybind:&apos;ReplayControls.ResetCamera&apos;} to reset the camera." html="true" />
+			<Label class="h4" text="SIAPI Glyph Style: Knockout" />
+			<Label text="Press {g:citadel_keybind:ko:&apos;Mantle&apos;} to climb over obstacles." html="true" />
+			<Label class="h4" text="SIAPI Glyph Style: Light" />
+			<Label text="Press {g:citadel_keybind:li:&apos;Mantle&apos;} to climb over obstacles." html="true" />
+			<Label class="h4" text="SIAPI Glyph Style: Dark" />
+			<Label text="Press {g:citadel_keybind:drk:&apos;Mantle&apos;} to climb over obstacles." html="true" />
+			<Label class="h4" text="SIAPI Glyph Style: Neutral (i.e. Xbox controllers have colored ABXY, but you may want a monochrome)" />
+			<Label text="Press {g:citadel_keybind:ne:&apos;Mantle&apos;} to climb over obstacles." html="true" />
+			<Label text="Press {g:citadel_keybind:ne:ko:&apos;Mantle&apos;} to climb over obstacles. (plus knockout)" html="true" />
+			<Label text="Press {g:citadel_keybind:ne:drk:&apos;Mantle&apos;} to climb over obstacles. (plus dark)" html="true" />
+			<Label class="h4" text="Dark, Light, and Neutral _styles_ (as opposed to SIAPI Icon Styles)" />
+			<Label text="Press {g:citadel_keybind:dark:&apos;Mantle&apos;} to climb over obstacles. (dark)" html="true" />
+			<Label text="Press {g:citadel_keybind:light:&apos;Mantle&apos;} to climb over obstacles. (light)" html="true" />
+			<Label text="Press {g:citadel_keybind:knockout:&apos;Mantle&apos;} to climb over obstacles. (knockout)" html="true" />
+			<Label text="Move Up In Spectator Mode with {g:citadel_keybind:&apos;SpectatorControls.SpectatorFlyUp&apos;}." html="true" />
 			<Label text="Press {g:citadel_keybind:&apos;AbilityMelee&apos;} to perform a melee attack." html="true" />
 			<Label text="Use {g:citadel_keybind:&apos;Ability1&apos;} to activate your first ability." html="true" />
 			<Label text="Press {g:citadel_keybind:&apos;Ability2&apos;} to use your second ability." html="true" />
@@ -264,5 +307,143 @@
 				</Panel>
 			</Panel>
 		</TabContents>
-	</CitadelDevControlLibrary>
+		<TabContents tabid="NthChildTab" class="ZooContainerPanel" group="zoo_tabs">
+			<Panel class="NthChildTests">
+				<Panel class="NthChildTest FirstChild">
+					<Label class="Header" text=":first-child" />
+					<Panel class="List">
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+					</Panel>
+				</Panel>
+				<Panel class="NthChildTest LastChild">
+					<Label class="Header" text=":last-child" />
+					<Panel class="List">
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+					</Panel>
+				</Panel>
+			</Panel>
+			<Panel class="NthChildTests">
+				<Panel class="NthChildTest Odd">
+					<Label class="Header" text=":nth-child(odd)" />
+					<Panel class="List">
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+					</Panel>
+				</Panel>
+				<Panel class="NthChildTest Even">
+					<Label class="Header" text=":nth-child(even)" />
+					<Panel class="List">
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+					</Panel>
+				</Panel>
+				<Panel class="NthChildTest EveryThird">
+					<Label class="Header" text=":nth-child(3n)" />
+					<Panel class="List">
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+					</Panel>
+				</Panel>
+				<Panel class="NthChildTest EveryThirdPlusOne">
+					<Label class="Header" text=":nth-child(3n + 1)" />
+					<Panel class="List">
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+					</Panel>
+				</Panel>
+				<Panel class="NthChildTest Third">
+					<Label class="Header" text=":nth-child(3)" />
+					<Panel class="List">
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+					</Panel>
+				</Panel>
+				<Panel class="NthChildTest FirstThree">
+					<Label class="Header" text=":nth-child(-n+3)" />
+					<Panel class="List">
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+					</Panel>
+				</Panel>
+			</Panel>
+			<Panel class="NthChildTests">
+				<Panel class="NthChildTest LastThree">
+					<Label class="Header" text=":nth-last-child(-n+3)" />
+					<Panel class="List">
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+					</Panel>
+				</Panel>
+				<Panel class="NthChildTest EveryThirdFromLast">
+					<Label class="Header" text=":nth-last-child(3n)" />
+					<Panel class="List">
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+						<Panel class="Child" />
+					</Panel>
+				</Panel>
+			</Panel>
+		</TabContents>
+		<TabContents tabid="ScenePanelTab" class="ZooContainerPanel" group="zoo_tabs">
+			<Panel class="ScenePanelTest">
+				<Label class="TestLabel" text="Old" />
+				<ScenePanel map="ui/hero_shop/abrams_shop" camera="point_camera" require-composition-layer="true" />
+			</Panel>
+			<Panel class="ScenePanelTest">
+				<Label class="TestLabel" text="New" />
+				<CitadelScenePanel map="ui/hero_shop/abrams_shop" camera="point_camera" require-composition-layer="true" />
+			</Panel>
+		</TabContents>
+	</CitadelControlLibraryPage>
 </root>

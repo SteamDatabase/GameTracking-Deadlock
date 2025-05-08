@@ -326,15 +326,6 @@
 			m_bIsHidden = true
 		}
 	}
-	modifier_shield_tracker_base = 
-	{
-		_class = "modifier_shield_tracker_base"
-		m_strParticleEffect = resource_name:""
-		m_bIsHidden = true
-		m_flShieldImpactEffectDuration = 1.500000
-		_base = ""
-		flCooldownOnBreak = 50.000000
-	}
 	modifier_citadel_disarmed = 
 	{
 		_class = "modifier_citadel_disarmed"
@@ -470,45 +461,36 @@
 		m_flRevealDuration = 1.000000
 		m_flHideDuration = 1.000000
 	}
-	modifier_bullet_shield_tracker = 
+	modifier_barrier_tracker = 
 	{
-		_class = "modifier_bullet_shield_tracker"
-		m_strParticleEffect = resource_name:""
+		_class = "modifier_barrier_tracker"
 		m_bIsHidden = true
 		m_flShieldImpactEffectDuration = 1.500000
-		_base = "modifier_shield_tracker_base"
-		flCooldownOnBreak = 50.000000
-		m_ShieldImpactModifier = subclass:
+		m_flDecayPause = 5
+		m_flDecayRate = 60
+		m_flTickRate = 0.500000
+		m_TechImpactModifier = subclass:
 		{
-			_class = "modifier_bullet_shield_impact"
-			_my_subclass_name = "bullet_shield_impact"
-			m_ShieldBreakParticle = resource_name:"particles/upgrades/bullet_shield_impact_break.vpcf"
-			m_bIsHidden = true
-			m_ShieldBreakSound = soundevent:"StatusEffects.ShieldBreak"
-		}
-		m_ShieldImpactParticle = resource_name:"particles/items/bullet_shield_impact.vpcf"
-		m_nAttributes = "MODIFIER_ATTRIBUTE_PERMANENT"
-	}
-	modifier_magic_shield_tracker = 
-	{
-		_class = "modifier_magic_shield_tracker"
-		m_strParticleEffect = resource_name:""
-		m_bIsHidden = true
-		m_flShieldImpactEffectDuration = 1.500000
-		_base = "modifier_shield_tracker_base"
-		flCooldownOnBreak = 50.000000
-		eShieldType = "TechShield"
-		m_ShieldImpactModifier = subclass:
-		{
-			_class = "modifier_tech_shield_impact"
+			_class = "modifier_shield_impact"
 			_my_subclass_name = "tech_shield_impact"
-			m_ShieldBreakParticle = resource_name:"particles/upgrades/tech_shield_impact_break.vpcf"
 			m_bIsHidden = true
 			m_strParticleEffect = resource_name:"particles/upgrades/tech_shield_impact.vpcf"
-			m_ShieldBreakSound = soundevent:"StatusEffects.ShieldBreak"
 		}
-		m_ShieldImpactParticle = resource_name:"particles/upgrades/magic_shield_impact.vpcf"
-		m_nAttributes = "MODIFIER_ATTRIBUTE_PERMANENT"
+		m_ProcEffectModifier = subclass:
+		{
+			_class = "modifier_base"
+			_my_subclass_name = "proc_effect"
+			m_strParticleEffect = resource_name:"particles/upgrades/barrier_buff_start.vpcf"
+			m_strHudMessageText = "#CombatBarrier_label"
+			m_bIsHidden = true
+			m_sStartSound = soundevent:"StatusEffects.ShieldBreak"
+			m_nAttributes = "MODIFIER_ATTRIBUTE_CANNOT_BE_PURGED"
+		}
+		m_WeaponImpactParticle = resource_name:"particles/items/bullet_shield_impact.vpcf"
+		m_TechImpactParticle = resource_name:"particles/upgrades/magic_shield_impact.vpcf"
+		m_ShieldBreakParticle = resource_name:"particles/upgrades/bullet_shield_impact_break.vpcf"
+		m_ShieldBreakSound = soundevent:"StatusEffects.ShieldBreak"
+		m_nAttributes = "MODIFIER_ATTRIBUTE_PERMANENT | MODIFIER_ATTRIBUTE_CANNOT_BE_PURGED"
 	}
 	modifier_low_health_glow = 
 	{
@@ -596,7 +578,7 @@
 		m_sExpiredSound = soundevent:""
 		m_nAmbientLoopingSoundRecipients = "MODIFIER_SOUND_RECIPIENT_ALWAYS"
 		m_sAmbientLoopingSound = soundevent:"Teleport.Buildup"
-		m_sFailureSound = soundevent:"Player.MeepMop"
+		m_sFailureSound = soundevent:"Player.Negative.Interact"
 		m_sSuccessSound = soundevent:"Teleport.Appear"
 	}
 }

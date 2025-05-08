@@ -159,6 +159,39 @@
 							property_help = "The priority equal or below that will be blocked by combat."
 						}
 					}
+					health_volume_enabled = 
+					{
+						data_type = "bool"
+						value = "false"
+						_system_properties = 
+						{
+							property_group = "citadel_dialog - health"
+							display_group = "Advanced"
+							property_help = "When enabled, the volume of the sound event will change after a teammate's health has been lowered past the value set on 'low_health_fraction_vol_offset_threshold'."
+						}
+					}
+					low_health_fraction_vol_offset_threshold = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							property_group = "citadel_dialog - health"
+							display_group = "Normal"
+							property_help = "The percentage of the entity's health, under which the volume offset should be added. Ex. Set this to 0.3 to apply a volume change when the entity is below 30% health."
+						}
+					}
+					low_health_volume_offset_db = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							property_group = "citadel_dialog - health"
+							display_group = "Normal"
+							property_help = "The amount in decibels that a teammate's VO will be changed after crossing the low health threshold."
+						}
+					}
 				}
 			},
 			
@@ -216,6 +249,13 @@
 				operator = "get_system_globals"
 				input_execute = "1"
 				input_listener_index = "0"
+			},
+			
+			{
+				name = "get_entity_health"
+				operator = "game_entity_get_health"
+				input_execute = "@public.health_volume_enabled"
+				input_entity = "@source_info.output_entity_index"
 			},
 			
 			{
@@ -455,6 +495,31 @@
 			},
 			
 			{
+				name = "check_health_volume_enabled"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@public.health_volume_enabled"
+				input2 = "@citadel_find_perspective::math_perpective_is_team.output"
+			},
+			
+			{
+				name = "check_health_below_threshold"
+				operator = "math_float"
+				apply = "less_than_or_equal"
+				input_execute = "@check_health_volume_enabled.output"
+				input2 = "@public.low_health_fraction_vol_offset_threshold"
+				input1 = "@get_entity_health.output_normalized"
+			},
+			
+			{
+				name = "switch_health_volume"
+				operator = "ctrl_switch_float"
+				input_switch = "@check_health_below_threshold.output"
+				input1 = "0.0"
+				input2 = "@public.low_health_volume_offset_db"
+			},
+			
+			{
 				name = "volume_accumulate"
 				operator = "math_accumulate12_float"
 				apply = "mult"
@@ -496,7 +561,7 @@
 				input1 = "@public.volume"
 				input2 = "@volume_filter.output"
 				input3 = "@get_context_volume.output"
-				input4 = "0.0"
+				input4 = "@switch_health_volume.output"
 				input5 = "0.0"
 				input6 = "0.0"
 				input7 = "0.0"

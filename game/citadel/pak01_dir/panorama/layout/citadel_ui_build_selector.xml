@@ -15,50 +15,87 @@
 					</Panel>
 					<Label class="ActiveBuild" text="#Citadel_HeroBuilds_CurrenclyActive" />
 				</Panel>
-				<Panel class="InfoContainer">
-					<Panel class="Fill" />
-					<Panel class="ProgressBarContainer">
-						<ProgressBar id="WeaponProgressBar" />
-						<ProgressBar id="VitalityProgressBar" />
-						<ProgressBar id="SpiritProgressBar" />
+				<Panel id="RightPanel">
+					<Panel class="BuildTagContainer">
+						<CitadelBuildTag class="BuildTag Small" id="BuildTag1" />
+						<CitadelBuildTag class="BuildTag Small" id="BuildTag2" />
+						<CitadelBuildTag class="BuildTag Small" id="BuildTag3" />
 					</Panel>
-					<Label id="FavoriteCount" text="#Citadel_HeroBuilds_FavoriteCount" />
-					<Panel id="DailyFavorite" class="PopularityTag buildTag">
-						<Label id="DailyLabel" text="#Citadel_HeroBuilds_DailyFavorite" />
+					<Panel class="InfoContainer">
+						<Panel class="Fill" />
+						<Panel class="TagContainer" />
+						<Panel class="ProgressBarContainer">
+							<ProgressBar id="WeaponProgressBar" />
+							<ProgressBar id="VitalityProgressBar" />
+							<ProgressBar id="SpiritProgressBar" />
+						</Panel>
+						<Label id="FavoriteCount" text="#Citadel_HeroBuilds_FavoriteCount" />
+						<Panel id="DailyFavorite" class="PopularityTag buildTag">
+							<Label id="DailyLabel" text="#Citadel_HeroBuilds_DailyFavorite" />
+						</Panel>
+						<Panel id="WeeklyFavorite" class="PopularityTag buildTag">
+							<Label id="WeeklyLabel" text="#Citadel_HeroBuilds_WeeklyFavorite" />
+						</Panel>
+						<Panel id="AllTimeFavorite" class="PopularityTag buildTag">
+							<Label id="AllTimeLabel" text="#Citadel_HeroBuilds_AllTimeFavorite" />
+						</Panel>
+						<Label id="FavoriteCount" text="#Citadel_HeroBuilds_FavoriteCount" />
+						<Panel id="FavoriteIcon" class="HeroBuildTypeIcon" onmouseover="UIShowTextTooltip( #Citadel_HeroBuilds_FavoriteButtonTooltip )" onmouseout="UIHideTextTooltip()" />
 					</Panel>
-					<Panel id="WeeklyFavorite" class="PopularityTag buildTag">
-						<Label id="WeeklyLabel" text="#Citadel_HeroBuilds_WeeklyFavorite" />
-					</Panel>
-					<Panel id="AllTimeFavorite" class="PopularityTag buildTag">
-						<Label id="AllTimeLabel" text="#Citadel_HeroBuilds_AllTimeFavorite" />
-					</Panel>
-					<Label id="FavoriteCount" text="#Citadel_HeroBuilds_FavoriteCount" />
-					<Panel id="FavoriteIcon" class="HeroBuildTypeIcon" onmouseover="UIShowTextTooltip( #Citadel_HeroBuilds_FavoriteButtonTooltip )" onmouseout="UIHideTextTooltip()" />
 				</Panel>
+			</Panel>
+		</snippet>
+		<snippet name="SearchTag">
+			<Panel class="SearchTag">
+				<CitadelBuildTag class="BuildTag Small" id="BuildTag" onactivate="CitadelBuildBrowserAssignSearchTag()" />
+				<Button class="CloseButton" id="RemoveTagButton" onactivate="CitadelBuildBrowserRemoveSearchTag()" />
 			</Panel>
 		</snippet>
 	</snippets>
 	<CitadelHeroBuildsSelector>
 		<Panel class="HeroSelectorHeader">
+			<Panel class="SearchContainer">
+				<Panel class="SearchTagsContainer">
+					<Panel class="AddTagButton" onactivate="CitadelBuildBrowserAddSearchTag()">
+						<Label text="#Citadel_HeroBuilds_AddTag" />
+					</Panel>
+					<Panel id="SearchTagList" />
+				</Panel>
+				<Panel id="SearchBox">
+					<TextEntry id="SearchTextEntry" acceptsfocus="true" acceptsinput="true" placeholder="#Citadel_HeroBuilds_SearchText" onactivate="CitadelBuildBrowserRefresh(true)" />
+					<Button id="ClearSearchButton" onactivate="CitadelBuildBrowserClearSearch();" />
+				</Panel>
+				<Panel id="RefreshButton" onactivate="CitadelBuildBrowserRefresh(true)" />
+			</Panel>
 			<Panel class="HeroSelectorTabContainer">
-				<Panel class="MyBuilds HeroSelectorTab" onactivate="CitadelHeroBuildSelectorSetTabFilter(1)">
+				<Panel class="MyBuilds HeroSelectorTab" onactivate="CitadelBuildBrowserSetTabFilter(1)">
 					<Label class="TabLabel" text="#Citadel_HeroBuilds_Tab_MyBuilds" />
 				</Panel>
-				<Panel class="Favorites HeroSelectorTab" onactivate="CitadelHeroBuildSelectorSetTabFilter(2)">
-					<Label class="TabLabel" text="#Citadel_HeroBuilds_Tab_Favorites" />
-				</Panel>
-				<Panel class="PublicBuilds HeroSelectorTab" onactivate="CitadelHeroBuildSelectorSetTabFilter(3)">
+				<Panel class="PublicBuilds HeroSelectorTab" onactivate="CitadelBuildBrowserSetTabFilter(2)">
 					<Label class="TabLabel" text="#Citadel_HeroBuilds_Tab_PublicBuilds" />
 				</Panel>
 			</Panel>
-			<Panel class="SearchContainer">
-				<Panel id="SearchBox">
-					<TextEntry id="SearchTextEntry" acceptsfocus="true" acceptsinput="true" placeholder="#CitadelShopSearch" onactivate="CitadelHudHeroBuildsRefresh(true)" />
-					<Button id="ClearSearchButton" onactivate="CitadelHeroBuildSelectorClearSearch();" />
+		</Panel>
+		<Panel class="MainContainer">
+			<Panel id="HeroBuildList" acceptsfocus="true" />
+			<Panel id="HeroBuildListLoading">
+				<Panel class="Spinner" />
+			</Panel>
+			<CitadelBuildDetails id="BuildDetails" />
+			<Panel id="PublishBuildContainer" hittest="true">
+				<Panel class="PublishInfo">
+					<Label class="HeroBuildsTitle" text="#Citadel_HeroBuilds_PublishBuildTitle" />
+					<Label class="HeroBuildsDesc" text="#Citadel_HeroBuilds_PublishBuildDesc" />
+					<Label class="HeroBuildsSubTitle" text="#Citadel_HeroBuilds_BuildNameTitle" />
+					<TextEntry id="HeroBuildNameTextEntry" placeholder="#Citadel_HeroBuilds_NameLabel" undohistroy="enabled" maxchars="50" />
+					<Label class="HeroBuildsSubTitle" text="#Citadel_HeroBuilds_BuildDescriptionTitle" />
+					<TextEntry id="HeroBuildDescriptionTextEntry" placeholder="#Citadel_HeroBuilds_DescriptionLabel" undohistroy="enabled" maxchars="4096" multiline="true" />
+					<Label id="HeroBuildVersion" text="#Citadel_HeroBuilds_PublishDialogVersion" />
 				</Panel>
-				<Panel id="RefreshButton" onactivate="CitadelHudHeroBuildsRefresh(true)" />
+				<Panel id="PublishBuildButton" class="actionItemButton" onmouseactivate="CitadelBuildDetailsPublishSelectedBuild()">
+					<Label text="#Citadel_HeroBuilds_PublishBuildLabel" />
+				</Panel>
 			</Panel>
 		</Panel>
-		<Panel id="HeroBuildList" acceptsfocus="true" />
 	</CitadelHeroBuildsSelector>
 </root>

@@ -73,10 +73,7 @@
 .vwnod
 0 = Density corresponds to blade existance, 1 = Density corresponds to blade height, 2 = Both 0 and 1
 0 = Off, 1 = Low, 2 = Med, 3 = high, 4 = ultra
-0>xs\r
-0dz\v
-2\vpl
-6Rs\r
+2\vpx
 <<NULL ENTITY LUMP>>
 <no classname>
 <no targetname>
@@ -92,6 +89,8 @@ AggregateLODSetup_t
 AggregateMeshInfo_t
 AggregateSceneObjectDesc
 AggregateSceneObject_t
+AggregateVertexAlbedoStreamOnDiskData_t
+AggregateVertexColorStream
 AllocateAndLoad failed for '%s' (%s)\n
 AllocateAndLoad failed for '%s'\n
 AllocateResource: Cannot find DATA block in resource %s!\n
@@ -106,8 +105,8 @@ C:\buildworker\citadel_rel_win64\build\src\worldrenderer\grasstilesceneobject.cp
 C:\buildworker\citadel_rel_win64\build\src\worldrenderer\worldrenderermgr.cpp
 CEntityKeyValues::LegacyUnserialize
 CEntityKeyValues::LegacyUnserialize: Unable to read from a text-based utlbuffer!\n
-CEntityKeyValues::LoadFromContext
 CEntityKeyValues::LoadFromContext: Invalid version! Expected %d, encountered %d!\n
+CEntityKeyValues::LoadFromKV3
 CEntityKeyValues::Unserialize: Invalid version! Expected %d, encountered %d!\n
 CEntityKeyValues::Unserialize: Unsupported keyvalue variant type (%d)!\n
 CGrassTileObjectDesc
@@ -126,7 +125,7 @@ CVoxelVisibility
 CWorld::CacheNodes
 CWorldNode::CreateExtraVertexStreams(331): 
 CWorldNode::GrassFileCreateManifest
-CWorldNode::HandleThrottledGrassTileLoading(1280): 
+CWorldNode::HandleThrottledGrassTileLoading(1302): 
 CWorldRendererMgr::CreateWorld
 CWorldRendererMgr::CreateWorld_Internal( %s ):  Blocking load because marked for deletion during load\n
 CWorldRendererMgr::ServiceWorldRequests long frame: %fms\n
@@ -140,7 +139,6 @@ Couldn't ReadTexturePixels when creating grass.\n
 Creating %i scene objects for node %i\n
 D_VERTEX_LIGHTING
 Deletion List:\n
-DualHull
 Dump all of the worlds that we know about
 Dump the contents of an entity lump
 EntityIOConnectionData_t
@@ -171,7 +169,6 @@ GrassTileInit
 GrassTileInputLayout
 GrassTileVB
 GrassTint.vtex
-HITGROUP_INVALID
 Hitbox indexing is incorrect for set %s, hitbox %s. Hitboxes will not be setup properly.\n
 IKV3TransferInterface_AllowRawStringTokenTransfer
 IKV3TransferInterface_ResourceLoad
@@ -185,7 +182,6 @@ InfoForResourceTypeVMapResourceData_t
 InfoOverlayData_t
 KV3 load transfer failed for resource '%s': %s
 KeyValues3
-KeyValues3::SetHasInvalidMemberNames
 Lightmap set to use, only works on map load
 Lightmap version number is out of date! Reverting to dynamic lighting
 LightmapUV
@@ -199,7 +195,6 @@ MaterialOverride_t
 Maximum lightmap resolution for directional_irradiance channel. -1 = use value of r_lightmap_size
 Maximum lightmap resolution.
 MeshDrawPrimitiveFlags_t
-Missing required transfer interface: %s
 Model conversion: %d conversions in %.3fsec (%.3fms each)\n
 MountWorldVPK() ++%s is at refcount %d\n
 MovementGaitId_t
@@ -226,7 +221,6 @@ OBJECT_TYPE_STATIC_CUBE_MAP
 OBJECT_TYPE_WORLDSPACE_TEXURE_BLEND
 ObjectTypeFlags_t
 OverlayProjectionDirection
-Pdz\v
 PerVertexLighting
 PermEntityLumpData_t
 Physics
@@ -238,17 +232,14 @@ RESOURCE_TYPE_WORLD
 RESOURCE_TYPE_WORLD_NODE
 RESOURCE_TYPE_WORLD_VIS
 RSDS
-R\fpl
 Render the world.
 Render world node bounds
 RenderInputLayoutField_t
+RenderSlotType_t
 ResourceCompiler/BakedLighting/Version
 ResourceCompiler/DefaultMapBuilders/bakedlighting
 ResourceCompiler/DefaultMapBuilders/dontrequirebakedlighting
 SceneObject_t
-Should we straighten face island if the displacement is this much? (inches)
-Should we try to straighten an island of faces deviating from their average normal (tangent)?
-Should we try to straighten two faces connected to this edge? (tangent)
 Show or hide the specified world layer
 TanFrameQuat
 Tried to load resource reference '%s' from a value without a resource reference specific type.
@@ -287,12 +278,11 @@ WorldRenderer/GrassDilateColors
 WorldRenderer/GrassNoHalfTexel
 WorldRenderer/GrassQuadSize
 World_t
-[RenderSlotType_t
 \nLoaded List:\n
 \nPending List:\n
 \tWorld: %s
+\t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\v\n\v\n\v\n\v\n\v\n\v\n\v\n\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\r\f\r\f\r\f\r\f\r\f\r\f\r\f\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r
 \t\t\tNodes Loaded: %d / %d\n
-\vpdz\v
 an attr
 ati_compress_wrapper.dll
 attributes
@@ -306,15 +296,12 @@ curvature
 default_ents
 directional_irradiance_sh2_b
 directional_irradiance_sh2_g
+directional_irradiance_sh2_r
 ekv_%08x
 entity_lump_list
 entity_lump_spew
 entity_lump_spew %s %s
 fast
-hullivr_edge_merge_tan
-hullivr_faceisland_merge_disp
-hullivr_faceisland_merge_tan
-hullivr_version
 keyValues3Data
 kv 0x%p AddRef refcount == %d\n
 kv 0x%p Release refcount == %d\n
@@ -369,7 +356,9 @@ m_extraVertexStreamOverrides
 m_extraVertexStreams
 m_fMaxObjectScale
 m_fSwitchDistances
+m_flBeginCullSize
 m_flDepth
+m_flEndCullSize
 m_flFadeEndDistance
 m_flFadeStartDistance
 m_flGridSize
@@ -430,6 +419,7 @@ m_nSlot
 m_nSlotType
 m_nSubSceneObject
 m_nSunVisibilityCluster
+m_nVertexAlbedoStreamOffset
 m_nVisBlocks
 m_nVisClusterMemberCount
 m_nVisClusterMemberOffset
@@ -462,6 +452,8 @@ m_vTintColor
 m_vTransform
 m_vUVEnd
 m_vUVStart
+m_vertexAlbedoStream
+m_vertexAlbedoStreams
 m_visClusterMembership
 m_worldLightingInfo
 m_worldNodePrefix
@@ -481,9 +473,7 @@ model_default_preview_sequence_name
 model_dump_convert_info
 modellib
 optionallycompressedtangentframe
-pdz\v
 posxyz
-r\vpl
 r_drawworld
 r_grass_allow_flattening
 r_grass_alpha_test

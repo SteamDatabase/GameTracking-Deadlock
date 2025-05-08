@@ -4,12 +4,445 @@ CitadelHomePage
 {
 	width: 100%;
 	height: 100%;
-	overflow: noclip;
 }
 
-#HeroCardTest
+@keyframes 'RosterFadeIn'
 {
-	vertical-align: center;
+	0%
+	{
+		opacity: 0;
+	}
+	
+	100%
+	{
+		opacity: 1;
+	}
+	
+}
+
+@keyframes 'RosterFadeOut'
+{
+	0%
+	{
+		opacity: 1;
+	}
+	
+	100%
+	{
+		opacity: 0;
+	}
+	
+}
+
+#HeroRosterScenePanel
+{
+	width: 1440px;
+	height: 100%;
+	margin-left: 0px;
+	vertical-align: middle;
 	horizontal-align: center;
+	visibility: collapse;
+	animation-name: none;
+}
+
+.in_matchmaking #HeroRosterScenePanel
+{
+	visibility: visible;
+}
+
+.in_matchmaking #HeroRosterScenePanel.FadeIn
+{
+	visibility: visible;
+	animation-name: RosterFadeIn;
+	animation-duration: 0.5s;
+	animation-timing-function: ease;
+	animation-iteration-count: 1;
+}
+
+.in_matchmaking #HeroRosterScenePanel.FadeOut
+{
+	visibility: visible;
+	animation-name: RosterFadeOut;
+	animation-duration: 0.5s;
+	animation-timing-function: ease;
+	animation-iteration-count: 1;
+}
+
+#PlaytestContainer
+{
+	horizontal-align: right;
+	vertical-align: bottom;
+	width: 600px;
+	margin: 0px 20px 20px 0px;
+	flow-children: down;
+	background-color: #00000001;
+}
+
+.connectedToGame #PlaytestContainer
+{
+	visibility: collapse;
+}
+
+#PlaytestContainer .SecondaryButton:hover
+{
+	sound: soundMainMenuHover;
+}
+
+#PlaytestContainer .SecondaryButton:active
+{
+	sound: soundMainMenuActivate;
+}
+
+#matchmaking_status
+{
+	background-color: #00000090;
+	color: silvered;
+	width: 100%;
+	flow-children: down;
+	z-index: 5;
+	visibility: collapse;
+}
+
+#matchmaking_status #playtest_status
+{
+	flow-children: right;
+	padding: 15px;
+}
+
+#matchmaking_status .status_label
+{
+	vertical-align: middle;
+	margin-right: 10px;
+	text-transform: uppercase;
+	font-weight: semi-bold;
+	color: silvered&90;
+	font-size: 16px;
+}
+
+#matchmaking_status .match_queue_text
+{
+	font-size: 20px;
+	vertical-align: bottom;
+	color: lightgrey;
+	horizontal-align: left;
+	vertical-align: center;
+}
+
+#matchmaking_status .server_count
+{
+	color: red;
+	visibility: collapse;
+}
+
+.servers_available #matchmaking_status .server_count
+{
+	color: white;
+}
+
+.show_server_count #matchmaking_status .server_count
+{
+	visibility: visible;
+}
+
+#NewsContainer
+{
+	flow-children: down;
+	width: 100%;
+	height: 200px;
+	margin-bottom: 4px;
+	padding: 20px;
+	background-image: url("s2r://panorama/images/main_menu/news_shop_rework_png.vtex");
+	background-size: 100% 100%;
+	background-color: #00000001;
+	visibility: visible;
+	transition-property: brightness;
+	transition-duration: 0.2s;
+	transition-timing-function: ease-in-out;
+}
+
+#NewsContainer:hover
+{
+	brightness: 1.5;
+}
+
+.NewsInfo
+{
+	font-weight: bold;
+	text-transform: none;
+	color: offWhite;
+	text-shadow: 0px 0px 12px 1.0 #000000;
+}
+
+.NewsInfo.h1
+{
+	font-family: serif;
+	font-size: 44px;
+	letter-spacing: 1px;
+	line-height: 0px;
+	max-height: 62px;
+	text-transform: uppercase;
+	text-overflow: shrink;
+	margin-bottom: -8px;
+}
+
+.NewsInfo.h2
+{
+	font-size: 18px;
+	color: #afa495;
+}
+
+.NewsInfo.push
+{
+	text-transform: uppercase;
+	color: ritualGreenLight;
+}
+
+.NewsInfo.a
+{
+	vertical-align: bottom;
+	font-weight: semi-bold;
+	font-size: 14px;
+	text-decoration: underline;
+	padding-top: 24px;
+	color: #afa495aa;
+}
+
+#DiscordForumInvite
+{
+	flow-children: down;
+	background-color: offWhite;
+	background-color: #80d4ff08;
+	border: 1px solid #a6ffcf09;
+	width: 100%;
+	padding: 15px 20px;
+	margin-bottom: 4px;
+	visibility: visible;
+}
+
+#DiscordForumInvite .accountIntro
+{
+	color: silvered;
+	font-weight: bold;
+	white-space: normal;
+	font-size: 20px;
+}
+
+#DiscordForumInvite .accountDesc
+{
+	color: silvered;
+	font-weight: semi-bold;
+	white-space: normal;
+}
+
+#DiscordForumInvite #ButtonRow
+{
+	flow-children: right;
+	margin: 10px 0px;
+	vertical-align: bottom;
+}
+
+#DiscordForumInvite .completedText
+{
+	visibility: collapse;
+}
+
+#DiscordForumInvite #DiscordButton
+{
+	margin: 0px;
+	background-color: #b5bbfc60;
+	vertical-align: middle;
+	horizontal-align: right;
+}
+
+#DiscordForumInvite #DiscordButton:hover
+{
+	background-color: #e7eaff80;
+}
+
+#DiscordForumInvite #ForumButton,#DiscordForumInvite #DiscordButton
+{
+	margin: 0px 20px 0px 0px;
+}
+
+#DiscordForumInvite .ForumIcon
+{
+	width: 16px;
+	height: 16px;
+	wash-color: offBlack;
+	vertical-align: middle;
+	margin-top: 3px;
+	opacity: 1;
+	margin-right: 8px;
+	background-image: url("s2r://panorama/images/icons/icon_feedback.vsvg");
+	background-size: contain;
+}
+
+#DiscordForumInvite .DiscordIcon
+{
+	width: 16px;
+	height: 16px;
+	wash-color: offBlack;
+	vertical-align: middle;
+	margin-top: 3px;
+	opacity: 0.9;
+	margin-right: 4px;
+	background-image: url("s2r://panorama/images/icons/icon_discord.vsvg");
+	background-size: contain;
+}
+
+.hasCreatedDiscordInvite #DiscordForumInvite .DiscordIcon,.hasJoinedForum #DiscordForumInvite .ForumIcon
+{
+	background-image: url("s2r://panorama/images/icons/icon_checkmark.vsvg");
+}
+
+.hasCreatedDiscordInvite #DiscordForumInvite #DiscordButton,.hasJoinedForum #DiscordForumInvite #ForumButton
+{
+	opacity: 0.4;
+}
+
+.hasCreatedDiscordInvite.hasJoinedForum #DiscordForumInvite
+{
+	visibility: collapse;
+}
+
+.in_matchmaking #DiscordForumInvite,.in_matchmaking.hasJoinedForum #DiscordForumInvite,.in_matchmaking.hasCreatedDiscordInvite #DiscordForumInvite
+{
+	visibility: collapse;
+}
+
+#DiscordForumInvite .hasCreatedDiscordInvite #DiscordButton .completedText
+{
+	visibility: visible;
+}
+
+#DiscordForumInvite .hasCreatedDiscordInvite #DiscordButton .defaultText
+{
+	visibility: collapse;
+}
+
+#DiscordForumInvite .hasJoinedForum #ForumButton .completedText
+{
+	visibility: visible;
+}
+
+#DiscordForumInvite .hasJoinedForum #ForumButton .defaultText
+{
+	visibility: collapse;
+}
+
+#RecommendFriend
+{
+	flow-children: right;
+	background-color: #80ffbb08;
+	border: 1px solid #a6ffcf09;
+	width: 100%;
+	padding: 15px 20px;
+}
+
+#RecommendFriend #RecommendButton
+{
+	width: 210px;
+	margin-right: 20px 0px 0px 0px;
+	vertical-align: middle;
+}
+
+#RecommendFriend #RecommendButton .FriendsIcon
+{
+	background-image: url("s2r://panorama/images/icons/icon_friends.vsvg");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	vertical-align: middle;
+	margin-bottom: 1px;
+}
+
+#RecommendFriend .recommendIntro
+{
+	color: silvered;
+	font-weight: semi-bold;
+	width: 330px;
+	height: 50px;
+	margin-right: 20px;
+	white-space: normal;
+}
+
+#SocialContainer
+{
+	vertical-align: top;
+	horizontal-align: right;
+	flow-children: down;
+	width: 600px;
+}
+
+.PartyHighSkillRange
+{
+	visibility: collapse;
+	flow-children: down;
+	horizontal-align: right;
+	max-width: 370px;
+	margin: 0px 20px;
+	border-radius: 3px;
+	margin-bottom: 10px;
+}
+
+.warningHeader
+{
+	padding: 3px;
+	background-color: #dfbd26;
+	width: 100%;
+	flow-children: right;
+	padding: 5px 10px;
+	border-radius: 3px 3px 0px 0px;
+	transition-property: border-radius, brightness;
+	transition-duration: 0.2s;
+}
+
+.PartyHighSkillRange Label
+{
+	color: offBlack;
+	font-size: 16px;
+	font-weight: semi-bold;
+}
+
+.warningHeader Label
+{
+	font-weight: bold;
+}
+
+.warningDesc
+{
+	background-color: #d2c180a9;
+	border: 2px solid #E2C233;
+	opacity: 0;
+	transition-property: opacity;
+	transition-duration: 0.2s;
+}
+
+.warningDesc Label
+{
+	padding: 10px 15px;
+	color: offWhite&90;
+	color: offBlack;
+	margin-bottom: 3px;
+	font-weight: semi-bold;
+}
+
+.PartyHighSkillRange:hover .warningDesc
+{
+	opacity: 1;
+}
+
+.WarningIcon
+{
+	width: 20px;
+	height: 20px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	opacity: 1;
+	margin-right: 8px;
+	background-image: url("s2r://panorama/images/icons/icon_party_warning.vsvg");
+	vertical-align: center;
+	wash-color: offBlack;
 }
 

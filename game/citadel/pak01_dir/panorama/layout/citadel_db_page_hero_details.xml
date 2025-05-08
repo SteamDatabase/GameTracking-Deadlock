@@ -30,7 +30,7 @@
 			</Panel>
 		</snippet>
 	</snippets>
-	<CitadelHeroDetailsPage class="DashboardPage" oncancel="CitadelNavigateBack();">
+	<CitadelHeroDetailsPage class="DashboardPage" oncancel="CitadelNavigateBack();" dashboardclass="isShowingHeroDetailsPage">
 		<Panel id="StaticContent" hittest="false">
 			<Panel id="NavContainer" />
 			<Panel id="NavigationButtons" hittest="false">
@@ -61,13 +61,13 @@
 				</Panel>
 				<Panel id="LowerDetails">
 					<Panel id="ActionItemsContainer" hittest="false">
-						<Panel id="HeroTestingButton" class="actionItemButton testingButton" onmouseover="CitadelPlayUISound( EMainMenuHover )">
+						<Panel id="HeroTestingButton" class="actionItemButton testingButton">
 							<Panel class="ButtonItems">
 								<Label class="actionItemLabel HeroSandboxLabel" text="#Citadel_HeroPage_Sandbox" />
 								<Label class="actionItemLabel HeroSandboxSoloLabel" text="#Citadel_HeroPage_Sandbox_Solo" />
 							</Panel>
 						</Panel>
-						<Panel id="HeroTestingButton_Party" class="actionItemButton testingButton" onactivate="CitadelPlayMenuHeroTesting(); CitadelPlayUISound( EMainMenuActivate )" onmouseover="UIShowTextTooltip( #Citadel_HeroPage_Sandbox_Party_Tooltip ); CitadelPlayUISound( EMainMenuHover )" onmouseout="UIHideTextTooltip()">
+						<Panel id="HeroTestingButton_Party" class="actionItemButton testingButton" onactivate="CitadelPlayMenuHeroTesting()" onmouseover="UIShowTextTooltip( #Citadel_HeroPage_Sandbox_Party_Tooltip )" onmouseout="UIHideTextTooltip()">
 							<Panel class="ButtonItems">
 								<Panel class="FriendsIcon buttonIcon" />
 								<Label class="actionItemLabel" text="#Citadel_HeroPage_Sandbox_Party_Tooltip" />
@@ -101,7 +101,6 @@
 				</Panel>
 			</Panel>
 		</Panel>
-		<CitadelHeroStats id="HeroStats" on_dashboard="true" />
 		<Panel id="RightPanel" hittest="false">
 			<ScenePanel id="HeroScenePanel" map="ui/hero_select" scene_data_name="hero_selection" hero_animgraph_enum="HeroSelect" parent_entity_name="hero_root" camera="portrait_camera" use_hero_map="true" sound="PORTRAIT_SOUND_MODE_ALL_SOUNDS" rotateonhover="true" allowrotation="true" />
 		</Panel>
@@ -141,14 +140,18 @@
 			<Label class="HeroBackstoryHeaderLabel" text="#Citadel_HeroPage_FatesTale" />
 			<Label class="HeroBackstoryLabel" text="{s:hero_backstory}" />
 		</Panel>
+		<Panel id="HeroStatsTabContainer">
+			<CitadelHeroStatsWeapon id="WeaponStats" class="heroStatsDisplayPanel" />
+			<CitadelHeroStatsArmor id="ArmorStats" class="heroStatsDisplayPanel" />
+		</Panel>
 		<Panel id="HeroFavoritesContainer">
 			<Panel id="ActionItemsContainer" hittest="false">
-				<Panel id="BrowseHeroBuildsButton" class="actionItemButton" onmouseover="CitadelPlayUISound( EMainMenuHover )">
+				<Panel id="BrowseHeroBuildsButton" class="actionItemButton">
 					<Panel class="ButtonItems">
 						<Label class="actionItemLabel" text="#CitadelHeroDetails_Builds_SelectButton" />
 					</Panel>
 				</Panel>
-				<Panel id="CreateHeroBuildsButton" class="actionItemButton" onmouseover="CitadelPlayUISound( EMainMenuHover )">
+				<Panel id="CreateHeroBuildsButton" class="actionItemButton">
 					<Panel class="ButtonItems">
 						<Label class="actionItemLabel" text="#Citadel_HeroPage_EditBuild" />
 					</Panel>

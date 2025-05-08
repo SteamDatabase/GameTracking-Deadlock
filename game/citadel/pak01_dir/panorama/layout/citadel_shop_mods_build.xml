@@ -9,28 +9,34 @@
 		<snippet name="FavoriteBuildEntry">
 			<Panel class="FavoriteBuildEntryContainer">
 				<Label class="FavoriteBuildEntryLabel SelectedBuildName" text="{s:build_name}" />
+				<Panel class="TagList">
+					<CitadelBuildTag class="BuildTag Small" id="BuildTag1" />
+					<CitadelBuildTag class="BuildTag Small" id="BuildTag2" />
+					<CitadelBuildTag class="BuildTag Small" id="BuildTag3" />
+				</Panel>
 			</Panel>
 		</snippet>
 	</snippets>
 	<CitadelShopModsBuild class="shopModsBuild" hittest="true">
 		<Panel class="BuildHeader BuildHeaderShared">
-			<Panel class="BuildHeaderContainer FavoriteBuildEntryContainer" onactivate="CitadelHudHeroBuildsToggleFavoriteSelector();">
+			<Panel class="BuildHeaderContainer" onactivate="CitadelHudHeroBuildsToggleFavoriteSelector();">
 				<Panel class="FavoriteBuildsSelector" />
-				<Label id="SelectedBuildNameLabel" class="SelectedBuildName" text="#Citadel_HeroBuilds_SelectedBuildNameLabel" />
+				<Panel id="SelectedBuild" />
 			</Panel>
-			<Button id="BrowseHeroBuildsButton" class="SecondaryButton light hasIcon fill" onmouseactivate="CitadelShopSetBuildMode(true);">
-				<Label class="BrowseBuilds" text="#Citadel_HeroBuilds_BrowseBuilds" />
-			</Button>
-			<Button id="ExitHeroBuildsButton" class="SecondaryButton light hasIcon fill" onmouseactivate="CitadelShopSetBuildMode(false);">
-				<Label class="ExitBuilds" text="#Citadel_HeroBuilds_ExitBuilds" />
-			</Button>
-		</Panel>
-		<Panel class="BuildHeaderEdit BuildHeaderShared">
-			<TextEntry id="BuildNameTextEntry" class="SelectedBuildName" placeholder="#Citadel_HeroBuilds_NameLabel" />
-			<TextEntry id="BuildDescriptionTextEntry" class="SelectedBuildDescription" placeholder="#Citadel_HeroBuilds_DescriptionLabel" />
-			<Button class="AddCategoryButton SecondaryButton light hasIcon fill" onmouseactivate="CitadelHudHeroBuildsAddNewCategory()">
-				<Label text="#Citadel_HeroBuilds_AddCategory" />
-			</Button>
+			<Panel id="ControlButtons">
+				<Button id="EditHeroBuildButton" class="BuildHeaderButton SecondaryButton light" onmouseactivate="CitadelHudHeroBuildsEditSelectedBuild();">
+					<Label class="EditBuild" text="#Citadel_HeroBuilds_EditBuildLabel" />
+				</Button>
+				<Panel id="CopyBuildButton" class="SecondaryButton light fill hasIcon" onmouseactivate="CitadelHudHeroBuildsCopyAndEditSelectedBuild()">
+					<Label text="#Citadel_HeroBuilds_CopyBuildLabel" html="true" />
+				</Panel>
+				<Button id="BrowseBuildsButton" class="BuildHeaderButton SecondaryButton light hasIcon fill">
+					<Label class="BrowseBuilds" text="#Citadel_HeroBuilds_BrowseBuilds" />
+				</Button>
+				<Button class="AddCategoryButton SecondaryButton light hasIcon fill" onmouseactivate="CitadelHudHeroBuildsAddNewCategory()">
+					<Label text="#Citadel_HeroBuilds_AddCategory" />
+				</Button>
+			</Panel>
 		</Panel>
 		<Panel id="CategoryContainer" />
 		<Panel id="FavoriteBuildList" />

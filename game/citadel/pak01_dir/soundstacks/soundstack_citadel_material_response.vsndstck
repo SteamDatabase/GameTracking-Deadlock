@@ -1,0 +1,106 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_material_response = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "_builtins"
+				operator = "sos_builtins"
+				_voicegraph = "citadel.hrtf_basic"
+			},
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					material_string = 
+					{
+						data_type = "string"
+						value = "default"
+						_system_properties = 
+						{
+							property_group = "citadel_material_response"
+						}
+					}
+					material_index = 
+					{
+						data_type = "float"
+						value = "-1.0"
+						_system_properties = 
+						{
+							property_group = "citadel_material_response"
+						}
+					}
+					prefix = 
+					{
+						data_type = "string"
+						value = "prefix_"
+					}
+				}
+			},
+			
+			{
+				name = "concat_prefix_material"
+				operator = "math_string"
+				execute_once = "true"
+				input1 = "@public.prefix"
+				input2 = "@public.material_string"
+				apply = "add"
+			},
+			
+			{
+				name = "concat_vsnd_field_name"
+				operator = "math_string"
+				execute_once = "true"
+				input1 = "vsnd_files_"
+				input2 = "@concat_prefix_material.output_string"
+				apply = "add"
+			},
+			
+			{
+				name = "concat_vol_offset_field_name"
+				operator = "math_string"
+				execute_once = "true"
+				input1 = "@concat_prefix_material.output_string"
+				input2 = "_vol_offset_db"
+				apply = "add"
+			},
+			
+			{
+				name = "get_opvar_vol_offset"
+				operator = "opvar_get_float"
+				input_execute = "1.0"
+				execute_once = "true"
+				input_stack_name = ""
+				input_operator_name = "public"
+				input_field_name = "@concat_vol_offset_field_name.output_string"
+				input_use_namespace = "false"
+			},
+			
+			{
+				name = "output"
+				operator = "util_null"
+				operator_variables = 
+				{
+					vsnd_field_name = 
+					{
+						data_type = "string"
+						value = "@concat_vsnd_field_name.output_string"
+					}
+					vol_offset = 
+					{
+						data_type = "float"
+						value = "@get_opvar_vol_offset.output"
+					}
+				}
+			},
+		]
+		_system_properties = 
+		{
+			display_game = "citadel"
+		}
+	}
+}

@@ -1,10 +1,9 @@
 /* Prettified by Source 2 Viewer - https://valveresourceformat.github.io */
 
-@import url("s2r://panorama/styles/citadel_shared_colors.vcss_c");
 PopupSellMaxItems.PopupPanel
 {
 	flow-children: down;
-	width: 900px;
+	width: 1050px;
 	padding: 0px;
 }
 
@@ -54,19 +53,19 @@ PopupSellMaxItems.PopupPanel
 	horizontal-align: center;
 }
 
-.WeaponMod #ModToPurchaseContainer
+.SellingWeaponMod #ModToPurchaseContainer
 {
 	background-color: weaponColorFaded;
 	background-color: courageBrightColor&30;
 }
 
-.ArmorMod #ModToPurchaseContainer
+.SellingArmorMod #ModToPurchaseContainer
 {
 	background-color: armorColorFaded;
 	background-color: fortitudeBrightColor&30;
 }
 
-.TechMod #ModToPurchaseContainer
+.SellingTechMod #ModToPurchaseContainer
 {
 	background-color: techColorFaded;
 	background-color: spiritBrightColor&30;
@@ -102,61 +101,35 @@ PopupSellMaxItems.PopupPanel
 
 #ModsContainer
 {
-	flow-children: right-wrap;
+	flow-children: down-wrap;
 	margin: 0px 50px;
+	height: 380px;
+}
+
+.ShowOnlyActive #ModsContainer
+{
+	flow-children: right;
+	height: fit-children;
 }
 
 .buttonToSell
 {
-	flow-children: down;
-	height: 140px;
-	width: 140px;
-	border-radius: 4px;
-	margin: 4px;
-	padding: 4px;
+	border: 2px solid transparent;
+	margin: 8px;
+}
+
+.buttonToSell #ModView
+{
 	horizontal-align: center;
+	vertical-align: middle;
+	opacity: 1.0;
+	brightness: 1.0;
+	ui-scale: 120%;
 }
 
 .centerAlign
 {
 	horizontal-align: center;
-	text-overflow: shrink;
-}
-
-#modIconContainer
-{
-	flow-children: down;
-	vertical-align: center;
-}
-
-.mod_icon_background_container
-{
-	height: 60px;
-	width: 60px;
-	horizontal-align: center;
-	padding: 10px;
-	background-color: black;
-}
-
-#modName
-{
-	margin-top: 16px;
-	font-weight: semi-bold;
-	text-align: center;
-	color: rgba (243, 240, 231, 0.5);
-}
-
-.selectedItemToSell #modName
-{
-	font-weight: bold;
-	color: rgb(26, 26, 26);
-}
-
-.mod_icon
-{
-	height: 100%;
-	width: 100%;
-	background-size: 100% 100%;
 }
 
 #ButtonsContainer
@@ -175,7 +148,7 @@ PopupSellMaxItems.PopupPanel
 	border-radius: 3px;
 }
 
-.sellButton:hover
+.sellButton:hover:enabled
 {
 	background-color: rgba (243, 240, 231, 0.15);
 }
@@ -190,36 +163,19 @@ PopupSellMaxItems.PopupPanel
 	vertical-align: center;
 }
 
-.selectedItemToSell.buttonToSell
-{
-	background-color: #676767;
-	border: 4px solid white;
-	padding: 0px;
-}
-
-CitadelModIcon
-{
-	horizontal-align: center;
-}
-
 .WeaponMod .mod_icon
 {
 	wash-color: weaponColor;
 }
 
-.WeaponMod .buttonToSell
+.WeaponMod.buttonToSell
 {
 	background-color: weaponColorFaded;
 }
 
-.WeaponMod .buttonToSell:Hover
+.WeaponMod.buttonToSell:Hover
 {
 	background-color: #FFA82666;
-}
-
-.WeaponMod .selectedItemToSell.buttonToSell
-{
-	background-color: shardColor&50;
 }
 
 .ArmorMod .mod_icon
@@ -227,22 +183,16 @@ CitadelModIcon
 	wash-color: armorColor;
 }
 
-.ArmorMod .buttonToSell
+.ArmorMod.buttonToSell
 {
 	background-color: armorColorFaded;
 	background-color: fortitudeBrightColor&30;
 }
 
-.ArmorMod .buttonToSell:Hover
+.ArmorMod.buttonToSell:Hover
 {
 	background-color: #00FF9966;
 	background-color: fortitudeBrightColor&10;
-}
-
-.ArmorMod .selectedItemToSell.buttonToSell
-{
-	background-color: armorColor;
-	background-color: shardColor&50;
 }
 
 .TechMod .mod_icon
@@ -250,21 +200,16 @@ CitadelModIcon
 	wash-color: techColor;
 }
 
-.TechMod .buttonToSell
+.TechMod.buttonToSell
 {
 	background-color: techColorFaded;
 	background-color: spiritBrightColor&30;
 }
 
-.TechMod .buttonToSell:Hover
+.TechMod.buttonToSell:Hover
 {
 	background-color: #00DDFF66;
 	background-color: spiritBrightColor&10;
-}
-
-.TechMod .selectedItemToSell.buttonToSell
-{
-	background-color: shardColor&50;
 }
 
 .headerDesc
@@ -284,23 +229,59 @@ CitadelModIcon
 	font-weight: semi-bold;
 }
 
-#DestroyItemButton
+.buttonToSell.sellRecommended
 {
-	background-color: #CC340A;
+	border: 2px solid #ffffff40;
+	animation-name: recommended_to_sell;
+	animation-duration: 1.2s;
+	animation-iteration-count: infinite;
 }
 
-#DestroyItemButton:hover
+.recommendedToSellLabel
 {
-	background-color: #FF410D;
+	font-size: 11px;
+	text-transform: uppercase;
+	font-weight: bold;
+	background-color: red;
+	padding: 0px 4px;
+	background-color: offWhite&80;
+	color: offBlack;
+	font-family: sansMono;
+	horizontal-align: center;
+	width: 100%;
+	text-align: center;
+	z-index: 100;
+	visibility: collapse;
 }
 
-#DestroyItemButton.sellButton:disabled
+.sellRecommended .recommendedToSellLabel
 {
-	background-color: rgba(243, 240, 231, 0.05);
+	visibility: visible;
 }
 
-#DestroyItemButton.sellButton:disabled Label
+@keyframes 'recommended_to_sell'
 {
-	color: rgba(243, 240, 231, 0.05);
+	0%
+	{
+		brightness: 1;
+	}
+	
+	50%
+	{
+		brightness: 2;
+	}
+	
+	100%
+	{
+		brightness: 1;
+	}
+	
+}
+
+.modsRow
+{
+	flow-children: right;
+	horizontal-align: center;
+	width: fit-children;
 }
 

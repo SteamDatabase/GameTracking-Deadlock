@@ -2,40 +2,68 @@
 <root>
 	<styles>
 		<include src="s2r://panorama/styles/hud_quickbuy.vcss_c" />
+		<include src="s2r://panorama/styles/hud_quickbuy_entry.vcss_c" />
 	</styles>
-	<snippets>
-		<snippet name="QuickbuyItem">
-			<Panel class="QuickbuyItem">
-				<CitadelModIcon id="ModIcon" />
-				<Panel class="NamePanel">
-					<Panel class="QuickbuyStatus">
-						<Label id="QuickbuyLabel" class="QuickbuyLabel" text="#Citadel_Hud_Quickbuy" />
-						<Label class="QuickbuyLabelQueueSize" text="#Citadel_Hud_Quickbuy_QueueSize" />
-					</Panel>
-					<Label id="ModName" text="#Citadel_Hud_Quickbuy_ModName" />
-				</Panel>
-				<Image class="ReadyIcon" src="s2r://panorama/images/upgrades/checkmark_purchased_psd.vtex" />
-				<Panel class="CostPanel">
-					<Image class="goldIcon" />
-					<Label id="ModCost" text="#Citadel_Hud_Quickbuy_ModCost" />
-				</Panel>
+	<Panel class="HudQuickbuy" acceptsfocus="false">
+		<Panel class="EmptyContents HudQuickbuyElement">
+			<Panel class="PurchaseDisabledContainer">
+				<Panel class="purchasingDisabledX disabledX1" />
+				<Panel class="purchasingDisabledX disabledX2" />
 			</Panel>
-		</snippet>
-	</snippets>
-	<Panel class="HudQuickbuy" acceptsfocus="false" onmouseover="CitadelQuickbuyShowQueue(true)" onmouseout="CitadelQuickbuyShowQueue(false)">
-		<Panel class="EmptyContents" onmouseover="UIShowTextTooltip( #Citadel_Hud_Quickbuy_Tooltip_Empty ); CitadelPlayUISound( EMainMenuHover )" onmouseout="UIHideTextTooltip()">
 			<Label class="QuickbuyLabel" text="#Citadel_Hud_Quickbuy" html="true" />
 			<Panel class="rightClick" />
 		</Panel>
-		<Panel class="Contents">
-			<Panel id="QuickbuyNext" />
+		<Panel id="HudMini" class="HudQuickbuyElement" onmouseover="CitadelQuickbuyShowQueue(true)" onmouseout="CitadelQuickbuyShowQueue(false)">
+			<Panel class="PurchaseDisabledContainer">
+				<Panel class="purchasingDisabledX disabledX1" />
+				<Panel class="purchasingDisabledX disabledX2" />
+				<Panel id="DisabledCooldownMask" />
+			</Panel>
+			<CitadelHudQuickbuyEntry id="QuickbuyNext" />
 			<Panel class="ItemReadyIndicator">
 				<Label class="ItemReadyLabel" text="#Citadel_Hud_Quickbuy_ItemsReady" />
 			</Panel>
 			<Panel class="QueueSize">
-				<Label class="ItemReadyLabel" text="#Citadel_Hud_Quickbuy_QueueSize" />
+				<Label class="ItemReadyLabel" text="#Citadel_Hud_Quickbuy_ItemsReady" />
 			</Panel>
 		</Panel>
-		<Panel id="QuickbuyQueue" />
+		<Panel id="KeyboardHints">
+			<Label class="hudHint itemName" text="{s:quickbuy_item_name}" />
+			<Label class="hudHint combatText" text="#Citadel_Hud_Autobuy_HudHint_CantPurchase" />
+			<Label class="hudHint buyKey" text="#Citadel_Hud_Autobuy_HudHint_BuyKey" html="true" />
+			<Label class="hudHint shopKey" text="#Citadel_Hud_Autobuy_HudHint_ShopKey" html="true" />
+		</Panel>
+		<Panel id="QuickbuyShopSummary" onmouseactivate="CitadelQuickbuyToggleShopQueue()">
+			<CitadelModIcon id="QuickbuyShopSummaryModIcon" hittest="false" />
+			<Panel class="Labels">
+				<Panel class="BindingLabel">
+					<Label class="ShopSummaryLabel" text="#Citadel_Hud_Quickbuy" />
+				</Panel>
+				<Label class="ItemsReadyLabel" text="#Citadel_Hud_Quickbuy_ShopSummaryItemsInQueue" />
+			</Panel>
+		</Panel>
+		<Panel id="QuickBuyQueueContainer" onmouseout="CitadelQuickbuyShowQueue(false)">
+			<Panel class="QuickbuyQueueOuter">
+				<Label class="BuildOrderLabel" text="#Citadel_Shop_SelectedBuildHeader" />
+				<Label class="InstructionalText" text="#Citadel_Hud_BuildOrder_RemoveText" />
+				<Panel id="QuickbuyQueue" />
+				<Panel id="QueueActions">
+					<CitadelSettingsCheckbox id="AutoQueueToggleButton" convar="citadel_auto_queue_build" text="#Citadel_Hud_BuildOrder_AutoQueue" />
+					<Panel id="ToggleAutoBuyContainer">
+						<ToggleButton id="AutoBuyToggleButton" text="#Citadel_Hud_BuildOrder_AutobuyToggle" html="true" onactivate="CitadelQuickbuyToggleAutoBuy()" />
+					</Panel>
+					<Button id="ClearQueue" class="SecondaryButton outline red" onactivate="CitadelQuickbuyClearQueue()">
+						<Label text="#Citadel_Hud_BuildOrder_ClearQueue" />
+					</Button>
+					<Button id="QueueBuildButton" class="BuildHeaderButton SecondaryButton light hasIcon fill" onmouseactivate="CitadelHudHeroBuildsQuickbuyQueueFullBuild();">
+						<Label class="QueueBuild" text="#Citadel_HeroBuilds_QueueFullBuild" />
+					</Button>
+					<Button id="ClearQueueButton" class="BuildHeaderButton SecondaryButton light hasIcon fill" onmouseactivate="CitadelQuickbuyClearQueue();">
+						<Label class="ClearQueue" text="#Citadel_Hud_BuildOrder_ClearQueue" />
+					</Button>
+				</Panel>
+				<Label class="emptyQueueLabel" html="true" text="#Citadel_Hud_Quickbuy_Empty" />
+			</Panel>
+		</Panel>
 	</Panel>
 </root>

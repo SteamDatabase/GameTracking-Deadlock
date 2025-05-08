@@ -72,6 +72,11 @@ CitadelHudTopBarPlayer #PlayerAbilitiesContainer CitadelAbilityIcon
 	margin-bottom: 20px;
 }
 
+.gShopOpen #slot_signature_2 #button_container,.gShopOpen #slot_signature_3 #button_container
+{
+	margin-bottom: 0px;
+}
+
 .items .ability_container
 {
 	width: 40px;
@@ -127,7 +132,7 @@ CitadelHudTopBarPlayer #PlayerAbilitiesContainer .button_container
 	margin: 0px 0px;
 }
 
-CitadelAbilityIcon:hover .button_container
+CitadelAbilityIcon:not(.ReadOnly):hover .button_container
 {
 	pre-transform-scale2d: 1.15;
 	transform: translateY(-5px);
@@ -172,9 +177,19 @@ CitadelHudTopBarPlayer #PlayerAbilitiesContainer .ability_bg
 	ignore-parent-flow: true;
 }
 
+.gDetailView .build_suggestion .build_suggestion_container,.wants_scoreboard .build_suggestion .build_suggestion_container
+{
+	visibility: visible;
+}
+
 #slot_signature_2 .build_suggestion_container,#slot_signature_3 .build_suggestion_container
 {
 	margin-bottom: 110px;
+}
+
+#AbilityPopup #AbilityIcon.build_suggestion .build_suggestion_container
+{
+	visibility: visible;
 }
 
 .build_suggestion.ability_upgradable .build_suggestion_container,.build_suggestion.ability_upgrade_available .build_suggestion_container
@@ -304,6 +319,39 @@ CitadelAbilityIcon.upgradeApplied .ability_bg,.wants_scoreboard CitadelAbilityIc
 	
 }
 
+.AbilityCastFailed.ability_container
+{
+	wash-color: colorEnemy;
+	animation-name: abilityCastFailedAnimation;
+	animation-timing-function: ease-out;
+	animation-duration: 0.06666s;
+	animation-iteration-count: 4;
+}
+
+@keyframes 'abilityCastFailedAnimation'
+{
+	0%
+	{
+		transform: translateX(2px);
+	}
+	
+	60%
+	{
+		transform: translateX(2px);
+	}
+	
+	61%
+	{
+		transform: translateX(-2px);
+	}
+	
+	100%
+	{
+		transform: translateX(-2px);
+	}
+	
+}
+
 .ability_ring
 {
 	width: 100%;
@@ -342,27 +390,27 @@ CitadelAbilityIcon.upgradeApplied .ability_bg,.wants_scoreboard CitadelAbilityIc
 	background-image: url("s2r://panorama/images/hud/core/ability_frame_3.vsvg");
 }
 
-.signature.item_passive.Tier0 .ability_bg,.usingControllerSpecificGlyphs.ControllerInUse .signature.Tier0 .ability_bg
+.signature.item_passive.Tier0 .ability_bg,.usingControllerSpecificGlyphs.isUsingController .signature.Tier0 .ability_bg
 {
 	background-image: url("s2r://panorama/images/hud/core/ability_frame_passive_0.vsvg");
 }
 
-.signature.item_passive.Tier0.not_trained .ability_bg,.usingControllerSpecificGlyphs.ControllerInUse .signature.Tier0.not_trained .ability_bg
+.signature.item_passive.Tier0.not_trained .ability_bg,.usingControllerSpecificGlyphs.isUsingController .signature.Tier0.not_trained .ability_bg
 {
 	background-image: url("s2r://panorama/images/hud/core/ability_frame_1.vsvg");
 }
 
-.signature.item_passive.Tier1 .ability_bg,.usingControllerSpecificGlyphs.ControllerInUse .signature.Tier1 .ability_bg
+.signature.item_passive.Tier1 .ability_bg,.usingControllerSpecificGlyphs.isUsingController .signature.Tier1 .ability_bg
 {
 	background-image: url("s2r://panorama/images/hud/core/ability_frame_passive_1.vsvg");
 }
 
-.signature.item_passive.Tier2 .ability_bg,.usingControllerSpecificGlyphs.ControllerInUse .signature.Tier2 .ability_bg
+.signature.item_passive.Tier2 .ability_bg,.usingControllerSpecificGlyphs.isUsingController .signature.Tier2 .ability_bg
 {
 	background-image: url("s2r://panorama/images/hud/core/ability_frame_passive_2.vsvg");
 }
 
-.signature.item_passive.Tier3 .ability_bg,.usingControllerSpecificGlyphs.ControllerInUse .signature.Tier3 .ability_bg
+.signature.item_passive.Tier3 .ability_bg,.usingControllerSpecificGlyphs.isUsingController .signature.Tier3 .ability_bg
 {
 	background-image: url("s2r://panorama/images/hud/core/ability_frame_passive_3.vsvg");
 }
@@ -527,27 +575,23 @@ CitadelHudTopBarPlayer CitadelAbilityIcon
 
 .ability_key_container
 {
-	width: 25px;
-	height: 25px;
+	width: fit-children;
+	height: fit-children;
 	padding-top: 0px;
 	font-size: 14px;
-	margin-bottom: 10px;
+	margin-bottom: 5px;
 	font-weight: bold;
-	horizontal-align: left;
-	text-overflow: shrink;
-	color: offBlack;
 	background-size: cover;
 	text-align: center;
 	border-radius: 2px;
 	wash-color: #dedede;
-	z-index: -1;
 	text-transform: uppercase;
 	horizontal-align: middle;
 	vertical-align: bottom;
 	visibility: collapse;
 }
 
-.usingControllerSpecificGlyphs.ControllerInUse .ability_key_container
+.usingControllerSpecificGlyphs.isUsingController .ability_key_container
 {
 	margin-bottom: 5px;
 }
@@ -600,27 +644,6 @@ CitadelHudTopBarPlayer #PlayerAbilitiesContainer .ability_key_container
 	text-transform: uppercase;
 	horizontal-align: middle;
 	vertical-align: bottom;
-}
-
-.ability_key .InlineGlyph
-{
-	wash-color: offBlack&ff;
-	opacity: 1;
-	width: 25px;
-	height: 25px;
-}
-
-.ability_key .InlineGlyph.MouseButtonGlyph
-{
-	opacity: 3.5;
-	wash-color: offBlack;
-	background-texture-size: 50px 50px;
-}
-
-.hasControllerConnected.ControllerInUse .ability_key .InlineGlyph
-{
-	wash-color: none;
-	opacity: 1;
 }
 
 .not_trained .ability_key
@@ -683,7 +706,6 @@ Label.ability_key
 	text-align: center;
 	font-size: 12px;
 	color: darkgrey;
-	width: 90%;
 	text-transform: uppercase;
 }
 
@@ -1159,6 +1181,11 @@ CitadelHudTopBarPlayer #PlayerAbilitiesContainer .ability_image
 	margin-bottom: 135px;
 }
 
+.gShopOpen #slot_signature_2 .stack_charges,.gShopOpen #slot_signature_3 .stack_charges
+{
+	margin-bottom: 115px;
+}
+
 .has_stack_charges .stack_charges
 {
 	visibility: visible;
@@ -1278,7 +1305,7 @@ CitadelHeroDetailsPage .ability_ring
 	visibility: collapse;
 }
 
-CitadelHeroDetailsPage .item_passive .ability_bg,.usingControllerSpecificGlyphs.ControllerInUse .ability_bg,.usingControllerSpecificGlyphs.ControllerInUse CitadelHeroDetailsPage .ability_bg
+CitadelHeroDetailsPage .item_passive .ability_bg,.usingControllerSpecificGlyphs.isUsingController .ability_bg,.usingControllerSpecificGlyphs.isUsingController CitadelHeroDetailsPage .ability_bg
 {
 	background-image: url("s2r://panorama/images/hud/core/ability_frame_passive_0.vsvg");
 }

@@ -74,6 +74,7 @@
 #LOC_Date_MonthNumFormat
 #LOC_Date_MonthShort%d
 #LOC_Date_PM
+#LOC_Date_UnknownTime
 #LOC_Date_YearNumFormat
 #LOC_Duration_Day
 #LOC_Duration_Days
@@ -131,6 +132,7 @@
 %s_pw
 (%s from %u files; %s not file-based)\n
 *.txt
+,\tV_fpclassifyd
 .?AV?$CBaseAppSystem@VILocalize@@@@
 .?AV?$CTier0AppSystem@VILocalize@@$0A@@@
 .?AV?$CTier1AppSystem@VILocalize@@$0A@@@
@@ -138,7 +140,8 @@
 .?AVCLocalize@@
 .?AVILocalize@@
 /resource/valve_
-2\vpt
+2\vph
+2\vpp
 :help
 :name_ref
 :shorthelp
@@ -158,7 +161,6 @@ C:\buildworker\citadel_rel_win64\build\_build_\localize\_vpc_localize\default\wi
 C:\buildworker\citadel_rel_win64\build\src\localize\localize_imp.cpp
 CLP$
 CLocalize::AddTokenMiss
-CLocalize::FindPluralCompatibleImpl
 CLocalize::FindPluralImpl
 CLocalize::FindSafe
 CLocalize::InstallChangeCallback: Attempted to add the same callback twice!\n
@@ -186,23 +188,30 @@ Indonesian
 Italian
 Japanese
 Korean
+LOCFAIL %s: '%s' gives multiple variants for :l\n
 LOCFAIL %s: '%s' gives multiple variants for :n\n
 LOCFAIL %s: '%s' has variants but does not have any token name variant flags (:g, :n, :p, etc.)\n
 LOCFAIL %s: '%s' indicates %u %s but needs %u valid %s\n
 LOCFAIL %s: '%s' indicates 1 plural but needs %u valid plural variants\n
 LOCFAIL %s: '%s' indicates a gender specifier but doesn't provide one\n
+LOCFAIL %s: '%s' indicates a plural specifier but doesn't provide one\n
 LOCFAIL %s: '%s' indicates gender but doesn't have valid gender flags\n
 LOCFAIL %s: '%s' indicates genders but doesn't have valid gender variants\n
 LOCFAIL %s: Too many variant values for '%s'\n
 LOCFAIL %s: Value for '%s' does not have required gender\n
+LOCFAIL %s: Value for '%s' does not have required plural form\n
+LOCFAIL %s: Value for '%s' has a plural form but the token doesn't have :l\n
 LOCFAIL %s: Value for '%s' has gendered variants but the token doesn't have :g or :n\n
 LOCFAIL %s: Value for '%s' has multiple variants with the same gender\n
 LOCFAIL %s: Value for '%s' must have all language-defined gender variants\n
 LOCFAIL %s: Value for '%s' must have the same gender for each variant\n
 LOCFAIL %s: Value for '%s' uses a gender not valid for the value language\n
+LOCFAIL %s: Value for '%s' uses a plural form not valid for the value language\n
 LOCFAIL: Ignoring unsupported encoding in localization file '%s'\n
 LOCFAIL: Tried to add a loc token with '#' starting the token name ('%s')\n
 LOCFAIL: Tried to add empty loc token\n
+LOCFAIL: the explicit plural flag 'l' can't be specified with the plural set flag 'p' (token %s in file %s)\n
+LOCFAIL: the explicit plural flag 'l' can't be specified without the gender flag 'n' (token %s in file %s)\n
 LOCWARN %s: value of '%s' matches English, possible unlocalized token\n
 LOC_Date_Today
 LOC_Date_Tomorrow
@@ -235,7 +244,7 @@ Plural context: %s\n
 Polish
 Portuguese
 RSDS
-R\fpt
+R\fph
 Romanian
 Russian
 Simplified_Chinese
@@ -244,7 +253,6 @@ Swedish
 Tokens
 Traditional_Chinese
 Turkish
-U\tV_powd
 Ukrainian
 Unable to find localization token '%s'\n
 Usage: %s <token>\n
@@ -256,10 +264,11 @@ Vietnamese
 WARNING: Duplicate string token '%s' found in %s (original in %s)\n
 [unknown string]
 \resource\valve_
-\tV_fpclassifyd
+b\vp\nP
 bg_BG
 brazilian
 bulgarian
+c\tV_powd
 cs_CZ
 czech
 da_DK
@@ -304,7 +313,7 @@ polish
 portuguese
 pt_BR
 pt_PT
-r\vpt
+r\vph
 resource/countries_%language%.txt
 resource/valve_
 resource/valve_%language%.txt

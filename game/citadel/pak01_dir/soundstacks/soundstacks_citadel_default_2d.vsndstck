@@ -10,39 +10,11 @@
 				operator = "util_null"
 				operator_variables = 
 				{
-					import_public_opvars = "citadel_base_3d"
-					vsnd_files = 
-					{
-						data_type = "vsnd"
-						soundevent_data = "true"
-						value = 
-						[
-							"sounds/common/null.vsnd",
-						]
-						_system_properties = 
-						{
-							property_group = "VSND Files"
-						}
-					}
-					vsnd_selection_type = 
-					{
-						data_type = "enum"
-						enum_field = "opvar_get_vsnd.array_selection_type"
-						value = "random_exclusive"
-						_system_properties = 
-						{
-							property_group = "VSND Files"
-						}
-					}
-					vsnd_selection_index = 
-					{
-						data_type = "float"
-						value = "0.000000"
-						_system_properties = 
-						{
-							property_group = "VSND Files"
-						}
-					}
+					import_public_opvars = 
+					[
+						"citadel_base_3d",
+						"citadel_8track_parameters",
+					]
 					pitch_external = 
 					{
 						data_type = "float"
@@ -128,15 +100,10 @@
 			},
 			
 			{
-				name = "get_vsnd"
-				execute_once = "true"
-				operator = "opvar_get_vsnd"
-				check_event_data = "true"
-				input_operator_name = "public"
-				input_field_name = "vsnd_files"
-				input_use_namespace = "false"
-				array_selection_type = "@public.vsnd_selection_type"
-				input_index = "@public.vsnd_selection_index"
+				name = "citadel_8track_parameters"
+				operator = "sos_import_stack"
+				import_stack = "citadel_8track_parameters"
+				auto_connect_public_fields = "true"
 			},
 			
 			{
@@ -154,7 +121,7 @@
 					vsnd_file = 
 					{
 						data_type = "vsnd"
-						value = "@get_vsnd.output"
+						value = "@citadel_8track_parameters::track1_parameters::output.track_vsnd"
 					}
 				}
 			},
@@ -212,15 +179,37 @@
 				name = "start_vmix"
 				operator = "vmix_voice_start"
 				input_execute = "1"
-				input_track1 = "track_01"
-				input_start2 = "0.000000"
-				input_start3 = "0.000000"
-				input_start4 = "0.000000"
-				input_start5 = "0.000000"
-				input_start6 = "0.000000"
-				input_start7 = "0.000000"
-				input_start8 = "0.000000"
-				input_vsnd1 = "@get_vsnd.output"
+				input_track1 = "@public.vsnd_files_track1_name"
+				input_track2 = "@public.vsnd_files_track2_name"
+				input_track3 = "@public.vsnd_files_track3_name"
+				input_track4 = "@public.vsnd_files_track4_name"
+				input_track5 = "@public.vsnd_files_track5_name"
+				input_track6 = "@public.vsnd_files_track6_name"
+				input_track7 = "@public.vsnd_files_track7_name"
+				input_track8 = "@public.vsnd_files_track8_name"
+				input_start2 = "@citadel_8track_parameters::track2_parameters::output.track_start"
+				input_start3 = "@citadel_8track_parameters::track3_parameters::output.track_start"
+				input_start4 = "@citadel_8track_parameters::track4_parameters::output.track_start"
+				input_start5 = "@citadel_8track_parameters::track5_parameters::output.track_start"
+				input_start6 = "@citadel_8track_parameters::track6_parameters::output.track_start"
+				input_start7 = "@citadel_8track_parameters::track7_parameters::output.track_start"
+				input_start8 = "@citadel_8track_parameters::track8_parameters::output.track_start"
+				input_vsnd1 = "@citadel_8track_parameters::track1_parameters::output.track_vsnd"
+				input_vsnd2 = "@citadel_8track_parameters::track2_parameters::output.track_vsnd"
+				input_vsnd3 = "@citadel_8track_parameters::track3_parameters::output.track_vsnd"
+				input_vsnd4 = "@citadel_8track_parameters::track4_parameters::output.track_vsnd"
+				input_vsnd5 = "@citadel_8track_parameters::track5_parameters::output.track_vsnd"
+				input_vsnd6 = "@citadel_8track_parameters::track6_parameters::output.track_vsnd"
+				input_vsnd7 = "@citadel_8track_parameters::track7_parameters::output.track_vsnd"
+				input_vsnd8 = "@citadel_8track_parameters::track8_parameters::output.track_vsnd"
+				input_volume1 = "@citadel_8track_parameters::track1_parameters::output.track_volume"
+				input_volume2 = "@citadel_8track_parameters::track2_parameters::output.track_volume"
+				input_volume3 = "@citadel_8track_parameters::track3_parameters::output.track_volume"
+				input_volume4 = "@citadel_8track_parameters::track4_parameters::output.track_volume"
+				input_volume5 = "@citadel_8track_parameters::track5_parameters::output.track_volume"
+				input_volume6 = "@citadel_8track_parameters::track6_parameters::output.track_volume"
+				input_volume7 = "@citadel_8track_parameters::track7_parameters::output.track_volume"
+				input_volume8 = "@citadel_8track_parameters::track8_parameters::output.track_volume"
 				execute_once = "false"
 				input_should_pause = "@public.vsnd_pause_with_game"
 				input_should_play_tail = "@public.vsnd_play_loop_release"
