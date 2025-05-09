@@ -570,8 +570,11 @@
 #Citadel_Graph_Damage_Creep
 #Citadel_Graph_Damage_Neutral
 #Citadel_Graph_Damage_Player
+#Citadel_Graph_Souls_AbilityAssassinate
 #Citadel_Graph_Souls_Assists
 #Citadel_Graph_Souls_Boss
+#Citadel_Graph_Souls_ItemCultistSacrifice
+#Citadel_Graph_Souls_ItemTrophyCollector
 #Citadel_Graph_Souls_Lane
 #Citadel_Graph_Souls_Neutral
 #Citadel_Graph_Souls_Players
@@ -3106,7 +3109,6 @@ $hRh
 ../src/devtools/bin/certificates/game/
 ..CPlayer_GetNewSteamAnnouncementState_Response"_
 ..uR5&m
-.0ei
 .4bb
 .97yY
 .?AU?$CameraOp_Approach_t@M@@
@@ -3537,6 +3539,7 @@ $hRh
 .?AV?$CConCommandMemberAccessor@VC_Peer2PeerGenericMessages@@@@
 .?AV?$CDefaultTypedEntityInstanceFilter@VCBaseAnimGraph@@@@
 .?AV?$CDefaultTypedEntityInstanceFilter@VCBaseProp@@@@
+.?AV?$CDefaultTypedEntityInstanceFilter@VCCitadel_Minimap_EffectsEntity@@@@
 .?AV?$CDefaultTypedEntityInstanceFilter@VC_BaseEntity@@@@
 .?AV?$CDefaultTypedEntityInstanceFilter@VC_BaseModelEntity@@@@
 .?AV?$CDefaultTypedEntityInstanceFilter@VC_CitadelPlayerPawn@@@@
@@ -7457,6 +7460,7 @@ $hRh
 .?AVCCitadel_Hud_Hero_Testing@@
 .?AVCCitadel_Hud_Hints@@
 .?AVCCitadel_Hud_Main@@
+.?AVCCitadel_Hud_MinimapEffects@@
 .?AVCCitadel_Hud_ModifierHistory@@
 .?AVCCitadel_Hud_Modifiers@@
 .?AVCCitadel_Hud_Modifiers_Entry@@
@@ -7553,6 +7557,7 @@ $hRh
 .?AVCCitadel_MagicianTurret@@
 .?AVCCitadel_MagicianTurret_GraphController@@
 .?AVCCitadel_MinimapObjectManager@@
+.?AVCCitadel_Minimap_EffectsEntity@@
 .?AVCCitadel_MobileResupply@@
 .?AVCCitadel_MobileResupply_GraphController@@
 .?AVCCitadel_ModBonusDisplay@@
@@ -8920,6 +8925,7 @@ $hRh
 .?AVCGameParticleManagerSystem@@
 .?AVCGamePortraitWorld@@
 .?AVCGamePortraitWorldRenderer@@
+.?AVCGamePortraitWorldSpawnerAsync@@
 .?AVCGamePortraitWorldSystem@@
 .?AVCGameRulesGameSystem@@
 .?AVCGameSceneNode@@
@@ -11622,7 +11628,6 @@ $hRh
 .PEBVCPanel2D@panorama@@
 .PEBVILocalizationString@panorama@@
 .PartnerAccountType
-.Pei
 .PerFriendPreferences"*\n(CPlayer_SetPerFriendPreferences_Response"c\n
 .PerFriendPreferences"U\n'CPlayer_SetPerFriendPreferences_Request
 .PingCommonData
@@ -11923,7 +11928,6 @@ $hRh
 .google.protobuf.ServiceOptions
 .kv3
 .lbN
-.pei
 .png
 .pp@0
 .steammessages_unified_base.steamworkssdk.proto"
@@ -12009,9 +12013,11 @@ $hRh
 0: Off. 1: Show Stand-up trace. 2: Show stand up to ideal ParrotPos. 3: Show Parrot Pos to Desired Pos (cyan)
 0;Q5[
 0<cz
+0>`6j
 0M2~@p
 0Marks latest announcement timestamp read by user
 0Name of the file to publish in the user's cloud.
+0PTU
 0W/5
 0Z@q
 0\f504P
@@ -12366,15 +12372,12 @@ $hRh
 5s\nl
 5t?F
 5~EW
-6 ii
-6 ri
 6#6165676;6M6O6S6Y6a6k6m6
 6#RDP#
 6%vi
 6(Optional) Type of game the published file represents.
 6,2K
 6-zeZ
-60ti
 62$|S)6f
 64CK\vH
 65535
@@ -12384,12 +12387,10 @@ $hRh
 6666666666666666
 666666666666666666666666666666666666666666666666\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\.\ssl\s3_enc.c
 67-s
+6:6j
 6?NumberValue@Value@v8@@QEBA?AV?$Maybe@N@2@V?$Local@VContext@v8@@@2@@Z
-6@ji
-6@mi
 6H,N
 6O|T%
-6Pqi
 6Qd=
 6Returns the URL of the proper cloud server for a user.
 6True if the operation was successful, false otherwise.
@@ -12403,7 +12404,6 @@ $hRh
 6\n\tstructure
 6\n\vmatch_slots
 6_wEX
-6`ki
 6afD
 6bX+
 6c&0|vvX
@@ -12411,7 +12411,6 @@ $hRh
 6l13
 6lkc
 6myY;
-6pli
 6qo~
 6r-m_v
 6r1ij
@@ -12717,7 +12716,6 @@ $hRh
 =cdE
 =trF6,#
 >#>)>/>3>A>W>c>e>w>
->0oi
 >333>
 >4|6eXg_e
 >7^0g
@@ -12743,7 +12741,6 @@ $hRh
 >fN46R^
 >l\rur
 >p00<
->pri
 >yhP
 >ztq
 ?(Optional) Video Id of a YouTube video for this published file.
@@ -12755,7 +12752,6 @@ $hRh
 ??1HandleScope@v8@@QEAA@XZ
 ??1TryCatch@v8@@QEAA@XZ
 ??1Utf8Value@String@v8@@QEAA@XZ
-?Aggressiveness of Camera Reset Curve. Smaller = quicker. Larger = more gradual.
 ?BooleanValue@Value@v8@@QEBA_NPEAVIsolate@2@@Z
 ?CEntityIOOutput
 ?CarouselNav
@@ -12763,6 +12759,7 @@ $hRh
 ?DisposeGlobal@api_internal@v8@@YAXPEA_K@Z
 ?Double-save to Member '%s'
 ?EFlexSlotTypes_t
+?Enables first-person viewpoint
 ?EncodeBC7Blocks
 ?Enter@Context@v8@@QEAAXXZ
 ?Enter@Isolate@v8@@QEAAXXZ
@@ -12798,7 +12795,6 @@ $hRh
 ?uWS
 ?x29
 @!@%@+@1@?@C@E@]@a@g@m@
-@08ND
 @0pp
 @?SlowGetInternalField@Object@v8@@AEAA?AV?$Local@VData@v8@@@2@H@Z
 @BH]f
@@ -13158,7 +13154,6 @@ A\n\tent_index
 A\n\vdescriptors
 A\n\vdiagnostics
 A\rjW
-A\vw\ni
 A_txt
 AbW_
 Abandoned
@@ -13470,6 +13465,7 @@ After how many seconds of an objective is damage to hide its health on the HUD
 After using a zipline, players will have this air drag value applied to them until they touch the ground.
 Ag*g*
 Age of the entity, aka duration since the entity was created
+Aggressiveness of Camera Reset Curve. Smaller = quicker. Larger = more gradual.
 Aim At
 AimFOV
 AimTargetManager
@@ -14040,6 +14036,7 @@ BY_FILE_CTRL
 BY_Lq)
 BYldPromptYesNo
 BZZn\rN]#8f'
+B\f8F
 B\n>STEAMLEARN_REGISTER_DATA_SOURCE_RESULT_ERROR_INVALID_TIMESTAMP
 B\nP\t0
 B\n\fCOrientation
@@ -14159,6 +14156,7 @@ BaseWeaponDamageTakenPercent
 Basic Function
 Basic OCSP Response
 Basic math support.
+Basic wall jump sound
 BasicPropertiesContainer
 BasicVideo
 Basics
@@ -16056,6 +16054,7 @@ CCitadel_Item_WarpStone
 CCitadel_Magic_Beam_Blocker
 CCitadel_MagicianTurret
 CCitadel_MagicianTurret_GraphController
+CCitadel_Minimap_EffectsEntity
 CCitadel_MobileResupply
 CCitadel_MobileResupply_GraphController
 CCitadel_Modifier_APRounds
@@ -19581,6 +19580,7 @@ CWorldCompositionChunkReferenceElement_t
 CWorldTextSceneObjectDesc
 CZiplineRopeSegmentSceneObjectDesc
 C[L6
+C\f8F
 C\lVQ
 C\n?k_EGCMsgInitiateTradeResponse_Free_Account_Initiator_DEPRECATED
 C\n\nGoldRecord
@@ -20991,10 +20991,10 @@ CitadelStatsWeaponDisplay_t
 CitadelStatusEffect
 CitadelStolenAbilitySlot_t
 CitadelStopEditingProfileCard
-CitadelStreamlinedMicChanged
 CitadelSubmitPlaytestUser
 CitadelSurveyHighlightStars
 CitadelSurveyRemoveStarsHighlight
+CitadelSurveySubmitValue
 CitadelSwitchSpectatorCameraToSlot
 CitadelSwitchSpectatorCameraToTopBarIndex
 CitadelTV: could not find entity with entindex: %d\n
@@ -21243,7 +21243,7 @@ Cluster Endcap node removed ( num: %d )\n
 Cluster node '%s' added ( num: %d )\n
 Cluster node removed ( num: %d )\n
 Cluster node total count ( primary: %d, endcap: %d )\n
-Cm_iCreepGold
+Cm_iAPNetWorth
 Cmd %d likely server substitute
 Code
 Code Signing
@@ -21485,6 +21485,7 @@ CopyStringToClipboard
 CopyStringToClipboard( %s, #UI_Paste_URL )
 CopyUltCooldownRatio
 CoreRating
+Corner Boost sound - a tricky to execute wall jump, off of an upward turned collision contact
 CornerBoost Vector: ( %.4f, %.4f, %.4f )
 Cosine of angle, in degrees (0 -> 1, 90 -> 0)
 Cosmic Veil Depth
@@ -22606,7 +22607,6 @@ DistanceFromFocus%d
 DistanceToMaxTime
 Div R%d <- R%d / R%d
 Divide by zero!
-Dm_vecDeployedProjectiles
 DnRv
 Do client side flex animation.
 Do not stop the current yielding node, but do not continue to the next node afterwards.
@@ -24124,7 +24124,6 @@ EnableSatVolumesEvent_t
 EnableUnlimitedAmmoCheckbox
 Enabled
 Enabled Shared Actions
-Enables first-person viewpoint
 Enables kill streaks.
 Enables mastering DSP in vmix.
 Enables the ability for the mic to remain open if the window loses focus such as when a caster tabs out to adjust settings
@@ -25235,7 +25234,7 @@ GCSDK::GCDirIndex_t
 GCSQL_VERSION_BASELINE
 GCSQL_VERSION_BOOLTYPE
 GCType_t"2\n
-GCitadelSurveySubmitValue
+GCitadelStreamlinedMicChanged
 GENERALIZEDTIME
 GENERALSTRING
 GENERAL_ALLOCATE_BOOLEAN
@@ -25726,7 +25725,7 @@ H=`HY
 H@H9xqI
 HBJ\nTRF
 HBfff?
-HD0X
+HD@x
 HDR Color Scale: %0.3f
 HDRColor
 HDRColorScale
@@ -26376,6 +26375,7 @@ HudEventIndicatorsPanel
 HudFrameTimeGraph
 HudMini
 HudMinimap
+HudMinimapEffects
 HudMinimapRender
 HudMinimapSize%i
 HudNetJitterGraph
@@ -26394,6 +26394,7 @@ I2D_ASN1_TIME
 I2S_ASN1_IA5STRING
 I2V_AUTHORITY_INFO_ACCESS
 I2nC
+I8To
 I9xq
 I;b_b
 IA5STRING
@@ -30197,12 +30198,10 @@ P-384
 P-521
 P08@J
 P08J
-P08ND
 P1\t98"
 P2P ping to "%s". Timed out after %.2fms\n
 P2P_Messages
 P5[1
-P6`~i
 PAGN_4
 PANEL_ID
 PANORAMA_LAYOUTFILE
@@ -35198,7 +35197,6 @@ TimeBetweenBulletConsume
 TimeBetweenGrenades
 TimeBetweenShots
 TimeControlDropDown
-TimeLEft %f, Duration %f, Progress %f:\n
 TimeOption%d
 TimeOptionLastRespawn
 TimeRow
@@ -37109,7 +37107,6 @@ Z~wl
 \f]ne3
 \fdhWTh
 \fiaR
-\fp\vPL
 \ful2
 \fy&3Gl
 \l:ArR
@@ -37172,6 +37169,7 @@ Z~wl
 \n#CMsgClientToGCGetHeroChoiceResponse
 \n#CMsgClientToGCReportPlayerFromMatch
 \n#CMsgGCRequestStoreSalesDataResponse
+\n#CMsgServerSignoutData_DetailedStats
 \n#CMsgServerSignoutData_MatchDevStats
 \n#CMsgSteamLearnDataSourceDescElement
 \n#CPlayer_GetGameBadgeLevels_Response
@@ -38032,6 +38030,7 @@ Z~wl
 \nqYu
 \ntM(ie-V
 \r!\r+\r-\r=\r?\rO\rU\ri\ry\r
+\r8To
 \r@h!Aq8
 \rB6uZ
 \rBake citadel_tightcamera scale onto camera settings
@@ -38045,7 +38044,6 @@ Z~wl
 \rWhO
 \rY=QX
 \rYYHl
-\r\n#CMsgServerSignoutData_DetailedStats
 \r\n\tEUpgraded
 \r\n\tUM_HudMsg
 \r\n\tUM_Rumble
@@ -38336,8 +38334,8 @@ _tools_event_desc
 _xU`u
 _}eOk
 `28)fk
+`2ps
 `3?New@Array@v8@@SA?AV?$Local@VArray@v8@@@2@PEAVIsolate@2@H@Z
-`6@ei
 `:zQF
 `D$daM-l
 `DZG
@@ -38379,7 +38377,6 @@ a:typeparam
 a;Tg
 a@XZ
 aA0k
-aBvD
 aD/x
 aDSS
 aECDH
@@ -38427,6 +38424,7 @@ ability_absorbed
 ability_afterburn
 ability_apply
 ability_apply_ground
+ability_assassinate
 ability_astro_rifle
 ability_astro_shotgun_toggle
 ability_bebop_stickybomb2
@@ -40743,6 +40741,7 @@ citadel_melee_quick_melee_parry
 citadel_min_accel_speed
 citadel_minimap_boundary
 citadel_minimap_draw_fow
+citadel_minimap_effects
 citadel_minimap_local_player_width
 citadel_minimap_max_icon_shrink
 citadel_minimap_overlap_scan_distance
@@ -42122,7 +42121,7 @@ dAN"
 dDV8
 dHHp
 dITRedirect
-dJ\fp"
+dJ\f F
 dNSDomain
 dOj\f,
 dSAQuality
@@ -43311,7 +43310,6 @@ f%wyLmX:
 f&dy
 f1cK%
 f45\r
-f@bi
 fBB\fy
 fC\tc
 fL\ri
@@ -45816,6 +45814,7 @@ item_clientacks.txt
 item_cost
 item_crate
 item_crate_spawn
+item_cultist_sacrifice
 item_debug
 item_def
 item_def_index
@@ -45849,6 +45848,7 @@ item_sets
 item_socket_id
 item_steam_cache_version_t
 item_to_unlock
+item_trophy_collector
 item_type_name
 item_weapon
 item_weapon_parts
@@ -46733,6 +46733,7 @@ k_UnlockStyle_Failed_OtherError
 k_UnlockStyle_Failed_PreReq
 k_UnlockStyle_Succeeded
 k_UnpackBundle_Succeeded
+k_eAbilityAssassinate
 k_eAcceptPartyInvite
 k_eAccountBanned
 k_eAccountLocked
@@ -46890,7 +46891,9 @@ k_eInvalidTarget
 k_eInvalidTeam
 k_eInvalidValue
 k_eInvalidVersion
+k_eItemCultistSacrifice
 k_eItemDefNotLimited
+k_eItemTrophyCollector
 k_eJoinedParty
 k_eJoinedPartyCode
 k_eLaunchedClient
@@ -47822,6 +47825,7 @@ m_Constants
 m_ConsumeMaxStacksNonHeroSound
 m_ConsumeMaxStacksSound
 m_CopyTetherParticle
+m_CornerBoostExecutedSound
 m_CornerLean
 m_CrackshotImmuneModifier
 m_CrashModifier
@@ -52082,7 +52086,6 @@ m_heroShopAnimGraphEnumName
 m_heroStatsDisplay
 m_heroStatsUI
 m_hierarchyAttachName
-m_iAPNetWorth
 m_iAbilityID
 m_iAccountID
 m_iAddedTime
@@ -52115,6 +52118,7 @@ m_iClip2
 m_iClipSize
 m_iComebackBounty
 m_iConnected
+m_iCreepGold
 m_iCreepGoldAirOrb
 m_iCreepGoldDeny
 m_iCreepGoldGroundOrb
@@ -53982,6 +53986,7 @@ m_vecDashEndPos
 m_vecDashStartPos
 m_vecDataCPValue
 m_vecDependentAbilities
+m_vecDeployedProjectiles
 m_vecDirection
 m_vecDisplayStats
 m_vecDistanceOperations
@@ -56116,7 +56121,6 @@ p.other
 p.ppBasis
 p.prime
 p.tpBasis
-p08@H^D
 p2p_FightingGame_Connection
 p2p_FightingGame_GameData
 p2p_Ping

@@ -421,6 +421,9 @@
 		// Enable the render target cache optimization.
 		"panorama_disable_render_target_cache" "0"
 
+		// Enable the composition layer optimization
+		"panorama_skip_composition_layer_content_paint" "1"
+
 		// too expensive (500MB+) to load this
 		"snd_steamaudio_load_reverb_data" "0"
 		"snd_steamaudio_load_pathing_data" "0"
