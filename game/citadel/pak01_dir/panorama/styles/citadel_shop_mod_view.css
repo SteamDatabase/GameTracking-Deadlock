@@ -19,8 +19,9 @@ CitadelShopMod
 
 CitadelShopMod
 {
-	opacity: 0.5;
-	brightness: 0.5;
+	opacity: 0.7;
+	brightness: 0.7;
+	wash-color: #ff4c4c92;
 }
 
 .boldedText
@@ -75,21 +76,18 @@ CitadelShopMod.canAffordMod
 	{
 		pre-transform-scale2d: 1;
 		brightness: 1;
-		wash-color: shardColor&30;
 	}
 	
 	50%
 	{
 		brightness: 1;
 		pre-transform-scale2d: 1.04;
-		wash-color: shardColor;
 	}
 	
 	100%
 	{
 		pre-transform-scale2d: 1;
 		brightness: 1;
-		wash-color: shardColor&30;
 	}
 	
 }
@@ -341,82 +339,80 @@ CitadelShopMod.canAffordMod:hover .mod_backer,CitadelShopMod.owned:hover .mod_ba
 	width: 100%;
 }
 
-.isWeapon #ModCard
+#CardBacker
 {
-	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_weapon_psd.vtex");
+	width: 100%;
+	height: 100%;
+	ignore-parent-flow: true;
+	background-size: cover;
 }
 
-.ModTier1.isWeapon #ModCard
+.ModTier1.isWeapon #CardBacker
 {
 	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_weapon_t1_psd.vtex");
 }
 
-.ModTier2.isWeapon #ModCard
+.ModTier2.isWeapon #CardBacker
 {
 	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_weapon_t2_psd.vtex");
 }
 
-.ModTier3.isWeapon #ModCard
+.ModTier3.isWeapon #CardBacker
 {
 	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_weapon_t3_psd.vtex");
 }
 
-.ModTier4.isWeapon #ModCard
+.ModTier4.isWeapon #CardBacker
 {
 	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_weapon_t4_psd.vtex");
 }
 
-.isArmor #ModCard
-{
-	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_vitality_psd.vtex");
-}
-
-.ModTier1.isArmor #ModCard
+.ModTier1.isArmor #CardBacker
 {
 	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_vitality_t1_psd.vtex");
 }
 
-.ModTier2.isArmor #ModCard
+.ModTier2.isArmor #CardBacker
 {
 	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_vitality_t2_psd.vtex");
 }
 
-.ModTier3.isArmor #ModCard
+.ModTier3.isArmor #CardBacker
 {
 	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_vitality_t3_psd.vtex");
 }
 
-.ModTier4.isArmor #ModCard
+.ModTier4.isArmor #CardBacker
 {
 	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_vitality_t4_psd.vtex");
 }
 
-.isTech #ModCard
-{
-	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_spirit_psd.vtex");
-}
-
-.ModTier1.isTech #ModCard
+.ModTier1.isTech #CardBacker
 {
 	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_spirit_t1_psd.vtex");
 }
 
-.ModTier2.isTech #ModCard
+.ModTier2.isTech #CardBacker
 {
 	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_spirit_t2_psd.vtex");
 }
 
-.ModTier3.isTech #ModCard
+.ModTier3.isTech #CardBacker
 {
 	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_spirit_t3_psd.vtex");
 }
 
-.ModTier4.isTech #ModCard
+.ModTier4.isTech #CardBacker
 {
 	background-image: url("s2r://panorama/images/shop/catalog/cards/card_backer_spirit_t4_psd.vtex");
 }
 
-#CitadelHudHeroShop CitadelShopMod.owned #ModCard,#CitadelHudHeroShop CitadelShopMod.usedAsComponent #ModCard
+.canAffordMod #CardBacker
+{
+	wash-color: none;
+}
+
+#CitadelHudHeroShop CitadelShopMod.owned #CardBacker,#CitadelHudHeroShop CitadelShopMod.usedAsComponent #CardBacker
 {
 	background-color: offBlack;
 	background-image: none;
@@ -769,6 +765,32 @@ CitadelShopMod.canAffordMod:hover .mod_backer,CitadelShopMod.owned:hover .mod_ba
 	margin-right: 0px;
 }
 
+#UsedAsComponent
+{
+	background-color: offBlack&ee;
+	width: 100%;
+	height: 100%;
+	ignore-parent-flow: true;
+	visibility: collapse;
+	border-radius: 5px;
+	z-index: 10;
+}
+
+CitadelShopMod.usedAsComponent:hover #UsedAsComponent,#CitadelModHoverTooltip .usedAsComponent #UsedAsComponent
+{
+	visibility: visible;
+}
+
+#UsedAsComponent Label
+{
+	width: 100%;
+	font-size: 12px;
+	color: offWhite&50;
+	font-weight: bold;
+	vertical-align: middle;
+	text-align: center;
+}
+
 #ReturnToShop
 {
 	background-color: offBlack&ee;
@@ -780,7 +802,7 @@ CitadelShopMod.canAffordMod:hover .mod_backer,CitadelShopMod.owned:hover .mod_ba
 	z-index: 10;
 }
 
-.shopClosed CitadelShopMod:hover #ReturnToShop
+.shopClosed CitadelShopMod:hover #ReturnToShop,#CitadelModHoverTooltip.shopClosed #ReturnToShop
 {
 	visibility: visible;
 }
@@ -1643,6 +1665,12 @@ CitadelShopMod.owned:hover .componentModIconContainer
 	visibility: visible;
 }
 
+.quickbuy #Outline
+{
+	visibility: visible;
+	wash-color: buildsLightColor;
+}
+
 .isShowingTrainingPage #Outline
 {
 	visibility: collapse;
@@ -1817,6 +1845,7 @@ CitadelShopMod.owned:hover #ItemPurchased,#CitadelModHoverTooltip.owned #ItemPur
 
 #ItemPurchased #SoldSticker
 {
+	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_checkmark_png.vtex");
 	width: 90%;
 	height:100%;
 	margin-top: 13px;
@@ -1824,91 +1853,7 @@ CitadelShopMod.owned:hover #ItemPurchased,#CitadelModHoverTooltip.owned #ItemPur
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center top;
-}
-
-.Language_english #ItemPurchased #SoldSticker
-{
-	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_english_psd.vtex");
-}
-
-.Language_schinese #ItemPurchased #SoldSticker
-{
-	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_schinese_png.vtex");
-}
-
-.Language_brazilian #ItemPurchased #SoldSticker
-{
-	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_checkmark_png.vtex");
-}
-
-.Language_czech #ItemPurchased #SoldSticker
-{
-	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_czech_png.vtex");
-}
-
-.Language_french #ItemPurchased #SoldSticker
-{
-	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_french_png.vtex");
-}
-
-.Language_german #ItemPurchased #SoldSticker
-{
-	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_german_png.vtex");
-}
-
-.Language_italian #ItemPurchased #SoldSticker
-{
-	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_italian_png.vtex");
-}
-
-.Language_indonesian #ItemPurchased #SoldSticker
-{
-	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_indonesian_png.vtex");
-}
-
-.Language_japanese #ItemPurchased #SoldSticker
-{
-	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_english_psd.vtex");
-}
-
-.Language_koreana #ItemPurchased #SoldSticker
-{
-	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_koreana_png.vtex");
-}
-
-.Language_latam #ItemPurchased #SoldSticker
-{
-	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_checkmark_png.vtex");
-}
-
-.Language_polish #ItemPurchased #SoldSticker
-{
-	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_checkmark_png.vtex");
-}
-
-.Language_russian #ItemPurchased #SoldSticker
-{
-	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_russian_png.vtex");
-}
-
-.Language_spanish #ItemPurchased #SoldSticker
-{
-	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_checkmark_png.vtex");
-}
-
-.Language_thai #ItemPurchased #SoldSticker
-{
-	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_thai_png.vtex");
-}
-
-.Language_turkish #ItemPurchased #SoldSticker
-{
-	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_turkish_png.vtex");
-}
-
-.Language_ukrainian #ItemPurchased #SoldSticker
-{
-	background-image: url("s2r://panorama/images/shop/catalog/text_images/sticker_sold/sticker_sold_ukrainian_png.vtex");
+	visibility: collapse;
 }
 
 CitadelShopMod.isArmor:hover
