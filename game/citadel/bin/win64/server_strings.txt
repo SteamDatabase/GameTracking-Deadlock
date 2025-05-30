@@ -1590,7 +1590,7 @@ $tJ@T\tK
 (d4t8
 (default)
 (end of input).\n\t This indicates a poorly specified lexer RULE\n\t or unterminated input element such as: "STRING["]\n
-(fPAp
+(fPMp
 (fS{ggRcjh
 (from angle, to angle, time) - Spherical lerp of angle from->to based on time
 (hInflictor, hAttacker, flDamage) - Allocate a damageinfo object, used as an argument to TakeDamage(). Call DestroyDamageInfo( hInfo ) to free the object.
@@ -1838,7 +1838,7 @@ $tJ@T\tK
 ,7~5d
 ,<ellipsis>
 ,ARu@y6
-,PI9
+,PU9
 ,Reason=
 ,ShfPQ
 ,ZFDGn
@@ -3033,6 +3033,7 @@ $tJ@T\tK
 .?AV?$CModifierFactory@VCCitadel_Modifier_NeutralShield@@$0PP@@@
 .?AV?$CModifierFactory@VCCitadel_Modifier_Neutral_Debuff_Pushback@@$0PP@@@
 .?AV?$CModifierFactory@VCCitadel_Modifier_Nikuman@@$0PP@@@
+.?AV?$CModifierFactory@VCCitadel_Modifier_NonPlayerCamera@@$0PP@@@
 .?AV?$CModifierFactory@VCCitadel_Modifier_Objective_Bullet_Resist@@$0PP@@@
 .?AV?$CModifierFactory@VCCitadel_Modifier_Objective_HealthGrowth@@$0PP@@@
 .?AV?$CModifierFactory@VCCitadel_Modifier_Objective_Regen@@$0PP@@@
@@ -3917,6 +3918,7 @@ $tJ@T\tK
 .?AV?$CSubclassFactory@VCCitadel_Modifier_NeutralShield@@VCBaseModifier@@@@
 .?AV?$CSubclassFactory@VCCitadel_Modifier_Neutral_Debuff_Pushback@@VCBaseModifier@@@@
 .?AV?$CSubclassFactory@VCCitadel_Modifier_Nikuman@@VCBaseModifier@@@@
+.?AV?$CSubclassFactory@VCCitadel_Modifier_NonPlayerCamera@@VCBaseModifier@@@@
 .?AV?$CSubclassFactory@VCCitadel_Modifier_Objective_Bullet_Resist@@VCBaseModifier@@@@
 .?AV?$CSubclassFactory@VCCitadel_Modifier_Objective_HealthGrowth@@VCBaseModifier@@@@
 .?AV?$CSubclassFactory@VCCitadel_Modifier_Objective_Regen@@VCBaseModifier@@@@
@@ -6381,6 +6383,7 @@ $tJ@T\tK
 .?AVCCitadel_Modifier_Neutral_Debuff_Pushback@@
 .?AVCCitadel_Modifier_Neutral_Debuff_PushbackVData@@
 .?AVCCitadel_Modifier_Nikuman@@
+.?AVCCitadel_Modifier_NonPlayerCamera@@
 .?AVCCitadel_Modifier_Objective_BulletReistVData@@
 .?AVCCitadel_Modifier_Objective_Bullet_Resist@@
 .?AVCCitadel_Modifier_Objective_HealthGrowth@@
@@ -7414,6 +7417,7 @@ $tJ@T\tK
 .?AVCModifierLashGrappleTargetVData@@
 .?AVCModifierLockDownDebuffVData@@
 .?AVCModifierNikumanVData@@
+.?AVCModifierNonPlayerCameraSettingsVData@@
 .?AVCModifierObscuredVData@@
 .?AVCModifierOwnerEventsSaveRestoreOps@@
 .?AVCModifierPowerGeneratorVData@@
@@ -9475,9 +9479,10 @@ $tJ@T\tK
 .GCProtoBufMsgSrc
 .HCK\v
 .MODIFIER_ENTRY_TYPE
+.P4p
 .P6AXAEBUSoundOpvarManagerSettableData_t@@PEAVCSoundOpvarSetPointStackCollection@@@Z
 .PARTICLE_MESSAGE
-.PFp
+.PRp
 .PartnerAccountType
 .PingCommonData
 .PostProcessingGameStates
@@ -9764,7 +9769,7 @@ $tJ@T\tK
 .google.protobuf.ServiceOptions
 .lbN
 .league
-.pFp
+.pRp
 .pp@0
 .solo
 .steammessages_unified_base.steamworkssdk.proto"\\n"CMsgSteamLearnDataSourceDescObject
@@ -9955,7 +9960,7 @@ $tJ@T\tK
 2:pS
 2?.CMsgClientToGCGetLimitedItemPurchaseQuantityResponse.EResponse
 2?.CMsgClientToGCRemoveItemAttributeResponse.ERemoveItemAttribute
-2@L1
+2@X1
 2I y)
 2Tm=#
 2Uiwp"9
@@ -10041,6 +10046,7 @@ $tJ@T\tK
 3|rN>
 4)#bH
 4)m1
+41\f pp
 474E4U4W4c4i4m4
 488:1: POS_FLOATLITERAL : ( ( DIGIT )+ '.' ( DIGIT )* ( EXPONENT )? | '.' ( DIGIT )+ ( EXPONENT )? | ( DIGIT )+ EXPONENT );
 4<Td
@@ -10094,15 +10100,17 @@ $tJ@T\tK
 5s\nl
 5t?F
 5~EW
-6 Ap
+6 9p
+6 Mp
 6#6165676;6M6O6S6Y6a6k6m6
 6#RDP#
 6%vi
 6,2K
 6-zeZ
-60%p
+60"p
 60000
-607p
+601p
+60Cp
 62$|S)6f
 64CK\vH
 65535
@@ -10112,12 +10120,13 @@ $tJ@T\tK
 666666666666666666666666666666666666666666666666\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\.\ssl\s3_enc.c
 6666666666666666CAttributeManager
 67-s
-6@Qp
-6@Wp
+6@4p
+6@cp
 6H,N
 6O|T%
-6P8p
-6P=p
+6PDp
+6PIp
+6P\fp
 6Qd=
 6\n2GAME_PARTICLE_MANAGER_EVENT_UPDATE_ENTITY_POSITION
 6\n2k_EGCMsgInitiateTradeResponse_VAC_Banned_Initiator
@@ -10127,8 +10136,6 @@ $tJ@T\tK
 6\n\tstructure
 6\n\vmatch_slots
 6_wEX
-6`1p
-6`3p
 6afD
 6bX+
 6c&0|vvX
@@ -10136,7 +10143,7 @@ $tJ@T\tK
 6l13
 6lkc
 6myY;
-6pWp
+6pcp
 6qo~
 6r-m_v
 6r1ij
@@ -10387,6 +10394,7 @@ $tJ@T\tK
 >9Only Show Ping Indicator at Ping Location (no ping sound)
 >BShow Ping Indicator at Ping Location, Play Ping Sound, and Play VO
 >CShow Ping Indicator on Pinging Player, Play Ping Sound, and Play VO
+>P5p
 >Sem
 >WK6
 >\n:GAME_PARTICLE_MANAGER_EVENT_ADD_MODELLIST_OVERRIDE_ELEMENT
@@ -10406,7 +10414,7 @@ $tJ@T\tK
 >fN46R^
 >l\rur
 >p00<
->pAp
+>pMp
 >yhP
 >ztq
 ?333?
@@ -10445,10 +10453,10 @@ $tJ@T\tK
 @08Nd
 @0pp
 @333?
-@6@Fp
+@6@Rp
 @BH]f
 @BoneSetup
-@HPX`hv0
+@HPX`hv0$p
 @MfKZ
 @Pgl
 @Pu\rm
@@ -12861,8 +12869,8 @@ CBreakableProp
 CBreakableStageHelper
 CBufferString
 CBuoyancyHelper
+CCCitadelModifierItemPickupTimerVData
 CCEnvCubemapFog
-CCModifierItemPickupAuraTargetVData
 CChangeLevel
 CChoreoScene::ImportEventFromKV3( %s ):  discarding invalid event of type '%s' [%f -> %f]\n
 CChoreoScene::ParseEvent( %s ):  discarding invalid event of type '%s' [%f -> %f]\n
@@ -12996,7 +13004,6 @@ CCitadelModifierCadenceGunSpikesVData
 CCitadelModifierChronoPulseGrenadePulseAreaVData
 CCitadelModifierDustStormAuraApplyVData
 CCitadelModifierIdolReturnTimerVData
-CCitadelModifierItemPickupTimerVData
 CCitadelModifierProjectilePitchingLoopSoundThinker
 CCitadelModifierProjectilePitchingLoopSoundThinkerVData
 CCitadelModifierResponseRulesFilterType_t
@@ -13026,6 +13033,7 @@ CCitadelPlayerPawnBase
 CCitadelPlayerPawn_GraphController
 CCitadelPlayerPawn_GraphController2
 CCitadelPlayer_CameraServices
+CCitadelPlayer_MovementServices
 CCitadelPlayer_ObserverServices
 CCitadelPortalTrigger
 CCitadelPositionHomingProjectile
@@ -14212,6 +14220,7 @@ CCitadel_Modifier_NeutralShield
 CCitadel_Modifier_Neutral_Debuff_Pushback
 CCitadel_Modifier_Neutral_Debuff_PushbackVData
 CCitadel_Modifier_Nikuman
+CCitadel_Modifier_NonPlayerCamera
 CCitadel_Modifier_Objective_BulletReistVData
 CCitadel_Modifier_Objective_Bullet_Resist
 CCitadel_Modifier_Objective_HealthGrowth
@@ -15898,6 +15907,7 @@ CModifierHighAlertBuffVData
 CModifierHoldingGoldenIdolVData
 CModifierIcePathVData
 CModifierIntimidatedVData
+CModifierItemPickupAuraTargetVData
 CModifierKnockdownVData
 CModifierLashFlogDebuffVData
 CModifierLashGrappleEnemyDebuffVData
@@ -15906,6 +15916,7 @@ CModifierLevelFloat
 CModifierLevelInt
 CModifierLockDownDebuffVData
 CModifierNikumanVData
+CModifierNonPlayerCameraSettingsVData
 CModifierObscuredVData
 CModifierPowerGeneratorVData
 CModifierPowerJumpVData
@@ -18742,7 +18753,6 @@ DSO_set_filename
 DSO_set_name_converter
 DSO_up_ref
 DSS1
-DSilenceOnHeavyDuration
 DTLS1_ADD_CERT_TO_BUF
 DTLS1_BUFFER_RECORD
 DTLS1_GET_HELLO_VERIFY
@@ -21243,7 +21253,7 @@ FORM
 FORMAT
 FORWARD
 FOV2D
-FP!p
+FP-p
 FUNC_DOOR_SPAWN_CLOSED
 FUNC_DOOR_SPAWN_OPEN
 FU\n-XP
@@ -22304,7 +22314,6 @@ HAS FL_FLY
 HAS_LADDERS
 HB@T\tJ
 HBJ\nTRF
-HCCitadelPlayer_MovementServices
 HDR Color Scale: %0.3f
 HDRColorScale
 HEAD 
@@ -22478,6 +22487,7 @@ Have Entity say string, and teamOnly or not
 HbAta
 Hc S
 Hc8a"
+Hcitadel_draw_bot_safety
 HdEu
 Head
 HeadShotBonusDamage
@@ -27032,7 +27042,7 @@ P-256
 P-384
 P-521
 P08@J
-P08J0l.
+P08J0x.
 P08Nd
 P1\t98"
 P5[1
@@ -28175,7 +28185,7 @@ RUMBLE_SMG1
 RUMBLE_STOP_ALL
 R\n\nBookReward
 R\r1>Vp
-R\vCD(
+R\vCP(
 R\vpH
 R]Di
 RadiationThink
@@ -30252,6 +30262,7 @@ Signout temporarily failed for lobby %llu with status code %u. Backing off for r
 SilenceBombSpeed
 SilenceDuration
 SilenceOnDrain
+SilenceOnHeavyDuration
 SilenceRadius
 SimpleConstraintSoundProfile
 SimpleConstraintSoundProfile::SimpleConstraintsSoundProfileKeypoints_t
@@ -32276,7 +32287,7 @@ Ut]<E
 Uv1t
 Uz_G3=
 V07;m
-V0Mp
+V0Yp
 V2I_ASIDENTIFIERS
 V2I_AUTHORITY_INFO_ACCESS
 V2I_AUTHORITY_KEYID
@@ -33110,7 +33121,7 @@ XYD%
 X\tQo
 Xd3h
 XfJ7
-Xf`7p
+Xf`Cp
 XjfR
 XqgA+
 Xuub
@@ -34200,7 +34211,7 @@ Z~wl
 \n\vvalue_float
 \n\vversion_max
 \n\vversion_min
-\npI9
+\npU9
 \nqYu
 \ntM(ie-V
 \r!\r+\r-\r=\r?\rO\rU\ri\ry\r
@@ -34338,7 +34349,6 @@ Z~wl
 ^RB!r
 ^\n\ffloat_values
 ^\n\fmap_mappings
-^pQp
 _ClientLevel
 _ClientModifier
 _ClientModifierLevel
@@ -36518,7 +36528,6 @@ citadel_draw_bot_enemy
 citadel_draw_bot_follow_target
 citadel_draw_bot_full_path
 citadel_draw_bot_goal
-citadel_draw_bot_safety
 citadel_draw_cover_points
 citadel_draw_debug_guide_only
 citadel_draw_distant_trooper_nodes
@@ -39752,7 +39761,6 @@ h*Ax
 h0XB
 h2Wl
 h2n_\
-h3Bh
 h5N.
 hActivator
 hAttacker
@@ -42543,6 +42551,7 @@ m_DropDownStartParticle
 m_DropDownStartSound
 m_DropoffTimerModifier
 m_DroppedBuffModifier
+m_DummyCameraModifier
 m_Duration
 m_DurationAbilityPropOverride
 m_DurationModifier
@@ -42768,6 +42777,7 @@ m_GoalDampedSpringIntegrators
 m_GoalDamping
 m_GoalStrength
 m_GoldModifier
+m_GoldPerOrb
 m_GooGrenadeExplodeParticle
 m_GooGrenadeImpactModifier
 m_GooGrenadePuddleAuraModifier
@@ -52448,6 +52458,7 @@ modifier_neutral_debuff_pushback
 modifier_neutral_gold_pickup_aura
 modifier_neutral_shield
 modifier_nikuman
+modifier_non_player_camera
 modifier_obscured
 modifier_obscured_by_steam
 modifier_one_vs_one
@@ -52757,8 +52768,8 @@ muzzle_static_fx
 mvp_map_override
 my_hero
 mzP"T
-n 5p
 n < (int)sizeof(ctx->enc_data)
+n Ap
 n does not equal p q
 n0?X
 n1Z 
@@ -52766,7 +52777,7 @@ n5cM
 n6j/
 n:2C[
 n@PK
-n@Up
+n@ap
 nAlpha
 nAsyncRet1
 nBegin
@@ -53823,7 +53834,7 @@ p4Z3
 p5Z3
 p5\nL,
 p618
-p6@,p
+p6@8p
 p@0pqE5tsO?|1
 pAsyncRet2
 pAttachment
@@ -54791,7 +54802,7 @@ r-IE
 r184
 r3A~
 r<\rND
-r@G9
+r@S9
 rAGW
 rB2pBB
 rC3rp
@@ -57602,7 +57613,6 @@ util4
 util5
 uvs are all identical
 uxX/
-v Sp
 v'A>M6
 v)56
 v0o/5
@@ -58055,7 +58065,6 @@ z/B,9d
 z<d2
 z>Hz
 zDDuring post-cast, what modifier states are set.
-zDm_GoldPerOrb
 zF):O4
 zFar
 zG2m8
