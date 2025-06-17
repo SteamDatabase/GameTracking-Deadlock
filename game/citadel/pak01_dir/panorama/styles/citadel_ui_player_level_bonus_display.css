@@ -4,7 +4,6 @@ CitadelPlayerLevelDisplay
 {
 	flow-children: right;
 	width: fit-children;
-	height: 100%;
 	color: offWhite;
 }
 
@@ -13,56 +12,146 @@ CitadelPlayerLevelDisplay Label
 	color: offWhite;
 }
 
-#BarContainer
-{
-	width: 150px;
-	height: fit-children;
-	background-color: #333333;
-	padding: 10px 0px 0px 0px;
-}
-
-.fadeOut
+#LevelBarAndProgress
 {
 	width: 100%;
 	height: 200px;
-	background-color: gradient( linear, 0% 0%, 0% 100%, from( #333333 ), to( #33333300 ) );
-	margin-top: -10px;
-}
-
-#LegendContainer
-{
-	background-color: #476666;
-	height: 100%;
-	width: 200px;
-	flow-children: down;
-	padding: 20px;
-}
-
-.Legend
-{
-	flow-children: down;
-	width: 100%;
 	margin-top: 20px;
 }
 
-.legendText
+#PlayerLevel
+{
+	vertical-align: middle;
+	horizontal-align: middle;
+	ui-scale: 200%;
+}
+
+.toNext
+{
+	horizontal-align: center;
+	font-weight: bold;
+	color: shardColor;
+}
+
+.maxRewards
+{
+	visibility: collapse;
+	horizontal-align: center;
+	font-weight: bold;
+	color: shardColor;
+}
+
+.atMaxRewards .toNext
+{
+	visibility: collapse;
+}
+
+.atMaxRewards .maxRewards
+{
+	visibility: visible;
+}
+
+#LevelContainer
+{
+	width: 200px;
+	height: 100%;
+	padding-top: 20px;
+	background-color: #111111;
+	flow-children: down;
+	visibility: collapse;
+}
+
+.connectedToGame #LevelContainer
+{
+	visibility: visible;
+}
+
+#TotalGold
+{
+	vertical-align: bottom;
+	width: 100%;
+	background-color: shardColor&20;
+	padding: 10px;
+}
+
+.totalGold
+{
+	font-size: 14px;
+	font-weight: bold;
+	color: offWhite&60;
+	horizontal-align: middle;
+}
+
+#RewardsContainer
+{
+	background-color: black;
+	height: fit-children;
+	width: 500px;
+	flow-children: down;
+}
+
+.RewardsTop
+{
+	background-color: offBlack;
+	flow-children: down;
+	width: 100%;
+	margin-top: 0px;
+	padding: 10px;
+}
+
+.rewardsTitle
 {
 	text-transform: uppercase;
 	text-align: center;
 	horizontal-align: center;
 	font-weight: bold;
-	letter-spacing: 1px;
-	font-size: 16px;
-	opacity: 0.5;
+	font-size: 24px;
 }
 
-.legendItem
+.rewardsSub
+{
+	text-align: center;
+	horizontal-align: center;
+	font-weight: medium;
+	font-size: 16px;
+	opacity: 0.8;
+}
+
+#AP_Rewards
 {
 	flow-children: right;
-	margin: 5px 0px 5px 20px;
-	min-height: 50px;
-	width: 100%;
-	horizontal-align: center;
+	horizontal-align: middle;
+	vertical-align: middle;
+	padding: 20px;
+}
+
+#AP_Rewards #TextArea
+{
+	flow-children: down;
+}
+
+.rewardName
+{
+	text-align: left;
+	font-style: italic;
+	font-weight: semi-bold;
+}
+
+.unlockNote
+{
+	font-size: 16px;
+	opacity: 0.4;
+	font-style: italic;
+	font-weight: semi-bold;
+}
+
+.APicons
+{
+	vertical-align: middle;
+	font-style: italic;
+	font-weight: semi-bold;
+	color: offWhite&30;
+	font-size: 18px;
 }
 
 .rewardIcon
@@ -76,14 +165,14 @@ CitadelPlayerLevelDisplay Label
 	background-position: center;
 }
 
-#APLegend .rewardIcon
+.iconAP.rewardIcon
 {
 	wash-color: spiritLightColor;
 	background-image: url("s2r://panorama/images/hud/ap_icon.vsvg");
 	background-size: 80% 80%;
 }
 
-#AbilityLegend .rewardIcon
+.iconUnlock.rewardIcon
 {
 	background-image: url("s2r://panorama/images/hud/unlock_icon.vsvg");
 	wash-color: spiritLightColor;
@@ -98,8 +187,9 @@ CitadelPlayerLevelDisplay Label
 
 .BonusesContainer
 {
+	background-color: black;
 	height: fit-children;
-	vertical-align: center;
+	width: 100%;
 }
 
 #PlayerLevelRewards
@@ -161,16 +251,6 @@ CitadelPlayerLevelDisplay Label
 	margin-left: 7px;
 }
 
-.levelRewardImage
-{
-	height: 32px;
-	width: 32px;
-	background-size: 60% 60%;
-	background-repeat: no-repeat;
-	background-position: 50% 50%;
-	horizontal-align: center;
-}
-
 .abilityUnlock .levelRewardImage,.ultimateUnlock .levelRewardImage
 {
 	background-image: url("s2r://panorama/images/hud/unlock_icon.vsvg");
@@ -185,17 +265,28 @@ CitadelPlayerLevelDisplay Label
 	background-size: 75% 58%;
 }
 
+#HeroScalingImage
+{
+	width: 80px;
+	height: 60px;
+	vertical-align: bottom;
+	margin-bottom: 20px;
+	z-index: 10;
+	margin-left: 20px;
+}
+
+#HeroImage
+{
+	height: 100%;
+	horizontal-align: right;
+}
+
 .levelRewardBolt
 {
-	height: 16px;
-	width: 16px;
-	background-image: url("s2r://panorama/images/hud/ap_icon.vsvg");
-	wash-color: #595855;
-	background-size: 100% 100%;
-	vertical-align: center;
-	opacity: 0;
-	wash-color: spiritBrightColor;
-	margin-left: 5px;
+	background-image: url("s2r://panorama/images/shop/keystat_boon_arrow_png.vtex");
+	height: 100%;
+	width: 100%;
+	background-repeat: no-repeat;
 }
 
 .abilityPoint .levelRewardBolt
@@ -236,71 +327,36 @@ CitadelPlayerLevelDisplay Label
 	font-weight: bold;
 }
 
-.bonusContainer
-{
-	flow-children: right;
-}
-
-.BonusText
-{
-	font-size: 24px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	color: #B2B0AA;
-	vertical-align: center;
-	margin-left: 10px;
-}
-
 .boldText
 {
 	font-weight: bold;
 	color: #FFFFFF;
-}
-
-.bonusImage
-{
-	height: 40px;
-	width: 40px;
-	vertical-align: center;
-	background-repeat: no-repeat;
-	background-position: 50% 50%;
-	overflow: noclip;
-}
-
-.HeroBonusContainer .bonusImage
-{
-	horizontal-align: center;
+	font-style: normal;
 }
 
 .HeroBonusContainer
 {
-	background-color: offBlack;
-	padding: 20px 10px;
+	padding: 10px;
+	width: 100%;
 }
 
-.weaponPowerImage
+#StatBonusTitle
 {
-	background-image: url("s2r://panorama/images/shop/icon_powerincrease_png.vtex");
-	background-size: 60% 60%;
-	background-size: contain;
+	flow-children: down;
+	horizontal-align: center;
 }
 
-.abilityUnlockImage
+#StatBonuses
 {
-	background-image: url("s2r://panorama/images/control_icons/ability_unlock_png.vtex");
-	background-size: 80% 80%;
-}
-
-.abilityPointBoltImage
-{
-	background-image: url("s2r://panorama/images/hud/ap_icon.vsvg");
-	background-size: 80% 80%;
-	wash-color: #00FFFF;
+	flow-children: right-wrap;
+	padding: 0px 20px 20px 20px;
 }
 
 .BonusRow
 {
-	margin: 5px 0px;
+	margin: 5px;
+	width: 210px;
+	padding: 10px 0px;
 }
 
 .HeroBonusValue
@@ -312,13 +368,26 @@ CitadelPlayerLevelDisplay Label
 	color: offWhite;
 }
 
+.bonusImage
+{
+	height: 30%;
+	width: 30%;
+	background-repeat: no-repeat;
+	overflow: noclip;
+	z-index: 10;
+	margin-top: 165px;
+	margin-left: 35px;
+}
+
 .HeroBonusText
 {
 	horizontal-align: center;
 	text-align: center;
-	font-weight: medium;
+	font-weight: semi-bold;
 	font-size: 17px;
-	opacity: 0.5;
+	opacity: 0.4;
+	text-overflow: shrink;
+	max-width: 200px;
 }
 
 .Language_japanese .HeroBonusText
@@ -351,5 +420,10 @@ CitadelPlayerLevelDisplay Label
 .bulletResistUpgrade .BulletResist,.techResistUpgrade .TechResist,.weaponRangeUpgrade .WeaponRange
 {
 	visibility: visible;
+}
+
+.spirit_color
+{
+	color: spiritBrightColor;
 }
 

@@ -3,6 +3,8 @@
 	<styles>
 		<include src="s2r://panorama/styles/citadel_base_styles.vcss_c" />
 		<include src="s2r://panorama/styles/citadel_ui_player_level_bonus_display.vcss_c" />
+		<include src="s2r://panorama/styles/ability_property_icons.vcss_c" />
+		<include src="s2r://panorama/styles/tooltips/citadel_tooltip_mod_details.vcss_c" />
 	</styles>
 	<snippets>
 		<snippet name="LevelBonusReward">
@@ -14,72 +16,92 @@
 		</snippet>
 	</snippets>
 	<CitadelPlayerLevelDisplay>
-		<Panel id="BarContainer">
-			<Panel id="PlayerLevelRewards">
-				<ProgressBar id="LevelProgressBar" vertical="true" />
-				<Panel id="LevelRewardsContainer" />
+		<Panel id="LevelContainer">
+			<Label class="rewardsTitle" text="#Citadel_Player_Level_Title" />
+			<Panel id="LevelBarAndProgress">
+				<CitadelPlayerLevel id="PlayerLevel" />
+				<Panel id="HeroScalingImage">
+					<Panel class="levelRewardBolt" />
+					<CitadelHeroImage id="HeroImage" />
+				</Panel>
+			</Panel>
+			<Label class="toNext" text="#Citadel_Player_Level_ToNext" />
+			<Label class="maxRewards" text="#Citadel_Player_Level_MaxRewards" />
+			<Panel id="TotalGold">
+				<Label class="totalGold" text="#Citadel_Player_Level_TotalGold" />
 			</Panel>
 		</Panel>
-		<Panel id="LegendContainer">
-			<Panel class="Legend">
-				<Label class="legendText" text="#Citadel_Player_Level_Legend" />
-				<Panel id="APLegend" class="legendItem">
-					<Panel class="rewardIcon" />
-					<Label class="rewardText" text="#Citadel_Player_Level_AP" />
-				</Panel>
-				<Panel id="AbilityLegend" class="legendItem">
-					<Panel class="rewardIcon" />
-					<Label class="rewardText" text="#Citadel_Player_Level_AbilityUnlock" />
-				</Panel>
-				<Panel id="PILegend" class="legendItem">
-					<CitadelHeroImage id="HeroImage" class="rewardIcon" />
-					<Label class="rewardText" text="#Citadel_Player_Level_PowerIncrease" />
+		<Panel id="RewardsContainer">
+			<Panel class="RewardsTop">
+				<Label class="rewardsTitle" text="#Citadel_Player_Level_RewardsTitle" />
+				<Label class="rewardsSub" text="#Citadel_Player_Level_RewardsSubhead" />
+				<Panel id="AP_Rewards">
+					<Label class="APicons" text="#Citadel_Player_Level_AP_Rewards_Visuals" html="true" />
+					<Panel id="TextArea">
+						<Label class="rewardName" text="#Citadel_Player_Level_AP_Rewards" html="true" />
+						<Label class="unlockNote" text="#Citadel_Player_Level_AP_Rewards_UnlockNote" />
+					</Panel>
 				</Panel>
 			</Panel>
 			<Panel class="BonusesContainer">
-				<Panel class="bonusContainer">
-					<Panel class="bonusImage abilityPointBoltImage" />
-					<Label class="BonusText" text="#Citadel_Player_Level_APShort" html="true" />
-				</Panel>
-				<Panel class="bonusContainer">
-					<Panel class="bonusImage abilityUnlockImage" />
-					<Label class="BonusText" text="#Citadel_Player_Level_AbilityUnlocksShort" html="true" />
-				</Panel>
-				<Panel class="bonusContainer">
-					<Panel class="bonusImage weaponPowerImage" />
-					<Label class="BonusText" text="#Citadel_Player_Level_PowerIncrease" html="true" />
-				</Panel>
 				<Panel class="HeroBonusContainer TopBottomFlow">
-					<CitadelHeroImage id="BonusHeroImage" class="bonusImage" />
-					<Label class="HeroName" text="{s:hero_name}" html="true" />
-					<Label class="PowerIncreases HeroBonusText" text="#Citadel_Player_Level_PowerIncreaseGrants" html="true" />
-					<Panel class="BonusRow TopBottomFlow AlignHorizontalCenter">
-						<Label class="HeroBonusValue" text="+{s:weapon_bonus}" html="true" />
-						<Label class="HeroBonusText" text="#Citadel_Player_Level_BaseBullet" />
+					<Panel id="StatBonusTitle">
+						<Label class="HeroName" text="#Citadel_Player_Level_StatIncreases" html="true" />
+						<Label class="PowerIncreases HeroBonusText" text="#Citadel_Player_Level_StatMax" html="true" />
 					</Panel>
-					<Panel class="BonusRow TopBottomFlow AlignHorizontalCenter">
-						<Label class="HeroBonusValue" text="+{s:melee_bonus}" html="true" />
-						<Label class="HeroBonusText" text="#Citadel_Player_Level_BaseMelee" />
-					</Panel>
-					<Panel class="BonusRow TopBottomFlow AlignHorizontalCenter">
-						<Label class="HeroBonusValue" text="+{s:tech_bonus}" html="true" />
-						<Label class="HeroBonusText" text="#Citadel_Player_Level_SpiritPower" />
-					</Panel>
-					<Panel class="BonusRow TopBottomFlow AlignHorizontalCenter">
-						<Label class="HeroBonusValue" text="+{s:health_bonus}" html="true" />
-						<Label class="HeroBonusText" text="#Citadel_Player_Level_BaseHealth" />
-					</Panel>
-					<Panel class="BonusRow TopBottomFlow AlignHorizontalCenter BulletResist">
-						<Label class="HeroBonusValue" text="+{s:bullet_resist_bonus}" html="true" />
-						<Label class="HeroBonusText" text="#Citadel_Player_Level_BulletResist" />
-					</Panel>
-					<Panel class="BonusRow TopBottomFlow AlignHorizontalCenter TechResist">
-						<Label class="HeroBonusValue" text="+{s:tech_resist_bonus}" html="true" />
-						<Label class="HeroBonusText" text="#Citadel_Player_Level_TechResist" />
-					</Panel>
-					<Panel class="BonusRow TopBottomFlow AlignHorizontalCenter WeaponRange">
-						<Label class="HeroBonusValue" text="+{s:weapon_range_bonus}" html="true" />
-						<Label class="HeroBonusText" text="#Citadel_Player_Level_WeaponRange" />
+					<Panel id="StatBonuses">
+						<Panel class="BonusRow TopBottomFlow AlignHorizontalCenter">
+							<Panel class="ImportantStatContent TopBottomFlow">
+								<Panel class="ImportantStatImageValueContainer LeftRightFlow prop_bullet_damage">
+									<Panel class="ImportantStatImage" />
+									<Label class="HeroBonusValue" text="+{s:weapon_bonus}" html="true" />
+								</Panel>
+								<Label class="HeroBonusText" text="#Citadel_Player_Level_BaseBullet" />
+							</Panel>
+						</Panel>
+						<Panel class="BonusRow TopBottomFlow AlignHorizontalCenter">
+							<Panel class="ImportantStatImageValueContainer LeftRightFlow prop_melee_damage">
+								<Panel class="ImportantStatImage" />
+								<Label class="HeroBonusValue" text="+{s:melee_bonus}" html="true" />
+							</Panel>
+							<Label class="HeroBonusText" text="#Citadel_Player_Level_BaseMelee" />
+						</Panel>
+						<Panel class="BonusRow TopBottomFlow AlignHorizontalCenter">
+							<Panel class="ImportantStatImageValueContainer LeftRightFlow prop_tech_damage">
+								<Panel class="ImportantStatImage" />
+								<Label class="HeroBonusValue" text="+{s:tech_bonus}" html="true" />
+							</Panel>
+							<Label class="HeroBonusText" text="#Citadel_Player_Level_SpiritPower" />
+						</Panel>
+						<Panel class="BonusRow TopBottomFlow AlignHorizontalCenter">
+							<Panel class="ImportantStatImageValueContainer LeftRightFlow prop_health">
+								<Panel class="ImportantStatImage" />
+								<Label class="HeroBonusValue" text="+{s:health_bonus}" html="true" />
+							</Panel>
+							<Label class="HeroBonusText" text="#Citadel_Player_Level_BaseHealth" />
+						</Panel>
+						<Panel class="BonusRow TopBottomFlow AlignHorizontalCenter BulletResist">
+							<Panel class="ImportantStatImageValueContainer LeftRightFlow prop_bullet_armor_up">
+								<Panel class="ImportantStatImage" />
+								<Label class="HeroBonusValue" text="+{s:bullet_resist_bonus}" html="true" />
+							</Panel>
+							<Label class="HeroBonusText" text="#Citadel_Player_Level_BulletResist" />
+						</Panel>
+						<Panel class="BonusRow TopBottomFlow AlignHorizontalCenter TechResist">
+							<Panel class="ImportantStatImageValueContainer LeftRightFlow prop_tech_armor_up">
+								<Panel class="ImportantStatImage" />
+								<Label class="HeroBonusValue" text="+{s:tech_resist_bonus}" html="true" />
+							</Panel>
+							<Label class="HeroBonusText" text="#Citadel_Player_Level_TechResist" />
+						</Panel>
+						<Panel class="BonusRow TopBottomFlow AlignHorizontalCenter WeaponRange">
+							<Panel class="ImportantStatImageValueContainer LeftRightFlow prop_range">
+								<Panel class="ImportantStatImage" />
+								<Label class="HeroBonusValue" text="+{s:weapon_range_bonus}" html="true" />
+							</Panel>
+							<Label class="HeroBonusText" text="#Citadel_Player_Level_WeaponRange" />
+						</Panel>
+						<Panel class="BonusRow TopBottomFlow AlignHorizontalCenter" />
 					</Panel>
 				</Panel>
 			</Panel>
