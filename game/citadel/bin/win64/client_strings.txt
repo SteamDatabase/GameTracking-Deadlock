@@ -83,9 +83,8 @@
  (%d)Unknown
  (%ld unused bits)\n
  (+%d more due to usercommand delivery)
- (08@HPXb
- (08@HR
- (0X`hpz
+ (08@HPX`j0[
+ (08@HPZ0[
  (Dirty Animation)
  (INVALID PSS PARAMETERS)\n
  (Negative)
@@ -1078,6 +1077,13 @@
 #Citadel_StopMatchMaking_ErrorTitle
 #Citadel_StopMatchMaking_FailedToGetResponse
 #Citadel_StopMatchMaking_GeneralError
+#Citadel_Survey_Question_HeroPlayAgainst
+#Citadel_Survey_Question_HeroPlayAgainst_
+#Citadel_Survey_Question_ItemDesign
+#Citadel_Survey_Question_ItemDesign_
+#Citadel_Survey_Question_ItemPower
+#Citadel_Survey_Question_ItemPower_
+#Citadel_Survey_Question_MoreFunHero
 #Citadel_Team1_Name
 #Citadel_Team1_Name_Uppercase
 #Citadel_Team2_Name
@@ -1997,7 +2003,9 @@ $hRh
 %sCooldown : %.1f
 %sDropDownMenu
 %sGameTime_t differs (net %g pred %g) diff(%g)
+%sHighLabel
 %sIMEControls
+%sLowLabel
 %sNavButton
 %sTimeScale : %.4f
 %s[%d]: Trace[%d] fraction: %f, entity: %s, hitbox: %d, startsolid: %d\n
@@ -2078,6 +2086,7 @@ $hRh
 &V6J
 &Ylb
 &\n!k_EMsgClientToGCDevActionResponse
+&\n!k_EMsgClientToGCGetSurveyQuestion
 &\n!k_EMsgClientToGCLookupAccountName
 &\n!k_EMsgClientToGCPartyJoinResponse
 &\n!k_EMsgClientToGCUpdateAccountSync
@@ -2343,6 +2352,7 @@ $hRh
 (\r"e\n'CMsgSteamLearn_SnapshotProject_Response
 (\r"i\n"CMsgGCToGCPerformManualOpCompleted
 (\r"n\n\fCMsgTESparks
+(\r"p\n\rEQuestionType
 (\r"p\n\tEResponse
 (\r"s\n\rCMsgTEBubbles
 (\r"x\n'CMsgClearDecalsForSkeletonInstanceEvent
@@ -2693,6 +2703,7 @@ $hRh
 )\n$k_EMsgClientToGCSetItemStyleResponse
 )\n$k_EMsgClientToGCSetNewPlayerProgress
 )\n$k_EMsgClientToGCSpectateUserResponse
+)\n$k_EMsgClientToGCSubmitSurveyResponse
 )\n$k_EMsgClientToGCTarotDevModifyEnergy
 )\n$k_EMsgClientToGCUnpackBundleResponse
 )\n$k_EMsgClientToGCUpdateRosterResponse
@@ -3112,8 +3123,9 @@ $hRh
 ../src/devtools/bin/certificates/game/
 ..CPlayer_GetNewSteamAnnouncementState_Response"_
 ..uR5&m
-.05k
-.06k
+.0Rk
+.0Uk
+.0rk
 .4bb
 .97yY
 .?AU?$CameraOp_Approach_t@M@@
@@ -4618,6 +4630,8 @@ $hRh
 .?AV?$CMsgIDLink@$00$0BA@$0CEAO@VCMsgClientToGCRequestCheatReports@@@@
 .?AV?$CMsgIDLink@$00$0BA@$0CEBC@VCMsgClientToGCGetHeroMMRRankings@@@@
 .?AV?$CMsgIDLink@$00$0BA@$0CEBE@VCMsgClientToGCGetLeaderboard@@@@
+.?AV?$CMsgIDLink@$00$0BA@$0CEDD@VCMsgClientToGCGetSurveyQuestion@@@@
+.?AV?$CMsgIDLink@$00$0BA@$0CEDF@VCMsgClientToGCSubmitSurvey@@@@
 .?AV?$CMsgIDLink@$02$0BA@$0BLFI@VCMsgAnyToGCReportAsserts@@@@
 .?AV?$CMsgIDLink@$0BA@$00$0KCH@VCMsgGCToClientCurrencyPricePoints@@@@
 .?AV?$CMsgIDLinkGCToGenericClient@$00$0KCH@VCMsgGCToClientCurrencyPricePoints@@@@
@@ -4670,6 +4684,8 @@ $hRh
 .?AV?$CMsgIDLinkGenericClientToGCResponse@$00$0CEAO@VCMsgClientToGCRequestCheatReports@@$0CEAP@VCMsgClientToGCRequestCheatReportsResponse@@@@
 .?AV?$CMsgIDLinkGenericClientToGCResponse@$00$0CEBC@VCMsgClientToGCGetHeroMMRRankings@@$0CEBD@VCMsgClientToGCGetHeroMMRRankingsResponse@@@@
 .?AV?$CMsgIDLinkGenericClientToGCResponse@$00$0CEBE@VCMsgClientToGCGetLeaderboard@@$0CEBF@VCMsgClientToGCGetLeaderboardResponse@@@@
+.?AV?$CMsgIDLinkGenericClientToGCResponse@$00$0CEDD@VCMsgClientToGCGetSurveyQuestion@@$0CEDE@VCMsgClientToGCGetSurveyQuestionResponse@@@@
+.?AV?$CMsgIDLinkGenericClientToGCResponse@$00$0CEDF@VCMsgClientToGCSubmitSurvey@@$0CEDG@VCMsgClientToGCSubmitSurveyResponse@@@@
 .?AV?$CMsgIDLinkGenericClientToGCResponse@$02$0BLFI@VCMsgAnyToGCReportAsserts@@$0BLFJ@VCMsgAnyToGCReportAssertsResponse@@@@
 .?AV?$CMsgIDLinkResponse@$00$0BA@$0CDDC@VCMsgClientToGCStartMatchmaking@@$0CDDD@VCMsgClientToGCStartMatchmakingResponse@@@@
 .?AV?$CMsgIDLinkResponse@$00$0BA@$0CDDE@VCMsgClientToGCStopMatchmaking@@$0CDDF@VCMsgClientToGCStopMatchmakingResponse@@@@
@@ -4716,6 +4732,8 @@ $hRh
 .?AV?$CMsgIDLinkResponse@$00$0BA@$0CEAO@VCMsgClientToGCRequestCheatReports@@$0CEAP@VCMsgClientToGCRequestCheatReportsResponse@@@@
 .?AV?$CMsgIDLinkResponse@$00$0BA@$0CEBC@VCMsgClientToGCGetHeroMMRRankings@@$0CEBD@VCMsgClientToGCGetHeroMMRRankingsResponse@@@@
 .?AV?$CMsgIDLinkResponse@$00$0BA@$0CEBE@VCMsgClientToGCGetLeaderboard@@$0CEBF@VCMsgClientToGCGetLeaderboardResponse@@@@
+.?AV?$CMsgIDLinkResponse@$00$0BA@$0CEDD@VCMsgClientToGCGetSurveyQuestion@@$0CEDE@VCMsgClientToGCGetSurveyQuestionResponse@@@@
+.?AV?$CMsgIDLinkResponse@$00$0BA@$0CEDF@VCMsgClientToGCSubmitSurvey@@$0CEDG@VCMsgClientToGCSubmitSurveyResponse@@@@
 .?AV?$CMsgIDLinkResponse@$02$0BA@$0BLFI@VCMsgAnyToGCReportAsserts@@$0BLFJ@VCMsgAnyToGCReportAssertsResponse@@@@
 .?AV?$CMutableRefCountBase@VCRefMT@@@@
 .?AV?$CMutableRefCounted@V?$CMutableRefCountBase@VCRefMT@@@@@@
@@ -6025,6 +6043,7 @@ $hRh
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??RequestCurrentData@?$CAsyncDataCache@VMatchID_t@@VCMsgClientToGCGetMatchMetaDataResponse@@@@QEAAPEBVCMsgClientToGCGetMatchMetaDataResponse@@AEBVMatchID_t@@@Z@@GCSDK@@
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??RequestReplayDownload@CCitadelReplayManager@@QEAAXAEBUReplayInfo_t@3@W4CMsgCitadelMatch_ReplayState@@@Z@@GCSDK@@
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??RequestReplayExistence@CCitadelReplayManager@@QEAAXAEBUReplayInfo_t@3@_N@Z@@GCSDK@@
+.?AV?$GCClientJobLambda@V<lambda_1>@?1??RequestSurveyQuestion@CAccountSurveyManager@@QEAAXXZ@@GCSDK@@
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??ResetCrosshairSettings@CCitadel_PopupSettings@@AEAA_NXZ@@GCSDK@@
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??ScheduleBatchRequest@?$CAsyncDataCache@IVCMsgAccountStats@@@@AEAAXM@Z@@GCSDK@@
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??ScheduleBatchRequest@?$CAsyncDataCache@IVCMsgCitadelProfileCard@@@@AEAAXM@Z@@GCSDK@@
@@ -6052,6 +6071,7 @@ $hRh
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??SpectateUser@CCitadel_PlayController@@QEAAXI@Z@@GCSDK@@
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??StartMMKeepAliveCheck@CCitadel_PlayController@@QEAAXXZ@@GCSDK@@
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??StartRequestReplayExistence@CCitadelReplayManager@@QEAAX_K@Z@@GCSDK@@
+.?AV?$GCClientJobLambda@V<lambda_1>@?1??SubmitSurveyResponse@CAccountSurveyManager@@QEAAX_NI@Z@@GCSDK@@
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??Update@CCitadelClientAccountEvent@@QEAAXXZ@@GCSDK@@
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??UpdateMatchmakingRoster@CCitadel_PlayController@@QEAAXAEBV?$CUtlVector@URosterSlot_t@@HV?$CUtlMemory@URosterSlot_t@@H$0A@@@@@@Z@@GCSDK@@
 .?AV?$GCClientJobLambda@V<lambda_1>@?1??citadel_build_tag_picker@@YAXAEBVCCommandContext@@AEBVCCommand@@@Z@@GCSDK@@
@@ -8483,6 +8503,7 @@ $hRh
 .?AVCCitadel_Tooltip_StatsPanel@@
 .?AVCCitadel_Tooltip_TierBonus@@
 .?AVCCitadel_UI_AbilityOrder@@
+.?AVCCitadel_UI_AccountSurvey@@
 .?AVCCitadel_UI_AchievementPage@@
 .?AVCCitadel_UI_Announcement@@
 .?AVCCitadel_UI_AnnouncementList@@
@@ -9426,6 +9447,8 @@ $hRh
 .?AVCMsgClientToGCGetOldHeroBuildDataResponse_OldBuild@@
 .?AVCMsgClientToGCGetOldHeroBuildDataResponse_OldDetails_V0@@
 .?AVCMsgClientToGCGetProfileCard@@
+.?AVCMsgClientToGCGetSurveyQuestion@@
+.?AVCMsgClientToGCGetSurveyQuestionResponse@@
 .?AVCMsgClientToGCGrantForumAccess@@
 .?AVCMsgClientToGCGrantForumAccessResponse@@
 .?AVCMsgClientToGCIntegrityStatus@@
@@ -9496,6 +9519,8 @@ $hRh
 .?AVCMsgClientToGCStopMatchmakingResponse@@
 .?AVCMsgClientToGCSubmitPlaytestUser@@
 .?AVCMsgClientToGCSubmitPlaytestUserResponse@@
+.?AVCMsgClientToGCSubmitSurvey@@
+.?AVCMsgClientToGCSubmitSurveyResponse@@
 .?AVCMsgClientToGCUnlockCrate@@
 .?AVCMsgClientToGCUnlockCrateResponse@@
 .?AVCMsgClientToGCUnlockCrateResponse_Item@@
@@ -9940,6 +9965,7 @@ $hRh
 .?AVCMsgSteamLearn_RegisterDataSource_Response@@
 .?AVCMsgSteamLearn_SnapshotProject_Request@@
 .?AVCMsgSteamLearn_SnapshotProject_Response@@
+.?AVCMsgSurveyQuestion@@
 .?AVCMsgTEArmorRicochet@@
 .?AVCMsgTEBSPDecal@@
 .?AVCMsgTEBaseBeam@@
@@ -11580,6 +11606,7 @@ $hRh
 .CMsgSteamLearnDataSource"
 .CMsgSteamLearnDataSource"[\n CMsgSteamLearn_CacheData_Request
 .CMsgSteamLearnServerInfo
+.CMsgSurveyQuestion"?\n
 .CMsgTEBaseBeam
 .CMsgWebAPIKey
 .CPlayer_AcceptSSA_Request
@@ -11652,10 +11679,8 @@ $hRh
 .GCProtoBufMsgSrc
 .HCK\v
 .MODIFIER_ENTRY_TYPE
-.P5k
 .P6A?AVCTransform@@AEBV0@0@Z
 .P6AXPEAVCSceneObject@@@Z
-.P6k
 .PARTICLE_MESSAGE
 .PEAV?$CUtlVector@ULifetimeHighScore_t@CCitadelAccountStatCache@@HV?$CUtlMemory@ULifetimeHighScore_t@CCitadelAccountStatCache@@H$0A@@@@@
 .PEAVCBaseModifier@@
@@ -11674,7 +11699,8 @@ $hRh
 .PEBVCMsgMatchMetaDataContents_Players@@
 .PEBVCPanel2D@panorama@@
 .PEBVILocalizationString@panorama@@
-.PLk
+.PSk
+.PUk
 .PartnerAccountType
 .PerFriendPreferences"*\n(CPlayer_SetPerFriendPreferences_Response"c\n
 .PerFriendPreferences"U\n'CPlayer_SetPerFriendPreferences_Request
@@ -11922,6 +11948,7 @@ $hRh
 .\crypto\x509v3\v3_utl.c
 .\n)k_ECitadelDisconnectReason_ChangingServer
 .\n)k_ECitadelDisconnectReason_UserLeaveMatch
+.\n)k_EMsgClientToGCGetSurveyQuestionResponse
 .\n)k_EMsgClientToGCLookupAccountNameResponse
 .\n)k_EMsgClientToGCTarotDevGenerateTestTiles
 .\n)k_EMsgClientToGCUpdateAccountSyncResponse
@@ -11976,9 +12003,7 @@ $hRh
 .google.protobuf.ServiceOptions
 .kv3
 .lbN
-.p4k
-.p6k
-.pCk
+.pSk
 .png
 .pp@0
 .steammessages_unified_base.steamworkssdk.proto"
@@ -12054,17 +12079,19 @@ $hRh
 0.CPlayer_UpdateSteamAnnouncementLastRead_Request
 02V8[
 05=k
-08@J
+08@HR0[
+08B0[
 08bX
 09,h
 0: (V0) Legacy save format, 1: (V1) KeyValues3 save format
 0: Automatic (Default) - switch glyphs when a keyboard bind or controller bind activates. 1: Keyboard and Mouse only. 2: Controller Only
 0: Chose direction based solely on camera angle. 1: Chose direction at the moment of attachment, using the player's movement direction.
 0: Classic, 1: New. 2: New Plus debug
+0: Off. 1: Show Stand-up trace. 2: Show stand up to ideal ParrotPos. 3: Show Parrot Pos to Desired Pos (cyan)
 0;Q5[
 0<cz
-0> dk
-0@2e
+0>pBk
+0L|e
 0M2~@p
 0Marks latest announcement timestamp read by user
 0Name of the file to publish in the user's cloud.
@@ -12097,10 +12124,8 @@ $hRh
 0\n\vstyle_index
 0\r%0h
 0\r0#0)070;0U0Y0[0g0q0y0}0
-0dXe
 0e\r8
 0pp@5tqE?|sO541
-0tNe
 0tU+xc:
 0x%4.4x 
 0x%X
@@ -12175,6 +12200,7 @@ $hRh
 2 .PARTICLE_SYSTEM_MANAGER_MESSAGE
 2!.CMsgAddSocketResponse.EAddSocket"
 2!.CMsgGCMsgSetOptions.GCSQLVersion
+2!.CMsgSurveyQuestion.EQuestionType
 2!.ESteamLearnGetAccessTokensResult
 2!.ESteamLearnSnapshotProjectResult"
 2".CMsgClientToGCPartyAction.EAction
@@ -12203,6 +12229,7 @@ $hRh
 2*.CMsgClientToGCPartyJoinResponse.EResponse
 2*.CMsgClientToGCPartyJoinResponse.EResponse"
 2+.CMsgClientToGCPartyLeaveResponse.EResponse"Z\n\tEResponse
+2+.CMsgClientToGCSubmitSurveyResponse.EResult
 2+.CMsgResetStrangeGemCountResponse.EResetGem"
 2+~,@\r;Zj09
 2,.CMsgClientToGCGetHeroChoiceResponse.EResult
@@ -12223,12 +12250,14 @@ $hRh
 2/.CMsgClientToGCGetMatchMetaDataResponse.EResult
 2/.CMsgGameServerToClientConnectionStatus.EStatus
 20.CMsgClientToGCDeleteHeroBuildResponse.EResponse
+20.CMsgClientToGCGetSurveyQuestionResponse.EResult
 20.CMsgClientToGCModifyDevAnnouncements.EOperation
 20.CMsgClientToGCPartyInviteUserResponse.EResponse
 20.CMsgClientToGCPartyStartMatchResponse.EResponse
 20.CMsgClientToGCReportPlayerFromMatch.EReportType
 20.CMsgClientToGCUpdateHeroBuildResponse.EResponse
 200 200 200 196
+204%
 20t\f
 20x9
 21.CMsgClientToGCGetHeroMMRRankingsResponse.EResult
@@ -12269,6 +12298,7 @@ $hRh
 2Array of text tags to apply to the published file.
 2I y)
 2If true, return vote data in the returned details.
+2PB!
 2Set of published file Ids to retrieve details for.
 2Tm=#
 2Uiwp"9
@@ -12304,7 +12334,6 @@ $hRh
 2\r.ECommendType
 2\rlhp
 2\vp!G
-2\vpdXe
 2^pV
 2a"l
 2bT~
@@ -12425,14 +12454,14 @@ $hRh
 5s\nl
 5t?F
 5~EW
+6 Zk
 6#6165676;6M6O6S6Y6a6k6m6
 6#RDP#
 6%vi
 6(Optional) Type of game the published file represents.
 6,2K
 6-zeZ
-60Fk
-60Jk
+60+k
 62$|S)6f
 64CK\vH
 65535
@@ -12445,6 +12474,7 @@ $hRh
 6?NumberValue@Value@v8@@QEBA?AV?$Maybe@N@2@V?$Local@VContext@v8@@@2@@Z
 6H,N
 6O|T%
+6P\fk
 6Qd=
 6Returns the URL of the proper cloud server for a user.
 6True if the operation was successful, false otherwise.
@@ -12458,6 +12488,7 @@ $hRh
 6\n\tstructure
 6\n\vmatch_slots
 6_wEX
+6`Ck
 6afD
 6bX+
 6c&0|vvX
@@ -12465,7 +12496,7 @@ $hRh
 6l13
 6lkc
 6myY;
-6p,k
+6p"k
 6qo~
 6r-m_v
 6r1ij
@@ -12517,7 +12548,9 @@ $hRh
 851Pe
 8<pl
 8= zp
+8@J0[
 8A6j
+8B0[
 8Client ID for which to count the number of issued tokens"
 8GZS
 8Gets the list of nicknames this user has for other users
@@ -12537,6 +12570,7 @@ $hRh
 8\n\nobjectives
 8\n\rdeath_details
 8\n\rgcsql_version
+8\n\rquestion_type
 8\n\rsubscribe_msg
 8\n\tgame_info
 8\n\vAbilityStat
@@ -12771,6 +12805,8 @@ $hRh
 =cdE
 =trF6,#
 >#>)>/>3>A>W>c>e>w>
+>03k
+>09k
 >333>
 >4|6eXg_e
 >7^0g
@@ -12799,7 +12835,6 @@ $hRh
 >yhP
 >ztq
 ?(Optional) Video Id of a YouTube video for this published file.
-?0: Off. 1: Show Stand-up trace. 2: Show stand up to ideal ParrotPos. 3: Show Parrot Pos to Desired Pos (cyan)
 ?333?
 ?333?333?
 ??0HandleScope@v8@@QEAA@PEAVIsolate@1@@Z
@@ -12852,13 +12887,14 @@ $hRh
 ?uWS
 ?x29
 @!@%@+@1@?@C@E@]@a@g@m@
+@08ND
 @0pp
-@60.k
-@6`4k
+@60Sk
+@6pRk
 @?SlowGetInternalField@Object@v8@@AEAA?AV?$Local@VData@v8@@@2@H@Z
 @BH]f
 @BoneSetup
-@HPX`hv@
+@CitadelUITextTooltip
 @MfKZ
 @Pgl
 @Pu\rm
@@ -12906,6 +12942,7 @@ A testing-only domain for target-owned graphs.
 A testing-only domain that doesn't correspond to any in-engine use case.
 A testing-only domain that draws on a 2D canvas with a LOGO-like 'turtle' cursor.
 A uniform random number generator.
+A way to force the survey UI on even outside of matchmaking
 A!A3A5A;A?AYAeAkAwA{A
 A%N_A
 A,uw"
@@ -12917,6 +12954,7 @@ A<fP
 A>x8
 AA Compromise
 AA->Output
+AA:PB!
 AABBDirection
 AABB_t
 AACompromise
@@ -13884,6 +13922,7 @@ Available:
 AvailableBooks
 AvatarImage
 Avg FPS %3i, Frame MS %5.1f, Frame Server MS %5.1f log: %s
+AwaitingSelection
 AwaitingTether
 AwardImage
 AwardsContainer
@@ -13939,7 +13978,6 @@ BC_EMPTY
 BC_PARTICLE_SYSTEM_OVERRIDE
 BC_PROP_GROUP_OVERRIDE
 BCanSeeInParentScroll
-BDraw player look target data.  White is server, cyan is client.
 BEAM_ENTPOINT
 BEAM_ENTS
 BEAM_HOSE
@@ -13969,6 +14007,7 @@ BHasDescendantKeyFocus
 BHasHoverStyle
 BHasKeyFocus
 BHasLayoutSnippet
+BHow long the slow penalty is for spamming duck is
 BIGNUM
 BINDING
 BIO lib
@@ -15121,6 +15160,7 @@ CAbility_Synth_PlasmaFlux
 CAbility_Synth_PlasmaFlux_VData
 CAbility_Synth_Pulse
 CAbility_Synth_Pulse_VData
+CAccountSurveyManager::RequestSurveyQuestion
 CAnimDemoManager::QueueNewAnimationDataMessage
 CAnimEnum
 CAnimEventListener
@@ -18332,6 +18372,7 @@ CMsgClientToGCGetLeaderboard
 CMsgClientToGCGetMatchHistory
 CMsgClientToGCGetMatchMetaData
 CMsgClientToGCGetProfileCard
+CMsgClientToGCGetSurveyQuestion"
 CMsgClientToGCGrantForumAccess
 CMsgClientToGCIntegrityStatus
 CMsgClientToGCIsInMatchmaking"?\n%CMsgClientToGCIsInMatchmakingResponse
@@ -18356,6 +18397,7 @@ CMsgClientToGCSpectateLobby
 CMsgClientToGCSpectateUser
 CMsgClientToGCStartMatchmaking
 CMsgClientToGCStopMatchmaking"8\n%CMsgClientToGCStopMatchmakingResponse
+CMsgClientToGCSubmitSurvey
 CMsgClientToGCUnlockCrate
 CMsgClientToGCUnlockHero
 CMsgClientToGCUnlockItemStyle
@@ -18553,6 +18595,7 @@ CMsgSteamLearnDataList
 CMsgSteamLearnDataObject
 CMsgSteamLearnDataSource
 CMsgSteamLearnServerInfo
+CMsgSurveyQuestion
 CMsgTEArmorRicochet
 CMsgTEBSPDecal
 CMsgTEBaseBeam
@@ -20292,6 +20335,7 @@ CitadelAbilityUpgradePurchase
 CitadelAbilityVData
 CitadelAcceptFriendInvite
 CitadelAccountHeroInfoUpdated
+CitadelAccountSurvey
 CitadelActiveAbilitySelect
 CitadelActuallyHideStatsTooltip
 CitadelAddFooterKeyCommand
@@ -20367,6 +20411,7 @@ CitadelClientUIStateChanged
 CitadelClimbRopeTriggerManifest
 CitadelCloseFriendsButtonClicked
 CitadelClosePlayPage
+CitadelCommitSurvey
 CitadelConcept_t
 CitadelConfirmAbandonGame
 CitadelConfirmDiscord
@@ -21064,6 +21109,9 @@ CitadelStreamlinedMicChanged
 CitadelSubmitPlaytestUser
 CitadelSurveyHighlightStars
 CitadelSurveyRemoveStarsHighlight
+CitadelSurveySkipResponse
+CitadelSurveyStateUpdated
+CitadelSurveySubmitResponse
 CitadelSurveySubmitValue
 CitadelSwitchSpectatorCameraToSlot
 CitadelSwitchSpectatorCameraToTopBarIndex
@@ -21227,6 +21275,7 @@ Clearing reconnect info, we are connected to GC and GC says we have no lobby\n
 Clears all debug overlays
 Clears all decals
 Clears decals from all entities
+Clears out all survey questions from this account and resets the state
 Clears that we need to be in the next playtest
 Clears the list of names to display text debugging information about the given entity(ies) on top of the entity (See Overlay Text)\n\tArguments:   \t{entity_name} / {class_name} / {entity_index} / {no argument = pick what player is looking at}
 Clears world decals
@@ -21742,7 +21791,7 @@ DBPlayerList
 DEAD
 DEBRIS
 DECALS_SAVE_RESTORE_VERSION
-DECatStatue_InCooldown
+DECatStatue_InWorld
 DEFAULT
 DEF_ADD_INDEX
 DEF_GET_CLASS
@@ -22787,6 +22836,7 @@ Draw debug information for destructible parts.
 Draw fps meter at top of screen (1 = fps, 2 = smooth fps, 3 = server MS, 4 = Show FPS and Log to file )
 Draw hitboxes of entities we are shooting at to compare against lag compensated server entites
 Draw metal spark effects.
+Draw player look target data.  White is server, cyan is client.
 Draw pretty debug text (x, y, lineOffset, text, r, g, b, a, duration, font, size, bBold)
 Draw text in 3d (origin, text, bViewCheck, duration)
 Draw text with a line offset (x, y, lineOffset, text, r, g, b, a, duration)
@@ -23203,7 +23253,7 @@ EC_PRE_COMP_DUP
 EC_PRE_COMP_NEW
 EC_PRIVATEKEY
 ECatStatueState_t
-ECatStatue_InWorld
+ECatStatue_InCooldown
 ECatStatue_None
 ECatStatue_ProjectileOut
 ECatStatue_Shoulder
@@ -24473,6 +24523,7 @@ F'pY
 F+Zb
 F,mZq
 F/o4
+F0*k
 F2M+
 F6tr
 F7!z
@@ -25090,6 +25141,7 @@ Found soundscape entity "%s" with no soundscape name.\n
 FourLane
 FourQuaternions
 FourVectors
+FpHk
 FpsMaxSlider
 FpsMaxUISlider
 Frac: %.2f
@@ -25248,7 +25300,7 @@ GAME_PARTICLE_MANAGER_EVENT_UPDATE_FORWARD
 GAME_PARTICLE_MANAGER_EVENT_UPDATE_OFFSET
 GAME_PARTICLE_MANAGER_EVENT_UPDATE_ORIENTATION
 GAME_PARTICLE_MANAGER_EVENT_UPDATE_TRANSFORM
-GB=\nHB(
+GB=\nHB
 GBUFFER_ALBEDO
 GBUFFER_AO
 GBUFFER_AUX_W
@@ -25303,7 +25355,6 @@ GCSDK::GCDirIndex_t
 GCSQL_VERSION_BASELINE
 GCSQL_VERSION_BOOLTYPE
 GCType_t"2\n
-GCitadelCommitSurvey
 GENERALIZEDTIME
 GENERALSTRING
 GENERAL_ALLOCATE_BOOLEAN
@@ -25727,6 +25778,7 @@ Got a NaN velocity on %s\n
 Got an infinite origin on %s\n
 Got an infinite velocity on %s\n
 GpuCullShadow
+Gr_citadel_portrait_allow_particle_only
 GrabDamage
 GrabExtraTargets
 GrabExtraTargetsRadiusMult
@@ -26132,6 +26184,7 @@ HeroCardStarActivated
 HeroDamageColumn
 HeroDataManifest_global_client
 HeroDataSystem
+HeroDisplay
 HeroDraftPositionChanged
 HeroDragHover
 HeroDropDownOption
@@ -26172,6 +26225,8 @@ HeroSandbox
 HeroScalingStat_t
 HeroScenePanel
 HeroSelectedEvent
+HeroSelection0
+HeroSelection1
 HeroSnippet
 HeroSortingType_t
 HeroSpiritLifestealEffectiveness
@@ -26358,7 +26413,6 @@ How long looping soundpatch captions should display for.
 How long should the warning be up before it boots the user from the MM queue
 How long the debug draws stick around for, unless they're per-tick.
 How long the shield effect lingers after having taken damage
-How long the slow penalty is for spamming duck is
 How long this modifier must be alive before backdoor protection is activated
 How long to apply 'Dash Boost Friction' after starting a slide out of a dash.
 How long to apply air-drag after jumping out of a slide.
@@ -27256,6 +27310,7 @@ Item4
 ItemBarGraph
 ItemData
 ItemDescriptionsLanguageBlock
+ItemDisplay
 ItemFlagTypes_t
 ItemImage
 ItemImbuementPair_t
@@ -27411,6 +27466,7 @@ Kill after current node.
 Kill elegantly.
 Kill immediately.
 Kill switch for the idle detection system
+Kill switch in case we want to make sure the survey isn't shown, or temporarily disable it
 Kill two players with snipe within 10 seconds
 KillBonusMoveSpeedPerStack
 KillCheckWindow
@@ -29633,6 +29689,7 @@ NoMessage
 NoPausesLeft
 NoPhysicsDust
 NoPromptToLeave
+NoQuestionReady
 NoReadingString
 NoSecondaryWeaponDesc
 NoShowcase
@@ -30263,16 +30320,13 @@ P-224
 P-256
 P-384
 P-521
-P08@J
-P08J
+P08JP]
+P08ND
 P1\t98"
+P20[
 P2P ping to "%s". Timed out after %.2fms\n
 P2P_Messages
 P5[1
-P6 Fk
-P6`.k
-P6p$k
-P@2e
 PAGN_4
 PANEL_ID
 PANORAMA_LAYOUTFILE
@@ -30511,6 +30565,7 @@ PKEY_SET_TYPE
 PKEY_USAGE_PERIOD
 PKIX
 PLASMA
+PL|e
 PM_NORMAL
 PM_NO_GIBS
 POINT_WORLD_TEXT_JUSTIFY_HORIZONTAL_CENTER
@@ -30930,6 +30985,7 @@ PerViewConstantBuffer_t
 PercentBar%i
 PercentDamage
 PercentHealthHealing
+Percentage chance of showing the survey questions when entering matchmaking
 Percentage of health to be considered low health
 Percentage of health to be considered low health when you have high max health.
 Percentage of health to be considered mid health
@@ -30955,6 +31011,7 @@ PetLevelup_Rule_t
 PetrifyDamage
 PetrifyDamageBreakThreshold
 PetrifyDuration
+PfPuk
 Phoneme delay to account for sound system latency.
 Phrase
 Phrase%d
@@ -31015,6 +31072,7 @@ Pitch: %6.1f   Yaw: %6.1f   Dist: %6.1f %19s
 Pitch: %6.1f   Yaw: %6.1f %38s
 Pivot
 PixelToProj
+Pj0[
 PlaceDecalEvent_t
 PlaceDistance
 PlaceSatVolumeEvent_t
@@ -31118,6 +31176,7 @@ Plots
 Plots view angles yaw at various stages of the frame/tick in Tracy.
 Pm8A?
 PmR"H?
+PnPvk
 Point entity.
 Point under crosshair
 PointOrientConstraint_t
@@ -31415,7 +31474,6 @@ Property_%s
 Provide both the ID and the value to set\n
 Provided in ability code via MModifierFunction to caster
 Proxy Certificate Information
-PtNe
 Public Key
 Public-Key
 Public-Key: (%d bit)\n
@@ -31758,11 +31816,9 @@ RUMBLE_SHOTGUN_DOUBLE
 RUMBLE_SHOTGUN_SINGLE
 RUMBLE_SMG1
 RUMBLE_STOP_ALL
-R\fpdXe
 R\n\nBookReward
 R\n\rincludekvtags
 R\r1>Vp
-R\vptNe
 R]Di
 RadialMenu
 RadialMouseCursor
@@ -31830,6 +31886,11 @@ Rarity definition %s: Missing required field "value"
 RatchetType_Absolute
 RatchetType_EachEngage
 Rate of Fire
+Rate1
+Rate2
+Rate3
+Rate4
+Rate5
 RayTracingEnvironment::RefineNode
 RayTracingEnvironment::RefineNodeJob
 Rbg.E
@@ -33546,9 +33607,12 @@ ShowFormula
 ShowFriendsList
 ShowGoldAndAPOnHud
 ShowGraph
+ShowHeroPreview
+ShowHeroSelection
 ShowHits
 ShowImbueButton
 ShowInviteButton
+ShowItemPreview
 ShowLaneColors
 ShowLaneStats
 ShowMyBuilds
@@ -33561,10 +33625,13 @@ ShowPlayer%u
 ShowPublicBuilds
 ShowPublishPanel
 ShowQueue
+ShowRatingLine
+ShowRatingName
 ShowRoster
 ShowRosterCounts
 ShowSearchExamples
 ShowShop
+ShowSurvey
 ShowTitle
 ShowTooltip
 ShowWorldLayer
@@ -33685,6 +33752,7 @@ Skeleton Found - setting scale
 Skin
 Skin:
 Skinned Entity Decals: %d\n
+Skip
 Skip this node after the limit. Check Type does not apply, the limit will always be checked.
 Skip updating hierarchy information in PostDataUpdate for entities that have not changed
 Skipped\n
@@ -34459,6 +34527,7 @@ Subclass: %s
 SubclassVDataChangeType_t
 Subject Information Access
 SubmitButton
+SubmittingResponse
 SubnavPhrase
 SubnavPhrasesContainer
 SubscribedType
@@ -34487,6 +34556,7 @@ Surface Impact Effects
 SurfacePropDataTable
 SurfacePropertiesList
 SurroundingBoundsType_t
+SurveyQuestion
 SurveyQuestion%i
 SurveyQuestionsContainer
 Swap
@@ -36276,6 +36346,7 @@ VolumetricFogView
 VoteData
 VoxManager
 Vp>u
+VpUk
 Vt_9
 VulnerabilityPerStack
 V~~Vq
@@ -36971,7 +37042,9 @@ XRJ2
 XWY]
 XYD%
 X\tQo
+X`hr0[
 Xd3h
+Xf Dk
 XfJ7
 XjfR
 XqgA+
@@ -37058,6 +37131,7 @@ ZL9L
 ZLIB
 ZLONG
 ZOffset
+ZPB!
 ZSz@
 ZXF,`i
 Z\n\nmap_values
@@ -37185,7 +37259,8 @@ Z~wl
 \f]ne3
 \fdhWTh
 \fiaR
-\fp\v`dXe
+\fp\vPL|e
+\fqxT
 \ful2
 \fy&3Gl
 \l:ArR
@@ -37234,6 +37309,7 @@ Z~wl
 \n"CMsgClientToGCPartySetModeResponse
 \n"CMsgClientToGCSetItemStyleResponse
 \n"CMsgClientToGCSpectateUserResponse
+\n"CMsgClientToGCSubmitSurveyResponse
 \n"CMsgClientToGCUnpackBundleResponse
 \n"CMsgClientToGCUpdateRosterResponse
 \n"CMsgGCMsgMasterSetClientMsgRouting
@@ -37311,6 +37387,7 @@ Z~wl
 \n'CCitadelUserMessage_AuraModifierApplied
 \n'CCommunity_GetClanAnnouncements_Request
 \n'CGCSystemMsg_GetAccountDetails_Response
+\n'CMsgClientToGCGetSurveyQuestionResponse
 \n'CMsgClientToGCUpdateAccountSyncResponse
 \n'CMsgClientToGCUpdateHeroBuildPreference
 \n'CMsgGCHAppCheersGetAllowedTypesResponse
@@ -37373,7 +37450,6 @@ Z~wl
 \nGameTime_t
 \nNo old builds found for %s\n\n
 \nOld builds for %s:\n\n
-\nPtNe
 \nSimulating Entities:\n\n
 \n[ Spirit ]
 \n[ Vitality ]
@@ -37455,6 +37531,7 @@ Z~wl
 \n\fk_eCompleted
 \n\fk_eDeveloper
 \n\fk_eEmailUsed
+\n\fk_eItemPower
 \n\fk_eLeftParty
 \n\fk_eNoChoices
 \n\fk_eNotInGame
@@ -37762,6 +37839,7 @@ Z~wl
 \n\rk_ESE_Source2
 \n\rk_eBanAccount
 \n\rk_eEditRoster
+\n\rk_eItemDesign
 \n\rk_eLaneCreeps
 \n\rk_eModeBanned
 \n\rk_eModeLocked
@@ -38223,7 +38301,6 @@ Z~wl
 \tMatchID_t"Z\n#CMsgClientToGCSpectateLobbyResponse
 \tMatchID_t"{\n$CMsgServerToGCUpdateLobbyServerState
 \tNone\n
-\tP@2e
 \tParam BasePlayerWeapon returned NULL!\n
 \tParam selecting string is out of range!\n
 \tPartyID_t
@@ -38345,14 +38422,11 @@ Z~wl
 \vGt5
 \vHCK/
 \vNCE\v
-\vP@2e
 \vUY6[E
 \v\vTSG
 \vj0k
 \vjC7
-\vp05e
-\vpdXe
-\vptNe
+\vpL|e
 ]1h=bfz
 ]FhSD}
 ]GT7]
@@ -38423,8 +38497,9 @@ _tools_event_desc
 _xU`u
 _}eOk
 `28)fk
+`2PB!
 `3?New@Array@v8@@SA?AV?$Local@VArray@v8@@@2@PEAVIsolate@2@H@Z
-`6PAk
+`60Tk
 `:zQF
 `D$daM-l
 `DZG
@@ -38433,9 +38508,7 @@ _}eOk
 `ITS
 `VX:H
 `\n\rvector_values
-`\rP\f0tNe
 `adjustor{
-`dXe
 `fPw.\vM
 `generic-class-parameter-
 `generic-method-parameter-
@@ -38444,7 +38517,6 @@ _}eOk
 `local static destructor helper'
 `non-type-template-parameter
 `o_je
-`tNe
 `template static data member constructor helper'
 `template static data member destructor helper'
 `template-parameter
@@ -38469,6 +38541,7 @@ a:typeparam
 a;Tg
 a@XZ
 aA0k
+aBvD
 aD/x
 aDSS
 aECDH
@@ -39018,6 +39091,7 @@ announcement_url
 announcer
 announcer_preview
 ansi-X9-62
+answered_questions
 antialias
 antialiasing
 antiquewhite
@@ -40642,6 +40716,7 @@ citadel_enable_fast_stamina
 citadel_enable_new_ping_particle
 citadel_enable_no_hero_death
 citadel_enable_parties
+citadel_enable_survey
 citadel_enable_unlimited_ammo
 citadel_enable_vdata_sound_preload
 citadel_english_hero_names
@@ -40999,6 +41074,7 @@ citadel_require_in_playtest_clear
 citadel_require_in_playtest_set
 citadel_reset_camera_speed
 citadel_reset_new_player
+citadel_reset_survey_responses
 citadel_respond_to_ping_time
 citadel_restorative_goo_cube
 citadel_restore_components_only_during_sellback
@@ -41051,6 +41127,7 @@ citadel_show_reportcard
 citadel_show_reportcard_finished
 citadel_show_reportcard_initial
 citadel_show_stats_tooltips_on_scoreboard
+citadel_show_survey
 citadel_show_telemetry_settings
 citadel_simulated_player_controller
 citadel_skip_client_ping_caluclation_in_dev_universe
@@ -42228,7 +42305,6 @@ dAN"
 dDV8
 dHHp
 dITRedirect
-dJ\fpZ
 dNSDomain
 dOj\f,
 dSAQuality
@@ -43421,7 +43497,6 @@ fC\tc
 fL\ri
 fP;y
 fUnh\
-fXck
 f\trixZ
 f_%s_weight
 f_Damage_Received
@@ -43639,6 +43714,7 @@ file://{resources}/layout/citadel_shop_mods_tier.xml
 file://{resources}/layout/citadel_stat_scaling_label.xml
 file://{resources}/layout/citadel_status_effect.xml
 file://{resources}/layout/citadel_ui_ability_order.xml
+file://{resources}/layout/citadel_ui_account_survey.xml
 file://{resources}/layout/citadel_ui_announcement.xml
 file://{resources}/layout/citadel_ui_announcementlist.xml
 file://{resources}/layout/citadel_ui_binding.xml
@@ -44569,7 +44645,7 @@ h*Ax
 h0XB
 h2Wl
 h2n_\
-h3B0
+h3B`
 h5N.
 hActivator
 hAttacker
@@ -45875,6 +45951,7 @@ is_school_account
 is_secondary_stat
 is_selected_in_hammer
 is_shield_generator
+is_skip
 is_steam_china
 is_steam_china_client
 is_steamguard_enabled
@@ -46415,6 +46492,8 @@ k_EMsgClientToGCGetOldHeroBuildData
 k_EMsgClientToGCGetOldHeroBuildDataResponse
 k_EMsgClientToGCGetProfileCard
 k_EMsgClientToGCGetProfileCardResponse
+k_EMsgClientToGCGetSurveyQuestion
+k_EMsgClientToGCGetSurveyQuestionResponse
 k_EMsgClientToGCGrantForumAccess
 k_EMsgClientToGCGrantForumAccessResponse
 k_EMsgClientToGCIntegrityStatus
@@ -46480,6 +46559,8 @@ k_EMsgClientToGCStopMatchmaking
 k_EMsgClientToGCStopMatchmakingResponse
 k_EMsgClientToGCSubmitPlaytestUser
 k_EMsgClientToGCSubmitPlaytestUserResponse
+k_EMsgClientToGCSubmitSurvey
+k_EMsgClientToGCSubmitSurveyResponse
 k_EMsgClientToGCTarotApplyRune
 k_EMsgClientToGCTarotApplyRuneResponse
 k_EMsgClientToGCTarotCompleteBoard
@@ -46972,6 +47053,7 @@ k_eGold
 k_eGotInitialHeroes
 k_eHeroLabsMMNotOpen
 k_eHeroLabsNotUnlocked
+k_eHeroPlayAgainst
 k_eHeroesNotUnlocked
 k_eHideHolidayModels
 k_eInMatchMaking
@@ -47032,6 +47114,7 @@ k_eMemberRights_Admin
 k_eMemberRights_Creator
 k_eMismatchedVersions
 k_eMissingPrereq
+k_eMoreFunHero
 k_eMoveType_Ability
 k_eMoveType_AbilityDebuff
 k_eMoveType_AirDash
@@ -47077,6 +47160,7 @@ k_eReport_None
 k_eReport_VoiceChat
 k_eReportingWindowExpired
 k_eRequireAccountInMM
+k_eResetAccountSurvey
 k_eResult_InternalError
 k_eResult_InvalidMatch
 k_eResult_InvalidPermission
@@ -54526,6 +54610,7 @@ max_particle_count
 max_pip_height
 max_pip_width
 max_pips_per_row
+max_question_number
 max_range
 max_ready
 max_refresh_rate
@@ -55544,6 +55629,7 @@ n < (int)sizeof(ctx->enc_data)
 n does not equal p q
 n-resize
 n0?X
+n0Wk
 n1Z 
 n5cM
 n6j/
@@ -55908,6 +55994,7 @@ notifications_showmessages
 notifications_showonline
 notreadybehavior
 nowrap
+npGk
 npc_barrack_boss
 npc_boss_tier2
 npc_boss_tier2_sidelanes
@@ -56266,6 +56353,9 @@ p.other
 p.ppBasis
 p.prime
 p.tpBasis
+p08@H^D
+p0j`
+p20[
 p2p_FightingGame_Connection
 p2p_FightingGame_GameData
 p2p_Ping
@@ -56283,11 +56373,8 @@ p4Z3
 p5Z3
 p5\nL,
 p618
-p6@'k
 p>?Set@Template@v8@@QEAAXV?$Local@VName@v8@@@2@V?$Local@VData@v8@@@2@W4PropertyAttribute@2@@Z
-p>dck
 p@0pqE5tsO?|1
-p@2e
 pAsyncRet2
 pCheckpointName
 pD4t
@@ -56295,12 +56382,14 @@ pData->GetDataDescMap() == pTemplateDataMap
 pDescription
 pDest
 pEnt
+pF`[k
 pField
 pFilter
 pG_*h
 pHitEntity
 pIp 
 pLocationEntity
+pL|e
 pO0h
 pOtherEntity
 pRTH
@@ -56685,6 +56774,7 @@ payload + padding <= 16381
 payment gateway capabilities
 payment_row_usd
 payment_us_usd
+pb0[
 pbeWithMD2AndDES-CBC
 pbeWithMD2AndRC2-CBC
 pbeWithMD5AndCast5CBC
@@ -56702,7 +56792,6 @@ pcPathLengthConstraint
 pct_complete
 pct_item_complete
 pct_story_complete
-pdXe
 pdgAbilitiesChanged
 pdgBonusCounterChanged
 pdgStolenAbilityChanged
@@ -57372,7 +57461,6 @@ psk identity not found
 psk no client cb
 psk no server cb
 pszContextName
-ptNe
 pt_BR
 pt_PT
 pub: 
@@ -57456,6 +57544,9 @@ qualityLabelledData
 quantity
 quantity_purchased
 quaternion (%g %g %g %g)
+question
+question_number
+question_params
 questions
 queue
 queue_position
@@ -57486,11 +57577,9 @@ rRfKR
 rX&O0
 rZ1VwGf5
 rZPM
-r\fptNe
 r\n\vstart_index
 r\np!9
 r\vDi
-r\vpdXe
 r_AirboatViewDampenDamp
 r_AirboatViewDampenFreq
 r_AirboatViewZHeight
@@ -57565,7 +57654,6 @@ r_citadel_motionblur_quality
 r_citadel_motionblur_strength
 r_citadel_npr_outlines_max_dist
 r_citadel_outlines
-r_citadel_portrait_allow_particle_only
 r_citadel_portrait_highlight_particle_only
 r_citadel_screenspace_particles_full_res
 r_citadel_see_thru_walls_opacity
@@ -57719,6 +57807,9 @@ rare_loadout_anim_chance
 rarities
 rarity
 ratchetType
+rating_name
+rating_scale_high
+rating_scale_low
 raw_mouse
 rc2-40-cbc
 rc2-64-cbc
@@ -57820,6 +57911,7 @@ reload_start
 reload_state
 reloading
 remainingCharges
+remaining_questions
 remap
 remapped_cheer_type
 reminderNudge
@@ -59623,6 +59715,7 @@ suppress_on_restore
 surfacePropertyName
 surface_normal
 surname
+survey_chance
 surveys
 survivor_neck
 suspension_end_time
@@ -60683,7 +60776,6 @@ util4
 util5
 uvs are all identical
 uxX/
-v Pk
 v axis
 v'A>M6
 v)56
