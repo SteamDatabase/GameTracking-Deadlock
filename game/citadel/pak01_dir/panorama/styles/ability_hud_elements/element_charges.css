@@ -4,7 +4,41 @@
 {
 	vertical-align: center;
 	horizontal-align: center;
+	transform: scaleX(-1);
 	visibility: collapse;
+	opacity: 1;
+}
+
+.no_stamina_for_dash_jump.ability_element_charges,.no_stamina.ability_element_charges
+{
+	animation-name: Anim_NoStamina;
+	animation-duration: 0.075s;
+	animation-iteration-count: 3;
+	animation-timing-function: ease-in;
+}
+
+@keyframes 'Anim_NoStamina'
+{
+	0%
+	{
+		transform: scaleX(-1) translateX(2px);
+	}
+	
+	60%
+	{
+		transform: scaleX(-1) translateX(2px);
+	}
+	
+	61%
+	{
+		transform: scaleX(-1) translateX(-2px);
+	}
+	
+	100%
+	{
+		transform: scaleX(-1) translateX(-2px);
+	}
+	
 }
 
 .view_is_in_eye .ability_element_charges.active
@@ -220,6 +254,12 @@
 #charges_container
 {
 	opacity: 0.8;
+	transform: rotateZ(45deg);
+}
+
+.anticipating_dash_jump #charges_container
+{
+	opacity: 1;
 }
 
 @keyframes 'red_flash_bg'
@@ -241,131 +281,76 @@
 	
 }
 
-.no_stamina .charge_bg
+.no_stamina_for_dash_jump .charge_bg,.no_stamina .charge_bg
 {
 	animation-name: red_flash_bg;
 	animation-duration: 0.2s;
 	animation-iteration-count: 4;
 }
 
-@keyframes 'blue_flash_bg'
+@keyframes 'red_flash_fg'
 {
 	0%
 	{
-		border: 5px solid black;
+		border: 10px solid rgba(255, 0, 0, 1 );
 	}
 	
 	10%
 	{
-		border: 5px solid rgba(0, 145, 162, 1 );
-	}
-	
-	50%
-	{
-		border: 5px solid rgba(0, 145, 162, 1 );
+		border: 10px solid rgba(255, 0, 0, 1 );
 	}
 	
 	100%
 	{
-		border: 5px solid black;
+		border: 10px solid rgba(0, 0, 0, 1);
 	}
 	
 }
 
-.roll_jump_window .charge_bg
-{
-	animation-name: blue_flash_bg;
-	animation-duration: 0.4s;
-}
-
-@keyframes 'blue_flash_fg'
+@keyframes 'anim_anticipate_dash_jump_foreground'
 {
 	0%
 	{
-		border: 8px solid elementBGColor;
-	}
-	
-	10%
-	{
-		border: 8px solid rgba(108, 239, 255, 1 );
-	}
-	
-	50%
-	{
-		border: 8px solid rgba(91, 195, 255, 1 );
+		border: 0px solid white;
 	}
 	
 	100%
 	{
-		border: 8px solid elementBGColor;
+		border: 10px solid white;
 	}
 	
+}
+
+@keyframes 'anim_roll_jump_window_foreground'
+{
+	0%
+	{
+		brightness: 10;
+		border: 10px solid rgba(0, 145, 162, 1 );
+	}
+	
+	100%
+	{
+		brightness: 1;
+		border: 10px solid rgba(0, 145, 162, 1 );
+	}
+	
+}
+
+.anticipating_dash_jump .charge_fg
+{
+	animation-name: anim_anticipate_dash_jump_foreground;
+	animation-duration: 0.2s;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-out;
 }
 
 .roll_jump_window .charge_fg
 {
-	animation-name: blue_flash_fg;
-	animation-duration: 0.4s;
-}
-
-@keyframes 'orange_flash_bg'
-{
-	0%
-	{
-		border: 5px solid black;
-	}
-	
-	10%
-	{
-		border: 5px solid rgba(255, 106, 0, 1);
-	}
-	
-	50%
-	{
-		border: 5px solid rgba(255, 106, 0, 1 );
-	}
-	
-	100%
-	{
-		border: 5px solid black;
-	}
-	
-}
-
-.roll_slide_window .charge_bg
-{
-	animation-name: orange_flash_bg;
-	animation-duration: 0.4s;
-}
-
-@keyframes 'orange_flash_fg'
-{
-	0%
-	{
-		border: 8px solid elementBGColor;
-	}
-	
-	10%
-	{
-		border: 8px solid rgba(255, 106, 0, 1);
-	}
-	
-	50%
-	{
-		border: 8px solid rgba(255, 106, 0, 1);
-	}
-	
-	100%
-	{
-		border: 8px solid elementBGColor;
-	}
-	
-}
-
-.roll_slide_window .charge_fg
-{
-	animation-name: orange_flash_fg;
-	animation-duration: 0.4s;
+	animation-name: anim_roll_jump_window_foreground;
+	animation-duration: 0.3s;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-out;
 }
 
 @keyframes 'stam_drained'

@@ -1,0 +1,135 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_emitter_obb = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "_builtins"
+				operator = "sos_builtins"
+				_voicegraph = "citadel.hrtf_basic"
+			},
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					citadel_emitter_lod = 
+					{
+						data_type = "public_opvar"
+						value = "citadel_emitter_lod"
+					}
+					obb_mins = 
+					{
+						data_type = "float3"
+						value = "[0.0, 0.0, 0.0]"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_help = "set in code."
+						}
+					}
+					obb_maxs = 
+					{
+						data_type = "float3"
+						value = "[0.0, 0.0, 0.0]"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_help = "set in code."
+						}
+					}
+					obb_origin = 
+					{
+						data_type = "float3"
+						value = "[0.0, 0.0, 0.0]"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_help = "set in code."
+						}
+					}
+					obb_angles = 
+					{
+						data_type = "float3"
+						value = "[0.0, 0.0, 0.0]"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_help = "set in code."
+						}
+					}
+				}
+			},
+			
+			{
+				name = "opvar_get_viewing_pawn_position"
+				operator = "opvar_get_float3"
+				input_execute = "1.0"
+				input_stack_name = "citadel_relevance_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "viewing_entity_position"
+			},
+			
+			{
+				name = "obb_info"
+				operator = "obb_info"
+				input_obb_origin = "@public.obb_origin"
+				input_obb_angles = "@public.obb_angles"
+				input_obb_bounds_min = "@public.obb_mins"
+				input_obb_bounds_max = "@public.obb_maxs"
+				input_position = "@opvar_get_viewing_pawn_position.output"
+			},
+			
+			{
+				name = "globals"
+				operator = "get_system_globals"
+				input_listener_index = "0"
+			},
+			
+			{
+				name = "position_filter"
+				operator = "math_filter_float"
+				input = "@obb_info.output_point_in_obb"
+				input_max_velocity = "5.0"
+			},
+			
+			{
+				name = "listener_position"
+				operator = "math_float3"
+				apply = "add"
+				input1 = "@globals.output_listener_position"
+				input2 = "@globals.output_listener_forward"
+			},
+			
+			{
+				name = "lerp_position"
+				operator = "math_lerp_float3"
+				input_factor = "@position_filter.output"
+				input_position_a = "@obb_info.output_closest_point"
+				input_position_b = "@listener_position.output"
+			},
+			
+			{
+				name = "citadel_emitter_lod"
+				operator = "sos_import_stack"
+				import_stack = "citadel_emitter_lod"
+				auto_connect_public_fields = "true"
+				operator_variables = 
+				{
+					position = 
+					{
+						data_type = "float3"
+						value = "@lerp_position.output"
+					}
+				}
+			},
+		]
+		_system_properties = 
+		{
+			display_game = "citadel"
+		}
+	}
+}

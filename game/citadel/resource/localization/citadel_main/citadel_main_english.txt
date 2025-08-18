@@ -3,7 +3,8 @@
 	"Language" "English"
 	"Tokens"
 	{
-		"Citadel_Dashboard_BuildVersion"	"Build {d:buildNumber} - {s:buildTime}"
+		"Citadel_Dashboard_BuildVersion"	"#{d:buildNumber}"
+		"Citadel_Dashboard_BuildTime" 		"{s:buildTime}"
 
 		"OK"							"OK"
 		"Cancel"						"Cancel"
@@ -139,7 +140,12 @@
 
 		"citadel_replay_manager_error_chunk_failed"		"Replay not yet ready for download"
 		"citadel_replay_manager_error_write_failure"	"Replay failed to write to local disk"
-
+		
+		"citadel_metadata_manager_error_download_failure"	"Failed to download the match metadata file for match %match_id%"
+		"citadel_metadata_manager_error_decompress_failure"	"Failed to decompress the match metadata file"
+		"citadel_metadata_manager_error_parse_failure"		"Failed to parse the match metadata file"
+		"citadel_metadata_manager_error_id_mismatch"		"The Match ID for the meta data file did not match what was expected"
+		"citadel_metadata_manager_error_invalid_version"	"The metadata file was an invalid version"
 
 		//Game
 		"Citadel_Scoreboard_TeamKills"						"Kills"
@@ -191,7 +197,22 @@
 		"Citadel_DiscordInvite_Description"					"Your invite to join the Deadlock discord is listed below, copy the link into a browser and follow the prompts to join."
 		"Citadel_DiscordInvite_Loading"						"Loading..."
 
+		"Citadel_PlayerFeedback_Title"						"Player Feedback"
+		"Citadel_PlayerFeedback_Desc"						"Thank you for being a part the Deadlock early development playtester community.<br><br>Your input helps shape the game."
+
 		"Citadel_Key_Escape"								"ESC"
+		"Citadel_Key_Tab"									"Tab"
+		"Citadel_Key_CapsLock"								"Caps"
+		"Citadel_Key_Enter"									"Enter"
+		"Citadel_Key_LShift"								"Shift"
+		"Citadel_Key_RShift"								"R.Shift"
+		"Citadel_Key_LCtrl"									"Ctrl"
+		"Citadel_Key_RCtrl"									"R.Ctrl"
+		"Citadel_Key_LWin"									"Win"
+		"Citadel_Key_RWin"									"R.Win"
+		"Citadel_Key_LAlt"									"Alt"
+		"Citadel_Key_RAlt"									"R.Alt"
+		
 		"Citadel_Key_Space"									"Space"
 
 		"Citadel_Three_Lanes"								"Map Rework"
@@ -248,7 +269,7 @@
 		"Citadel_ReportPlayer_Reason_VoiceTextAbuse"		"Voice/Text Abuse"
 		"Citadel_ReportPlayer_Reason_Abandon"				"Left Match"
 		"Citadel_ReportPlayer_Reason_Griefing"				"Griefing"
-		"Citadel_ReportPlayer_Reason_MatchmakingIssue"		"Matchmaking Issue"
+		"Citadel_ReportPlayer_Reason_Smurfing"				"Smurfing"
 		"Citadel_ReportPlayer_Reason_CheatingIssue"			"Cheating"
 		"Citadel_ReportPlayer_Reason_Comments"				"Comments:"
 		"Citadel_ReportPlayer_CommentPlaceholder"			"Describe what issue you had with this player"
@@ -324,26 +345,29 @@
 		"Citadel_Hud_ReturnToMatch"									"RETURN TO GAME"
 		"Citadel_Hud_MicActive"										"Microphone Active"
 		"Citadel_Hud_VoiceChatNotAvailable"							"Chat currently disabled"
+		"Citadel_Hud_ChatDisabled"									"Incoming chat currently disabled"
 		"Citadel_Hud_OutOfAmmo"										"OUT OF AMMO"
 		"Citadel_Hud_LowAmmo"										"LOW AMMO"
 		"Citadel_Hud_NotEnoughEnergy"								"NOT ENOUGH ENERGY"
 		"Citadel_Hud_CastTimeRemaining"								"{s:time_remaining} sec"
 		"Citadel_Hud_DPS"											"DPS {i:dps}"
 		"Citadel_Hud_RespawnIn"										"Respawn in:"
-		"Citadel_Hud_RideZipLine"									"HOLD{g:citadel_keybind:'Zipline'}to Ride"
+		"Citadel_Hud_RideZipLine"									"HOLD{g:citadel_binding:'Zipline'}to Ride"
 		"Citadel_Hud_RideZipLineOnCooldownValue"					"{f:1:cooldown_seconds}s"
 		"Citadel_Hud_RideZipLineOnCooldown"							"Unavailable after taking damage"
-		"Citadel_Hud_CaptureZipLine"								"HOLD{g:citadel_keybind:'HeldItem'}"
-		"Citadel_Hud_OpenShop"										"Press{g:citadel_keybind:'OpenHeroSheet'}to Shop"
+		"Citadel_Hud_CaptureZipLine"								"HOLD{g:citadel_binding:'HeldItem'}"
+		"Citadel_Hud_OpenShop"										"Press {g:citadel_binding:'OpenHeroSheet'} to Shop"
 		"Citadel_Hud_LoadingDeathReplay"							"Loading death replay"
-		"Citadel_Hud_DebugStats"									"MATCH: {s:match_id} \nSERVER CPU: {i:server_frametime_avg_pct}% (peak: {i:server_frametime_max_pct}%)"
+		"Citadel_Hud_DebugStats_Basic"								"MATCH: {s:match_id}\nSERVER CPU: {s:server_frametime_avg_pct}% (peak: {s:server_frametime_max_pct}%)"
+		"Citadel_Hud_DebugStats_Detailed"							"MATCH: {s:match_id}\nCLIENT FPS: {s:client_framerate}  PING: {s:ping}\nSERVER CPU: {s:server_frametime_avg_pct}% (peak: {s:server_frametime_max_pct}%)"
 		"Citadel_Hud_DeathCam"										"DEATH CAM"
 		"Citadel_Hud_CheaterVoteCaption"							"{s:cheater_name}"
 		"Citadel_Hud_CheaterVoteAlert"								"Someone in your game was caught cheating..."
-		"Citadel_Hud_CheaterVoteAlert_Action"						"Hold{g:citadel_keybind:'Scoreboard'}to decide their fate"
+		"Citadel_Hud_CheaterVoteAlert_Action"						"Hold{g:citadel_binding:'Scoreboard'}to decide their fate"
 		"Citadel_Hud_CheaterVote_Option_Play"						"Frog Now,<br>Ban Later"
 		"Citadel_Hud_CheaterVote_Option_Ban"						"Ban and<br>Leave Match"
 		"Citadel_Hud_RecentPurchases"								"Recent Purchases:"
+		"Citadel_Hud_Denied"										"Denied"
 		
 		"Citadel_Hud_BuildOrder"									"Build Order"
 		"Citadel_Hud_BuildOrder_AutobuyToggle"						"Auto-buy items when within range of shop"
@@ -373,12 +397,12 @@
 		"Citadel_Hud_Quickbuy_ModCost"								"{i:mod_cost}"
 		"Citadel_Hud_Quickbuy_Empty"								"Add Items to Quickbuy via<br>Right-Click or Drag"
 		"Citadel_Hud_Quickbuy_Instructional"						"Add/Remove from Quickbuy with <Panel class=\"rightClick\"></Panel>"
-		"Citadel_Hud_Quickbuy_Instructional_Ready"					"Press {g:citadel_keybind:'PurchaseQuickbuy'} to Purchase"
+		"Citadel_Hud_Quickbuy_Instructional_Ready"					"Press {g:citadel_binding:'PurchaseQuickbuy'} to Purchase"
 		"Citadel_Hud_Quickbuy_QueueSize"							"{i:queue_size}"
 		"Citadel_Hud_Quickbuy_ItemsReady"							"{i:items_ready}"
 		"Citadel_Hud_Quickbuy_ToastLabel_Purchase"					"Item Purchased"
 		"Citadel_Hud_Quickbuy_ToastLabel_Sell"						"Item Sold"
-		"Citadel_Hud_Quickbuy_Tooltip"								"You click to buy any of these items or press {g:citadel_keybind:'PurchaseQuickbuy'} while in range of the shop to buy your next quickbuy item."
+		"Citadel_Hud_Quickbuy_Tooltip"								"You click to buy any of these items or press {g:citadel_binding:'PurchaseQuickbuy'} while in range of the shop to buy your next quickbuy item."
 		"Citadel_Hud_Quickbuy_Tooltip_Autobuy"						"When you are in range of the shop and can afford this item, it will be purchased (this is ignored when free purchasing, such as in Sandbox Mode, is enabled)."
 		"Citadel_Hud_Quickbuy_Tooltip_Empty"						"Use [M2] to add or remove items from your Quickbuy queue."
 		"Citadel_Hud_Quickbuy_Reorder_Tooltip"						"Drag Items to Reorder"
@@ -427,11 +451,11 @@
 		"CitadelComponentGroup_ENotGrouped"					"Not Grouped"
 
 		"Citadel_Hud_Autobuy_Tray_Title"							"Purchase Order:"
-		"Citadel_Hud_Autobuy_HudHint_BuyKey"						"{g:citadel_keybind:'Default.PurchaseQuickbuy'}to Buy"
-		"Citadel_Hud_Autobuy_HudHint_PanelKey"						"Hold{g:citadel_keybind:'Default.Scoreboard'}for Queue"
+		"Citadel_Hud_Autobuy_HudHint_BuyKey"						"{g:citadel_binding:'Default.PurchaseQuickbuy'}to Buy"
+		"Citadel_Hud_Autobuy_HudHint_PanelKey"						"Hold{g:citadel_binding:'Default.Scoreboard'}for Queue"
 		"Citadel_Hud_Autobuy_Buy_Prompt"							"Buy"
 		"Citadel_Hud_Autobuy_HudHint_CantPurchase"					"Can't purchase in combat"
-		"Citadel_Hud_Autobuy_HudHint_ShopKey"						"{g:citadel_keybind:'Default.OpenHeroSheet'}to Open Shop" 
+		"Citadel_Hud_Autobuy_HudHint_ShopKey"						"{g:citadel_binding:'Default.OpenHeroSheet'}to Open Shop" 
 		"Citadel_Hud_PurchasingDisabled"							"Purchasing Disabled From Combat"
 
 		"Citadel_InvalidCast_NoFullClips"							"NO FULL CLIPS TO RELOAD"
@@ -469,6 +493,7 @@
 		"Citadel_Player_Level_ToNext"								"{i:gold_to_next} TO NEXT"
 		"Citadel_Player_Level_TotalGold"							"{i:total_gold} TOTAL SOULS"
 		"Citadel_Player_Level_MaxRewards"							"Max Reached"
+		"Citadel_Player_Level_HeroLevel"							"{g:citadel_hero_name:hero_id} Level {i:hero_level}"
 
 		"Citadel_Player_Level_APShort"								"AP"
 		"Citadel_Player_Level_AbilityUnlocksShort"					"Ability Unlock"
@@ -502,7 +527,7 @@
 		"Citadel_Level_test"										"99"
 
 		"Citadel_Shop_Purchased"									"Purchased"
-		"Citadel_Shop_HoldAlt"										"Hold{g:citadel_keybind:'Scoreboard'}"
+		"Citadel_Shop_HoldAlt"										"Hold{g:citadel_binding:'Scoreboard'}"
 		"Citadel_Shop_ConditionalAttribute"							"Conditional"
 		"Citadel_Shop_BonusAttribute"								"Bonus"
 		"Citadel_ShopFilter_Durabilty"								"Durability"
@@ -570,9 +595,13 @@
 		"Citadel_ModBonus_CostHigh"									"{i:thousands_gold}.{i:hundreds_gold}K"
 		"Citadel_ModBonus_Percentage"								"{i:bonus_percent}%"
 
+		"Citadel_Menu"						"Menu"
+
 		"Citadel_Friends_WindowTitle"						"Friends"
+		"Citadel_Players_WindowTitle"						"Players"
 		"Citadel_FriendsCategory_Party"						"In Party"
-		"Citadel_FriendsCategory_PartyInvite"				"Invited"
+		"Citadel_FriendsCategory_PartyInvite"				"Invited to Party"
+		"Citadel_FriendsCategory_IncomingPartyInvite"		"Incoming Party Invites"
 		"Citadel_FriendsCategory_PlayingCitadel"			"Playing"
 		"Citadel_FriendsCategory_Online"					"Online"
 		"Citadel_FriendsCategory_Offline"					"Offline"
@@ -845,7 +874,7 @@
 		"Citadel_JoinParty_Title"									"Join Party"
 		"Citadel_JoinParty_Desc"									"If you’ve been sent a party code, please input the code below."
 		"Citadel_JoinParty_Prompt"									"Party ID"
-		"Citadel_Party_Invites:p{party_invites}"					"<span class=\"InviteCount\">{d:party_invites} </span><span class=\"InviteHeaderText\">Party Invite</span>#|#<span class=\"InviteCount\">{d:party_invites} </span><span class=\"InviteHeaderText\">Party Invites</span>"
+		"Citadel_Party_Invites:p{party_invites}"					"<span class=\"InviteHeaderText\">Party Invite</span>#|#<span class=\"InviteHeaderText\">Party Invites</span>"
 		"Citadel_PartyStartMatch"									"Start Match"
 		"Citadel_PartyFindMatch"									"Find Match"
 		"Citadel_Party_CreateEasyBot"								"Create a party that you can invite your friends to in order to play together against easy bots"
@@ -855,6 +884,7 @@
 		"Citadel_Party_NoParty_Desc"								"Invite friends to create a party"
 		"Citadel_Party_InviteFriends"								"Invite Friends"
 		"Citadel_Party_LeaveParty"									"Leave Party"
+		"Citadel_Party_JoinOrCreateParty"							"Join or Create Party"
 		"Citadel_Party_PlayWithFriends"								"Play with Friends"
 		"Citadel_Party_MatchHistory"								"View Match History"
 		"Citadel_Party_InviteFriendTooltip"							"Invite Friend to Party"
@@ -896,9 +926,10 @@
 		"Citadel_RosterMode_PrivateBotEasy"							"Private Bots - Easy"
 		"Citadel_RosterMode_PrivateBotMedium"						"Private Bots - Medium"
 		"Citadel_RosterMode_PrivateBotHard"							"Private Bots - Hard"
+		"Citadel_RosterMode_PrivateLobby"							"Private Lobby"
 		"Citadel_RosterMode_TutorialGuided"							"Tutorial - Guided Training"
 		"Citadel_RosterMode_TutorialSandbox"						"Tutorial - Sandbox"
-		"Citadel_RosterMode_HeroTesting"							"Hero Testing"
+		"Citadel_RosterMode_HeroTesting"							"Sandbox Mode"
 		//"Citadel_RosterMode_Dev1v1Testing"							"Development 1v1 Testing"
 		"Citadel_RosterMode_ChangeHero"								"Change Hero"
 		"Citadel_RosterMode_ChangeOpponent"							"Change Opponent"
@@ -919,8 +950,8 @@
 
 		"Citadel_Roster_Instructions_Title"							"Create your Roster"
 		"Citadel_Roster_Instructions_Desc"							"Select a minimum of three heroes, you will be automatically assigned one of these heroes when the match starts.<br><br>You may mark heroes as <span class='selected'><b>Selected</b></span>, <span class='priority'><b>Priority</b></span>, or <span class='high_priority'><b>High Priority</b></span> to increase your chances of being assigned that hero."
-		"Citadel_Roster_Instructions_Select"						"{g:citadel_keybind:'Attack'}To mark a Hero as Selected"
-		"Citadel_Roster_Instructions_Prefer"						"{g:citadel_keybind:'ADS'}To cycle between <b>Priority</b> or <b>High Priority</b>"
+		"Citadel_Roster_Instructions_Select"						"{g:citadel_binding:'Attack'}To mark a Hero as Selected"
+		"Citadel_Roster_Instructions_Prefer"						"{g:citadel_binding:'ADS'}To cycle between <b>Priority</b> or <b>High Priority</b>"
 
 		"Citadel_Roster_Instructions_Title_HeroLabs"				"Hero Labs"
 		"Citadel_Roster_Instructions_Desc_HeroLabs"					"Queue up to play as or against new Experimental Heroes.<br><br>Select a minimum of three Heroes, <b>two of which must be standard, non-testing Heroes.</b> Players will be more likely to be given an Experimental Hero from their roster based on how long it has been since they've played any Experimental Hero."
@@ -971,7 +1002,7 @@
 		"Citadel_PauseMsg_AutoUnpaused"								"Game was automatically resumed."
 		"Citadel_PauseMsg_YouPaused:p{value}"						"You paused the game, you have {i:value} pause remaining.#|#You paused the game, you have {i:value} pauses remaining."
 		"Citadel_PauseMsg_CantUnpauseTeam"							"You can not resume the game on this team yet."
-		"Citadel_PauseMsg_UnpauseButton"							"Press{g:citadel_keybind:'Pause'}to unpause"
+		"Citadel_PauseMsg_UnpauseButton"							"Press{g:citadel_binding:'Pause'}to unpause"
 		"Citadel_ChatMsg_CommsRestricted"							"You are currently Communication Restricted, your messages will not be sent."
 
 		"Citadel_Hud_MovementSpeed"									"Movespeed: "
@@ -995,7 +1026,7 @@
 		"Citadel_HUD_IdolPickedUp"									"Urn Picked Up!"
 		"Citadel_HUD_IdolReturned"									"Soul Urn Returned!"
 		"Citadel_HUD_DamageSummary_Title"							"Damage <i>Taken</i>"
-		"Citadel_HUD_DamageSummary_Hint"							"Hold{g:citadel_keybind:'Scoreboard'}to view adjustment details"
+		"Citadel_HUD_DamageSummary_Hint"							"Hold{g:citadel_binding:'Scoreboard'}to view adjustment details"
 		"Citadel_HUD_AdjustedBy"									"ADJUSTED BY"
 
 		"Citadel_HUD_NextReward_PowerIncrease"						"Boon"
@@ -1077,6 +1108,9 @@
 		"Citadel_Team1_Name_Uppercase:n"					"THE AMBER HAND"
 		"Citadel_Team2_Name_Uppercase:n"					"THE SAPPHIRE FLAME"
 
+		"Citadel_MyTeam"								"My Team"
+		"Citadel_EnemyTeam"								"Enemy Team"
+
 		"Citadel_Mod_Tooltip_Passive"									"Passive"
 		"Citadel_Mod_Tooltip_Active"									"Active"
 		"Citadel_Mod_Tooltip_Innate"									"Innate"
@@ -1086,12 +1120,14 @@
 		"Citadel_Hud_TopbarPlayerNetworthPlayerHigh"					"{i:thousands_gold}<span class=\"demote\">k</span>"
 		"Citadel_Hud_TopbarPlayerNetworth"								"{i:thousands_gold}<span class=\"demote\">k</span>"
 
-		"Citadel_HUD_AbilityUnlockAvailable"						"Hold{g:citadel_keybind:'Scoreboard'}to Unlock an Ability"
-		"Citadel_HUD_AbilityUpgradeAvailable"						"Hold{g:citadel_keybind:'Scoreboard'}to Upgrade an Ability"
+		"Citadel_HUD_AbilityUnlockAvailable"						"Hold {g:citadel_binding:'Scoreboard'} to Unlock an Ability"
+		"Citadel_HUD_AbilityUpgradeAvailable"						"Hold {g:citadel_binding:'Scoreboard'} to Upgrade an Ability"
 		"Citadel_HUD_AbilityUnlock_Button"							"Unlock"
+		"Citadel_HUD_AbilityUnlock_Locked"							"Locked"
+		"Citadel_HUD_AbilityUpgradeAvailableRadial"					"Hold {g:citadel_binding:'Scoreboard'} to Upgrade an Ability"
 
 
-		"Citadel_HUD_JoinTeamChat_Dialog"							"Hold {g:citadel_keybind:'PushToTalk'} to opt-in to Team Chat"
+		"Citadel_HUD_JoinTeamChat_Dialog"							"Hold {g:citadel_binding:'PushToTalk'} to opt-in to Team Chat"
 
 
 		"Citadel_HUD_Damage_TooFar"									"Too Far"
@@ -1176,7 +1212,7 @@
 		"Citadel_PrivilegedFeatures_LowPriority_Title"				"Low Priority Matchmaking"
 		"Citadel_PrivilegedFeatures_LowPriority_InactiveTitle"		"Matchmaking"
 		"Citadel_PrivilegedFeatures_LowPriority_Active:p{low_priority_games_remaining}"		"You have {i:low_priority_games_remaining} win left in Low Priority Matchmaking.#|#You have {i:low_priority_games_remaining} wins left in Low Priority Matchmaking."
-		"Citadel_PrivilegedFeatures_LowPriority_Inactive"			"Players who frequently abandon matches will be put into a separate Low Priority Matchmaking queue, which when active, will only match you with other players who also have Low Priority Matchmaking."
+		"Citadel_PrivilegedFeatures_LowPriority_Inactive"			"Players who intentionally grief or abandon matches will be put into a separate Low Priority Matchmaking queue, which when active, will only match you with other players who also have Low Priority Matchmaking."
 
 		"Citadel_PrivilegedFeatures_ReportingDisabled_Title"		"Reporting Disabled"
 		"Citadel_PrivilegedFeatures_ReportingDisabled_InactiveTitle" "Reporting"
@@ -1218,9 +1254,10 @@
 		"Citadel_Party_Context_Invite"								"Invite Friends"
 		"Citadel_Party_Context_Open"								"Open Party"
 		"Citadel_Party_Context_Close"								"Close Party"
-		"Citadel_Party_Context_CopyCode"							"Copy Party Code"
-		"Citadel_Party_Context_ShowCode"							"Show Party Code"
-		"Citadel_Party_Context_HideCode"							"Hide Party Code"
+		"Citadel_Party_Context_PartyCode"							"Party Code"
+		"Citadel_Party_Context_CopyCode"							"Copy"
+		"Citadel_Party_Context_ShowCode"							"Show"
+		"Citadel_Party_Context_HideCode"							"Hide"
 		"Citadel_Party_SentInvite"									"Invite Sent"
 		"Citadel_Party_Leave"										"Leave Party"
 		"Citadel_Party_Report"										"Report"
@@ -1247,8 +1284,8 @@
 		"Citadel_Playtest_LocalTime"								"Local Time"
 		"Citadel_Playtest_DiscordInfo"								"Join the Deadlock discord to chat with other players and get latest news."
 		"Citadel_Playtest_DiscordButton"							"Join the Discord"
-		"Citadel_Playtest_RecommendInfo"							"Have friends who you'd like to play with in our playtests?"
-		"Citadel_Playtest_RecommendButton"							"Invite your Friends"
+		"Citadel_Playtest_RecommendInfo"							"Invite a Friend"
+		"Citadel_Playtest_RecommendButton"							"To be a Deadlock Playtester"
 		"Citadel_Playtest_CreateAccountsTitle"						"Provide Feedback & Join the Discussion"
 		"Citadel_Playtest_CreateAccountsBody"						"Create a forum account to provide feedback about the game. Join the Deadlock discord to chat with other players and get latest news."
 		"Citadel_Playtest_JoinForum"								"Join the Feedback Forums"
@@ -1313,6 +1350,15 @@
 		"Citadel_Dashboard_Matchmaking_UsersInQueue"				"{s:users_in_queue} players in queue"
 		"Citadel_Dashboard_Matchmaking_UsersInQueue_Single"			"{s:users_in_queue} player in queue"
 
+		"Citadel_Matchmaking_CannotCreateParty"						"Can't join or create a party while matchmaking."
+		"Citadel_Matchmaking_WaitingForParty"						"Waiting for Party"
+		"Citadel_Matchmaking_SearchingForMatch"						"Finding"
+		"Citadel_Matchmaking_ConnectingToServer"					"Connecting to Server"
+		"Citadel_Matchmaking_PartyMembersReady:p"					"{d:ready_party_members} / {d:party_members}#|#{d:ready_party_members} / {d:party_members}"
+		"Citadel_Matchmaking_ElapsedTime"							"{s:queue_time}"
+		"Citadel_Matchmaking_InteractHint"							"{g:citadel_binding:'MenuBack'} to Cancel Search"
+		"Citadel_Matchmaking_HideoutCancelHint"						"Hold {g:citadel_binding:'HideoutCancelMatchmaking'} to Cancel Search"
+
 		"Citadel_IdleMatchmaking_Removed_Title"						"Removed from Matchmaking"
 		"Citadel_IdleMatchmaking_Removed_Body"						"You were removed from matchmaking for being idle for too long"
 		"Citadel_IdleMatchmaking_IdleTimerExpired_Title"			"Idle in matchmaking"
@@ -1343,8 +1389,10 @@
 		"Citadel_Dashboard_Status_ConnectingToServer_Detail"		"Your match will begin shortly"
 		"Citadel_Dashboard_Status_GCOffline"						"Deadlock Network Offline"
 		"Citadel_Dashboard_Status_GCOffline_Detail"					"Some features may be unavailable"
-		"Citadel_Dashboard_Status_OutOfDateClient"					"Game Update Available"
-		"Citadel_Dashboard_Status_OutOfDateClient_Detail"			"Download the latest update on Steam"
+		"Citadel_Dashboard_Status_OutOfDateClient"					"Update Available"
+		"Citadel_Dashboard_Status_OutOfDateClient_Detail"			"Download on Steam"
+		"Citadel_Dashboard_Status_MatchInProgress"					"Match in Progress"
+		"Citadel_Dashboard_Status_MatchInProgress_Detail"			"{g:citadel_binding:'MenuBack'} to Rejoin or Abandon"
 		"Citadel_Dashboard_RejoinTooltip"							"Rejoin your game in progress"
 		"Citadel_Dashboard_AbandonTooltip"							"Abandons you from the match you are currently playing"
 		"Citadel_Dashboard_PatchNotesTooltip"						"View the latest patch notes"
@@ -1353,14 +1401,37 @@
 		"Citadel_Dashboard_CloseAnnounceTooltip"					"Close Announcements"
 		"Citadel_Dashboard_ViewLibrary"								"View Library"
 		"Citadel_Dashboard_ReloadPageTooltip"						"Reload Current Page"
-		"Citadel_Dashboard_Status_Mode_Unranked"					"Standard Match"
+		"Citadel_Dashboard_Status_Mode_Unranked"					"Match"
+		"Citadel_Dashboard_Status_Mode_Placement"					"Placement Match"
 		"Citadel_Dashboard_Status_Mode_Ranked"						"Ranked Match"
 		"Citadel_Dashboard_Status_Mode_HeroLabs"					"Hero Labs Match"
 		"Citadel_Dashboard_Status_Mode_Private"						"Private Match"
 		"Citadel_Dashboard_Status_Mode_Coop"						"Coop Bot Match"
+
+		"Citadel_HideoutConnectionFailed_Title"					"Can't join Party Hideout"
+		"Citadel_HideoutConnectionFailed_NoServer"				"No server assigned"
+		"Citadel_HideoutConnectionFailed_VersionIncompatible"	"Client is incompatible"
+		"Citadel_HideoutConnectionFailed_FailedToConnect"		"Failed to connect"
+
 		
 		"Citadel_Dashboard_ShowHeroLabHeroes"						"Show Experimental Heroes"
+
+		"Citadel_ReconnectPopup_Title"								"Match in Progress"
+		"Citadel_ReconnectPopup_Message"							"Would you like to reconnect?"
+		"Citadel_ReconnectPopup_Reconnect"							"Reconnect"
+		"Citadel_ReconnectPopup_Abandon"							"Abandon"
 		
+		"Citadel_Connection_GCUpdating"								"Network Updating"
+		"Citadel_Connection_GCUpdating_Desc"						"Waiting to reconnect"
+		"Citadel_Connection_NoSession"								"Network Not Connected"
+		"Citadel_Connection_NoSession_Desc"							"Some features may be unavailable"
+		"Citadel_Connection_LoggingIn"								"Connecting to Network"
+		"Citadel_Connection_LoggingIn_Desc"							"Logging in..."
+		"Citadel_Connection_NoSteam"								"No Steam Connection"
+		"Citadel_Connection_NoSteam_Desc"							"Please connect to Steam"
+		"Citadel_Connection_SteamUpdating"							"Steam Updating"
+		"Citadel_Connection_SteamUpdating_Desc"						"Waiting for Steam to finish updating"
+
 		"Citadel_Watch_Title"										"Watch Matches"
 		"Citadel_Watch_Featured"									"Featured Matches"
 		"Citadel_Watch_Loading"										"Loading..."
@@ -1401,7 +1472,18 @@
 		"Citadel_CreateParty_TooBusy"							"The Deadlock Network is too busy to process this action right now. Please try again in a few minutes."
 		"Citadel_CreateParty_RateLimited"						"You have performed too many operations in a short period of time. Please wait a little while and try again."
 		"Citadel_CreateParty_NotFriends"						"You must be friends with people that you send party invites to."
+		"Citadel_CreateParty_InMatchmaking"						"Can't create a party while in matchmaking."
 		"Citadel_CreateParty_UnableToGetRegionPings"			"You are not currently signed in to Steam or the Deadlock Network is unable to determine your current connectivity to our servers"
+
+		"Citadel_JoinOrCreateParty_Title"						"Join or Create Party"
+		"Citadel_JoinOrCreateParty_JoinPartyWithCode"			"Join Party with Code"
+		"Citadel_JoinOrCreateParty_EnterCode"					"Enter Party Code"
+		"Citadel_JoinOrCreateParty_JoinorCreatePartyWithCode"	"Join or Create Party with a Code"
+		"Citadel_JoinOrCreateParty_JoinParty"					"Join"
+		"Citadel_JoinOrCreateParty_CreateNewParty"				"Create New Party"
+		"Citadel_JoinOrCreateParty_CreateParty"					"Create"
+		"Citadel_JoinOrCreateParty_SelectAddFriend"				"Invite a friend"
+		"Citadel_JoinOrCreateParty_FriendsInGame:p{denifriend_countes}"				"{d:friend_count} friend playing Deadlock#|#{d:friend_count} friends playing Deadlock"
 
 		"Citadel_FriendCode_Title"								"Friend Code"
 		"Citadel_FriendCode_AddFriendLabel"						"Enter Friend Code"
@@ -1493,6 +1575,10 @@
 		"Citadel_PartyInvite_RateLimited"						"You have sent too many invites over the past few seconds. Please wait a little while before sending more invites."
 		"Citadel_PartyInvite_UserDoesntHaveGame"				"The player you invited hasn't played Deadlock before. For the closed beta we are only allowing you to send invites to users that have played Deadlock."
 
+		"Citadel_PartyInvite_Accept"							"Accept"
+		"Citadel_PartyInvite_Decline"							"Decline"
+		"Citadel_PartyInvite_EscapeHint"						"{g:citadel_binding:'MenuBack'} to Manage Invites"
+
 		"Citadel_JoinParty_ErrorTitle"							"Error"
 		"Citadel_JoinParty_FailedToGetResponse"					"Unable to talk to the Deadlock Network right now and join a party. Please try again in a few minutes."
 		"Citadel_JoinParty_InternalError"						"An internal error has occurred while trying to join the party"
@@ -1506,7 +1592,11 @@
 		"Citadel_JoinParty_InvalidCode"							"The code you provided did not match any party. The code may be invalid, or the associated party may have been abandoned."
 		"Citadel_JoinParty_RateLimited"							"You have made too many join requests recently. Please wait a few seconds before making more."
 		"Citadel_JoinParty_PartyInMatchMaking"					"This party is currently in the match making queue. Please try again later."
+		"Citadel_JoinParty_InMatchmaking"						"Can't join a party while in the match making queue."
+		"Citadel_JoinParty_PartyFull"							"Party is full."
 
+		"Citadel_PartyInvite_AcceptInParty_Title"				"Leave Current Party"
+		"Citadel_PartyInvite_AcceptInParty_Body"				"You will need to leave your current party to join a new party. Do you want to leave your current party?"
 
 		"Citadel_LeaveParty_ErrorTitle"							"Error"
 		"Citadel_LeaveParty_FailedToGetResponse"				"Unable to talk to the Deadlock Network right now and leave your party. Please try again in a few minutes."
@@ -1551,17 +1641,17 @@
 		"Citadel_Profile_Skill_Arrow_Tooltip_0"					"Play this hero to calibrate Skill Rating"
 		"Citadel_Profile_Stats_All"								"All Heroes"
 		"Citadel_Profile_Stats_TitleSection"					"All Time Stats"
-		"Citadel_Profile_Stats_GamesPlayed"						"Games Played"
-		"Citadel_Profile_Stats_GamesWon"						"Games Won"
-		"Citadel_Profile_Stats_Kills"							"Kills"
-		"Citadel_Profile_Stats_Assists"							"Assists"
-		"Citadel_Profile_Stats_HeroDamage"						"Hero Damage"
-		"Citadel_Profile_Stats_ObjDamage"						"Objective Damage"
-		"Citadel_Profile_Stats_LastHits"						"Last Hits"
-		"Citadel_Profile_Stats_Denies"							"Denies"
-		"Citadel_Profile_Stats_Healing"							"Healing"
-		"Citadel_Profile_Stats_Commends"						"Commends"
-		"Citadel_Profile_Stats_Networth"						"Souls Collected"
+		"Citadel_Profile_Stats_GamesPlayed:p{games_played}"		"Game Played#|#Games Played"
+		"Citadel_Profile_Stats_GamesWon:p{games_won}"			"Game Won#|#Games Won"
+		"Citadel_Profile_Stats_Kills:p"							"Kill#|#Kills"
+		"Citadel_Profile_Stats_Assists:p"						"Assist#|#Assists"
+		"Citadel_Profile_Stats_HeroDamage:p"					"Hero Damage#|#Hero Damage"
+		"Citadel_Profile_Stats_ObjDamage:p"						"Objective Damage#|#Objective Damage"
+		"Citadel_Profile_Stats_LastHits:p{last_hits}"			"Last Hit#|#Last Hits"
+		"Citadel_Profile_Stats_Denies:p{denies}"				"Deny#|#Denies"
+		"Citadel_Profile_Stats_Healing:p"						"Healing#|#Healing"
+		"Citadel_Profile_Stats_Commends:p{commend_count}"		"Commend#|#Commends"
+		"Citadel_Profile_Stats_Networth:p"						"Soul Collected#|#Souls Collected"
 		"Citadel_Profile_Stats_Value_Networth_Low"				"{i:game_networth}"
 		"Citadel_Profile_Stats_Value_Networth_High"				"{i:game_networth}k"
 		"Citadel_Profile_Stats_SortBy"							"Sort By:"
@@ -1583,6 +1673,7 @@
 		"Citadel_HeroPage_PlayerStats"							"Player Stats"
 		"Citadel_HeroPage_MissingVideos"						"Hero currently does not have movies created for abilities"
 		"Citadel_HeroPage_FatesTale"							"A FATE'S TALE:"
+		"Citadel_HeroPage_Backstory"							"Backstory:"
 		"Citadel_HeroPage_EditBuild"							"Create/Edit Build"
 		"Citadel_HeroPage_Complexity"							"Complexity"
 
@@ -1605,6 +1696,9 @@
 		"Citadel_MatchDetails_PlayerDmg"						"Player Dmg"
 		"Citadel_MatchDetails_ObjDmg"							"Obj Dmg"
 		"Citadel_MatchDetails_Healing"							"Healing"
+		"Citadel_MatchDetails_PlayerHealing"					"Healing"
+		"Citadel_MatchDetails_PlayerBarriering"					"Barrier Absorb"
+		"Citadel_MatchDetails_SelfDamage"						"Self Damage"
 		"Citadel_MatchDetails_Victory"							"Victory"
 		"Citadel_MatchDetails_Defeat"							"Defeat"
 		//The top row of the match results, either team name or outcome as appropriate for each language
@@ -1628,6 +1722,7 @@
 		"Citadel_GraphGroup_Player"								"Player-Specific"
 
 		"Citadel_GraphType_NetWorth"							"Souls Collected"
+		"Citadel_GraphType_NetWorthDelta"						"Souls Collected Difference"
 		"Citadel_GraphType_NetWorthPerMin"						"Souls per Minute"
 		"Citadel_GraphType_Kills"								"Kills"
 		"Citadel_GraphType_Deaths"								"Deaths"
@@ -1673,6 +1768,7 @@
 
 		"Citadel_Graph_Team1"							"Amber"
 		"Citadel_Graph_Team2"							"Sapphire"
+		"Citadel_Graph_NetWorthDeltaLine"				"Souls Collected Difference"
 		"Citadel_Graph_WeaponDamage"					"Gun Damage"
 		"Citadel_Graph_WeaponDamageCrit"				"Gun Damage - Crit"
 
@@ -1780,6 +1876,13 @@
 		"Citadel_HeroBuilds_EditCategory"				"Edit Category"
 		"Citadel_HeroBuilds_NewCategory"				"Category %number%"
 		"Citadel_HeroBuilds_EditMod"					"Edit Item"
+		"Citadel_HeroBuilds_DefaultBuild_Title"			"Default Build"
+		"Citadel_HeroBuilds_DefaultBuild_Failed"		"Failed to update Default Build!"
+		"Citadel_HeroBuilds_DefaultBuild_Added"			"New Default Build Added!"
+		"Citadel_HeroBuilds_DefaultBuild_Updated"		"Existing Default Build Updated!"
+		"Citadel_HeroBuilds_DefaultBuildUpdate_Title"	"Default Build"
+		"Citadel_HeroBuilds_BeginnerHeroBuild"			"Beginner %hero_name% Build"
+		"Citadel_HeroBuilds_BeginnerHeroBuildDesc"		"Valve-provided default recommended items for new players playing this hero."
 		"Citadel_HeroBuilds_DefaultHeroBuild"			"Default %hero_name% Build"
 		"Citadel_HeroBuilds_DefaultHeroBuildDesc"		"Valve-provided default recommended items for this hero."
 		"Citadel_HeroBuilds_CopiedHeroBuildName"		"Copy of %persona_name%'s %hero_name% Build"
@@ -1798,6 +1901,7 @@
 		"Citadel_HeroBuilds_QuickbuyAll"				"Right click to Add/Remove items in category to Quickbuy."
 		"Citadel_HeroBuilds_NewHeroBuild"				"New %hero_name% Build"
 		"Citadel_HeroBuilds_CopyOfName"					"Copy of [%name%]"
+		"Citadel_HeroBuilds_CopyOfNameValve"			"Copy of %name%"
 		"Citadel_HeroBuilds_TabName"					"Builds"
 		"Citadel_HeroBuilds_AddCategory"				"Add Category"
 		"Citadel_HeroBuilds_ShowAllLanguages"			"Show All Languages"
@@ -1840,6 +1944,7 @@
 		"Citadel_HeroBuilds_PublicBuildLabel"			"Public Build"
 		"Citadel_HeroBuilds_PublishBuildLabel"			"Publish"
 		"Citadel_HeroBuilds_BuildPublishedLabel"		"Build Published"
+		"Citadel_HeroBuilds_ValveBuildLabel"			"Make Default"
 		"Citadel_HeroBuilds_DeleteBuildLabel"			"Delete"
 		"Citadel_HeroBuilds_RevertBuildLabel"			"Revert"
 		"Citadel_HeroBuilds_RevertBuildTooltip"			"Wipes local changes made to this build, and replaces it with the currently published version."
@@ -1977,8 +2082,8 @@
 		"CitadelShop_SearchExampleLine3"		"Property: <b>Bullet Resist</b>"
 		"CitadelShop_SearchExampleAlt"			"Try searching by <span class=\"highlight\">Item Name</span> or by stat such as <span class=\"highlight_weapon\">Ammo</span>, <span class=\"highlight_vitality\">Lifesteal</span> or <span class=\"highlight_spirit\">Spirit Power</span>"
 
-		"Citadel_Dead_ShopReminder"				"{g:citadel_keybind:'OpenHeroSheet'}Shop & Upgrade"
-		"Citadel_Dead_ReplayDeath"				"{g:citadel_keybind:'ReplayDeath'}Replay Death"
+		"Citadel_Dead_ShopReminder"				"{g:citadel_binding:'OpenHeroSheet'}Shop & Upgrade"
+		"Citadel_Dead_ReplayDeath"				"{g:citadel_binding:'ReplayDeath'}Replay Death"
 
 
 		//-----------------------------------------------------------------------------
@@ -2025,17 +2130,21 @@
 		"upgrade_tech_bleed/modifier_tech_bleed_proc/modifier_tech_bleed"		"Mystic Reverb"
 
 
-		"modifier_hint_vertical_movement"		"Press {g:citadel_keybind:'Mantle'} to cancel. {g:citadel_keybind:'Roll'}/ {g:citadel_keybind:'Crouch'} to move Up/Down"
-		"modifier_hint_can_cancel"				"Press {g:citadel_keybind:'Mantle'} to cancel"
+		"modifier_hint_vertical_movement"		"Press {g:citadel_binding:'Mantle'} to cancel. {g:citadel_binding:'Roll'}/ {g:citadel_binding:'Crouch'} to move Up/Down"
+		"modifier_hint_can_cancel"				"Press {g:citadel_binding:'Mantle'} to cancel"
 		"modifier_citadel_dps_tracker"			"DPS"
 		"modifier_citadel_accuracy_tracker"		"Accuracy"
 
 		"modifier_walker_resist_aura"			"Walker Resist Aura"
 
+		"modifier_citadel_capture_point_meteor/contributor" "Capturing Point"
+
+		"misc_modifier_HUD_label"				"+{s:modifier_value}{s:modifier_postfix} {s:modifier_name}"
+
 		//****************************************************************************************************************************************************************************
 
 		"CITADEL_ABILITY_INVALID_IN_CAST_DELAY"			"Already activated"
-		"CITADEL_ABILITY_INVALID_IN_COOLDOWN"			"Still in cooldown"
+		"CITADEL_ABILITY_INVALID_IN_COOLDOWN"			"On Cooldown for {f:1:cooldown_seconds}s"
 		"CITADEL_ABILITY_INVALID_NOT_LEARNED"			"Not yet learned"
 		"CITADEL_ABILITY_INVALID_CANT_CAST_NO_CHARGES"	"Not enough charges"
 		"CITADEL_ABILITY_INVALID_CANT_CAST_IN_CHARGE_DELAY"	"Charge delay"
@@ -2079,12 +2188,17 @@
 		"CITADEL_ABILITY_INVALID_NOTHING_TO_REFRESH"	"Nothing to refresh"
 		"CITADEL_ABILITY_INVALID_BEETLE_TARGET"			"Target has beetle"
 		"CITADEL_ABILITY_INVALID_CLIP_IS_FULL"			"Clip is full"
-		"CITADEL_ABILITY_INVALID_FAILED_DASH_JUMP"		"Failed Dash-Jump Timing"
+		"CITADEL_ABILITY_INVALID_FAILED_DASH_JUMP_ALREADY_ATTEMPTED"		"Dash-Jump: Already Missed timing"
+		"CITADEL_ABILITY_INVALID_FAILED_DASH_JUMP_NEEDS_STAMINA"			"Dash-Jump: Not Enough Stamina"
+		"CITADEL_ABILITY_INVALID_FAILED_DASH_JUMP_JUMPED_EARLY"				"Dash-Jump: Too early"
+		"CITADEL_ABILITY_INVALID_FAILED_DASH_JUMP_JUMPED_LATE"				"Dash-Jump: Too late"
 		"CITADEL_ABILITY_DEBUG_COMMAND_REQUIRES_HERO_TARGET" "Debug command requires hero target"
 		"CITADEL_ABILITY_INVALID_NOT_ENOUGH_ABILITY_RESOURCE" "Not enough ability resource"
 		"CITADEL_ABILITY_INVALID_NOT_BLOOD" "Not enough rage"
 		"CITADEL_ABILITY_INVALID_NOT_ENOUGH_HEADROOM"	"Ceiling too low"
 		"CITADEL_ABILITY_INVALID_NO_DAMAGE_TO_CLEAR"	"No damage to clear"
+		"CITADEL_ABILITY_INVALID_OTHER_DOOR_TOO_FAR"	"Doors too far apart"
+		"CITADEL_ABILITY_INVALID_UNABLE_TO_TELEPORT"	"Unable to Teleport"
 
 		"citadel_ability_interrupted"					"Interrupted by"
 
@@ -2093,23 +2207,23 @@
 		"citadel_ability_sprint" ""
 		"citadel_ability_action" ""
 
-		"citadel_hint_zoom"			"Hold {g:citadel_keybind:'ADS'} to zoom in with your weapon."
-		"citadel_hint_slide"		"Hold {g:citadel_keybind:'Crouch'} while running down a ramp to slide."
-		"citadel_hint_zipline"		"Hold {g:citadel_keybind:'Zipline'} to jump on the hyperline."
-		"citadel_hint_mantle"		"Hold {g:citadel_keybind:'Mantle'} to climb over obstacles."
-		"citadel_hint_ladder"		"Press {g:citadel_keybind:'Mantle'}+{g:citadel_keybind:'MoveForward'} to jump onto the ladder."
+		"citadel_hint_zoom"			"Hold {g:citadel_binding:'ADS'} to zoom in with your weapon."
+		"citadel_hint_slide"		"Hold {g:citadel_binding:'Crouch'} while running down a ramp to slide."
+		"citadel_hint_zipline"		"Hold {g:citadel_binding:'Zipline'} to jump on the hyperline."
+		"citadel_hint_mantle"		"Hold {g:citadel_binding:'Mantle'} to climb over obstacles."
+		"citadel_hint_ladder"		"Press {g:citadel_binding:'Mantle'}+{g:citadel_binding:'MoveForward'} to jump onto the ladder."
 		"citadel_hint_buy_items"		"Return to the base or a shop to buy <span class=\"hintTextEmphasis\">mods.</span>"
-		"citadel_hint_melee"		"Press {g:citadel_keybind:'AbilityMelee'} to use your melee attack."
-		"citadel_hint_learn_initial_ability"	"Hold{g:citadel_keybind:'Scoreboard'}to choose which ability to unlock."
-		"citadel_hint_learn_ability"	"Hold down an ability {g:citadel_keybind:'Ability1'}, {g:citadel_keybind:'Ability2'}, {g:citadel_keybind:'Ability3'} or {g:citadel_keybind:'Ability4'} to learn that ability."
-		"citadel_hint_upgrade_ability"	"Hold {g:citadel_keybind:'Scoreboard'} to upgrade your abilities."
-		"citadel_hint_hero_testing_shop"	"Press {g:citadel_keybind:'OpenHeroSheet'} to open up the shop and set test options."
+		"citadel_hint_melee"		"Press {g:citadel_binding:'AbilityMelee'} to use your melee attack."
+		"citadel_hint_learn_initial_ability"	"Hold{g:citadel_binding:'Scoreboard'}to choose which ability to unlock."
+		"citadel_hint_learn_ability"	"Hold down an ability {g:citadel_binding:'Ability1'}, {g:citadel_binding:'Ability2'}, {g:citadel_binding:'Ability3'} or {g:citadel_binding:'Ability4'} to learn that ability."
+		"citadel_hint_upgrade_ability"	"Hold {g:citadel_binding:'Scoreboard'} to upgrade your abilities."
+		"citadel_hint_hero_testing_shop"	"Press {g:citadel_binding:'OpenHeroSheet'} to open up the shop and set test options."
 
 		// Ability Hints
-		"citadel_hint_flamedash_boost" "Press {g:citadel_keybind:'Roll'} to boost.  Requires Stamina."
-		"citadel_hint_activate_wall" "Press {g:citadel_keybind:'Attack'} to create the wall early."
-		"citadel_hint_guided_arrow_boost" "Hold {g:citadel_keybind:'Attack'} to boost arrow speed."
-		"citadel_hint_flying_strike_early_activate" "Press {g:citadel_keybind:'Attack'} to fly to your target early."
+		"citadel_hint_flamedash_boost" "Press {g:citadel_binding:'Roll'} to boost.  Requires Stamina."
+		"citadel_hint_activate_wall" "Press {g:citadel_binding:'Attack'} to create the wall early."
+		"citadel_hint_guided_arrow_boost" "Hold {g:citadel_binding:'Attack'} to boost arrow speed."
+		"citadel_hint_flying_strike_early_activate" "Press {g:citadel_binding:'Attack'} to fly to your target early."
 
 		//-----------------------------------------------------------------------------
 		// Breakble Prop modifiers
@@ -2137,6 +2251,8 @@
 		"survival_powerup_pickup"							"Survival"
 		"casting_powerup_pickup"							"Casting"
 		"movement_powerup_pickup"							"Movement"
+		"refresh_powerup_pickup"							"Refresh"
+		"change_team_powerup_pickup"							"Change Team"
 
 		"spirit_permanent_pickup_label"					"+2 Spirit Power"
 		"firerate_permanent_pickup_label"				"+1.5% Fire Rate"
@@ -2188,7 +2304,7 @@
 		"citadel_settings_social"						"Social"
 		"citadel_settings_hotkeys"						"Keybinds"
 		"citadel_settings_steaminput"					"Controller"
-		"citadel_ability_upgrade_tab_desc"				"{g:citadel_keybind:'Scoreboard'}+[Ability Key] will upgrade your ability. These are additional binds."
+		"citadel_ability_upgrade_tab_desc"				"{g:citadel_binding:'Scoreboard'} + [{g:citadel_binding:'Ability1'}/{g:citadel_binding:'Ability2'}/{g:citadel_binding:'Ability3'}/{g:citadel_binding:'Ability4'}] will upgrade your ability. These are additional binds."
 		"citadel_settings_per_unit_hotkeys"				"Hero Specific Hotkeys"
 		"citadel_Hotkeys_Tooltip_PerUnitHotkeys"		"Enable/Disable Hero Specific Keybinds"
 		"citadel_settings_defaultkeybinds"				"Default"
@@ -2279,6 +2395,11 @@
 		"citadel_settings_always_show_hud_stats_tooltip"	"Turn this on to always have the stats on the left of the HUD visible."
 		"citadel_camera_pitch_inverted"					"Invert Mouse"
 		"citadel_camera_zoom_is_toggle"					"Toggle Zoom"
+		"citadel_settings_camera_presets"				"Camera Presets"
+		"citadel_settings_camera_preset_default"		"Default"
+		"citadel_settings_camera_preset_1"				"Camera 1"
+		"citadel_settings_camera_preset_2"				"Camera 2"
+		"citadel_settings_camera_preset_3"				"Camera 3"
 		"citadel_enable_ping_indicator"					"Enable HUD Ping Indicator"
 		"citadel_settings_alt_cast_mode"				"Change Alternate Cast Mode:"
 		"citadel_settings_alt_cast_double_tap"			"Double Tap"
@@ -2317,9 +2438,11 @@
 		"citadel_settings_mousezoomsensitivity"			"Zoom Sensitivity Ratio"
 		"citadel_settings_keybinddefaults"				"Reset all keybinds to defaults"
 		"citadel_settings_pingwheeldefaults"			"Reset Ping Wheel to default"
+		"citadel_settings_movementkeybinds"				"Movement Keybinds"
+		"citadel_settings_combatkeybinds"				"Combat Keybinds"
 		"citadel_settings_abilitieskeybinds"			"Ability Keybinds"
 		"citadel_settings_itemkeybinds"					"Item Keybinds"
-		"citadel_settings_actionkeybinds"				"Action Keybinds"
+		"citadel_settings_ingamemenukeybinds"			"In-Game Menus"
 		"citadel_settings_misckeybinds"					"Misc Keybinds"
 		"citadel_settings_communicationkeybinds"		"Communication Keybinds"
 		"citadel_settings_spectatorkeybinds"			"Spectator/Replay Keybinds"
@@ -2523,7 +2646,7 @@
 		"citadel_settings_glyph_lock_mode_tooltip_gamepad"	"Only GamePad glyphs will be displayed (note: a controller must be connected)"
 
 		"citadel_settings_glyph_universal_toggle"			"Show Universal Face Glyphs"
-		"citadel_settings_keybind_unbound"					"??"
+		"citadel_settings_keybind_unbound"					"[?]"
 
 		"Citadel_GraphicsDriverWarning_Title"			"Warning: Graphics Driver Out-of-Date"
 		"Citadel_GraphicsDriverOutOfDateWarning_AMD"	"For an optimal gameplay experience, please visit AMD support to download the latest driver."
@@ -2568,6 +2691,8 @@
 		"Citadel_Settings_HudTelemetry_Show_OnlyInPoorConditions" "If conditions are poor"
 		"Citadel_Settings_HudTelemetry_Show_Always" "Always"
 
+		"citadel_settings_keybind_hero_name"	"{s:hero_name}"
+
 		"citadel_keybind_alt"							"ALT"
 		"citadel_keybind_shift"							"SHIFT"
 		"citadel_keybind_ctrl"							"CTRL"
@@ -2583,6 +2708,7 @@
 		"citadel_keybind_upgrade_ability2"				"Upgrade Ability 2"
 		"citadel_keybind_upgrade_ability3"				"Upgrade Ability 3"
 		"citadel_keybind_upgrade_ability4"				"Upgrade Ability 4"
+		"citadel_keybind_upgrade_ability_menu"			"Upgrade Ability Menu"
 		"citadel_keybind_item1"							"Item 1"
 		"citadel_keybind_item2"							"Item 2"
 		"citadel_keybind_item3"							"Item 3"
@@ -2665,10 +2791,18 @@
 		"citadel_keybind_minimap_view_spectator_team"	"Both Team's Minimap View"
 		"citadel_keybind_minimap_view_targets_team"		"Target's Minimap View"
 
+		"citadel_keybind_cursorselect"					"Select"
+		"citadel_keybind_cursorcontext"					"Menu"
+		"citadel_keybind_menuback"						"Back"
+		"citadel_keybind_menuup"						"Up"
+		"citadel_keybind_menudown"						"Down"
+		"citadel_keybind_menuleft"						"Left"
+		"citadel_keybind_menuright"						"Right"
+
 		"citadel_mute_game_audio"						"Mute game Audio"
 		"citadel_unmute_game_audio"						"Unmute game Audio"
 		"citadel_game_audio_muted"						"Game Audio Muted"
-		"citadel_game_audio_press_unmute"				"Press {g:citadel_keybind:'ToggleMute'} to unmute"
+		"citadel_game_audio_press_unmute"				"Press {g:citadel_binding:'ToggleMute'} to unmute"
 
 		// Names for key binds. Only need to add unique binds.
 		"ExtraInfo"										"Extra Info"
@@ -2679,10 +2813,12 @@
 		"Citadel_DuplicateKeybindDescKey"				"Key"
 		"Citadel_DuplicateKeybindDescBoundMultiple"		" is bound to multiple commands: "
 		"Citadel_UnableToBindKey"						"Unable to Bind Key"
+		"Citadel_UnableToBindUniqueKey"					"Key '{s:bind_name}' is already bound to unique key '{s:duplicate_bind_name}'"
+		"Citadel_UnknownKey"							"Unknown Key"
 		"Citadel_ModifierKeybindOnly"					"Only Modifier Keys can be bound to this keybind."
 		"Citadel_ConflictingWithPrimaryModifier"		"This modifier conflicts with {s:key_name}"
 
-		"citadel_clientversion"							"Build {d:client_version_number}"
+		"citadel_clientversion"							"#{d:client_version_number}"
 		"Citadel_ClientVersion_Connary"					""
 		"OS_Default_Device"								"Default Device"
 
@@ -2741,7 +2877,7 @@
 		"guide_upgrades_deny_desc"					"Enemy Soul Orbs are orange and enemies will get them if they float away or if they shoot them.<br><br>You can shoot these Orange Orbs first to steal them."
 
 		"guide_upgrades_killing_guardians_header"	"Ability Points"
-		"guide_upgrades_killing_guardians_desc"		"As you collect souls, you'll also be granted Ability Points (AP).<br><br>You can spend these points to upgrade your abilities by holding {g:citadel_keybind:'Scoreboard'}"
+		"guide_upgrades_killing_guardians_desc"		"As you collect souls, you'll also be granted Ability Points (AP).<br><br>You can spend these points to upgrade your abilities by holding {g:citadel_binding:'Scoreboard'}"
 
 		"guide_upgrades_going_home_header"			"Shop"
 		"guide_upgrades_going_home_desc"			"When you have souls to spend, go back to base to heal and buy powerful items that increase your stats and grant additional abilities.<br><br>There's also a shop next to each guardian, available until the guardian is destroyed."
@@ -2756,49 +2892,49 @@
 		"guide_neutrals_desc"						"There are many neutral creatures lurking around the map. Defeat them to earn souls.<br><br>Sometimes, a powerful creature will appear at the center of the map… defeating it will offer your team great power."
 
 		"guide_movement_jump_header"				"Jump"
-		"guide_movement_jump_desc"					"Press {g:citadel_keybind:'Mantle'} to jump."
+		"guide_movement_jump_desc"					"Press {g:citadel_binding:'Mantle'} to jump."
 
 		"guide_movement_crouch_header"				"Crouch"
-		"guide_movement_crouch_desc"				"Hold {g:citadel_keybind:'Crouch'} to crouch."
+		"guide_movement_crouch_desc"				"Hold {g:citadel_binding:'Crouch'} to crouch."
 
 		"guide_movement_slide_header"				"Slide"
-		"guide_movement_slide_desc"					"Hold {g:citadel_keybind:'Crouch'} to slide while moving down a ramp or moving at high speed."
+		"guide_movement_slide_desc"					"Hold {g:citadel_binding:'Crouch'} to slide while moving down a ramp or moving at high speed."
 
 		"guide_movement_dodge_header"				"Dash"
-		"guide_movement_dodge_desc"					"While moving press {g:citadel_keybind:'Roll'} to dash.<br><br>Requires stamina."
+		"guide_movement_dodge_desc"					"While moving press {g:citadel_binding:'Roll'} to dash.<br><br>Requires stamina."
 
 		"guide_movement_zipline_header"				"Transit Lines"
-		"guide_movement_zipline_desc"				"Hold {g:citadel_keybind:'Zipline'} to get on the line.<br><br>You can jump off by pressing {g:citadel_keybind:'Mantle'}"
+		"guide_movement_zipline_desc"				"Hold {g:citadel_binding:'Zipline'} to get on the line.<br><br>You can jump off by pressing {g:citadel_binding:'Mantle'}"
 
 		"guide_movement_mantle_header"				"Mantle"
-		"guide_movement_mantle_desc"				"Hold {g:citadel_keybind:'Mantle'} when near a ledge to mantle up."
+		"guide_movement_mantle_desc"				"Hold {g:citadel_binding:'Mantle'} when near a ledge to mantle up."
 
 		"guide_movement_double_jump_header"			"Double Jump"
-		"guide_movement_double_jump_desc"			"Press {g:citadel_keybind:'Mantle'} while in midair to double jump.<br><br>Special moves like double jump use your stamina bar, located next to your reticle."
+		"guide_movement_double_jump_desc"			"Press {g:citadel_binding:'Mantle'} while in midair to double jump.<br><br>Special moves like double jump use your stamina bar, located below your reticle."
 
 		"guide_movement_airdash_header"				"Air Dash"
-		"guide_movement_airdash_desc"				"While airborne, {g:citadel_keybind:'Roll'} to perform an air dash.<br><br>Requires stamina."
+		"guide_movement_airdash_desc"				"While airborne, {g:citadel_binding:'Roll'} to perform an air dash.<br><br>Requires stamina."
 
 		"guide_movement_dodge_jump_header"			"Dash Jump"
 		"guide_movement_dodge_jump_desc"			"Combine a dash and a well-timed jump to perform a dash jump.<br><br>Requires stamina."
 
 		"guide_basics_shoot_header"					"Shoot"
-		"guide_basics_shoot_desc"					"Press {g:citadel_keybind:'Attack'} to shoot.<br><br>Gun damage falls off at longer ranges."
+		"guide_basics_shoot_desc"					"Press {g:citadel_binding:'Attack'} to shoot.<br><br>Gun damage falls off at longer ranges."
 
 		"guide_basics_aim_header"					"Zoom"
-		"guide_basics_aim_desc"						"Hold {g:citadel_keybind:'ADS'} to zoom in with your weapon."
+		"guide_basics_aim_desc"						"Hold {g:citadel_binding:'ADS'} to zoom in with your weapon."
 
 		"guide_basics_melee_header"					"Melee"
-		"guide_basics_melee_desc"					"Press {g:citadel_keybind:'AbilityMelee'} to make a quick attack. Hold {g:citadel_keybind:'AbilityMelee'} to deliver a powerful charging attack."
+		"guide_basics_melee_desc"					"Press {g:citadel_binding:'AbilityMelee'} to make a quick attack. Hold {g:citadel_binding:'AbilityMelee'} to deliver a powerful charging attack."
 
 		"guide_basics_reload_header"				"Reload"
-		"guide_basics_reload_desc"					"Press {g:citadel_keybind:'Reload'} to reload your weapon. Certain actions, such as melee, will pause reload."
+		"guide_basics_reload_desc"					"Press {g:citadel_binding:'Reload'} to reload your weapon. Certain actions, such as melee, will pause reload."
 
 		"guide_advanced_parry_header"				"Parry"
-		"guide_advanced_parry_desc"					"Press {g:citadel_keybind:'HeldItem'} to parry an enemy's melee attack.<br><br>They will be stunned and will receive increased melee damage."
+		"guide_advanced_parry_desc"					"Press {g:citadel_binding:'HeldItem'} to parry an enemy's melee attack.<br><br>They will be stunned and will receive increased melee damage."
 
 		"guide_basics_abilities_header"				"Abilities"
-		"guide_basics_abilities_desc"				"Press {g:citadel_keybind:'Ability1'}, {g:citadel_keybind:'Ability2'}, {g:citadel_keybind:'Ability3'}, {g:citadel_keybind:'Ability4'} to use your hero's abilities."
+		"guide_basics_abilities_desc"				"Press {g:citadel_binding:'Ability1'}, {g:citadel_binding:'Ability2'}, {g:citadel_binding:'Ability3'}, {g:citadel_binding:'Ability4'} to use your hero's abilities."
 
 		"guide_back_to_dashboard"					"Back to Dashboard"
 
@@ -2811,20 +2947,20 @@
 		"citadel_spectator_voice_mode_1"	"Player Voice Off"
 		"hud_free_cursor_mode_0"			"Enable Cursor"
 		"hud_free_cursor_mode_1"			"Enable Camera Control"
-		"hud_prev_player"					"{g:citadel_keybind:'Spectator.SpectatorPrevTarget'}Previous Player" 
-		"hud_next_player"					"{g:citadel_keybind:'Spectator.SpectatorNextTarget'}Next Player" 
+		"hud_prev_player"					"{g:citadel_binding:'Spectator.SpectatorPrevTarget'}Previous Player" 
+		"hud_next_player"					"{g:citadel_binding:'Spectator.SpectatorNextTarget'}Next Player" 
 		"hud_spectating"					"Spectating"
-		"hud_change_camera"					"{g:citadel_keybind:'Spectator.ToggleSpectatorCamera'}Change Camera"
+		"hud_change_camera"					"{g:citadel_binding:'Spectator.ToggleSpectatorCamera'}Change Camera"
 		"hud_spectate_next_prev"			"Next / Prev"
-		"hud_spectate_fly_down"				"{g:citadel_keybind:'Spectator.SpectatorFlyDown'}Fly Up"
-		"hud_spectate_fly_up"				"{g:citadel_keybind:'Spectator.SpectatorFlyUp'}Fly Down"
-		"hud_spectate_change_team"			"{g:citadel_keybind:'Spectator.ToggleSpectatorTeam'}Change Team"
+		"hud_spectate_fly_down"				"{g:citadel_binding:'Spectator.SpectatorFlyDown'}Fly Up"
+		"hud_spectate_fly_up"				"{g:citadel_binding:'Spectator.SpectatorFlyUp'}Fly Down"
+		"hud_spectate_change_team"			"{g:citadel_binding:'Spectator.ToggleSpectatorTeam'}Change Team"
 		"hud_spectate_count"				"{d:spectatorCount} Spectators"
 
-		"hud_spectate_minimap_view_sapphire"	"{g:citadel_keybind:'Spectator.SpectatorFOWTeamSapphire'}Sapphire"
-		"hud_spectate_minimap_view_amber"		"{g:citadel_keybind:'Spectator.SpectatorFOWTeamAmber'}Amber"
-		"hud_spectate_minimap_view_both_teams"	"{g:citadel_keybind:'Spectator.SpectatorFOWTeamBoth'}Both Teams"
-		"hud_spectate_minimap_view_target_team" "{g:citadel_keybind:1st:'Spectator.SpectatorFOWTeamTarget'}Target's"
+		"hud_spectate_minimap_view_sapphire"	"{g:citadel_binding:'Spectator.SpectatorFOWTeamSapphire'}Sapphire"
+		"hud_spectate_minimap_view_amber"		"{g:citadel_binding:'Spectator.SpectatorFOWTeamAmber'}Amber"
+		"hud_spectate_minimap_view_both_teams"	"{g:citadel_binding:'Spectator.SpectatorFOWTeamBoth'}Both Teams"
+		"hud_spectate_minimap_view_target_team" "{g:citadel_binding:1st:'Spectator.SpectatorFOWTeamTarget'}Target's"
 		"hud_spectate_minimap_view"				"Minimap View" 
 
 		"kill_hype_KillStreak:p{kills}"	"{i:kills} kill streak#|#{i:kills} kill streak"
@@ -2873,22 +3009,23 @@
 
 
 		"menu_play"									"Play"
-		"menu_play_normal"							"Play Deadlock"
+		"menu_play_normal"							"Deadlock"
+		"menu_play_roster_button"					"Play"
 		"menu_play_normal_count"					"{s:mm_unranked_count} In Queue"
 		"menu_play_allmodes_count"					"{s:queued_users} in Queue"
 		"menu_ready_up"								"Ready Up"
 		"menu_clear_ready_up"						"Clear Ready"
-		"menu_roster_detail2"						"Edit Roster"
+		"menu_roster_detail2"						"EDIT roster"
 		"menu_roster_edit"							"Edit"
-		"menu_leave_queue"							"Cancel Search"
+		"menu_leave_queue"							"CANCEL search"
 		"menu_clear_party_mode"						"Change Mode"
-		"menu_leave_testing"						"Leave Testing"
-		"menu_resume"								"Resume"
-		"menu_abandon"								"Abandon Match"
-		"menu_leave"								"Leave Match"
-		"menu_disconnect"							"Disconnect"
-		"menu_leave_spectate"						"Leave Spectating"
-		"menu_rejoin"								"Rejoin"
+		"menu_leave_testing"						"LEAVE testing"
+		"menu_resume"								"RESUME"
+		"menu_abandon"								"ABANDON Match"
+		"menu_leave"								"LEAVE match"
+		"menu_disconnect"							"DISCONNECT"
+		"menu_leave_spectate"						"LEAVE Spectating"
+		"menu_rejoin"								"REJOIN"
 		"menu_watch"								"Watch"
 		"menu_heroes"								"Heroes"
 		"menu_submit_feedback"						"Submit Feedback"
@@ -2897,13 +3034,20 @@
 		"menu_bot_practice"							"Play Bot Match"
 		"menu_bot_custom"							"Custom Match"
 		"menu_bot_hero_labs"						"Hero Labs"
+		"menu_placement_matches"					"Play Deadlock"
 		"menu_learn"								"Learn to Play"
 		"menu_resources"							"Resources"
 		"menu_training"								"Training"
 		"menu_browseshop"							"Browse Items"
 		"menu_social"								"Party"
-		"Citadel_Exit_Game_Confirm"					"Are you sure you want to exit Deadlock?"
-		"menu_exit"									"Exit Game"
+		"menu_tpsandbox"							"Teleport to Sandbox"
+		"menu_tphideout"							"Teleport to Hideout"
+		"menu_shoparea"							    "Shop & Practice Space"
+		
+		
+		"Citadel_Exit_Game_Confirm"					"Are you sure?"
+		"menu_exit"									"Exit Deadlock"
+		"menu_exit_deadlock"						"EXIT GAME"
 		"Citadel_Confirm_Discord"					"Are you ready to create your Discord invite? This invite will only be usable for 2 hours and you will not be able to create another invite."
 		"Citadel_Confirm_Discord_Create"			"Create Discord Invite"
 		"Citadel_Confirm_Discord_Created_Body"		"You have already created your Discord invite and are not able to create any more."
@@ -2919,15 +3063,15 @@
 		"Citadel_Commend_Toast_Skilled"				"{s:commender} ({s:commender_hero}) commended you for being a Skilled Gamer"
 
 		"menu_exit_db_page"							"Back"
-		"menu_settings"								"Settings"
+		"menu_settings"								"SETTINGS"
 		"menu_profile"								"Profile"
 		"menu_announcements"						"Announcements"
-		"menu_sandbox"								"Hero Testing"
+		"menu_sandbox"								"Sandbox Mode"
 		"menu_hero_grid"							"Heroes"
 		"menu_book_library"							"The Library"
 		"menu_hero_training"						"Hero Training"
 		"menu_bots"									"Bot Match"
-		"menu_explore_map"							"Explore Map"
+		"menu_explore_map"							"Explore NYC"
 		"menu_bots_guided"							"Guided"
 		"menu_bots_coop"							"Online Co-op"
 		"menu_bots_easy"							"Easy"
@@ -2935,8 +3079,8 @@
 		"menu_bots_medium"							"Medium"
 		"citadel_bot_name"							"Bot"
 		"menu_watch_live_games"						"{d:live_matches} Live Now"
-		"menu_botmatchmaking"						"Play Bot Match"
-		"menu_changehero"							"Change Hero"
+		"menu_botmatchmaking"						"Bot Match"
+		"menu_changehero"							"CHANGE hero"
 		"menu_new_tag"								"New!"
 		"HeroesPageTitle"							"Heroes"
 
@@ -2948,6 +3092,7 @@
 		"menu_play_explore_map_desc"				"Run around an empty city to test movement and navigation."
 		"menu_play_hero_labs_desc"					"Help test experimental new Heroes"
 		"menu_play_hero_labs_locked_desc"			"Help test experimental new Heroes. Unlocked after 50 games played"
+		"menu_play_placement_matches_desc"			"Play your first few matches of Deadlock."
 		
 		"menu_play_get_started_time_est"			"4 Minutes"
 		"menu_play_sandbox_time_est"				"5 Minutes"
@@ -3080,14 +3225,15 @@
 
 		"LeaveMatchPrompt_Title"					"Leave this match?"
 		"LeaveMatchPrompt_Text"						"You will not be able to rejoin once you leave."
-		"LeaveMatchPrompt_Confirm"					"Leave match"
-		"LeaveMatchPrompt_Cancel"					"Stay in match"
+		"LeaveMatchPrompt_Confirm"					"Leave"
+		"LeaveMatchPrompt_Cancel"					"Stay"
 
 		"SafeToAbandon_Text"						"This match can be abandoned without a penalty, but leaving will result in a loss."
 		"NotScored_Text"							"This game will not be scored.  It is now safe to leave."
 
 		"MyRosterTitle"								"MY ROSTER"
 		"Roster_Create_Title"						"Create Roster"
+		"Select_Hero_Title"							"Select Hero"		
 		//"MyRoster_SelectHeroes"						"<span class=\"highlight\">Select Heroes</span> to add or remove them from your Roster."
 		//"MyRoster_PreferHeroes"						"<span class=\"highlight\">Star a hero</span> to prefer them for the next match."
 		"ConfirmRoster_BadRoster"					"You need at least 3 heroes in your Roster to join a match."
@@ -3099,7 +3245,8 @@
 		"MyRosterSaveAndBack"						"Save and Back"
 		"MyRosterCancelForEveryone"					"Cancel for all in party"
 		"MyRosterRosterEmpty"						"ROSTER EMPTY"
-		"MyRosterRosterDesc"						"Minimum 3 Heroes required to queue"
+		"MyRosterRosterDesc"						"Minimum 3 Heroes required to Queue"
+		"MyRosterSelectHero"						"Select a Hero"
 		"MyRosterNoHeroDesc"						"You will be assigned one of these heroes to play when you enter the match."
 		"MyRosterNumHeroesInRoster"					"{i:num_heroes_in_roster} HEROES IN ROSTER"
 		"MyRosterNumHeroesInRosterSingular"			"{i:num_heroes_in_roster} HERO IN ROSTER"
@@ -3117,15 +3264,25 @@
 		"MyRosterPartyHighSkillRangeTitle"			"Party with Wide Skill Range"		
 		"MyRosterPartyHighSkillRangeNew"			"Your party members have a wide range of skill.<br><br>As a result, any lower skilled players in your match will have a harder time than usual."
 		"PartyWarningPostGame"						"High Range Party Match"
+		"Citadel_Roster_ViewBackstory_Tooltip"		"View Character Backstory"
 
+		"Citadel_Roster_InRoster"					"In Roster"
+		"Citadel_Roster_Priority"					"Priority"
+		"Citadel_Roster_HighPriority"				"High Priority"
+
+		"Citadel_HeroGrid_Marksman"					"Marksman"
+		"Citadel_HeroGrid_Assassin"					"Assassin"
+		"Citadel_HeroGrid_Mystic"					"Mystic"
+		"Citadel_HeroGrid_Brawler"					"Brawler"
 
 		"MyRosterPartyReadyCount"					"{d:party_ready_count}/{d:party_player_count} Ready"
 		"MyRosterPartyMemberRoster"					"Hero Already in Rosters:"
 
 		"MyRosterRosterDesc_MinNonNew"				"Your roster needs at least {d:min_non_new_heroes} or more heroes that are not new"
-		"MyRosterRosterDesc_NeedsMoreNonNew"		"You have too many new heroes in your roster. Please add some more heroes to your roster that aren't new"
+		"MyRosterRosterDesc_NeedsMoreNonNew"		"At least 3 non-new heroes required to queue"
+		"MyRosterRosterDesc_PartyInvalid"			"Can't form a valid team with your Party's rosters."
 		"MyRosterRosterDesc_HeroLabs"				"Your roster needs at least 3 Heroes, 2 of which must be standard, non-testing Heroes"
-
+		"MyRosterRosterDesc_NeedsMoreNonNewOld"		"You have too many new heroes in your roster. Please add some more heroes to your roster that aren't new"
 		//-----------------------------------------------------------------------------
 		// SANDBOX - DEMO CONTROLS
 		//-----------------------------------------------------------------------------
@@ -3134,7 +3291,7 @@
 		"HeroTesting_OrbsSecured"					"Orbs Secured: {i:orbsSecured}"
 		"HeroTesting_OrbsDenied"					"Orbs Denied: {i:orbsDenied}"
 		"HeroTesting_TestTools"						"Testing Tools"
-		"HeroTesting_HoldAlt"						"Hold{g:citadel_keybind:'Scoreboard'}"
+		"HeroTesting_HoldAlt"						"Hold{g:citadel_binding:'Scoreboard'}"
 		"HeroTesting_LaneChallenge"					"Lane Challenge"
 		"HeroTesting_HeroTools"						"Hero Tools"
 		"HeroTesting_ChangeHero"					"Change Hero"
@@ -3179,9 +3336,9 @@
 		//-----------------------------------------------------------------------------
 
 		"LaneTraining_Intro_Title"					"Welcome to <b>Lane Training</b>"
-		"LaneTraining_Intro_Desc"					"The goal of the early game is to gain power so you can take objectives.<br><br>When you <span class=\"introHighlight\">complete the goals listed on the right</span>, we'll give you <span class=\"introHighlight\">power unimaginable</span> so you can take down the Guardian."
+		"LaneTraining_Intro_Desc"					"The goal of the early game is to build up enough power to take down objectives.<br><br>When you complete the goals listed on the right, you'll be ready to take on the Guardian."
 		"LaneTraining_Intro_Button"					"Begin"
-		"LaneTraining_Intro_Targets"				"Training Goals:"
+		"LaneTraining_Intro_Targets"				"Objectives"
 		"LaneTraining_Outro_Title"					"<b>Lane Training</b> finished"
 
 		//"ReportCard_PlayerDamage"					"Player Damage"
@@ -3209,7 +3366,7 @@
 		"ReportCard_ModsPurchased_Progress"			"<span class=\"yourscore\">{i:modsPurchased}</span> / {i:modsPurchasedNextGoal}"
 
 		"ReportCard_AbilitiesUpgraded"				"Ability Upgraded"
-		"ReportCard_AbilitiesUpgraded_Desc"			"Upgrade an Ability by holding{g:citadel_keybind:'Scoreboard'}"
+		"ReportCard_AbilitiesUpgraded_Desc"			"Upgrade an Ability by holding{g:citadel_binding:'Scoreboard'}"
 		"ReportCard_AbilitiesUpgraded_Progress"		"<span class=\"yourscore\">{i:abilitiesUpgraded}</span> / {i:abilitiesUpgradedNextGoal}"
 
 		"ReportCard_SoulsCollected_Desc"			"Collect 1000 souls from killing enemy troopers"
@@ -3245,7 +3402,7 @@
 		"HeroTraining_Intro_Title"					"Welcome to <b>Hero Training</b>"
 		"HeroTraining_Intro_Desc"					"Here you'll be able to test out your hero's movement and abilities. Mastering these concepts is key to completing the ritual."
 		"HeroTraining_Outro_Title"					"<b>Hero Training</b> Complete"
-		"HeroTraining_Outro_Desc"					"You've grasped the fundementals; now prepare yourself for lane training."
+		"HeroTraining_Outro_Desc"					"You've grasped the fundamentals;<br />now prepare yourself for lane training."
 		"HeroTraining_Outro_Button"					"Finish"
 		"HeroTraining_Continue_Button"				"Keep Playing"
 
@@ -3261,14 +3418,14 @@
 		"Sandbox_Tutorial_Movement_desc"			"Use this area to test out your controls."
 
 
-		"Sandbox_Tutorial_Controls_Move"			"<span class='keybind'>{g:citadel_keybind:1st:'MoveForward'}, {g:citadel_keybind:1st:'MoveBackwards'}, {g:citadel_keybind:1st:'MoveLeft'}, {g:citadel_keybind:1st:'MoveRight'}</span>"
-		"Sandbox_Tutorial_Controls_Jump"			"<span class='keybind'>{g:citadel_keybind:1st:'Mantle'}</span>"
-		"Sandbox_Tutorial_Controls_Attack"			"<span class='keybind'>{g:citadel_keybind:1st:'Attack'}</span>"
-		"Sandbox_Tutorial_Controls_Zoom"			"<span class='keybind'>{g:citadel_keybind:1st:'ADS'}</span>"
-		"Sandbox_Tutorial_Controls_Reload"			"<span class='keybind'>{g:citadel_keybind:1st:'Reload'}</span>"
-		"Sandbox_Tutorial_Controls_Dash"			"<span class='keybind'>{g:citadel_keybind:1st:'Roll'}</span>"
-		"Sandbox_Tutorial_Controls_Mantle"			"<span class='keybind'>Hold {g:citadel_keybind:1st:'Mantle'}</span>"
-		"Sandbox_Tutorial_Controls_Mantle_desc"		"Mantle<br><span class='footnote'>(Climb up a Ledge)</span>"
+		"Sandbox_Tutorial_Controls_Move"			"{g:citadel_binding:1st:'MoveForward'}, {g:citadel_binding:1st:'MoveBackwards'}, {g:citadel_binding:1st:'MoveLeft'}, {g:citadel_binding:1st:'MoveRight'}"
+		"Sandbox_Tutorial_Controls_Jump"			"{g:citadel_binding:1st:'Mantle'}"
+		"Sandbox_Tutorial_Controls_Attack"			"{g:citadel_binding:1st:'Attack'}"
+		"Sandbox_Tutorial_Controls_Zoom"			"{g:citadel_binding:1st:'ADS'}"
+		"Sandbox_Tutorial_Controls_Reload"			"{g:citadel_binding:1st:'Reload'}"
+		"Sandbox_Tutorial_Controls_Dash"			"{g:citadel_binding:1st:'Roll'}"
+		"Sandbox_Tutorial_Controls_Mantle"			"Hold {g:citadel_binding:1st:'Mantle'}"
+		"Sandbox_Tutorial_Controls_Mantle_desc"		"Mantle<br><span class=\"footnote\">(Climb up a Ledge)</span>"
 
 
 		"Sandbox_Tutorial_Controls_task_Move"			"Move"
@@ -3286,16 +3443,16 @@
 		"Sandbox_Tutorial_Step_6"					"Step 6 of 6"
 
 		"Sandbox_Tutorial_Unlock_Abilities"			"Unlock Your Abilities"
-		"Sandbox_Tutorial_Unlock_Abilities_desc"	"Hold {g:citadel_keybind:'Default.Scoreboard'} to unlock new abilities."
+		"Sandbox_Tutorial_Unlock_Abilities_desc"	"Hold {g:citadel_binding:'Default.Scoreboard'} to unlock new abilities."
 
 		"Sandbox_Tutorial_Abilities"				"Test your Abilities"
-		"Sandbox_Tutorial_Abilities_desc"			"Try using your Abilities by pressing {g:citadel_keybind:'Ability1'}, {g:citadel_keybind:'Ability2'}, {g:citadel_keybind:'Ability3'} or {g:citadel_keybind:'Ability4'}."
+		"Sandbox_Tutorial_Abilities_desc"			"Try using your Abilities by pressing {g:citadel_binding:'Ability1'}, {g:citadel_binding:'Ability2'}, {g:citadel_binding:'Ability3'} or {g:citadel_binding:'Ability4'}."
 
 		"Sandbox_Tutorial_Upgrades"					"Upgrade your Abilities"
-		"Sandbox_Tutorial_Upgrades_desc"			"Hold {g:citadel_keybind:'Default.Scoreboard'} to spend Ability Points to upgrade your Abilities."
+		"Sandbox_Tutorial_Upgrades_desc"			"Hold {g:citadel_binding:'Default.Scoreboard'} to spend Ability Points to upgrade your Abilities."
 
 		"Sandbox_Tutorial_Zipline"					"Ride the Transit Line"
-		"Sandbox_Tutorial_Zipline_desc"				"Hold{g:citadel_keybind:'Default.Mantle'}to get on the Transit Line. You can jump off by pressing{g:citadel_keybind:'Default.Mantle'}"
+		"Sandbox_Tutorial_Zipline_desc"				"Hold{g:citadel_binding:'Default.Mantle'}to get on the Transit Line. You can jump off by pressing{g:citadel_binding:'Default.Mantle'}"
 
 		"Sandbox_Tutorial_Mods"						"Purchase Items for your Hero"
 		"Sandbox_Tutorial_Mods_desc"				"Go to the Shop to browse items. Try purchasing a few."
@@ -3308,6 +3465,7 @@
 
 		"CreateBuilds_Title"						"Create a Build for {s:hero_name}"
 		"CreateBuilds_Desc"							"Select items in the shop to add them to the recommended build list"
+		"Hideout_View_Builds"						"Builds"
 
 		"AbilityButtonHint_Activate"				"Activate"
 		"AbilityButtonHint_Detonate"				"Detonate"
@@ -3346,8 +3504,10 @@
 		"AbilityButtonHint_HatTrickCancel"			"Return"
 		"AbilityButtonHint_MeleeRejuvinator"		"Heavy Melee to claim Rejuvenator"
 		"AbilityButtonHint_RejuvenatorOwned"		"Rejuvenator Already Owned - Will go to Ally"
-		"AbilityButtonHint_MeleePowerUp"				"Heavy Melee to claim PowerUp"
-		"AbilityButtonHint_ClimbRope"				"Hold to Climb Rope"
+		"AbilityButtonHint_MeleePowerUp"			"Heavy Melee to claim PowerUp"
+		"AbilityButtonHint_MeleeChangeTeam"			"Heavy Melee to change your team"
+		"AbilityButtonHint_ClimbRope"				"Hold {g:citadel_binding:'Mantle'} to Climb Rope"
+		"AbilityButtonHint_Swing"					"Swing"
 
 		"AbilityButtonHint_HealTarget"			"Heal Target"
 		"AbilityButtonHint_HealSelf"			"Heal Self"
@@ -3373,7 +3533,8 @@
 		// Start Chat Ping Messages
 		//-----------------------------------------------------------------------------
 
-		"citadel_chatmessage"					"{s:target} {s:persona}: {s:message}"
+		"citadel_chatmessage"					"{s:target} {s:message}"
+		"citadel_chatmessage_old"				"{s:target} {s:persona}: {s:message}"
 		"citadel_chat_all"						"[ALL]"
 		"citadel_chat_spectators"				"[SPECTATORS ONLY]"
 		"citadel_chat_allies"					"[ALLIES]"
@@ -3453,6 +3614,7 @@
 		"citadel_chat_placeholder"								"To (ALL):"
 		"citadel_chat_placeholder_team"							"To (ALLIES):"
 		"citadel_chat_placeholder_spec_team"					"To (SPECTATORS):"
+		"citadel_chat_placeholder_party"						"To (PARTY):"
 		"citadel_chatwheel_label_missing_hero"					"Missing"
 		"citadel_chatwheel_message_missing_hero"				"{s:param_1} is Missing"
 		"citadel_chatwheel_label_missing_yellow"				"Missing Yellow"
@@ -3532,6 +3694,20 @@
 		//"citadel_quick_response_cancel"							"Cancel Last Ping Message"
 		//"citadel_quick_response_respond_onmyway_to_hero"		"Respond 'On my Way' to {s:hero_name}"
 		//"citadel_quick_response_respond_onmyway"					"Respond 'On my Way'"
+
+		"Citadel_ChatTarget_GameAllies"		"Allies"
+		"Citadel_ChatTarget_GameAll"		"All"
+		"Citadel_ChatTarget_Party"			"Party"
+
+		"Citadel_ChatSender_LocalClient"	"System"
+
+		"Citadel_ChatError_Timeout"				"Failed to send message: timeout."
+		"Citadel_ChatError_InternalError"		"Failed to send message: internal error."
+		"Citadel_ChatError_InvalidPermission"	"Failed to send message: no permission."
+		"Citadel_ChatError_Disabled"			"Failed to send message: chat is currently disabled."
+		"Citadel_ChatError_RateLimited"			"Failed to send message: too many recent messages."
+		"Citadel_ChatError_InvalidMsg"			"Failed to send message: invalid message."
+		"Citadel_ChatError_Unknown"				"Failed to send message: unknown reason."
 
 		// These are loc strings for ping response rules. Good for if we don't have VO for a response rule to show what the player would've said.
 		"ping_message"											"{s:pre_punctuation}{s:ping}{s:post_punctuation}"
@@ -3624,6 +3800,72 @@
 		//"citadel_next_ap_abilities"				"<Panel class=\"goldIcon\"/> <span class=\"nextAPGoldLabel\">{i:gold_to_next_level}</span> to next Lvl"
 		//"citadel_ap_max_level"					"max Lvl"
 		"citadel_value_then_value_now_ability_upgrades"	"({s:ValueNow} → <span class=\"greenUpgradedText\">{s:ValueThen}</span>)"
+
+
+
+		// Gun Tags
+		"Citadel_GunTag_Shotgun"			"Shotgun"
+		"Citadel_GunTag_BurstFire"			"Burst Fire"
+		"Citadel_GunTag_Projectile"			"Projectile"
+		"Citadel_GunTag_Heavy"			"Heavy Artillery"
+		"Citadel_GunTag_SMG"			"SMG"
+		"Citadel_GunTag_Sniper"			"Sniper Rifle"
+		"Citadel_GunTag_Bow"			"Bow"
+		"Citadel_GunTag_Pistol"			"Pistol"
+		"Citadel_GunTag_"			""
+
+		// Capture Points
+		"capture_point_escort/capturing_escort"		"Capturing"
+		"Citadel_CapturePoint_Capturer_Capturing"	"Capturing"
+
+
+		// Hideout
+		"Citadel_Hideout_Welcome" "Welcome to the Hideout"
+		"Citadel_Hideout_Play" "Press {g:citadel_binding:'HideoutUse'} to start a match"
+		"Citadel_Hideout_Watch" "Press {g:citadel_binding:'HideoutUse'} to watch matches"
+		"Citadel_Hideout_Heroes" "Press {g:citadel_binding:'HideoutUse'} to see heroes"
+		"Citadel_Hideout_Learn" "Press {g:citadel_binding:'HideoutUse'} to learn how to play"
+		"Citadel_Hideout_VoteHero" "Press {g:citadel_binding:'HideoutUse'} to vote for the next Hero"
+		"Citadel_Hideout_Resources" "Press {g:citadel_binding:'HideoutUse'} to view resources"
+		"Citadel_Hideout_Exit" "Press {g:citadel_binding:'HideoutUse'} to leave Deadlock"
+		"Citadel_Hideout_ToggleFastCooldowns" "{g:citadel_binding:'AbilityMelee'} Melee to toggle fast cooldowns and stamina"
+		"Citadel_Hideout_Intro"		"Press any key to Start"
+		"Citadel_Hideout_News"		"Read All About It"
+		"Citadel_Hideout_XmasGlobeEarned_Temp"		"Souvenir earned by {s:hideout_owner} during the Winter Update"
+
+		"citadel_settings_hideoutkeybinds"				"Hideout Keybinds"
+		"citadel_keybind_hideout_use"					"Interact with an object in the Hideout"
+		"citadel_keybind_hideout_news"					"Show Recent News"
+		"citadel_keybind_hideout_cancel_matchmaking"	"Cancel Matchmaking"
+		"citadel_keybind_hideout_accept_request"		"Accept Request"
+		"citadel_keybind_hideout_reject_request"		"Reject Request"
+
+		"Citadel_News_MajorUpdate"			"Major Update"
+		"Citadel_News_RegularUpdate"		"Regular Update"
+		"Citadel_News_SmallUpdate"			"Small Update"
+		"Citadel_News_ViewAllNews"			"View All News"
+		"Citadel_News_Title"			"Recent Updates"
+		"Citadel_News_Subtitle"			"All the news that's fit to print."
+		"Citadel_News_LoadMore"			"Load More"
+		"Citadel_News_Loading"			"Loading..."
+
+		"Citadel_StartupPause_Title"	"Startup Paused"
+		"Citadel_StartupPause_Message"	"Waiting before loading the hideout."
+		"Citadel_StartupPause_Continue"	"Continue"
+		"Citadel_StartupPause_Exit"		"Exit Game"
+
+		"Citadel_HeroReleaseVote_Title" "who's NEXT?"
+		"Citadel_HeroReleaseVote_Countdown" "<b>{t:d:t:countdown_time}</b> until next hero unlocks"
+		"Citadel_HeroReleaseVote_HowToGet" "Earn a vote for each match you play"
+		"Citadel_HeroReleaseVote_RemainingVotes:p{remaining_votes}" "you have <b>{d:remaining_votes}</b> <b>VOTE</b> to cast#|#You have <b>{d:remaining_votes}</b> <b>VOTES</b> to cast"
+		"Citadel_HeroReleaseVote_VoteButton" "Vote"
+		"Citadel_HeroReleaseVote_VoteCounter" "Your Total"
+		"Citadel_HeroReleaseVote_Unlocked" "UNlocked"
+
+		"Citadel_HeroReleaseVote_World" "Vote"
+		"Citadel_HeroReleaseVote_World_HasVotes:p{remaining_votes}" "Vote<br />{d:remaining_votes} vote to cast#|#Vote<br />{d:remaining_votes} votes to cast"
+
+		"Citadel_HeroReleaseVote_Toast_HasVotes:p{remaining_votes}" "You have {d:remaining_votes} hero unlock vote.<br />Cast it at the hideout ballot box.#|#You have {d:remaining_votes} hero unlock votes.<br />Cast them at the hideout ballot box."
 	}
 }
 

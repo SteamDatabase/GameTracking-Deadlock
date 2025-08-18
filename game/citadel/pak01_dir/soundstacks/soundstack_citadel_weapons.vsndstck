@@ -16,17 +16,10 @@
 				operator = "util_null"
 				operator_variables = 
 				{
-					import_public_opvars = "citadel_perspective_default"
-					owner_entity_index = 
+					citadel_perspective_default = 
 					{
-						data_type = "float"
-						value = "-1.0"
-						_system_properties = 
-						{
-							display_group = "locked"
-							property_group = "citadel_weapons"
-							property_help = "set by code"
-						}
+						data_type = "public_opvar"
+						value = "citadel_perspective_default"
 					}
 					fire_rate_percent = 
 					{
@@ -37,6 +30,16 @@
 							display_group = "locked"
 							property_group = "citadel_weapons"
 							property_help = "set by code"
+						}
+					}
+					transient_offset_db = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							property_group = "citadel_weapons"
+							property_help = "Volume amount in db the main report will be offset from the overall volume."
 						}
 					}
 					fire_rate_percent_curve_db_offset = 
@@ -84,10 +87,63 @@
 							property_help = "Maps fire time (x) to volume in db (y)"
 						}
 					}
-					play_low_ammo = 
+					low_ammo_enabled = 
+					{
+						data_type = "bool"
+						value = "true"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_weapons"
+							property_help = "set by code"
+						}
+					}
+					is_sliding = 
 					{
 						data_type = "bool"
 						value = "false"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_weapons"
+							property_help = "set by code"
+						}
+					}
+					is_first_shot = 
+					{
+						data_type = "bool"
+						value = "false"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_weapons"
+							property_help = "set by code"
+						}
+					}
+					clip_amount = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_weapons"
+							property_help = "set by code"
+						}
+					}
+					clip_fraction = 
+					{
+						data_type = "float"
+						value = "1.0"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					low_ammo_threshold = 
+					{
+						data_type = "float"
+						value = "5.0"
 						_system_properties = 
 						{
 							display_group = "locked"
@@ -114,6 +170,23 @@
 						_system_properties = 
 						{
 							property_group = "VSND Files"
+						}
+					}
+					low_ammo_progress_offset_db = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]",
+							"[ 1.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "advanced"
+							display_edit_type = "field_curve_2d_editor"
+							property_group = "Volume"
+							property_help = "ramps up the low ammo sound between low ammo threshold and clip empty."
 						}
 					}
 					low_ammo_vol_offset_db = 
@@ -147,7 +220,29 @@
 							property_group = "VSND Files"
 						}
 					}
-					clip_fraction = 
+					vsnd_files_last_shot = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = 
+						[
+							"sounds/common/null.vsnd",
+						]
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					last_shot_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					last_shot_clip_value = 
 					{
 						data_type = "float"
 						value = "1.0"
@@ -156,7 +251,93 @@
 							property_group = "VSND Files"
 						}
 					}
+					vsnd_files_tail_interior = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = 
+						[
+							"sounds/common/null.vsnd",
+						]
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					tail_interior_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					tail_exterior_sky_exposure_floor_db = 
+					{
+						data_type = "float"
+						value = "-12.0"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+							property_help = "Min volume of an exterior tail when the entity has sky exposure."
+						}
+					}
+					tail_enclosure_vol_offset_db = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]",
+							"[ 1.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "advanced"
+							display_edit_type = "field_curve_2d_editor"
+							property_group = "Volume"
+							property_help = "Maps enclosure ( 0-255 ) to tail volume offset"
+						}
+					}
+					tail_interior_enclosure_vol_offset_db = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]",
+							"[ 1.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "advanced"
+							display_edit_type = "field_curve_2d_editor"
+							property_group = "Volume"
+							property_help = "Maps enclosure ( 0-255 ) to tail volume offset"
+						}
+					}
+					transient_target_offset_db = 
+					{
+						data_type = "float"
+						value = "4.0"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
 				}
+			},
+			
+			{
+				name = "source_info"
+				operator = "game_get_source_info"
+			},
+			
+			{
+				name = "citadel_entity_info"
+				operator = "citadel_entity_info"
+				input_entity_index = "@source_info.output_entity_index"
 			},
 			
 			{
@@ -200,6 +381,174 @@
 			},
 			
 			{
+				name = "remap_enclosure_tail_volume_offset"
+				operator = "math_curve_2d"
+				execute_once = 1.000000
+				input = "@citadel_entity_info.output_enclosure"
+				public_field_name = "public.tail_enclosure_vol_offset_db"
+			},
+			
+			{
+				name = "math_add_tail_volume"
+				operator = "math_float"
+				execute_once = 1.000000
+				apply = "add"
+				input1 = "@remap_enclosure_tail_volume_offset.output"
+				input2 = "@public.tail_vol_offset_db"
+			},
+			
+			{
+				name = "math_floor_tail_exterior_volume"
+				operator = "math_float"
+				execute_once = 1.000000
+				apply = "max"
+				input1 = "@public.tail_exterior_sky_exposure_floor_db"
+				input2 = "@math_add_tail_volume.output"
+			},
+			
+			{
+				name = "ctrl_switch_tail_min_volume"
+				execute_once = 1.000000
+				operator = "ctrl_switch_float"
+				input_switch = "@citadel_entity_info.output_has_sky_exposure"
+				input1 = "@math_add_tail_volume.output"
+				input2 = "@math_floor_tail_exterior_volume.output"
+			},
+			
+			{
+				name = "volume_exterior_remap_db_to_gain"
+				operator = "math_db_to_gain"
+				input = "@remap_enclosure_tail_volume_offset.output"
+			},
+			
+			{
+				name = "math_crossfade_interior_tail_vol"
+				operator = "math_float"
+				execute_once = 1.000000
+				apply = "sub"
+				input1 = "1.0"
+				input2 = "@volume_exterior_remap_db_to_gain.output"
+			},
+			
+			{
+				name = "volume_interior_tail_public_offset_to_gain"
+				operator = "math_db_to_gain"
+				input = "@public.tail_interior_vol_offset_db"
+			},
+			
+			{
+				name = "math_mult_interior_tail"
+				operator = "math_float"
+				execute_once = 1.000000
+				apply = "mult"
+				input1 = "@math_crossfade_interior_tail_vol.output"
+				input2 = "@volume_interior_tail_public_offset_to_gain.output"
+			},
+			
+			{
+				name = "volume_interior_tail_crossfade"
+				operator = "math_gain_to_db"
+				input = "@math_mult_interior_tail.output"
+			},
+			
+			{
+				name = "remap_enclosure_tail_interior_volume_offset"
+				operator = "math_curve_2d"
+				execute_once = 1.000000
+				input = "@citadel_entity_info.output_enclosure"
+				public_field_name = "public.tail_interior_enclosure_vol_offset_db"
+			},
+			
+			{
+				name = "math_tail_interior_volume"
+				operator = "math_float"
+				execute_once = 1.000000
+				apply = "add"
+				input1 = "@volume_interior_tail_crossfade.output"
+				input2 = "@remap_enclosure_tail_interior_volume_offset.output"
+			},
+			
+			{
+				name = "math_clip_amount_min"
+				operator = "math_float"
+				execute_once = 1.000000
+				apply = "min"
+				input1 = "@public.clip_amount"
+				input2 = "@public.low_ammo_threshold"
+			},
+			
+			{
+				name = "math_low_ammo_progress"
+				operator = "math_float"
+				execute_once = 1.000000
+				apply = "div"
+				input1 = "@math_clip_amount_min.output"
+				input2 = "@public.low_ammo_threshold"
+			},
+			
+			{
+				name = "math_invert_low_ammo_progress"
+				operator = "math_float"
+				execute_once = 1.000000
+				apply = "sub"
+				input1 = "1.0"
+				input2 = "@math_low_ammo_progress.output"
+			},
+			
+			{
+				name = "math_invert_is_sliding"
+				operator = "math_float"
+				execute_once = 1.000000
+				apply = "sub"
+				input1 = "1.0"
+				input2 = "@public.is_sliding"
+			},
+			
+			{
+				name = "math_disable_low_ammo_for_sliding"
+				operator = "math_float"
+				execute_once = 1.000000
+				apply = "mult"
+				input1 = "@math_invert_low_ammo_progress.output"
+				input2 = "@math_invert_is_sliding.output"
+			},
+			
+			{
+				name = "remap_low_ammo_offset"
+				operator = "math_curve_2d"
+				execute_once = 1.000000
+				input = "@math_disable_low_ammo_for_sliding.output"
+				public_field_name = "public.low_ammo_progress_offset_db"
+			},
+			
+			{
+				name = "math_low_ammo_volume"
+				operator = "math_float"
+				execute_once = 1.000000
+				apply = "add"
+				input1 = "@remap_low_ammo_offset.output"
+				input2 = "@public.low_ammo_vol_offset_db"
+			},
+			
+			{
+				name = "math_play_last_shot"
+				operator = "math_float"
+				execute_once = 1.000000
+				apply = "equal"
+				input1 = "@public.clip_amount"
+				input2 = "@public.last_shot_clip_value"
+			},
+			
+			{
+				name = "math_disable_last_shot_for_sliding"
+				operator = "math_float"
+				execute_once = 1.000000
+				apply = "mult"
+				input1 = "@math_invert_is_sliding.output"
+				input2 = "@math_play_last_shot.output"
+			},
+			
+			{
 				name = "citadel_perspective_default"
 				operator = "sos_import_stack"
 				import_stack = "citadel_perspective_default"
@@ -211,20 +560,25 @@
 						data_type = "float"
 						value = "@volume_accumulate.output"
 					}
-					vsnd_start_track2 = 
+					vsnd_track1_vol_offset_db = 
 					{
-						data_type = "bool"
-						value = "@public.play_low_ammo"
+						data_type = "float"
+						value = "@public.transient_offset_db"
 					}
 					vsnd_files_field_name_track2 = 
 					{
 						data_type = "string"
 						value = "vsnd_files_low_ammo"
 					}
+					vsnd_start_track2 = 
+					{
+						data_type = "bool"
+						value = "@public.low_ammo_enabled"
+					}
 					vsnd_track2_vol_offset_db = 
 					{
 						data_type = "float"
-						value = "@public.low_ammo_vol_offset_db"
+						value = "@math_low_ammo_volume.output"
 					}
 					vsnd_files_track2_name = 
 					{
@@ -239,14 +593,107 @@
 					vsnd_track3_vol_offset_db = 
 					{
 						data_type = "float"
-						value = "@public.tail_vol_offset_db"
+						value = "@ctrl_switch_tail_min_volume.output"
 					}
 					vsnd_files_track3_name = 
 					{
 						data_type = "string"
 						value = "tail"
 					}
+					vsnd_files_field_name_track4 = 
+					{
+						data_type = "string"
+						value = "vsnd_files_tail_interior"
+					}
+					vsnd_track4_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "@math_tail_interior_volume.output"
+					}
+					vsnd_files_track4_name = 
+					{
+						data_type = "string"
+						value = "tail"
+					}
+					vsnd_files_field_name_track5 = 
+					{
+						data_type = "string"
+						value = "vsnd_files_last_shot"
+					}
+					vsnd_track5_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "@public.last_shot_vol_offset_db"
+					}
+					vsnd_start_track5 = 
+					{
+						data_type = "bool"
+						value = "@math_disable_last_shot_for_sliding.output"
+					}
 				}
+			},
+			
+			{
+				name = "send_enclosure_param"
+				input_execute = "1"
+				execute_once = "1.0"
+				operator = "vmix_voicegraph_input"
+				input_name = "enclosure"
+				input = "@citadel_entity_info.output_enclosure"
+			},
+			
+			{
+				name = "math_mult_targeting_offset"
+				operator = "math_float"
+				execute_once = "1.0"
+				apply = "mult"
+				input1 = "@citadel_entity_info.output_enemy_is_targeting_local_player"
+				input2 = "@public.transient_target_offset_db"
+			},
+			
+			{
+				name = "enemy_targeting_offset_to_gain"
+				operator = "math_db_to_gain"
+				input = "@math_mult_targeting_offset.output"
+			},
+			
+			{
+				name = "send_targeting_param"
+				input_execute = "1"
+				operator = "vmix_voicegraph_input"
+				input_name = "enemy_target_gain"
+				input = "@enemy_targeting_offset_to_gain.output"
+			},
+			
+			{
+				name = "globals"
+				operator = "get_system_globals"
+				input_execute = "1.0"
+				input_listener_index = "0"
+			},
+			
+			{
+				name = "math_dot_product_listener_right"
+				operator = "vector_facing_point"
+				input_vec_forward = "@globals.output_listener_left"
+				input_listener_position = "@globals.output_listener_position"
+				input_source_position = "@citadel_perspective_default::citadel_default_3d::citadel_base_3d::add_position_offset.output"
+			},
+			
+			{
+				name = "math_invert_dot"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@math_dot_product_listener_right.output_dot_product"
+				input2 = "-1.0"
+			},
+			
+			{
+				name = "send_tail_stereo_pan"
+				input_execute = "1"
+				operator = "vmix_voicegraph_input"
+				input_name = "tail_stereo_pan"
+				input = "@math_invert_dot.output"
 			},
 		]
 	}

@@ -5,73 +5,313 @@ CitadelRadialAbilities
 	width: 100%;
 	height: 100%;
 	z-index: 10000;
+	flow-children: none;
+}
+
+#RadialPanel
+{
+	width: 100%;
+	height: 100%;
+	margin-top: 55%;
 	overflow: noclip;
 }
 
 #RadialAbilitiesMenu
 {
 	opacity: 0.0;
-	transition-property: opacity;
-	transition-duration: 0.20s;
-	transition-timing-function: ease-out;
-	transition-delay: 0.0125s;
-}
-
-#RadialAbilitiesMenu.open_radial
-{
-	opacity: 1.0;
-	transition-duration: 0.20s;
+	transition-property: opacity, transform;
+	transition-duration: 0.0125s;
 	transition-timing-function: ease-out;
 	transition-delay: 0.0s;
 }
 
-CitadelRadialAbilities #MouseBounds
-{
-	x: 25%;
-	y: 25%;
-	width: 50%;
-	height: 50%;
-}
-
-#RadialMouseCursor
-{
-	width: 30px;
-	height: 30px;
-	background-image: url("s2r://panorama/images/cursors/cursor_png.vtex");
-	background-size: 100% 100%;
-	transition: opacity 0.12s ease-out 0.01s;
-	opacity: 0.0;
-}
-
-.open_radial #RadialMouseCursor
+#RadialAbilitiesMenu.gAbilityUpgradeMenu
 {
 	opacity: 1.0;
+	transition-duration: 0.20s;
+	transition-timing-function: ease-out;
+	transition-delay: 0s;
 }
 
-#AbilityPanels
+.AbilityPanelBackground
 {
-	transform: rotateZ( -45deg);
-	horizontal-align: center;
-	vertical-align: center;
 	width: 100%;
 	height: width-percentage(100%);
-	flow-children: right-wrap;
-}
-
-.AbilityPanelSegment
-{
-	overflow: noclip;
-	width: 50%;
-	height: 50%;
-}
-
-#RadialDeadzoneBlocker
-{
-	width: 256px;
-	height: 256px;
 	horizontal-align: center;
 	vertical-align: center;
-	border-radius: 50%;
-	background-color: rgba(0, 0, 0, 0.0);
+}
+
+.AbilityPanelContents
+{
+	width: 100%;
+	height: width-percentage(100%);
+	horizontal-align: center;
+	vertical-align: center;
+}
+
+@define Center: 50% 50%;
+@define cppRadialDeadzoneRadius: 0.05;
+@define InnerRadiusSoft: 0.0;
+@define InnerRadius: 0.0;
+@define OuterRadius: 0.5;
+@define OuterRadiusSoft: 0.51;
+@define InnerRadiusSoft_SegmentHover: 0.0;
+@define InnerRadius_SegmentHover: 0.0;
+@define OuterRadius_SegmentHover: 0.5;
+@define OuterRadiusSoft_SegmentHover: 0.51;
+@define TabInnerRadiusSoft: 0.0;
+@define TabInnerRadius: 0.001;
+@define TabOuterRadius: 0.02;
+@define TabOuterRadiusSoft: 0.03;
+@define RestOuterRadius: 0.5;
+@define RestOuterRadiusSoft: 0.51;
+@define RingColor_Clear: rgba(0, 0, 0, 0);
+@define RingColor: rgba(0, 0, 0, 0.8);
+@define RingColor_SegmentHover: rgba(255, 255, 255, 0.5);
+@define RingColor_SegmentSuccess: rgba(255, 255, 255, 1.0);
+@define RingColor_SegmentFailed: rgba(255, 0, 0, 0.5);
+@define SegmentGradient: gradient( radial, Center, 0% 0%, 100% 100%, from( RingColor_Clear ), color-stop( InnerRadiusSoft, RingColor_Clear), color-stop( InnerRadius, RingColor_Clear ), color-stop( OuterRadius, RingColor_Clear ), color-stop( OuterRadiusSoft , RingColor_Clear ), color-stop( RestOuterRadius, RingColor_Clear ), color-stop( RestOuterRadiusSoft, RingColor_Clear ), to( RingColor_Clear ) );
+@define SegmentGradientUpgradable: gradient( radial, Center, 0% 0%, 100% 100%, from( spiritColor&00 ), color-stop( InnerRadiusSoft, spiritDarkerColor&00), color-stop( InnerRadius, spiritDarkerColor&30 ), color-stop( OuterRadius, RingColor_Clear ), color-stop( OuterRadiusSoft , RingColor_Clear ), color-stop( RestOuterRadius, RingColor_Clear ), color-stop( RestOuterRadiusSoft, RingColor_Clear ), to( RingColor_Clear ) );
+@define SegmentGradientHover: gradient( radial, Center, 0% 0%, 100% 100%, from( RingColor_Clear ), color-stop( InnerRadiusSoft_SegmentHover, RingColor_Clear), color-stop( InnerRadius_SegmentHover, spiritDarkerColor ), color-stop( OuterRadius_SegmentHover, spiritDarkerColor&00 ), color-stop( OuterRadiusSoft_SegmentHover , RingColor_Clear ), color-stop( RestOuterRadius, RingColor_Clear ), color-stop( RestOuterRadiusSoft, RingColor_Clear ), to( RingColor_Clear ) );
+@define SegmentGradientHover_Success: gradient( radial, Center, 0% 0%, 100% 100%, from( RingColor_Clear ), color-stop( InnerRadiusSoft_SegmentHover, RingColor_Clear), color-stop( InnerRadius_SegmentHover, RingColor_SegmentSuccess ), color-stop( OuterRadius_SegmentHover, RingColor_Clear ), color-stop( OuterRadiusSoft_SegmentHover , RingColor_Clear ), color-stop( RestOuterRadius, RingColor_Clear ), color-stop( RestOuterRadiusSoft, RingColor_Clear ), to( RingColor_Clear ) );
+@define SegmentGradientHover_Failed: gradient( radial, Center, 0% 0%, 100% 100%, from( RingColor_Clear ), color-stop( InnerRadiusSoft_SegmentHover, RingColor_Clear), color-stop( InnerRadius_SegmentHover, RingColor_SegmentFailed ), color-stop( OuterRadius_SegmentHover, RingColor_Clear ), color-stop( OuterRadiusSoft_SegmentHover , RingColor_Clear ), color-stop( RestOuterRadius, RingColor_Clear ), color-stop( RestOuterRadiusSoft, RingColor_Clear ), to( RingColor_Clear ) );
+@define SegmentGradientWithTab: gradient( radial, Center, 0% 0%, 100% 100%, from( RingColor_Clear ), color-stop( TabInnerRadiusSoft, RingColor_Clear), color-stop( TabInnerRadius, RingColor ), color-stop( TabOuterRadius, RingColor ), color-stop( TabOuterRadiusSoft, colorEnemy&05 ), color-stop( RestOuterRadius, RingColor_Clear ), color-stop( RestOuterRadiusSoft, RingColor_Clear ), to( RingColor_Clear ) );
+@define SegmentGradientWithTabUpgradable: gradient( radial, Center, 0% 0%, 100% 100%, from( RingColor_Clear ), color-stop( TabInnerRadiusSoft, RingColor_Clear), color-stop( TabInnerRadius, spiritDarkerColor ), color-stop( TabOuterRadius, spiritDarkerColor ), color-stop( TabOuterRadiusSoft , spiritDarkerColor&30 ), color-stop( RestOuterRadius, RingColor_Clear ), color-stop( RestOuterRadiusSoft , RingColor_Clear ), to( RingColor_Clear ) );
+@define SegmentGradientWithTabUnlockable: gradient( radial, Center, 0% 0%, 100% 100%, from( RingColor_Clear ), color-stop( TabInnerRadiusSoft, RingColor_Clear), color-stop( TabInnerRadius, RingColor_Clear ), color-stop( TabOuterRadius, RingColor_Clear ), color-stop( TabOuterRadiusSoft, RingColor ), color-stop( RestOuterRadius, RingColor_Clear ), color-stop( RestOuterRadiusSoft, RingColor_Clear ), to( RingColor_Clear ) );
+@define SegmentGradientWithTabLocked: gradient( radial, Center, 0% 0%, 100% 100%, from( RingColor_Clear ), color-stop( TabInnerRadiusSoft, RingColor_Clear), color-stop( TabInnerRadius, offBlack&aa ), color-stop( TabOuterRadius, offBlack&aa ), color-stop( TabOuterRadiusSoft, RingColor ), color-stop( RestOuterRadius, RingColor_Clear ), color-stop( RestOuterRadiusSoft, RingColor_Clear ), to( RingColor_Clear ) );
+.RadialBackground
+{
+	width: 100%;
+	height: 100%;
+	transition-property: background-color, wash-color, pre-transform-scale2d;
+	transition-duration: 0.125s;
+	transition-timing-function: ease-out;
+	background-color: SegmentGradient;
+	pre-transform-scale2d: 0.1;
+}
+
+.gAbilityUpgradeMenu .RadialBackground
+{
+	pre-transform-scale2d: 1.0;
+}
+
+.RadialBackground.can_afford_upgrade
+{
+	background-color: SegmentGradientWithTabUpgradable;
+}
+
+.RadialBackground.not_trained
+{
+	background-color: SegmentGradientWithTabLocked;
+}
+
+.RadialBackground.can_afford_upgrade.not_trained
+{
+	background-color: SegmentGradientWithTabUnlockable;
+}
+
+.RadialBackground.ability_fully_upgraded
+{
+	background-color: SegmentGradient;
+}
+
+.RadialBackground.SegmentHover.SegmentUpgradeSuccess
+{
+	animation-name: Anim_SegmentUpgradeSuccess;
+	animation-duration: 0.125s;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+}
+
+@keyframes 'Anim_SegmentUpgradeSuccess'
+{
+	0%
+	{
+		background-color: SegmentGradientHover_Success;
+	}
+	
+	49%
+	{
+		background-color: SegmentGradientHover;
+	}
+	
+	50%
+	{
+		background-color: SegmentGradientHover;
+	}
+	
+	100%
+	{
+		background-color: SegmentGradientHover_Success;
+	}
+	
+}
+
+.RadialBackground.SegmentHover.SegmentUpgradeFailed
+{
+	animation-name: Anim_SegmentUpgradeFailed;
+	animation-duration: 0.125s;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+}
+
+@keyframes 'Anim_SegmentUpgradeFailed'
+{
+	0%
+	{
+		background-color: SegmentGradientHover_Failed;
+	}
+	
+	49%
+	{
+		background-color: SegmentGradientHover;
+	}
+	
+	50%
+	{
+		background-color: SegmentGradientHover;
+	}
+	
+	100%
+	{
+		background-color: SegmentGradientHover_Failed;
+	}
+	
+}
+
+.RadialBackground.can_afford_upgrade.SegmentHover
+{
+	background-color: SegmentGradientHover;
+}
+
+@keyframes 'Anim_SegmentUpgradeFailed'
+{
+	0%
+	{
+		background-color: SegmentGradient;
+	}
+	
+	49%
+	{
+		background-color: SegmentGradientUpgradable;
+	}
+	
+	50%
+	{
+		background-color: SegmentGradientUpgradable;
+	}
+	
+	100%
+	{
+		background-color: SegmentGradient;
+	}
+	
+}
+
+#APContainer
+{
+	width: fit-children;
+	height: fit-children;
+	margin-bottom: 5%;
+	horizontal-align: center;
+	vertical-align: bottom;
+	flow-children: right;
+	ui-scale: 150%;
+}
+
+.UpgradeSuccess #APContainer
+{
+	wash-color: colorCommonOffWhite;
+}
+
+.UpgradeFailed #APContainer
+{
+	wash-color: colorEnemy;
+	animation-name: Anim_UpgradeFailed;
+	animation-timing-function: ease-out;
+	animation-duration: 0.06666s;
+	animation-iteration-count: 4;
+}
+
+@keyframes 'Anim_UpgradeFailed'
+{
+	0%
+	{
+		transform: translateX(2px);
+	}
+	
+	60%
+	{
+		transform: translateX(2px);
+	}
+	
+	61%
+	{
+		transform: translateX(-2px);
+	}
+	
+	100%
+	{
+		transform: translateX(-2px);
+	}
+	
+}
+
+#AbilityCostPanel
+{
+	width: 80px;
+	height: 40px;
+	horizontal-align: center;
+	vertical-align: bottom;
+	flow-children: right;
+	margin-bottom: 0px;
+	padding-left: 16px;
+	opacity: 1;
+	visibility: collapse;
+	ui-scale: 100%;
+	transition-property: ui-scale;
+	transition-duration: 0.2s;
+}
+
+.APCurrencyIcon
+{
+	width: 16px;
+	height: 16px;
+	vertical-align: middle;
+	margin-right: 5px;
+	margin-top: 3px;
+	background-image: url("s2r://panorama/images/hud/ap_icon.vsvg");
+	background-size: contain;
+	wash-color: apCurrencyColor;
+}
+
+.APCurrencyAmount
+{
+	font-size: 28px;
+	font-weight: bold;
+	vertical-align: middle;
+	horizontal-align: left;
+	color: apCurrencyColor;
+}
+
+.infiniteMoney .APCurrencyAmount
+{
+	visibility: collapse;
+}
+
+#hudAPInfinite
+{
+	visibility: collapse;
+	wash-color: spiritLightColor&80;
+}
+
+.infiniteMoney #hudAPInfinite
+{
+	visibility: visible;
+	height: 30px;
+	width: 30px;
+	margin-top: 1px;
+	margin-left: 3px;
+	vertical-align: center;
 }
 

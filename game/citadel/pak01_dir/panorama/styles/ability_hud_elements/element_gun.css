@@ -302,8 +302,8 @@
 	horizontal-align: center;
 	transition-property: opacity;
 	transition-duration: 0.1s;
-	opacity: 1;
-	transform: rotateZ(315deg);
+	transform: rotateZ(0deg);
+	visibility: collapse;
 }
 
 #reticle_status
@@ -706,13 +706,32 @@
 
 .weapon_ammo
 {
-	font-size: 18px;
+	font-size: 16px;
 	font-weight: bold;
 	color: rgba(255, 255, 255, 0.8);
 	text-align: right;
 	vertical-align: bottom;
 	horizontal-align: left;
 	width: 32px;
+	transition-property: color, text-shadow;
+	transition-duration: 0.124s;
+}
+
+.lowAmmo .weapon_ammo
+{
+	color: colorEnemy;
+}
+
+.clip_reloaded .weapon_ammo
+{
+	transition-duration: 0.0s;
+	text-shadow: 0px 0px 5px offWhite;
+}
+
+.lowAmmo.clip_shot .weapon_ammo
+{
+	transition-duration: 0.0s;
+	text-shadow: 0px 0px 10px offBlack;
 }
 
 .has_bonus_clip .weapon_ammo
@@ -727,20 +746,21 @@
 
 .weapon_ammo_max
 {
-	font-size: 18px;
+	font-size: 16px;
 	color: rgba(255, 255, 255, 0.1);
 	vertical-align: bottom;
 	horizontal-align: left;
 	text-align: left;
 	margin-left: 2px;
+	width: 50px;
+	text-align: left;
 }
 
 #ammo_panel
 {
-	y: 85px;
-	x: 49%;
+	y: 80px;
 	vertical-align: center;
-	horizontal-align: left;
+	horizontal-align: center;
 	margin-left: 0px;
 	flow-children: right;
 	transition-property: opacity;
@@ -750,7 +770,7 @@
 
 #ammo_panel.attack_disabled
 {
-	opacity: 0;
+	opacity: 1;
 }
 
 .infinite_ammo .weapon_ammo,.infinite_ammo .weapon_ammo_max
@@ -760,18 +780,19 @@
 
 .weapon_ammo_infinite
 {
-	width: 64px;
-	height: 64px;
+	width: 50px;
+	height: 50px;
 	padding: 10px;
+	margin-top: 5px;
 	background-image: url("s2r://panorama/images/icons/icon_infinite.vsvg");
 	background-size: 50%;
 	background-position: center;
 	background-repeat: no-repeat;
 	visibility: collapse;
+	horizontal-align: center;
 	animation-name: infinite_ammo_flash;
 	animation-iteration-count: infinite;
 	animation-duration: 0.6s;
-	margin-left: -4px;
 	img-shadow: 0px 0px 10px #80ffd7;
 }
 
@@ -845,14 +866,6 @@
 .hide_clip_ammo #ammo_panel,.hide_clip_status_and_ammo #ammo_panel,.hide_clip_status_and_ammo #attack_delayed_progress_bar
 {
 	visibility: collapse;
-}
-
-.lowAmmo .weapon_ammo
-{
-	color: white;
-	text-shadow: 0px 0px 5px colorEnemy;
-	transition-property: color, text-shadow;
-	transition-duration: 0.4s;
 }
 
 #NoReticle
@@ -1004,6 +1017,44 @@
 	visibility: collapse;
 }
 
+.punkgoat .crosshair__pip--black
+{
+	visibility: collapse;
+}
+
+.punkgoat .crosshair__pip
+{
+	background-image: url("s2r://panorama/images/hud/crosshair/reticlepip_viper_psd.vtex");
+	background-size: 100% 100%;
+	background-img-opacity: 1.0;
+	background-color: white;
+	background-color-opacity: 0.0;
+	border: 0px;
+	min-width: 64px;
+	min-height: 64px;
+	max-width: 64px;
+	max-height: 64px;
+	ui-scale: 25%;
+}
+
+.punkgoat .crosshair__dot
+{
+	opacity: 0.65;
+	background-image: url("s2r://panorama/images/hud/crosshair/reticlecenter_punkgoat_psd.vtex");
+	background-size: 100% 100%;
+	background-img-opacity: 1.0;
+	background-color: white;
+	background-color-opacity: 0.0;
+	height: 100px;
+	width: 100px;
+	ui-scale: 85%;
+}
+
+.punkgoat .crosshair__dotborder
+{
+	visibility: collapse;
+}
+
 .trapper .crosshair__pip--black
 {
 	visibility: collapse;
@@ -1096,6 +1147,49 @@
 }
 
 .frank .crosshair__dotborder
+{
+	visibility: collapse;
+}
+
+.frank2 .crosshair__pip--black
+{
+	visibility: collapse;
+}
+
+.frank2 .crosshair__pip
+{
+	background-image: url("s2r://panorama/images/hud/crosshair/reticlepip_frank_psd.vtex");
+	background-size: 100% 100%;
+	background-img-opacity: 1.0;
+	background-color: white;
+	background-color-opacity: 0.0;
+	border: 0px;
+	min-width: 128px;
+	min-height: 128px;
+	max-width: 128px;
+	max-height: 128px;
+	ui-scale: 100%;
+}
+
+.frank2 .bottom,.frank2 .right
+{
+	visibility: collapse;
+}
+
+.frank2 .crosshair__dot
+{
+	opacity: 0.75;
+	background-image: url("s2r://panorama/images/hud/crosshair/reticlecenter_frank_2_psd.vtex");
+	background-size: 100% 100%;
+	background-img-opacity: 1.0;
+	background-color: white;
+	background-color-opacity: 0.0;
+	height: 128px;
+	width: 128px;
+	ui-scale: 100%;
+}
+
+.frank2 .crosshair__dotborder
 {
 	visibility: collapse;
 }
@@ -1220,6 +1314,135 @@
 }
 
 .priestult .left,.priestult .top
+{
+	visibility: collapse;
+}
+
+.BookWorm .crosshair__pip--black
+{
+	visibility: collapse;
+}
+
+.BookWorm .crosshair__pip
+{
+	background-image: url("s2r://panorama/images/hud/crosshair/reticlepip_bookworm_psd.vtex");
+	background-size: 100% 100%;
+	background-img-opacity: 1.0;
+	background-color: white;
+	background-color-opacity: 0.0;
+	border: 0px;
+	min-width: 128px;
+	min-height: 128px;
+	max-width: 128px;
+	max-height: 128px;
+	ui-scale: 100%;
+}
+
+.BookWorm .crosshair__dot
+{
+	opacity: 0.75;
+	background-image: url("s2r://panorama/images/hud/crosshair/reticlecenter_bookworm_psd.vtex");
+	background-size: 100% 100%;
+	background-img-opacity: 1.0;
+	background-color: white;
+	background-color-opacity: 0.0;
+	height: 128px;
+	width: 128px;
+	ui-scale: 100%;
+}
+
+.BookWorm .crosshair__dotborder
+{
+	visibility: collapse;
+}
+
+.BookWorm .left,.BookWorm .top
+{
+	visibility: collapse;
+}
+
+.doorman .crosshair__pip--black
+{
+	visibility: collapse;
+}
+
+.doorman .crosshair__pip
+{
+	background-image: url("s2r://panorama/images/hud/crosshair/reticlepip_doorman_psd.vtex");
+	background-size: 100% 100%;
+	background-img-opacity: 1.0;
+	background-color: white;
+	background-color-opacity: 0.0;
+	border: 0px;
+	min-width: 128px;
+	min-height: 128px;
+	max-width: 128px;
+	max-height: 128px;
+	ui-scale: 100%;
+}
+
+.doorman .top,.doorman .left
+{
+	visibility: collapse;
+}
+
+.doorman .crosshair__dot
+{
+	opacity: 0.75;
+	background-image: url("s2r://panorama/images/hud/crosshair/reticlecenter_doorman_psd.vtex");
+	background-size: 100% 100%;
+	background-img-opacity: 1.0;
+	background-color: white;
+	background-color-opacity: 0.0;
+	height: 128px;
+	width: 128px;
+	ui-scale: 100%;
+}
+
+.doorman .crosshair__dotborder
+{
+	visibility: collapse;
+}
+
+.drifter .crosshair__pip--black
+{
+	visibility: collapse;
+}
+
+.drifter .crosshair__pip
+{
+	background-image: url("s2r://panorama/images/hud/crosshair/reticlepip_drifter_psd.vtex");
+	background-size: 100% 100%;
+	background-img-opacity: 1.0;
+	background-color: white;
+	background-color-opacity: 0.0;
+	border: 0px;
+	min-width: 128px;
+	min-height: 128px;
+	max-width: 128px;
+	max-height: 128px;
+	ui-scale: 100%;
+}
+
+.drifter .left,.drifter .top
+{
+	visibility: collapse;
+}
+
+.drifter .crosshair__dot
+{
+	opacity: 0.75;
+	background-image: url("s2r://panorama/images/hud/crosshair/reticlecenter_drifter_psd.vtex");
+	background-size: 100% 100%;
+	background-img-opacity: 1.0;
+	background-color: white;
+	background-color-opacity: 0.0;
+	height: 128px;
+	width: 128px;
+	ui-scale: 100%;
+}
+
+.drifter .crosshair__dotborder
 {
 	visibility: collapse;
 }

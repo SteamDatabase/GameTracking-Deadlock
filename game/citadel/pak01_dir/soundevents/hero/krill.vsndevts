@@ -1,9 +1,10 @@
 <!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
 {
-	Krill.Wpn.Fire = 
+	MoKrill.Wpn.Fire = 
 	{
-		base = "Base.Weapon.Shotgun"
+		base = "Base.Weapon.MachineGun"
 		volume = 3.000000
+		last_shot_vol_offset_db = 1.000000
 		vsnd_files = 
 		[
 			"sounds/weapons/krill/fire/digger_weapon_fire_01.vsnd",
@@ -12,6 +13,10 @@
 			"sounds/weapons/krill/fire/digger_weapon_fire_04.vsnd",
 			"sounds/weapons/krill/fire/digger_weapon_fire_05.vsnd",
 			"sounds/weapons/krill/fire/digger_weapon_fire_06.vsnd",
+		]
+		vsnd_files_last_shot = 
+		[
+			"sounds/weapons/krill/mokrill_wpn_last_shot_01.vsnd",
 		]
 		vsnd_duration = 2.377823
 	}
@@ -27,11 +32,63 @@
 		]
 		vsnd_duration = 0.464938
 	}
+	MoKrill.Wpn.ZoomIn = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -20.000000
+		vsnd_files = "sounds/weapons/wraith/zoom/in.vsnd"
+		vsnd_duration = 1.323604
+	}
+	MoKrill.Wpn.ZoomOut = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -20.000000
+		vsnd_files = "sounds/weapons/wraith/zoom/out.vsnd"
+		vsnd_duration = 1.829146
+	}
+	MoKrill.Wpn.Reload.Start = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -2.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/krill/reload/mokrill_wpn_reload_start_01.vsnd",
+			"sounds/weapons/krill/reload/mokrill_wpn_reload_start_02.vsnd",
+			"sounds/weapons/krill/reload/mokrill_wpn_reload_start_03.vsnd",
+		]
+		vsnd_duration = 1.125465
+	}
+	MoKrill.Wpn.Reload.Mid = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -2.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/krill/reload/mokrill_wpn_reload_mid_01.vsnd",
+			"sounds/weapons/krill/reload/mokrill_wpn_reload_mid_02.vsnd",
+			"sounds/weapons/krill/reload/mokrill_wpn_reload_mid_03.vsnd",
+		]
+		vsnd_duration = 0.454580
+	}
+	MoKrill.Wpn.Reload.End = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -2.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/krill/reload/mokrill_wpn_reload_end_01.vsnd",
+			"sounds/weapons/krill/reload/mokrill_wpn_reload_end_02.vsnd",
+			"sounds/weapons/krill/reload/mokrill_wpn_reload_end_03.vsnd",
+		]
+		vsnd_duration = 0.338617
+	}
 	MoKrill.Scorn.Cast = 
 	{
 		base = "Base.Ability"
 		volume = 0.000000
-		play_from_listener_player = 1.000000
 		volume_offset_player = -3.000000
 		vsnd_files = "sounds/abilities/mokrill/digger_scorn_cast.vsnd"
 		vsnd_duration = 4.229909
@@ -112,7 +169,7 @@
 	}
 	MoKrill.Combo.Impacts = 
 	{
-		base = "Base.Ability.Ult.CC"
+		base = "Base.Ability.Ult"
 		volume = -5.000000
 		vsnd_files = 
 		[
@@ -133,7 +190,7 @@
 	}
 	MoKrill.Combo.Duration.Lp = 
 	{
-		base = "Base.Ability.Ult.CC"
+		base = "Base.Ability.Ult"
 		delay_rand_min = -2.000000
 		volume = 2.000000
 		vsnd_files = "sounds/abilities/mokrill/a4_combo/mokrill_a4_combo_duration_lp_01.vsnd"
@@ -141,10 +198,88 @@
 	}
 	MoKrill.Combo.Cast = 
 	{
-		base = "Base.Ability.Ult.CC"
+		base = "Base.Ability.Ult"
 		volume = 0.000000
 		vsnd_files = "sounds/abilities/mokrill/a4_combo/mokrill_a4_combo_end_01.vsnd"
 		vsnd_duration = 1.800000
+	}
+	MoKrill.Burrow.Cast = 
+	{
+		base = "Base.Ability"
+		volume = 2.000000
+		vsnd_files = "sounds/abilities/mokrill/a2_burrow/new/mokrill_a2_burrow_emerge.vsnd"
+		vsnd_duration = 5.049796
+	}
+	MoKrill.Burrow.Modifier.Start = 
+	{
+		base = "Base.Ability"
+		volume = 1.000000
+		vsnd_files = "sounds/abilities/mokrill/a2_burrow/new/mokrill_a2_burrow_impact.vsnd"
+		vsnd_duration = 4.469569
+	}
+	MoKrill.Burrow.Travel.Lp = 
+	{
+		base = "Base.Ability"
+		volume_fade_out = 0.300000
+		volume = -1.000000
+		volume_offset_team = 0.000000
+		volume_offset_opponent = 2.000000
+		vsnd_files = "sounds/abilities/mokrill/a2_burrow/travel_earthy_lp.vsnd"
+		vsnd_duration = 8.851587
+	}
+	MoKrill.Burrow.Spin.Lp = 
+	{
+		base = "Base.Ability"
+		volume = 0.000000
+		volume_fade_out = 0.100000
+		volume_fade_in = 0.500000
+		pitch = 1.100000
+		vsnd_files = "sounds/abilities/mokrill/a2_burrow/mokrill_a2_burrow_spin_lp.vsnd"
+		vsnd_duration = 1.360476
+	}
+	MoKrill.Burrow.Spin = 
+	{
+		base = "Base.Ability"
+		volume = 3.000000
+		volume_fade_out = 0.200000
+		volume_fade_in = 0.100000
+		vsnd_files = "sounds/abilities/mokrill/a2_burrow/new/mokrill_a2_burrow_emerge.vsnd"
+		vsnd_duration = 5.049796
+	}
+	MoKrill.Combo.Duration.Foley.Lp = 
+	{
+		base = "Base.Ability.Ult.CC"
+		volume = 3.000000
+		vsnd_files = "sounds/abilities/mokrill/a4_combo/mokrill_a4_combo_foley.vsnd"
+		vsnd_duration = 3.274626
+	}
+	MoKrill.Sandblast.Cast = 
+	{
+		base = "Base.Ability"
+		volume = 5.000000
+		vsnd_files = "sounds/abilities/mokrill/a3_sandblast/mokrill_a3_sandblast_cast_delay.vsnd"
+		vsnd_duration = 3.341565
+	}
+	MoKrill.Sandblast.Impact = 
+	{
+		base = "Base.Ability.StatusEffect"
+		volume = 1.000000
+		volume_offset_player = 2.000000
+		limiter_on = 1.000000
+		limiter_max = 1.000000
+		pitch_rand_max = 0.200000
+		pitch_rand_min = -0.200000
+		vsnd_files = "sounds/abilities/mokrill/a3_sandblast/mokrill_a3_sandblast_hit.vsnd"
+		vsnd_duration = 2.272358
+	}
+	MoKrill.Burrow.Spin.End = 
+	{
+		base = "Base.Ability"
+		volume = -3.000000
+		volume_fade_out = 0.200000
+		volume_fade_in = 0.050000
+		vsnd_files = "sounds/abilities/mokrill/a2_burrow/mokrill_a2_burrow_spin_end.vsnd"
+		vsnd_duration = 1.740862
 	}
 	MoKrill.Movement.Long = 
 	{
@@ -217,7 +352,7 @@
 	}
 	MoKrill.Melee.Swing = 
 	{
-		base = "Base.Ability.Melee"
+		base = "Base.Movement.Melee"
 		vsnd_files = 
 		[
 			"sounds/player/melee/shared/swing_short_01.vsnd",
@@ -265,7 +400,7 @@
 	}
 	MoKrill.Melee.Swing.Charged = 
 	{
-		base = "Base.Ability.Melee"
+		base = "Base.Movement.Melee"
 		vsnd_files = 
 		[
 			"sounds/player/melee/shared/swing_long_01.vsnd",
@@ -352,122 +487,30 @@
 		]
 		vsnd_duration = 0.470771
 	}
-	MoKrill.Reload.Start = 
+	Krill.Progession.Page.Win.VO = 
 	{
-		base = "Base.Reload"
-		volume = -1.000000
-		pitch_rand_min = -0.110000
-		pitch_rand_max = 0.150000
-		vsnd_files = "sounds/weapons/digger/reload/start.vsnd"
-		vsnd_duration = 0.661973
+		base = "Base.HeroPick.VO.2d"
+		context_name = "krill"
+		vsnd_files = 
+		[
+			"sounds/vo/krill/krill_kill_anyhero_03.vsnd",
+			"sounds/vo/krill/krill_kill_anyhero_04.vsnd",
+			"sounds/vo/krill/krill_happy_02.vsnd",
+			"sounds/vo/krill/krill_happy_08.vsnd",
+			"sounds/vo/krill/krill_killstreak_start_01.vsnd",
+		]
+		vsnd_duration = 2.896145
 	}
-	MoKrill.Reload.ClipIn = 
+	Krill.Progession.Page.Lose.VO = 
 	{
-		base = "Base.Reload"
-		volume = -1.000000
-		pitch_rand_min = -0.110000
-		pitch_rand_max = 0.150000
-		vsnd_files = "sounds/weapons/digger/reload/clipin.vsnd"
-		vsnd_duration = 0.700386
-	}
-	MoKrill.Reload.End = 
-	{
-		base = "Base.Reload"
-		volume = -1.000000
-		pitch_rand_min = -0.110000
-		pitch_rand_max = 0.150000
-		vsnd_files = "sounds/weapons/digger/reload/end.vsnd"
-		vsnd_duration = 0.780000
-	}
-	MoKrill.Reload.Middle = 
-	{
-		base = "Base.Reload"
-		volume = 0.000000
-		pitch_rand_min = 0.000000
-		pitch_rand_max = 0.150000
-		vsnd_files = "sounds/weapons/digger/reload/middle.vsnd"
-		vsnd_duration = 0.390000
-	}
-	MoKrill.Burrow.Cast = 
-	{
-		base = "Base.Ability"
-		volume = 2.000000
-		play_from_listener_player = 1.000000
-		vsnd_files = "sounds/abilities/mokrill/a2_burrow/new/mokrill_a2_burrow_emerge.vsnd"
-		vsnd_duration = 5.049796
-	}
-	MoKrill.Burrow.Modifier.Start = 
-	{
-		base = "Base.Ability"
-		volume = 1.000000
-		vsnd_files = "sounds/abilities/mokrill/a2_burrow/new/mokrill_a2_burrow_impact.vsnd"
-		vsnd_duration = 4.469569
-	}
-	MoKrill.Burrow.Travel.Lp = 
-	{
-		base = "Base.Ability"
-		volume_fade_out = 0.300000
-		volume = -1.000000
-		volume_offset_team = 0.000000
-		volume_offset_opponent = 2.000000
-		vsnd_files = "sounds/abilities/mokrill/a2_burrow/travel_earthy_lp.vsnd"
-		vsnd_duration = 8.851587
-	}
-	MoKrill.Burrow.Spin.Lp = 
-	{
-		base = "Base.Ability"
-		volume = 0.000000
-		volume_fade_out = 0.100000
-		volume_fade_in = 0.500000
-		pitch = 1.100000
-		vsnd_files = "sounds/abilities/mokrill/a2_burrow/mokrill_a2_burrow_spin_lp.vsnd"
-		vsnd_duration = 1.360476
-	}
-	MoKrill.Burrow.Spin = 
-	{
-		base = "Base.Ability"
-		volume = 3.000000
-		volume_fade_out = 0.200000
-		volume_fade_in = 0.100000
-		vsnd_files = "sounds/abilities/mokrill/a2_burrow/new/mokrill_a2_burrow_emerge.vsnd"
-		vsnd_duration = 5.049796
-	}
-	MoKrill.Combo.Duration.Foley.Lp = 
-	{
-		base = "Base.Ability.Ult.CC"
-		volume = 3.000000
-		vsnd_files = "sounds/abilities/mokrill/a4_combo/mokrill_a4_combo_foley.vsnd"
-		vsnd_duration = 3.274626
-	}
-	MoKrill.Sandblast.Cast = 
-	{
-		base = "Base.Ability"
-		volume = 5.000000
-		vsnd_files = "sounds/abilities/mokrill/a3_sandblast/mokrill_a3_sandblast_cast_delay.vsnd"
-		vsnd_duration = 3.341565
-	}
-	MoKrill.Sandblast.Impact = 
-	{
-		base = "Base.Ability.StatusEffect"
-		volume = 1.000000
-		pitch = 1.000000
-		volume_offset_player = 2.000000
-		limiter_on = 1.000000
-		limiter_max = 1.000000
-		pitch_rand_max = 0.200000
-		pitch_rand_min = -0.200000
-		vsnd_files = "sounds/abilities/mokrill/a3_sandblast/mokrill_a3_sandblast_hit.vsnd"
-		vsnd_duration = 2.272358
-	}
-	MoKrill.Burrow.Spin.End = 
-	{
-		base = "Base.Ability"
-		volume = -3.000000
-		volume_fade_out = 0.200000
-		volume_fade_in = 0.050000
-		play_from_listener_player = 1.000000
-		pitch = 1.000000
-		vsnd_files = "sounds/abilities/mokrill/a2_burrow/mokrill_a2_burrow_spin_end.vsnd"
-		vsnd_duration = 1.740862
+		base = "Base.HeroPick.VO.2d"
+		context_name = "krill"
+		vsnd_files = 
+		[
+			"sounds/vo/krill/krill_near_miss_01.vsnd",
+			"sounds/vo/krill/krill_near_miss_03.vsnd",
+			"sounds/vo/krill/krill_use_tech_purge_02.vsnd",
+		]
+		vsnd_duration = 2.699955
 	}
 }

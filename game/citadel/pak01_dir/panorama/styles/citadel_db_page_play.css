@@ -4,13 +4,679 @@ CitadelPlayPage
 {
 	width: 100%;
 	height: 100%;
-	background-size: 100% 100%;
-	flow-children: right;
+	background-color: #000000aa;
 }
 
-#PlayMenu
+#HeroScenePanelBacker
 {
+	width: 100%;
 	height: 100%;
 	horizontal-align: center;
+	opacity: 1;
+	blur: gaussian(2.3px);
+	opacity: .03;
+	opacity-mask: url("s2r://panorama/images/masks/softedge_box_png.vtex");
+	margin-right: -350px;
+}
+
+#PlayModes
+{
+	flow-children: down;
+	horizontal-align: middle;
+	vertical-align: middle;
+}
+
+#Option_CalibrationMatches
+{
+	visibility: collapse;
+}
+
+.CalibrationMatchesRequired #Option_Matchmaking
+{
+	visibility: collapse;
+}
+
+.CalibrationMatchesRequired #Option_CalibrationMatches
+{
+	visibility: visible;
+}
+
+#PlayOptions
+{
+	flow-children: right;
+	max-width: 1400px;
+	height: 750px;
+	margin-top: -70px;
+}
+
+#PrimaryModes
+{
+	margin: 20px;
+}
+
+Label.PlayTitle
+{
+	font-size: 42px;
+	font-weight: bold;
+	color: #7a9392;
+	opacity: 0.3;
+	padding: 10px;
+	font-family: block;
+	text-transform: uppercase;
+	horizontal-align: middle;
+}
+
+.Language_english Label.PlayTitle
+{
+	visibility: collapse;
+}
+
+#NameTestPlayMenu
+{
+	background-image: url("s2r://panorama/images/main_menu/temp/select_play_mode_psd.vtex");
+	background-size: contain;
+	width: 600px;
+	height: 80px;
+	horizontal-align: center;
+	background-repeat: no-repeat;
+	wash-color: #394645;
+	visibility: collapse;
+}
+
+.Language_english #NameTestPlayMenu
+{
+	visibility: visible;
+}
+
+.TextArea
+{
+	flow-children: down;
+	width: 100%;
+	vertical-align: bottom;
+	margin-bottom: 100px;
+}
+
+.DescArea
+{
+	height: fit-children;
+	width: 100%;
+	width: fit-children;
+	padding: 10px;
+}
+
+#Option_Matchmaking .DescArea
+{
+	margin-top: -5px;
+}
+
+#Option_PlayersVsBots .DescArea
+{
+	margin-top: -8px;
+}
+
+.smallButton .DescArea
+{
+	padding: 0px;
+}
+
+.medButton .TextArea
+{
+	margin: 30px;
+	margin-bottom: 60px;
+}
+
+.smallButton .TextArea
+{
+	horizontal-align: right;
+	height: 60px;
+	margin-bottom: 35px;
+	transition-property: height;
+	transition-timing-function: ease;
+	transition-duration: 0.15s;
+}
+
+.smallButton:hover .TextArea
+{
+	height: 180px;
+}
+
+.titleBG
+{
+	background-color: offBlack;
+	width: 100%;
+	height: 100%;
+	animation-name: TagGroove1;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+	animation-frame-time: 1s;
+}
+
+.DescArea .titleBG
+{
+	animation-name: TagGroove2;
+}
+
+@keyframes 'TagGroove1'
+{
+	0%
+	{
+		transform: rotateZ(-1deg);
+	}
+	
+	25%
+	{
+		transform: rotateZ(1deg);
+	}
+	
+	50%
+	{
+		transform: rotateZ(0deg);
+	}
+	
+	75%
+	{
+		transform: rotateZ(-2deg);
+	}
+	
+	100%
+	{
+		transform: rotateZ(1deg);
+	}
+	
+}
+
+@keyframes 'TagGroove2'
+{
+	0%
+	{
+		transform: rotateZ(0deg);
+	}
+	
+	25%
+	{
+		transform: rotateZ(-1deg);
+	}
+	
+	50%
+	{
+		transform: rotateZ(0deg);
+	}
+	
+	75%
+	{
+		transform: rotateZ(2deg);
+	}
+	
+	100%
+	{
+		transform: rotateZ(1deg);
+	}
+	
+}
+
+.playoptionLabel
+{
+	font-size: 52px;
+	font-family: serif;
+	font-weight: bold;
+	horizontal-align: center;
+	color: offWhite;
+	text-align: left;
+	vertical-align: bottom;
+	font-family: block;
+	text-transform: uppercase;
+	text-overflow: shrink;
+	padding: 10px 20px;
+}
+
+.Language_japanese .playoptionLabel
+{
+	white-space: nowrap;
+}
+
+.medButton .playoptionLabel
+{
+	font-size: 40px;
+}
+
+.smallButton .playoptionLabel
+{
+	font-size: 22px;
+	padding: 5px;
+}
+
+.smallButton .subHeader.playoptionLabel
+{
+	font-size: 26px;
+	vertical-align: top;
+	visibility: collapse;
+}
+
+#LockedContainer
+{
+	height: fit-children;
+	width: 100%;
+}
+
+.playoption:enabled:hover Label.menuButtonLabel
+{
+	color: offBlack;
+	transition-property: color, transform;
+	transition-duration: 0.08s;
+}
+
+#Option_Matchmaking.playoption:hover Label.menuButtonLabel,#Option_PlayersVsBots.playoption:hover Label.menuButtonLabel
+{
+	color: offBlack;
+	transition-property: color, transform;
+	transition-duration: 0.08s;
+}
+
+#SubModes
+{
+	flow-children: down;
+	width: 700px;
+	height: 700px;
+	margin: 40px 0px;
+}
+
+.playoption
+{
+	margin: 0px;
+	flow-children: down;
+	transition-property: background-color, pre-transform-scale2d, padding;
+	transition-duration: 0.125s;
+	transition-timing-function: ease-out;
+}
+
+.playoption.fullButton
+{
+	width: 640px;
+	height: 400px;
+	margin: 10px;
+	horizontal-align: center;
+}
+
+.playoption.largeButton
+{
+	width: 520px;
+	height: 720px;
+	padding: 20px;
+}
+
+.playoption.medButton
+{
+	width: 720px;
+	height: 370px;
+	padding: 20px;
+	margin: 20px;
+}
+
+#SubModesContainerTop
+{
+	flow-children: right;
+	height: fit-children;
+	width: fit-children;
+}
+
+#SubModesContainerBottom
+{
+	flow-children: right;
+	height: fit-children;
+	width: fit-children;
+}
+
+.playoption.smallButton
+{
+	width: fill-parent-flow(1.0);
+	height: fill-parent-flow(1.0);
+	margin: 0px 30px;
+}
+
+.in_party #Option_HeroTesting
+{
+	opacity: 0.2;
+}
+
+.party_can_sandbox #Option_HeroTesting
+{
+	opacity: 1;
+}
+
+.playoption:enabled:hover
+{
+	sound: "UI.PlayMenu.Hover";
+}
+
+.playoption.fullButton:enabled:hover
+{
+	sound: "UI.PlayMenu.Hover";
+}
+
+.playoption:active
+{
+	sound: "UI.PlayMenu.Activate";
+}
+
+#Option_Matchmaking.playoption Label.menuButtonLabel,#Option_PlayersVsBots.playoption Label.menuButtonLabel
+{
+	font-size: 38px;
+	text-align: center;
+	horizontal-align: center;
+	color: offWhite;
+	height: 52px;
+	text-overflow: shrink;
+}
+
+.playoption Label.queueNumber
+{
+	font-weight: semi-bold;
+}
+
+.playoption:enabled:hover Label.queueNumber
+{
+	color: offBlack;
+}
+
+Label.playModeDesc
+{
+	font-family: sans;
+	font-size: 16px;
+	color: offWhite&50;
+	font-weight: semi-bold;
+	padding: 5px 15px;
+}
+
+.largeButton .playModeDesc
+{
+	font-size: 18px;
+}
+
+.medButton .playModeDesc
+{
+	font-size: 18px;
+}
+
+.smallButton .playModeDesc
+{
+	opacity: 0;
+	padding: 10px 5px;
+	transition-property: opacity;
+	transition-duration: 0.2s;
+	transition-delay: 0.1s;
+}
+
+.smallButton:hover .playModeDesc
+{
+	opacity: 1;
+	transition-duration: 0.01s;
+}
+
+#play_low_priority_matchmaking_description
+{
+	visibility: collapse;
+	color: colorEnemy;
+	text-overflow: shrink;
+	margin-bottom: 5px;
+}
+
+.LowPriorityMatchmaking #play_matchmaking_description
+{
+	visibility: collapse;
+}
+
+.LowPriorityMatchmaking #play_low_priority_matchmaking_description
+{
+	visibility: visible;
+}
+
+.backgroundImg
+{
+	width: 100%;
+	height: 100%;
+	background-image: url("s2r://panorama/images/main_menu/play/play_inactive_psd.vtex");
+	background-size: 100% 100%;
+	ignore-parent-flow: true;
+	img-shadow: 0px 0px 30px #000000;
+}
+
+#Option_Matchmaking .backgroundImg
+{
+	background-image: url("s2r://panorama/images/main_menu/play/card_play_psd.vtex");
+}
+
+#Option_CalibrationMatches .backgroundImg
+{
+	background-image: url("s2r://panorama/images/main_menu/play/card_play_psd.vtex");
+}
+
+#Option_PlayersVsBots .backgroundImg
+{
+	background-image: url("s2r://panorama/images/main_menu/play/card_bots_psd.vtex");
+}
+
+#Option_HeroTesting .backgroundImg
+{
+	background-image: url("s2r://panorama/images/main_menu/play/card_sandbox_psd.vtex");
+}
+
+#Option_ExploreMap .backgroundImg
+{
+	background-image: url("s2r://panorama/images/main_menu/play/card_map_psd.vtex");
+}
+
+#Option_Lobby .backgroundImg
+{
+	background-image: url("s2r://panorama/images/main_menu/play/card_custom_psd.vtex");
+}
+
+.playoption:hover .backgroundImg
+{
+	pre-transform-scale2d: 1.1;
+	brightness: 3;
+}
+
+#Option_Matchmaking.playoption:hover .backgroundImg
+{
+	transform: rotateZ(3deg);
+}
+
+#Option_PlayersVsBots.playoption:hover .backgroundImg
+{
+	transform: rotateZ(2deg);
+}
+
+.playImage
+{
+	width: 100%;
+	height: 100%;
+	ignore-parent-flow: true;
+	background-image: url("s2r://panorama/images/main_menu/play/card_play_subject_psd.vtex");
+	background-repeat: no-repeat;
+	background-size: contain;
+	animation-duration: 5s;
+	animation-iteration-count: infinite;
+	animation-frame-time: 1s;
+	transition-property: transform, pre-transform-scale2d;
+	transition-duration: 0.1s;
+}
+
+#Option_Matchmaking .playImage
+{
+	background-image: url("s2r://panorama/images/main_menu/play/card_play_subject_psd.vtex");
+}
+
+#Option_CalibrationMatches .playImage
+{
+	background-image: url("s2r://panorama/images/main_menu/play/card_play_subject_psd.vtex");
+}
+
+#Option_PlayersVsBots .playImage
+{
+	background-image: url("s2r://panorama/images/main_menu/play/card_bots_subject_psd.vtex");
+}
+
+#Option_HeroTesting .playImage
+{
+	background-image: url("s2r://panorama/images/main_menu/play/card_sandbox_subject_psd.vtex");
+}
+
+#Option_ExploreMap .playImage
+{
+	background-image: url("s2r://panorama/images/main_menu/play/card_map_subject_psd.vtex");
+}
+
+#Option_Lobby .playImage
+{
+	background-image: url("s2r://panorama/images/main_menu/play/card_custom_subject_psd.vtex");
+}
+
+#Option_Matchmaking:hover .playImage
+{
+	animation-name: TagGroove1;
+}
+
+#Option_CalibrationMatches:hover .playImage
+{
+	animation-name: TagGroove1;
+}
+
+#Option_PlayersVsBots:hover .playImage
+{
+	animation-name: TagGroove2;
+}
+
+#Option_HeroTesting:hover .playImage
+{
+	animation-name: TagGroove1;
+}
+
+#Option_ExploreMap:hover .playImage
+{
+	animation-name: TagGroove2;
+}
+
+#Option_Lobby:hover .playImage
+{
+	animation-name: TagGroove1;
+}
+
+.playoption:hover .playImage
+{
+	pre-transform-scale2d: 1.02;
+}
+
+#Option_Matchmaking.playoption:hover .playImage
+{
+	transform: rotateZ(-5deg);
+}
+
+#Option_CalibrationMatches.playoption:hover .playImage
+{
+	transform: rotateZ(-5deg);
+}
+
+#Option_PlayersVsBots.playoption:hover .playImage
+{
+	transform: rotateZ(5deg);
+}
+
+#Option_HeroTesting.playoption:hover .playImage
+{
+	transform: rotateZ(-10deg);
+}
+
+#Option_ExploreMap.playoption:hover .playImage
+{
+	transform: rotateZ(10deg);
+}
+
+#Option_Lobby.playoption:hover .playImage
+{
+	transform: rotateZ(-15deg);
+}
+
+#UnavailableOverlay,#UnavailableOverlayParty
+{
+	ignore-parent-flow: true;
+	width: 100%;
+	height: 100%;
+	background-color: #000000ee;
+	z-index: 100;
+	visibility: collapse;
+}
+
+#UnavailableOverlay Label,#UnavailableOverlayParty Label
+{
+	text-align: center;
+	horizontal-align: center;
+	vertical-align: center;
+	font-weight: bold;
+	opacity: 0.9;
+	background-color: #000000;
+	color: rgb(207, 62, 62);
+}
+
+.in_matchmaking #UnavailableOverlay
+{
+	visibility: visible;
+}
+
+.in_party #UnavailableOverlayParty
+{
+	visibility: visible;
+}
+
+.new_button
+{
+	visibility: collapse;
+	background-color: brandGreen;
+	border-radius: 3px 0px 0px 3px;
+	padding: 2px 3px;
+	horizontal-align: right;
+	vertical-align: top;
+	horizontal-align: right;
+	vertical-align: center;
+	margin-left: 15px;
+	margin-top: 0px;
+	font-family: sans;
+	flow-children: right;
+	padding: 1px 8px;
+	border-radius: 2px;
+	animation-duration: 3s;
+	animation-timing-function: ease;
+	animation-iteration-count: infinite;
+}
+
+#Option_ExploreMap .new_button
+{
+	background-color: #3bcfe9;
+}
+
+.nav_menu_item:hover .new_button
+{
+	margin-right: 0px;
+}
+
+#Option_ExploreMap .new_button
+{
+	visibility: visible;
+	horizontal-align: center;
+	margin-left: 0px;
+	vertical-align: top;
+	ignore-parent-flow: true;
+	horizontal-align: right;
+	border-radius: 0px 0px 0px 3px;
+}
+
+.new_button Label
+{
+	color: offBlack;
+	font-size: 14px;
+	font-family: sans;
+	text-transform: uppercase;
+	font-weight: bold;
+	horizontal-align: center;
+	vertical-align: center;
 }
 

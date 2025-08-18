@@ -16,11 +16,16 @@
 				operator = "util_null"
 				operator_variables = 
 				{
-					import_public_opvars = 
-					[
-						"citadel_perspective_default",
-						"citadel_material_response",
-					]
+					citadel_perspective_default = 
+					{
+						data_type = "public_opvar"
+						value = "citadel_perspective_default"
+					}
+					citadel_material_response = 
+					{
+						data_type = "public_opvar"
+						value = "citadel_material_response"
+					}
 					enable_velocity_volume_scaling = 
 					{
 						data_type = "float"
@@ -390,10 +395,22 @@
 			},
 			
 			{
+				name = "globals"
+				operator = "get_system_globals"
+				input_execute = "1"
+				input_listener_index = "0"
+			},
+			
+			{
 				name = "get_entity_info"
 				input_execute = "1"
 				operator = "game_entity_info"
 				input_entity_index = "@source_info.output_entity_index"
+				input_default_world_position = "@public.position"
+				input_default_local_position = "@globals.output_listener_front"
+				input_hold_position_on_deleted_entity = "@public.hold_position_on_deleted_entity"
+				use_world_position = "@public.position_force_from_input"
+				attachment = "@public.attachment"
 			},
 			
 			{

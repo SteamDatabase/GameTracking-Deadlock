@@ -1,0 +1,59 @@
+<!-- xml reconstructed by Source 2 Viewer - https://valveresourceformat.github.io -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/citadel_base_styles.vcss_c" />
+		<include src="s2r://panorama/styles/chat.vcss_c" />
+	</styles>
+	<snippets>
+		<snippet name="ChatMessageSource">
+			<Panel>
+				<Label class="ChannelName" text="[{s:channel_name}]" />
+				<Label class="SenderName" text="{s:sender_name}" />
+			</Panel>
+		</snippet>
+		<snippet name="ChatMessageContents_Text">
+			<Panel class="Text">
+				<Label text="{s:message_text}" />
+			</Panel>
+		</snippet>
+		<snippet name="ChatMessageContents_Ping">
+			<Panel class="Ping">
+				<Label id="PingLabel" text="{s:ping_text}" />
+			</Panel>
+		</snippet>
+		<snippet name="ChatMessageSender_HeroImage">
+			<Panel class="SenderHeroImage">
+				<CitadelHeroImage id="HeroImage" heroimagestyle="small" />
+			</Panel>
+		</snippet>
+		<snippet name="ChatMessageSender_AvatarImage">
+			<Panel class="SenderAvatarImage">
+				<CitadelAvatarImage id="AvatarImage" />
+			</Panel>
+		</snippet>
+		<snippet name="ChatMessageSender_LocalClient">
+			<Panel class="SenderLocalClient" />
+		</snippet>
+		<snippet name="ChatMessage">
+			<Panel class="ChatMessage">
+				<Panel id="SenderImage" />
+				<Panel class="MessageBody">
+					<Panel id="MessageSource" />
+					<Panel id="MessageContents" />
+				</Panel>
+			</Panel>
+		</snippet>
+	</snippets>
+	<CitadelChat defaultfocus="ChatInput" hittest="false">
+		<Panel id="ChatLinesArea" hittest="false">
+			<Panel class="ChatLinesWrapper" hittest="false">
+				<Panel id="ChatMessages" hittest="false" />
+			</Panel>
+		</Panel>
+		<Label class="ChatDisabledLabel" text="#Citadel_Hud_ChatDisabled" hittest="false" />
+		<Panel id="ChatControls">
+			<Label id="ChatTargetLabel" text="#citadel_chat_placeholder" />
+			<TextEntry id="ChatInput" oninputsubmit="CitadelChatInputSubmitted();" onblur="CitadelChatInputBlur();" placeholder="" maxchars="1024" />
+		</Panel>
+	</CitadelChat>
+</root>

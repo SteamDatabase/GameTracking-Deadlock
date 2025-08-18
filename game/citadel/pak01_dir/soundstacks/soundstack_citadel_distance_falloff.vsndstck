@@ -19,7 +19,7 @@
 					volume_falloff_curve_field_name = 
 					{
 						data_type = "string"
-						value = "volume_falloff_curve_db"
+						value = "public.volume_falloff_curve_db"
 						_system_properties = 
 						{
 							display_group = "locked"
@@ -45,7 +45,7 @@
 							property_group = "citadel_distance_falloff"
 						}
 					}
-					distance = 
+					distance_falloff = 
 					{
 						data_type = "float"
 						value = "0.000000"
@@ -122,6 +122,27 @@
 							property_help = "Scale volume falloff."
 						}
 					}
+					use_pawn_as_listener_distance = 
+					{
+						data_type = "bool"
+						value = "false"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_group = "citadel_distance_falloff"
+							property_help = "Distance input."
+						}
+					}
+					source_position = 
+					{
+						data_type = "float3"
+						value = "[0.0, 0.0, 0.0]"
+						_system_properties = 
+						{
+							display_group = "locked"
+							property_help = "set in code."
+						}
+					}
 				}
 			},
 			
@@ -136,10 +157,35 @@
 			},
 			
 			{
+				name = "opvar_get_viewing_pawn_position"
+				operator = "opvar_get_float3"
+				input_execute = "1.0"
+				input_stack_name = "citadel_relevance_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "viewing_entity_position"
+			},
+			
+			{
+				name = "distance_to_pawn"
+				operator = "calc_distance"
+				input_position1 = "@public.source_position"
+				input_position2 = "@opvar_get_viewing_pawn_position.output"
+			},
+			
+			{
+				name = "ctrl_switch_distance_pawn_camera"
+				operator = "ctrl_switch_float"
+				input_execute = "1.0"
+				input_switch = "@public.use_pawn_as_listener_distance"
+				input1 = "@public.distance_falloff"
+				input2 = "@distance_to_pawn.output"
+			},
+			
+			{
 				name = "classic_volume_falloff"
 				input_execute = "1.0"
 				operator = "calc_falloff_curve"
-				input_distance = "@public.distance"
+				input_distance = "@ctrl_switch_distance_pawn_camera.output"
 				input_curve_amount = "@public.volume_falloff_curve_amount"
 				input_min = "@public.volume_falloff_min"
 				input_max = "@public.volume_falloff_max"
@@ -151,7 +197,7 @@
 				name = "evaluate_opvar_falloff_curve"
 				operator = "math_curve_2d"
 				input_execute = "@public.volume_falloff_use_curve_editor"
-				input = "@public.distance"
+				input = "@ctrl_switch_distance_pawn_camera.output"
 				public_field_name = "@public.volume_falloff_curve_field_name"
 				input_scale_x = "@public.volume_falloff_scale"
 				input_scale_y = "1.0"

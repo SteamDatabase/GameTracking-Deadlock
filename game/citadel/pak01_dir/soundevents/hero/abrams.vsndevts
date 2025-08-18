@@ -5,11 +5,9 @@
 		base = "Base.Weapon.Shotgun"
 		volume = 3.000000
 		volume_fade_out = 0.250000
-		limiter_max = 2.000000
-		recency_bias_max_scale = 1.000000
 		enable_initial_reflection_send = true
-		low_ammo_vol_offset_db = -1.000000
 		tail_vol_offset_db = 0.000000
+		last_shot_vol_offset_db = 2.000000
 		vsnd_files = 
 		[
 			"sounds/weapons/abrams/abrams_weapon_fire_mid_01.vsnd",
@@ -28,16 +26,17 @@
 			"sounds/weapons/abrams/abrams_weapon_fire_tail_05.vsnd",
 			"sounds/weapons/abrams/abrams_weapon_fire_tail_06.vsnd",
 		]
+		vsnd_files_last_shot = 
+		[
+			"sounds/weapons/abrams/reload/abrams_wpn_last_shot_01.vsnd",
+		]
 		vsnd_duration = 2.715374
 	}
 	Abrams.Wpn.Fire.First = 
 	{
-		base = "Base.Weapon.Shotgun"
-		volume = 3.000000
-		recency_bias_max_scale = 1.000000
-		enable_initial_reflection_send = true
-		low_ammo_vol_offset_db = 0.000000
-		tail_vol_offset_db = 0.000000
+		base = "Abrams.Wpn.Fire.Main"
+		transient_offset_db = 3.000000
+		limiter_max = 0.000000
 		vsnd_files = 
 		[
 			"sounds/weapons/abrams/abrams_weapon_fire_first_01.vsnd",
@@ -47,50 +46,69 @@
 			"sounds/weapons/abrams/abrams_weapon_fire_first_05.vsnd",
 			"sounds/weapons/abrams/abrams_weapon_fire_first_06.vsnd",
 		]
-		vsnd_files_tail = 
-		[
-			"sounds/weapons/abrams/abrams_weapon_fire_tail_01.vsnd",
-			"sounds/weapons/abrams/abrams_weapon_fire_tail_02.vsnd",
-			"sounds/weapons/abrams/abrams_weapon_fire_tail_03.vsnd",
-			"sounds/weapons/abrams/abrams_weapon_fire_tail_04.vsnd",
-			"sounds/weapons/abrams/abrams_weapon_fire_tail_05.vsnd",
-			"sounds/weapons/abrams/abrams_weapon_fire_tail_06.vsnd",
-		]
-		vsnd_duration = 2.715374
+		vsnd_duration = 1.183787
 	}
-	Atlas.Wpn.Whizby = 
+	Abrams.Wpn.Whizby = 
 	{
 		base = "Base.Bullet.Whizby.Shotgun"
 	}
-	Atlas.Wpn.Impact = 
+	Abrams.Wpn.Impact = 
 	{
 		base = "Base.Bullet.Impact.Shotgun"
 	}
-	Atlas.ZoomIn = 
+	Abrams.Wpn.ZoomIn = 
 	{
-		base = "Base.Hero.Weapon.Zoom.2d"
+		base = "Base.Weapon.Foley"
+		volume = -19.000000
 		vsnd_files = "sounds/weapons/astro/zoom/in.vsnd"
 		vsnd_duration = 1.323604
 	}
-	Atlas.ZoomOut = 
+	Abrams.Wpn.ZoomOut = 
 	{
-		base = "Base.Hero.Weapon.Zoom.2d"
+		base = "Base.Weapon.Foley"
+		volume = -21.000000
 		vsnd_files = "sounds/weapons/astro/zoom/out.vsnd"
 		vsnd_duration = 1.829146
 	}
-	Atlas.Wpn.Reload.Clip.Out = 
+	Abrams.Wpn.Reload.Start = 
 	{
-		base = "Base.Reload"
-		volume = -12.000000
-		vsnd_files = "sounds/weapons/abrams/reload/clip_out.vsnd"
-		vsnd_duration = 0.608813
+		base = "Base.Weapon.Foley"
+		volume = -3.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/abrams/reload/abram_wpn_reload_start_01.vsnd",
+			"sounds/weapons/abrams/reload/abram_wpn_reload_start_02.vsnd",
+			"sounds/weapons/abrams/reload/abram_wpn_reload_start_03.vsnd",
+		]
+		vsnd_duration = 1.535442
 	}
-	Atlas.Wpn.Reload.Clip.In = 
+	Abrams.Wpn.Reload.Round = 
 	{
-		base = "Base.Reload"
-		volume = -5.000000
-		vsnd_files = "sounds/weapons/abrams/reload/clip_in.vsnd"
-		vsnd_duration = 1.039146
+		base = "Base.Weapon.Foley"
+		volume = -8.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/abrams/reload/abram_wpn_reload_bullet_01.vsnd",
+			"sounds/weapons/abrams/reload/abram_wpn_reload_bullet_02.vsnd",
+			"sounds/weapons/abrams/reload/abram_wpn_reload_bullet_03.vsnd",
+			"sounds/weapons/abrams/reload/abram_wpn_reload_bullet_04.vsnd",
+			"sounds/weapons/abrams/reload/abram_wpn_reload_bullet_05.vsnd",
+		]
+		vsnd_duration = 0.264694
+	}
+	Abrams.Wpn.Reload.End = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -3.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/abrams/reload/abram_wpn_reload_end_01.vsnd",
+			"sounds/weapons/abrams/reload/abram_wpn_reload_end_02.vsnd",
+			"sounds/weapons/abrams/reload/abram_wpn_reload_end_03.vsnd",
+		]
+		vsnd_duration = 0.621655
 	}
 	Ability.Bull.Charge.Cast = 
 	{
@@ -131,7 +149,7 @@
 	}
 	Ability.Bull.Charge.Wall.Impact = 
 	{
-		base = "Base.Ability"
+		base = "Base.Ability.Detached"
 		volume = 3.000000
 		vsnd_files = "sounds/abilities/abrams/a2_charge/abrams_a2_charge_wall_impact.vsnd"
 		vsnd_duration = 2.982676
@@ -211,7 +229,6 @@
 	{
 		base = "Base.Ability.Ult"
 		volume = 3.000000
-		play_from_listener_player = 1.000000
 		volume_enemy_targeting_boost = 6.000000
 		vsnd_files = "sounds/abilities/abrams/a4_leap/abrams_a4_slam_descend.vsnd"
 		vsnd_duration = 3.766077
@@ -220,7 +237,6 @@
 	{
 		base = "Base.Ability.Ult"
 		volume = -9.000000
-		play_from_listener_player = 1.000000
 		volume_offset_team = -6.000000
 		volume_offset_opponent = 3.000000
 		volume_enemy_targeting_boost = 9.000000
@@ -313,7 +329,7 @@
 	}
 	Abrams.Melee.Swing = 
 	{
-		base = "Base.Ability.Melee"
+		base = "Base.Movement.Melee"
 		vsnd_files = 
 		[
 			"sounds/player/melee/shared/swing_short_01.vsnd",
@@ -345,7 +361,7 @@
 	}
 	Abrams.Melee.Swing.Charged = 
 	{
-		base = "Base.Ability.Melee"
+		base = "Base.Movement.Melee"
 		vsnd_files = 
 		[
 			"sounds/player/melee/shared/swing_long_01.vsnd",
@@ -375,5 +391,43 @@
 			"sounds/player/melee/shared/swing_long_25.vsnd",
 		]
 		vsnd_duration = 1.399792
+	}
+	Atlas.Progession.Page.Win.VO = 
+	{
+		base = "Base.HeroPick.VO.2d"
+		context_name = "atlas"
+		vsnd_files = 
+		[
+			"sounds/vo/atlas/atlas_win_01.vsnd",
+			"sounds/vo/atlas/atlas_win_03.vsnd",
+			"sounds/vo/atlas/atlas_win_early_01.vsnd",
+			"sounds/vo/atlas/atlas_win_early_02.vsnd",
+			"sounds/vo/atlas/atlas_win_early_03.vsnd",
+			"sounds/vo/atlas/atlas_win_late_04.vsnd",
+			"sounds/vo/atlas/atlas_win_late_05.vsnd",
+		]
+		vsnd_duration = 3.323107
+	}
+	Atlas.Progession.Page.Lose.VO = 
+	{
+		base = "Base.HeroPick.VO.2d"
+		context_name = "atlas"
+		vsnd_files = 
+		[
+			"sounds/vo/atlas/atlas_lose_01.vsnd",
+			"sounds/vo/atlas/atlas_lose_04.vsnd",
+			"sounds/vo/atlas/atlas_lose_05.vsnd",
+			"sounds/vo/atlas/atlas_lose_early_01.vsnd",
+			"sounds/vo/atlas/atlas_lose_early_02.vsnd",
+			"sounds/vo/atlas/atlas_lose_early_03.vsnd",
+			"sounds/vo/atlas/atlas_lose_early_04.vsnd",
+			"sounds/vo/atlas/atlas_lose_early_05.vsnd",
+			"sounds/vo/atlas/atlas_lose_late_01.vsnd",
+			"sounds/vo/atlas/atlas_lose_late_02.vsnd",
+			"sounds/vo/atlas/atlas_lose_late_03.vsnd",
+			"sounds/vo/atlas/atlas_lose_late_04.vsnd",
+			"sounds/vo/atlas/atlas_lose_late_05.vsnd",
+		]
+		vsnd_duration = 3.796939
 	}
 }

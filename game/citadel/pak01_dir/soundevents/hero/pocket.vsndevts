@@ -1,12 +1,12 @@
 <!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
 {
-	Synth.Wpn.Fire = 
+	Pocket.Wpn.Fire = 
 	{
 		base = "Base.Weapon.Shotgun"
-		recency_bias_max_scale = 0.700000
 		volume = 3.000000
 		limiter_max = 0.000000
 		volume_fade_out = 0.100000
+		last_shot_vol_offset_db = 2.000000
 		vsnd_files = 
 		[
 			"sounds/weapons/pocket/pocket_weapon_fire_01.vsnd",
@@ -16,11 +16,15 @@
 			"sounds/weapons/pocket/pocket_weapon_fire_05.vsnd",
 			"sounds/weapons/pocket/pocket_weapon_fire_06.vsnd",
 		]
+		vsnd_files_last_shot = 
+		[
+			"sounds/weapons/pocket/pocket_wpn_last_shot_01.vsnd",
+		]
 		vsnd_duration = 2.632290
 	}
-	Synth.Wpn.Whizby = 
+	Pocket.Wpn.Whizby = 
 	{
-		base = "Base.Bullet.Whizby"
+		base = "Base.Bullet.Whizby.Shotgun"
 		limiter_max = 1.000000
 		volume = -6.000000
 		limiter_stop_oldest = false
@@ -49,27 +53,64 @@
 		]
 		vsnd_duration = 0.601633
 	}
-	Synth.Wpn.Impact = 
+	Pocket.Wpn.Impact = 
 	{
 		base = "Base.Bullet.Impact"
 		vsnd_files = "sounds/common/null.vsnd"
 		vsnd_duration = 0.050023
 	}
-	Synth.Wpn.Reload.ClipIn = 
+	Pocket.Wpn.ZoomIn = 
 	{
-		base = "Base.Reload"
-		volume = -1.000000
-		pitch_rand_min = 0.000000
-		pitch_rand_max = 0.000000
-		vsnd_files = "sounds/gameplay/shared_reloads/shared_reload_clip_in.vsnd"
-		vsnd_duration = 1.292426
+		base = "Base.Weapon.Foley"
+		volume = -23.000000
+		vsnd_files = "sounds/weapons/shiv/zoom/in.vsnd"
+		vsnd_duration = 1.309833
 	}
-	Synth.Wpn.Reload.Shotgun.In = 
+	Pocket.Wpn.ZoomOut = 
 	{
-		base = "Base.Reload"
-		volume = 1.000000
-		vsnd_files = "sounds/weapons/abrams/reload/clip_in.vsnd"
-		vsnd_duration = 1.039146
+		base = "Base.Weapon.Foley"
+		volume = -22.000000
+		vsnd_files = "sounds/weapons/shiv/zoom/out.vsnd"
+		vsnd_duration = 1.358688
+	}
+	Pocket.Wpn.Reload.Start = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -2.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/pocket/reload/pocket_wpn_reload_start_01.vsnd",
+			"sounds/weapons/pocket/reload/pocket_wpn_reload_start_02.vsnd",
+			"sounds/weapons/pocket/reload/pocket_wpn_reload_start_03.vsnd",
+		]
+		vsnd_duration = 1.260930
+	}
+	Pocket.Wpn.Reload.Mid = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -2.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/pocket/reload/pocket_wpn_reload_mid_01.vsnd",
+			"sounds/weapons/pocket/reload/pocket_wpn_reload_mid_02.vsnd",
+			"sounds/weapons/pocket/reload/pocket_wpn_reload_mid_03.vsnd",
+		]
+		vsnd_duration = 0.841769
+	}
+	Pocket.Wpn.Reload.End = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -2.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/pocket/reload/pocket_wpn_reload_end_01.vsnd",
+			"sounds/weapons/pocket/reload/pocket_wpn_reload_end_02.vsnd",
+			"sounds/weapons/pocket/reload/pocket_wpn_reload_end_03.vsnd",
+		]
+		vsnd_duration = 0.883583
 	}
 	Synth.A1.Plasma.Flux.Cast = 
 	{
@@ -77,14 +118,6 @@
 		volume = -6.000000
 		vsnd_files = "sounds/abilities/synth/a1_plasma_flux/cast.vsnd"
 		vsnd_duration = 1.972125
-	}
-	Pocket.A2.Flying.Cloak.Caster.Lp = 
-	{
-		base = "Base.Ability"
-		volume = -9.000000
-		pitch = 0.950000
-		vsnd_files = "sounds/abilities/synth/a2_flying_cloak/player_cloak_lp.vsnd"
-		vsnd_duration = 5.896417
 	}
 	Synth.A1.Plasma.Flux.Proj.Expire = 
 	{
@@ -244,6 +277,14 @@
 		vsnd_files = "sounds/abilities/synth/a2_grasp/target_lock_expire.vsnd"
 		vsnd_duration = 0.553625
 	}
+	Pocket.A2.Flying.Cloak.Caster.Lp = 
+	{
+		base = "Base.Ability"
+		volume = -9.000000
+		pitch = 0.950000
+		vsnd_files = "sounds/abilities/synth/a2_flying_cloak/player_cloak_lp.vsnd"
+		vsnd_duration = 5.896417
+	}
 	Synth.A3.Blitz = 
 	{
 		base = "Base.Ability"
@@ -265,93 +306,6 @@
 		volume = 1.000000
 		vsnd_files = "sounds/abilities/synth/affliction/cast_05_impact.vsnd"
 		vsnd_duration = 1.889792
-	}
-	Synth.Wpn.Reload.End = 
-	{
-		base = "Base.Reload"
-		volume = -2.500000
-		pitch_rand_min = -0.050000
-		pitch_rand_max = 0.000000
-		vsnd_files = "sounds/weapons/astro/reload/clip_out.vsnd"
-		vsnd_duration = 0.608813
-	}
-	Synth.Wpn.Reload.ShellIn = 
-	{
-		base = "Base.Reload"
-		volume = -1.000000
-		pitch_rand_min = -0.110000
-		pitch_rand_max = 0.000000
-		vsnd_files = 
-		[
-			"sounds/weapons/astro/reload/astro_reload_insertshell_01.vsnd",
-			"sounds/weapons/astro/reload/astro_reload_insertshell_02.vsnd",
-			"sounds/weapons/astro/reload/astro_reload_insertshell_03.vsnd",
-			"sounds/weapons/astro/reload/astro_reload_insertshell_04.vsnd",
-			"sounds/weapons/astro/reload/astro_reload_insertshell_05.vsnd",
-		]
-	}
-	Pocket.Reload.Start = 
-	{
-		base = "Base.Reload"
-		volume = 3.000000
-		pitch_rand_min = 0.000000
-		pitch_rand_max = 0.000000
-		vsnd_files = "sounds/weapons/pocket/reload/reload_start.vsnd"
-		vsnd_duration = 0.787755
-	}
-	Pocket.Reload.End = 
-	{
-		base = "Base.Reload"
-		volume = 4.000000
-		pitch_rand_min = 0.000000
-		pitch_rand_max = 0.000000
-		pitch = 0.900000
-		vsnd_files = "sounds/weapons/pocket/reload/reload_end.vsnd"
-		vsnd_duration = 0.876054
-	}
-	Pocket.Reload.Flip_02 = 
-	{
-		base = "Base.Reload"
-		volume = -12.000000
-		pitch_rand_min = -0.030000
-		pitch_rand_max = -0.030000
-		pitch = 1.000000
-		mixer_mixlayer_amount_manual = 0.000000
-		vsnd_files = "sounds/weapons/pocket/reload/reload_flip_02.vsnd"
-		vsnd_duration = 0.403628
-	}
-	Pocket.Reload.Flip_03 = 
-	{
-		base = "Base.Reload"
-		volume = -12.000000
-		pitch_rand_min = -0.030000
-		pitch_rand_max = -0.030000
-		pitch = 1.000000
-		mixer_mixlayer_amount_manual = 0.000000
-		vsnd_files = "sounds/weapons/pocket/reload/reload_flip_03.vsnd"
-		vsnd_duration = 0.429773
-	}
-	Pocket.Reload.Flip_04 = 
-	{
-		base = "Base.Reload"
-		volume = -12.000000
-		pitch_rand_min = -0.030000
-		pitch_rand_max = -0.030000
-		pitch = 1.000000
-		mixer_mixlayer_amount_manual = 0.000000
-		vsnd_files = "sounds/weapons/pocket/reload/reload_flip_04.vsnd"
-		vsnd_duration = 0.380113
-	}
-	Pocket.Reload.Flip_01 = 
-	{
-		base = "Base.Reload"
-		volume = -12.000000
-		pitch_rand_min = -0.030000
-		pitch_rand_max = -0.030000
-		pitch = 1.000000
-		mixer_mixlayer_amount_manual = 0.000000
-		vsnd_files = "sounds/weapons/pocket/reload/reload_flip_01.vsnd"
-		vsnd_duration = 0.498390
 	}
 	Synth.A4.Cosmic.Box.Cast = 
 	{
@@ -510,7 +464,7 @@
 	}
 	Pocket.Melee.Swing = 
 	{
-		base = "Base.Ability.Melee"
+		base = "Base.Movement.Melee"
 		vsnd_files = 
 		[
 			"sounds/player/melee/shared/swing_short_01.vsnd",
@@ -542,7 +496,7 @@
 	}
 	Pocket.Melee.Swing.Charged = 
 	{
-		base = "Base.Ability.Melee"
+		base = "Base.Movement.Melee"
 		vsnd_files = 
 		[
 			"sounds/player/melee/shared/swing_long_01.vsnd",
@@ -635,5 +589,30 @@
 		delay = 0.100000
 		vsnd_files = "sounds/abilities/pocket/pocket_a1_barrage_cast_start.vsnd"
 		vsnd_duration = 2.566803
+	}
+	Synth.Progession.Page.Win.VO = 
+	{
+		base = "Base.HeroPick.VO.2d"
+		context_name = "synth"
+		vsnd_files = 
+		[
+			"sounds/vo/synth/synth_kill_anyhero_08.vsnd",
+			"sounds/vo/synth/synth_upgrade_power2_09.vsnd",
+			"sounds/vo/synth/synth_select_05.vsnd",
+		]
+		vsnd_duration = 1.807460
+	}
+	Synth.Progession.Page.Lose.VO = 
+	{
+		base = "Base.HeroPick.VO.2d"
+		context_name = "synth"
+		vsnd_files = 
+		[
+			"sounds/vo/synth/synth_unselect_02.vsnd",
+			"sounds/vo/synth/synth_unselect_04.vsnd",
+			"sounds/vo/synth/synth_unselect_06.vsnd",
+			"sounds/vo/synth/synth_unselect_08.vsnd",
+		]
+		vsnd_duration = 3.003537
 	}
 }

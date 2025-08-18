@@ -2,10 +2,11 @@
 {
 	Viscous.Fire = 
 	{
-		base = "Base.Weapon.Pistol"
+		base = "Base.Weapon.Shotgun"
 		limiter_max = 0.000000
 		volume = 2.000000
 		pitch = 1.000000
+		last_shot_vol_offset_db = 2.000000
 		vsnd_files = 
 		[
 			"sounds/weapons/viscous/viscous_weapon_fire_fast_01.vsnd",
@@ -14,6 +15,10 @@
 			"sounds/weapons/viscous/viscous_weapon_fire_fast_04.vsnd",
 			"sounds/weapons/viscous/viscous_weapon_fire_fast_05.vsnd",
 			"sounds/weapons/viscous/viscous_weapon_fire_fast_06.vsnd",
+		]
+		vsnd_files_last_shot = 
+		[
+			"sounds/weapons/viscous/viscous_wpn_last_shot_01.vsnd",
 		]
 		vsnd_duration = 2.478798
 	}
@@ -39,9 +44,7 @@
 	Viscous.Fire.Alt = 
 	{
 		base = "Base.Weapon.Shotgun"
-		limiter_max = 0.000000
 		volume = 2.000000
-		recency_bias_max_scale = 0.900000
 		vsnd_files = 
 		[
 			"sounds/weapons/viscous/viscous_weapon_fire_01.vsnd",
@@ -58,7 +61,6 @@
 		base = "Base.Ability.Projectile"
 		limiter_max = 0.000000
 		volume = -2.000000
-		recency_bias_max_scale = 1.000000
 		vsnd_files = 
 		[
 			"sounds/weapons/viscous/viscous_weapon_alt_fire_01.vsnd",
@@ -75,6 +77,38 @@
 		base = "Base.Ability.Projectile"
 		volume = 2.000000
 		delay_rand_max = -12.000000
+		delay_rand_min = -0.500000
+		instance_attenuator_enabled = 1.000000
+		instance_count_offset_amount_db = 
+		[
+			
+			[
+				0.000000,
+				0.000000,
+				0.000000,
+				-0.293897,
+				0.000000,
+				0.000000,
+			],
+			
+			[
+				1.000000,
+				0.000000,
+				-0.293897,
+				-3.243744,
+				0.000000,
+				0.000000,
+			],
+			
+			[
+				5.000000,
+				-12.000000,
+				-3.243744,
+				0.000000,
+				0.000000,
+				0.000000,
+			],
+		]
 		vsnd_files = "sounds/weapons/viscous/viscous_weapon_alt_proj_lp.vsnd"
 		vsnd_duration = 16.857166
 	}
@@ -95,6 +129,46 @@
 			"sounds/weapons/viscous/impacts/visc_wpn_impact_09.vsnd",
 		]
 		vsnd_duration = 0.971812
+	}
+	Viscous.Wpn.Reload.Start = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -2.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/viscous/reload/viscous_wpn_reload_start_01.vsnd",
+			"sounds/weapons/viscous/reload/viscous_wpn_reload_start_02.vsnd",
+			"sounds/weapons/viscous/reload/viscous_wpn_reload_start_03.vsnd",
+		]
+		vsnd_duration = 1.269864
+	}
+	Viscous.Wpn.Reload.Mid = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -2.000000
+		mono_downmix_enabled = 0.000000
+		block_duration = 1.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/viscous/reload/viscous_wpn_reload_mid_01.vsnd",
+			"sounds/weapons/viscous/reload/viscous_wpn_reload_mid_02.vsnd",
+			"sounds/weapons/viscous/reload/viscous_wpn_reload_mid_03.vsnd",
+		]
+		vsnd_duration = 0.912834
+	}
+	Viscous.Wpn.Reload.End = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -2.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/viscous/reload/viscous_wpn_reload_end_01.vsnd",
+			"sounds/weapons/viscous/reload/viscous_wpn_reload_end_02.vsnd",
+			"sounds/weapons/viscous/reload/viscous_wpn_reload_end_03.vsnd",
+		]
+		vsnd_duration = 0.642971
 	}
 	Viscous.GooBall.Cast = 
 	{
@@ -182,7 +256,7 @@
 	}
 	Viscous.Melee.Swing = 
 	{
-		base = "Base.Ability.Melee"
+		base = "Base.Movement.Melee"
 		vsnd_files = 
 		[
 			"sounds/player/melee/shared/swing_short_01.vsnd",
@@ -214,7 +288,7 @@
 	}
 	Viscous.Melee.Swing.Charged = 
 	{
-		base = "Base.Ability.Melee"
+		base = "Base.Movement.Melee"
 		vsnd_files = 
 		[
 			"sounds/player/melee/shared/swing_long_01.vsnd",
@@ -367,8 +441,9 @@
 	Viscous.Telepunch.Cast = 
 	{
 		base = "Base.Ability"
-		volume = 0.000000
-		vsnd_files = "sounds/abilities/viscous/viscous_a3_telepunch.vsnd"
+		volume = 3.000000
+		vsnd_files = "sounds/abilities/viscous/viscous_a3_telepunch_delay.vsnd"
+		vsnd_duration = 0.778639
 	}
 	Viscous.Telepunch.Erupt = 
 	{
@@ -471,5 +546,26 @@
 		volume_fade_out = 0.100000
 		vsnd_files = "sounds/abilities/viscous/viscous_a1_goo_ball_proj_lp_01.vsnd"
 		vsnd_duration = 9.302653
+	}
+	Viscous.Progession.Page.Win.VO = 
+	{
+		base = "Base.HeroPick.VO.2d"
+		context_name = "viscous"
+		vsnd_files = 
+		[
+			"sounds/vo/viscous/viscous_happy_07.vsnd",
+		]
+		vsnd_duration = 2.299342
+	}
+	Viscous.Progession.Page.Lose.VO = 
+	{
+		base = "Base.HeroPick.VO.2d"
+		context_name = "viscous"
+		vsnd_files = 
+		[
+			"sounds/vo/viscous/viscous_near_miss_03.vsnd",
+			"sounds/vo/viscous/viscous_near_miss_05.vsnd",
+		]
+		vsnd_duration = 2.280658
 	}
 }

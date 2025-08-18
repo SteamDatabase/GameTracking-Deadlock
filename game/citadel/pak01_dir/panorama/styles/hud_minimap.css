@@ -183,6 +183,23 @@
 	transition-duration: 0.5s;
 }
 
+#MinimapEffects
+{
+	width: 100%;
+	height: 100%;
+	visibility: collapse;
+}
+
+.EnableMinimapEffects #MinimapEffects
+{
+	visibility: visible;
+}
+
+.modifier_state_no_minimap
+{
+	visibility: collapse;
+}
+
 .useZoomedMinimap #canvas
 {
 	overflow: noclip;
@@ -440,12 +457,6 @@
 	opacity: 1;
 }
 
-.map_button.shop_tunnel.is_visible
-{
-	visibility: visible;
-	opacity: 1.0;
-}
-
 .map_button.shop_tunnel
 {
 	width: 1024px;
@@ -455,31 +466,21 @@
 	background-size: 100% 100%;
 	background-position: center;
 	opacity: 0;
-	z-index: 0;
+	z-index: -1;
 	transform: translateX(31.5%) translateY(-10%);
 	transition-property: opacity;
 	transition-duration: 0.5s;
 }
 
-.map_button.shop_tunnel_invert.is_visible
+.invert_map .map_button.shop_tunnel
+{
+	transform: translateX(31.5%) translateY(-10%);
+}
+
+.map_button.shop_tunnel.is_visible
 {
 	visibility: visible;
 	opacity: 1.0;
-}
-
-.map_button.shop_tunnel_invert
-{
-	width: 1024px;
-	height: 1024px;
-	background-repeat: no-repeat;
-	background-image: url("s2r://panorama/images/minimap/base/minimap_midtown_mid_tunnels_psd.vtex");
-	background-size: 100% 100%;
-	background-position: center;
-	opacity: 0;
-	z-index: 0;
-	transform: translateX(-27.5%) translateY(10%);
-	transition-property: opacity;
-	transition-duration: 0.5s;
 }
 
 .map_button.shop_tunnel_exit.is_visible
@@ -626,42 +627,42 @@
 	height: 100%;
 }
 
-.map_button.boss.team1
+.map_button.boss.team1 .boss_image
 {
 	wash-color: ColorTeam1;
 }
 
-.map_button.boss.team2
+.map_button.boss.team2 .boss_image
 {
 	wash-color: ColorTeam2;
 }
 
-.map_button.friend.boss
+.map_button.friend.boss .boss_image
 {
 	wash-color: offWhite;
 }
 
-.map_button.enemy.boss
+.map_button.enemy.boss .boss_image
 {
 	wash-color: ColorEnemyObjective;
 }
 
-.map_button.friend.boss.yellowLane
+.map_button.friend.boss.yellowLane .boss_image
 {
 	wash-color: #FFDF40;
 }
 
-.map_button.friend.boss.greenLane
+.map_button.friend.boss.greenLane .boss_image
 {
 	wash-color: magenta;
 }
 
-.map_button.friend.boss.blueLane
+.map_button.friend.boss.blueLane .boss_image
 {
 	wash-color: #2EC7E6;
 }
 
-.map_button.friend.boss.purpleLane
+.map_button.friend.boss.purpleLane .boss_image
 {
 	wash-color: #6BB247;
 }
@@ -946,6 +947,30 @@
 .map_button.guided_arrow
 {
 	background-image: url("s2r://panorama/images/minimap/archer_guided_arrow_psd.vtex");
+	background-size: 85% 85%;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+}
+
+.map_button.doorman_doorway
+{
+	background-image: url("s2r://panorama/images/minimap/doorman_doorway_psd.vtex");
+	background-size: 85% 85%;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+}
+
+.map_button.capture_point
+{
+	background-image: url("s2r://panorama/images/minimap/outpost_psd.vtex");
+	background-size: 85% 85%;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+}
+
+.map_button.escort
+{
+	background-image: url("s2r://panorama/images/minimap/health_pad_psd.vtex");
 	background-size: 85% 85%;
 	background-position: 50% 50%;
 	background-repeat: no-repeat;
@@ -1537,5 +1562,11 @@
 .gDetailView .map_button.mid_stairs,.gScoreboardOpen .map_button.mid_stairs
 {
 	opacity: 1;
+}
+
+.hasActivateEvent.showHitBox
+{
+	visibility: visible;
+	background-color: rgba(200, 50, 50, 0.5);
 }
 

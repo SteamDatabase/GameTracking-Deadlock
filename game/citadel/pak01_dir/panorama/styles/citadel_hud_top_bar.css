@@ -1,23 +1,10 @@
 /* Prettified by Source 2 Viewer - https://valveresourceformat.github.io */
 
-@define offWhite: #FFEFD7;
-@define offBlack: #10130D;
-@define playerDetailsWidthNewTopbar: 100px;
-@define playerDetailsWidth: 90px;
+@define playerDetailsWidth: 88px;
 @define playerDetailsMargin: 0px;
-@define team1Color: #BF9A53;
-@define team1ColorBright: #FBDCA0;
-@define team1ColorDark: #937600;
-@define team1ColorDarker: #423A1D;
-@define team1ColorNeutral: #55503E;
-@define team2Color: #5B79E6;
-@define team2ColorBright: #BDCBFF;
-@define team2ColorDark: #4156A0;
-@define team2ColorDarker: #243265;
-@define team2ColorNeutral: #54596C;
 CitadelHudTopBar
 {
-	height: 630px;
+	height: 640px;
 	width: fit-children;
 	vertical-align: top;
 	horizontal-align: center;
@@ -28,6 +15,11 @@ CitadelHudTopBar
 CitadelHudTopBar.showNewTopbar
 {
 	height: 755px;
+}
+
+.connectedToHideout CitadelHudTopBar
+{
+	visibility: collapse;
 }
 
 #GradientBacker
@@ -61,8 +53,12 @@ CitadelHudTopBar.showNewTopbar
 	horizontal-align: center;
 	background-color: #00000090;
 	ignore-parent-flow: true;
-	font-family: 'New Spirit Trial';
 	world-blur: ingameHudBlur;
+}
+
+.connectedToHideout .GameClock,.connectedToHideout .TeamNetworth
+{
+	visibility: collapse;
 }
 
 .WaitingForHudUpdate .GameClock
@@ -87,7 +83,7 @@ CitadelHudTopBar.showNewTopbar
 CitadelHudTopBarTeam
 {
 	height: fit-children;
-	width: 560px;
+	width: 532px;
 	overflow: noclip;
 	flow-children: right;
 }
@@ -101,6 +97,7 @@ CitadelHudTopBarTeam .PlayerContents
 {
 	width: 100%;
 	overflow: noclip;
+	horizontal-align: center;
 }
 
 @define topBarMargin: 980px;
@@ -153,22 +150,6 @@ CitadelHudTopBarPlayer
 {
 	width: playerDetailsWidth;
 	overflow: noclip;
-}
-
-.showNewTopbar CitadelHudTopBarPlayer
-{
-	width: playerDetailsWidthNewTopbar;
-	height: 755px;
-}
-
-.showNewTopbar CitadelHudTopBarPlayer
-{
-	margin: 0px -2px;
-}
-
-CitadelHudTopBarPlayer:hover
-{
-	z-index: 100;
 }
 
 CitadelHudTopBarPlayer:hover #HeroImageArea
@@ -225,7 +206,7 @@ CitadelHudTopBarPlayer.SpectatorTarget.SpectateHover
 
 .SpectatorTarget #HeroImageArea,.LocalPlayer #HeroImageArea,.IsInLocalPlayerLane #HeroImageArea
 {
-	pre-transform-scale2d: 1.10;
+	pre-transform-scale2d: 1;
 	margin-top: -5px;
 	brightness: 1.6;
 	transition-duration: 0s;
@@ -241,11 +222,9 @@ CitadelModIcon
 {
 	width: 100%;
 	height: 100%;
-}
-
-.showNewTopbar .PlayerInfoContainer
-{
-	height: fit-children;
+	padding-top: 90px;
+	world-blur: ingameHudBlur;
+	padding-bottom: 10px;
 }
 
 #PlayerModsContainer CitadelModsPurchasedPanel
@@ -295,11 +274,6 @@ CitadelModsPurchasedPanel#mod_universal_locked
 	background-color: #10130D;
 }
 
-.wants_scoreboard CitadelHudTopBarPlayer:selected .PlayerInfoContainer
-{
-	background-color: #495041ee;
-}
-
 .wants_scoreboard CitadelHudTopBarPlayer:selected #PlayerDetailsContainer
 {
 	brightness: 1.5;
@@ -307,12 +281,12 @@ CitadelModsPurchasedPanel#mod_universal_locked
 
 .wants_scoreboard .team1 CitadelHudTopBarPlayer .PlayerInfoContainer
 {
-	background-color: team1ColorDarker;
+	background-color: team1ColorDarker&c9;
 }
 
 .wants_scoreboard .team2 CitadelHudTopBarPlayer .PlayerInfoContainer
 {
-	background-color: team2ColorDarker;
+	background-color: team2ColorDarker&c9;
 }
 
 .wants_scoreboard .showNewTopbar .team1 CitadelHudTopBarPlayer .PlayerInfoContainer
@@ -322,7 +296,7 @@ CitadelModsPurchasedPanel#mod_universal_locked
 
 .HeroContents
 {
-	height: 125px;
+	height: 120px;
 	width: 100%;
 	flow-children: none;
 	z-index: 2;
@@ -344,26 +318,26 @@ CitadelModsPurchasedPanel#mod_universal_locked
 	background-color: #ffffff05;
 	background-color: gradient( linear, 0% 0%, 0% 100%, from( #FFEFD780 ), to( #92929280 ) );
 	border-bottom: 4px solid offWhite&70;
+	opacity-mask: url("s2r://panorama/images/hero_badges/hero_image_mask_psd.vtex");
 }
 
 .HeroContentsCoinBackground
 {
-	height: 100%;
+	height: 95%;
 	width: 100%;
-	background-image: url("s2r://panorama/images/hud/top_bar/coin_background.vsvg");
 	background-img-opacity: 1;
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: bottom;
-	opacity: 1;
-	opacity-brush: gradient( linear, 0% 100%, 0% 0%, from( #00000090 ), to( #DFDFDF90 ) );
+	opacity: 0;
+	background-image: url("s2r://panorama/images/hud/top_bar/coin_background_selected.vsvg");
+	background-img-opacity: 1;
+	opacity-brush: gradient( linear, 0% 100%, 0% 0%, from( #00000090 ), to( #e8e8e860 ) );
 }
 
 .LocalPlayer .HeroContentsCoinBackground,.SpectatorTarget .HeroContentsCoinBackground,.IsInLocalPlayerLane .HeroContentsCoinBackground
 {
-	background-image: url("s2r://panorama/images/hud/top_bar/coin_background_selected.vsvg");
-	background-img-opacity: 1;
-	opacity-brush: gradient( linear, 0% 100%, 0% 0%, from( #00000090 ), to( #e8e8e860 ) );
+	opacity: 1;
 }
 
 .team1 CitadelHudTopBarPlayer.SpectatorTarget .HeroContentsCoinBackground,.team1 CitadelHudTopBarPlayer.LocalPlayer .HeroContentsCoinBackground
@@ -378,27 +352,6 @@ CitadelModsPurchasedPanel#mod_universal_locked
 	brightness: 2;
 }
 
-.HeroContentsCoinOuterBorder
-{
-	height: 100%;
-	width: 100%;
-	background-image: url("s2r://panorama/images/hud/top_bar/coin_outer_border.vsvg");
-	background-size: contain;
-	background-repeat: no-repeat;
-	background-position: bottom;
-	opacity: 0;
-}
-
-.team1 .HeroContentsCoinOuterBorder
-{
-	wash-color: team1ColorDark;
-}
-
-.team2 .HeroContentsCoinOuterBorder
-{
-	wash-color: team2ColorDark;
-}
-
 .HeroContentsCoinInnerBorder
 {
 	height: 100%;
@@ -407,7 +360,7 @@ CitadelModsPurchasedPanel#mod_universal_locked
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: bottom;
-	opacity: 1;
+	opacity: 0;
 }
 
 .team1 .HeroContentsCoinInnerBorder
@@ -420,54 +373,22 @@ CitadelModsPurchasedPanel#mod_universal_locked
 	wash-color: team2Color;
 }
 
-.Dead .HeroContentsCoinBackground,.team1 CitadelHudTopBarPlayer.Dead.LocalPlayer .HeroContentsCoinBackground,.team1 CitadelHudTopBarPlayer.Dead.SpectatorTarget .HeroContentsCoinBackground,.team2 CitadelHudTopBarPlayer.Dead.LocalPlayer .HeroContentsCoinBackground,.team2 CitadelHudTopBarPlayer.Dead.SpectatorTarget .HeroContentsCoinBackground,.Dead .HeroContentsCoinInnerBorder,.team1 CitadelHudTopBarPlayer.Dead.LocalPlayer .HeroContentsCoinInnerBorder,.team1 CitadelHudTopBarPlayer.Dead.SpectatorTarget .HeroContentsCoinInnerBorder,.team2 CitadelHudTopBarPlayer.Dead.LocalPlayer .HeroContentsCoinInnerBorder,.team2 CitadelHudTopBarPlayer.Dead.SpectatorTarget .HeroContentsCoinInnerBorder,.Dead .HeroContentsCoinOuterBorder,.team1 CitadelHudTopBarPlayer.Dead.LocalPlayer .HeroContentsCoinOuterBorder,.team1 CitadelHudTopBarPlayer.Dead.SpectatorTarget .HeroContentsCoinOuterBorder,.team2 CitadelHudTopBarPlayer.Dead.LocalPlayer .HeroContentsCoinOuterBorder,.team2 CitadelHudTopBarPlayer.Dead.SpectatorTarget .HeroContentsCoinOuterBorder
+.Dead .HeroContentsCoinBackground,.team1 CitadelHudTopBarPlayer.Dead.LocalPlayer .HeroContentsCoinBackground,.team1 CitadelHudTopBarPlayer.Dead.SpectatorTarget .HeroContentsCoinBackground,.team2 CitadelHudTopBarPlayer.Dead.LocalPlayer .HeroContentsCoinBackground,.team2 CitadelHudTopBarPlayer.Dead.SpectatorTarget .HeroContentsCoinBackground,.Dead .HeroContentsCoinInnerBorder,.team1 CitadelHudTopBarPlayer.Dead.LocalPlayer .HeroContentsCoinInnerBorder,.team1 CitadelHudTopBarPlayer.Dead.SpectatorTarget .HeroContentsCoinInnerBorder,.team2 CitadelHudTopBarPlayer.Dead.LocalPlayer .HeroContentsCoinInnerBorder,.team2 CitadelHudTopBarPlayer.Dead.SpectatorTarget .HeroContentsCoinInnerBorder,.HeroIconContainer
 {
-	wash-color: #7a1f1f;
+	width: playerDetailsWidth;
+	vertical-align: bottom;
 }
 
-.LaneNum1 .HeroContentsCoinInnerBorder
-{
-	wash-color: laneYellowColor;
-}
-
-.LaneNum3 .HeroContentsCoinInnerBorder,.is3LaneMap .LaneNum6 .HeroContentsCoinInnerBorder
-{
-	wash-color: laneGreenColor;
-}
-
-.LaneNum4 .HeroContentsCoinInnerBorder
-{
-	wash-color: laneBlueColor;
-}
-
-.LaneNum6 .HeroContentsCoinInnerBorder
-{
-	wash-color: lanePurpleColor;
-}
-
-.Dead .HeroContentsCoinInnerBorder
-{
-	wash-color: #710000;
-}
-
-#HeroIcon
+#HeroBadge
 {
 	vertical-align: bottom;
 	horizontal-align: center;
 	ignore-parent-flow: true;
-	height: 94px;
-	width: playerDetailsWidth;
-	border-radius: 0px 0px 170px 170px;
 	z-index: 1;
 	visibility: visible;
 }
 
-.showNewTopbar #HeroIcon
-{
-	width: playerDetailsWidthNewTopbar;
-}
-
-.Frog #HeroIcon
+.Frog #HeroBadge
 {
 	visibility: collapse;
 }
@@ -485,11 +406,6 @@ CitadelModsPurchasedPanel#mod_universal_locked
 	z-index: 1;
 	background-image: url("s2r://panorama/images/heroes/frog_vertical_psd.vtex");
 	visibility: collapse;
-}
-
-.showNewTopbar #FrogImage
-{
-	width: playerDetailsWidthNewTopbar;
 }
 
 .Frog #FrogImage
@@ -606,34 +522,47 @@ CitadelModsPurchasedPanel#mod_universal_locked
 
 .HeroLevelBacker
 {
-	width: 18px;
-	height: 12px;
-	horizontal-align: left;
+	width: 24px;
+	height: 24px;
+	horizontal-align: center;
 	vertical-align: bottom;
+	margin-bottom: 15px;
 	z-index: 10;
-	margin-left: 10px;
+	background-color: gradient( linear, 0% 0%, 0% 190%, from( team1ColorDark ), to( team1ColorDarker ) );
+	border-radius: 50%;
+	visibility: collapse;
 }
 
-.team2 .HeroLevelBacker,.Enemy .HeroLevelBacker
+.team2 .HeroLevelBacker
 {
-	horizontal-align: right;
-	margin-left: 0px;
-	margin-right: 10px;
+	background-color: team2ColorDark;
+	background-color: gradient( linear, 0% 0%, 0% 190%, from( team2ColorDark ), to( team2ColorDarker ) );
 }
 
 .HeroLevelLabel
 {
 	horizontal-align: center;
-	font-size: 11px;
+	font-size: 16px;
 	font-weight: bold;
 	text-align: center;
-	color: #444444ff;
+	color: offWhite;
 	horizontal-align: center;
-	vertical-align: bottom;
-	padding: 0px 0px;
+	vertical-align: center;
+	margin-right: 0.5px;
 	z-index: 3;
-	font-family: sans;
-	margin-top: -1px;
+	text-shadow: 0px 0px 0px 3.0 #000000;
+	font-family: sansMono;
+	letter-spacing: 0.5px;
+}
+
+.team1 .HeroLevelLabel
+{
+	color: #ffe3af;
+}
+
+.team2 .HeroLevelLabel
+{
+	color: #bacaff;
 }
 
 .DeadLabel
@@ -647,12 +576,6 @@ CitadelModsPurchasedPanel#mod_universal_locked
 	margin-left: 12px;
 	margin-top: 1px;
 	visibility: collapse;
-}
-
-.Dead .HeroLevelLabel
-{
-	color: rgba( 255, 255, 255, 0.2);
-	opacity: 0;
 }
 
 .KingPandaContainer
@@ -1250,17 +1173,12 @@ Label.KillStreakText
 
 .Rejuvenator
 {
-	width: 26px;
-	height: 26px;
-	margin-top: 125px;
+	width: 20px;
+	height: 20px;
 	background-size: cover;
 	z-index: 3;
-	horizontal-align: center;
 	img-shadow: 0px 0px 3px 3.0 #000000;
-}
-
-.wants_scoreboard .Rejuvenator
-{
+	margin: 0px 1px;
 	visibility: collapse;
 }
 
@@ -1283,9 +1201,14 @@ Label.KillStreakText
 	visibility: collapse;
 }
 
-.HasRejuvenator .RejuvenatorIcon,.HasRebirth .RebirthIcon,.HasRebirthAndRejuv .RebirthAndRejuvenator
+.HasRejuvenator .Rejuvenator,.HasRejuvenator .RejuvenatorIcon,.HasRebirth .RebirthIcon,.HasRebirthAndRejuv .RebirthAndRejuvenator
 {
 	visibility: visible;
+	visibility: collapse;
+}
+
+.wants_scoreboard .Rejuvenator
+{
 	visibility: collapse;
 }
 
@@ -1351,17 +1274,24 @@ Label.KillStreakText
 	visibility: visible;
 }
 
+#StatusRow
+{
+	height: 40px;
+	vertical-align: top;
+	horizontal-align: center;
+	flow-children: right;
+	margin-top: 105px;
+}
+
 .UltimateStatus
 {
 	height: 22px;
 	width: 22px;
-	horizontal-align: center;
-	vertical-align: bottom;
-	margin-bottom: 24px;
-	margin-right: 2px;
+	margin: 0px 1px;
 	border-radius: 50%;
 	z-index: 99;
 	visibility: collapse;
+	opacity: 0.6;
 }
 
 .UltimateStatusBG
@@ -1369,6 +1299,16 @@ Label.KillStreakText
 	width: 100%;
 	height: 100%;
 	background-color: offWhite;
+}
+
+.team1 .UltimateStatusBG
+{
+	background-color: team1Color;
+}
+
+.team2 .UltimateStatusBG
+{
+	background-color: team2Color;
 }
 
 @keyframes 'UltimateReady'
@@ -1422,11 +1362,6 @@ Label.KillStreakText
 	opacity: 1;
 }
 
-.enemy .UltimateCooldownReady #UltimateAbilityIconMini
-{
-	background-image: url("s2r://panorama/images/hud/top_bar/icon_ultimate_enemy.vsvg");
-}
-
 .UltimateUnlocked .UltimateStatus
 {
 	background-color: offBlack;
@@ -1438,6 +1373,7 @@ Label.KillStreakText
 {
 	background-color: none;
 	box-shadow: none;
+	opacity: 1;
 	animation-name: UltimateReady;
 	animation-duration: 0.3s;
 	animation-iteration-count: 1;
@@ -1446,11 +1382,6 @@ Label.KillStreakText
 .UltimateCooldownReady .UltimateStatusBG
 {
 	background-color: none;
-}
-
-.Dead .UltimateStatus
-{
-	opacity: 1;
 }
 
 .LockedOverlay
@@ -1487,6 +1418,11 @@ Label.KillStreakText
 CitadelHudTopBarPlayer:not(.UltimateCooldownReady) #UltimateAbilityIcon
 {
 	opacity: 1;
+}
+
+.wants_scoreboard #UltimateStatus
+{
+	opacity: 0;
 }
 
 #ChatMessageContainer
@@ -1776,14 +1712,18 @@ CitadelHeroImage.isResponseImage
 @define statTopBottomMargin: 8px;
 #PlayerNameNWContainer
 {
-	margin-top: 90px;
 	flow-children: down;
 	width: 95%;
 	height: 30px;
 	horizontal-align: center;
-	background-color: #52506100;
+	opacity: 0;
 	transition-property: opacity;
 	transition-duration: 0.07s;
+}
+
+.wants_scoreboard #PlayerNameNWContainer
+{
+	opacity: 1;
 }
 
 #PlayerModsContainer
@@ -1832,14 +1772,13 @@ CitadelHeroImage.isResponseImage
 
 .wants_scoreboard #PlayerNameNWContainer
 {
-	height: 200px;
-	padding-top: 60px;
-	margin-top: 25px;
+	height: 230px;
 }
 
 .wants_scoreboard CitadelHudTopBarPlayer:selected #PlayerNameNWContainer
 {
-	height: 200px;
+	height: 230px;
+	brightness: 1.5;
 }
 
 .wants_scoreboard .showNewTopbar CitadelHudTopBarPlayer:selected #PlayerNameNWContainer
@@ -1847,17 +1786,12 @@ CitadelHeroImage.isResponseImage
 	height: fit-children;
 }
 
-.wants_scoreboard CitadelHudTopBarPlayer:hover #PlayerNameNWContainer
-{
-	background-color: #6d6b79;
-}
-
-.PlayerNetworthContainer,CitadelHudItemBarGraph,#KDAContainer,.PlayerName
+.PlayerNetworthContainer,CitadelHudItemBarGraph,#KDAContainer,.PlayerName,#TotalSoulsContainer
 {
 	visibility: collapse;
 }
 
-.wants_scoreboard CitadelHudItemBarGraph,.wants_scoreboard #KDAContainer,.wants_scoreboard .PlayerName,.gDetailView CitadelHudItemBarGraph,.gDetailView #KDAContainer,.gDetailView .PlayerName
+.wants_scoreboard CitadelHudItemBarGraph,.wants_scoreboard #KDAContainer,.wants_scoreboard .PlayerName,.wants_scoreboard #TotalSoulsContainer,.gDetailView CitadelHudItemBarGraph,.gDetailView #KDAContainer,.gDetailView .PlayerName
 {
 	visibility: visible;
 }
@@ -1875,6 +1809,7 @@ CitadelHudItemBarGraph,#KDAContainer,.KDALabels,.StatContainer,.PlayerName
 .PlayerName
 {
 	height: 30px;
+	margin-top: 13px;
 }
 
 CitadelHudItemBarGraph
@@ -1909,15 +1844,15 @@ CitadelHudItemBarGraph
 
 .PlayerName
 {
-	padding: 4px 0px;
 	text-overflow: shrink;
-	max-height: 30px;
+	height: 22px;
 	text-align: center;
 	width: 100%;
 	font-weight: semi-bold;
 	color: #FFF6D8;
 	opacity: 0.5;
 	font-size: 14px;
+	margin-bottom: 2px;
 }
 
 .InParty .PlayerName
@@ -1925,7 +1860,7 @@ CitadelHudItemBarGraph
 	color: #C8E8B5;
 }
 
-.wants_scoreboard CitadelHudTopBarPlayer:selected .PlayerName
+.wants_scoreboard CitadelHudTopBarPlayer:selected .PlayerName,.wants_scoreboard CitadelHudTopBarPlayer #TotalSoulsContainer
 {
 	font-weight: bold;
 	opacity: 1;
@@ -2015,17 +1950,18 @@ CitadelHudTopBar CitadelScoreboardMods
 {
 	vertical-align: bottom;
 	horizontal-align: left;
-	width: 1200px;
-	background-color: #3e3e3e;
+	width: 820px;
+	background-color: team2ColorDarker&c9;
+	world-blur: ingameHudBlur;
 	border-radius: 10px;
 	visibility: collapse;
 	flow-children: right;
 	z-index: 9999;
 }
 
-CitadelHudTopBar.ShowingRight CitadelScoreboardMods
+.ShowingTeam1Mods CitadelScoreboardMods
 {
-	horizontal-align: right;
+	background-color: team1ColorDarker&c9;
 }
 
 .wants_scoreboard CitadelHudTopBar CitadelScoreboardMods
@@ -2185,6 +2121,11 @@ CitadelHudTopBar.ShowingRight CitadelScoreboardMods
 	flow-children: right;
 }
 
+.gScoreboardOpen #RejuvenatorCharges
+{
+	margin-top: 100px;
+}
+
 #RejuvenatorCharges #RejuvenatorFriendly,#RejuvenatorCharges #RejuvenatorEnemy
 {
 	width: 70px;
@@ -2203,6 +2144,7 @@ CitadelHudTopBar.ShowingRight CitadelScoreboardMods
 	align: center bottom;
 	margin-bottom: 5px;
 	background-size: 100% 100%;
+	img-shadow: 0px 0px 10px #00000060;
 }
 
 #RejuvenatorCharges .RejuvCount_1 .rejuvIcon
@@ -2314,66 +2256,7 @@ CitadelHudTopBar.ShowingRight CitadelScoreboardMods
 	flow-children: down;
 	horizontal-align: center;
 	width: 100%;
-	height: 35px;
-	border-radius: 0px 0px 3px 3px;
-	vertical-align: bottom;
-}
-
-.SoulsBacker,.TeamWest #TeamEnemy .SoulsBacker
-{
-	wash-color: #008066;
-	ignore-parent-flow: true;
-	opacity: 0.8;
-	width: 100%;
-	height: 100%;
-	background-image: url("s2r://panorama/images/hud/top_bar/coin_souls_backer.vsvg");
-	background-size: contain;
-	background-repeat: no-repeat;
-	background-position: bottom;
-}
-
-.Language_russian .SoulsBacker
-{
-	background-size: 72% 100%;
-}
-
-.Language_polish .SoulsBacker
-{
-	background-size: 62% 100%;
-}
-
-.Language_brazilian .SoulsBacker,.Language_czech .SoulsBacker,.Language_spanish .SoulsBacker
-{
-	background-size: 61% 100%;
-}
-
-.Language_german .SoulsBacker
-{
-	background-size: 52% 100%;
-}
-
-.Language_latam .SoulsBacker
-{
-	background-size: 46% 100%;
-}
-
-.enemy .SoulsBacker
-{
-	wash-color: #341f1b;
-	wash-color: #B22E09;
-}
-
-.team1 .SoulsBacker
-{
-	wash-color: #341f1b;
-	wash-color: team1Color;
-	wash-color: #A38140;
-}
-
-.team2 .SoulsBacker
-{
-	wash-color: #341f1b;
-	wash-color: team2ColorDark;
+	opacity: 0;
 }
 
 .SoulsValueContainer
@@ -2381,7 +2264,19 @@ CitadelHudTopBar.ShowingRight CitadelScoreboardMods
 	flow-children: right;
 	horizontal-align: center;
 	vertical-align: center;
-	margin-top: 5px;
+	margin-bottom: 0px;
+	padding: 1px 5px;
+	border-radius: 3px;
+	background-color: offBlack;
+	margin-top: 55px;
+	background-color: gradient( linear, 0% 0%, 0% 190%, from( team1ColorDark ), to( team1ColorDarker ) );
+	box-shadow: 2px 2px 0px #00000050;
+}
+
+.team2 .SoulsValueContainer
+{
+	background-color: team2ColorDark;
+	background-color: gradient( linear, 0% 0%, 0% 190%, from( team2ColorDark ), to( team2ColorDarker ) );
 }
 
 .ScoreContainer
@@ -2389,7 +2284,6 @@ CitadelHudTopBar.ShowingRight CitadelScoreboardMods
 	flow-children: right;
 	horizontal-align: middle;
 	vertical-align: middle;
-	margin-bottom: 2px;
 }
 
 .TotalSoulsLabel
@@ -2402,31 +2296,44 @@ CitadelHudTopBar.ShowingRight CitadelScoreboardMods
 	visibility: collapse;
 }
 
-.SoulsValue,.ScoreLabel
+.SoulsValue
+{
+	color: offWhite;
+	font-size: 13px;
+	font-family: sansMono;
+	font-weight: bold;
+	vertical-align: center;
+	color: offWhite;
+	wash-color: shardColor&ee;
+	vertical-align: middle;
+	margin-left: 0px;
+	margin-top: -px;
+	opacity: 1;
+	text-align: center;
+	horizontal-align: center;
+	text-overflow: shrink min( 15px );
+	text-shadow: 0px 0px 3.0 #00000030;
+}
+
+CitadelHudTopBarPlayer .demote
+{
+	font-size: 12px;
+	color: shardColor&60;
+	margin-left: 2px;
+	font-weight: normal;
+}
+
+.TeamNetworth .ScoreLabel
 {
 	color: offWhite;
 	font-size: 15px;
-	font-weight: bold;
+	font-weight: semi-bold;
 	vertical-align: center;
-	font-family: sansMono;
 	vertical-align: middle;
-	margin-left: 0px;
-	margin-top: 1px;
 	opacity: 0.8;
 	text-align: center;
 	horizontal-align: center;
 	text-overflow: shrink min( 15px );
-}
-
-.ScoreLabel .demote
-{
-	font-size: 15px;
-	color: offWhite;
-}
-
-.Enemy .ScoreLabel .demote
-{
-	font-size: 18px;
 }
 
 .SoulsImage
@@ -2438,10 +2345,11 @@ CitadelHudTopBar.ShowingRight CitadelScoreboardMods
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center;
-	height: 18px;
-	width: 14px;
+	height: 14px;
+	width: 12px;
 	wash-color: #ADFFDE;
-	opacity: 0.6;
+	opacity: 0.3;
+	visibility: collapse;
 }
 
 #TotalSoulsContainer .SoulsImage
@@ -2449,17 +2357,7 @@ CitadelHudTopBar.ShowingRight CitadelScoreboardMods
 	visibility: collapse;
 }
 
-.team1 .SoulsImage
-{
-	wash-color: team1ColorBright;
-}
-
-.team2 .SoulsImage
-{
-	wash-color: team2ColorBright;
-}
-
-.demote
+.TeamNetworth .demote
 {
 	font-size: 14px;
 	color: offWhite&90;
@@ -2488,7 +2386,7 @@ CitadelHudTopBar.ShowingRight CitadelScoreboardMods
 .KillsAndAbilityPointsContainer
 {
 	horizontal-align: center;
-	margin-top: 110px;
+	margin-top: 40px;
 	flow-children: down;
 	visibility: collapse;
 	width: 200px;
@@ -2513,7 +2411,6 @@ CitadelHudTopBar.ShowingRight CitadelScoreboardMods
 	height: 22px;
 	flow-children: right;
 	vertical-align: bottom;
-	background-color: #00000090;
 }
 
 .APLabel,.KillsLabel
@@ -2524,8 +2421,11 @@ CitadelHudTopBar.ShowingRight CitadelScoreboardMods
 	text-align: center;
 	font-size: 15px;
 	vertical-align: bottom;
-	height: 30px;
+	height: 20px;
 	font-family: sansMono;
+	border-radius: 3px;
+	world-blur: ingameHudBlur;
+	wash-color: #00000044;
 }
 
 .ScoreTypeLabel
@@ -2533,12 +2433,13 @@ CitadelHudTopBar.ShowingRight CitadelScoreboardMods
 	width: 60px;
 	font-family: sans;
 	text-transform: uppercase;
-	font-size: 13px;
+	font-size: 12px;
 	font-weight: semi-bold;
 	vertical-align: middle;
 	text-align: center;
 	text-overflow: shrink;
 	opacity: 0.7;
+	text-shadow: 0px 0px 8px #00000044;
 }
 
 .ScoreNumber
@@ -2549,14 +2450,11 @@ CitadelHudTopBar.ShowingRight CitadelScoreboardMods
 
 .FriendlyAP,.FriendlyKills
 {
-	background-color: offWhite&50;
 	color: offWhite;
 }
 
 .EnemyAP,.EnemyKills
 {
-	background-color: #771e05;
-	color: #ffbebe;
 	horizontal-align: right;
 	ignore-parent-flow: true;
 }

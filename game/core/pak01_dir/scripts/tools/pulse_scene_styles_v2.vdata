@@ -131,6 +131,8 @@
 		HAlign = "STRETCH"
 		MinSizeX = 200
 		MinSizeY = 39
+		HittestShouldIncludeMargin = true
+		DefaultHoverCursorName = "OpenHandCursor"
 		.FlowOuterSelectionBorder = 
 		{
 			PaintLayer = "SELECTION_OVERLAY"
@@ -166,6 +168,10 @@
 				Border = "2px Outside DotLine $TealBright"
 				Border_FixedScreenWidth = true
 			}
+		}
+		"&.ExternallyEmphasizedNode" = 
+		{
+			Border = "8px DotLine $YellowBright"
 		}
 		"&:selected" = 
 		{
@@ -331,6 +337,7 @@
 		InteractionPriority = "BASE"
 		LayoutChildren = "VBOX"
 		Palette_Name = "Palette_value"
+		DefaultHoverCursorName = "OpenHandCursor"
 		.BaseValueTypeHighlight = 
 		{
 			PaintLayer = "GROUP_BACKGROUND"
@@ -489,6 +496,10 @@
 	.BaseConnection.IsBroken = 
 	{
 		Foreground_Color = "#FF0000"
+	}
+	".BaseConnection.IsBroken:selected" = 
+	{
+		Foreground_Color = "#FFFF00"
 	}
 	.Connection_Inparam = 
 	{
@@ -1118,7 +1129,7 @@
 		HAlign = "LEFT"
 		Positioning = "INSIDE_PARENT"
 		InteractionPriority = "DRAG_HANDLE"
-		DefaultHoverCursorName = "OpenHandCursor"
+		DefaultHoverCursorName = "tools/images/pulse_editor/mouse_cursor_drag_reparent.png"
 		"&:hover .DragHandle" = 
 		{
 			FixedSizeX = 26
@@ -1151,6 +1162,8 @@
 	.PortPlug = 
 	{
 		InteractionPriority = "PORT"
+		PropagateClicksToNonOverlappingAncestors = true
+		DefaultHoverCursorName = "tools/images/pulse_editor/mouse_cursor_default.png+tools/images/pulse_editor/mouse_cursor_decoration_port.png"
 		FixedSizeX = 19
 		FixedSizeY = 19
 		BorderRadius = "3px"
@@ -1475,7 +1488,9 @@
 		VAlign = "STRETCH"
 		HAlign = "LEFT"
 		FixedSizeX = 28
+		FixedSizeY = 28
 		Margin_Right = 4
+		Margin_Top = 14
 		Margin_Bottom = -14
 		PaintLayer = "NODES"
 		Visibility = "HIDDEN"
@@ -1483,20 +1498,13 @@
 		BackgroundImageHeight = 28
 		BackgroundRepeat = "NoRepeat"
 		BackgroundPositionY = "Bottom"
-	}
-	".AppendFlow:hover-ancestor" = 
-	{
-		BackgroundImage = "tools/images/pulse_editor/insert_child.png"
-		ImageTint = "$GreyLight"
+		PropagateClicksToNonOverlappingAncestors = true
 	}
 	".AppendFlow:hover" = 
 	{
+		Visibility = "VISIBLE"
 		BackgroundImage = "tools/images/pulse_editor/insert_child.png"
 		ImageTint = "$GreyBright"
-	}
-	".BaseFlow:hover .AppendFlow, .BaseFlow:hover-descendant .AppendFlow" = 
-	{
-		Visibility = "VISIBLE"
 	}
 	.ResizeComment_Corner_Base = 
 	{
@@ -1669,6 +1677,7 @@
 		FixedSizeX = 20
 		FixedSizeY = 20
 		InteractionPriority = "BASE"
+		PropagateClicksToNonOverlappingAncestors = true
 		"&:hover" = 
 		{
 			ImageTint = "$GreyBright_Hover"
@@ -1797,6 +1806,10 @@
 			{
 				FixedSizeX = 40
 				FixedSizeY = 40
+			}
+			"&.SelectedInstance.IsStateNode" = 
+			{
+				Visibility = "COLLAPSE"
 			}
 			"&.SelectedInstance" = 
 			{
@@ -2367,6 +2380,15 @@
 					}
 				}
 			}
+			"&.OutflowPort.ChildState" = 
+			{
+				.PortPlug = 
+				{
+					Background_Color = "$RedLight"
+					FixedSizeX = 20
+					FixedSizeY = 20
+				}
+			}
 			"&.OutflowPort" = 
 			{
 				.PortPlug = 
@@ -2637,6 +2659,29 @@
 			"$MultipleOutflowsSectionBar" = "$Tan"
 		}
 	}
+	"@Palette Palette_statecell" = 
+	{
+		Base_Palette = "Palette_yielding"
+		colors = 
+		{
+			"$flowColor" = "$GreyLight"
+			"$flowColorAccessory" = "$White"
+			"$iconColor" = "$GreyLight"
+			"$bgColorBase" = "$BrownLeather"
+			"$bgColorHover" = "$BrownLeather_Hover"
+			"$dragColorBase" = "$GreyLight"
+			"$dragColorHover" = "$GreyLight"
+		}
+	}
+	"@Palette Palette_statecell_active" = 
+	{
+		Base_Palette = "Palette_statecell"
+		colors = 
+		{
+			"$bgColorBase" = "$RedMid"
+			"$bgColorHover" = "$RedMid_Hover"
+		}
+	}
 	"@Palette Palette_value" = 
 	{
 		Base_Palette = "default"
@@ -2763,6 +2808,19 @@
 	.Node.IsControlFlowNode.IsYielding = 
 	{
 		Palette_Name = "Palette_IsControlFlowNodeIsYielding"
+	}
+	.Node.IsStateNode.IsYielding = 
+	{
+		Palette_Name = "Palette_statecell"
+		"&.HasYieldedCursors" = 
+		{
+			Palette_Name = "Palette_statecell_active"
+			.FlowOuterSelectionBorder = 
+			{
+				Visibility = "VISIBLE"
+				Border_Color = "$White"
+			}
+		}
 	}
 	.Node.PulseServerDebugNode = 
 	{

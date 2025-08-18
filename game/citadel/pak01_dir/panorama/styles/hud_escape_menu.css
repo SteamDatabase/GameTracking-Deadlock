@@ -7,17 +7,47 @@ CitadelHudEscapeMenu
 	background-color: #000c;
 	transition-property: opacity;
 	transition-duration: 0.2s;
+	flow-children: none;
+}
+
+.InHideout CitadelHudEscapeMenu
+{
+	background-color: #0000;
+}
+
+#EscapeBackground
+{
+	width: 100%;
+	height: 100%;
+}
+
+.ShowEscapeMenu #EscapeBackground
+{
+	animation-duration: 0.12s;
+	animation-timing-function: ease-in-out;
+}
+
+@keyframes 'EscapeFade'
+{
+	0%
+	{
+		box-shadow: inset #31385000 0px 0px 0px;
+	}
+	
+	100%
+	{
+		box-shadow: inset #31385033 0px 0px 800px;
+	}
+	
 }
 
 #LeftStripe
 {
-	padding: 0px 100px;
 	height: 100%;
 	width: 680px;
 	flow-children: down;
 	background-size: 100%;
 	background-position: right;
-	background-color: gradient( linear, 100% 0%, 10% 0%, from( #04040400 ), to( #040404 ) );
 	opacity: 0.0;
 	transform: translateX( -40px );
 	transition-property: opacity, transform;
@@ -30,53 +60,72 @@ CitadelHudEscapeMenu
 	transform: none;
 }
 
-#LogoArea
+#LeftStripeBlur
 {
-	width: 270px;
-	height: fit-children;
-	flow-children: down;
-	margin: 80px 0px 30px 0px;
-}
-
-#LogoArea #GameTitle
-{
-	horizontal-align: left;
-	background-size: cover;
-	height: 150px;
-	width: 100%;
-	flow-children: down;
-	background-image: url("s2r://panorama/images/main_menu/dl_v1_png.vtex");
-	opacity: 0.9;
-	background-size: contain;
-	background-repeat: no-repeat;
-	background-position: left;
-	margin-bottom: 0px;
-}
-
-#LogoArea .GameSubtext
-{
-	horizontal-align: center;
-	text-transform: uppercase;
-	font-weight: semi-bold;
-	opacity: 0.2;
-	font-family: sans;
-	font-size: 16px;
-	letter-spacing: 0.1px;
-	text-align: center;
+	padding: 16px;
+	height: 100%;
+	width: 1000px;
+	world-blur: menuBlur;
+	opacity-brush: gradient( linear, 0% 0%, 100% 0%, from( #ffffffff ), to( #ffffff00 ) );
+	background-color: gradient( linear, 100% 0%, 30% 0%, from( #0c0c0c00 ), to( #030303cc ) );
 }
 
 #Menu
 {
-	flow-children: down;
+	flow-children: none;
 	width: 100%;
 	height: 100%;
+	margin: 0px 0px 0px 92px;
+	vertical-align: bottom;
+	overflow: noclip;
+}
+
+#ContextualMenu
+{
+	flow-children: down;
+	margin-top: 260px;
+}
+
+#ContextualMenu .nav_menu_item
+{
+	background-image: url("s2r://panorama/images/main_menu/nav_bg_01.vsvg");
+	background-img-opacity: 0.7;
+	background-size: 100%;
+	padding: 8px 32px 6px;
+	margin-bottom: 12px;
+	pre-transform-scale2d: 0.98;
+	pre-transform-rotate2d: -1deg;
+	opacity-mask: url("s2r://panorama/images/main_menu/hero_release_vote/text_speckle_mask_psd.vtex");
+	opacity-mask-scale: 100% 200%;
+}
+
+#ContextualMenu .nav_menu_item .menuButtonLabel
+{
+	color: offWhite&cc;
+}
+
+#ContextualMenu .nav_menu_item.endsession
+{
+	background-image: url("s2r://panorama/images/main_menu/nav_bg_red.vsvg");
+}
+
+#ContextualMenu .nav_menu_item:hover Label.menuButtonLabel
+{
+	color: offWhite;
+}
+
+#ContextualMenu .nav_menu_item:hover
+{
+	pre-transform-scale2d: 1;
+	background-img-opacity: 1;
 }
 
 .nav_menu_item
 {
 	flow-children: right;
-	transition-property: background-color, brightness;
-	transition-duration: 0.2s;
+	overflow: noclip;
+	transition-property: pre-transform-scale2d, background-img-opacity;
+	transition-duration: 0.08s;
 }
 
 .nav_menu_item:hover
@@ -96,15 +145,13 @@ CitadelHudEscapeMenu
 
 .nav_menu_item:hover Label.menuButtonLabel
 {
-	color: #7CBC1D;
-	transition-property: color, transform;
-	transition-duration: 0.1s;
+	color: #69e799;
+	pre-transform-scale2d: 1.00;
 }
 
 .nav_menu_item:active Label
 {
-	color: brandGreen;
-	pre-transform-scale2d: 0.95;
+	color: offWhite&cc;
 }
 
 .nav_menu_item:active Image
@@ -112,66 +159,68 @@ CitadelHudEscapeMenu
 	opacity: 1;
 }
 
-.nav_menu_item Label
+.nav_menu_item Label.menuButtonLabel
 {
-	vertical-align: middle;
-	font-style: normal;
-	font-family: serif;
-	font-weight: bold;
 	font-size: 44px;
-	padding: 2px 0px;
-	text-align: left;
-	horizontal-align: left;
-	color: #FFEFD7;
-	letter-spacing: 0.5px;
-	transition-property: color, transform;
-	transition-duration: 0.08s;
+	font-weight: bold;
+	vertical-align: center;
+	font-family: block;
 	overflow: noclip;
+	transition-property: color, transform;
+	transition-duration: 0.12s;
+	color: offWhite&cc;
+	overflow: noclip;
+	opacity-mask-scale: 160% 160%;
 }
 
 .nav_menu_item .menuButtonLabel
 {
 	horizontal-align: middle;
-	white-space: nowrap;
 	text-overflow: shrink;
 }
 
 .nav_menu_item.primary
 {
 	margin: 0px;
-	margin-bottom: 2px;
-	min-width: 400px;
 	padding: 0px 0px;
 	horizontal-align: left;
 	flow-children: right;
 	overflow: noclip;
 }
 
-.nav_menu_item.endsession Label
-{
-	color: #FF5656;
-}
-
-.nav_menu_item.endsession:hover Label
-{
-	transform: rotateZ(-2deg);
-	color: #FF5656;
-}
-
 #quit
 {
-	margin-top: 40px;
+	background-image: url("s2r://panorama/images/main_menu/exit_bg.vsvg");
+	background-size: 100%;
+	background-img-opacity: 0.7;
+	padding: 6px 12px 5px 12px;
+	margin: 20px 0px 0px -12px;
+	opacity-mask: url("s2r://panorama/images/main_menu/hero_release_vote/text_speckle_mask_psd.vtex");
+	opacity-mask-scale: 700% 700%;
+	transition-property: color, background-color, box-shadow, text-shadow, background-img-opacity;
+	transition-duration: 0.1s;
+	transition-timing-function: ease-in-out;
 }
 
 #quit Label
 {
-	font-size: 30px;
-	color: #FFEFD750;
+	font-size: 24px;
+	color: offWhite&aa;
+	font-family: block;
+	transition-property: color, background-color, box-shadow, text-shadow;
+	transition-duration: 0.1s;
+	transition-timing-function: ease-in-out;
+}
+
+#quit:hover
+{
+	background-img-opacity: 1;
 }
 
 #quit:hover Label
 {
-	color: #FF5656;
+	color: offWhite&aa;
+	text-shadow: 0px 0px 16px #FF565622;
 }
 
 .nav_menu_item.resume:hover Label
@@ -200,18 +249,18 @@ CitadelHudEscapeMenu
 .nav_menu_item.minor
 {
 	background-color: none;
-	padding: 5px 0px;
 	margin: 0px;
 }
 
 .nav_menu_item.minor Label
 {
-	font-size: 20px;
-	height: 30px;
-	font-weight: semi-bold;
-	color:offWhite&40;
+	font-size: 24px;
+	height: 32px;
+	padding-top: 2px;
+	color: offWhite&44;
 	vertical-align: middle;
-	font-family: sans;
+	font-family: block;
+	overflow: noclip;
 	transition-property: color;
 	transition-duration: 0.1s;
 }
@@ -224,6 +273,7 @@ CitadelHudEscapeMenu
 	margin-right: 6px;
 	vertical-align: middle;
 	wash-color: offWhite;
+	visibility: collapse;
 	transition-property: opacity, wash-color;
 	transition-duration: 0.3s;
 }
@@ -236,23 +286,20 @@ CitadelHudEscapeMenu
 	background-repeat: no-repeat;
 }
 
-.nav_menu_item.minor .smallIcon.ZooIcon
-{
-	background-image: url("s2r://panorama/images/icons/icon_zoo_psd.vtex");
-	background-size: 80% 80%;
-	background-position: center;
-	background-repeat: no-repeat;
-}
-
 .nav_menu_item.minor:hover Label
 {
-	color: ritualGreenLight;
+	color: #4DD88366;
 }
 
 .nav_menu_item.minor:hover .smallIcon
 {
-	wash-color: ritualGreenLight;
+	wash-color: #4DD883;
 	opacity: 1;
+}
+
+.nav_menu_item.minor.QuickZoo
+{
+	margin-left: 4px;
 }
 
 .MenuIcon
@@ -286,30 +333,31 @@ CitadelHudEscapeMenu
 
 #SubOptions
 {
-	ignore-parent-flow: true;
 	width: 100%;
 	height: fit-children;
 	flow-children: down;
+	overflow: noclip;
 	vertical-align: bottom;
-	margin-bottom: 130px;
+	margin: 0px 0px 132px 8px;
 }
 
 #QuickMute
 {
-	width: 25px;
-	height: 25px;
-	margin-top: 5px;
+	width: 24px;
+	height: 24px;
 	background-image: url("s2r://panorama/images/icons/icon_sound_on.vsvg");
 	background-size: contain;
-	opacity: 0.7;
-	margin-right: 100px;
+	opacity: 0.2;
+	margin-left: 8px;
+	vertical-align: middle;
+	transform: translateY( -2px );
 	transition-property: opacity, pre-transform-scale2d, background-image;
 	transition-duration: 0.2s;
 }
 
 #QuickMute:hover
 {
-	pre-transform-scale2d: 1.2;
+	pre-transform-scale2d: 1.1;
 	saturation: 0.8;
 }
 
@@ -323,64 +371,174 @@ CitadelHudEscapeMenu
 	pre-transform-scale2d: 1.2;
 }
 
+.QuickZoo
+{
+	width: 24px;
+	height: 24px;
+	background-image: url("s2r://panorama/images/icons/icon_zoo.vsvg");
+	background-size: contain;
+	opacity: 0.05;
+	wash-color: offWhite;
+	vertical-align: middle;
+	transform: translateY( -2px );
+	margin-left: 20px;
+	transition-property: opacity, pre-transform-scale2d, background-image;
+	transition-duration: 0.2s;
+}
+
+.QuickZoo:hover
+{
+	pre-transform-scale2d: 1.1;
+	saturation: 0.8;
+}
+
+.OptionGroup
+{
+	flow-children: down;
+	margin: 0px 0px 24px 0px;
+}
+
+.MatchmakingOptions
+{
+	visibility: collapse;
+}
+
+.ShowMatchmakingOptions .MatchmakingOptions
+{
+	visibility: visible;
+}
+
+.ReconnectOptions
+{
+	visibility: collapse;
+}
+
+.CanReconnect .ReconnectOptions
+{
+	visibility: visible;
+}
+
+#disconnect
+{
+	visibility: collapse;
+}
+
+.CanDisconnect #disconnect
+{
+	visibility: visible;
+}
+
+#abandon
+{
+	visibility: collapse;
+}
+
+.CanAbandon #abandon
+{
+	visibility: visible;
+}
+
 #changehero
 {
 	visibility: collapse;
+	pre-transform-rotate2d: -1.7deg;
+	vertical-align: bottom;
+	margin-bottom: 280px;
 }
 
-.connectedToHeroTesting #changehero
+#changehero Label.menuButtonLabel
+{
+	font-size: 60px;
+}
+
+#changehero:hover
+{
+	pre-transform-rotate2d: -2.8deg;
+}
+
+.CanChangeHero #changehero
 {
 	visibility: visible;
 }
 
-.connectedToNewPlayerSandbox #changehero
+.IsMatchmaking #changehero
 {
-	visibility: collapse;
+	pre-transform-scale2d: 1;
 }
 
-.SafeToAbandon #lobbyleave #label_abandon,.NoPromptToLeave #lobbyleave #label_abandon,.is_post_game #lobbyleave #label_abandon,.TeamSpectator #lobbyleave #label_abandon,.connectedToHeroTesting #lobbyleave #label_abandon,.connectedToNewPlayerSandbox #lobbyleave #label_abandon
+.ShowEscapeMenu #changehero
 {
-	visibility: collapse;
+	animation-name: ChangeHeroIntro;
+	animation-duration: .24s;
+	animation-timing-function: ease-in-out;
 }
 
-#lobbyleave #label_leave
+@keyframes 'ChangeHeroIntro'
 {
-	visibility: collapse;
+	0%
+	{
+		opacity: 0;
+		pre-transform-scale2d: 0.2;
+		pre-transform-rotate2d: -10deg;
+	}
+	
+	80%
+	{
+		pre-transform-scale2d: 1.1;
+		pre-transform-rotate2d: 2deg;
+	}
+	
+	100%
+	{
+		opacity: 1;
+		pre-transform-scale2d: 1;
+		pre-transform-rotate2d: -2.2deg;
+	}
+	
 }
 
-.SafeToAbandon #lobbyleave #label_leave,.NoPromptToLeave #lobbyleave #label_leave,.is_post_game #lobbyleave #label_leave
+#PlayerFeedback
 {
-	visibility: visible;
+	margin-top: 28px;
 }
 
-.connectedToHeroTesting #lobbyleave #label_leave,.connectedToNewPlayerSandbox #lobbyleave #label_leave,.TeamSpectator #lobbyleave #label_leave
+#PlayerFeedback .menuButtonLabel
 {
-	visibility: collapse;
+	text-transform: uppercase;
 }
 
-#lobbyleave #label_leave_spectate
+.SettingsRow
 {
-	visibility: collapse;
+	flow-children: right;
+	overflow: noclip;
 }
 
-.TeamSpectator #lobbyleave #label_leave_spectate
+#EscapeButton
 {
-	visibility: visible;
+	flow-children: right;
+	vertical-align: bottom;
+	margin: 16px;
+	height: 22px;
+	opacity: 0.2;
+	transition-property: brightness;
+	transition-timing-function: ease-in-out;
+	transition-duration: 0.10s;
 }
 
-#lobbyleave #label_leave_testing
+#EscapeButton:hover
 {
-	visibility: collapse;
+	brightness: 2.0;
 }
 
-.connectedToHeroTesting #lobbyleave #label_leave_testing,.connectedToNewPlayerSandbox #lobbyleave #label_leave_testing
+#EscapeButton > Label
 {
-	visibility: visible;
-}
-
-.SafeToAbandon #disconnect,.TeamSpectator #disconnect,.connectedToHeroTesting #disconnect,.connectedToNewPlayerSandbox #disconnect,.is_post_game #disconnect
-{
-	visibility: collapse;
+	margin-left: 4px;
+	font-size: 20px;
+	color: offWhite&88;
+	font-family: block;
+	text-transform: uppercase;
+	vertical-align: center;
+	padding-top: 1px;
 }
 
 #SocialContainer
@@ -408,5 +566,148 @@ CitadelHudEscapeMenu
 	horizontal-align: right;
 	vertical-align: bottom;
 	z-index: 99;
+}
+
+#OldRightSide
+{
+	width: 100%;
+	height: 100%;
+}
+
+.ShowNewRightSide #OldRightSide
+{
+	visibility: collapse;
+}
+
+#RightSideBlur
+{
+	height: 100%;
+	width: 720px;
+	world-blur: ingameHudBlur;
+	opacity-brush: gradient( linear, 100% 0%, 0% 0%, from( #ffffff ), to( #ffffff00 ) );
+	horizontal-align: right;
+}
+
+#RightSide
+{
+	width: 100%;
+	height: 100%;
+	background-color: gradient( linear, 100% 0%, 0% 0%, from( #040402 ), to( #04040222 ) );
+	flow-children: down;
+	visibility: collapse;
+}
+
+.ShowNewRightSide #RightSide
+{
+	visibility: visible;
+}
+
+#RightSide #PartySpacer
+{
+	horizontal-align: right;
+	margin: 16px 16px 0px 0px;
+	height: 84px;
+}
+
+#RightSide .FriendsOrPlayersTabs
+{
+	horizontal-align: right;
+	width: 400px;
+	margin: 0px 20px 8px 0px;
+	visibility: collapse;
+}
+
+.ShowPlayers #RightSide .FriendsOrPlayersTabs
+{
+	visibility: visible;
+}
+
+#RightSide .FriendsOrPlayersTabs .Center
+{
+	flow-children: right;
+	horizontal-align: center;
+}
+
+#RightSide .FriendsOrPlayersTabs .FriendsOrPlayersButton
+{
+	background-color: #181716;
+	border: 1px solid #181716;
+	border-radius: 20px;
+	margin: 4px;
+	width: 188px;
+	padding: 2px 0px;
+}
+
+#RightSide .FriendsOrPlayersTabs TabButton Label
+{
+	padding: 0px 20px;
+	font-size: 16px;
+	font-weight: semi-bold;
+	text-align: center;
+	horizontal-align: center;
+	color: offWhite&44;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+
+#RightSide .FriendsOrPlayersTabs TabButton:selected
+{
+	background-color: offWhite&22;
+}
+
+#RightSide .FriendsOrPlayersTabs TabButton:selected Label
+{
+	color: offWhite;
+}
+
+#RightSide .FriendsOrPlayersContents
+{
+	width: 100%;
+	horizontal-align: right;
+	padding-right: 16px;
+	margin-top: 4px;
+	opacity: 0.0;
+	transform: translateX( 40px );
+	transition-property: opacity, transform;
+	transition-duration: 0.08s;
+	transition-timing-function: ease-in-out;
+}
+
+.ShowEscapeMenu #RightSide .FriendsOrPlayersContents
+{
+	opacity: 1.0;
+	transform: none;
+}
+
+#RightSide .FriendsOrPlayersContents TabContents
+{
+	width: 100%;
+	opacity: 0.0;
+	transform: translateX( 20px );
+	transition-property: opacity, transform;
+	transition-duration: 0.2s;
+}
+
+#RightSide .FriendsOrPlayersContents TabContents:selected
+{
+	opacity: 1.0;
+	transform: none;
+}
+
+#RightSide .FriendsOrPlayersContents TabContents #FriendsList
+{
+	width: 100%;
+}
+
+#RightSide .FriendsOrPlayersContents TabContents #PlayersList
+{
+	width: 100%;
+}
+
+#PrivilegedFeatures
+{
+	horizontal-align: center;
+	vertical-align: bottom;
+	margin-bottom: 48px;
 }
 

@@ -3,7 +3,11 @@
 	Lash.Wpn.Fire = 
 	{
 		base = "Base.Weapon.Pistol"
+		low_ammo_threshold = 6.000000
 		volume = 2.000000
+		tail_vol_offset_db = -6.000000
+		tail_interior_vol_offset_db = -8.000000
+		last_shot_vol_offset_db = 2.000000
 		vsnd_files = 
 		[
 			"sounds/weapons/lash/lash_weapon_fire_01.vsnd",
@@ -15,7 +19,17 @@
 			"sounds/weapons/lash/lash_weapon_fire_07.vsnd",
 			"sounds/weapons/lash/lash_weapon_fire_08.vsnd",
 		]
+		vsnd_files_last_shot = 
+		[
+			"sounds/weapons/lash/lash_wpn_last_shot_01.vsnd",
+		]
 		vsnd_duration = 1.480000
+	}
+	Lash.Wpn.Fire.First = 
+	{
+		base = "Base.Weapon.Pistol"
+		limiter_max = 0.000000
+		transient_offset_db = 3.000000
 	}
 	Lash.Wpn.BulletWhizby = 
 	{
@@ -42,6 +56,59 @@
 		base = "Base.Bullet.Impact"
 		vsnd_files = "sounds/common/null.vsnd"
 		vsnd_duration = 0.050023
+	}
+	Lash.Wpn.Reload.Start = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -2.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/lash/reload/lash_wpn_reload_start_01.vsnd",
+			"sounds/weapons/lash/reload/lash_wpn_reload_start_02.vsnd",
+			"sounds/weapons/lash/reload/lash_wpn_reload_start_03.vsnd",
+		]
+		vsnd_duration = 1.159410
+	}
+	Lash.Wpn.Reload.Mid = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -2.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/lash/reload/lash_wpn_reload_mid_01.vsnd",
+			"sounds/weapons/lash/reload/lash_wpn_reload_mid_02.vsnd",
+			"sounds/weapons/lash/reload/lash_wpn_reload_mid_03.vsnd",
+		]
+		vsnd_duration = 0.442313
+	}
+	Lash.Wpn.Reload.End = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -2.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/lash/reload/lash_wpn_reload_end_01.vsnd",
+			"sounds/weapons/lash/reload/lash_wpn_reload_end_02.vsnd",
+			"sounds/weapons/lash/reload/lash_wpn_reload_end_03.vsnd",
+		]
+		vsnd_duration = 0.433946
+	}
+	Lash.Wpn.Zoom.In = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -20.000000
+		vsnd_files = "sounds/weapons/wraith/zoom/in.vsnd"
+		vsnd_duration = 1.323604
+	}
+	Lash.Wpn.Zoom.Out = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -20.000000
+		vsnd_files = "sounds/weapons/wraith/zoom/out.vsnd"
+		vsnd_duration = 1.829146
 	}
 	Lash.A1.Ground.Strike.Mod.Start = 
 	{
@@ -131,7 +198,6 @@
 	Lash.A4.Death.Slam.Cast.Delay = 
 	{
 		base = "Base.Ability.Ult"
-		play_from_listener_player = 1.000000
 		volume = 0.000000
 		vsnd_files = "sounds/abilities/lash/a4_death_slam/lash_death_slam_cast_delay.vsnd"
 		vsnd_duration = 4.778390
@@ -161,7 +227,6 @@
 	Lash.A4.Death.Slam.Grab = 
 	{
 		base = "Base.Ability.Ult"
-		play_from_listener_player = 1.000000
 		volume = 0.000000
 		vsnd_files = "sounds/abilities/lash/a4_death_slam/lash_death_slam_cast.vsnd"
 		vsnd_duration = 2.893061
@@ -169,19 +234,17 @@
 	Lash.A4.Death.Slam.Throw = 
 	{
 		base = "Base.Ability.Ult"
-		play_from_listener_player = 1.000000
 		volume = 2.000000
 		vsnd_files = "sounds/abilities/lash/a4_death_slam/lash_death_slam_launch.vsnd"
 		vsnd_duration = 4.942767
 	}
 	Lash.A4.Death.Slam.Impact = 
 	{
-		base = "Base.Ability.Ult"
+		base = "Base.Ability.Ult.Detached"
 		volume = 3.000000
 		pitch_rand_min = -0.050000
 		pitch_rand_max = 0.100000
 		spread_max_value_opponent = 0.600000
-		play_from_listener_player = 0.000000
 		limiter_on = 1.000000
 		limiter_max = 1.000000
 		limiter_match_entity = 0.000000
@@ -265,7 +328,7 @@
 	}
 	Lash.Melee.Swing = 
 	{
-		base = "Base.Ability.Melee"
+		base = "Base.Movement.Melee"
 		vsnd_track2_vol_offset_db = -5.000000
 		vsnd_files = 
 		[
@@ -316,7 +379,7 @@
 	}
 	Lash.Melee.Swing.Charged = 
 	{
-		base = "Base.Ability.Melee"
+		base = "Base.Movement.Melee"
 		vsnd_track2_vol_offset_db = -5.000000
 		vsnd_files = 
 		[
@@ -365,33 +428,6 @@
 			"sounds/player/movement/lash/lash_movement_foley_short_15.vsnd",
 		]
 		vsnd_duration = 1.399792
-	}
-	Lash.Reload.Open = 
-	{
-		base = "Base.Reload"
-		volume = -4.000000
-		pitch_rand_min = -0.100000
-		pitch_rand_max = 0.100000
-		vsnd_files = "sounds/weapons/lash/reload/open.vsnd"
-		vsnd_duration = 0.399977
-	}
-	Lash.Reload.Close = 
-	{
-		base = "Base.Reload"
-		volume = -4.000000
-		pitch_rand_min = -0.100000
-		pitch_rand_max = 0.100000
-		vsnd_files = "sounds/weapons/lash/reload/close.vsnd"
-		vsnd_duration = 0.453379
-	}
-	Lash.Reload.ClipIn = 
-	{
-		base = "Base.Reload"
-		volume = -12.000000
-		pitch_rand_min = -0.100000
-		pitch_rand_max = 0.100000
-		vsnd_files = "sounds/weapons/lash/reload/insert.vsnd"
-		vsnd_duration = 0.631134
 	}
 	Lash.Footstep = 
 	{
@@ -472,7 +508,6 @@
 	Lash.A1.GroundStrike.Explosion = 
 	{
 		base = "Base.Ability"
-		play_from_listener_player = 1.000000
 		volume = 0.000000
 		mono_downmix_enabled = 1.000000
 		vsnd_files = "sounds/abilities/lash/a1_ground_strike/lash_ground_strike_impact.vsnd"
@@ -481,7 +516,6 @@
 	Lash.A1.GroundStrike.DownStrike.Start = 
 	{
 		base = "Base.Ability.Telegraph"
-		play_from_listener_player = 1.000000
 		volume = -7.000000
 		vsnd_files = "sounds/abilities/lash/a1_ground_strike/lash_ground_strike_downstrike_whoosh.vsnd"
 		vsnd_duration = 2.382676
@@ -489,7 +523,6 @@
 	Lash.A3.Flog.Cast.Delay = 
 	{
 		base = "Base.Ability"
-		play_from_listener_player = 1.000000
 		volume = -3.500000
 		vsnd_files = "sounds/abilities/lash/a3_flog/lash_a3_flog_cast.vsnd"
 		vsnd_duration = 2.215828
@@ -497,7 +530,6 @@
 	Lash.A4.Death.Slam.Channel.Lp = 
 	{
 		base = "Base.Ability.Ult"
-		play_from_listener_player = 1.000000
 		volume = -6.000000
 		volume_offset_opponent = 2.000000
 		volume_enemy_targeting_boost = 6.000000
@@ -518,5 +550,33 @@
 		volume_offset_opponent = 3.000000
 		vsnd_files = "sounds/abilities/lash/a4_death_slam/lash_death_slam_miss.vsnd"
 		vsnd_duration = 2.512812
+	}
+	Lash.Progession.Page.Win.VO = 
+	{
+		base = "Base.HeroPick.VO.2d"
+		context_name = "lash"
+		vsnd_files = 
+		[
+			"sounds/vo/lash/lash_kill_anyhero_02.vsnd",
+			"sounds/vo/lash/lash_happy_06.vsnd",
+			"sounds/vo/lash/lash_happy_07.vsnd",
+			"sounds/vo/lash/lash_congrats_04.vsnd",
+			"sounds/vo/lash/lash_killstreak_start_03.vsnd",
+			"sounds/vo/lash/lash_melee_kill_04.vsnd",
+		]
+		vsnd_duration = 2.133991
+	}
+	Lash.Progession.Page.Lose.VO = 
+	{
+		base = "Base.HeroPick.VO.2d"
+		context_name = "lash"
+		vsnd_files = 
+		[
+			"sounds/vo/lash/lash_sad_06.vsnd",
+			"sounds/vo/lash/lash_concerned_10.vsnd",
+			"sounds/vo/lash/lash_close_call_03.vsnd",
+			"sounds/vo/lash/lash_near_miss_01.vsnd",
+		]
+		vsnd_duration = 3.100930
 	}
 }

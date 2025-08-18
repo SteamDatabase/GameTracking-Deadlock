@@ -9,8 +9,9 @@
 			<Label class="PlayTitle" text="#Citadel_Main_PlayMode" />
 			<Panel id="PlayOptions" hittest="false">
 				<Panel class="menu_divider" />
+				<Panel id="CalibrationModes" />
 				<Panel id="PrimaryModes">
-					<Button id="Option_Matchmaking" class="playoption option1 largeButton" onactivate="CitadelPlayMenuMatchmaking()">
+					<Button id="Option_Matchmaking" class="playoption option1 largeButton" onactivate="CitadelStartUnrankedMatch()">
 						<Panel class="TextArea">
 							<Panel id="DescArea">
 								<Label id="play_matchmaking_description" text="#menu_play_matchmaking" class="playModeDesc" />
@@ -21,7 +22,17 @@
 							</Panel>
 						</Panel>
 					</Button>
-					<Button id="Option_PlayersVsBots" class="playoption option2 largeButton" onactivate="CitadelPlayMenuBotMatchPopup()">
+					<Button id="Option_CalibrationMatches" class="playoption option1 largeButton" onactivate="CitadelStartCalibrationMatch()">
+						<Panel class="TextArea">
+							<Panel id="DescArea">
+								<Label text="#menu_play_placement_matches_desc" class="playModeDesc" />
+							</Panel>
+							<Panel id="TitleArea">
+								<Label text="#menu_placement_matches" class="playoptionLabel" />
+							</Panel>
+						</Panel>
+					</Button>
+					<Button id="Option_PlayersVsBots" class="playoption option2 largeButton" onactivate="CitadelStartBotMatch()">
 						<Panel class="TextArea">
 							<Panel id="DescArea">
 								<Label text="#menu_play_botmatchmaking_desc" class="playModeDesc" />
@@ -34,7 +45,7 @@
 				</Panel>
 				<Panel id="SubModesContainerTop">
 					<Panel id="SubModes">
-						<Button id="Option_HeroTesting" class="playoption option1 smallButton" onactivate="CitadelPlayMenuHeroTesting()">
+						<Button id="Option_HeroTesting" class="playoption option1 smallButton" onactivate="CitadelStartHeroTesting(false)">
 							<Panel class="TextArea">
 								<Panel id="DescArea">
 									<Label text="#menu_play_sandbox_desc" class="playModeDesc" />
@@ -44,7 +55,7 @@
 								</Panel>
 							</Panel>
 						</Button>
-						<Button id="Option_ExploreMap" class="playoption option1 smallButton" onactivate="CitadelExploreMap()">
+						<Button id="Option_ExploreMap" class="playoption option1 smallButton" onactivate="CitadelRunExploreMap() AsyncEvent( 0.2, CitadelNavigateBackToHome() )">
 							<Panel id="UnavailableOverlay">
 								<Label text="#menu_play_unavailable_in_party" />
 							</Panel>
@@ -57,7 +68,7 @@
 								</Panel>
 							</Panel>
 						</Button>
-						<Button id="Option_BotMatch" class="playoption option2 smallButton" onactivate="CitadelPlayMenuBotMatchPopup()">
+						<Button id="Option_BotMatch" class="playoption option2 smallButton" onactivate="CitadelStartBotMatch()">
 							<Panel class="TextArea">
 								<Panel id="DescArea">
 									<Label text="#menu_play_bots_easy_desc" class="playModeDesc" />
@@ -71,7 +82,7 @@
 				</Panel>
 				<Panel id="SubModesContainerBottom">
 					<Panel id="SubModes">
-						<Button id="Option_Lobby" class="playoption option3 smallButton" onactivate="CitadelPlayMenuCustomMatchPopup()">
+						<Button id="Option_Lobby" class="playoption option3 smallButton" onactivate="CitadelStartCustomMatch()">
 							<Panel id="UnavailableOverlay">
 								<Label text="#menu_play_unavailable_in_party" />
 							</Panel>
@@ -81,26 +92,6 @@
 								</Panel>
 								<Panel id="TitleArea">
 									<Label text="#menu_bot_custom" class="playoptionLabel" />
-								</Panel>
-							</Panel>
-						</Button>
-						<Button id="Option_HeroLabs" class="playoption option4 smallButton" onactivate="CitadelPlayMenuHeroLab()">
-							<Panel class="TextArea">
-								<Panel id="TimeContainer">
-									<Panel id="TimeSegmentContainerHeroLabs">
-										<Label class="timeLabel" text="#menu_hero_labs_schedule_times" />
-									</Panel>
-									<Label class="ScheduleTitle" text="#menu_hero_labs_schedule_title" />
-								</Panel>
-								<Panel id="LockedContainer">
-									<Label text="#menu_hero_labs_unavailable" class="subHeader playoptionLabel" />
-								</Panel>
-								<Panel id="DescArea">
-									<Label text="#menu_play_hero_labs_desc" class="playModeDesc" />
-									<Label text="#menu_play_hero_labs_locked_desc" class="playModeDesc lockedDesc" />
-								</Panel>
-								<Panel id="TitleArea">
-									<Label text="#menu_bot_hero_labs" class="playoptionLabel" />
 								</Panel>
 							</Panel>
 						</Button>

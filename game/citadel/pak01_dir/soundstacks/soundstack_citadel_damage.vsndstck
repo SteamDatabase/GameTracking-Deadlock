@@ -16,17 +16,15 @@
 				operator = "util_null"
 				operator_variables = 
 				{
-					import_public_opvars = "citadel_default_3d"
-					volume = 
+					citadel_default_3d = 
 					{
-						data_type = "float"
-						value = "0.0"
-						_system_properties = 
-						{
-							display_group = "Normal"
-							property_group = "citadel_damage - Volume"
-							property_help = "Base volume for sound in db."
-						}
+						data_type = "public_opvar"
+						value = "citadel_default_3d"
+					}
+					citadel_damage_info = 
+					{
+						data_type = "public_opvar"
+						value = "citadel_damage_info"
 					}
 					volume_victim_npc_offset_db = 
 					{
@@ -58,7 +56,7 @@
 						{
 							display_group = "Normal"
 							property_group = "citadel_damage - Volume"
-							property_help = "Volume falloff min for all perspectives."
+							property_help = "Volume falloff min for all perspectives. Override from citadel_distance_falloff."
 						}
 					}
 					volume_falloff_max_attacker = 
@@ -94,65 +92,10 @@
 							property_help = "Volume falloff max while viewing everyone else."
 						}
 					}
-					entity_index_attacker = 
-					{
-						data_type = "float"
-						value = "-1.0"
-						_system_properties = 
-						{
-							display_group = "locked"
-							property_group = "citadel_damage"
-							property_help = "Set by code."
-						}
-					}
-					entity_index_victim = 
-					{
-						data_type = "float"
-						value = "-1.0"
-						_system_properties = 
-						{
-							display_group = "locked"
-							property_group = "citadel_damage"
-							property_help = "Set by code."
-						}
-					}
-					entity_index_inflictor = 
-					{
-						data_type = "float"
-						value = "-1.0"
-						_system_properties = 
-						{
-							display_group = "locked"
-							property_group = "citadel_damage"
-							property_help = "Set by code."
-						}
-					}
-					owner_entity_index = 
-					{
-						data_type = "float"
-						value = "-1.0"
-						_system_properties = 
-						{
-							display_group = "locked"
-							property_group = "citadel_damage"
-							property_help = "Set by code."
-						}
-					}
 					damage_is_dot = 
 					{
 						data_type = "float"
 						value = "0.0"
-						_system_properties = 
-						{
-							display_group = "locked"
-							property_group = "citadel_damage"
-							property_help = "Set by code."
-						}
-					}
-					damage_amount = 
-					{
-						data_type = "float"
-						value = "-1.0"
 						_system_properties = 
 						{
 							display_group = "locked"
@@ -311,17 +254,6 @@
 							display_group = "locked"
 							property_group = "citadel_damage"
 							property_help = "Set in code. Will not be set if damage type is EDmgAudioType_DOT"
-						}
-					}
-					max_distance_recipient_filter = 
-					{
-						data_type = "float"
-						value = "-1.f"
-						_system_properties = 
-						{
-							display_group = "Normal"
-							property_group = "Blocking"
-							property_help = "The server and client may query this value to see if it should play the sound from game code."
 						}
 					}
 					instance_attenuator_group_name_prefix = 
@@ -599,12 +531,27 @@
 			},
 			
 			{
+				name = "switch_volume_fade_out"
+				execute_once = "true"
+				operator = "ctrl_switch3_float"
+				input_index = "@citadel_damage_info::output.damage_index"
+				input0 = "@public.volume_fade_out"
+				input1 = "@public.volume_fade_out"
+				input2 = "0.0"
+			},
+			
+			{
 				name = "citadel_default_3d"
 				operator = "sos_import_stack"
 				import_stack = "citadel_default_3d"
 				auto_connect_public_fields = "true"
 				operator_variables = 
 				{
+					volume_fade_out = 
+					{
+						data_type = "float"
+						value = "@switch_volume_fade_out.output"
+					}
 					volume_falloff_max = 
 					{
 						data_type = "float"

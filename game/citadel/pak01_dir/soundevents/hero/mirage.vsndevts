@@ -3,9 +3,9 @@
 	Mirage.Wpn.Fire = 
 	{
 		base = "Base.Weapon.Rifle"
-		volume = 2.000000
-		recency_bias_max_scale = 0.750000
+		volume = -1.000000
 		limiter_max = 0.000000
+		last_shot_vol_offset_db = 2.000000
 		vsnd_files = 
 		[
 			"sounds/weapons/mirage/mirage_weapon_fire_01.vsnd",
@@ -15,7 +15,17 @@
 			"sounds/weapons/mirage/mirage_weapon_fire_05.vsnd",
 			"sounds/weapons/mirage/mirage_weapon_fire_06.vsnd",
 		]
+		vsnd_files_last_shot = 
+		[
+			"sounds/weapons/mirage/mirage_wpn_last_shot_01.vsnd",
+		]
 		vsnd_duration = 2.000000
+	}
+	Mirage.Wpn.Fire.First = 
+	{
+		base = "Mirage.Wpn.Fire"
+		limiter_max = 0.000000
+		transient_offset_db = 4.000000
 	}
 	Mirage.Wpn.Impact = 
 	{
@@ -31,29 +41,70 @@
 	}
 	Mirage.Wpn.Zoom.In = 
 	{
-		base = "Base.Hero.Weapon.Zoom.2d"
-		vsnd_files = "sounds/common/null.vsnd"
-		vsnd_duration = 0.050023
+		base = "Base.Weapon.Foley"
+		volume = 1.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/dynamo/zoom/in_1.vsnd",
+			"sounds/weapons/dynamo/zoom/in_2.vsnd",
+			"sounds/weapons/dynamo/zoom/in_3.vsnd",
+			"sounds/weapons/dynamo/zoom/in_4.vsnd",
+			"sounds/weapons/dynamo/zoom/in_5.vsnd",
+		]
+		vsnd_duration = 0.433667
 	}
 	Mirage.Wpn.Zoom.Out = 
 	{
-		base = "Base.Hero.Weapon.Zoom.2d"
-		vsnd_files = "sounds/common/null.vsnd"
-		vsnd_duration = 0.050023
+		base = "Base.Weapon.Foley"
+		volume = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/dynamo/zoom/out_1.vsnd",
+			"sounds/weapons/dynamo/zoom/out_2.vsnd",
+			"sounds/weapons/dynamo/zoom/out_3.vsnd",
+			"sounds/weapons/dynamo/zoom/out_4.vsnd",
+			"sounds/weapons/dynamo/zoom/out_5.vsnd",
+		]
+		vsnd_duration = 0.274687
 	}
-	Mirage.Wpn.Reload.Clip.Out = 
+	Mirage.Wpn.Reload.Start = 
 	{
-		base = "Base.Reload"
-		volume = -12.000000
-		vsnd_files = "sounds/weapons/abrams/reload/clip_out.vsnd"
-		vsnd_duration = 0.608813
+		base = "Base.Weapon.Foley"
+		volume = -3.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/mirage/reload/mirage_wpn_reload_start_01.vsnd",
+			"sounds/weapons/mirage/reload/mirage_wpn_reload_start_02.vsnd",
+			"sounds/weapons/mirage/reload/mirage_wpn_reload_start_03.vsnd",
+		]
+		vsnd_duration = 2.069818
 	}
-	Mirage.Wpn.Reload.Clip.In = 
+	Mirage.Wpn.Reload.Mid = 
 	{
-		base = "Base.Reload"
-		volume = -5.000000
-		vsnd_files = "sounds/weapons/abrams/reload/clip_in.vsnd"
-		vsnd_duration = 1.039146
+		base = "Base.Weapon.Foley"
+		volume = -3.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/mirage/reload/mirage_wpn_reload_mid_01.vsnd",
+			"sounds/weapons/mirage/reload/mirage_wpn_reload_mid_02.vsnd",
+			"sounds/weapons/mirage/reload/mirage_wpn_reload_mid_03.vsnd",
+		]
+		vsnd_duration = 0.256349
+	}
+	Mirage.Wpn.Reload.End = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -3.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/mirage/reload/mirage_wpn_reload_end_01.vsnd",
+			"sounds/weapons/mirage/reload/mirage_wpn_reload_end_02.vsnd",
+			"sounds/weapons/mirage/reload/mirage_wpn_reload_end_03.vsnd",
+		]
+		vsnd_duration = 0.439501
 	}
 	Mirage.Wpn.Whizby = 
 	{
@@ -86,14 +137,6 @@
 		]
 		vsnd_duration = 1.309208
 	}
-	Mirage.Wpn.Explosion = 
-	{
-		base = "Base.Ability"
-		volume = -8.000000
-		pitch = 1.000000
-		vsnd_files = "sounds/mods/weapon/thermal_det/exp_base.vsnd"
-		vsnd_duration = 2.291361
-	}
 	Mirage.A1.Beetles.Cast = 
 	{
 		base = "Base.Ability"
@@ -101,7 +144,6 @@
 		pitch_rand_min = -0.150000
 		pitch_rand_max = 0.150000
 		limiter_max = 0.000000
-		pitch = 1.000000
 		vsnd_files = 
 		[
 			"sounds/abilities/mirage/a1_beetles/mirage_a2_beetle_cast_01.vsnd",
@@ -126,130 +168,75 @@
 		]
 		vsnd_duration = 2.441383
 	}
-	Mirage.A2.Sand.Phantom.Cast = 
+	Mirage.A1.Beetles.Fly.Lp = 
+	{
+		base = "Base.Ability.Projectile"
+		volume = 8.000000
+		pitch_rand_min = -0.100000
+		pitch_rand_max = 0.100000
+		limiter_max = 0.000000
+		volume_fade_out = 0.200000
+		delay_rand_min = -1.000000
+		vsnd_files = 
+		[
+			"sounds/abilities/mirage/a1_beetles/mirage_a2_beetle_proj_lp_01.vsnd",
+			"sounds/abilities/mirage/a1_beetles/mirage_a2_beetle_proj_lp_02.vsnd",
+			"sounds/abilities/mirage/a1_beetles/mirage_a2_beetle_proj_lp_03.vsnd",
+		]
+		vsnd_duration = 4.620567
+	}
+	Mirage.A1.Tornado.Cast = 
 	{
 		base = "Base.Ability"
-		vsnd_files = "sounds/abilities/mirage/a2_sand_phantom/cast.vsnd"
-		vsnd_duration = 3.727688
+		volume = -3.000000
+		pitch = 1.100000
+		vsnd_files = "sounds/abilities/mirage/a2_tornado/mirage_a1_tornado_cast.vsnd"
+		vsnd_duration = 2.142109
 	}
-	Mirage.A2.Sand.Phantom.Cancel = 
-	{
-		base = "Base.Ability"
-		vsnd_files = "sounds/abilities/mirage/a2_sand_phantom/cancel.vsnd"
-		vsnd_duration = 2.132750
-	}
-	Mirage.A2.Sand.Phantom.Arrive = 
-	{
-		base = "Base.Ability"
-		vsnd_files = "sounds/abilities/mirage/a2_sand_phantom/arrive.vsnd"
-		vsnd_duration = 4.478292
-	}
-	Mirage.A2.Sand.Phantom.ReturnBullet.Victim = 
+	Mirage.A1.Tornado.Proj_Lp = 
 	{
 		base = "Base.Ability"
 		volume = 1.000000
-		pitch = 1.200000
-		vsnd_files = 
-		[
-			"sounds/physics/bullet_impacts/default_flavor_03.vsnd",
-			"sounds/physics/bullet_impacts/default_flavor_04.vsnd",
-			"sounds/physics/bullet_impacts/default_flavor_10.vsnd",
-			"sounds/physics/bullet_impacts/default_flavor_13.vsnd",
-		]
-		vsnd_duration = 0.239683
+		volume_fade_in = 0.400000
+		volume_fade_out = 0.600000
+		delay_rand_min = -1.000000
+		pitch = 1.100000
+		volume_offset_player = -5.000000
+		volume_offset_team = -5.000000
+		vsnd_files = "sounds/abilities/mirage/a2_tornado/mirage_a1_tornado_lp.vsnd"
+		vsnd_duration = 3.750091
 	}
-	Mirage.A2.Sand.Phantom.ReturnBullet.Attacker = 
+	Mirage.A1.Tornado.End = 
 	{
 		base = "Base.Ability"
-		volume = 0.000000
-		pitch = 0.750000
-		vsnd_files = 
-		[
-			"sounds/physics/bullet_impacts/default/default_impact_bullet_01.vsnd",
-			"sounds/physics/bullet_impacts/default/default_impact_bullet_02.vsnd",
-			"sounds/physics/bullet_impacts/default/default_impact_bullet_03.vsnd",
-			"sounds/physics/bullet_impacts/default/default_impact_bullet_04.vsnd",
-		]
-		vsnd_duration = 0.464938
+		volume = 4.000000
+		pitch = 0.900000
+		vsnd_files = "sounds/abilities/mirage/a2_tornado/mirage_a1_tornado_end.vsnd"
+		vsnd_duration = 2.095238
 	}
-	Mirage.A3.Bullet.Burst.Cast = 
+	Mirage.A1.Tornado.Start = 
 	{
 		base = "Base.Ability"
-		volume = 0.000000
-		volume_falloff_min = 10.000000
-		volume_falloff_max = 2633.000000
-		vsnd_files = "sounds/abilities/mirage/a3_bullet_burst/cast.vsnd"
-		vsnd_duration = 1.580125
+		volume = 4.000000
+		pitch = 0.850000
+		volume_offset_player = -8.000000
+		vsnd_files = "sounds/abilities/mirage/a2_tornado/mirage_a1_tornado_start.vsnd"
+		vsnd_duration = 1.766916
 	}
-	Mirage.A3.Bullet.Burst.Cast.Delay.Start = 
+	Mirage.A1.Tornado.Impact = 
 	{
-		base = "Base.Ability"
-		volume = 0.000000
-		volume_falloff_min = 10.000000
-		volume_falloff_max = 2633.000000
-		vsnd_files = "sounds/abilities/mirage/a3_bullet_burst/cast_delay_start.vsnd"
-		vsnd_duration = 1.067729
-	}
-	Mirage.A3.Bullet.Burst.Cast.Delay.Lp = 
-	{
-		base = "Base.Ability"
-		volume = 0.000000
-		volume_falloff_min = 10.000000
-		volume_falloff_max = 2633.000000
-		vsnd_files = "sounds/abilities/mirage/a3_bullet_burst/cast_delay_lp.vsnd"
-		vsnd_duration = 4.455709
-	}
-	Mirage.A3.Bullet.Burst.Trigger = 
-	{
-		base = "Base.Ability"
-		volume = 1.000000
-		volume_falloff_min = 10.000000
-		volume_falloff_max = 2633.000000
+		base = "Base.Ability.Hit"
+		volume = 4.000000
 		pitch = 1.000000
-		vsnd_files = "sounds/abilities/zealot/energy_spirits_impact_1.vsnd"
-	}
-	Mirage.A4.Whirling.Dervish.Cast = 
-	{
-		base = "Base.Ability"
-		volume = 1.000000
-		vsnd_files = "sounds/abilities/mirage/a3_djinns_mark/mirage_a3_cast_01.vsnd"
-		vsnd_duration = 2.567143
-	}
-	Mirage.A4.Whirling.Dervish.Mod.Lp = 
-	{
-		base = "Base.Ability"
-		volume = -14.000000
-		vsnd_files = "sounds/abilities/mirage/a4_whirling_dervish/mod_dur_lp.vsnd"
-		vsnd_duration = 14.298300
-	}
-	Mirage.A4.Whirling.Dervish.Mod.End = 
-	{
-		base = "Base.Ability"
-		volume = -11.000000
-		vsnd_files = "sounds/abilities/mirage/a4_whirling_dervish/mod_dur_end_zip.vsnd"
-		vsnd_duration = 2.160295
-	}
-	Mirage.A3.TempestWard.Proc = 
-	{
-		base = "Base.Ability"
-		volume = -2.000000
-		play_from_listener_player = 1.000000
-		vsnd_files = 
-		[
-			"sounds/abilities/mirage/mirage_tempest_ward_proc_01.vsnd",
-			"sounds/abilities/mirage/mirage_tempest_ward_proc_02.vsnd",
-			"sounds/abilities/mirage/mirage_tempest_ward_proc_03.vsnd",
-			"sounds/abilities/mirage/mirage_tempest_ward_proc_04.vsnd",
-			"sounds/abilities/mirage/mirage_tempest_ward_proc_05.vsnd",
-			"sounds/abilities/mirage/mirage_tempest_ward_proc_06.vsnd",
-		]
-		vsnd_duration = 2.351655
+		pitch_rand_min = -0.200000
+		pitch_rand_max = 0.200000
+		vsnd_files = "sounds/abilities/wraith/psychic_lift_impact.vsnd"
+		vsnd_duration = 2.714208
 	}
 	Mirage.A3.DjinnsMark.ProcReady = 
 	{
 		base = "Base.Ability"
 		volume = 0.000000
-		play_from_listener_player = 1.000000
 		vsnd_files = 
 		[
 			"sounds/abilities/mirage/tempest_ward_proc_ready_01.vsnd",
@@ -280,7 +267,6 @@
 	Mirage.A3.TempestWard.ConsumeMaxStacks = 
 	{
 		base = "Base.Ability"
-		play_from_listener_player = 1.000000
 		volume = 1.000000
 		pitch_rand_min = -0.075000
 		pitch_rand_max = 0.075000
@@ -353,163 +339,39 @@
 		]
 		vsnd_duration = 2.351655
 	}
-	Mirage.A4.SunfireCataclysm.Impact = 
-	{
-		base = "Base.Ability.Ult"
-		volume = -1.000000
-		vsnd_files = "sounds/abilities/mirage/a4_sunfire_cataclysm/impact.vsnd"
-		vsnd_duration = 1.889792
-	}
-	Mirage.DjinnsReach.Chain.Modifier.End = 
+	Mirage.A3.TempestWard.Proc = 
 	{
 		base = "Base.Ability"
-		volume = -15.000000
-		vsnd_files = "sounds/abilities/hornet/a1_chain_grenade/modifier_end.vsnd"
-		vsnd_duration = 3.989250
-	}
-	Mirage.Reload.ClipIn = 
-	{
-		base = "Base.Reload"
-		volume = -1.000000
-		pitch_rand_min = -0.110000
-		pitch_rand_max = 0.150000
-		vsnd_files = "sounds/weapons/chrono/reload/end.vsnd"
-		vsnd_duration = 0.514943
-	}
-	Mirage.Reload.ClipOut = 
-	{
-		base = "Base.Reload"
-		volume = -1.000000
-		pitch_rand_min = -0.110000
-		pitch_rand_max = 0.150000
-		vsnd_files = "sounds/weapons/chrono/reload/clipout.vsnd"
-		vsnd_duration = 0.320363
-	}
-	Mirage.Reload.Twirl_02 = 
-	{
-		base = "Base.Reload"
-		volume = -1.000000
-		pitch_rand_min = 0.000000
-		pitch_rand_max = 0.150000
-		vsnd_files = "sounds/weapons/chrono/reload/twirl_02.vsnd"
-		vsnd_duration = 0.296984
-	}
-	Mirage.Reload.Twirl_01 = 
-	{
-		base = "Base.Reload"
-		volume = -1.000000
-		pitch_rand_min = -0.110000
-		pitch_rand_max = 0.000000
-		vsnd_files = "sounds/weapons/chrono/reload/twirl_01.vsnd"
-		vsnd_duration = 0.367166
-	}
-	Mirage.A1.Beetles.Miss = 
-	{
-		base = "Base.Ability"
-		volume = -9.000000
-		pitch = 1.000000
-		pitch_rand_min = -0.200000
-		pitch_rand_max = 0.100000
-		limiter_max = 0.000000
-		vsnd_selection_type = "random_weighted"
-		vsnd_files = "sounds/common/null.vsnd"
-		vsnd_duration = 0.050023
-	}
-	Mirage.A4.DjinnsReach.Lp = 
-	{
-		base = "Base.Ability"
-		volume = -20.000000
-		volume_offset_team = 0.000000
-		volume_offset_opponent = 0.000000
-		vsnd_files = "sounds/player/statuseffects/moverestrict_lp.vsnd"
-		vsnd_duration = 4.760612
-	}
-	Mirage.A4.DjinnBomb.Detonate = 
-	{
-		base = "Base.Ability.Ult"
-		volume = 0.000000
-		pitch = 0.700000
-		volume_falloff_max_player = 99999.000000
-		volume_falloff_min_player = 3500.000000
-		vsnd_files = "sounds/abilities/archer/archer_guided_arrow_explo.vsnd"
-		vsnd_duration = 4.697823
-	}
-	Mirage.A1.Tornado.Cast = 
-	{
-		base = "Base.Ability"
-		volume = -3.000000
-		pitch = 1.100000
-		delay = 0.000000
-		vsnd_files = "sounds/abilities/mirage/a2_tornado/mirage_a1_tornado_cast.vsnd"
-		vsnd_duration = 2.142109
-	}
-	Mirage.A1.Tornado.Proj_Lp = 
-	{
-		base = "Base.Ability"
-		volume = 1.000000
-		volume_fade_in = 0.400000
-		volume_fade_out = 0.600000
-		pitch = 1.100000
-		volume_offset_player = -5.000000
-		volume_offset_team = -5.000000
-		vsnd_files = "sounds/abilities/mirage/a2_tornado/mirage_a1_tornado_lp.vsnd"
-		vsnd_duration = 3.750091
-	}
-	Mirage.A1.Tornado.End = 
-	{
-		base = "Base.Ability"
-		volume = 4.000000
-		pitch = 0.900000
-		vsnd_files = "sounds/abilities/mirage/a2_tornado/mirage_a1_tornado_end.vsnd"
-		vsnd_duration = 2.095238
-	}
-	Mirage.A1.Tornado.Start = 
-	{
-		base = "Base.Ability"
-		volume = 4.000000
-		pitch = 0.850000
-		volume_offset_player = -8.000000
-		vsnd_files = "sounds/abilities/mirage/a2_tornado/mirage_a1_tornado_start.vsnd"
-		vsnd_duration = 1.766916
-	}
-	Mirage.A1.Beetles.Fly.Lp = 
-	{
-		base = "Base.Ability.Projectile"
-		volume = 8.000000
-		pitch_rand_min = -0.100000
-		pitch_rand_max = 0.100000
-		limiter_max = 0.000000
-		pitch = 1.000000
-		volume_fade_out = 0.200000
+		volume = -2.000000
 		vsnd_files = 
 		[
-			"sounds/abilities/mirage/a1_beetles/mirage_a2_beetle_proj_lp_01.vsnd",
-			"sounds/abilities/mirage/a1_beetles/mirage_a2_beetle_proj_lp_02.vsnd",
-			"sounds/abilities/mirage/a1_beetles/mirage_a2_beetle_proj_lp_03.vsnd",
+			"sounds/abilities/mirage/mirage_tempest_ward_proc_01.vsnd",
+			"sounds/abilities/mirage/mirage_tempest_ward_proc_02.vsnd",
+			"sounds/abilities/mirage/mirage_tempest_ward_proc_03.vsnd",
+			"sounds/abilities/mirage/mirage_tempest_ward_proc_04.vsnd",
+			"sounds/abilities/mirage/mirage_tempest_ward_proc_05.vsnd",
+			"sounds/abilities/mirage/mirage_tempest_ward_proc_06.vsnd",
 		]
-		vsnd_duration = 4.620567
+		vsnd_duration = 2.351655
 	}
-	Mirage.A1.Tornado.Impact = 
+	Mirage.A4.Whirling.Dervish.Mod.End = 
 	{
-		base = "Base.Ability.Hit"
-		volume = 4.000000
-		pitch = 1.000000
-		pitch_rand_min = -0.200000
-		pitch_rand_max = 0.200000
-		vsnd_selection_type = "random_weighted"
-		spread_min = 0.000000
-		spread_max_value = 0.000000
-		spread_max = 250.000000
-		spread_min_value = 0.000000
-		vsnd_files = "sounds/abilities/wraith/psychic_lift_impact.vsnd"
-		vsnd_duration = 2.714208
+		base = "Base.Ability"
+		volume = -11.000000
+		vsnd_files = "sounds/abilities/mirage/a4_whirling_dervish/mod_dur_end_zip.vsnd"
+		vsnd_duration = 2.160295
+	}
+	Mirage.A4.Whirling.Dervish.Mod.Lp = 
+	{
+		base = "Base.Ability"
+		volume = -14.000000
+		vsnd_files = "sounds/abilities/mirage/a4_whirling_dervish/mod_dur_lp.vsnd"
+		vsnd_duration = 14.298300
 	}
 	Mirage.A4.Teleport.Cast = 
 	{
 		base = "Base.Ability.Ult"
 		volume = 1.000000
-		pitch = 1.000000
-		vsnd_selection_type = "random_weighted"
 		vsnd_files = "sounds/abilities/mirage/a4_teleport/mirage_teleport_cast.vsnd"
 		vsnd_duration = 2.735238
 	}
@@ -517,9 +379,7 @@
 	{
 		base = "Base.Ability.Ult"
 		volume = 2.000000
-		play_from_listener_player = 1.000000
 		pitch = 1.150000
-		vsnd_selection_type = "random_weighted"
 		delay = 0.050000
 		volume_fade_out = 0.600000
 		volume_fade_in = 0.500000
@@ -530,10 +390,6 @@
 	{
 		base = "Base.Ability.Ult"
 		volume = 2.000000
-		play_from_listener_player = 1.000000
-		pitch = 1.000000
-		vsnd_selection_type = "random_weighted"
-		delay = 0.000000
 		vsnd_files = "sounds/abilities/mirage/a4_teleport/mirage_teleport_channel.vsnd"
 		vsnd_duration = 8.305646
 	}
@@ -542,7 +398,6 @@
 		base = "Base.Ability.Ult"
 		volume = 0.000000
 		pitch = 1.500000
-		vsnd_selection_type = "random_weighted"
 		pitch_rand_min = -0.010000
 		pitch_rand_max = 0.010000
 		vsnd_files = "sounds/abilities/mirage/a4_teleport/mirage_teleport_depart.vsnd"
@@ -552,7 +407,6 @@
 	{
 		base = "Base.Ability.Ult"
 		volume = 0.000000
-		vsnd_selection_type = "random_weighted"
 		vsnd_files = "sounds/abilities/mirage/a4_teleport/mirage_teleport_arrive.vsnd"
 		vsnd_duration = 4.747166
 	}
@@ -560,9 +414,6 @@
 	{
 		base = "Base.Ability.Ult"
 		volume = 2.000000
-		pitch = 1.000000
-		play_from_listener_player = 1.000000
-		vsnd_selection_type = "random_weighted"
 		pitch_rand_min = -0.010000
 		pitch_rand_max = 0.010000
 		vsnd_files = 
@@ -580,9 +431,6 @@
 	{
 		base = "Base.Ability.Ult"
 		volume = 0.000000
-		pitch = 1.000000
-		play_from_listener_player = 1.000000
-		vsnd_selection_type = "random_weighted"
 		pitch_rand_min = -0.010000
 		pitch_rand_max = 0.010000
 		vsnd_files = 
@@ -599,15 +447,21 @@
 	}
 	Mirage.A4.Teleport.Select_Lp = 
 	{
-		base = "Base.Ability.Ult"
+		base = "Base.Ability"
 		volume = -15.000000
 		pitch = 0.800000
-		play_from_listener_player = 1.000000
-		vsnd_selection_type = "random_weighted"
+		delay_rand_min = -1.000000
 		volume_fade_in = 0.250000
 		volume_fade_out = 0.700000
 		vsnd_files = "sounds/abilities/mirage/a2_tornado/mirage_a1_tornado_lp.vsnd"
 		vsnd_duration = 3.750091
+	}
+	Mirage.A3.Bullet.Burst.Cast = 
+	{
+		base = "Base.Ability"
+		volume = 0.000000
+		vsnd_files = "sounds/abilities/mirage/a3_bullet_burst/cast.vsnd"
+		vsnd_duration = 1.580125
 	}
 	Mirage.JumpLand = 
 	{
@@ -676,7 +530,7 @@
 	}
 	Mirage.Melee.Swing = 
 	{
-		base = "Base.Ability.Melee"
+		base = "Base.Movement.Melee"
 		vsnd_track2_vol_offset_db = -12.000000
 		vsnd_files = 
 		[
@@ -727,7 +581,7 @@
 	}
 	Mirage.Melee.Swing.Charged = 
 	{
-		base = "Base.Ability.Melee"
+		base = "Base.Movement.Melee"
 		vsnd_track2_vol_offset_db = -12.000000
 		vsnd_files = 
 		[
@@ -844,5 +698,26 @@
 	{
 		base = "Base.Movement"
 		volume = -3.000000
+	}
+	Mirage.Progession.Page.Win.VO = 
+	{
+		base = "Base.HeroPick.VO.2d"
+		context_name = "mirage"
+		vsnd_files = 
+		[
+			"sounds/vo/mirage/mirage_select_07.vsnd",
+			"sounds/vo/mirage/mirage_kill_astro_03.vsnd",
+		]
+		vsnd_duration = 2.791338
+	}
+	Mirage.Progession.Page.Lose.VO = 
+	{
+		base = "Base.HeroPick.VO.2d"
+		context_name = "mirage"
+		vsnd_files = 
+		[
+			"sounds/vo/mirage/mirage_match_start_kelvin_mirage_convo01_02.vsnd",
+		]
+		vsnd_duration = 1.859116
 	}
 }

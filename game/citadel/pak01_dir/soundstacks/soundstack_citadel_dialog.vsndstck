@@ -16,27 +16,10 @@
 				operator = "util_null"
 				operator_variables = 
 				{
-					import_public_opvars = "citadel_perspective_default"
-					volume = 
+					citadel_perspective_default = 
 					{
-						data_type = "float"
-						value = "0.000000"
-						_system_properties = 
-						{
-							property_group = "Volume"
-							property_help = "Base volume for a sound in db."
-						}
-					}
-					owner_entity_index = 
-					{
-						data_type = "float"
-						value = "-1.0"
-						_system_properties = 
-						{
-							display_group = "locked"
-							property_group = "citadel_dialog"
-							property_help = "set by code"
-						}
+						data_type = "public_opvar"
+						value = "citadel_perspective_default"
 					}
 					dialog_priority_group_name = 
 					{
@@ -238,17 +221,22 @@
 			},
 			
 			{
-				name = "get_entity_info"
-				input_execute = "1"
-				operator = "game_entity_info"
-				input_entity_index = "@source_info.output_entity_index"
-			},
-			
-			{
 				name = "globals"
 				operator = "get_system_globals"
 				input_execute = "1"
 				input_listener_index = "0"
+			},
+			
+			{
+				name = "get_entity_info"
+				input_execute = "1"
+				operator = "game_entity_info"
+				input_entity_index = "@source_info.output_entity_index"
+				input_default_world_position = "@public.position"
+				input_default_local_position = "@globals.output_listener_front"
+				input_hold_position_on_deleted_entity = "@public.hold_position_on_deleted_entity"
+				use_world_position = "@public.position_force_from_input"
+				attachment = "@public.attachment"
 			},
 			
 			{
@@ -499,7 +487,7 @@
 				operator = "math_float"
 				apply = "mult"
 				input1 = "@public.health_volume_enabled"
-				input2 = "@citadel_find_perspective::math_perpective_is_team.output"
+				input2 = "@citadel_find_perspective::math_perspective_is_team.output"
 			},
 			
 			{
@@ -548,9 +536,10 @@
 				name = "get_context_volume"
 				operator = "opvar_get_float"
 				input_execute = "1.0"
+				execute_once = "1.0"
 				input_stack_name = "citadel_dialog_volumes"
 				input_operator_name = "opvars"
-				input_field_name = "@citadel_perspective_default::citadel_default_3d::citadel_base_3d::public.context_name"
+				input_field_name = "@public.context_name"
 			},
 			
 			{

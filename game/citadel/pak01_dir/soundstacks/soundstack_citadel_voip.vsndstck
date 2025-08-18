@@ -40,21 +40,9 @@
 			},
 			
 			{
-				name = "mixer"
-				operator = "soundmixer_get_mixgroup"
-				mixgroup = "voip"
-			},
-			
-			{
 				name = "set_builtins"
 				operator = "sos_set_builtins"
 				input_voicegraph = "citadel.voip"
-			},
-			
-			{
-				name = "mixer_mixgraph"
-				operator = "soundmixer_set_vmix"
-				input_mixgroups = "@mixer.output_mixgroups"
 			},
 			
 			{
@@ -65,26 +53,11 @@
 			},
 			
 			{
-				name = "volume_accumulate"
-				operator = "math_accumulate12_float"
-				apply = "mult"
-				input1 = "@mixer.output_volume"
-				input2 = "@public.volume"
-			},
-			
-			{
-				name = "mixer_trigger"
-				operator = "soundmixer_set_trigger"
-				input_trigger = "@volume_accumulate.output"
-				input_mixgroups = "@mixer.output_mixgroups"
-			},
-			
-			{
 				name = "send_voicegraph_volume"
 				input_execute = "1"
 				operator = "vmix_voicegraph_input"
 				input_name = "player_voip_volume"
-				input = "@volume_accumulate.output"
+				input = "1.0"
 			},
 			
 			{

@@ -7,7 +7,7 @@
 	</styles>
 	<CitadelDB class="dashboard introMovieActive" oncancel="CitadelNavigateBack();">
 		<Panel class="DashboardMain">
-			<Panel id="BackgroundContainer" hittest="false" hittestchildren="false">
+			<Panel id="BackgroundContainer" class="PopupBackgroundBlur" hittest="false" hittestchildren="false">
 				<CitadelBlurTarget id="DashboardBlur" blurrects="ThreeLaneMapContainer DiscordForumInvite RecommendFriend">
 					<MoviePanel id="dashboard_movie" src="file://{resources}/videos/main_menu/menu_streets_loop2.webm" disableactivatepause="true" scaling="stretch-to-cover-preserve-aspect" repeat="true" disableaudio="true" />
 					<MoviePanel id="intro_movie" src="file://{resources}/videos/main_menu/menu_streets_intro.webm" disableactivatepause="true" scaling="stretch-to-cover-preserve-aspect" repeat="false" autoplay="onload" disableaudio="true" />
@@ -32,6 +32,12 @@
 							<Button id="reconnect" class="nav_menu_item primary" onactivate="CitadelReconnect()" onmouseover="UIShowTextTooltip( #Citadel_Dashboard_RejoinTooltip )" onmouseout="UIHideTextTooltip()">
 								<Label text="#menu_rejoin" class="menuButtonLabel" />
 							</Button>
+							<Button id="lobbyleave" class="nav_menu_item primary endsession" onactivate="CitadelConfirmAbandonGame()">
+								<Label id="label_abandon" text="#menu_abandon" class="menuButtonLabel" />
+								<Label id="label_leave" text="#menu_leave" class="menuButtonLabel" />
+								<Label id="label_leave_spectate" text="#menu_leave_spectate" class="menuButtonLabel" />
+								<Label id="label_leave_testing" text="#menu_leave_testing" class="menuButtonLabel" />
+							</Button>
 							<Button id="matchmakePartySetMode" class="nav_menu_item primary partymenu" onactivate="CitadelPartyOpenPlayPage()" onmouseover="CitadelUIShowTextTooltip( #Citadel_Dashboard_PartySetModeButtonTooltipText, UI.MainMenu.Hover, &apos;&apos; );" onmouseout="CitadelUIHideTextTooltip()">
 								<Label text="#menu_play" class="menuButtonLabel" />
 								<Label class="queueNumber" text="#menu_play_normal_count" html="true" />
@@ -51,7 +57,7 @@
 								<Label text="#menu_play" class="menuButtonLabel" />
 								<Label text="#menu_play_allmodes_count" class="queueNumber" html="true" />
 							</Button>
-							<Button id="rosterDetail" class="nav_menu_item primary" onactivate="CitadelShowRosterConfirmPage( EditRoster )">
+							<Button id="rosterDetail" class="nav_menu_item primary" onactivate="CitadelEditMatchmakingRoster()">
 								<Panel class="MenuIcon" />
 								<Label text="#menu_roster_detail2" class="menuButtonLabel" />
 							</Button>
@@ -114,9 +120,6 @@
 					</Panel>
 					<Panel id="party_ctn">
 						<CitadelPartyInviteList id="partyinvites" />
-					</Panel>
-					<Panel id="survey_ctn">
-						<CitadelAccountSurvey id="survey" />
 					</Panel>
 					<Panel id="friend_list_ctn">
 						<CitadelFriendMenu id="friend_list" />

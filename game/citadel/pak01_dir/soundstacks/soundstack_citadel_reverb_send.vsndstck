@@ -1,0 +1,163 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_reverb_send = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					reverb_use_curve = 
+					{
+						data_type = "float"
+						value = "1"
+						_system_properties = 
+						{
+							property_group = "Reverb"
+							display_group = "citadel_reverb_send"
+						}
+					}
+					reverb_xfade_value = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "Reverb"
+							display_group = "citadel_reverb_send"
+						}
+					}
+					reverb_falloff_curve = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.005714, 0.3, 1.083, 1.083, 2.0, 3.0 ]",
+							"[ 1.0, 1.0, 0.227125, 0.227125, 2.0, 3.0 ]",
+						]
+						_system_properties = 
+						{
+							property_group = "Reverb"
+							display_group = "citadel_reverb_send"
+							display_edit_type = "field_curve_2d_editor"
+						}
+					}
+					reverb_curve_max_distance = 
+					{
+						data_type = "float"
+						value = "2500.000000"
+						_system_properties = 
+						{
+							property_group = "Reverb"
+							display_group = "citadel_reverb_send"
+						}
+					}
+					reverb_curve_scale_y = 
+					{
+						data_type = "float"
+						value = "1.000000"
+						_system_properties = 
+						{
+							property_group = "Reverb"
+							display_group = "citadel_reverb_send"
+						}
+					}
+					reverb_distance = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							display_group = "Reverb"
+							property_group = "citadel_reverb_send"
+							property_help = "The current distance from sound origin to listener."
+						}
+					}
+					reverb_level = 
+					{
+						data_type = "float"
+						value = "1.0"
+						_system_properties = 
+						{
+							display_group = "Reverb"
+							property_group = "citadel_reverb_send"
+						}
+					}
+					reverb_post_fader_volume = 
+					{
+						data_type = "float"
+						value = "1.0"
+						_system_properties = 
+						{
+							display_group = "Reverb"
+							property_group = "citadel_reverb_send"
+							property_help = "The volume post volume accumulator and volume filter."
+						}
+					}
+					reverb_mixer_dsp = 
+					{
+						data_type = "float"
+						value = "1.0"
+						_system_properties = 
+						{
+							display_group = "Reverb"
+							property_group = "citadel_reverb_send"
+						}
+					}
+				}
+			},
+			
+			{
+				name = "reverb_send_distance_curve"
+				operator = "math_curve_2d"
+				input = "@public.reverb_distance"
+				public_field_name = "public.reverb_falloff_curve"
+				input_scale_x = "@public.reverb_curve_max_distance"
+				input_scale_y = "@public.reverb_curve_scale_y"
+			},
+			
+			{
+				name = "reverb_control_switch"
+				operator = "ctrl_switch_float"
+				input1 = "@public.reverb_xfade_value"
+				input2 = "@reverb_send_distance_curve.output"
+				input_switch = "@public.reverb_use_curve"
+			},
+			
+			{
+				name = "reverb_mixer_mult"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@public.reverb_mixer_dsp"
+				input2 = "@reverb_control_switch.output"
+			},
+			
+			{
+				name = "reverb_mult_wet_mix"
+				operator = "math_accumulate12_float"
+				apply = "mult"
+				input1 = "@public.reverb_post_fader_volume"
+				input2 = "@reverb_mixer_mult.output"
+				input3 = "@public.reverb_level"
+			},
+			
+			{
+				name = "reverb_submix_send"
+				operator = "vmix_mixgraph_send"
+				input_execute = "1.000000"
+				execute_once = "false"
+				input = "@reverb_mult_wet_mix.output"
+				submix_name = "reverb"
+				send_type = "named"
+			},
+		]
+		_system_properties = 
+		{
+			display_game = "citadel"
+		}
+	}
+}

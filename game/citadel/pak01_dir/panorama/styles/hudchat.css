@@ -12,39 +12,22 @@ CitadelHudChat
 	transition-property: position;
 	transition-duration: 0.2s;
 	transition-timing-function: ease-in-out;
+	visibility: collapse;
 }
 
-.GameStateHeroSelection #FullChatContainer
+CitadelHudChat.ShowChat
 {
-	margin-left: 0px;
-	width: 420px;
+	visibility: visible;
 }
 
 #FullChatContainer
 {
 	horizontal-align: center;
 	vertical-align: bottom;
-	width: 430px;
-	height: 270px;
-	margin-right: 700px;
-}
-
-#PingLinesArea
-{
-	horizontal-align: center;
-	vertical-align: top;
-	margin-top: 150px;
-	min-width: 380px;
+	width: 350px;
 	height: fit-children;
-	flow-children: down;
-	overflow: squish scroll;
-	background-color: #000000AA;
-	border-radius: 5px;
-}
-
-#PingLinesArea VerticalScrollBar,#PingLinesArea VerticalScrollBar .ScrollThumb
-{
-	opacity: 0.0;
+	margin-bottom: 200px;
+	margin-left: 650px;
 }
 
 CitadelHudChat.ChatExpanded
@@ -58,19 +41,16 @@ CitadelHudChat.ChatExpanded
 	flow-children: down;
 	vertical-align: bottom;
 	vertical-align: bottom;
-	transition-property: width, transform;
-	transition-duration: chatTransitionDuration;
-	transition-timing-function: ease-in-out;
 }
 
 #ChatLinesArea
 {
 	width: 100%;
+	max-height: 200px;
 }
 
 #ChatLinesWrapper
 {
-	overflow: squish noclip;
 	width: 100%;
 }
 
@@ -113,11 +93,6 @@ VerticalScrollBar .ScrollThumb
 	transition-timing-function: ease-in-out;
 }
 
-#HudChat.Active #ChatLinesPanel
-{
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( #0000 ), color-stop( 0.01, #000d ), color-stop( 0.5, #000d ), to( #000000 ) );
-}
-
 .Active #ChatLinesPanel VerticalScrollBar,.Active #ChatLinesPanel VerticalScrollBar .ScrollThumb
 {
 	opacity: 1.0;
@@ -157,14 +132,31 @@ VerticalScrollBar .ScrollThumb
 	transition-duration: chatTransitionDuration;
 }
 
+#ChatDisabled
+{
+	background-color: colorEnemy&90;
+	width: 100%;
+	visibility: collapse;
+}
+
+#ChatDisabled Label
+{
+	font-size: 14px;
+	font-weight: semi-bold;
+	padding: 2px 10px;
+}
+
+.chatDisabled #ChatDisabled
+{
+	visibility: visible;
+}
+
 #HudChat #ChatControls
 {
 	opacity: 0;
-	background-color: #000c;
-	text-shadow: 1px 1.5px 0px 2 #000000;
-	border-radius: 6px;
-	margin-top: -1px;
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( #000f ), color-stop( 0.8, #000d ), to( #000a ) );
+	background-color: offBlack;
+	border-radius: 3px;
+	margin-top: 3px;
 	flow-children: right;
 }
 
@@ -205,7 +197,7 @@ VerticalScrollBar .ScrollThumb
 #ChatTargetLabel,#ChatInput
 {
 	font-size: 16px;
-	padding: 6px 3px 5px 3px;
+	padding: 5px 3px 5px 10px;
 	vertical-align: middle;
 }
 
@@ -213,8 +205,8 @@ VerticalScrollBar .ScrollThumb
 {
 	max-width: 180px;
 	padding-right: 0px;
-	padding-left: 5px;
-	color: white;
+	padding-left: 10px;
+	color: offWhite;
 }
 
 .ChatTargetHidden #ChatTargetLabel
@@ -224,18 +216,11 @@ VerticalScrollBar .ScrollThumb
 
 .HeroIcon
 {
-	width: 30px;
-	height: 30px;
+	width: 36px;
+	height: 36px;
 	margin-right: 5px;
 	vertical-align: center;
 	margin-top: -5px;
-}
-
-#PingLinesArea .HeroIcon
-{
-	height: 35px;
-	width: 35px;
-	padding-left: 5px;
 }
 
 .ChatWheelIcon
@@ -252,39 +237,25 @@ VerticalScrollBar .ScrollThumb
 	margin-left: 5px;
 	margin-top: 3px;
 	margin-bottom: 3px;
-	width: 409px;
+	max-width: 409px;
 	flow-children: right;
 	height: fit-children;
 	transition-property: opacity, height, margin, transform;
-	transition-duration: 0s, 0.4s, 0.4s, 0.4s;
+	transition-duration: 0.4s, 0.4s, 0.4s, 0.4s;
 	opacity: 1;
+	background-color: offWhite&ee;
+	border-radius: 5px;
 }
 
-#PingLinesArea .ChatLineContainer
+.ChatLineContainer Label
 {
-	height: 35px;
-	width: fit-children;
-	margin-left: 0px;
-}
-
-.ChatLine
-{
-	color: white;
+	color: offBlack;
 	font-size: 16px;
-	font-weight: thin;
-	font-size: 18px;
-	text-shadow: 1px 1.5px 0px 2 #000000;
+	font-weight: bold;
+	font-size: 16px;
 	line-height: 16px;
 	vertical-align: center;
-}
-
-#PingLinesArea .ChatLine
-{
-	font-size: 20px;
-	text-shadow: none;
-	font-weight: semibold;
-	text-overflow: shrink;
-	padding-right: 5px;
+	padding: 2px 15px 2px 0px;
 }
 
 .strikeThrough .ChatLine
@@ -346,14 +317,6 @@ VerticalScrollBar .ScrollThumb
 {
 	transition-duration: 0.0s;
 	opacity: 0;
-}
-
-#PingLinesArea .ChatLineContainer.Expired
-{
-	opacity: 0;
-	height: 0px;
-	margin: 0px 0px 0px 5px;
-	transform: translateY( -30px );
 }
 
 .Active .ChatLineContainer.Expired

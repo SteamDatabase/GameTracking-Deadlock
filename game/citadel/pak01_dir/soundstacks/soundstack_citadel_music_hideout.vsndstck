@@ -1,0 +1,513 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_music_hideout = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "_builtins"
+				operator = "sos_builtins"
+				_voicegraph = "music.hideout"
+			},
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					citadel_default_2d = 
+					{
+						data_type = "public_opvar"
+						value = "citadel_default_2d"
+					}
+					preload_vsnds = 
+					{
+						data_type = "float"
+						value = "15"
+					}
+					vsnd_files_play_base = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = "sounds/common/null.vsnd"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					vsnd_files_play_base_fx = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = "sounds/common/null.vsnd"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					base_fx_layer_max_velocity = 
+					{
+						data_type = "float"
+						value = ".5"
+					}
+					base_fx_layer_facing_min_volume_linear = 
+					{
+						data_type = "float"
+						value = ".25"
+					}
+					base_fx_layer_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "-3.0"
+					}
+					vsnd_files_play_low = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = "sounds/common/null.vsnd"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					vsnd_files_play_high = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = "sounds/common/null.vsnd"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					play_button_volume_min_distance = 
+					{
+						data_type = "float"
+						value = "50"
+					}
+					play_button_volume_max_distance = 
+					{
+						data_type = "float"
+						value = "350"
+					}
+					distance_attenuation_max_velocity = 
+					{
+						data_type = "float"
+						value = "2.5"
+						_system_properties = 
+						{
+							property_help = "max change in linear scale volume per second."
+						}
+					}
+					play_button_distance_curve_amount = 
+					{
+						data_type = "float"
+						value = "-1.0"
+						_system_properties = 
+						{
+							property_help = "negative values steepen the curve towards exponential falloff. Positive values flatten the curve towards equal power."
+						}
+					}
+					play_button_low_layer_fade_velocity = 
+					{
+						data_type = "float"
+						value = "1"
+					}
+					play_button_high_layer_fade_velocity = 
+					{
+						data_type = "float"
+						value = "1"
+					}
+					play_button_intro_velocity = 
+					{
+						data_type = "float"
+						value = ".25"
+					}
+					afk_vol_floor_linear_min_base = 
+					{
+						data_type = "float"
+						value = "0.0"
+					}
+					afk_vol_floor_linear_min_base_fx = 
+					{
+						data_type = "float"
+						value = ".25"
+					}
+					syncpoints = 
+					{
+						soundevent_data = "true"
+						data_type = "float"
+						value = ""
+					}
+					startpoint = 
+					{
+						soundevent_data = "true"
+						data_type = "float"
+						value = "0.0"
+					}
+					endpoint = 
+					{
+						soundevent_data = "true"
+						data_type = "float"
+						value = "0.0"
+					}
+				}
+			},
+			
+			{
+				name = "sync_track_syncpoints"
+				operator = "track_queue"
+				input_execute = "1.0"
+				input_track_name = "main"
+				input_sync_track_name = "main"
+				input_sync_field_name = "public.syncpoints"
+				input_sync_start_point_field_name = "public.startpoint"
+				input_sync_end_point_field_name = "public.endpoint"
+				priority_override = "false"
+				block_equal_priority = "false"
+				input_priority = "0.0"
+			},
+			
+			{
+				name = "opvar_get_afk_timer"
+				operator = "opvar_get_float"
+				input_execute = "1.0"
+				input_stack_name = "citadel_music_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "afk_fader"
+			},
+			
+			{
+				name = "opvar_get_play_location"
+				operator = "opvar_get_float3"
+				input_execute = "1.0"
+				input_stack_name = "citadel_music_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "hideout_action_play_position"
+			},
+			
+			{
+				name = "opvar_get_viewing_pawn_position"
+				operator = "opvar_get_float3"
+				input_execute = "1.0"
+				input_stack_name = "citadel_relevance_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "viewing_entity_position"
+			},
+			
+			{
+				name = "distance_to_play_button"
+				operator = "calc_distance"
+				input_position1 = "@opvar_get_play_location.output"
+				input_position2 = "@opvar_get_viewing_pawn_position.output"
+			},
+			
+			{
+				name = "play_button_distance_falloff"
+				input_execute = "1.0"
+				operator = "calc_falloff_curve"
+				input_distance = "@distance_to_play_button.output"
+				input_curve_amount = "@public.play_button_distance_curve_amount"
+				input_min = "@public.play_button_volume_min_distance"
+				input_max = "@public.play_button_volume_max_distance"
+				input_floor = "0.0"
+				input_atten = "1.0"
+			},
+			
+			{
+				name = "globals"
+				operator = "get_system_globals"
+				input_execute = "1"
+				input_listener_index = "0"
+			},
+			
+			{
+				name = "math_dot_product_facing_play_button"
+				operator = "vector_facing_point"
+				input_vec_forward = "@globals.output_listener_forward"
+				input_listener_position = "@globals.output_listener_position"
+				input_source_position = "@opvar_get_play_location.output"
+				input_make_xy_plane = "1.0"
+			},
+			
+			{
+				name = "math_pawn_inside_play_min_distance"
+				operator = "math_float"
+				apply = "less_than"
+				input1 = "@distance_to_play_button.output"
+				input2 = "@public.play_button_volume_min_distance"
+			},
+			
+			{
+				name = "switch_min_distance_facing_value"
+				operator = "ctrl_switch_float"
+				input_switch = "@math_pawn_inside_play_min_distance.output"
+				input1 = "@math_dot_product_facing_play_button.output_dot_product"
+				input2 = "1.0"
+			},
+			
+			{
+				name = "remap_facing"
+				operator = "math_remap_float"
+				input = "@switch_min_distance_facing_value.output"
+				input_min = "0.0"
+				input_max = "0.5"
+				input_map_min = "0.0"
+				input_map_max = "1.0"
+				default_to_max = "false"
+			},
+			
+			{
+				name = "math_mult_facing_distance"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@play_button_distance_falloff.output"
+				input2 = "@remap_facing.output"
+			},
+			
+			{
+				name = "distance_atten_volume_filter"
+				operator = "math_filter_float"
+				input = "@math_mult_facing_distance.output"
+				input_max_velocity = "@public.distance_attenuation_max_velocity"
+			},
+			
+			{
+				name = "play_button_volume_distance_to_db"
+				input_execute = "1.0"
+				operator = "math_gain_to_db"
+				input = "@distance_atten_volume_filter.output"
+			},
+			
+			{
+				name = "remap_facing_base_fx"
+				operator = "math_remap_float"
+				input = "@switch_min_distance_facing_value.output"
+				input_min = "-0.7"
+				input_max = "0.0"
+				input_map_min = "1.0"
+				input_map_max = "@public.base_fx_layer_facing_min_volume_linear"
+				default_to_max = "false"
+			},
+			
+			{
+				name = "math_mult_invert_facing_distance"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@remap_facing_base_fx.output"
+				input2 = "@play_button_distance_falloff.output"
+			},
+			
+			{
+				name = "remap_afk_timer_to_gain_base_fx"
+				operator = "math_remap_float"
+				input = "@opvar_get_afk_timer.output"
+				input_min = "0.0"
+				input_max = "1.0"
+				input_map_min = "@public.afk_vol_floor_linear_min_base_fx"
+				input_map_max = "1.0"
+				default_to_max = "false"
+			},
+			
+			{
+				name = "math_mult_facing_scalar_by_afk"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@math_mult_invert_facing_distance.output"
+				input2 = "@remap_afk_timer_to_gain_base_fx.output"
+			},
+			
+			{
+				name = "base_fx_volume_filter"
+				operator = "math_filter_float"
+				input = "@math_mult_facing_scalar_by_afk.output"
+				input_max_velocity = "@public.base_fx_layer_max_velocity"
+			},
+			
+			{
+				name = "base_fx_volume_gain_to_db"
+				input_execute = "1.0"
+				operator = "math_gain_to_db"
+				input = "@base_fx_volume_filter.output"
+			},
+			
+			{
+				name = "math_add_base_fx_vol_offset"
+				operator = "math_float"
+				apply = "add"
+				input1 = "@base_fx_volume_gain_to_db.output"
+				input2 = "@public.base_fx_layer_vol_offset_db"
+			},
+			
+			{
+				name = "opvar_get_play_menu_enabled"
+				operator = "opvar_get_float"
+				input_execute = "1.0"
+				input_stack_name = "citadel_music_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "menu_page_play_enabled"
+			},
+			
+			{
+				name = "opvar_get_roster_confirm_enabled"
+				operator = "opvar_get_float"
+				input_execute = "1.0"
+				input_stack_name = "citadel_music_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "menu_page_roster_confirm_enabled"
+			},
+			
+			{
+				name = "math_layer_low_volume"
+				operator = "math_float"
+				apply = "or"
+				input1 = "@opvar_get_roster_confirm_enabled.output"
+				input2 = "@opvar_get_play_menu_enabled.output"
+			},
+			
+			{
+				name = "volume_filter_layer_low"
+				operator = "math_filter_float"
+				input = "@math_layer_low_volume.output"
+				input_max_velocity = "1.0"
+			},
+			
+			{
+				name = "volume_filter_layer_low_db"
+				input_execute = "1.0"
+				operator = "math_gain_to_db"
+				input = "@volume_filter_layer_low.output"
+			},
+			
+			{
+				name = "volume_filter_layer_high"
+				operator = "math_filter_float"
+				input = "@opvar_get_roster_confirm_enabled.output"
+				input_max_velocity = "2.0"
+			},
+			
+			{
+				name = "volume_filter_layer_high_db"
+				input_execute = "1.0"
+				operator = "math_gain_to_db"
+				input = "@volume_filter_layer_high.output"
+			},
+			
+			{
+				name = "remap_afk_timer_to_gain_base"
+				operator = "math_remap_float"
+				input = "@opvar_get_afk_timer.output"
+				input_min = "0.0"
+				input_max = "1.0"
+				input_map_min = "@public.afk_vol_floor_linear_min_base"
+				input_map_max = "1.0"
+				default_to_max = "false"
+			},
+			
+			{
+				name = "afk_timer_gain_to_db_base"
+				input_execute = "1.0"
+				operator = "math_gain_to_db"
+				input = "@remap_afk_timer_to_gain_base.output"
+			},
+			
+			{
+				name = "math_add_afk_volume_offset_db_base"
+				operator = "math_float"
+				apply = "add"
+				input1 = "@afk_timer_gain_to_db_base.output"
+				input2 = "@play_button_volume_distance_to_db.output"
+			},
+			
+			{
+				name = "citadel_default_2d"
+				operator = "sos_import_stack"
+				import_stack = "citadel_default_2d"
+				auto_connect_public_fields = "true"
+				operator_variables = 
+				{
+					vsnd_files_field_name_track1 = 
+					{
+						data_type = "string"
+						value = "vsnd_files_play_base"
+					}
+					vsnd_files_track1_name = 
+					{
+						data_type = "string"
+						value = "bypass"
+					}
+					vsnd_track1_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "@math_add_afk_volume_offset_db_base.output"
+					}
+					vsnd_files_field_name_track2 = 
+					{
+						data_type = "string"
+						value = "vsnd_files_play_low"
+					}
+					vsnd_track2_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "@volume_filter_layer_low_db.output"
+					}
+					vsnd_files_track2_name = 
+					{
+						data_type = "string"
+						value = "bypass"
+					}
+					vsnd_files_field_name_track3 = 
+					{
+						data_type = "string"
+						value = "vsnd_files_play_high"
+					}
+					vsnd_track3_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "@volume_filter_layer_high_db.output"
+					}
+					vsnd_files_track3_name = 
+					{
+						data_type = "string"
+						value = "bypass"
+					}
+					vsnd_files_field_name_track4 = 
+					{
+						data_type = "string"
+						value = "vsnd_files_track4"
+					}
+					vsnd_track4_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "0.0"
+					}
+					vsnd_files_track4_name = 
+					{
+						data_type = "string"
+						value = "bypass"
+					}
+					vsnd_files_field_name_track5 = 
+					{
+						data_type = "string"
+						value = "vsnd_files_play_base_fx"
+					}
+					vsnd_files_track5_name = 
+					{
+						data_type = "string"
+						value = "bypass"
+					}
+					vsnd_track5_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "@math_add_base_fx_vol_offset.output"
+					}
+				}
+			},
+		]
+		_system_properties = 
+		{
+			display_game = "citadel"
+		}
+	}
+}

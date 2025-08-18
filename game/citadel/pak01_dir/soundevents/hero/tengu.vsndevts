@@ -2,14 +2,14 @@
 {
 	Ivy.Wpn.Fire.Main = 
 	{
-		base = "Base.Weapon"
-		volume = 0.000000
-		volume_fade_out = 0.200000
-		limiter_max = 2.000000
-		recency_bias_max_scale = 1.000000
+		base = "Base.Weapon.MachineGun"
+		volume = -2.000000
+		volume_fade_out = 0.100000
+		limiter_max = 1.000000
 		enable_initial_reflection_send = true
-		low_ammo_vol_offset_db = -2.000000
 		tail_vol_offset_db = 0.000000
+		low_ammo_threshold = 8.000000
+		last_shot_vol_offset_db = 4.000000
 		vsnd_files = 
 		[
 			"sounds/weapons/tengu/ivy_weapon_fire_mid_01.vsnd",
@@ -81,16 +81,19 @@
 				3.000000,
 			],
 		]
+		vsnd_files_last_shot = 
+		[
+			"sounds/weapons/tengu/ivy_wpn_last_shot_01.vsnd",
+		]
 		vsnd_duration = 2.621519
 	}
 	Ivy.Wpn.Fire.First = 
 	{
-		base = "Base.Weapon"
+		base = "Base.Weapon.MachineGun"
 		volume = 4.000000
-		recency_bias_max_scale = 1.000000
 		enable_initial_reflection_send = true
-		low_ammo_vol_offset_db = -3.000000
 		tail_vol_offset_db = 0.000000
+		limiter_max = 0.000000
 		vsnd_files = 
 		[
 			"sounds/weapons/tengu/ivy_weapon_fire_first_01.vsnd",
@@ -159,7 +162,6 @@
 	{
 		base = "Base.Weapon.Tail"
 		volume = -2.000000
-		recency_bias_max_scale = 1.000000
 		vsnd_files_tail = 
 		[
 			"sounds/weapons/tengu/ivy_weapon_fire_release_01.vsnd",
@@ -211,7 +213,7 @@
 		]
 		vsnd_duration = 2.504626
 	}
-	Tengu.Wpn.Whizby = 
+	Ivy.Wpn.Whizby = 
 	{
 		base = "Base.Bullet.Whizby"
 		volume = -3.000000
@@ -230,12 +232,10 @@
 		]
 		vsnd_duration = 0.619161
 	}
-	Tengu.Wpn.Impact.Default = 
+	Ivy.Wpn.Impact.Default = 
 	{
 		base = "Base.Bullet.Impact"
 		volume = -12.000000
-		volume_falloff_min = 10.000000
-		volume_falloff_max = 500.000000
 		limiter_on = 1.000000
 		limiter_max = 4.000000
 		pitch = 1.200000
@@ -246,35 +246,58 @@
 			"sounds/weapons/sumo/wpn_sumo_impact_03.vsnd",
 		]
 	}
-	Ivy.Weapon.Reload = 
+	Ivy.Wpn.Reload.Start = 
 	{
-		base = "Base.Movement"
-		vsnd_files = "sounds/common/null.vsnd"
-		vsnd_duration = 0.050023
+		base = "Base.Weapon.Foley"
+		volume = -4.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/tengu/reload/ivy_wpn_reload_start_01.vsnd",
+			"sounds/weapons/tengu/reload/ivy_wpn_reload_start_02.vsnd",
+			"sounds/weapons/tengu/reload/ivy_wpn_reload_start_03.vsnd",
+		]
+		vsnd_duration = 1.259410
 	}
-	Ivy.Weapon.Reload.In = 
+	Ivy.Wpn.Reload.Mid = 
 	{
-		base = "Base.Movement"
-		vsnd_files = "sounds/common/null.vsnd"
-		vsnd_duration = 0.050023
+		base = "Base.Weapon.Foley"
+		volume = -4.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/tengu/reload/ivy_wpn_reload_mid_01.vsnd",
+			"sounds/weapons/tengu/reload/ivy_wpn_reload_mid_02.vsnd",
+			"sounds/weapons/tengu/reload/ivy_wpn_reload_mid_03.vsnd",
+		]
+		vsnd_duration = 0.484853
 	}
-	Ivy.Weapon.Reload.Out = 
+	Ivy.Wpn.Reload.End = 
 	{
-		base = "Base.Movement"
-		vsnd_files = "sounds/common/null.vsnd"
-		vsnd_duration = 0.050023
+		base = "Base.Weapon.Foley"
+		volume = -4.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/tengu/reload/ivy_wpn_reload_end_01.vsnd",
+			"sounds/weapons/tengu/reload/ivy_wpn_reload_end_02.vsnd",
+			"sounds/weapons/tengu/reload/ivy_wpn_reload_end_03.vsnd",
+		]
+		vsnd_duration = 0.501270
 	}
-	Tengu.ZoomIn = 
+	Ivy.Wpn.ZoomIn = 
 	{
-		base = "Base.Hero.Weapon.Zoom.2d"
-		volume = -12.000000
-		vsnd_files = "sounds/weapons/tengu/reload/in.vsnd"
+		base = "Base.Weapon.Foley"
+		volume = -20.000000
+		vsnd_files = "sounds/weapons/wraith/zoom/in.vsnd"
+		vsnd_duration = 1.323604
 	}
-	Tengu.ZoomOut = 
+	Ivy.Wpn.ZoomOut = 
 	{
-		base = "Base.Hero.Weapon.Zoom.2d"
-		volume = -18.000000
-		vsnd_files = "sounds/weapons/tengu/reload/out.vsnd"
+		base = "Base.Weapon.Foley"
+		volume = -20.000000
+		vsnd_files = "sounds/weapons/wraith/zoom/out.vsnd"
+		vsnd_duration = 1.829146
 	}
 	Tengu.StoneSquall.Target.Start = 
 	{
@@ -434,12 +457,6 @@
 		volume = 0.000000
 		vsnd_files = "sounds/abilities/tengu/a4_lightning_crash/impact.vsnd"
 		vsnd_duration = 4.492500
-	}
-	Tengu.Wpn.Impact = 
-	{
-		base = "Base.Bullet.Impact"
-		vsnd_files = "sounds/common/null.vsnd"
-		vsnd_duration = 0.050023
 	}
 	Ivy.A4.Wildfire.Cast = 
 	{
@@ -657,7 +674,7 @@
 	}
 	Ivy.Melee.Swing = 
 	{
-		base = "Base.Ability.Melee"
+		base = "Base.Movement.Melee"
 		vsnd_files = 
 		[
 			"sounds/player/melee/shared/swing_short_01.vsnd",
@@ -689,7 +706,7 @@
 	}
 	Ivy.Melee.Swing.Charged = 
 	{
-		base = "Base.Ability.Melee"
+		base = "Base.Movement.Melee"
 		vsnd_files = 
 		[
 			"sounds/player/melee/shared/swing_long_01.vsnd",
@@ -719,160 +736,6 @@
 			"sounds/player/melee/shared/swing_long_25.vsnd",
 		]
 		vsnd_duration = 1.399792
-	}
-	Kali.BulletWhizby = 
-	{
-		base = "Base.Bullet.Whizby"
-		pitch_rand_min = -0.005000
-		pitch_rand_max = 0.401500
-		volume_rand_min = -0.300000
-		volume_rand_max = 0.100000
-		volume = -15.000000
-		volume_fade_out = 0.001000
-		vsnd_files = 
-		[
-			"sounds/weapons/kali/whizby_01.vsnd",
-			"sounds/weapons/kali/whizby_02.vsnd",
-			"sounds/weapons/kali/whizby_03.vsnd",
-			"sounds/weapons/kali/whizby_04.vsnd",
-			"sounds/weapons/kali/whizby_05.vsnd",
-			"sounds/weapons/kali/whizby_06.vsnd",
-			"sounds/weapons/kali/whizby_07.vsnd",
-			"sounds/weapons/kali/whizby_08.vsnd",
-			"sounds/weapons/kali/whizby_09.vsnd",
-			"sounds/weapons/kali/whizby_10.vsnd",
-			"sounds/weapons/kali/whizby_11.vsnd",
-			"sounds/weapons/kali/whizby_12.vsnd",
-			"sounds/weapons/kali/whizby_13.vsnd",
-			"sounds/weapons/kali/whizby_14.vsnd",
-			"sounds/weapons/kali/whizby_15.vsnd",
-			"sounds/weapons/kali/whizby_16.vsnd",
-			"sounds/weapons/kali/whizby_17.vsnd",
-		]
-		vsnd_duration = 1.309208
-	}
-	Kali.SpinningBlade.ProjectileLoop = 
-	{
-		base = "Base.Ability"
-		doppler_on = 1.000000
-		delay_rand_min = -6.000000
-		volume_fade_in = 0.500000
-		volume_fade_out = 0.500000
-		volume = 0.000000
-		vsnd_files = "sounds/abilities/kali/a1_whirling_blade/lp_grind.vsnd"
-		vsnd_duration = 2.163438
-	}
-	Kali.Ability.Occilioblade.Return = 
-	{
-		base = "Base.Ability"
-		volume = -24.000000
-		vsnd_files = "sounds/abilities/kali/a4_occilioblade/return.vsnd"
-		vsnd_duration = 2.060229
-	}
-	Kali.Wpn.Impact = 
-	{
-		base = "Base.Bullet.Impact"
-		vsnd_files = 
-		[
-			"sounds/physics/bullet_impacts/default/default_impact_bullet_01.vsnd",
-			"sounds/physics/bullet_impacts/default/default_impact_bullet_02.vsnd",
-			"sounds/physics/bullet_impacts/default/default_impact_bullet_03.vsnd",
-			"sounds/physics/bullet_impacts/default/default_impact_bullet_04.vsnd",
-		]
-		vsnd_duration = 0.464938
-	}
-	Kali.Wpn.Fire = 
-	{
-		base = "Base.Weapon"
-		vsnd_files = 
-		[
-			"sounds/weapons/kali/fire/01.vsnd",
-			"sounds/weapons/kali/fire/02.vsnd",
-			"sounds/weapons/kali/fire/03.vsnd",
-			"sounds/weapons/kali/fire/04.vsnd",
-			"sounds/weapons/kali/fire/05.vsnd",
-			"sounds/weapons/kali/fire/06.vsnd",
-			"sounds/weapons/kali/fire/07.vsnd",
-			"sounds/weapons/kali/fire/08.vsnd",
-			"sounds/weapons/kali/fire/09.vsnd",
-			"sounds/weapons/kali/fire/10.vsnd",
-			"sounds/weapons/kali/fire/11.vsnd",
-			"sounds/weapons/kali/fire/12.vsnd",
-			"sounds/weapons/kali/fire/13.vsnd",
-			"sounds/weapons/kali/fire/14.vsnd",
-			"sounds/weapons/kali/fire/15.vsnd",
-			"sounds/weapons/kali/fire/16.vsnd",
-			"sounds/weapons/kali/fire/17.vsnd",
-			"sounds/weapons/kali/fire/18.vsnd",
-			"sounds/weapons/kali/fire/19.vsnd",
-			"sounds/weapons/kali/fire/20.vsnd",
-			"sounds/weapons/kali/fire/21.vsnd",
-			"sounds/weapons/kali/fire/22.vsnd",
-			"sounds/weapons/kali/fire/23.vsnd",
-			"sounds/weapons/kali/fire/24.vsnd",
-			"sounds/weapons/kali/fire/25.vsnd",
-			"sounds/weapons/kali/fire/26.vsnd",
-			"sounds/weapons/kali/fire/27.vsnd",
-			"sounds/weapons/kali/fire/28.vsnd",
-			"sounds/weapons/kali/fire/29.vsnd",
-			"sounds/weapons/kali/fire/30.vsnd",
-			"sounds/weapons/kali/fire/31.vsnd",
-			"sounds/weapons/kali/fire/32.vsnd",
-			"sounds/weapons/kali/fire/33.vsnd",
-			"sounds/weapons/kali/fire/34.vsnd",
-			"sounds/weapons/kali/fire/35.vsnd",
-			"sounds/weapons/kali/fire/36.vsnd",
-			"sounds/weapons/kali/fire/37.vsnd",
-			"sounds/weapons/kali/fire/38.vsnd",
-			"sounds/weapons/kali/fire/39.vsnd",
-			"sounds/weapons/kali/fire/40.vsnd",
-			"sounds/weapons/kali/fire/41.vsnd",
-			"sounds/weapons/kali/fire/42.vsnd",
-			"sounds/weapons/kali/fire/43.vsnd",
-			"sounds/weapons/kali/fire/44.vsnd",
-			"sounds/weapons/kali/fire/45.vsnd",
-			"sounds/weapons/kali/fire/46.vsnd",
-			"sounds/weapons/kali/fire/47.vsnd",
-			"sounds/weapons/kali/fire/48.vsnd",
-			"sounds/weapons/kali/fire/49.vsnd",
-			"sounds/weapons/kali/fire/50.vsnd",
-			"sounds/weapons/kali/fire/51.vsnd",
-			"sounds/weapons/kali/fire/52.vsnd",
-			"sounds/weapons/kali/fire/53.vsnd",
-			"sounds/weapons/kali/fire/54.vsnd",
-			"sounds/weapons/kali/fire/55.vsnd",
-			"sounds/weapons/kali/fire/56.vsnd",
-			"sounds/weapons/kali/fire/57.vsnd",
-			"sounds/weapons/kali/fire/58.vsnd",
-			"sounds/weapons/kali/fire/59.vsnd",
-			"sounds/weapons/kali/fire/60.vsnd",
-			"sounds/weapons/kali/fire/61.vsnd",
-		]
-		vsnd_duration = 1.072271
-	}
-	Kali.Wpn.Reload.Clip.Out = 
-	{
-		base = "Base.Reload"
-		volume = -15.000000
-		pitch_rand_min = -0.150000
-		pitch_rand_max = 0.100000
-		volume_rand_min = -0.300000
-		volume_rand_max = 0.100000
-		pitch = 0.960000
-		vsnd_files = "sounds/weapons/shiv/reload/clip_out.vsnd"
-		vsnd_duration = 1.432854
-	}
-	Kali.Wpn.Reload.Clip.In = 
-	{
-		base = "Base.Reload"
-		volume = -15.000000
-		pitch = 1.100000
-		pitch_rand_min = -0.050000
-		pitch_rand_max = 0.050000
-		volume_rand_min = -0.300000
-		volume_rand_max = 0.100000
-		vsnd_files = "sounds/weapons/shiv/reload/clip_in.vsnd"
-		vsnd_duration = 1.606375
 	}
 	Ivy.Footstep = 
 	{
@@ -964,5 +827,31 @@
 			"sounds/player/movement/ivy/ivy_movement_foley_short_15.vsnd",
 		]
 		vsnd_duration = 1.381633
+	}
+	Tengu.Progession.Page.Win.VO = 
+	{
+		base = "Base.HeroPick.VO.2d"
+		context_name = "tengu"
+		vsnd_files = 
+		[
+			"sounds/vo/tengu/tengu_happy_03.vsnd",
+			"sounds/vo/tengu/tengu_happy_08.vsnd",
+			"sounds/vo/tengu/tengu_happy_02.vsnd",
+		]
+		vsnd_duration = 2.136146
+	}
+	Tengu.Progession.Page.Lose.VO = 
+	{
+		base = "Base.HeroPick.VO.2d"
+		context_name = "tengu"
+		vsnd_files = 
+		[
+			"sounds/vo/tengu/tengu_concerned_01.vsnd",
+			"sounds/vo/tengu/tengu_concerned_02.vsnd",
+			"sounds/vo/tengu/tengu_concerned_10.vsnd",
+			"sounds/vo/tengu/tengu_near_miss_01.vsnd",
+			"sounds/vo/tengu/tengu_killstreak_start_04.vsnd",
+		]
+		vsnd_duration = 2.284563
 	}
 }

@@ -16,7 +16,21 @@
 				operator = "util_null"
 				operator_variables = 
 				{
-					import_public_opvars = "citadel_default_3d"
+					citadel_default_3d = 
+					{
+						data_type = "public_opvar"
+						value = "citadel_default_3d"
+					}
+					citadel_find_perspective = 
+					{
+						data_type = "public_opvar"
+						value = "citadel_find_perspective"
+					}
+					citadel_damage_info = 
+					{
+						data_type = "public_opvar"
+						value = "citadel_damage_info"
+					}
 					hit_world = 
 					{
 						data_type = "bool"
@@ -58,7 +72,7 @@
 						{
 							display_group = "Normal"
 							property_group = "citadel_damage - Volume"
-							property_help = "Volume falloff min for all perspectives."
+							property_help = "Volume falloff min for all perspectives. Override from citadel_distance_falloff."
 						}
 					}
 					volume_falloff_max_attacker = 
@@ -92,39 +106,6 @@
 							display_group = "Normal"
 							property_group = "citadel_damage - Volume"
 							property_help = "Volume falloff max while viewing everyone else."
-						}
-					}
-					entity_index_attacker = 
-					{
-						data_type = "float"
-						value = "-1.0"
-						_system_properties = 
-						{
-							display_group = "locked"
-							property_group = "citadel_damage"
-							property_help = "Set by code."
-						}
-					}
-					entity_index_victim = 
-					{
-						data_type = "float"
-						value = "-1.0"
-						_system_properties = 
-						{
-							display_group = "locked"
-							property_group = "citadel_damage"
-							property_help = "Set by code."
-						}
-					}
-					owner_entity_index = 
-					{
-						data_type = "float"
-						value = "-1.0"
-						_system_properties = 
-						{
-							display_group = "locked"
-							property_group = "citadel_damage"
-							property_help = "Set by code."
 						}
 					}
 					mixer_mixgroup_attacker = 
@@ -204,50 +185,6 @@
 							property_help = "The value for spread when viewing the victim."
 						}
 					}
-					max_distance_recipient_filter = 
-					{
-						data_type = "float"
-						value = "-1.f"
-						_system_properties = 
-						{
-							display_group = "Normal"
-							property_group = "Blocking"
-							property_help = "The server and client may query this value to see if it should play the sound from game code."
-						}
-					}
-					position = 
-					{
-						data_type = "float3"
-						value = "[0.0, 0.0, 0.0]"
-						_system_properties = 
-						{
-							display_group = "locked"
-							property_group = "citadel_damage"
-							property_help = "Set by code."
-						}
-					}
-					position_force_from_input = 
-					{
-						data_type = "bool"
-						value = "false"
-						_system_properties = 
-						{
-							display_group = "locked"
-							property_group = "citadel_damage"
-							property_help = "Set by code."
-						}
-					}
-					instance_attenuator_name = 
-					{
-						data_type = "string"
-						value = ""
-						_system_properties = 
-						{
-							display_group = "Locked"
-							property_group = "Instance Attenuator"
-							property_help = "The name of the branch that the group evaluates."
-						}
-					}
 					volume_offset_attacker_db = 
 					{
 						data_type = "float"
@@ -317,7 +254,7 @@
 				name = "block_team_owned_hit_test"
 				operator = "math_float"
 				apply = "and"
-				input1 = "@citadel_find_perspective::output.perpective_is_team"
+				input1 = "@citadel_find_perspective::output.perspective_is_team"
 				input2 = "@public.hit_world"
 			},
 			

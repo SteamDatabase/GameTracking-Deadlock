@@ -4,12 +4,8 @@
 %s - unknown or invalid world '%s'\n
 %s - unknown world layer '%s'\n
 %s DynamicAtr:%s = '%s'\n
-%s allocation count overflow
-%s allocation count overflow( add %llu + current %llu > max %llu )\n
 %s( No I/O Connections )\n
 %s0x%08X:%s = "%s"\n
-%s: invalid nBeforeIndex %d\n
-%s: invalid nSize %d\n
 %s== World '%s' Entity Lump '%s': %d entities ==\n
 %sEntity %d (%s '%s'):\n
 %sI/O Connections:\n
@@ -60,7 +56,6 @@
 .?AVIKV3ResourceAllocatorUtils@?$CTypesafeIntrospectedToKV3TypeManager@$0HDHEGOGFHG@UPermEntityLumpData_t@@@@
 .?AVIKV3ResourceDeallocatorUtils@?$CTypesafeIntrospectedToKV3TypeManager@$0GEGPGOHHHG@UWorldNode_t@@@@
 .?AVIKV3ResourceDeallocatorUtils@?$CTypesafeIntrospectedToKV3TypeManager@$0HDHEGOGFHG@UPermEntityLumpData_t@@@@
-.?AVIKV3TransferInterface_ResourceLoad@@
 .?AVIResourceTypeManager@@
 .?AVISceneObjectDesc@@
 .?AVISequence@@
@@ -73,11 +68,11 @@
 .vwnod
 0 = Density corresponds to blade existance, 1 = Density corresponds to blade height, 2 = Both 0 and 1
 0 = Off, 1 = Low, 2 = Med, 3 = high, 4 = ultra
-2\vph
-2\vptz\r
+0>Hs
 <<NULL ENTITY LUMP>>
 <no classname>
 <no targetname>
+?expf
 AABB_t
 AGGREGATE_INSTANCE_STREAM_LIGHTMAPUV_UNORM16
 AGGREGATE_INSTANCE_STREAM_NONE
@@ -98,6 +93,7 @@ AllocateResource: Cannot find DATA block in resource %s!\n
 AllocateResource: Cannot find VXVS data in resource %s!\n
 Bad KV3 data for resource '%s': %s\n
 BakedLightingInfo_t
+BakedLightingInfo_t::BakedShadowAssignment_t
 BaseSceneObjectOverride_t
 BoneConstraintList
 C:\buildworker\citadel_rel_win64\build\_build_\worldrenderer\_vpc_worldrenderer\default\win64\_msvc_\Retail\worldrenderer.pdb
@@ -117,16 +113,15 @@ CSemiAutoRWLockT<class CThreadRWLock_FastRead>::LockForRead
 CStrongHandle
 CStrongHandleCopyable
 CUtlBinaryBlock
-CUtlLeanVector
-CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct EntityKeyValueData_t,int>,struct EntityKeyValueData_t,int>::InsertBeforeGetPtr
-CUtlRBTree<struct CUtlOrderedMapBase<unsigned __int64,struct WorldTraversal_t *,class CDefLess<unsigned __int64>,int>::Node_t,class CUtlOrderedMapBase<unsigned __int64,struct WorldTraversal_t *,class CDefLess<unsigned __int64>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<unsigned __int64,struct WorldTraversal_t *,class CDefLess<unsigned __int64>,int>::Node_t,int>,int,0> >::Insert
+CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct EntityKeyValueData_t,int,class CMemAllocAllocator>,struct EntityKeyValueData_t,int>::InsertBeforeGetPtr
+CUtlRBTree<struct CUtlOrderedMapBase<unsigned __int64,struct WorldTraversal_t *,class CDefLess<unsigned __int64>,int>::Node_t,class CUtlOrderedMapBase<unsigned __int64,struct WorldTraversal_t *,class CDefLess<unsigned __int64>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<unsigned __int64,struct WorldTraversal_t *,class CDefLess<unsigned __int64>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
 CUtlString
 CUtlStringToken
 CVoxelVisibility
 CWorld::CacheNodes
-CWorldNode::CreateExtraVertexStreams(331): 
+CWorldNode::CreateExtraVertexStreams(349): 
 CWorldNode::GrassFileCreateManifest
-CWorldNode::HandleThrottledGrassTileLoading(1302): 
+CWorldNode::HandleThrottledGrassTileLoading(1252): 
 CWorldRendererMgr::CreateWorld
 CWorldRendererMgr::CreateWorld_Internal( %s ):  Blocking load because marked for deletion during load\n
 CWorldRendererMgr::ServiceWorldRequests long frame: %fms\n
@@ -139,12 +134,17 @@ ClutterTile_t
 Couldn't ReadTexturePixels when creating grass.\n
 Creating %i scene objects for node %i\n
 D_VERTEX_LIGHTING
+Data_Branch1xy
+Data_Branch1zBranch2x
+Data_Branch2yz
 Deletion List:\n
+DensityArray
 Dump all of the worlds that we know about
 Dump the contents of an entity lump
 EntityIOConnectionData_t
 EntityKeyValueData_t
 ExtraVertexStreamOverride_t
+FadeParams
 Failed to allocate an instance of a class
 Failed to call CBaseIntrospectedToKV3TypeManager::Init
 Failed to load geometry for level %s\n
@@ -153,6 +153,7 @@ Failed to mount world vpk file %s, file could not be found.\n
 FeetSettings
 FloatBitMap_t::CopyFloatBitmap: Received NULL pointer!\n
 FloatBitMap_t::LoadFromFloatBitmap: Received improper bitmap size, skipping!\n
+FoliageAnimation
 GenerateGrassTexture
 GenerateGrassTexture failed for albedo!\n
 GenerateGrassTexture failed for specular!\n
@@ -172,7 +173,6 @@ GrassTileVB
 GrassTint.vtex
 Hitbox indexing is incorrect for set %s, hitbox %s. Hitboxes will not be setup properly.\n
 IKV3TransferInterface_AllowRawStringTokenTransfer
-IKV3TransferInterface_ResourceLoad
 Inconsistent treatment of '%s' (existing key is %s)!\n
 InfoForResourceTypeCEntityLump
 InfoForResourceTypeCModel
@@ -180,7 +180,6 @@ InfoForResourceTypeCRenderMesh
 InfoForResourceTypeCTextureBase
 InfoForResourceTypeIMaterial2
 InfoForResourceTypeVMapResourceData_t
-InfoOverlayData_t
 KV3 load transfer failed for resource '%s': %s
 KeyValues3
 Lightmap set to use, only works on map load
@@ -190,7 +189,14 @@ LightmapUVW
 List all known entity lumps
 List all world layers
 LookAtList
-MGetKV3ClassDefaults
+MESH_DRAW_FLAGS_CAN_BATCH_WITH_DYNAMIC_SHADER_CONSTANTS
+MESH_DRAW_FLAGS_DRAW_LAST
+MESH_DRAW_FLAGS_NONE
+MESH_DRAW_FLAGS_USE_COMPRESSED_NORMAL_TANGENT
+MESH_DRAW_FLAGS_USE_COMPRESSED_PER_VERTEX_LIGHTING
+MESH_DRAW_FLAGS_USE_SHADOW_FAST_PATH
+MESH_DRAW_FLAGS_USE_UNCOMPRESSED_PER_VERTEX_LIGHTING
+MESH_DRAW_INPUT_LAYOUT_IS_NOT_MATCHED_TO_MATERIAL
 MResourceTypeForInfoType
 MaterialOverride_t
 Maximum lightmap resolution for directional_irradiance channel. -1 = use value of r_lightmap_size
@@ -225,14 +231,19 @@ OverlayProjectionDirection
 PerVertexLighting
 PermEntityLumpData_t
 Physics
+PivotPaint
 Print model load-time conversion info
 PropWorldOrigin
 PushCurrentSkewBrightnessValuesToSceneObject
+RENDER_SLOT_INVALID
+RENDER_SLOT_PER_INSTANCE
+RENDER_SLOT_PER_VERTEX
 RESOURCE_TYPE_ENTITY_LUMP
 RESOURCE_TYPE_WORLD
 RESOURCE_TYPE_WORLD_NODE
 RESOURCE_TYPE_WORLD_VIS
 RSDS
+R\vp s
 Render the world.
 Render world node bounds
 RenderInputLayoutField_t
@@ -253,9 +264,6 @@ Unsupported number of values found in grass tile. Expected %d. Found %d\n
 Usage: %s <world_name> <layer_name> <visible>\n
 Usage: %s <world_name> <lump_name>\n
 VMapResourceData_t
-Vector
-Vector2D
-Vector4D
 VertexElementAnnotation
 VertexGenericIntegerData
 VertexPaintBlendParams
@@ -266,6 +274,7 @@ WARNING: Failed to convert introspected block for file: %s\n
 WARNING: Invalid resource version (%d): %s\n
 WARNING: Invalid worldnode version '%d' for file: %s\n
 Warning: Error resource loaded for level %s\n
+WindOffset
 World '%s' Lump '%s' 
 World '%s' layer '%s' 
 WorldBuilderParams_t
@@ -346,6 +355,7 @@ m_bSHLightmaps
 m_bUseCompressedNormalTangent
 m_bUseShadowFastPath
 m_bakedLightingInfo
+m_bakedShadows
 m_builderParams
 m_childLumps
 m_clutterSceneObjects
@@ -358,19 +368,15 @@ m_extraVertexStreams
 m_fMaxObjectScale
 m_fSwitchDistances
 m_flBeginCullSize
-m_flDepth
 m_flEndCullSize
 m_flFadeEndDistance
 m_flFadeStartDistance
 m_flGridSize
-m_flHeight
 m_flMinDrawVolumeSize
 m_flMinimumDistance
-m_flWidth
 m_fragmentTransforms
 m_grassFileName
 m_hBuffer
-m_infoOverlays
 m_inputLayoutFields
 m_inputName
 m_instancePositions
@@ -395,26 +401,26 @@ m_nDrawCallIndex
 m_nElementCount
 m_nElementSizeInBytes
 m_nFirstInstance
-m_nInstanceStepRate
 m_nInstanceStreamOffset
 m_nLODGroupMask
 m_nLODOverride
 m_nLODSetupIndex
 m_nLastInstance
 m_nLayer
+m_nLightHash
 m_nLightProbeVolumePrecomputedHandshake
 m_nLightmapGameVersionNumber
 m_nLightmapVersionNumber
+m_nMapHash
 m_nObjectID
 m_nObjectTypeFlags
 m_nOffset
 m_nOverlayRenderOrder
 m_nPVSBytesPerCluster
 m_nParent
-m_nRenderOrder
 m_nSceneObjectIndex
 m_nSemanticIndex
-m_nSequenceOverride
+m_nShadowChannel
 m_nSkyVisibilityCluster
 m_nSlot
 m_nSlotType
@@ -428,7 +434,6 @@ m_nVradQuality
 m_nodeLightingInfo
 m_objectFlags
 m_outputName
-m_overlayLayerIndices
 m_overrideParam
 m_pData
 m_pMaterial
@@ -440,19 +445,18 @@ m_sId
 m_sceneObjectLayerIndices
 m_sceneObjects
 m_skin
+m_szShaderSemantic
 m_targetName
 m_tiles
-m_transform
 m_vLODOrigin
 m_vLightingOrigin
 m_vLightmapUvScale
+m_vLinearTintColor
 m_vMaxBounds
 m_vMinBounds
 m_vOrigin
 m_vTintColor
 m_vTransform
-m_vUVEnd
-m_vUVStart
 m_vertexAlbedoStream
 m_vertexAlbedoStreams
 m_visClusterMembership
@@ -474,7 +478,9 @@ model_default_preview_sequence_name
 model_dump_convert_info
 modellib
 optionallycompressedtangentframe
+p>tr
 posxyz
+r\fp s
 r_drawworld
 r_grass_allow_flattening
 r_grass_alpha_test
@@ -509,9 +515,11 @@ vmap
 w8#o
 world renderer - 
 world_dump_loaded_worlds
+world_layer_base
 world_layer_list
 world_layer_set_visible
 world_layer_set_visible %s %s false
 world_layer_set_visible %s %s true
 worldrenderer.dll
 worldspawn
+z>AlignedByteArray not properly aligned\n

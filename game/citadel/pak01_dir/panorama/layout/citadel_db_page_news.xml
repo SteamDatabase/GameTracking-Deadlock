@@ -1,0 +1,38 @@
+<!-- xml reconstructed by Source 2 Viewer - https://valveresourceformat.github.io -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/citadel_base_styles.vcss_c" />
+		<include src="s2r://panorama/styles/citadel_db_page_shared.vcss_c" />
+		<include src="s2r://panorama/styles/citadel_db_page_news.vcss_c" />
+	</styles>
+	<snippets>
+		<snippet name="NewsEntry">
+			<Panel class="NewsEntry">
+				<Image id="EntryImage" scaling="cover" />
+				<Panel class="Details">
+					<Label class="EntryTitle" text="{s:entry_title}" />
+					<Label class="EntryTimestamp" text="{t:entry_timestamp}" />
+					<Label class="EntrySubtitle" text="{s:entry_subtitle}" />
+				</Panel>
+			</Panel>
+		</snippet>
+	</snippets>
+	<CitadelNewsPage class="DashboardPage" oncancel="CitadelNavigateBack()">
+		<Panel class="PageContents">
+			<Label class="PageTitle" text="#Citadel_News_Title" />
+			<Label class="PageSubtitle" text="#Citadel_News_Subtitle" />
+			<AsyncDataPanel class="AsyncContents" state="{d:news_state}">
+				<Panel class="AsyncSuccessContainer">
+					<Panel id="NewsEntriesList" AllowOversized="1" />
+					<Panel class="LoadingMore">
+						<TextButton class="LoadMoreButton SecondaryButton" text="#Citadel_News_LoadMore" onactivate="CitadelNewsPageRequestMore()" />
+						<Panel class="LoadInProgress">
+							<Panel class="Spinner" />
+							<Label text="#Citadel_News_Loading" />
+						</Panel>
+					</Panel>
+				</Panel>
+			</AsyncDataPanel>
+		</Panel>
+	</CitadelNewsPage>
+</root>

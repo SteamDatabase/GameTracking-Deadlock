@@ -13,6 +13,8 @@ CitadelDamageFeedbackDisplay
 @define abilityDamageColor: #CE90FF;
 @define meleeDamageInitColor: #FFD18D;
 @define meleeDamageColor: #EC9719;
+@define pureDamageInitColor: #DDDDDD;
+@define pureDamageColor: #FFFFFF;
 @define poisonDamageInitColor: #227031;
 @define poisonDamageColor: #49B960;
 @define critDamageInitColor: rgb(255, 255, 255);
@@ -23,6 +25,8 @@ CitadelDamageFeedbackDisplay
 @define buffedAbilityDamageColor: rgb(172, 255, 253);
 @define buffedMeleeDamageInitColor: rgb(255, 255, 220);
 @define buffedMeleeDamageColor: orange;
+@define buffedPureDamageInitColor: rgb(255, 255, 220);
+@define buffedPureDamageColor: white;
 @define statusEffectInitColor: rgb(79, 50, 50);
 @define statusEffectColor: rgb(255, 255, 255);
 @define numberOffsetX: 40;
@@ -220,6 +224,20 @@ CitadelDamageFeedbackDisplay
 	100%
 	{
 		color: buffedMeleeDamageColor;
+	}
+	
+}
+
+@keyframes 'buffed_pure_color'
+{
+	0%
+	{
+		color: buffedPureDamageInitColor;
+	}
+	
+	100%
+	{
+		color: buffedPureDamageColor;
 	}
 	
 }
@@ -537,6 +555,16 @@ CitadelDamageFeedbackDisplay
 	animation-duration: 3s;
 }
 
+.batched.damage_type_pure .HudIndicatorContainer
+{
+	horizontal-align: center;
+	vertical-align: center;
+	flow-children: right;
+	z-index: -1;
+	animation-name: rise_and_fade_melee;
+	animation-duration: 3s;
+}
+
 .gold .HudIndicatorContainer
 {
 	horizontal-align: center;
@@ -713,23 +741,41 @@ CitadelDamageFeedbackDisplay
 	animation-duration: 0.3s, 0.3s;
 }
 
-.damage_type_melee .HudIndicatorText
+.damage_type_melee .hudindicatortext
 {
 	opacity: 1;
-	color: meleeDamageColor;
+	color: meleedamagecolor;
 	font-size: 60px;
 	text-align: center;
 	text-shadow: 0px 0px 6px 1.5 black;
 }
 
-.buffed.damage_type_melee .HudIndicatorText
+.buffed.damage_type_melee .hudindicatortext
 {
 	opacity: 1;
 	font-size: 60px;
 	text-align: center;
 	text-shadow: 0px 0px 6px 1.5 black;
-	color: buffedMeleeDamageColor;
+	color: buffedmeleedamagecolor;
 	animation-name: buffed_melee_color;
+	animation-duration: 0.3s;
+}
+
+.damage_type_pure .HudIndicatorText
+{
+	opacity: 1;
+	color: pureDamageColor;
+	text-align: center;
+	text-shadow: 0px 0px 6px 5.0 black;
+}
+
+.buffed.damage_type_pure .HudIndicatorText
+{
+	opacity: 1;
+	text-align: center;
+	text-shadow: 0px 0px 6px 5.0 black;
+	color: buffedPureDamageColor;
+	animation-name: buffed_pure_color;
 	animation-duration: 0.3s;
 }
 

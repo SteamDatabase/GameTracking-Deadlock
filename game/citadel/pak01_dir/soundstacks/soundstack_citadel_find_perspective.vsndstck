@@ -27,7 +27,9 @@
 						value = "0.0"
 						_system_properties = 
 						{
-							property_group = "citadel_find_perspective"
+							display_group = "Normal"
+							property_group = "Perspective"
+							property_help = "Force the assignment of perspective to use the entity that the sound is playing on, not the owner_entity_index."
 						}
 					}
 				}
@@ -72,7 +74,7 @@
 			},
 			
 			{
-				name = "math_perpective_is_team"
+				name = "math_perspective_is_team"
 				input_execute = "1.0"
 				execute_once = false
 				operator = "math_float"
@@ -82,19 +84,70 @@
 			},
 			
 			{
+				name = "math_perspective_is_player"
+				input_execute = "1.0"
+				execute_once = false
+				operator = "math_float"
+				apply = "equal"
+				input1 = "@game_entity_perspective.output"
+				input2 = "0.0"
+			},
+			
+			{
+				name = "get_viewing_entity_index"
+				operator = "opvar_get_float"
+				input_execute = "1.0"
+				input_stack_name = "citadel_relevance_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "viewing_entity_index"
+			},
+			
+			{
+				name = "viewing_entity_index_is_valid"
+				input_execute = "1.0"
+				operator = "math_float"
+				apply = "greater_than"
+				input1 = "@get_viewing_entity_index.output"
+				input2 = "0.0"
+			},
+			
+			{
+				name = "math_owner_entity_equals_viewing_entity"
+				input_execute = "@viewing_entity_index_is_valid.output"
+				operator = "math_float"
+				apply = "equal"
+				input1 = "@public.owner_entity_index"
+				input2 = "@get_viewing_entity_index.output"
+			},
+			
+			{
+				name = "math_perspective_is_owner_or_emitter"
+				execute_once = false
+				operator = "math_float"
+				apply = "or"
+				input1 = "@math_perspective_is_player.output"
+				input2 = "@math_owner_entity_equals_viewing_entity.output"
+			},
+			
+			{
 				name = "output"
 				operator = "util_null"
 				operator_variables = 
 				{
-					perpective_is_team = 
+					perspective_is_team = 
 					{
 						data_type = "float"
-						value = "@math_perpective_is_team.output"
+						value = "@math_perspective_is_team.output"
 					}
 					entity_index = 
 					{
 						data_type = "float"
 						value = "@switch_owner_entity_index.output"
+					}
+					perspective_is_owner_or_emitter = 
+					{
+						data_type = "float"
+						value = "@math_perspective_is_owner_or_emitter.output"
 					}
 				}
 			},

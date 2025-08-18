@@ -167,6 +167,7 @@ $hRh
 %s------%s%s
 %s------%s--%s%s
 %s: (%d bit)\n
+%s: Too many bands (%d) to pack an energy field into an impulse response!\n
 %s: Unable to create energy field [%d]\n
 %s: Unable to create hybrid reverb estimator [%d]\n
 %s: Unable to create impulse response [%d]\n
@@ -185,6 +186,8 @@ $hRh
 %s: Unable to load probe batch (%d)\n
 %s: Unable to load probe batch.\n
 %s: Unable to save data: %s\n
+%s: pathing data was baked with a different number of bands (expected %d, found %d), please re-bake\n
+%s: reverb data was baked with a different number of bands (expected %d, found %d), please re-bake\n
 %s:%d: rec->data != rec->input\n
 %s_%03d.vpk
 &'&)&5&;&?&K&S&Y&e&i&o&{&
@@ -287,11 +290,15 @@ $hRh
 .0-G/0]T30
 .4bb
 .97yY
+.?AUBufferedImpulseResponse_t@@
+.?AV<lambda_3>@?1??BakeDimensions@CSteamAudioScene@@UEAA_NPEAVIVPhysics2World@@AEAV?$CUtlVector@V?$Vec3D@M@@HV?$CUtlVectorMemory_Growable@V?$Vec3D@M@@H$0A@@@@@AEAV?$CUtlVector@MHV?$CUtlVectorMemory_Growable@MH$0A@@@@@AEAUSteamAudioCustomDataDimensionsSettings_t@@HAEAVCUtlBuffer@@P6AXMPEAX@Z5@Z@
 .?AV?$CBaseAppSystem@VISteamAudio@@@@
 .?AV?$CSurfacePropDataTable@VCSteamAudioMaterial@@@@
 .?AV?$CTier0AppSystem@VISteamAudio@@$0A@@@
 .?AV?$CTier1AppSystem@VISteamAudio@@$0A@@@
 .?AV?$CTier2AppSystem@VISteamAudio@@$0A@@@
+.?AV?$_Func_base@XHH@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_3>@?1??BakeDimensions@CSteamAudioScene@@UEAA_NPEAVIVPhysics2World@@AEAV?$CUtlVector@V?$Vec3D@M@@HV?$CUtlVectorMemory_Growable@V?$Vec3D@M@@H$0A@@@@@AEAV?$CUtlVector@MHV?$CUtlVectorMemory_Growable@MH$0A@@@@@AEAUSteamAudioCustomDataDimensionsSettings_t@@HAEAVCUtlBuffer@@P6AXMPEAX@Z5@Z@XHH@std@@
 .?AVCDirectProcessor@@
 .?AVCHybridReverbProcessor@@
 .?AVCImpulseResponse@@
@@ -590,7 +597,7 @@ $hRh
 /'/)/A/E/K/M/Q/W/o/u/}/
 /2x1
 /5dJ
-/CSoundSystemLowLevel
+/CEnable SIMD code path for shoebox reverb processor.
 /RIv
 /usr/local/ssl
 /usr/local/ssl/cert.pem
@@ -599,6 +606,7 @@ $hRh
 /usr/local/ssl/private
 /zt1
 0 = use biquad instead of svf, 1 = use vectorized svf, 2 = use scalar svf
+0123456789
 02V8[
 05=k
 08bX
@@ -654,7 +662,6 @@ $hRh
 2Zq)
 2\fWQx
 2\rlhp
-2\vp4
 2^pV
 2a"l
 2bT~
@@ -843,7 +850,6 @@ $hRh
 <SVX
 <YGr+
 <YVtV&
-<invalid>
 <unsupported>
 =!=-=3=7=?=C=o=s=u=y={=
 =&sf9
@@ -897,6 +903,7 @@ A9ur
 A<fP
 A>x8
 AA Compromise
+AABB_t
 AACompromise
 AC2,h
 ACCESS_DESCRIPTION
@@ -1222,8 +1229,14 @@ BZZn\rN]#8f'
 B`4I
 Bad boolean\n
 Bad time value
+BakeDimensions: Estimating inside field.\n
+BakeDimensions: Estimating outside field (1/2: Pathing).\n
+BakeDimensions: Estimating outside field (2/2: Outside probe lookups).\n
 BakeDimensions: Max probes (%u) limit exceeded (%d). Bake cancelled.\n
 BakeDimensions: No probes generated. Bake cancelled.\n
+BakeDimensions: Unable to create probe batch. [%d]\n
+BakeDimensions: Unable to create simulator. (%d)\n
+BakeDimensions: Unable to create source. (%d)\n
 BakeMaterials: Max probes (%u) limit exceeded (%d). Bake cancelled.\n
 BakeMaterials: No probes generated. Bake cancelled.\n
 BakeOcclusion: Max probes (%u) limit exceeded (%d). Bake cancelled.\n
@@ -1266,6 +1279,7 @@ C3ps
 C6DN
 C7HSY
 C:\buildworker\citadel_rel_win64\build\_build_\soundsystem\steamaudio\_vpc_steamaudio\default\win64\_msvc_\Retail\steamaudio.pdb
+C:\buildworker\citadel_rel_win64\build\src\public\tier0\utlblockvector.h
 C:\buildworker\citadel_rel_win64\build\src\soundsystem\steamaudio\steamaudio.cpp
 C:\buildworker\citadel_rel_win64\build\src\soundsystem\steamaudio\steamaudioscene.cpp
 C:\buildworker\citadel_rel_win64\build\src\vpklib\packedstore.cpp
@@ -1468,6 +1482,8 @@ CRYPTO_get_new_dynlockid
 CRYPTO_get_new_lockid
 CRYPTO_set_ex_data
 CSPName
+CSteamAudio::BakeReverb
+CSteamAudioAmbisonicsField
 CSteamAudioBakedDimensionsData
 CSteamAudioBakedMaterialsData
 CSteamAudioBakedOcclusionData
@@ -1501,8 +1517,21 @@ CT Certificate SCTs
 CT Precertificate Poison
 CT Precertificate SCTs
 CT Precertificate Signer
-CUtlRBTree<struct CUtlOrderedMapBase<class CUtlStringToken,int,class CDefLess<class CUtlStringToken>,int>::Node_t,class CUtlOrderedMapBase<class CUtlStringToken,int,class CDefLess<class CUtlStringToken>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CUtlStringToken,int,class CDefLess<class CUtlStringToken>,int>::Node_t,int>,int,0> >::Insert
-CUtlSortVector<struct ChunkHashFraction_t,class ChunkHashFractionLess_t,class CUtlVector<struct ChunkHashFraction_t,int,class CUtlMemory<struct ChunkHashFraction_t,int,0> > >::Find
+CUtlBlockVector<struct FileHandleTracker_t,int,class CMemAllocAllocator>::GrowCount
+CUtlBlockVector<unsigned char,int,class CMemAllocAllocator>::GrowCount
+CUtlLeanVectorBase<struct UtlLinkedListElem_t<class CSmartPtr<class CSteamAudioPartitioningTask,class CRefCountAccessor>,unsigned short>,unsigned short,class CMemAllocAllocator>::EnsureCapacity
+CUtlLeanVectorBase<struct UtlLinkedListElem_t<class CSmartPtr<class CSteamAudioSimulationData,class CRefCountAccessor>,unsigned short>,unsigned short,class CMemAllocAllocator>::EnsureCapacity
+CUtlLeanVectorBase<struct UtlLinkedListElem_t<class CSmartPtr<class CSteamAudioSource,class CRefCountAccessor>,unsigned short>,unsigned short,class CMemAllocAllocator>::EnsureCapacity
+CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CUtlHashMap<class CUtlStringToken,struct Mat3x4<float>,class CDefEquals<class CUtlStringToken>,struct HashMapFunctor_t<class CUtlStringToken>,int>::HashBucket_t,int,class CMemAllocAllocator>,struct CUtlHashMap<class CUtlStringToken,struct Mat3x4<float>,class CDefEquals<class CUtlStringToken>,struct HashMapFunctor_t<class CUtlStringToken>,int>::HashBucket_t,int>::AddMultipleToTail
+CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CUtlHashMap<int,struct _IPLSource_t *,class CDefEquals<int>,struct HashMapFunctor_t<int>,int>::HashBucket_t,int,class CMemAllocAllocator>,struct CUtlHashMap<int,struct _IPLSource_t *,class CDefEquals<int>,struct HashMapFunctor_t<int>,int>::HashBucket_t,int>::AddMultipleToTail
+CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CUtlMemoryBlockAllocator<struct FileHandleTracker_t,class CMemAllocAllocator>::MemPage_t,int,class CMemAllocAllocator>,struct CUtlMemoryBlockAllocator<struct FileHandleTracker_t,class CMemAllocAllocator>::MemPage_t,int>::EnsureUnusedCapacity
+CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CUtlMemoryBlockAllocator<unsigned char,class CMemAllocAllocator>::MemPage_t,int,class CMemAllocAllocator>,struct CUtlMemoryBlockAllocator<unsigned char,class CMemAllocAllocator>::MemPage_t,int>::EnsureUnusedCapacity
+CUtlMemoryBlockAllocator<struct FileHandleTracker_t,class CMemAllocAllocator>::AddPage
+CUtlMemoryBlockAllocator<unsigned char,class CMemAllocAllocator>::AddPage
+CUtlRBTree<struct CUtlOrderedMapBase<class CUtlStringToken,int,class CDefLess<class CUtlStringToken>,int>::Node_t,class CUtlOrderedMapBase<class CUtlStringToken,int,class CDefLess<class CUtlStringToken>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CUtlStringToken,int,class CDefLess<class CUtlStringToken>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
+CUtlSortVector<struct ChunkHashFraction_t,class ChunkHashFractionLess_t,class CUtlVector<struct ChunkHashFraction_t,int,class CUtlVectorMemory_Growable<struct ChunkHashFraction_t,int,0> > >::Find
+CUtlString
+CUtlStringToken
 CVcn
 C[L6
 C\lVQ
@@ -2080,7 +2109,6 @@ Ee{5
 EhQ,[3
 EjNG
 Email address mismatch
-Enable SIMD code path for shoebox reverb processor.
 Enable caching listener probe neighborhood for pathing.
 Enable custom HRTF loading.
 Enable perspective correction for 3D audio.
@@ -2094,6 +2122,7 @@ Ep0u
 Eric Young's PKCS#1 RSA
 Error in encoding\n
 Error reading from loaded packed store "%s"
+Estimate Size
 EvLa
 Ew`)9Q
 Excluded
@@ -2105,6 +2134,7 @@ Exported scene as PHONONSCENE to %s.\n
 Extended OCSP Status
 Extension
 Extension Request
+ExtractDirectionalityFromEnergyField
 F#bgn?MwN|%
 F'pY
 F+Zb
@@ -2437,7 +2467,6 @@ MEMORY_LOCK
 MEM_READ
 MEM_WRITE
 MGF1
-MGetKV3ClassDefaults
 MGrB
 MIC-CLEAR
 MIC-ONLY
@@ -2459,7 +2488,8 @@ Materials: Imported %d probes from baked file (%s).\n
 Materials: Loaded baked data file (%s).\n
 Materials: Unable to load baked data file (%s).\n
 Maximum gain any HRTF could have during volume normalization.
-Maximum number of probes to create when baking custom data.
+Maximum number of probes to create when baking custom data (dimensions).
+Maximum number of probes to create when baking custom data (occlusion).
 Maximum number of probes to create when baking paths.
 Maximum number of probes to create when baking reverb.
 Mc]T=
@@ -2570,6 +2600,7 @@ Not Before:
 Not safe to 'new' this class due to alignment requirements
 NrPn
 Nu6Q
+Number of rays to trace for estimating inside outside status of a probe.
 Nw!qB
 NwJ\rH
 Nz3I#B
@@ -2580,6 +2611,7 @@ O05"
 O1NzNfj'fGv
 O7v%
 O?#7n
+OBB_t
 OBJ lib
 OBJECT
 OBJECT DESCRIPTOR
@@ -3090,6 +3122,11 @@ Require Explicit Policy
 ResourceCompiler/SteamAudio/CustomDataDefaults/BakeDimensions
 ResourceCompiler/SteamAudio/CustomDataDefaults/BakeMaterials
 ResourceCompiler/SteamAudio/CustomDataDefaults/BakeOcclusion
+ResourceCompiler/SteamAudio/CustomDataDefaults/DimensionsInsideSizeFieldOrder
+ResourceCompiler/SteamAudio/CustomDataDefaults/DimensionsInsideThreshold
+ResourceCompiler/SteamAudio/CustomDataDefaults/DimensionsOutsideFieldOrder
+ResourceCompiler/SteamAudio/CustomDataDefaults/DimensionsOutsideThreshold
+ResourceCompiler/SteamAudio/CustomDataDefaults/DimensionsSizeThreshold
 ResourceCompiler/SteamAudio/CustomDataDefaults/FilterUsingNavMesh
 ResourceCompiler/SteamAudio/CustomDataDefaults/FilterUsingVolumes
 ResourceCompiler/SteamAudio/CustomDataDefaults/GridGenerationType
@@ -3124,6 +3161,8 @@ ResourceCompiler/SteamAudio/ReverbDefaults/IRDuration
 ResourceCompiler/SteamAudio/ReverbDefaults/NumBounces
 ResourceCompiler/SteamAudio/ReverbDefaults/NumRays
 ResourceCompiler/SteamAudio/ReverbDefaults/RebakeOption
+Reverb: %d static probes. %d clustered probes. %d movable reverbs.\n
+Reverb: (Movable %d) %d static probes. %d clustered probes.\n
 Reverb: Baked data file is the wrong format version, skipping load. Consider re-baking. (%s)\n
 Reverb: Baked data file is the wrong format version, skipping load. Consider re-baking.\n
 Reverb: Baked data file is the wrong format, skipping load. Consider re-baking. (%s)\n
@@ -3131,7 +3170,7 @@ Reverb: Baked data file is the wrong format, skipping load. Consider re-baking.\
 Reverb: Cannot find baked reverb file: %s. Reverb disabled.\n
 Reverb: Cannot find baked reverb file: %s.\n
 Reverb: Filesystem not initialized.\n
-Reverb: Imported %d probes from baked reverb file (%s).\n
+Reverb: Imported baked reverb data (%s).\n
 Reverb: Loaded baked data file (%s).\n
 Reverb: No baked reverb found in baked data file.\n
 Reverb: No baked reverb found in baked data file: %s.\n
@@ -3338,12 +3377,16 @@ Set the maximum update rate (in Hz) for reverb.
 Set the overlap fraction (0 to 1) for hybrid reverb.
 Set the transition time (in seconds) between convolution and parametric reverb.
 SetConsoleMode
+SetGrowSize
 Sets the number of threads used for realtime reflection by Steam Audio.
 Signature verification failed.
 Sn^G
+SoundSystemLowLevel
 Sr89[
 Stack part of OpenSSL 1.0.2j  26 Sep 2016
 SteamAudio
+SteamAudioCustomDataDimensionsSettings_t
+SteamAudioCustomDataOcclusionSettings_t
 SteamAudioPathSettings_t
 SteamAudioReverbClusteringSettings_t
 SteamAudioReverbCompressionSettings_t
@@ -3815,6 +3858,7 @@ Z~wl
 \W%08lX
 \Y|W2
 \\MVT
+\\tV_powd
 \f%\f/\f1\fA\f[\f_\fa\fm\fs\fw\f
 \f7ig
 \f<<0A1pq
@@ -3858,7 +3902,6 @@ Z~wl
 \rWhO
 \rY=QX
 \rYYHl
-\r\tV_atanf
 \r\vpL1
 \r^mX
 \ri1I
@@ -3874,6 +3917,7 @@ Z~wl
 \tHAI8xpH\f
 \tJm_9
 \tLa0+
+\tV_atanf
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\v\n\v\n\v\n\v\n\v\n\v\n\v\n\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\r\f\r\f\r\f\r\f\r\f\r\f\r\f\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r
 \toRE
 \ttqE5
@@ -4016,6 +4060,7 @@ algorithm
 algorithm mismatch
 algorithms
 already loaded
+always
 ansi-X9-62
 anyExtendedKeyUsage
 anyPolicy
@@ -4148,6 +4193,7 @@ bad value
 bad version number
 bad write retry
 bad x509 filetype
+base
 base64 decode error
 base64 encoding
 basicConstraints
@@ -4236,7 +4282,6 @@ cNAMERecord
 cNUGK
 cRLSign
 c\r1m
-c\tV_powd
 c`FE%
 ca dn length mismatch
 ca dn too long
@@ -4575,7 +4620,6 @@ des-ede3-cfb8
 des-ede3-ofb
 des-ofb
 des3
-description
 destinationIndicator
 desx
 desx-cbc
@@ -4864,6 +4908,7 @@ expecting an object
 expecting an rsa key
 expecting private key blob
 expecting public key blob
+experimental
 explicit
 explicit length mismatch
 explicit tag not constructed
@@ -5502,6 +5547,7 @@ iplImpulseResponse2GetNumSamples
 iplImpulseResponse2Release
 iplImpulseResponse2Reset
 iplImpulseResponse2SwapSource
+iplImpulseResponseCopy
 iplImpulseResponseCreate
 iplImpulseResponseGetChannel
 iplImpulseResponseGetNumChannels
@@ -5530,10 +5576,12 @@ iplProbeBatchAddProbe
 iplProbeBatchAddProbeArray
 iplProbeBatchCommit
 iplProbeBatchCreate
+iplProbeBatchGetEnergyField
 iplProbeBatchGetInfluencingProbes
 iplProbeBatchGetNumProbes
 iplProbeBatchGetProbe
 iplProbeBatchGetProbeArray
+iplProbeBatchGetReverb
 iplProbeBatchLoad
 iplProbeBatchLookupBakedReflections
 iplProbeBatchLookupCreate
@@ -5548,6 +5596,7 @@ iplProbeNeighborhoodCheckOcclusion
 iplProbeNeighborhoodCreate
 iplProbeNeighborhoodFindNearest
 iplProbeNeighborhoodGetNumProbes
+iplProbeNeighborhoodGetNumValidProbes
 iplProbeNeighborhoodGetProbe
 iplProbeNeighborhoodGetProbeIndex
 iplProbeNeighborhoodRelease
@@ -5559,7 +5608,6 @@ iplReconstructorCreate
 iplReconstructorReconstruct
 iplReconstructorRelease
 iplReflectionsBakerBake
-iplReflectionsBakerCancelBake
 iplReverbEstimatorApplyScale
 iplReverbEstimatorCreate
 iplReverbEstimatorRelease
@@ -5785,18 +5833,27 @@ mOD:V
 mS'7
 mXRecord
 mZKB
+m\tV_sinhf
 m\ta=\ruWb
 m_bEnableClustering
 m_bEnableCompression
+m_bEnablePathing
+m_bEnableReflections
 m_clusteredProbes
 m_compressedClusteredData
 m_compressedData
+m_field
 m_flDepthThreshold
 m_flIRDuration
+m_flInsideThreshold
+m_flOutsideThreshold
 m_flProbePathRange
 m_flProbeVisRadius
 m_flProbeVisThreshold
+m_flSizeThreshold
 m_nAmbisonicsOrder
+m_nAmbisonicsOrderInsideSizeField
+m_nAmbisonicsOrderOutsideField
 m_nBands
 m_nBins
 m_nChannels
@@ -5805,6 +5862,8 @@ m_nNumBounces
 m_nNumRays
 m_nNumVisSamples
 m_nProbes
+m_nReflectionBounces
+m_nReflectionRays
 m_pClusteredProbeBatch
 m_pCompressedData
 m_pProbeBatch
@@ -5812,13 +5871,24 @@ m_probes
 m_reverbClusteringSettings
 m_reverbCompressionSettings
 m_reverbSettings
+m_vMaxBounds
+m_vMinBounds
 m_vecClusterForProbe
 m_vecCompressedData
 m_vecDictionary
 m_vecInOut
+m_vecInsideSmallSizeField
 m_vecMaterialTokens
 m_vecMaterialWeights
+m_vecMovableReverbAABBs
+m_vecMovableReverbInitialTransforms
+m_vecMovableReverbKeyTokens
+m_vecMovableReverbKeys
+m_vecMovableReverbOBBs
+m_vecMovableReverbTransforms
+m_vecMovableReverbs
 m_vecNumSingularValues
+m_vecOutsideField
 m_vecPathingDeviation
 m_vecPathingRatio
 m_vecReflectionRatio
@@ -5840,6 +5910,7 @@ manager
 maskGenAlgorithm
 maskGenFunc
 master secret
+matrix3x4_t
 max_hrtf_normalization_volume_gain_db
 maximum
 maxsize=
@@ -6509,6 +6580,7 @@ retransmit:  message %d non-existant\n
 reuse cert length not zero
 reuse cert type not zero
 reuse cipher list not zero
+reverb_min_absorptive_gain
 reverse
 revocationDate
 revocationReason
@@ -6870,6 +6942,8 @@ snd_steamaudio_max_convolution_sources
 snd_steamaudio_max_hrtf_normalization_gain_db
 snd_steamaudio_max_occlusion_samples
 snd_steamaudio_max_probes_customdata
+snd_steamaudio_max_probes_customdata_dimensions
+snd_steamaudio_max_probes_customdata_materials
 snd_steamaudio_max_probes_pathing
 snd_steamaudio_max_probes_reverb
 snd_steamaudio_normalize_default_hrtf_volume
@@ -7037,6 +7111,12 @@ steamaudio.dll
 steamaudio_customdata_bake_dimensions
 steamaudio_customdata_bake_materials
 steamaudio_customdata_bake_occlusion
+steamaudio_customdata_dimensions_inside_threshold
+steamaudio_customdata_dimensions_insidesize_order
+steamaudio_customdata_dimensions_numrays
+steamaudio_customdata_dimensions_outside_order
+steamaudio_customdata_dimensions_outside_threshold
+steamaudio_customdata_dimensions_size_threshold
 steamaudio_customdata_filter_navmesh
 steamaudio_customdata_filter_volumes
 steamaudio_customdata_generation_type
@@ -7114,7 +7194,6 @@ tLY^m`6
 tLl 
 tLsq
 tNt5
-t\tV_sinhf
 tag mismatch
 tag value too high
 tag=

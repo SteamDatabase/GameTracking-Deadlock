@@ -132,7 +132,7 @@ CitadelHudTopBarPlayer #PlayerAbilitiesContainer .button_container
 	margin: 0px 0px;
 }
 
-CitadelAbilityIcon:not(.ReadOnly):hover .button_container
+.SegmentHover CitadelAbilityIcon:not(.ReadOnly) .button_container,CitadelAbilityIcon:not(.ReadOnly):hover .button_container
 {
 	pre-transform-scale2d: 1.15;
 	transform: translateY(-5px);
@@ -154,10 +154,11 @@ CitadelHudTopBarPlayer #PlayerAbilitiesContainer CitadelAbilityIcon:hover .butto
 	width: 100%;
 	height: 100%;
 	background-size: cover;
-	wash-color: #e8e4ea;
+	wash-color: keybindBGColor;
 	background-image: url("s2r://panorama/images/hud/core/ability_static_frame_icon_tex_png.vtex");
 	background-image: url("s2r://panorama/images/hud/core/ability_static_frame_icon.vsvg");
-	background-image: url("s2r://panorama/images/hud/core/ability_frame_0.vsvg");
+	background-image: url("s2r://panorama/images/hud/core/ability_frame_passive_0.vsvg");
+	background-image: url("s2r://panorama/images/hud/core/ability_frame_passive_0_psd.vtex");
 }
 
 CitadelHudTopBarPlayer #PlayerAbilitiesContainer .ability_bg
@@ -187,7 +188,7 @@ CitadelHudTopBarPlayer #PlayerAbilitiesContainer .ability_bg
 	margin-bottom: 110px;
 }
 
-#AbilityPopup #AbilityIcon.build_suggestion .build_suggestion_container
+#RadialAbilitiesMenu #AbilityIcon.build_suggestion .build_suggestion_container,#AbilityPopup #AbilityIcon.build_suggestion .build_suggestion_container
 {
 	visibility: visible;
 }
@@ -319,7 +320,7 @@ CitadelAbilityIcon.upgradeApplied .ability_bg,.wants_scoreboard CitadelAbilityIc
 	
 }
 
-.AbilityCastFailed.ability_container
+.AbilityCastFailed .button_container
 {
 	wash-color: colorEnemy;
 	animation-name: abilityCastFailedAnimation;
@@ -352,14 +353,106 @@ CitadelAbilityIcon.upgradeApplied .ability_bg,.wants_scoreboard CitadelAbilityIc
 	
 }
 
+.AbilityUpgradeFailed .button_container
+{
+	wash-color: apCurrencyColor;
+	animation-name: abilityUpgradeFailedAnimation;
+	animation-timing-function: ease-out;
+	animation-duration: 0.06666s;
+	animation-iteration-count: 4;
+}
+
+@keyframes 'abilityUpgradeFailedAnimation'
+{
+	0%
+	{
+		transform: translateX(2px);
+	}
+	
+	60%
+	{
+		transform: translateX(2px);
+	}
+	
+	61%
+	{
+		transform: translateX(-2px);
+	}
+	
+	100%
+	{
+		transform: translateX(-2px);
+	}
+	
+}
+
+CitadelAbilityIcon.AbilityCooldownEndChanged .ability_bg
+{
+	animation-name: cooldownChanged;
+	animation-duration: 0.5s;
+	animation-iteration-count: 1;
+}
+
+@keyframes 'cooldownChanged'
+{
+	0%
+	{
+		brightness: 1;
+		wash-color: spiritBrightColor&00;
+		opacity: 1;
+	}
+	
+	50%
+	{
+		pre-transform-scale2d: 1.3;
+		wash-color: spiritBrightColor&F0;
+		opacity: 1;
+	}
+	
+	100%
+	{
+		pre-transform-scale2d: 1;
+		wash-color: spiritBrightColor&00;
+		opacity: 1;
+	}
+	
+}
+
+.AbilityCooldownEndChanged #cooldown_mask
+{
+	animation-name: cooldownChangedRadial;
+	animation-duration: 0.3s;
+	animation-iteration-count: 1;
+}
+
+@keyframes 'cooldownChangedRadial'
+{
+	0%
+	{
+		background-color: spiritBrightColor&00 opacity: 0.9;
+	}
+	
+	50%
+	{
+		background-color: spiritBrightColor&F0 opacity: 0.9;
+	}
+	
+	100%
+	{
+		background-color: spiritBrightColor&00 opacity: 0.9;
+	}
+	
+}
+
 .ability_ring
 {
 	width: 100%;
 	height: 100%;
 	background-size: cover;
-	wash-color: #e8e4ea;
+	wash-color: keybindBGColor;
 	opacity: 0.8;
 	background-image: url("s2r://panorama/images/hud/core/ability_static_frame_border.vsvg");
+	background-image: url("s2r://panorama/images/hud/core/ability_frame_passive_1_psd.vtex");
 }
 
 .Tier0 .ability_ring
@@ -377,17 +470,19 @@ CitadelAbilityIcon.upgradeApplied .ability_bg,.wants_scoreboard CitadelAbilityIc
 .Tier1 .ability_bg
 {
 	background-image: url("s2r://panorama/images/hud/core/ability_frame_1.vsvg");
-	background-image: url("s2r://panorama/images/hud/core/ability_frame_0.vsvg");
+	background-image: url("s2r://panorama/images/hud/core/ability_frame_passive_0.vsvg");
 }
 
 .Tier2 .ability_bg
 {
 	background-image: url("s2r://panorama/images/hud/core/ability_frame_2.vsvg");
+	background-image: url("s2r://panorama/images/hud/core/ability_frame_passive_2_psd.vtex");
 }
 
 .Tier3 .ability_bg
 {
 	background-image: url("s2r://panorama/images/hud/core/ability_frame_3.vsvg");
+	background-image: url("s2r://panorama/images/hud/core/ability_frame_passive_3_psd.vtex");
 }
 
 .signature.item_passive.Tier0 .ability_bg,.usingControllerSpecificGlyphs.isUsingController .signature.Tier0 .ability_bg
@@ -580,15 +675,14 @@ CitadelHudTopBarPlayer CitadelAbilityIcon
 	padding-top: 0px;
 	font-size: 14px;
 	margin-bottom: 5px;
-	font-weight: bold;
 	background-size: cover;
 	text-align: center;
 	border-radius: 2px;
-	wash-color: #dedede;
 	text-transform: uppercase;
 	horizontal-align: middle;
 	vertical-align: bottom;
 	visibility: collapse;
+	wash-color: none;
 }
 
 .usingControllerSpecificGlyphs.isUsingController .ability_key_container
@@ -606,6 +700,26 @@ CitadelHudTopBarPlayer #PlayerAbilitiesContainer .ability_key_container
 	visibility: visible;
 }
 
+.HasUpgradeKeyBind #ability_upgrade_binding_component
+{
+	visibility: collapse;
+}
+
+.gAbilityUpgradeMenu .HasUpgradeKeyBind #ability_upgrade_binding_component
+{
+	visibility: visible;
+}
+
+.gAbilityUpgradeMenu .HasKeyBind.HasUpgradeKeyBind #ability_binding_component
+{
+	visibility: collapse;
+}
+
+.ReadOnly .ability_key_container
+{
+	opacity: 0;
+}
+
 #UltimateAbilityIcon .ability_key_container
 {
 	visibility: collapse;
@@ -613,7 +727,7 @@ CitadelHudTopBarPlayer #PlayerAbilitiesContainer .ability_key_container
 
 .not_trained .ability_key_container
 {
-	opacity: 0.1;
+	opacity: 0.4;
 }
 
 .ability_upgradable .ability_key_container
@@ -841,6 +955,14 @@ CitadelHudTopBarPlayer #PlayerAbilitiesContainer .ability_image
 	animation-iteration-count: infinite;
 }
 
+.gAbilityUpgradeMenu .ability_upgradable .image_container
+{
+	saturation: 1;
+	wash-color: offBlack;
+	opacity: 0.9;
+	animation-name: none;
+}
+
 .ability_upgradable .ability_bg
 {
 	saturation: 1;
@@ -852,6 +974,12 @@ CitadelHudTopBarPlayer #PlayerAbilitiesContainer .ability_image
 	animation-timing-function: ease-out;
 }
 
+.gAbilityUpgradeMenu .ability_upgradable.trained .ability_bg
+{
+	wash-color: keybindBGColor;
+	animation-name: none;
+}
+
 .ability_upgradable .ability_ring
 {
 	saturation: 1;
@@ -861,6 +989,12 @@ CitadelHudTopBarPlayer #PlayerAbilitiesContainer .ability_image
 	animation-duration: 2s;
 	animation-iteration-count: infinite;
 	animation-timing-function: ease-out;
+}
+
+.gAbilityUpgradeMenu .ability_upgradable.trained .ability_ring
+{
+	wash-color: none;
+	animation-name: none;
 }
 
 .ability_upgradable.build_suggestion .ability_bg
@@ -1057,6 +1191,11 @@ CitadelHudTopBarPlayer #PlayerAbilitiesContainer .ability_image
 	background-color: offBlack&ee;
 	opacity: 0.90;
 	opacity-mask: url("s2r://panorama/images/hud/core/ability_frame_standard.vsvg");
+}
+
+.not_trained #cooldown_mask
+{
+	visibility: collapse;
 }
 
 .Tier0.cooling_down #cooldown_mask,.Tier0.ability_not_ready #cooldown_mask
@@ -1287,7 +1426,7 @@ CitadelHudTopBarPlayer #PlayerAbilitiesContainer .ability_image
 	margin-right: 8px;
 }
 
-CitadelHudAbilities CitadelHudAbilityUpgradePips
+CitadelRadialAbilitiesSegment CitadelHudAbilityUpgradePips,CitadelHudAbilities CitadelHudAbilityUpgradePips
 {
 	ignore-parent-flow: true;
 	visibility: collapse;

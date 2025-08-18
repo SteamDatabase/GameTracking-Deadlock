@@ -1,0 +1,289 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_source_reverb_send = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					source_reverb_update = 
+					{
+						data_type = "bool"
+						value = "false"
+						_system_properties = 
+						{
+							property_group = "citadel_source_reverb_send"
+						}
+					}
+					source_reverb_enclosure_exterior_level = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+							"[ 1.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "advanced"
+							display_edit_type = "field_curve_2d_editor"
+							property_help = "Maps enclosure ( 0-255 ) to exterior reverb volume. Interior amount will be inverse."
+							property_group = "citadel_source_reverb_send"
+						}
+					}
+					source_reverb_sky_exposed_exterior_floor = 
+					{
+						data_type = "float"
+						value = ".25"
+						_system_properties = 
+						{
+							property_group = "citadel_source_reverb_send"
+							property_help = "Minimum value of exterior reverb when exposed to the sky."
+						}
+					}
+					source_reverb_emitter_location = 
+					{
+						data_type = "float3"
+						value = "0., 0., 0."
+						_system_properties = 
+						{
+							property_group = "citadel_source_reverb_send"
+						}
+					}
+					source_reverb_distance = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							property_group = "citadel_source_reverb_send"
+						}
+					}
+					source_reverb_spread_min_distance = 
+					{
+						data_type = "float"
+						value = "250.0"
+						_system_properties = 
+						{
+							property_group = "citadel_source_reverb_send"
+						}
+					}
+					source_reverb_spread_max_distance = 
+					{
+						data_type = "float"
+						value = "500.0"
+						_system_properties = 
+						{
+							property_group = "citadel_source_reverb_send"
+						}
+					}
+					source_reverb_level = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							property_group = "citadel_source_reverb_send"
+						}
+					}
+					source_reverb_voice_volume = 
+					{
+						data_type = "float"
+						value = "1.0"
+						_system_properties = 
+						{
+							property_group = "citadel_source_reverb_send"
+						}
+					}
+					source_reverb_distance_level_mult = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+							"[ 1.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "advanced"
+							display_edit_type = "field_curve_2d_editor"
+							property_help = "Maps enclosure distance to reverb send mult."
+							property_group = "citadel_source_reverb_send"
+						}
+					}
+					source_reverb_mixer_dsp = 
+					{
+						data_type = "float"
+						value = "1.0"
+						_system_properties = 
+						{
+							display_group = "advanced"
+							property_group = "citadel_source_reverb_send"
+						}
+					}
+				}
+			},
+			
+			{
+				name = "math_should_update"
+				execute_once = "1.0"
+				operator = "math_float"
+				apply = "sub"
+				input1 = "1.0"
+				input2 = "@public.source_reverb_update"
+			},
+			
+			{
+				name = "source_info"
+				execute_once = "1.0"
+				operator = "game_get_source_info"
+			},
+			
+			{
+				name = "citadel_entity_info"
+				execute_once = "@math_should_update.output"
+				operator = "citadel_entity_info"
+				input_entity_index = "@source_info.output_entity_index"
+			},
+			
+			{
+				name = "remap_exterior_reverb_level"
+				execute_once = "@math_should_update.output"
+				operator = "math_curve_2d"
+				input = "@citadel_entity_info.output_enclosure"
+				public_field_name = "public.source_reverb_enclosure_exterior_level"
+			},
+			
+			{
+				name = "math_invert_exterior"
+				execute_once = "@math_should_update.output"
+				operator = "math_float"
+				apply = "sub"
+				input1 = "1.0"
+				input2 = "@remap_exterior_reverb_level.output"
+			},
+			
+			{
+				name = "math_reverb_exterior_amount_max"
+				execute_once = "@math_should_update.output"
+				operator = "math_float"
+				apply = "max"
+				input1 = "@remap_exterior_reverb_level.output"
+				input2 = "@public.source_reverb_sky_exposed_exterior_floor"
+			},
+			
+			{
+				name = "ctrl_switch_exterior_amount"
+				execute_once = 1.000000
+				operator = "ctrl_switch_float"
+				input_switch = "@citadel_entity_info.output_has_sky_exposure"
+				input1 = "@remap_exterior_reverb_level.output"
+				input2 = "@math_reverb_exterior_amount_max.output"
+			},
+			
+			{
+				name = "remap_distance_mult"
+				execute_once = "@math_should_update.output"
+				operator = "math_curve_2d"
+				input = "@public.source_reverb_distance"
+				public_field_name = "public.source_reverb_distance_level_mult"
+			},
+			
+			{
+				name = "math_source_reverb_level"
+				operator = "math_accumulate12_float"
+				apply = "mult"
+				input1 = "@remap_distance_mult.output"
+				input2 = "@public.source_reverb_level"
+				input3 = "@public.source_reverb_voice_volume"
+				input4 = "@public.source_reverb_mixer_dsp"
+			},
+			
+			{
+				name = "send_reverb_level"
+				execute_once = "@math_should_update.output"
+				operator = "vmix_voicegraph_input"
+				input_name = "source_reverb_level"
+				input = "@math_source_reverb_level.output"
+			},
+			
+			{
+				name = "send_exterior_amount"
+				execute_once = "@math_should_update.output"
+				operator = "vmix_voicegraph_input"
+				input_name = "source_reverb_exterior_amount"
+				input = "@ctrl_switch_exterior_amount.output"
+			},
+			
+			{
+				name = "send_interior_amount"
+				execute_once = "@math_should_update.output"
+				operator = "vmix_voicegraph_input"
+				input_name = "source_reverb_interior_amount"
+				input = "@math_invert_exterior.output"
+			},
+			
+			{
+				name = "globals"
+				execute_once = "@math_should_update.output"
+				operator = "get_system_globals"
+				input_execute = "1.0"
+				input_listener_index = "0"
+			},
+			
+			{
+				name = "math_dot_product_listener_right"
+				execute_once = "@math_should_update.output"
+				operator = "vector_facing_point"
+				input_vec_forward = "@globals.output_listener_left"
+				input_listener_position = "@globals.output_listener_position"
+				input_source_position = "@public.source_reverb_emitter_location"
+			},
+			
+			{
+				name = "math_invert_dot"
+				execute_once = "@math_should_update.output"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@math_dot_product_listener_right.output_dot_product"
+				input2 = "-1.0"
+			},
+			
+			{
+				name = "remap_pan_spread"
+				operator = "math_remap_float"
+				execute_once = "@math_should_update.output"
+				input = "@public.source_reverb_distance"
+				input_min = "@public.source_reverb_spread_min_distance"
+				input_max = "@public.source_reverb_spread_max_distance"
+				input_map_min = "0.0"
+				input_map_max = "@math_invert_dot.output"
+				default_to_max = "false"
+			},
+			
+			{
+				name = "send_panner_value"
+				input_execute = "1.0"
+				execute_once = "@math_should_update.output"
+				operator = "vmix_voicegraph_input"
+				input_name = "source_reverb_pan_amount"
+				input = "@remap_pan_spread.output"
+			},
+			
+			{
+				name = "send_enclosure_param"
+				input_execute = "1"
+				execute_once = "@math_should_update.output"
+				operator = "vmix_voicegraph_input"
+				input_name = "source_reverb_enclosure"
+				input = "@citadel_entity_info.output_enclosure"
+			},
+		]
+	}
+}

@@ -1,10 +1,11 @@
 <!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
 {
-	Ghost.Wpn.Fire = 
+	Geist.Wpn.Fire = 
 	{
 		base = "Base.Weapon.Revolver"
-		volume = 2.000000
-		recency_bias_max_scale = 0.650000
+		volume = -1.000000
+		low_ammo_vol_offset_db = 3.000000
+		last_shot_vol_offset_db = 2.000000
 		vsnd_files = 
 		[
 			"sounds/weapons/geist/geist_weapon_fire_01.vsnd",
@@ -14,9 +15,19 @@
 			"sounds/weapons/geist/geist_weapon_fire_05.vsnd",
 			"sounds/weapons/geist/geist_weapon_fire_06.vsnd",
 		]
+		vsnd_files_last_shot = 
+		[
+			"sounds/weapons/geist/geist_wpn_last_shot_01.vsnd",
+		]
 		vsnd_duration = 2.176871
 	}
-	Ghost.Wpn.BulletWhizby = 
+	Geist.Wpn.Fire.First = 
+	{
+		base = "Geist.Wpn.Fire"
+		transient_offset_db = 3.000000
+		limiter_max = 0.000000
+	}
+	Geist.Wpn.BulletWhizby = 
 	{
 		base = "Base.Bullet.Whizby"
 		volume = -2.000000
@@ -45,7 +56,7 @@
 		]
 		vsnd_duration = 0.510340
 	}
-	Ghost.Wpn.Impact = 
+	Geist.Wpn.Impact = 
 	{
 		base = "Base.Bullet.Impact"
 		volume = 2.000000
@@ -64,10 +75,10 @@
 		]
 		vsnd_duration = 0.481247
 	}
-	Ghost.Wpn.Zoom.In = 
+	Geist.Wpn.Zoom.In = 
 	{
-		base = "Base.Hero.Weapon.Zoom.2d"
-		volume = -12.000000
+		base = "Base.Weapon.Foley"
+		volume = -2.000000
 		vsnd_files = 
 		[
 			"sounds/weapons/dynamo/zoom/in_1.vsnd",
@@ -78,10 +89,10 @@
 		]
 		vsnd_duration = 0.433667
 	}
-	Ghost.Wpn.Zoom.Out = 
+	Geist.Wpn.Zoom.Out = 
 	{
-		base = "Base.Hero.Weapon.Zoom.2d"
-		volume = -11.000000
+		base = "Base.Weapon.Foley"
+		volume = -2.000000
 		vsnd_files = 
 		[
 			"sounds/weapons/dynamo/zoom/out_1.vsnd",
@@ -91,6 +102,45 @@
 			"sounds/weapons/dynamo/zoom/out_5.vsnd",
 		]
 		vsnd_duration = 0.274687
+	}
+	Geist.Wpn.Reload.Start = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -2.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/geist/reload/geist_wpn_reload_start_01.vsnd",
+			"sounds/weapons/geist/reload/geist_wpn_reload_start_02.vsnd",
+			"sounds/weapons/geist/reload/geist_wpn_reload_start_03.vsnd",
+		]
+		vsnd_duration = 1.539841
+	}
+	Geist.Wpn.Reload.Mid = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -2.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/geist/reload/geist_wpn_reload_mid_01.vsnd",
+			"sounds/weapons/geist/reload/geist_wpn_reload_mid_02.vsnd",
+			"sounds/weapons/geist/reload/geist_wpn_reload_mid_03.vsnd",
+		]
+		vsnd_duration = 0.561406
+	}
+	Geist.Wpn.Reload.End = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -2.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/geist/reload/geist_wpn_reload_end_01.vsnd",
+			"sounds/weapons/geist/reload/geist_wpn_reload_end_02.vsnd",
+			"sounds/weapons/geist/reload/geist_wpn_reload_end_03.vsnd",
+		]
+		vsnd_duration = 0.465306
 	}
 	Ghost.BloodBomb.Cast = 
 	{
@@ -135,7 +185,6 @@
 		delay_rand_min = -10.000000
 		volume_fade_in = 0.100000
 		volume_fade_out = 0.200000
-		play_from_listener_player = 1.000000
 		vsnd_files = "sounds/abilities/geist/geist_blood_bomb_select_lp.vsnd"
 		vsnd_duration = 11.935533
 	}
@@ -164,7 +213,6 @@
 		base = "Base.Ability"
 		volume = -2.000000
 		volume_enemy_targeting_boost = 4.000000
-		play_from_listener_player = 1.000000
 		vsnd_files = "sounds/abilities/geist/geist_life_drain_end.vsnd"
 		vsnd_duration = 5.321134
 	}
@@ -172,7 +220,6 @@
 	{
 		base = "Base.Ability.StatusEffect"
 		volume = -6.000000
-		play_from_listener_player = 1.000000
 		vsnd_files = "sounds/abilities/geist/geist_life_drain_cast.vsnd"
 		vsnd_duration = 5.938503
 	}
@@ -180,7 +227,6 @@
 	{
 		base = "Base.Ability.Telegraph"
 		volume = -6.000000
-		play_from_listener_player = 1.000000
 		volume_fade_in = 0.100000
 		volume_fade_out = 0.200000
 		delay_rand_min = -10.000000
@@ -217,193 +263,11 @@
 		vsnd_files = "sounds/abilities/geist/geist_life_drain_cast_victim_lp.vsnd"
 		vsnd_duration = 12.249977
 	}
-	Ghost.BloodShards.Proj.Lp = 
-	{
-		base = "Base.Ability"
-		pitch = 1.050000
-		volume = 0.000000
-		pitch_rand_min = -0.020025
-		pitch_rand_max = 0.220220
-		limiter_on = 1.000000
-		limiter_max = 3.000000
-		volume_fade_out = 0.100000
-		delay = 0.000000
-		delay_rand_max = -4.000000
-		vsnd_files = "sounds/abilities/ghost/a3_malice/proj_lp.vsnd"
-		vsnd_duration = 7.539166
-	}
-	Ghost.Blood.Exchange.Cast = 
-	{
-		base = "Base.Ability.Ult"
-		volume = 4.000000
-		vsnd_files = "sounds/abilities/geist/geist_soul_exchange_cast.vsnd"
-		vsnd_duration = 4.612880
-	}
-	Ghost.Blood.Exchange.Cast.Victim = 
-	{
-		base = "Base.Ability.StatusEffect"
-		volume = 0.000000
-		vsnd_files = "sounds/abilities/geist/geist_soul_exchange_cast_victim.vsnd"
-		vsnd_duration = 6.712404
-	}
-	Geist.JumpLand = 
-	{
-		base = "Base.Footsteps.JumpLand"
-		volume = 0.000000
-		vsnd_files = 
-		[
-			"sounds/player/movement/ghost/ghost_jump_land_01.vsnd",
-			"sounds/player/movement/ghost/ghost_jump_land_02.vsnd",
-			"sounds/player/movement/ghost/ghost_jump_land_03.vsnd",
-			"sounds/player/movement/ghost/ghost_jump_land_04.vsnd",
-			"sounds/player/movement/ghost/ghost_jump_land_05.vsnd",
-			"sounds/player/movement/ghost/ghost_jump_land_06.vsnd",
-			"sounds/player/movement/ghost/ghost_jump_land_07.vsnd",
-			"sounds/player/movement/ghost/ghost_jump_land_08.vsnd",
-			"sounds/player/movement/ghost/ghost_jump_land_09.vsnd",
-		]
-		vsnd_duration = 0.683673
-	}
-	Geist.Mantle = 
-	{
-		base = "Base.Movement"
-	}
-	Geist.SlideLandSweetener = 
-	{
-		base = "Base.Movement"
-		volume = -12.000000
-		vsnd_files = 
-		[
-			"sounds/player/movement/ghost/ghost_jump_land_01.vsnd",
-			"sounds/player/movement/ghost/ghost_jump_land_02.vsnd",
-			"sounds/player/movement/ghost/ghost_jump_land_03.vsnd",
-			"sounds/player/movement/ghost/ghost_jump_land_04.vsnd",
-			"sounds/player/movement/ghost/ghost_jump_land_05.vsnd",
-			"sounds/player/movement/ghost/ghost_jump_land_06.vsnd",
-			"sounds/player/movement/ghost/ghost_jump_land_07.vsnd",
-			"sounds/player/movement/ghost/ghost_jump_land_08.vsnd",
-			"sounds/player/movement/ghost/ghost_jump_land_09.vsnd",
-		]
-		vsnd_duration = 0.683673
-	}
-	Geist.SlideGetUp = 
-	{
-		base = "Base.Movement"
-		volume = -12.000000
-		vsnd_files = 
-		[
-			"sounds/player/movement/ghost/ghost_jump_land_01.vsnd",
-			"sounds/player/movement/ghost/ghost_jump_land_02.vsnd",
-			"sounds/player/movement/ghost/ghost_jump_land_03.vsnd",
-			"sounds/player/movement/ghost/ghost_jump_land_04.vsnd",
-			"sounds/player/movement/ghost/ghost_jump_land_05.vsnd",
-			"sounds/player/movement/ghost/ghost_jump_land_06.vsnd",
-			"sounds/player/movement/ghost/ghost_jump_land_07.vsnd",
-			"sounds/player/movement/ghost/ghost_jump_land_08.vsnd",
-			"sounds/player/movement/ghost/ghost_jump_land_09.vsnd",
-		]
-		vsnd_duration = 0.683673
-	}
-	Geist.Melee.Swing.Charged = 
-	{
-		base = "Base.Ability.Melee"
-		vsnd_files = 
-		[
-			"sounds/player/melee/shared/swing_short_01.vsnd",
-			"sounds/player/melee/shared/swing_short_02.vsnd",
-			"sounds/player/melee/shared/swing_short_03.vsnd",
-			"sounds/player/melee/shared/swing_short_04.vsnd",
-			"sounds/player/melee/shared/swing_short_05.vsnd",
-			"sounds/player/melee/shared/swing_short_06.vsnd",
-			"sounds/player/melee/shared/swing_short_07.vsnd",
-			"sounds/player/melee/shared/swing_short_08.vsnd",
-			"sounds/player/melee/shared/swing_short_09.vsnd",
-			"sounds/player/melee/shared/swing_short_10.vsnd",
-			"sounds/player/melee/shared/swing_short_11.vsnd",
-			"sounds/player/melee/shared/swing_short_12.vsnd",
-			"sounds/player/melee/shared/swing_short_13.vsnd",
-			"sounds/player/melee/shared/swing_short_14.vsnd",
-			"sounds/player/melee/shared/swing_short_15.vsnd",
-			"sounds/player/melee/shared/swing_short_16.vsnd",
-			"sounds/player/melee/shared/swing_short_17.vsnd",
-			"sounds/player/melee/shared/swing_short_18.vsnd",
-			"sounds/player/melee/shared/swing_short_19.vsnd",
-			"sounds/player/melee/shared/swing_short_20.vsnd",
-			"sounds/player/melee/shared/swing_short_21.vsnd",
-			"sounds/player/melee/shared/swing_short_22.vsnd",
-			"sounds/player/melee/shared/swing_short_23.vsnd",
-			"sounds/player/melee/shared/swing_short_24.vsnd",
-		]
-		vsnd_files_track2 = 
-		[
-			"sounds/player/movement/ghost/ghost_foley_short_01.vsnd",
-			"sounds/player/movement/ghost/ghost_foley_short_02.vsnd",
-			"sounds/player/movement/ghost/ghost_foley_short_03.vsnd",
-			"sounds/player/movement/ghost/ghost_foley_short_04.vsnd",
-			"sounds/player/movement/ghost/ghost_foley_short_05.vsnd",
-			"sounds/player/movement/ghost/ghost_foley_short_06.vsnd",
-			"sounds/player/movement/ghost/ghost_foley_short_07.vsnd",
-			"sounds/player/movement/ghost/ghost_foley_short_08.vsnd",
-		]
-		vsnd_duration = 1.062208
-	}
-	Geist.Melee.Swing = 
-	{
-		base = "Base.Ability.Melee"
-		vsnd_files = 
-		[
-			"sounds/player/melee/shared/swing_long_01.vsnd",
-			"sounds/player/melee/shared/swing_long_02.vsnd",
-			"sounds/player/melee/shared/swing_long_03.vsnd",
-			"sounds/player/melee/shared/swing_long_04.vsnd",
-			"sounds/player/melee/shared/swing_long_05.vsnd",
-			"sounds/player/melee/shared/swing_long_06.vsnd",
-			"sounds/player/melee/shared/swing_long_07.vsnd",
-			"sounds/player/melee/shared/swing_long_08.vsnd",
-			"sounds/player/melee/shared/swing_long_09.vsnd",
-			"sounds/player/melee/shared/swing_long_10.vsnd",
-			"sounds/player/melee/shared/swing_long_11.vsnd",
-			"sounds/player/melee/shared/swing_long_12.vsnd",
-			"sounds/player/melee/shared/swing_long_13.vsnd",
-			"sounds/player/melee/shared/swing_long_14.vsnd",
-			"sounds/player/melee/shared/swing_long_15.vsnd",
-			"sounds/player/melee/shared/swing_long_16.vsnd",
-			"sounds/player/melee/shared/swing_long_17.vsnd",
-			"sounds/player/melee/shared/swing_long_18.vsnd",
-			"sounds/player/melee/shared/swing_long_19.vsnd",
-			"sounds/player/melee/shared/swing_long_20.vsnd",
-			"sounds/player/melee/shared/swing_long_21.vsnd",
-			"sounds/player/melee/shared/swing_long_22.vsnd",
-			"sounds/player/melee/shared/swing_long_23.vsnd",
-			"sounds/player/melee/shared/swing_long_24.vsnd",
-			"sounds/player/melee/shared/swing_long_25.vsnd",
-		]
-		vsnd_duration = 1.399792
-	}
-	Geist.Reload.ClipIn = 
-	{
-		base = "Base.Reload"
-		volume = -8.000000
-		pitch_rand_min = -0.100000
-		pitch_rand_max = 0.100000
-		vsnd_files = "sounds/weapons/geist/reload/clipin.vsnd"
-		vsnd_duration = 1.363039
-	}
-	Geist.Reload.End = 
-	{
-		base = "Base.Reload"
-		volume = -3.000000
-		pitch_rand_min = -0.100000
-		pitch_rand_max = 0.100000
-		vsnd_files = "sounds/weapons/geist/reload/end.vsnd"
-		vsnd_duration = 1.103107
-	}
 	Ghost.Malice.Cast = 
 	{
 		base = "Base.Ability"
 		volume = -4.000000
 		volume_enemy_targeting_boost = 4.000000
-		play_from_listener_player = 1.000000
 		volume_offset_player = -2.000000
 		vsnd_files = 
 		[
@@ -467,6 +331,118 @@
 		delay_rand_min = -30.000000
 		vsnd_files = "sounds/abilities/geist/geist_malice_modifier_lp.vsnd"
 		vsnd_duration = 29.744717
+	}
+	Ghost.Blood.Exchange.Cast = 
+	{
+		base = "Base.Ability.Ult"
+		volume = 4.000000
+		vsnd_files = "sounds/abilities/geist/geist_soul_exchange_cast.vsnd"
+		vsnd_duration = 4.612880
+	}
+	Ghost.Blood.Exchange.Cast.Victim = 
+	{
+		base = "Base.Ability.StatusEffect"
+		volume = 0.000000
+		vsnd_files = "sounds/abilities/geist/geist_soul_exchange_cast_victim.vsnd"
+		vsnd_duration = 6.712404
+	}
+	Geist.JumpLand = 
+	{
+		base = "Base.Footsteps.JumpLand"
+		volume = 0.000000
+		vsnd_files = 
+		[
+			"sounds/player/movement/ghost/ghost_jump_land_01.vsnd",
+			"sounds/player/movement/ghost/ghost_jump_land_02.vsnd",
+			"sounds/player/movement/ghost/ghost_jump_land_03.vsnd",
+			"sounds/player/movement/ghost/ghost_jump_land_04.vsnd",
+			"sounds/player/movement/ghost/ghost_jump_land_05.vsnd",
+			"sounds/player/movement/ghost/ghost_jump_land_06.vsnd",
+			"sounds/player/movement/ghost/ghost_jump_land_07.vsnd",
+			"sounds/player/movement/ghost/ghost_jump_land_08.vsnd",
+			"sounds/player/movement/ghost/ghost_jump_land_09.vsnd",
+		]
+		vsnd_duration = 0.683673
+	}
+	Geist.Mantle = 
+	{
+		base = "Base.Movement"
+	}
+	Geist.Melee.Swing.Charged = 
+	{
+		base = "Base.Movement.Melee"
+		vsnd_files = 
+		[
+			"sounds/player/melee/shared/swing_short_01.vsnd",
+			"sounds/player/melee/shared/swing_short_02.vsnd",
+			"sounds/player/melee/shared/swing_short_03.vsnd",
+			"sounds/player/melee/shared/swing_short_04.vsnd",
+			"sounds/player/melee/shared/swing_short_05.vsnd",
+			"sounds/player/melee/shared/swing_short_06.vsnd",
+			"sounds/player/melee/shared/swing_short_07.vsnd",
+			"sounds/player/melee/shared/swing_short_08.vsnd",
+			"sounds/player/melee/shared/swing_short_09.vsnd",
+			"sounds/player/melee/shared/swing_short_10.vsnd",
+			"sounds/player/melee/shared/swing_short_11.vsnd",
+			"sounds/player/melee/shared/swing_short_12.vsnd",
+			"sounds/player/melee/shared/swing_short_13.vsnd",
+			"sounds/player/melee/shared/swing_short_14.vsnd",
+			"sounds/player/melee/shared/swing_short_15.vsnd",
+			"sounds/player/melee/shared/swing_short_16.vsnd",
+			"sounds/player/melee/shared/swing_short_17.vsnd",
+			"sounds/player/melee/shared/swing_short_18.vsnd",
+			"sounds/player/melee/shared/swing_short_19.vsnd",
+			"sounds/player/melee/shared/swing_short_20.vsnd",
+			"sounds/player/melee/shared/swing_short_21.vsnd",
+			"sounds/player/melee/shared/swing_short_22.vsnd",
+			"sounds/player/melee/shared/swing_short_23.vsnd",
+			"sounds/player/melee/shared/swing_short_24.vsnd",
+		]
+		vsnd_files_track2 = 
+		[
+			"sounds/player/movement/ghost/ghost_foley_short_01.vsnd",
+			"sounds/player/movement/ghost/ghost_foley_short_02.vsnd",
+			"sounds/player/movement/ghost/ghost_foley_short_03.vsnd",
+			"sounds/player/movement/ghost/ghost_foley_short_04.vsnd",
+			"sounds/player/movement/ghost/ghost_foley_short_05.vsnd",
+			"sounds/player/movement/ghost/ghost_foley_short_06.vsnd",
+			"sounds/player/movement/ghost/ghost_foley_short_07.vsnd",
+			"sounds/player/movement/ghost/ghost_foley_short_08.vsnd",
+		]
+		vsnd_duration = 1.062208
+	}
+	Geist.Melee.Swing = 
+	{
+		base = "Base.Movement.Melee"
+		vsnd_files = 
+		[
+			"sounds/player/melee/shared/swing_long_01.vsnd",
+			"sounds/player/melee/shared/swing_long_02.vsnd",
+			"sounds/player/melee/shared/swing_long_03.vsnd",
+			"sounds/player/melee/shared/swing_long_04.vsnd",
+			"sounds/player/melee/shared/swing_long_05.vsnd",
+			"sounds/player/melee/shared/swing_long_06.vsnd",
+			"sounds/player/melee/shared/swing_long_07.vsnd",
+			"sounds/player/melee/shared/swing_long_08.vsnd",
+			"sounds/player/melee/shared/swing_long_09.vsnd",
+			"sounds/player/melee/shared/swing_long_10.vsnd",
+			"sounds/player/melee/shared/swing_long_11.vsnd",
+			"sounds/player/melee/shared/swing_long_12.vsnd",
+			"sounds/player/melee/shared/swing_long_13.vsnd",
+			"sounds/player/melee/shared/swing_long_14.vsnd",
+			"sounds/player/melee/shared/swing_long_15.vsnd",
+			"sounds/player/melee/shared/swing_long_16.vsnd",
+			"sounds/player/melee/shared/swing_long_17.vsnd",
+			"sounds/player/melee/shared/swing_long_18.vsnd",
+			"sounds/player/melee/shared/swing_long_19.vsnd",
+			"sounds/player/melee/shared/swing_long_20.vsnd",
+			"sounds/player/melee/shared/swing_long_21.vsnd",
+			"sounds/player/melee/shared/swing_long_22.vsnd",
+			"sounds/player/melee/shared/swing_long_23.vsnd",
+			"sounds/player/melee/shared/swing_long_24.vsnd",
+			"sounds/player/melee/shared/swing_long_25.vsnd",
+		]
+		vsnd_duration = 1.399792
 	}
 	Geist.Movement.Long = 
 	{
@@ -536,5 +512,49 @@
 			"sounds/player/movement/ghost/ghost_foley_short_08.vsnd",
 		]
 		vsnd_duration = 0.262404
+	}
+	Ghost.Progession.Page.Win.VO = 
+	{
+		base = "Base.HeroPick.VO.2d"
+		context_name = "ghost"
+		vsnd_files = 
+		[
+			"sounds/vo/ghost/ghost_win_01.vsnd",
+			"sounds/vo/ghost/ghost_win_02.vsnd",
+			"sounds/vo/ghost/ghost_win_03.vsnd",
+			"sounds/vo/ghost/ghost_win_04.vsnd",
+			"sounds/vo/ghost/ghost_win_05.vsnd",
+			"sounds/vo/ghost/ghost_win_early_01.vsnd",
+			"sounds/vo/ghost/ghost_win_early_01_alt_01.vsnd",
+			"sounds/vo/ghost/ghost_win_early_02.vsnd",
+			"sounds/vo/ghost/ghost_win_early_03.vsnd",
+			"sounds/vo/ghost/ghost_win_early_04.vsnd",
+			"sounds/vo/ghost/ghost_win_early_05.vsnd",
+			"sounds/vo/ghost/ghost_win_late_01.vsnd",
+			"sounds/vo/ghost/ghost_win_late_03.vsnd",
+			"sounds/vo/ghost/ghost_win_late_04.vsnd",
+			"sounds/vo/ghost/ghost_win_late_05.vsnd",
+		]
+		vsnd_duration = 3.260023
+	}
+	Ghost.Progession.Page.Lose.VO = 
+	{
+		base = "Base.HeroPick.VO.2d"
+		context_name = "ghost"
+		vsnd_files = 
+		[
+			"sounds/vo/ghost/ghost_lose_01.vsnd",
+			"sounds/vo/ghost/ghost_lose_02.vsnd",
+			"sounds/vo/ghost/ghost_lose_03.vsnd",
+			"sounds/vo/ghost/ghost_lose_04.vsnd",
+			"sounds/vo/ghost/ghost_lose_05.vsnd",
+			"sounds/vo/ghost/ghost_lose_early_01.vsnd",
+			"sounds/vo/ghost/ghost_lose_early_02.vsnd",
+			"sounds/vo/ghost/ghost_lose_early_03.vsnd",
+			"sounds/vo/ghost/ghost_lose_early_05.vsnd",
+			"sounds/vo/ghost/ghost_lose_late_01.vsnd",
+			"sounds/vo/ghost/ghost_lose_late_05.vsnd",
+		]
+		vsnd_duration = 4.218934
 	}
 }

@@ -1,0 +1,247 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_emitter_lod = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "_builtins"
+				operator = "sos_builtins"
+				_voicegraph = "citadel.hrtf_basic"
+			},
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					citadel_default_3d = 
+					{
+						data_type = "public_opvar"
+						value = "citadel_default_3d"
+					}
+					layer_close_range_vol_ls = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+							"[ 1.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "advanced"
+							display_edit_type = "field_curve_2d_editor"
+						}
+					}
+					layer_med_range_vol_ls = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+							"[ 1.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "advanced"
+							display_edit_type = "field_curve_2d_editor"
+						}
+					}
+					layer_far_range_vol_ls = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+							"[ 1.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "advanced"
+							display_edit_type = "field_curve_2d_editor"
+						}
+					}
+					vsnd_files_close = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = "sounds/common/null.vsnd"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					vsnd_files_mid = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = "sounds/common/null.vsnd"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					vsnd_files_far = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = "sounds/common/null.vsnd"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					layer_close_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "0.000000"
+					}
+					layer_mid_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "0.000000"
+					}
+					layer_far_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "0.000000"
+					}
+				}
+			},
+			
+			{
+				name = "globals"
+				operator = "get_system_globals"
+				input_execute = "1"
+				input_listener_index = "0"
+			},
+			
+			{
+				name = "source_info"
+				operator = "game_get_source_info"
+			},
+			
+			{
+				name = "get_entity_info"
+				input_execute = "1"
+				operator = "game_entity_info"
+				input_entity_index = "@source_info.output_entity_index"
+				input_default_world_position = "@public.position"
+				input_default_local_position = "@globals.output_listener_front"
+				input_hold_position_on_deleted_entity = "1.0"
+				use_world_position = "@public.position_force_from_input"
+				attachment = "@public.attachment"
+			},
+			
+			{
+				name = "opvar_get_viewing_pawn_position"
+				operator = "opvar_get_float3"
+				input_execute = "1.0"
+				input_stack_name = "citadel_relevance_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "viewing_entity_position"
+			},
+			
+			{
+				name = "distance_to_source"
+				operator = "calc_distance"
+				input_position1 = "@get_entity_info.output_position"
+				input_position2 = "@opvar_get_viewing_pawn_position.output"
+			},
+			
+			{
+				name = "remap_distance_close"
+				operator = "math_curve_2d"
+				input = "@distance_to_source.output"
+				public_field_name = "public.layer_close_range_vol_ls"
+			},
+			
+			{
+				name = "vol_offset_close"
+				operator = "math_float"
+				apply = "add"
+				input1 = "@remap_distance_close.output"
+				input2 = "@public.layer_close_vol_offset_db"
+			},
+			
+			{
+				name = "remap_distance_med"
+				operator = "math_curve_2d"
+				input = "@distance_to_source.output"
+				public_field_name = "public.layer_med_range_vol_ls"
+			},
+			
+			{
+				name = "vol_offset_mid"
+				operator = "math_float"
+				apply = "add"
+				input1 = "@remap_distance_med.output"
+				input2 = "@public.layer_mid_vol_offset_db"
+			},
+			
+			{
+				name = "remap_distance_far"
+				operator = "math_curve_2d"
+				input = "@distance_to_source.output"
+				public_field_name = "public.layer_far_range_vol_ls"
+			},
+			
+			{
+				name = "vol_offset_far"
+				operator = "math_float"
+				apply = "add"
+				input1 = "@remap_distance_far.output"
+				input2 = "@public.layer_far_vol_offset_db"
+			},
+			
+			{
+				name = "citadel_default_3d"
+				operator = "sos_import_stack"
+				import_stack = "citadel_default_3d"
+				auto_connect_public_fields = "true"
+				operator_variables = 
+				{
+					vsnd_files_field_name_track1 = 
+					{
+						data_type = "string"
+						value = "vsnd_files_close"
+					}
+					vsnd_files_field_name_track2 = 
+					{
+						data_type = "string"
+						value = "vsnd_files_mid"
+					}
+					vsnd_files_field_name_track3 = 
+					{
+						data_type = "string"
+						value = "vsnd_files_far"
+					}
+					vsnd_track1_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "@vol_offset_close.output"
+					}
+					vsnd_track2_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "@vol_offset_mid.output"
+					}
+					vsnd_track3_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "@vol_offset_far.output"
+					}
+				}
+			},
+		]
+		_system_properties = 
+		{
+			display_game = "citadel"
+		}
+	}
+}

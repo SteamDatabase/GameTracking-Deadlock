@@ -1,0 +1,123 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_music_title = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "_builtins"
+				operator = "sos_builtins"
+				_voicegraph = "citadel.2d"
+			},
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					citadel_default_2d = 
+					{
+						data_type = "public_opvar"
+						value = "citadel_default_2d"
+					}
+					preload_vsnds = 
+					{
+						data_type = "float"
+						value = "15"
+					}
+					wet_dry_crossfade_velocity = 
+					{
+						data_type = "float"
+						value = "2"
+					}
+					vsnd_files_fx = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = 
+						[
+							"sounds/common/null.vsnd",
+						]
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+				}
+			},
+			
+			{
+				name = "opvar_get_hideout_in_intro"
+				operator = "opvar_get_float"
+				input_execute = "1.0"
+				input_stack_name = "citadel_music_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "hideout_in_intro"
+			},
+			
+			{
+				name = "volume_crossfade"
+				operator = "math_filter_float"
+				input = "@opvar_get_hideout_in_intro.output"
+				input_max_velocity = "@public.wet_dry_crossfade_velocity"
+			},
+			
+			{
+				name = "math_volume_dry"
+				input_execute = "1.0"
+				operator = "math_gain_to_db"
+				input = "@volume_crossfade.output"
+			},
+			
+			{
+				name = "math_crossfade_inverse"
+				operator = "math_float"
+				apply = "sub"
+				input1 = "1.0"
+				input2 = "@volume_crossfade.output"
+			},
+			
+			{
+				name = "math_volume_wet"
+				input_execute = "1.0"
+				operator = "math_gain_to_db"
+				input = "@math_crossfade_inverse.output"
+			},
+			
+			{
+				name = "citadel_default_2d"
+				operator = "sos_import_stack"
+				import_stack = "citadel_default_2d"
+				auto_connect_public_fields = "true"
+				operator_variables = 
+				{
+					vsnd_files_field_name_track1 = 
+					{
+						data_type = "string"
+						value = "vsnd_files"
+					}
+					vsnd_track1_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "@math_volume_dry.output"
+					}
+					vsnd_files_field_name_track2 = 
+					{
+						data_type = "string"
+						value = "vsnd_files_fx"
+					}
+					vsnd_track2_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "@math_volume_wet.output"
+					}
+				}
+			},
+		]
+		_system_properties = 
+		{
+			display_game = "citadel"
+		}
+	}
+}

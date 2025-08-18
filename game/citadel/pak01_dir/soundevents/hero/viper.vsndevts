@@ -2,13 +2,14 @@
 {
 	Viper.Wpn.Fire.Main = 
 	{
-		base = "Base.Weapon"
+		base = "Base.Weapon.MachineGun"
 		volume = 0.000000
 		volume_fade_out = 0.150000
-		recency_bias_max_scale = 0.900000
 		enable_initial_reflection_send = true
-		low_ammo_vol_offset_db = -3.000000
-		tail_vol_offset_db = -1.000000
+		low_ammo_vol_offset_db = -1.000000
+		tail_vol_offset_db = 2.000000
+		low_ammo_threshold = 8.000000
+		last_shot_vol_offset_db = 2.000000
 		vsnd_files = 
 		[
 			"sounds/weapons/viper/viper_weapon_shot_mid_01.vsnd",
@@ -90,16 +91,20 @@
 				3.000000,
 			],
 		]
+		vsnd_files_last_shot = 
+		[
+			"sounds/weapons/viper/vyper_wpn_last_shot_01.vsnd",
+		]
 		vsnd_duration = 4.190998
 	}
 	Viper.Wpn.Fire.First = 
 	{
-		base = "Base.Weapon"
+		base = "Base.Weapon.MachineGun"
 		volume = 7.000000
-		recency_bias_max_scale = 0.900000
 		enable_initial_reflection_send = true
 		low_ammo_vol_offset_db = -2.000000
-		tail_vol_offset_db = 0.000000
+		tail_vol_offset_db = 2.000000
+		limiter_max = 0.000000
 		vsnd_files = 
 		[
 			"sounds/weapons/viper/viper_weapon_shot_first_01.vsnd",
@@ -178,7 +183,6 @@
 	{
 		base = "Base.Weapon.Tail"
 		volume = 3.000000
-		recency_bias_max_scale = 1.000000
 		vsnd_files_tail = 
 		[
 			"sounds/weapons/viper/viper_weapon_release_01.vsnd",
@@ -238,6 +242,46 @@
 		]
 		vsnd_duration = 2.283878
 	}
+	Vyper.Wpn.Reload.Start = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -2.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/viper/reload/vyper_wpn_reload_start_01.vsnd",
+			"sounds/weapons/viper/reload/vyper_wpn_reload_start_02.vsnd",
+			"sounds/weapons/viper/reload/vyper_wpn_reload_start_03.vsnd",
+		]
+		vsnd_duration = 0.922721
+	}
+	Vyper.Wpn.Reload.Mid = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -2.000000
+		mono_downmix_enabled = 0.000000
+		block_duration = 1.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/viper/reload/vyper_wpn_reload_mid_01.vsnd",
+			"sounds/weapons/viper/reload/vyper_wpn_reload_mid_02.vsnd",
+			"sounds/weapons/viper/reload/vyper_wpn_reload_mid_03.vsnd",
+		]
+		vsnd_duration = 0.891451
+	}
+	Vyper.Wpn.Reload.End = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -2.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/viper/reload/vyper_wpn_reload_end_01.vsnd",
+			"sounds/weapons/viper/reload/vyper_wpn_reload_end_02.vsnd",
+			"sounds/weapons/viper/reload/vyper_wpn_reload_end_03.vsnd",
+		]
+		vsnd_duration = 0.529728
+	}
 	Viper.Venom.Explode.Weak = 
 	{
 		base = "Base.Ability.Hit"
@@ -283,7 +327,6 @@
 	Viper.Venom.Cast = 
 	{
 		base = "Base.Ability"
-		play_from_listener_player = 1.000000
 		volume = 1.500000
 		volume_offset_opponent = 6.000000
 		spread_max_value_opponent = 1.000000
@@ -303,7 +346,6 @@
 	{
 		base = "Base.Ability.Ult"
 		volume = 2.000000
-		play_from_listener_player = 1.000000
 		volume_offset_opponent = 3.000000
 		pitch = 1.000000
 		vsnd_files = "sounds/abilities/viper/a4_bola/viper_petrifying_bola_cast.vsnd"
@@ -395,7 +437,6 @@
 	{
 		base = "Base.Ability"
 		volume = 2.000000
-		play_from_listener_player = 1.000000
 		volume_offset_opponent = 6.000000
 		pitch = 0.950000
 		vsnd_files = 
@@ -414,23 +455,6 @@
 		pitch = 1.000000
 		vsnd_files = "sounds/abilities/viper/a1_dagger/viper_dagger_impact.vsnd"
 		vsnd_duration = 3.055850
-	}
-	Vyper.Footstep = 
-	{
-		base = "Base.Footsteps.Soft"
-		vsnd_track1_vol_offset_db = -7.000000
-		vsnd_files = 
-		[
-			"sounds/player/footsteps/hornet/vindicta_footstep_01.vsnd",
-			"sounds/player/footsteps/hornet/vindicta_footstep_02.vsnd",
-			"sounds/player/footsteps/hornet/vindicta_footstep_03.vsnd",
-			"sounds/player/footsteps/hornet/vindicta_footstep_04.vsnd",
-			"sounds/player/footsteps/hornet/vindicta_footstep_05.vsnd",
-			"sounds/player/footsteps/hornet/vindicta_footstep_06.vsnd",
-			"sounds/player/footsteps/hornet/vindicta_footstep_07.vsnd",
-			"sounds/player/footsteps/hornet/vindicta_footstep_08.vsnd",
-		]
-		vsnd_duration = 0.590068
 	}
 	Viper.HookBlade.Proj.Lp = 
 	{
@@ -555,36 +579,6 @@
 		]
 		vsnd_duration = 0.737052
 	}
-	Vyper.JumpLand = 
-	{
-		base = "Base.Footsteps.JumpLand.Soft"
-		volume = -4.000000
-		vsnd_track2_vol_offset_db = -5.000000
-		vsnd_files = 
-		[
-			"sounds/player/footsteps/hornet/vindicta_footstep_01.vsnd",
-			"sounds/player/footsteps/hornet/vindicta_footstep_02.vsnd",
-			"sounds/player/footsteps/hornet/vindicta_footstep_03.vsnd",
-			"sounds/player/footsteps/hornet/vindicta_footstep_04.vsnd",
-			"sounds/player/footsteps/hornet/vindicta_footstep_05.vsnd",
-			"sounds/player/footsteps/hornet/vindicta_footstep_06.vsnd",
-			"sounds/player/footsteps/hornet/vindicta_footstep_07.vsnd",
-			"sounds/player/footsteps/hornet/vindicta_footstep_08.vsnd",
-		]
-		vsnd_files_track2 = 
-		[
-			"sounds/player/movement/generic/foley_light/default_foley_01.vsnd",
-			"sounds/player/movement/generic/foley_light/default_foley_02.vsnd",
-			"sounds/player/movement/generic/foley_light/default_foley_03.vsnd",
-			"sounds/player/movement/generic/foley_light/default_foley_04.vsnd",
-			"sounds/player/movement/generic/foley_light/default_foley_05.vsnd",
-			"sounds/player/movement/generic/foley_light/default_foley_06.vsnd",
-			"sounds/player/movement/generic/foley_light/default_foley_07.vsnd",
-			"sounds/player/movement/generic/foley_light/default_foley_08.vsnd",
-			"sounds/player/movement/generic/foley_light/default_foley_09.vsnd",
-		]
-		vsnd_duration = 0.730000
-	}
 	Viper.A3.Slide.Enter = 
 	{
 		base = "Base.Movement"
@@ -631,9 +625,56 @@
 		]
 		vsnd_duration = 1.239297
 	}
+	Vyper.Footstep = 
+	{
+		base = "Base.Footsteps.Soft"
+		vsnd_track1_vol_offset_db = -7.000000
+		vsnd_files = 
+		[
+			"sounds/player/footsteps/hornet/vindicta_footstep_01.vsnd",
+			"sounds/player/footsteps/hornet/vindicta_footstep_02.vsnd",
+			"sounds/player/footsteps/hornet/vindicta_footstep_03.vsnd",
+			"sounds/player/footsteps/hornet/vindicta_footstep_04.vsnd",
+			"sounds/player/footsteps/hornet/vindicta_footstep_05.vsnd",
+			"sounds/player/footsteps/hornet/vindicta_footstep_06.vsnd",
+			"sounds/player/footsteps/hornet/vindicta_footstep_07.vsnd",
+			"sounds/player/footsteps/hornet/vindicta_footstep_08.vsnd",
+		]
+		vsnd_duration = 0.590068
+	}
+	Vyper.JumpLand = 
+	{
+		base = "Base.Footsteps.JumpLand.Soft"
+		volume = -4.000000
+		vsnd_track2_vol_offset_db = -5.000000
+		vsnd_files = 
+		[
+			"sounds/player/footsteps/hornet/vindicta_footstep_01.vsnd",
+			"sounds/player/footsteps/hornet/vindicta_footstep_02.vsnd",
+			"sounds/player/footsteps/hornet/vindicta_footstep_03.vsnd",
+			"sounds/player/footsteps/hornet/vindicta_footstep_04.vsnd",
+			"sounds/player/footsteps/hornet/vindicta_footstep_05.vsnd",
+			"sounds/player/footsteps/hornet/vindicta_footstep_06.vsnd",
+			"sounds/player/footsteps/hornet/vindicta_footstep_07.vsnd",
+			"sounds/player/footsteps/hornet/vindicta_footstep_08.vsnd",
+		]
+		vsnd_files_track2 = 
+		[
+			"sounds/player/movement/generic/foley_light/default_foley_01.vsnd",
+			"sounds/player/movement/generic/foley_light/default_foley_02.vsnd",
+			"sounds/player/movement/generic/foley_light/default_foley_03.vsnd",
+			"sounds/player/movement/generic/foley_light/default_foley_04.vsnd",
+			"sounds/player/movement/generic/foley_light/default_foley_05.vsnd",
+			"sounds/player/movement/generic/foley_light/default_foley_06.vsnd",
+			"sounds/player/movement/generic/foley_light/default_foley_07.vsnd",
+			"sounds/player/movement/generic/foley_light/default_foley_08.vsnd",
+			"sounds/player/movement/generic/foley_light/default_foley_09.vsnd",
+		]
+		vsnd_duration = 0.730000
+	}
 	Vyper.Melee.Swing = 
 	{
-		base = "Base.Ability.Melee"
+		base = "Base.Movement.Melee"
 		vsnd_files = 
 		[
 			"sounds/player/melee/shared/swing_short_01.vsnd",
@@ -665,7 +706,7 @@
 	}
 	Vyper.Melee.Swing.Charged = 
 	{
-		base = "Base.Ability.Melee"
+		base = "Base.Movement.Melee"
 		vsnd_files = 
 		[
 			"sounds/player/melee/shared/swing_long_01.vsnd",
@@ -723,5 +764,39 @@
 	{
 		base = "Base.Movement"
 		volume = -2.000000
+	}
+	Viper.Progession.Page.Win.VO = 
+	{
+		base = "Base.HeroPick.VO.2d"
+		context_name = "viper"
+		vsnd_files = 
+		[
+			"sounds/vo/viper/viper_kill_anyhero_01.vsnd",
+			"sounds/vo/viper/viper_kill_anyhero_02.vsnd",
+			"sounds/vo/viper/viper_kill_anyhero_03.vsnd",
+			"sounds/vo/viper/viper_kill_anyhero_04.vsnd",
+			"sounds/vo/viper/viper_kill_anyhero_05.vsnd",
+			"sounds/vo/viper/viper_kill_anyhero_06.vsnd",
+			"sounds/vo/viper/viper_kill_anyhero_07.vsnd",
+			"sounds/vo/viper/viper_kill_anyhero_08.vsnd",
+			"sounds/vo/viper/viper_kill_anyhero_09.vsnd",
+			"sounds/vo/viper/viper_kill_anyhero_10.vsnd",
+			"sounds/vo/viper/viper_upgrade_power1_02.vsnd",
+		]
+		vsnd_duration = 3.152494
+	}
+	Viper.Progession.Page.Lose.VO = 
+	{
+		base = "Base.HeroPick.VO.2d"
+		context_name = "viper"
+		vsnd_files = 
+		[
+			"sounds/vo/viper/viper_unselect_01.vsnd",
+			"sounds/vo/viper/viper_unselect_06.vsnd",
+			"sounds/vo/viper/viper_unselect_06.vsnd",
+			"sounds/vo/viper/viper_close_call_03.vsnd",
+			"sounds/vo/viper/viper_near_miss_01.vsnd",
+		]
+		vsnd_duration = 3.001179
 	}
 }

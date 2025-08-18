@@ -5,47 +5,86 @@
 		<include src="s2r://panorama/styles/hud_escape_menu.vcss_c" />
 	</styles>
 	<CitadelHudEscapeMenu oncancel="CitadelResumePlaying()">
+		<Panel id="EscapeBackground" onactivate="CitadelResumePlaying()" />
+		<Panel id="LeftStripeBlur" />
 		<Panel id="LeftStripe" hittest="false">
-			<Panel id="LogoArea">
-				<Panel id="GameTitle" />
-				<Label class="GameSubtext" text="#Citadel_Main_EarlyDevBuild" />
-			</Panel>
 			<Panel id="Menu" hittest="false">
-				<Button id="resume" class="nav_menu_item primary" onactivate="CitadelResumePlaying()">
-					<Label text="#menu_resume" class="menuButtonLabel" />
-				</Button>
-				<Button id="changehero" class="nav_menu_item primary changehero" onactivate="CitadelEscapeMenuChangeHero()">
-					<Panel class="MenuIcon" />
+				<Panel id="ContextualMenu">
+					<Panel class="MatchmakingOptions OptionGroup">
+						<Button id="matchmakingLeaveQueue" class="nav_menu_item primary endsession" onactivate="CitadelLeaveMatchmaking()">
+							<Label text="#menu_leave_queue" class="menuButtonLabel" antialias="true" />
+						</Button>
+						<Button id="matchmakingEditRoster" class="nav_menu_item primary" onactivate="CitadelEditMatchmakingRoster()">
+							<Panel class="MenuIcon" />
+							<Label text="#menu_roster_detail2" class="menuButtonLabel" />
+						</Button>
+					</Panel>
+					<Panel class="ReconnectOptions OptionGroup">
+						<Button id="reconnectRejoin" class="nav_menu_item primary" onactivate="CitadelReconnect()" onmouseover="UIShowTextTooltip( #Citadel_Dashboard_RejoinTooltip )" onmouseout="UIHideTextTooltip()">
+							<Label text="#menu_rejoin" class="menuButtonLabel" />
+						</Button>
+						<Button id="reconnectAbandon" class="nav_menu_item primary endsession" onactivate="CitadelConfirmAbandonGame()">
+							<Label text="{s:reconnect_abandon_action}" class="menuButtonLabel" />
+						</Button>
+					</Panel>
+					<Button id="disconnect" class="nav_menu_item primary" onactivate="CitadelDisconnectFromGame()">
+						<Label text="#menu_disconnect" class="menuButtonLabel" />
+					</Button>
+					<Button id="abandon" class="nav_menu_item primary endsession" onactivate="CitadelConfirmAbandonGame()">
+						<Label text="{s:abandon_action}" class="menuButtonLabel" />
+					</Button>
+				</Panel>
+				<Button id="changehero" class="nav_menu_item primary" onactivate="CitadelEscapeMenuChangeHero()">
 					<Label text="#menu_changehero" class="menuButtonLabel" />
 				</Button>
-				<Button id="disconnect" class="nav_menu_item primary" onactivate="CitadelDisconnectFromGame()">
-					<Label text="#menu_disconnect" class="menuButtonLabel" />
-				</Button>
-				<Button id="lobbyleave" class="nav_menu_item primary endsession" onactivate="CitadelConfirmAbandonGame()">
-					<Label id="label_abandon" text="#menu_abandon" class="menuButtonLabel" />
-					<Label id="label_leave" text="#menu_leave" class="menuButtonLabel" />
-					<Label id="label_leave_spectate" text="#menu_leave_spectate" class="menuButtonLabel" />
-					<Label id="label_leave_testing" text="#menu_leave_testing" class="menuButtonLabel" />
-				</Button>
-				<Button id="quit" class="nav_menu_item" onactivate="CitadelQuitConfirm()">
-					<Label text="#menu_exit" class="menuButtonLabel" />
-				</Button>
 				<Panel id="SubOptions">
-					<Button id="settings" class="nav_menu_item minor" onactivate="CitadelSettings()" onmouseover="UIShowTextTooltip( #Citadel_Dashboard_SettingsTooltip )" onmouseout="UIHideTextTooltip()">
-						<Panel class="smallIcon GearIcon" />
-						<Label text="#menu_settings" class="menuButtonLabel" />
+					<Button id="PlayerFeedback" class="nav_menu_item minor" onactivate="CitadelShowPlayerFeedbackPopup()">
+						<Label text="#Citadel_PlayerFeedback_Title" class="menuButtonLabel" />
 					</Button>
-					<Button id="QuickMute" class="nav_menu_item minor" onactivate="CitadelMuteButtonClicked();" onmouseover="CitadelUIShowTextTooltip( &apos;#citadel_mute_game_audio&apos; )" onmouseout="CitadelUIHideTextTooltip()">
-						<Panel class="smallIcon MuteIcon" />
+					<Panel class="SettingsRow">
+						<Button id="settings" class="nav_menu_item minor" onactivate="CitadelSettings()">
+							<Panel class="smallIcon GearIcon" />
+							<Label text="#menu_settings" class="menuButtonLabel" />
+						</Button>
+						<Button id="QuickMute" class="nav_menu_item minor" onactivate="CitadelMuteButtonClicked();" onmouseover="CitadelUIShowTextTooltip( &apos;#citadel_mute_game_audio&apos; )" onmouseout="CitadelUIHideTextTooltip()">
+							<Panel class="smallIcon MuteIcon" />
+						</Button>
+					</Panel>
+					<Button id="quit" onactivate="CitadelQuitConfirm()">
+						<Label text="#menu_exit_deadlock" />
 					</Button>
 				</Panel>
 			</Panel>
 		</Panel>
-		<Panel id="SocialContainer">
-			<DBPlayerList id="PlayerList" />
-			<DBPlayerList id="EnemyPlayerList" enemy_list="true" />
-			<CitadelPrivilegedFeatures id="PrivilegedFeatures" />
+		<CitadelPrivilegedFeatures id="PrivilegedFeatures" />
+		<Button id="EscapeButton" onactivate="CitadelResumePlaying()">
+			<CitadelBinding class="light" action="MenuBack" />
+			<Label text="#menu_resume" />
+		</Button>
+		<Panel id="OldRightSide" hittest="false">
+			<Panel id="SocialContainer">
+				<DBPlayerList id="PlayerList" />
+				<DBPlayerList id="EnemyPlayerList" enemy_list="true" />
+			</Panel>
+			<CitadelDevCommandsMenu id="devCommandsMenu" hittest="true" />
 		</Panel>
-		<CitadelDevCommandsMenu id="devCommandsMenu" hittest="true" />
+		<Panel id="RightSideBlur" hittest="false" />
+		<Panel id="RightSide" hittest="false">
+			<Panel id="PartySpacer" />
+			<Panel class="FriendsOrPlayersTabs">
+				<Panel class="Center">
+					<TabButton id="FriendsTab" class="FriendsOrPlayersButton" group="people_list_tabs" text="#Citadel_Friends_WindowTitle" selected="true" />
+					<TabButton id="PlayersTab" class="FriendsOrPlayersButton" group="people_list_tabs" text="#Citadel_Players_WindowTitle" />
+				</Panel>
+			</Panel>
+			<Panel class="FriendsOrPlayersContents" hittest="false">
+				<TabContents id="FriendsTabContents" tabid="FriendsTab" group="people_list_tabs" hittest="false" selected="true">
+					<CitadelFriendsList id="FriendsList" />
+				</TabContents>
+				<TabContents id="PlayersTabContents" tabid="PlayersTab" group="people_list_tabs" hittest="false">
+					<CitadelPlayersList id="PlayersList" />
+				</TabContents>
+			</Panel>
+		</Panel>
 	</CitadelHudEscapeMenu>
 </root>

@@ -37,6 +37,10 @@
 		//
 		SearchPaths
 		{
+			// These are optional language paths. They must be mounted first, which is why there are first in the list.
+			// *LANGUAGE* will be replaced with the actual language name. If not running a specific language, these paths will not be mounted
+			Game_Language		citadel_*LANGUAGE*
+
 			Game				citadel
 			Game				core
 		}
@@ -48,10 +52,10 @@
 		{
 			game Default
 			game Forward
+			game Deferred
+			game Outline
 			game Depth
-			game AbsoluteZ
 			game FrontDepth
-			game GBuffer
 			game MotionVectors
 
 			dev ToolsVis // Visualization modes for all shaders (lighting only, normal maps only, etc.)
@@ -129,6 +133,11 @@
 		DefensiveConCommands 1
 	}
 
+	ContentBuilder
+	{
+		ResourceCompilerDirectXUsesWARP "0"
+	}
+
 	SoundSystem
 	{
 		SteamAudioEnabled            "1"
@@ -145,6 +154,11 @@
 		"ToolsDir"	"../sdktools"	// NOTE: Default Tools path. This is relative to the mod path.
 	}
 	
+	pulse
+	{
+		"pulse_enabled"					"1"
+	}
+
 	Hammer
 	{
 		"fgd"					"citadel.fgd"	// NOTE: This is relative to the 'game' path.
@@ -256,6 +270,7 @@
 			LightmapGutterSize 2 // For bicubic filtering
 			UseStaticLightProbes 0
 			LPVAtlas 1
+			BC6HHueShiftFixup 0 // Causes more artifacts than it solves atm
 		}
 
 		SteamAudio
@@ -312,7 +327,6 @@
 		EnvironmentMapMipProcessor		GGXCubeMapBlur
 		// Build cubemaps into a cube array instead of individual cubemaps.
 		"EnvironmentMapUseCubeArray" 	1
-		"EnvironmentMapCacheSize" 		175
 		"EnvironmentMapCacheSizeTools"  300
 		BindlessSceneObjectDesc			CitadelBindlessDesc
 		GrassCastsShadows				1
@@ -321,8 +335,8 @@
 	SceneSystem
 	{
 		GpuLightBinner 1
-		FogCachedShadowAtlasWidth 1024
-		FogCachedShadowAtlasHeight 1024
+		FogCachedShadowAtlasWidth 2048
+		FogCachedShadowAtlasHeight 2048
 		FogCachedShadowTileSize 256
 		GpuLightBinnerSunLightFastPath 1
 		CSMCascadeResolution 2048
@@ -478,7 +492,7 @@
 		{
 			"min"		"0"
 			"default"	"0"
-			"max"		"0"
+			"max"		"2"
 		}
 
 		"cq_buffer_bloat_msecs_max" "120"

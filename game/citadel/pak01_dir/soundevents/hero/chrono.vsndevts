@@ -1,12 +1,12 @@
 <!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
 {
-	Chrono.Wpn.Fire = 
+	Paradox.Wpn.Fire = 
 	{
-		base = "Base.Weapon"
+		base = "Base.Weapon.MachineGun"
 		volume = 1.000000
-		limiter_max = 1.000000
 		volume_fade_out = 0.200000
-		recency_bias_max_scale = 0.850000
+		low_ammo_threshold = 8.000000
+		last_shot_vol_offset_db = 1.000000
 		vsnd_files = 
 		[
 			"sounds/weapons/chrono/chrono_weapon_fire_01.vsnd",
@@ -16,9 +16,13 @@
 			"sounds/weapons/chrono/chrono_weapon_fire_05.vsnd",
 			"sounds/weapons/chrono/chrono_weapon_fire_06.vsnd",
 		]
+		vsnd_files_last_shot = 
+		[
+			"sounds/weapons/chrono/paradox_wpn_last_shot_01.vsnd",
+		]
 		vsnd_duration = 2.262993
 	}
-	Chrono.Wpn.Whizby = 
+	Paradox.Wpn.Whizby = 
 	{
 		base = "Base.Bullet.Whizby"
 		volume = -6.000000
@@ -47,24 +51,83 @@
 		]
 		vsnd_duration = 0.658005
 	}
-	Chrono.Wpn.Impact = 
+	Paradox.Wpn.Impact = 
 	{
 		base = "Base.Bullet.Impact"
 		vsnd_files = "sounds/common/null.vsnd"
 		vsnd_duration = 0.050023
 	}
-	Chrono.Weapon.Reload = 
+	Paradox.Wpn.ZoomIn = 
 	{
-		base = "Base.Reload"
-		volume = -18.000000
-		pitch = 1.600000
-		vsnd_files = "sounds/weapons/temp/laser_reload.vsnd"
+		base = "Base.Weapon.Foley"
+		volume = -3.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/dynamo/zoom/in_1.vsnd",
+			"sounds/weapons/dynamo/zoom/in_2.vsnd",
+			"sounds/weapons/dynamo/zoom/in_3.vsnd",
+			"sounds/weapons/dynamo/zoom/in_4.vsnd",
+			"sounds/weapons/dynamo/zoom/in_5.vsnd",
+		]
+		vsnd_duration = 0.433667
+	}
+	Paradox.Wpn.ZoomOut = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -3.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/dynamo/zoom/out_1.vsnd",
+			"sounds/weapons/dynamo/zoom/out_2.vsnd",
+			"sounds/weapons/dynamo/zoom/out_3.vsnd",
+			"sounds/weapons/dynamo/zoom/out_4.vsnd",
+			"sounds/weapons/dynamo/zoom/out_5.vsnd",
+		]
+		vsnd_duration = 0.274687
+	}
+	Paradox.Wpn.Reload.Start = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -2.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/chrono/reload/paradox_wpn_reload_start_01.vsnd",
+			"sounds/weapons/chrono/reload/paradox_wpn_reload_start_02.vsnd",
+			"sounds/weapons/chrono/reload/paradox_wpn_reload_start_03.vsnd",
+		]
+		vsnd_duration = 1.023129
+	}
+	Paradox.Wpn.Reload.Mid = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -2.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/chrono/reload/paradox_wpn_reload_mid_01.vsnd",
+			"sounds/weapons/chrono/reload/paradox_wpn_reload_mid_02.vsnd",
+			"sounds/weapons/chrono/reload/paradox_wpn_reload_mid_03.vsnd",
+		]
+		vsnd_duration = 0.942585
+	}
+	Paradox.Wpn.Reload.End = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -2.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/chrono/reload/paradox_wpn_reload_end_01.vsnd",
+			"sounds/weapons/chrono/reload/paradox_wpn_reload_end_02.vsnd",
+			"sounds/weapons/chrono/reload/paradox_wpn_reload_end_03.vsnd",
+		]
+		vsnd_duration = 0.702086
 	}
 	Chrono.KineticCarbine.Cast = 
 	{
 		base = "Base.Ability.Telegraph"
 		volume = 1.000000
-		play_from_listener_player = 1.000000
 		vsnd_files = "sounds/abilities/chrono/chrono_kinetic_carbine_fire_01.vsnd"
 		vsnd_duration = 5.761406
 	}
@@ -76,7 +139,6 @@
 		pitch_envelope_scale_max = 1.200000
 		volume = -2.000000
 		volume_offset_player = -3.000000
-		play_from_listener_player = 1.000000
 		vsnd_files = "sounds/abilities/chrono/chrono_kinetic_carbine_charge_lp.vsnd"
 		vsnd_duration = 7.846326
 	}
@@ -84,7 +146,6 @@
 	{
 		base = "Base.Ability"
 		volume = -3.000000
-		play_from_listener_player = 1.000000
 		vsnd_files = "sounds/abilities/chrono/a3_time_bank/accel.vsnd"
 		vsnd_duration = 3.273021
 	}
@@ -92,7 +153,6 @@
 	{
 		base = "Base.Ability"
 		volume = -3.000000
-		play_from_listener_player = 1.000000
 		vsnd_files = "sounds/abilities/chrono/a2_chrono_swap/pre_cast.vsnd"
 		vsnd_duration = 4.534229
 	}
@@ -171,9 +231,8 @@
 	}
 	Chrono.Swap.Cast = 
 	{
-		base = "Base.Ability.Ult"
+		base = "Base.Ability.Ult.Detached"
 		volume = 1.000000
-		play_from_listener_player = 0.000000
 		vsnd_files = "sounds/abilities/chrono/a2_chrono_swap/chrono_a2_swap_activate_01.vsnd"
 		vsnd_duration = 2.356780
 	}
@@ -223,6 +282,33 @@
 		volume = -9.000000
 		vsnd_files = "sounds/abilities/chrono/a4_chrono_sphere/end.vsnd"
 		vsnd_duration = 1.794562
+	}
+	Chrono.ChronosSphere.LpTarget = 
+	{
+		base = "Base.Ability"
+		volume = -60.000000
+		delay = 0.000000
+		delay_rand_min = -2.000000
+		delay_rand_max = 0.000000
+		volume_fade_out = 0.200000
+		vsnd_files = "sounds/abilities/chrono/a4_chrono_sphere/lp.vsnd"
+		vsnd_duration = 6.285438
+	}
+	Chrono.TimeWall.Create = 
+	{
+		base = "Base.Ability.Detached"
+		volume = 0.000000
+		volume_mult = 0.500000
+		vsnd_files = "sounds/abilities/chrono/a4_chrono_sphere/activate.vsnd"
+		vsnd_duration = 1.707833
+	}
+	Chrono.TimeWall.ChargeUp = 
+	{
+		base = "Base.Ability"
+		volume = 0.000000
+		volume_mult = 0.500000
+		vsnd_files = "sounds/abilities/chrono/a4_chrono_sphere/pre_cast.vsnd"
+		vsnd_duration = 2.973583
 	}
 	Paradox.Footstep = 
 	{
@@ -328,7 +414,7 @@
 	}
 	Paradox.Melee.Swing = 
 	{
-		base = "Base.Ability.Melee"
+		base = "Base.Movement.Melee"
 		vsnd_files = 
 		[
 			"sounds/player/melee/shared/swing_short_01.vsnd",
@@ -368,7 +454,7 @@
 	}
 	Paradox.Melee.Swing.Charged = 
 	{
-		base = "Base.Ability.Melee"
+		base = "Base.Movement.Melee"
 		vsnd_files = 
 		[
 			"sounds/player/melee/shared/swing_long_01.vsnd",
@@ -407,97 +493,6 @@
 		]
 		vsnd_duration = 1.399792
 	}
-	Chrono.ChronosSphere.LpTarget = 
-	{
-		base = "Base.Ability"
-		volume = -60.000000
-		delay = 0.000000
-		delay_rand_min = -2.000000
-		delay_rand_max = 0.000000
-		volume_fade_out = 0.200000
-		vsnd_files = "sounds/abilities/chrono/a4_chrono_sphere/lp.vsnd"
-		vsnd_duration = 6.285438
-	}
-	Chrono.TimeWall.Create = 
-	{
-		base = "Base.Ability.Detached"
-		volume = 0.000000
-		volume_mult = 0.500000
-		vsnd_files = "sounds/abilities/chrono/a4_chrono_sphere/activate.vsnd"
-		vsnd_duration = 1.707833
-	}
-	Chrono.TimeWall.ChargeUp = 
-	{
-		base = "Base.Ability"
-		volume = 0.000000
-		volume_mult = 0.500000
-		vsnd_files = "sounds/abilities/chrono/a4_chrono_sphere/pre_cast.vsnd"
-		vsnd_duration = 2.973583
-	}
-	Paradox.Reload.ClipOut = 
-	{
-		base = "Base.Reload"
-		volume = -1.000000
-		pitch_rand_min = -0.110000
-		pitch_rand_max = 0.150000
-		vsnd_files = "sounds/weapons/chrono/reload/clipout.vsnd"
-		vsnd_duration = 0.320363
-	}
-	Paradox.Reload.ClipIn = 
-	{
-		base = "Base.Reload"
-		volume = -1.000000
-		pitch_rand_min = -0.110000
-		pitch_rand_max = 0.150000
-		vsnd_files = "sounds/weapons/chrono/reload/end.vsnd"
-		vsnd_duration = 0.514943
-	}
-	Paradox.Reload.Twirl_01 = 
-	{
-		base = "Base.Reload"
-		volume = -2.000000
-		pitch_rand_min = -0.110000
-		pitch_rand_max = 0.000000
-		vsnd_files = "sounds/weapons/chrono/reload/twirl_01.vsnd"
-		vsnd_duration = 0.367166
-	}
-	Paradox.Reload.Twirl_02 = 
-	{
-		base = "Base.Reload"
-		volume = -1.000000
-		pitch_rand_min = 0.000000
-		pitch_rand_max = 0.150000
-		vsnd_files = "sounds/weapons/chrono/reload/twirl_02.vsnd"
-		vsnd_duration = 0.296984
-	}
-	Chrono.ZoomIn = 
-	{
-		base = "Base.Hero.Weapon.Zoom.2d"
-		volume = -12.000000
-		vsnd_files = 
-		[
-			"sounds/weapons/dynamo/zoom/in_1.vsnd",
-			"sounds/weapons/dynamo/zoom/in_2.vsnd",
-			"sounds/weapons/dynamo/zoom/in_3.vsnd",
-			"sounds/weapons/dynamo/zoom/in_4.vsnd",
-			"sounds/weapons/dynamo/zoom/in_5.vsnd",
-		]
-		vsnd_duration = 0.433667
-	}
-	Chrono.ZoomOut = 
-	{
-		base = "Base.Hero.Weapon.Zoom.2d"
-		volume = -12.000000
-		vsnd_files = 
-		[
-			"sounds/weapons/dynamo/zoom/out_1.vsnd",
-			"sounds/weapons/dynamo/zoom/out_2.vsnd",
-			"sounds/weapons/dynamo/zoom/out_3.vsnd",
-			"sounds/weapons/dynamo/zoom/out_4.vsnd",
-			"sounds/weapons/dynamo/zoom/out_5.vsnd",
-		]
-		vsnd_duration = 0.274687
-	}
 	Chrono.Footstep.Hourglass = 
 	{
 		base = "Base.Footsteps"
@@ -524,5 +519,27 @@
 			"sounds/player/footsteps/chrono/paradox_hourglass_15.vsnd",
 		]
 		vsnd_duration = 0.812358
+	}
+	Chrono.Progession.Page.Win.VO = 
+	{
+		base = "Base.HeroPick.VO.2d"
+		context_name = "chrono"
+		vsnd_files = 
+		[
+			"sounds/vo/chrono/chrono_kill_anyhero_09.vsnd",
+			"sounds/vo/chrono/chrono_kill_high_networth.vsnd",
+			"sounds/vo/chrono/chrono_killstreak_high_02.vsnd",
+			"sounds/vo/chrono/chrono_killstreak_high_03.vsnd",
+		]
+		vsnd_duration = 1.917188
+	}
+	Chrono.Progession.Page.Lose.VO = 
+	{
+		base = "Base.HeroPick.VO.2d"
+		context_name = "chrono"
+		vsnd_files = 
+		[
+			"sounds/vo/chrono/chrono_near_miss_04.vsnd",
+		]
 	}
 }

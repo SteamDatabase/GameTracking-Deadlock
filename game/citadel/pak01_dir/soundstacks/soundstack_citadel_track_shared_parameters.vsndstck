@@ -46,6 +46,33 @@
 							property_group = "VSND Files"
 						}
 					}
+					vsnd_track_pitch = 
+					{
+						data_type = "float"
+						value = "1.0"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					vsnd_track_pitch_rand_max = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					vsnd_track_pitch_rand_min = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
 					track_percent_chance_to_play = 
 					{
 						data_type = "float"
@@ -141,6 +168,15 @@
 			},
 			
 			{
+				name = "pitch_random"
+				operator = "math_randomize_float"
+				execute_once = "true"
+				input = "@public.vsnd_track_pitch"
+				input_rand_min = "@public.vsnd_track_pitch_rand_min"
+				input_rand_max = "@public.vsnd_track_pitch_rand_max"
+			},
+			
+			{
 				name = "output"
 				operator = "util_null"
 				operator_variables = 
@@ -149,6 +185,11 @@
 					{
 						data_type = "float"
 						value = "@volume_db_to_gain_track.output"
+					}
+					track_pitch = 
+					{
+						data_type = "float"
+						value = "@pitch_random.output"
 					}
 					track_start = 
 					{

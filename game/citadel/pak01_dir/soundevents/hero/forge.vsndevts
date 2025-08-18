@@ -1,15 +1,15 @@
 <!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
 {
-	Forge.Wpn.Fire.Main = 
+	McGinnis.Wpn.Fire.Main = 
 	{
-		base = "Base.Weapon"
-		volume = 0.000000
-		volume_fade_out = 0.250000
-		limiter_max = 2.000000
-		recency_bias_max_scale = 1.000000
+		base = "Base.Weapon.MachineGun"
+		volume = 2.000000
+		volume_fade_out = 0.150000
 		enable_initial_reflection_send = true
-		low_ammo_vol_offset_db = -1.000000
-		tail_vol_offset_db = -2.000000
+		tail_vol_offset_db = 0.000000
+		tail_interior_vol_offset_db = -10.000000
+		low_ammo_threshold = 8.000000
+		last_shot_vol_offset_db = 1.000000
 		vsnd_files = 
 		[
 			"sounds/weapons/forge/forge_weapon_fire_mid_01.vsnd",
@@ -83,17 +83,17 @@
 				3.000000,
 			],
 		]
+		vsnd_files_last_shot = 
+		[
+			"sounds/weapons/forge/mcginnis_wpn_last_shot_01.vsnd",
+		]
 		vsnd_duration = 1.773197
 	}
-	Forge.Wpn.Fire.First = 
+	McGinnis.Wpn.Fire.First = 
 	{
-		base = "Base.Weapon"
-		volume = 5.000000
-		volume_fade_out = 0.250000
-		recency_bias_max_scale = 1.000000
-		enable_initial_reflection_send = true
-		low_ammo_vol_offset_db = -3.000000
-		tail_vol_offset_db = 0.000000
+		base = "McGinnis.Wpn.Fire.Main"
+		transient_offset_db = 4.000000
+		limiter_max = 0.000000
 		vsnd_files = 
 		[
 			"sounds/weapons/forge/forge_weapon_fire_first_01.vsnd",
@@ -105,66 +105,12 @@
 			"sounds/weapons/forge/forge_weapon_fire_first_07.vsnd",
 			"sounds/weapons/forge/forge_weapon_fire_first_08.vsnd",
 		]
-		vsnd_files_tail = 
-		[
-			"sounds/weapons/forge/forge_weapon_fire_tail_01.vsnd",
-			"sounds/weapons/forge/forge_weapon_fire_tail_02.vsnd",
-			"sounds/weapons/forge/forge_weapon_fire_tail_03.vsnd",
-			"sounds/weapons/forge/forge_weapon_fire_tail_04.vsnd",
-			"sounds/weapons/forge/forge_weapon_fire_tail_05.vsnd",
-			"sounds/weapons/forge/forge_weapon_fire_tail_06.vsnd",
-			"sounds/weapons/forge/forge_weapon_fire_tail_07.vsnd",
-			"sounds/weapons/forge/forge_weapon_fire_tail_08.vsnd",
-		]
-		fire_rate_percent_curve_db_offset = 
-		[
-			
-			[
-				0.000000,
-				0.000000,
-				0.000000,
-				-0.030522,
-				0.000000,
-				0.000000,
-			],
-			
-			[
-				100.000000,
-				-3.052233,
-				-0.030522,
-				0.000000,
-				0.000000,
-				0.000000,
-			],
-		]
-		continuous_fire_time_curve_db_offset = 
-		[
-			
-			[
-				0.000000,
-				0.000000,
-				0.000000,
-				0.000000,
-				0.000000,
-				0.000000,
-			],
-			
-			[
-				1.000000,
-				0.000000,
-				0.000000,
-				0.000000,
-				0.000000,
-				0.000000,
-			],
-		]
-		vsnd_duration = 1.773197
+		vsnd_duration = 0.610453
 	}
-	Forge.Wpn.Fire.Release = 
+	McGinnis.Wpn.Fire.Release = 
 	{
 		base = "Base.Weapon.Tail"
 		volume = 1.000000
-		recency_bias_max_scale = 1.000000
 		vsnd_files_tail = 
 		[
 			"sounds/weapons/forge/forge_weapon_fire_release_01.vsnd",
@@ -220,7 +166,7 @@
 		]
 		vsnd_duration = 1.602562
 	}
-	Forge.Wpn.BulletWhizby = 
+	McGinnis.Wpn.BulletWhizby = 
 	{
 		base = "Base.Bullet.Whizby"
 		volume = -6.000000
@@ -252,43 +198,82 @@
 		]
 		vsnd_duration = 0.447143
 	}
-	Forge.Wpn.Impact = 
+	McGinnis.Wpn.Impact = 
 	{
 		base = "Base.Bullet.Impact"
 	}
-	Forge.Wpn.SpinUp.Start = 
+	McGinnis.Wpn.SpinUp.Start = 
 	{
-		base = "Base.Weapon"
+		base = "Base.Movement"
 		volume = -10.000000
 		vsnd_files = "sounds/common/null.vsnd"
 		vsnd_duration = 0.050023
 	}
-	Forge.Wpn.Spin.Lp = 
+	McGinnis.Wpn.Spin.Lp = 
 	{
-		base = "Base.Weapon"
+		base = "Base.Movement"
 		volume = -10.000000
 		vsnd_files = "sounds/common/null.vsnd"
 		vsnd_duration = 0.050023
 	}
-	Forge.Wpn.Spin.Down = 
+	McGinnis.Wpn.Spin.Down = 
 	{
-		base = "Base.Weapon"
+		base = "Base.Movement"
 		volume = -10.000000
 		vsnd_files = "sounds/common/null.vsnd"
 		vsnd_duration = 0.050023
 	}
-	Engineer.ZoomIn = 
+	McGinnis.Wpn.Reload.Start = 
 	{
-		base = "Base.Hero.Weapon.Zoom.2d"
-		volume = -32.000000
+		base = "Base.Weapon.Foley"
+		volume = -2.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/forge/reload/mcginnis_wpn_reload_start_01.vsnd",
+			"sounds/weapons/forge/reload/mcginnis_wpn_reload_start_02.vsnd",
+			"sounds/weapons/forge/reload/mcginnis_wpn_reload_start_03.vsnd",
+		]
+		vsnd_duration = 1.378277
+	}
+	McGinnis.Wpn.Reload.Mid = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -2.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/forge/reload/mcginnis_wpn_reload_mid_01.vsnd",
+			"sounds/weapons/forge/reload/mcginnis_wpn_reload_mid_02.vsnd",
+			"sounds/weapons/forge/reload/mcginnis_wpn_reload_mid_03.vsnd",
+		]
+		vsnd_duration = 1.587551
+	}
+	McGinnis.Wpn.Reload.End = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -2.000000
+		mono_downmix_enabled = 0.000000
+		vsnd_files = 
+		[
+			"sounds/weapons/forge/reload/mcginnis_wpn_reload_end_01.vsnd",
+			"sounds/weapons/forge/reload/mcginnis_wpn_reload_end_02.vsnd",
+			"sounds/weapons/forge/reload/mcginnis_wpn_reload_end_03.vsnd",
+		]
+		vsnd_duration = 1.309728
+	}
+	McGinnis.Wpn.ZoomIn = 
+	{
+		base = "Base.Weapon.Foley"
+		volume = -22.000000
 		pitch = 1.200000
 		vsnd_files = "sounds/weapons/forge/zoom/zoom_in.vsnd"
 		vsnd_duration = 0.707583
 	}
-	Engineer.ZoomOut = 
+	McGinnis.Wpn.ZoomOut = 
 	{
-		base = "Base.Hero.Weapon.Zoom.2d"
-		volume = -32.000000
+		base = "Base.Weapon.Foley"
+		volume = -22.000000
 		pitch = 1.600000
 		vsnd_files = "sounds/weapons/forge/zoom/zoom_out.vsnd"
 		vsnd_duration = 0.831250
@@ -326,7 +311,10 @@
 	}
 	Forge.Turret.Shoot = 
 	{
-		base = "Base.Weapon"
+		base = "Base.Ability"
+		limiter_max = 0.000000
+		limiter_global_event_distance_on = true
+		limiter_global_event_distance_max = 2.000000
 		vsnd_files = 
 		[
 			"sounds/abilities/forge/a1_turret/wpn_fire_01.vsnd",
@@ -444,7 +432,6 @@
 		volume = -3.000000
 		limiter_on = 1.000000
 		limiter_max = 2.000000
-		play_from_listener_player = 1.000000
 		volume_offset_player = -2.000000
 		vsnd_files = 
 		[
@@ -463,14 +450,12 @@
 	{
 		base = "Base.Ability.Ult"
 		volume = 2.000000
-		play_from_listener_player = 1.000000
 		vsnd_files = "sounds/abilities/forge/forge_rocket_barrage_cast.vsnd"
 		vsnd_duration = 5.176009
 	}
 	Forge.Rocket.Barrage.Channel.Lp = 
 	{
 		base = "Base.Ability.Ult"
-		play_from_listener_player = 1.000000
 		volume_offset_player = -8.000000
 		volume = 2.000000
 		volume_fade_in = 0.100000
@@ -486,7 +471,6 @@
 	{
 		base = "Base.Ability.Ult"
 		volume = -6.000000
-		play_from_listener_player = 1.000000
 		vsnd_files = "sounds/abilities/forge/forge_rocket_barrage_channel_end.vsnd"
 		vsnd_duration = 3.795760
 	}
@@ -576,7 +560,7 @@
 	}
 	McGinnis.Melee.Swing = 
 	{
-		base = "Base.Ability.Melee"
+		base = "Base.Movement.Melee"
 		vsnd_track2_vol_offset_db = -5.000000
 		vsnd_files = 
 		[
@@ -620,7 +604,7 @@
 	}
 	McGinnis.Melee.Swing.Charged = 
 	{
-		base = "Base.Ability.Melee"
+		base = "Base.Movement.Melee"
 		vsnd_track2_vol_offset_db = -5.000000
 		vsnd_files = 
 		[
@@ -662,24 +646,6 @@
 			"sounds/player/movement/forge/forge_foley_short_08.vsnd",
 		]
 		vsnd_duration = 1.399792
-	}
-	McGinnis.Reload.ClipIn = 
-	{
-		base = "Base.Reload"
-		volume = -1.000000
-		pitch_rand_min = -0.110000
-		pitch_rand_max = 0.150000
-		vsnd_files = "sounds/weapons/forge/reload/forge_clipin_01.vsnd"
-		vsnd_duration = 1.082744
-	}
-	McGinnis.Reload.ClipOut = 
-	{
-		base = "Base.Reload"
-		volume = -2.500000
-		pitch_rand_min = -0.050000
-		pitch_rand_max = 0.050000
-		vsnd_files = "sounds/weapons/forge/reload/forge_clipout_01.vsnd"
-		vsnd_duration = 0.680227
 	}
 	McGinnis.Movement.Long = 
 	{
@@ -750,5 +716,30 @@
 			"sounds/player/movement/forge/base_09.vsnd",
 		]
 		vsnd_duration = 1.005000
+	}
+	Forge.Progession.Page.Win.VO = 
+	{
+		base = "Base.HeroPick.VO.2d"
+		context_name = "forge"
+		vsnd_files = 
+		[
+			"sounds/vo/forge/forge_killstreak_start_04.vsnd",
+			"sounds/vo/forge/forge_upgrade_power1_09.vsnd",
+			"sounds/vo/forge/forge_happy_03.vsnd",
+		]
+		vsnd_duration = 1.450907
+	}
+	Forge.Progession.Page.Lose.VO = 
+	{
+		base = "Base.HeroPick.VO.2d"
+		context_name = "forge"
+		vsnd_files = 
+		[
+			"sounds/vo/forge/forge_sad_05.vsnd",
+			"sounds/vo/forge/forge_upgrade_power4_03.vsnd",
+			"sounds/vo/forge/forge_near_miss_01.vsnd",
+			"sounds/vo/forge/forge_near_miss_05.vsnd",
+		]
+		vsnd_duration = 2.893447
 	}
 }

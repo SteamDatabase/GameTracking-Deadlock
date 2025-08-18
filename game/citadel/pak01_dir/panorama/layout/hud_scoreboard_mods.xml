@@ -3,6 +3,7 @@
 	<styles>
 		<include src="s2r://panorama/styles/citadel_base_styles.vcss_c" />
 		<include src="s2r://panorama/styles/hud_scoreboard_mods.vcss_c" />
+		<include src="s2r://panorama/styles/ability_property_icons.vcss_c" />
 	</styles>
 	<snippets>
 		<snippet name="ModsRow">
@@ -12,7 +13,7 @@
 			</Panel>
 		</snippet>
 	</snippets>
-	<CitadelScoreboardMods class="scoreboardMods" onmouseout="CitadelClearScoreboardPlayerSlot();">
+	<CitadelScoreboardMods class="scoreboardMods">
 		<Panel class="NamesContainer" hittest="false" hittestchildren="false">
 			<Label id="ScoreboardModsHeroName" text="{g:citadel_hero_name:scoreboard_mods_hero_id}" />
 			<CitadelUserName id="UserName" class="PlayerName" />
@@ -43,6 +44,57 @@
 			</Button>
 		</Panel>
 		<Panel class="HeroStats">
+			<Panel id="WeaponStats" class="statBucket" onmouseout="CitadelHideStatsTooltip();">
+				<Panel class="bucketContent">
+					<Label class="bucketTitle" text="#CitadelCategoryWeapon" />
+					<Panel id="Stat_WeaponDPS" class="heroStat">
+						<Panel class="statIcon StatDesc_DPS" />
+						<Label class="statNumberLg" text="{s:stat_dps}" />
+						<Label class="statNameLg" text="#StatDesc_DPS" />
+					</Panel>
+					<Panel class="subStats">
+						<Panel id="Stat_BulletResist" class="heroStat subStat">
+							<Panel class="statIcon statIconSm StatDesc_LightMeleeDamage" />
+							<Label class="statNumberSm" text="{s:stat_melee}" />
+						</Panel>
+					</Panel>
+				</Panel>
+				<Panel class="viewMoreArrow" />
+			</Panel>
+			<Panel class="divider" />
+			<Panel id="ArmorStats" class="statBucket" onmouseout="CitadelHideStatsTooltip();">
+				<Panel class="bucketContent">
+					<Label class="bucketTitle" text="#CitadelCategoryArmor" />
+					<Panel id="Stat_Health" class="heroStat">
+						<Panel class="statIcon StatDesc_MaxHealth" />
+						<Label class="statNumberLg" text="{s:stat_max_health}" />
+						<Label class="statNameLg" text="#StatDesc_HealthAttribute" />
+					</Panel>
+					<Panel class="subStats">
+						<Panel id="Stat_BulletResist" class="heroStat subStat">
+							<Panel class="statIcon statIconSm StatDesc_BulletArmor" />
+							<Label class="statNumberSm" text="{s:stat_bullet_resist}%" />
+						</Panel>
+						<Panel id="Stat_SpiritResist" class="heroStat">
+							<Panel class="statIcon statIconSm StatDesc_TechArmorDamageReduction" />
+							<Label class="statNumberSm" text="{s:stat_tech_resist}%" />
+						</Panel>
+					</Panel>
+				</Panel>
+				<Panel class="viewMoreArrow" />
+			</Panel>
+			<Panel class="divider" />
+			<Panel id="TechStats" class="statBucket" onmouseout="CitadelHideStatsTooltip();">
+				<Panel class="bucketContent">
+					<Label class="bucketTitle" text="#CitadelCategoryTech" />
+					<Panel id="Stat_Spirit" class="heroStat">
+						<Panel class="statIcon StatDesc_TechPower" />
+						<Label class="statNumberLg" text="{s:stat_tech_power}" />
+						<Label class="statNameLg" text="#StatDesc_TechPower" />
+					</Panel>
+				</Panel>
+				<Panel class="viewMoreArrow" />
+			</Panel>
 			<CitadelHeroStatsDisplay id="HeroStatsDisplay" />
 		</Panel>
 	</CitadelScoreboardMods>

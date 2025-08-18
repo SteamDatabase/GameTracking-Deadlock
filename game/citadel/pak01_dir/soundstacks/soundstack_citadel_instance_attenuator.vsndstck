@@ -59,11 +59,30 @@
 			},
 			
 			{
+				name = "instance_attenuator_name_not_empty"
+				operator = "math_string"
+				input_execute = "1.0"
+				input1 = "@public.instance_attenuator_name"
+				input2 = ""
+				apply = "not_equal"
+			},
+			
+			{
+				name = "switch_instance_attenuator_group_mode"
+				execute_once = "true"
+				input_execute = "@public.instance_attenuator_enabled"
+				operator = "ctrl_switch_string"
+				input_switch = "@instance_attenuator_name_not_empty.output"
+				input1 = "instance_attenuator_mode_soundevent"
+				input2 = "instance_attenuator_mode_name"
+			},
+			
+			{
 				name = "join_instance_attenuator_group"
 				input_execute = "@public.instance_attenuator_enabled"
 				execute_once = "true"
 				operator = "soundevent_group_join"
-				input_group_name = "instance_attenuator"
+				input_group_name = "@switch_instance_attenuator_group_mode.output"
 				input_match_string = "@public.instance_attenuator_name"
 			},
 			

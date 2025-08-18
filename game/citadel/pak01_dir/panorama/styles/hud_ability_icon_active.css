@@ -46,7 +46,7 @@ DraggableAbilityIcon.NoAbility
 	height: 100%;
 	background-size: cover;
 	visibility: collapse;
-	wash-color: #e8e4ea;
+	wash-color: keybindBGColor;
 	background-image: url("s2r://panorama/images/hud/core/ability_static_frame_icon_tex_png.vtex");
 	background-image: url("s2r://panorama/images/hud/core/ability_static_frame_icon.vsvg");
 	background-image: url("s2r://panorama/images/hud/core/ability_frame_0.vsvg");
@@ -175,10 +175,8 @@ DraggableAbilityIcon.NoAbility
 	horizontal-align: left;
 	text-overflow: shrink;
 	color: offBlack;
-	background-size: cover;
 	text-align: center;
 	border-radius: 2px;
-	wash-color: #dedede;
 	z-index: -1;
 	text-transform: uppercase;
 	horizontal-align: middle;
@@ -378,7 +376,7 @@ Label.ability_key
 	
 }
 
-.AbilityCastFailed.ability_container
+.AbilityCastFailed .button_container
 {
 	wash-color: colorEnemy;
 	animation-name: abilityCastFailedAnimation;
@@ -388,6 +386,39 @@ Label.ability_key
 }
 
 @keyframes 'abilityCastFailedAnimation'
+{
+	0%
+	{
+		transform: translateX(2px);
+	}
+	
+	60%
+	{
+		transform: translateX(2px);
+	}
+	
+	61%
+	{
+		transform: translateX(-2px);
+	}
+	
+	100%
+	{
+		transform: translateX(-2px);
+	}
+	
+}
+
+.AbilityUpgradeFailed .button_container
+{
+	wash-color: apCurrencyColor;
+	animation-name: abilityUpgradeFailedAnimation;
+	animation-timing-function: ease-out;
+	animation-duration: 0.06666s;
+	animation-iteration-count: 4;
+}
+
+@keyframes 'abilityUpgradeFailedAnimation'
 {
 	0%
 	{
@@ -473,14 +504,14 @@ Label.ability_key
 
 .ability_bg
 {
-	background-image: url("s2r://panorama/images/hud/core/ability_active_backer.vsvg");
+	background-color: white;
+	border-radius: 4px;
 	visibility: visible;
 	height: 60px;
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: bottom;
 	margin-top: 0px;
-	opacity: 0.8;
 }
 
 .cooling_down .image_container .ability_image

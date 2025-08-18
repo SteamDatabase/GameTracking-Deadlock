@@ -4,7 +4,6 @@
 @define hintTimingFunction: ease-in;
 @define colorEmphasis: #FFCC00;
 @define colorCommonOffBlack: #222222;
-@define brandGreen: #C4FF47;
 .TutorialPanel
 {
 	background-color: #00000000;
@@ -16,18 +15,17 @@
 
 #HeroTrainingIntro,#HeroTrainingOutro
 {
-	width: 600px;
+	width: 560px;
 	height: fit-children;
-	padding: 24px;
+	padding: 36px 24px 24px 24px;
 	flow-children: down;
 	horizontal-align: center;
 	vertical-align: center;
 	visibility: collapse;
+	border-radius: 9px;
 	border: 1px solid rgba(255, 255, 255, 0.025);
-	border-radius: 8px;
-	background-color: #000000aa;
-	world-blur: ingameHudBlur;
-	box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 32px 0px;
+	background-color: gradient( radial, 50% 50%, -5% -5%, 60% 60%, from( #2c2a28 ), to( #181716 ) );
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 32px 0px;
 }
 
 .showIntroModal #HeroTrainingIntro
@@ -57,11 +55,10 @@
 
 .introHeader Label
 {
-	font-size: 48px;
-	font-weight: bold;
+	font-size: 32px;
 	vertical-align: middle;
-	color: brandGreen;
-	font-family: serif;
+	color: offWhite;
+	font-family: block;
 	horizontal-align: center;
 	text-align: center;
 }
@@ -74,11 +71,11 @@
 
 .introText
 {
-	font-size: 20px;
-	opacity: 0.8;
-	padding: 20px;
-	font-weight: medium;
+	font-size: 16px;
+	padding: 12px;
 	text-align: center;
+	horizontal-align: center;
+	color: offWhite&88;
 }
 
 .introHighlight
@@ -100,30 +97,38 @@
 
 #StartButton,#ContinueButton
 {
-	background-color: offWhite;
+	background-color: offWhite&00;
+	box-shadow: inset 0px 0px 32px #00000044;
+	border: 2px solid offWhite&44;
 	horizontal-align: center;
-	margin-top: 10px;
-	border-radius: 2px;
-	margin-bottom: 30px;
-	margin: 10px;
+	margin: 32px 20px 12px 18px;
+	border-radius: 40px;
+	transition-property: brightness, background-color;
+	transition-timing-function: ease-in-out;
+	transition-duration: 0.2s;
+}
+
+#ContinueButton
+{
+	visibility: collapse;
 }
 
 #StartButton Label,#ContinueButton Label
 {
-	font-size: 32px;
-	font-family: serif;
+	font-size: 20px;
+	font-family: block;
 	font-weight: bold;
-	padding: 5px 30px;
-	color: offBlack;
+	text-transform: uppercase;
+	padding: 8px 48px;
+	color: offWhite&88;
 }
 
-#StartButton:hover #ContinueButton:hover
+#StartButton:hover,#ContinueButton:hover
 {
-	transform: translateY(-5px);
-	brightness: 2;
+	background-color: offWhite&11;
 }
 
-#StartButton:hover Label #ContinueButton:hover Label
+#StartButton:hover Label,#ContinueButton:hover Label
 {
 	color: offWhite;
 }
@@ -132,10 +137,11 @@
 {
 	width: 320px;
 	horizontal-align: right;
-	margin: 30px;
+	margin: 28px;
 	height: fit-children;
 	overflow: noclip;
-	ui-scale: 110%;
+	ui-scale: 108%;
+	border-radius: 3px;
 }
 
 .heroTestingRideZiplineFinished .gShopOpen .TutorialTasksContainer
@@ -163,14 +169,15 @@
 .NewPlayerHeader
 {
 	margin-bottom: 0px;
-	background-color: rgba(0, 0, 0, 0.75);
+	background-color: gradient( radial, 50% 50%, -5% -5%, 60% 60%, from( #2c2a28 ), to( #181716 ) );
 	width: 100%;
-	padding: 10px;
+	padding: 12px 12px 10px 12px;
 }
 
 .NewPlayerHeader Label
 {
-	color: brandGreen;
+	color: offWhite;
+	font-family: block;
 	text-transform: uppercase;
 	text-shadow: 0px 0px 12px 1 black;
 }
@@ -184,6 +191,7 @@
 	wash-color: ritualGreen;
 	background-size: contain;
 	margin-bottom: 3px;
+	visibility: collapse;
 }
 
 .NewPlayerTitle
@@ -205,8 +213,8 @@
 
 .TaskStatus
 {
-	width: 40px;
-	height: 40px;
+	width: 28px;
+	height: 28px;
 	horizontal-align: right;
 	margin-right: 5px;
 	background-image: url("s2r://panorama/images/getting_started/checklist_task_empty_png.vtex");
@@ -219,11 +227,13 @@
 .completed .TaskStatus
 {
 	background-image: url("s2r://panorama/images/getting_started/checklist_task_complete_png.vtex");
+	wash-color: brandGreen;
 }
 
 .sandboxAbility1Used .Ability1 .TaskStatus,.sandboxAbility1Passive .Ability1 .TaskStatus,.sandboxAbility2Used .Ability2 .TaskStatus,.sandboxAbility2Passive .Ability2 .TaskStatus,.sandboxAbility3Used .Ability3 .TaskStatus,.sandboxAbility3Passive .Ability3 .TaskStatus,.sandboxAbility4Used .Ability4 .TaskStatus,.sandboxAbility4Passive .Ability4 .TaskStatus
 {
 	background-image: url("s2r://panorama/images/getting_started/checklist_task_complete_png.vtex");
+	wash-color: brandGreen;
 }
 
 .NewPlayerTask
@@ -235,9 +245,9 @@
 	opacity: 1;
 	vertical-align: top;
 	flow-children: down;
-	background-color: rgba(0, 0, 0, 0.35);
-	border-radius: 5px;
+	background-color: rgba(0, 0, 0, 0.65);
 	world-blur: ingameHudBlur;
+	padding-bottom: 12px;
 }
 
 .NewPlayerTask.FinishedRow
@@ -254,10 +264,11 @@
 
 .footnote
 {
-	color: #ffffff50;
+	color: offWhite&44;
 	text-transform: uppercase;
 	font-weight: medium;
 	font-size: 14px;
+	margin-top: -2px;
 }
 
 .TaskSteps
@@ -292,6 +303,8 @@
 	vertical-align: middle;
 	font-size: 16px;
 	font-weight: normal;
+	color: offWhite&88;
+	margin-top: 4px;
 }
 
 @keyframes 'taskComplete'
@@ -460,7 +473,6 @@
 {
 	font-size: 16px;
 	font-weight: bold;
-	background-color: #00000060;
 	padding: 2px 10px 4px 10px;
 	min-width: 105px;
 	text-align: center;
@@ -515,7 +527,6 @@
 {
 	font-size: 16px;
 	font-weight: bold;
-	background-color: #000000aa;
 	padding: 2px 10px 3px 10px;
 	margin-right: 10px;
 	min-width: 90px;
@@ -525,15 +536,18 @@
 
 .AbilityLearn
 {
-	font-size: 16px;
+	font-size: 14px;
 	font-weight: bold;
-	background-color: #000000aa;
-	padding: 2px 10px 3px 10px;
-	margin-right: 10px;
+	background-color: #00000033;
+	padding: 5px 10px 4px 10px;
+	margin: 4px 10px 4px 0px;
 	min-width: 90px;
 	text-align: center;
-	color: #000000;
-	background-color: #B265EF;
+	color: #111111;
+	background-color: brandGreen;
+	border-radius: 3px;
+	font-family: block;
+	text-transform: uppercase;
 }
 
 .AbilityPassive,.AbilityUsed
@@ -548,12 +562,14 @@
 	vertical-align: middle;
 	border-radius: 2px;
 	margin-right: 10px;
+	wash-color: offWhite;
 }
 
 .sandboxAbility1Learn .Ability1 .AbilityLearn,.sandboxAbility2Learn .Ability2 .AbilityLearn,.sandboxAbility3Learn .Ability3 .AbilityLearn,.sandboxAbility4Learn .Ability4 .AbilityLearn
 {
-	background-color: #555;
-	color: #ffffff;
+	background-color: #00000066;
+	color: offWhite&44;
+	border-radius: 3px;
 }
 
 .sandboxAbility1Use .Ability1 .AbilityUse,.sandboxAbility1Used .Ability1 .AbilityUsed,.sandboxAbility1Passive .Ability1 .AbilityPassive,.sandboxAbility2Use .Ability2 .AbilityUse,.sandboxAbility2Used .Ability2 .AbilityUsed,.sandboxAbility2Passive .Ability2 .AbilityPassive,.sandboxAbility3Use .Ability3 .AbilityUse,.sandboxAbility3Used .Ability3 .AbilityUsed,.sandboxAbility3Passive .Ability3 .AbilityPassive,.sandboxAbility4Use .Ability4 .AbilityUse,.sandboxAbility4Used .Ability4 .AbilityUsed,.sandboxAbility4Passive .Ability4 .AbilityPassive

@@ -6,7 +6,6 @@ CitadelPartyInviteList
 	vertical-align: bottom;
 	flow-children: down;
 	visibility: collapse;
-	background-color: silvered&30;
 }
 
 CitadelPartyInviteList.ConnectedToGC
@@ -24,7 +23,6 @@ CitadelPartyInviteList.ConnectedToGC
 	width: 100%;
 	flow-children: down;
 	visibility: collapse;
-	margin-bottom: 10px;
 }
 
 #InviteHeaderGroup
@@ -33,30 +31,32 @@ CitadelPartyInviteList.ConnectedToGC
 	width: 100%;
 	padding-left: 10px;
 	horizontal-align: center;
-	background-color: offBlack;
 }
 
 .InviteHeaderMessage
 {
 	horizontal-align: left;
+	text-transform: uppercase;
+	color: #48D595;
+	font-family: block;
+	text-transform: uppercase;
+	flow-children: right;
+	font-size: 24px;
+	vertical-align: middle;
 }
 
-.InviteHeaderText
+.InviteHeaderText .InviteCount
 {
-	text-transform: uppercase;
-	padding-bottom: 8px;
-	padding-left: 0px;
-	background-color: none;
-	opacity: 1;
-	flow-children: right;
-	font-size: 20px;
+	font-size: 40px;
 	color: offWhite;
-	margin: 0px;
-	padding-top: 8px;
-	vertical-align: middle;
-	text-transform: uppercase;
-	font-weight: bold;
+	margin-left: 0px;
 	margin-top: 1px;
+	vertical-align: center;
+	text-align: center;
+	font-weight: bold;
+	margin-right: 10px;
+	text-overflow: shrink;
+	opacity: 0;
 }
 
 #InviteList
@@ -70,19 +70,6 @@ CitadelPartyInviteList.ConnectedToGC
 	horizontal-align: left;
 }
 
-.InviteCount
-{
-	font-size: 20px;
-	color: offWhite;
-	margin-left: 0px;
-	margin-top: 1px;
-	vertical-align: center;
-	text-align: center;
-	font-weight: bold;
-	margin-right: 10px;
-	text-overflow: shrink;
-}
-
 #PartyInfoInvites .PartyInfoIcon
 {
 	background-image: url("s2r://panorama/images/control_icons/addfriend_png.vtex");
@@ -93,8 +80,14 @@ CitadelPartyInviteList.ConnectedToGC
 {
 	width: 100%;
 	height: 60px;
-	padding-left: 20px;
-	margin-top: 5px;
+	padding-left: 4px;
+	margin-bottom: 4px;
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( #C3FBE209), to( #C3FBE201 ) );
+	background-image: url("s2r://panorama/images/friends_list/friend_bg_psd.vtex");
+	background-img-opacity: 0.02;
+	border-radius: 3px 0px 0px 3px;
+	world-blur: ingameHudBlur;
+	border-radius: 40px 0px 0px 40px;
 }
 
 .IsLayoutSmallScreen #InviteList CitadelPartyInvite
@@ -109,5 +102,67 @@ CitadelPartyInviteList.ConnectedToGC
 {
 	width: 50px;
 	height: 50px;
+}
+
+.HideoutInviteHotkeys
+{
+	flow-children: right;
+	visibility: collapse;
+}
+
+.InHideout .AllowInviteHotkeys .HideoutInviteHotkeys
+{
+	visibility: visible;
+}
+
+.HideoutInviteHotkeys .InviteHotkeyAccept Label
+{
+	color:#48D595;
+}
+
+.HideoutInviteHotkeys .InviteHotkeyDecline Label
+{
+	color:#9C3333;
+}
+
+.HideoutInviteHotkeys .InviteHotkeyAccept,.HideoutInviteHotkeys .InviteHotkeyDecline
+{
+	flow-children: right;
+	margin-left: 8px;
+}
+
+.HideoutInviteHotkeys .InviteHotkeyAccept Label,.HideoutInviteHotkeys .InviteHotkeyDecline Label
+{
+	vertical-align: middle;
+	font-family: block;
+	text-transform: uppercase;
+}
+
+.EscapeHint
+{
+	visibility: collapse;
+}
+
+#Hud:not(.InHideout) .HasPartyInvites .EscapeHint
+{
+	visibility: visible;
+}
+
+#Hud.InHideout CitadelPartyInviteList.HasPartyInvites:not(.AllowInviteHotkeys) .EscapeHint
+{
+	visibility: visible;
+}
+
+.EscapeHint Label
+{
+	padding-top: 1px;
+	vertical-align: middle;
+	font-family: block;
+	text-transform: uppercase;
+}
+
+.EscapeHint Label CitadelBinding
+{
+	transform: translateY( -1px );
 }
 

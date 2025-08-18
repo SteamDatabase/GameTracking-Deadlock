@@ -20,12 +20,12 @@
  #%&(38:HJLPSUVXZ\^`cefksx}
  %%-%d.%ds 
  %02u:%02u:%02u
- ( def. "%s" )
  (%i core%s
  (Administrator User)
  (Build: %s)
  (Limited User)
  (UBR: %lu)
+ (in large os pages)
  (including user space up to 63 bits)
  + %u header stack frames
  + full mem debug
@@ -57,7 +57,6 @@
 !AxU
 !TdM
 !link
-"%s" = "%s"
 "%s","%s",%s,"%s"\n
 "0x%llX"
 "[ARRAY]"
@@ -65,7 +64,6 @@
 "[EHANDLE]"
 "[POINTER]"
 "e?<<<<<<l?
-"name" of the file referenced by the symbolic link named /etc/malloc.conf
 #%llu
 #4o>w
 #9fm
@@ -78,7 +76,6 @@
 #include is NULL 
 #int#
 #nyf
-#p72
 $Ib?s
 $eax
 $ebp
@@ -150,8 +147,6 @@ $xmm6
 $xmm7
 $xmm8
 $xmm9
-%-120s - %s\n
-%-120s\n
 %-4d    %-32s    %-10s    
 %-4s    %-32s    %-10s    %-10s    %-32s    %-32s\n
 %-80s : %-16s : %-32s : %s\n
@@ -167,9 +162,17 @@ $xmm9
 %02u/%02u/%04u
 %02x
 %08x %s size %08x\n
+%10s:
+%10s: %11s %11s %11s %11s %11s\n
+%10s: %5ld.%ld avg\n
+%10s: %5zu.%03zu s\n
+%10s: user: %zu.%03zu s, system: %zu.%03zu s, faults: %zu, rss: 
+%11s
 %12.3f %12.2f
+%12s
 %14.3f %12.2f
 %14s %10s
+%24s
 %3d: <unknown relationship %d>\n
 %3d: Cache - group %u, mask 0x%llx\n
 %3d: Cache - mask 0x%llx\n
@@ -195,7 +198,9 @@ $xmm9
 %f %f %f %f
 %i.%i.%i.%i
 %i.%i.%i.%i:%i
+%ld.%ld %-3s
 %lld
+%lld   %-3s
 %llu
 %llu %s entries but no formats were defined\n
 %llu,%u,%u,%s\r\n
@@ -209,9 +214,12 @@ $xmm9
 %s (before "%s")
 %s (tweaked to NOT wait for child outflows)
 %s -contextstart %d -codefile "%s" -codeline %d
+%s allocation count overflow
+%s allocation count overflow( %llu + %llu > %llu )\n
+%s allocation count overflow( %llu > %llu )\n
+%s allocation count overflow( add %llu + current %llu > max %llu )\n
 %s bytes used out of %s bytes available (%.2f%%)
 %s is out of range for KeyValues, which doesn't support signed 64-bit numbers
-%s not expected here.  A valid JSON document should be a single object, which begins with '{' and ends with '}'
 %s not expected here.  Missing ',' or ']'?
 %s not expected here.  Missing ',' or '}'?
 %s not expected here.  Missing ':'?
@@ -232,15 +240,13 @@ $xmm9
 %s: Attempting to mail.\n
 %s: CDwarfVector count overflow\n
 %s: In debug session, letting debugger have a crack at it.\n
-%s: Invalid capacity %u\n
-%s: Invalid grow amount %d\n
 %s: Invalid lock state %d\n
 %s: Start\n
 %s: Unable to get executable filename (%d byte buffer).
 %s: Unable to load SDL\n
 %s: Unable to progress %d jobs to finished state (%llums elapsed)\n
-%s: Unsupported raw allocator type %u\n
 %s: added string size %d overflows (added to %d)\n
+%s: allocation of %u too large, max %u\n
 %s: capacity request for %d can't be satisfied (max %d)\n
 %s: different number of names and flags\n
 %s: different number of names and pointers\n
@@ -262,16 +268,19 @@ $xmm9
 %s: invalid string pointer (string chars %d)\n
 %s: max element overflow, cur count %u + %u\n
 %s: member count overflow (%u)\n
+%s: no space for allocation of %u\n
 %s: out of memory, falling back to regular allocators\n
 %s: requested conversion of %d chars\n
 %s: string format requested %d chars\n
 %s: string length overflows (is %d, adding %d)\n
 %s: string length overflows (is %d, need %d unused)\n
 %s: unable to find %s in '%s'\n
+%s: unable to grow count by %u (currently %u)\n
 %s: unable to load '%s', error %d\n
 %s\DefaultIcon
 %s\Shell\Open\Command
 %s_singleton_mutex
+%sthread 0x%tx: 
 %u CPU%s
 %u MB address space used assuming maximum PageHeap overhead.\n
 %u MB allocated.\n
@@ -389,7 +398,6 @@ $xmm9
 &yacute;
 &yen;
 &yuml;
-' P72
 '1C5
 ':' not expected inside an array.  ('[]' used when '{}' was intended?)
 'false'
@@ -416,7 +424,6 @@ $xmm9
 (wPu@
 (yaX
 ) %%%d.%ds 
-)05\tx
 )14:;EFIJ^de
 )14:EFIJNOde\
 )EIWde
@@ -441,6 +448,7 @@ $xmm9
 , %uP/%uE cores
 , Frequency: %.01f %s
 , SMT/HT index %d
+, commit: 
 , efficiency class %lld
 , max frequency %.01f %s
 ,!MbDg[
@@ -455,7 +463,6 @@ $xmm9
 -- Profile scopes sorted by time (including children) --
 -- Profile scopes sorted by time (without children) --
 -- Summary --\n
---- End jemalloc statistics ---\n
 ------------ Minidump diagnostic log (feel free to delete this file) ------------\n
 ----------------------------------------------------------------------------------------------------------------------------------------------------\n
 ---------------------------------------------------------\nEncountered %s.\n%s minidump to %s\n---------------------------------------------------------
@@ -467,15 +474,21 @@ $xmm9
 -9D\t/9a
 -BH>t
 -RestartSelfFromAlternateLocation_RelaunchTime
+-abandoned
 -assert
 -assert_content
 -attachtodebugger
 -breakimmediately
+-cached
 -error
+-extended
 -inf
 -noautoargs
+-retire
+-rollback
 -testscript
 -testscript_inline
+.%0*llu
 .%x.%x.copy_tmp
 ............| 
 ...........| 
@@ -494,7 +507,7 @@ $xmm9
 .?AV?$CBaseAppSystem@VITestScriptMgr@@@@
 .?AV?$CBaseAppSystem@VIUtlStringTokenSystem@@@@
 .?AV?$CConCommandMemberAccessor@VCCvar@@@@
-.?AV?$CMemPassAllocT@U?$LLA_AddAlignedSelectors@ULowLevelAllocationScheme_jemalloc@@@@@@
+.?AV?$CMemPassAllocT@U?$LLA_AddAlignedSelectors@ULowLevelAllocationScheme_mimalloc@@@@@@
 .?AV?$CParallelLambdaJob@V<lambda_1>@?9??ParallelForSharedCode@@YAXHHPEBDAEBV?$function@$$A6AXHH@Z@std@@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
 .?AV?$CParallelProcessorAbstract@V?$CParallelProcessor@HV?$CMemberFuncJobItemProcessor@HVCCallQueue@@V1@@@$00@@@@
 .?AV?$CRefCountServiceBase@VCRefMT@@@@
@@ -546,7 +559,6 @@ $xmm9
 .?AVCMiniDumpCommentBuilderBase@@
 .?AVCOneTimeEvent@@
 .?AVCParallelProcessorAbstract_Base@@
-.?AVCPerfTraceDepotDefault@@
 .?AVCPooledStdFunctionJob@@
 .?AVCProcess@@
 .?AVCProcessPipeRead@@
@@ -613,7 +625,6 @@ $xmm9
 .?AVIMemAlloc_Internal@@
 .?AVIMobileEventListener@@
 .?AVIMultipleWorkerJob@@
-.?AVIPerfTraceDepot@@
 .?AVIPipeRead@@
 .?AVIProcess@@
 .?AVIProcessUtils@@
@@ -651,6 +662,7 @@ $xmm9
 .CRT$XIC
 .CRT$XIZ
 .CRT$XLA
+.CRT$XLB
 .CRT$XLC
 .CRT$XLD
 .CRT$XLY
@@ -735,16 +747,14 @@ $xmm9
 0 0 0
 0 0 0 0
 0 0 0 255
-0.0.0-0-g000000missing_version_try_git_fetch_tags
 00010203040506070809101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899
-0123456789
 0123456789ABCDEF
 0123456789abcdef
 0123456789abcdefghijklmnopqrstuvwxyz
+0;FALSE;NO;OFF
 0E>X
 0U@H
 0X8b?~
-0\v%04
 0iN>/
 0x%016llX
 0x%p
@@ -757,14 +767,15 @@ $xmm9
 11Y@
 11eU%
 127.0.0.1
+1;TRUE;YES;ON
 1A26b
 1DBlend
-1\v%14
 1icl
 1wsHp
 2,THh
+20:58:17
 28~v
-2\vpx
+2\vpl
 2aNuE
 3 FB
 3+5<t
@@ -775,7 +786,6 @@ $xmm9
 3Pzr)
 3R`w
 3\r53h&
-3\v%34
 3o=q
 3wl'
 4JpI?=
@@ -826,7 +836,6 @@ $xmm9
 9a&g
 9a>d
 9g>@3
-9q\r%s
 9z\u@
 : proc group %u:%u, physical ID %d, core ID %d
 ::<lambda_
@@ -854,33 +863,6 @@ $xmm9
 <dS\fH\t\nFE
 <g9;c
 <img src="
-<jemalloc>: %s: %.*s:%.*s\n
-<jemalloc>: -- Set conf value: %.*s:%.*s\n
-<jemalloc>: Abort (abort_conf:true) on invalid conf value (see above).\n
-<jemalloc>: Conf string ends with comma\n
-<jemalloc>: Conf string ends with key\n
-<jemalloc>: Error allocating TSD\n
-<jemalloc>: Error in VirtualFree(): %s\n
-<jemalloc>: Error in atexit()\n
-<jemalloc>: Error setting TSD\n
-<jemalloc>: Failure in ctl_bymibname()\n
-<jemalloc>: Failure in ctl_mibnametomib()\n
-<jemalloc>: Failure in mallctl("epoch", ...)\n
-<jemalloc>: Failure in xmallctl("%s", ...)\n
-<jemalloc>: HPA not supported in the current configuration; %s.
-<jemalloc>: Malformed conf string\n
-<jemalloc>: Memory allocation failure in mallctl("epoch", ...)\n
-<jemalloc>: Reducing narenas to limit (%d)\n
-<jemalloc>: Unsupported system page size\n
-<jemalloc>: Write-after-free detected on deallocated pointer %p (size %zu).\n
-<jemalloc>: invalid configuration -- per physical CPU arena with odd number (%u) of CPUs (no hyper threading?).\n
-<jemalloc>: invalid tcache id (%u).\n
-<jemalloc>: malloc_conf #%u (%s): "%s"\n
-<jemalloc>: narenas w/ percpuarena beyond limit (%d)\n
-<jemalloc>: no MADV_HUGEPAGE support\n
-<jemalloc>: option background_thread currently supports pthread only\n
-<jemalloc>: perCPU arena getcpu() not available. Setting narenas to %u.\n
-<jemalloc>: prof_leak_error is set w/o prof_final.\n
 <link cmd="%s">
 <missing>
 <null>
@@ -898,7 +880,6 @@ $xmm9
 <unknown KV3 basic type '%s' (%d)>
 <unknown>
 =1cb
-=872
 =87M
 =9tau
 =cQ6
@@ -1006,17 +987,16 @@ $xmm9
 ??0CThreadSwapTarget@@QEAA@XZ
 ??0CThreadSyncObject@@IEAA@XZ
 ??0CUtl3DAllocator2@@QEAA@XZ
-??0CUtlBuffer@@QEAA@HHH@Z
-??0CUtlBuffer@@QEAA@PEBXHH@Z
+??0CUtlBuffer@@QEAA@HHW4BufferFlags_t@0@@Z
+??0CUtlBuffer@@QEAA@PEBXHW4BufferFlags_t@0@@Z
 ??0CUtlBufferFormatOutputStream@@QEAA@$$QEAV0@@Z
 ??0CUtlBufferFormatOutputStream@@QEAA@AEAVCUtlBuffer@@@Z
 ??0CUtlBufferFormatOutputStream@@QEAA@AEBV0@@Z
 ??0CUtlCharConversion@@QEAA@$$QEAV0@@Z
 ??0CUtlCharConversion@@QEAA@AEBV0@@Z
 ??0CUtlCharConversion@@QEAA@DPEBDHPEBUConversionArray_t@0@@Z
-??0CUtlInplaceBuffer@@QEAA@HHH@Z
+??0CUtlInplaceBuffer@@QEAA@W4BufferFlags_t@CUtlBuffer@@@Z
 ??0CUtlMemoryArena@@QEAA@I_N@Z
-??0CUtlMemoryBlockAllocator@@QEAA@HIW4RawAllocatorType_t@@@Z
 ??0CUtlMemoryPoolBase@@QEAA@HHHW4MemoryPoolGrowType_t@@PEBDW4MemAllocAttribute_t@@@Z
 ??0CUtlScratchMemoryPool@@QEAA@IIPEAX_N@Z
 ??0CUtlScratchMemoryPool@@QEAA@XZ
@@ -1086,7 +1066,6 @@ $xmm9
 ??1CThreadSyncObject@@QEAA@XZ
 ??1CUtlBufferFormatOutputStream@@UEAA@XZ
 ??1CUtlMemoryArena@@QEAA@XZ
-??1CUtlMemoryBlockAllocator@@QEAA@XZ
 ??1CUtlMemoryPoolBase@@QEAA@XZ
 ??1CUtlScratchMemoryPool@@QEAA@XZ
 ??1CUtlSymbolTable@@QEAA@XZ
@@ -1197,7 +1176,6 @@ $xmm9
 ??_FCThreadMutex@@QEAAXXZ
 ??_FCUtlBuffer@@QEAAXXZ
 ??_FCUtlInplaceBuffer@@QEAAXXZ
-??_FCUtlMemoryBlockAllocator@@QEAAXXZ
 ??_FCUtlSymbolTable@@QEAAXXZ
 ?@En[vP
 ?Abort@CThreadedJob@@QEAA?AW4JobStatus_t@@_N@Z
@@ -1228,17 +1206,15 @@ $xmm9
 ?AddWatch@CDirTreeWatchManager@@QEAA_NPEBDPEAVVisitor@1@_K@Z
 ?Advance@CCircularBuffer@@QEAAHH@Z
 ?AlignBuffer@CUtlBuffer@@QEAAXH@Z
-?Alloc@CRawAllocator@@SAPEAXW4RawAllocatorType_t@@_KPEA_K@Z
 ?Alloc@CUtlMemoryArena@@QEAAPEAEI@Z
-?Alloc@CUtlMemoryBlockAllocator@@QEAAII@Z
 ?Alloc@CUtlMemoryPoolBase@@QEAAPEAXXZ
 ?AllocAligned@CUtlScratchMemoryPool@@QEAAPEAXHH@Z
-?AllocAndCopy@CUtlMemoryBlockAllocator@@QEAAIPEBDI@Z
 ?AllocInts@CVariableBitStringBase@@AEAAXH@Z
 ?AllocMemoryBlock@CUtlString@@AEAAPEAXI@Z
 ?AllocOrFreeReadLockMem@?$CEventRWLock_Debuggable@$00@@AEAAPEAUTrackedReadLock_t@1@PEAU21@@Z
 ?AllocPooledFiber@CFiber@@SAPEAV1@W4SizeBuckets_t@1@_K@Z
 ?AllocSize@CUtlScratchMemoryPool@@QEBA_KXZ
+?AllocSize@CUtlSymbolTable@@QEBA_KXZ
 ?AllocTempNode@CEventListNode@@SAPEAV1@XZ
 ?AllocZero@CUtlMemoryPoolBase@@QEAAPEAXXZ
 ?Allocate3D@CUtl3DAllocator2@@QEAA_NHHHPEAURect3D_t@@@Z
@@ -1267,7 +1243,7 @@ $xmm9
 ?Assert_ConditionFailed@@YA_NPEBDI00W4AssertionType_t@@I0ZZ
 ?Assert_ConditionFailed@@YA_NPEBDI00W4AssertionType_t@@I@Z
 ?AssignNextTimespanId@CVProfile@@QEAAHXZ
-?AssumeMemory@CUtlBuffer@@QEAAXPEAXHHH@Z
+?AssumeMemory@CUtlBuffer@@QEAAXPEAXHHW4BufferFlags_t@1@@Z
 ?AtRoot@CVProfile@@QEBA_NXZ
 ?AttemptToLoad@CDbgHelpFunctionsLoader@@AEAAXXZ
 ?AttemptToLoad@CImageHlpFunctionsLoader@@AEAAXXZ
@@ -1338,7 +1314,7 @@ $xmm9
 ?CreatePeerKey@KeyValues@@QEAAPEAV1@PEBD@Z
 ?CurrentFileFullPath@CDirIterator@@QEAAPEBDXZ
 ?DebugPrintKV3@@YAXPEBVKeyValues3@@@Z
-?Debug_GetAllocationsSnapshot@CPoolAllocator@@QEBAXPEAV?$CUtlVector@UHandle_t@CPoolAllocator@@HV?$CUtlMemory@UHandle_t@CPoolAllocator@@H$0A@@@@@@Z
+?Debug_GetAllocationsSnapshot@CPoolAllocator@@QEBAXPEAV?$CUtlVector@UHandle_t@CPoolAllocator@@HV?$CUtlVectorMemory_Growable@UHandle_t@CPoolAllocator@@H$0A@@@@@@Z
 ?DecodeFromNativePointer@CVirtualMachineCallStackTranslationEncoder@@QEAAIPEBXPEAVCBufferString@@1PEAI@Z
 ?DefaultExtension@CBufferString@@QEAAPEBDPEBD@Z
 ?DelayAllQueuedCommands@CCommandBuffer@@QEAAXH@Z
@@ -1419,7 +1395,6 @@ $xmm9
 ?EstimateBytesUsed@CFiber@@QEBA_K_K@Z
 ?Evaluate@CExpressionEvaluator@@QEAA_NAEA_NPEBDP6A_N1PEAX@ZP6AX12@Z22@Z
 ?EvaluateAsUnmarkedSymbols@CExpressionEvaluator@@QEAA_NAEA_NPEBDP6A_N1PEAX@ZP6AX12@Z22@Z
-?Execute@CThreadedJob@@QEAA?AW4JobStatus_t@@XZ
 ?ExitScope@CVProfNode@@QEAA_NXZ
 ?ExitScope@CVProfile@@QEAAXXZ
 ?ExitScopeChecked@CVProfile@@QEAAXXZ
@@ -1444,7 +1419,7 @@ $xmm9
 ?FindElfVirtualSize@CModuleListSnapshot@@SA_KPEBX_K1@Z
 ?FindEntry@CEnvironmentBlock@@QEBAHPEBDPEAPEBD_N@Z
 ?FindFileName@CUtlFilenameSymbolTable@@QEBAIPEBD@Z
-?FindInsertionPoint@CEventDispatcher_Base@@IEAAHAEBV?$CUtlVector@UEventListenerInfo_t@CEventDispatcher_Base@@HV?$CUtlMemory@UEventListenerInfo_t@CEventDispatcher_Base@@H$0A@@@@@H@Z
+?FindInsertionPoint@CEventDispatcher_Base@@IEAAHAEBV?$CUtlVector@UEventListenerInfo_t@CEventDispatcher_Base@@HV?$CUtlVectorMemory_Growable@UEventListenerInfo_t@CEventDispatcher_Base@@H$0A@@@@@H@Z
 ?FindKey@KeyValues@@QEAAPEAV1@PEBD_N@Z
 ?FindKey@KeyValues@@QEAAPEAV1@VHKeySymbol@@@Z
 ?FindKey@KeyValues@@QEBAPEBV1@PEBD@Z
@@ -1457,7 +1432,6 @@ $xmm9
 ?FindOrAddFileName@CUtlFilenameSymbolTable@@QEAAIPEBD@Z
 ?FindOrCreateChild@CVProfNode@@QEAAPEAV1@PEBDAEAUVProfBudgetGroupCallSite@@AEBVCUtlSourceLocation@@@Z
 ?FindOrCreateCounter@CVProfile@@QEAAPEA_KPEBDW4CounterGroup_t@@@Z
-?FindPageWithSpace@CUtlMemoryBlockAllocator@@AEBAHI@Z
 ?FindScopeForThreadHandle@CThreadLocalScope@@SAPEAV1@PEAUThreadHandle_t__@@@Z
 ?FindScopeForThreadId@CThreadLocalScope@@SAPEAV1@I@Z
 ?FindString@CCountedStringPool_CI@@QEBAPEBDPEBD@Z
@@ -1541,13 +1515,8 @@ $xmm9
 ?Formatting_AdjustIndentation@@YAXH@Z
 ?Free3D@CUtl3DAllocator2@@QEAAXAEBURect3D_t@@@Z
 ?Free@CPoolAllocator@@QEAAXUHandle_t@1@@Z
-?Free@CRawAllocator@@SAXW4RawAllocatorType_t@@PEAX_K@Z
 ?Free@CUtlMemoryArena@@QEAAIPEAE@Z
 ?Free@CUtlMemoryPoolBase@@QEAAXPEAX@Z
-?FreeAll@CCountedStringPool_CI@@QEAAXXZ
-?FreeAll@CMemoryStack@@QEAAX_N@Z
-?FreeAll@CStringPool_CI@@QEAAXXZ
-?FreeAll@CUtlScratchMemoryPool@@QEAAXXZ
 ?FreeInts@CVariableBitStringBase@@AEAAXXZ
 ?FreeMemoryBlock@CUtlString@@AEAAXXZ
 ?FreeNodes_R@CVProfile@@IEAAXPEAVCVProfNode@@@Z
@@ -1555,7 +1524,7 @@ $xmm9
 ?FreeToAllocPoint@CMemoryStack@@QEAAXI_N@Z
 ?FreeToAllocPoint@CUtlScratchMemoryPool@@QEAAXUUtlScratchMemoryPoolMark_t@@@Z
 ?FromString@KeyValues@@SAPEAV1@PEBD0PEAPEBD@Z
-?GenerateDataReport@CVProfile@@QEAAXPEAV?$CUtlVector@UVProfDataReportItem_t@@HV?$CUtlMemory@UVProfDataReportItem_t@@H$0A@@@@@@Z
+?GenerateDataReport@CVProfile@@QEAAXPEAV?$CUtlVector@UVProfDataReportItem_t@@HV?$CUtlVectorMemory_Growable@UVProfDataReportItem_t@@H$0A@@@@@@Z
 ?GenerateRandomNumber_Locked@?$CUniformRandomStreamImpl@VCThreadNullMutex@@@@AEAAHXZ
 ?GenerateRandomNumber_Locked@?$CUniformRandomStreamImpl@VCThreadNullVerificationMutex@@@@AEAAHXZ
 ?GenerateRandomNumber_Locked@?$CUniformRandomStreamImpl@VCThreadSpinMutex@@@@AEAAHXZ
@@ -1574,7 +1543,7 @@ $xmm9
 ?GetBudgetGroupName@CVProfile@@SAPEBDH@Z
 ?GetChangedFile@CDirTreeWatchManager@@QEAA_NPEAVCBufferString@@PEAUFioBaseFileInfo_t@@@Z
 ?GetChangedFile@CDirWatcher@@QEAA_NPEAVCBufferString@@@Z
-?GetChangedFiles@CDirWatcher@@QEAAIPEAVCUtlBuffer@@PEAV?$CUtlVector@PEADHV?$CUtlMemory@PEADH$0A@@@@@@Z
+?GetChangedFiles@CDirWatcher@@QEAAIPEAVCUtlBuffer@@PEAV?$CUtlVector@PEADHV?$CUtlVectorMemory_Growable@PEADH$0A@@@@@@Z
 ?GetClassKind@CThread@@QEBA?AW4CThreadClassKind_t@@XZ
 ?GetClientData@CVProfNode@@QEBAHXZ
 ?GetColor@KeyValues@@QEBA?AVColor@@PEBDAEBV2@@Z
@@ -1641,11 +1610,10 @@ $xmm9
 ?GetLineOffsetBitMask@CVirtualMachineCallStackTranslationEncoder@@QEAA_KXZ
 ?GetLineOffsetBitShift@CVirtualMachineCallStackTranslationEncoder@@QEAAIXZ
 ?GetLineOffsetPostShiftedSignBitMask@CVirtualMachineCallStackTranslationEncoder@@QEAA_KXZ
-?GetLines@CGridStringPrinter@@QEBAXAEAV?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H$0A@@@@@_N@Z
-?GetListenerNames_Base@CEventDispatcher_Base@@IEAAXAEBV?$CUtlVector@UEventListenerInfo_t@CEventDispatcher_Base@@HV?$CUtlMemory@UEventListenerInfo_t@CEventDispatcher_Base@@H$0A@@@@@PEAV?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H$0A@@@@@@Z
+?GetLines@CGridStringPrinter@@QEBAXAEAV?$CUtlVector@VCUtlString@@HV?$CUtlVectorMemory_Growable@VCUtlString@@H$0A@@@@@_N@Z
+?GetListenerNames_Base@CEventDispatcher_Base@@IEAAXAEBV?$CUtlVector@UEventListenerInfo_t@CEventDispatcher_Base@@HV?$CUtlVectorMemory_Growable@UEventListenerInfo_t@CEventDispatcher_Base@@H$0A@@@@@PEAV?$CUtlVector@VCUtlString@@HV?$CUtlVectorMemory_Growable@VCUtlString@@H$0A@@@@@@Z
 ?GetMappingBaseAddress@CVirtualMachineCallStackTranslationEncoder@@QEAA_KXZ
 ?GetMappingSize@CVirtualMachineCallStackTranslationEncoder@@QEAAIXZ
-?GetMemoryUsage@CUtlSymbolTable@@QEBA_KXZ
 ?GetModuleInformation_@CPSApiFunctionsLoader@@QEAAHPEAXPEAUHINSTANCE__@@PEAU_MODULEINFO@@K@Z
 ?GetName@CThread@@QEAAPEBDXZ
 ?GetName@CVProfNode@@QEBAPEBDXZ
@@ -1716,7 +1684,7 @@ $xmm9
 ?GetWinLevelRevision@CPUInformation@@SA_NPEAG0@Z
 ?GrowByChunks@CBufferString@@QEAAHHH@Z
 ?GrowPool@CPoolAllocator@@QEAAXI@Z
-?HEAP WARNING: memory pointer %p is invalid\n
+?HEAP WARNING: memory block at %p appears to be corrupt\n
 ?HandleFirstWriteLockTransition@CEventRWLock@@IEAAXAEAVCEventListNode@@@Z
 ?HandleToString@CCountedStringPool_CI@@QEBAPEBDG@Z
 ?HandlerQueueHeartBeat@MiniDumpStandardData_t@@QEBAXXZ
@@ -1873,21 +1841,21 @@ $xmm9
 ?LockForWrite@CThreadRWLock@@QEAAXPEBDH@Z
 ?LockMutex@CDbgHelpFunctionsLoader@@QEAAXXZ
 ?LogFailureOutput@CRunProcess@@QEAA_NHH@Z
-?LoggingSystem_GetLogCapture@@YAXPEAV?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H$0A@@@@@_N@Z
+?LoggingSystem_GetLogCapture@@YAXPEAV?$CUtlVector@VCUtlString@@HV?$CUtlVectorMemory_Growable@VCUtlString@@H$0A@@@@@_N@Z
 ?LoggingSystem_GetLogCapture@@YAXPEAVCMiniDumpComment@@_N@Z
 ?LoggingSystem_GetLogCaptureForMiniDump@@YA_NPEAVCMiniDumpComment@@_NPEBD@Z
 ?LoggingSystem_IsChannelEnabled@@YA_NHW4LoggingVerbosity_t@@@Z
-?LoggingSystem_Log@@YA?AW4LoggingResponse_t@@HW4LoggingSeverity_t@@AEBULeafCodeInfo_t@@PEBDZZ
-?LoggingSystem_Log@@YA?AW4LoggingResponse_t@@HW4LoggingSeverity_t@@AEBULeafCodeInfo_t@@PEBULoggingMetaData_t@@PEBDZZ
-?LoggingSystem_Log@@YA?AW4LoggingResponse_t@@HW4LoggingSeverity_t@@AEBULeafCodeInfo_t@@PEBULoggingMetaData_t@@VColor@@PEBDZZ
-?LoggingSystem_Log@@YA?AW4LoggingResponse_t@@HW4LoggingSeverity_t@@AEBULeafCodeInfo_t@@VColor@@PEBDZZ
+?LoggingSystem_Log@@YA?AW4LoggingResponse_t@@HW4LoggingSeverity_t@@AEBULoggingRareOptions_t@@PEBDZZ
+?LoggingSystem_Log@@YA?AW4LoggingResponse_t@@HW4LoggingSeverity_t@@AEBULoggingRareOptions_t@@PEBULoggingMetaData_t@@PEBDZZ
+?LoggingSystem_Log@@YA?AW4LoggingResponse_t@@HW4LoggingSeverity_t@@AEBULoggingRareOptions_t@@PEBULoggingMetaData_t@@VColor@@PEBDZZ
+?LoggingSystem_Log@@YA?AW4LoggingResponse_t@@HW4LoggingSeverity_t@@AEBULoggingRareOptions_t@@VColor@@PEBDZZ
 ?LoggingSystem_Log@@YA?AW4LoggingResponse_t@@HW4LoggingSeverity_t@@PEBULoggingMetaData_t@@PEBDZZ
 ?LoggingSystem_Log@@YA?AW4LoggingResponse_t@@HW4LoggingSeverity_t@@PEBULoggingMetaData_t@@VColor@@PEBDZZ
 ?LoggingSystem_Log@@YA?AW4LoggingResponse_t@@HW4LoggingSeverity_t@@VColor@@PEBDZZ
-?LoggingSystem_LogDirect@@YA?AW4LoggingResponse_t@@HW4LoggingSeverity_t@@AEBULeafCodeInfo_t@@PEBD@Z
-?LoggingSystem_LogDirect@@YA?AW4LoggingResponse_t@@HW4LoggingSeverity_t@@AEBULeafCodeInfo_t@@PEBULoggingMetaData_t@@PEBD@Z
-?LoggingSystem_LogDirect@@YA?AW4LoggingResponse_t@@HW4LoggingSeverity_t@@AEBULeafCodeInfo_t@@VColor@@PEBD@Z
-?LoggingSystem_LogDirect@@YA?AW4LoggingResponse_t@@HW4LoggingSeverity_t@@AEBULeafCodeInfo_t@@VColor@@PEBULoggingMetaData_t@@PEBD@Z
+?LoggingSystem_LogDirect@@YA?AW4LoggingResponse_t@@HW4LoggingSeverity_t@@AEBULoggingRareOptions_t@@PEBD@Z
+?LoggingSystem_LogDirect@@YA?AW4LoggingResponse_t@@HW4LoggingSeverity_t@@AEBULoggingRareOptions_t@@PEBULoggingMetaData_t@@PEBD@Z
+?LoggingSystem_LogDirect@@YA?AW4LoggingResponse_t@@HW4LoggingSeverity_t@@AEBULoggingRareOptions_t@@VColor@@PEBD@Z
+?LoggingSystem_LogDirect@@YA?AW4LoggingResponse_t@@HW4LoggingSeverity_t@@AEBULoggingRareOptions_t@@VColor@@PEBULoggingMetaData_t@@PEBD@Z
 ?LoggingSystem_LogDirect@@YA?AW4LoggingResponse_t@@HW4LoggingSeverity_t@@PEBULoggingMetaData_t@@PEBD@Z
 ?LoggingSystem_LogDirect@@YA?AW4LoggingResponse_t@@HW4LoggingSeverity_t@@VColor@@PEBD@Z
 ?LoggingSystem_LogDirect@@YA?AW4LoggingResponse_t@@HW4LoggingSeverity_t@@VColor@@PEBULoggingMetaData_t@@PEBD@Z
@@ -1905,7 +1873,6 @@ $xmm9
 ?MaxAvailableAllocSize@CUtlMemoryArena@@QEAAIXZ
 ?MaxConversionLength@CUtlCharConversion@@QEBAHXZ
 ?MaybeCommitTo@CMemoryStack@@AEAA_NPEAE@Z
-?MemUsage@CUtlMemoryBlockAllocator@@QEBA_KXZ
 ?MemoryBegin@CUtlMemoryArena@@QEBAPEBEXZ
 ?MemoryEnd@CUtlMemoryArena@@QEBAPEBEXZ
 ?MergeFrom@KeyValues@@QEAAXPEBV1@W4MergeKeyValuesOp_t@1@@Z
@@ -1951,6 +1918,9 @@ $xmm9
 ?PeekStringMatch@CUtlBuffer@@IEAA_NHPEBDH@Z
 ?PeekWhiteSpace@CUtlBuffer@@IEAAHH@Z
 ?Plat_AlertUser@@YAXPEAUPlatWindow_t__@@PEB_W1@Z
+?Plat_RedirectThisProcessStdioToFile@@YA_NHI@Z
+?Plat_RedirectThisProcessStdioToFile@@YA_NPEAXI@Z
+?Plat_UpdateThisProcessStdioRedirect@@YA_NHH@Z
 ?Pop@CTSListBase@@QEAAPEAUTSLNodeBase_t@@XZ
 ?PopGroup@CVProfile@@QEAAXXZ
 ?PopulateUTF16@CStrAutoEncode@@AEBAXXZ
@@ -1963,8 +1933,11 @@ $xmm9
 ?Printf@CUtlBuffer@@QEAAXPEBDZZ
 ?ProcessResolutionKeys@KeyValues@@QEAA_NPEBD@Z
 ?Purge@CBufferString@@QEAAXH@Z
+?Purge@CCountedStringPool_CI@@QEAAXXZ
+?Purge@CMemoryStack@@QEAAX_N@Z
 ?Purge@CModuleListSnapshot@@QEAAXXZ
-?Purge@CUtlMemoryBlockAllocator@@QEAAXXZ
+?Purge@CStringPool_CI@@QEAAXXZ
+?Purge@CUtlScratchMemoryPool@@QEAAXXZ
 ?Purge@CUtlString@@QEAAXXZ
 ?Purge@CUtlSymbolTable@@QEAAXXZ
 ?Purge@CVirtualMemorySnapshot@@QEAAXXZ
@@ -2000,6 +1973,9 @@ $xmm9
 ?RandomInt@?$CUniformRandomStreamImpl@VCThreadNullMutex@@@@QEAAHHH@Z
 ?RandomInt@?$CUniformRandomStreamImpl@VCThreadNullVerificationMutex@@@@QEAAHHH@Z
 ?RandomInt@?$CUniformRandomStreamImpl@VCThreadSpinMutex@@@@QEAAHHH@Z
+?RandomizeBits@?$CUniformRandomStreamImpl@VCThreadNullMutex@@@@QEAAXPEAX_K@Z
+?RandomizeBits@?$CUniformRandomStreamImpl@VCThreadNullVerificationMutex@@@@QEAAXPEAX_K@Z
+?RandomizeBits@?$CUniformRandomStreamImpl@VCThreadSpinMutex@@@@QEAAXPEAX_K@Z
 ?ReachedZeroReferences@CFiber@@AEAAXXZ
 ?Read@CCircularBuffer@@QEAAHPEAXH@Z
 ?ReadAsBinary@KVPacker@@QEAA_NPEAVKeyValues@@AEAVCUtlBuffer@@@Z
@@ -2012,7 +1988,7 @@ $xmm9
 ?RecursiveSaveToLocalizationFile@KeyValues@@QEAAXPEAVIFileSystem@@PEAXH_N@Z
 ?ReferenceString@CCountedStringPool_CI@@QEAAPEBDPEBD@Z
 ?ReferenceStringHandle@CCountedStringPool_CI@@QEAAGPEBD@Z
-?RegisterEventListener_Base@CEventDispatcher_Base@@IEAAXAEBVCUtlAbstractDelegate@@I_NAEAV?$CUtlVector@UEventListenerInfo_t@CEventDispatcher_Base@@HV?$CUtlMemory@UEventListenerInfo_t@CEventDispatcher_Base@@H$0A@@@@@HPEBD@Z
+?RegisterEventListener_Base@CEventDispatcher_Base@@IEAAXAEBVCUtlAbstractDelegate@@I_NAEAV?$CUtlVector@UEventListenerInfo_t@CEventDispatcher_Base@@HV?$CUtlVectorMemory_Growable@UEventListenerInfo_t@CEventDispatcher_Base@@H$0A@@@@@HPEBD@Z
 ?Release@CThreadCrossProcessMutex@@QEAA_NXZ
 ?Release@CThreadMultiWaitSemaphore@@QEAAXXZ
 ?Release@CThreadSemaphore@@QEAA_NHPEAH@Z
@@ -2025,7 +2001,6 @@ $xmm9
 ?Remove@CEnvironmentBlock@@QEAA_NPEBD@Z
 ?Remove@CUtlString@@QEBA?AV1@PEBD_N@Z
 ?RemoveAll@CUtlFilenameSymbolTable@@QEAAXXZ
-?RemoveAll@CUtlMemoryBlockAllocator@@QEAAX_K@Z
 ?RemoveAll@CUtlSymbolTable@@QEAAXXZ
 ?RemoveAt@CBufferString@@QEAAPEBDHH@Z
 ?RemoveAtUTF8@CBufferString@@QEAAPEBDHH@Z
@@ -2153,7 +2128,7 @@ $xmm9
 ?SetDirToWatch@CDirWatcher@@QEAA_NPEBDI_NI_K@Z
 ?SetDirect@CUtlString@@QEAAXPEBDH@Z
 ?SetExtension@CBufferString@@QEAAPEBDPEBD_N@Z
-?SetExternalBuffer@CUtlBuffer@@QEAAXPEAXHHH@Z
+?SetExternalBuffer@CUtlBuffer@@QEAAXPEAXHHW4BufferFlags_t@1@@Z
 ?SetFloat@KeyValues@@QEAAXPEBDM@Z
 ?SetFromSockadr@netadr_t@@QEAA_NPEBUsockaddr@@@Z
 ?SetFromSocket@netadr_t@@QEAAXH@Z
@@ -2173,7 +2148,6 @@ $xmm9
 ?SetOutputStream@CVProfile@@QEAAXP6AXPEBDZZ@Z
 ?SetOverflowFuncs@CUtlBuffer@@IEAAXP81@EAA_NH@Z0@Z
 ?SetPacked@CSplitString@@QEAAXPEBD0_NH@Z
-?SetPageSize@CUtlMemoryBlockAllocator@@QEAAXI@Z
 ?SetPageSize@CUtlSymbolTable@@QEAAXI@Z
 ?SetPort@netadr_t@@QEAAXG@Z
 ?SetPriority@CThread@@QEAA_NW4ThreadPriorityEnum_t@@@Z
@@ -2223,7 +2197,7 @@ $xmm9
 ?SpewStrings@CUtlFilenameSymbolTable@@QEAAXXZ
 ?SpinLockForWrite@CThreadSpinRWLock@@AEAAXPEBDHI@Z
 ?Split@CSplitString@@AEAAXPEBDHPEAPEBDH_N@Z
-?SplitCommands@CCommandBuffer@@SAXPEBDHPEAV?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H$0A@@@@@@Z
+?SplitCommands@CCommandBuffer@@SAXPEBDHPEAV?$CUtlVector@VCUtlString@@HV?$CUtlVectorMemory_Growable@VCUtlString@@H$0A@@@@@@Z
 ?SplitPathAndPattern@CDirIterator@@IEAA_NPEBDPEAVCUtlString@@1@Z
 ?SplitString@CUtlStringList@@AEAAXPEBDPEBQEBDH@Z
 ?StackWalk64_@CDbgHelpFunctionsLoader@@QEAAHKPEAX0PEAU_tagSTACKFRAME64@@0P6AH0_K0KPEAK@ZP6APEAX02@ZP6A_K02@ZP6A_K00PEAU_tagADDRESS64@@@Z@Z
@@ -2253,7 +2227,7 @@ $xmm9
 ?SupportsInlineContext_@CDbgHelpFunctionsLoader@@QEAA_NXZ
 ?Suspend@CThread@@QEAAIXZ
 ?Swap@CUtlBuffer@@QEAAXAEAV1@@Z
-?Swap@CUtlBuffer@@QEAAXAEAV?$CUtlMemory@EH$0A@@@@Z
+?Swap@CUtlBuffer@@QEAAXAEAV?$CUtlLeanVector@EHVCMemAllocAllocator@@@@@Z
 ?Swap@CUtlString@@QEAAXAEAV1@@Z
 ?SwapFieldToTargetEndian@CByteswap@@QEAAXPEAX0PEAUtypedescription_t@@@Z
 ?SwapFieldsToTargetEndian@CByteswap@@QEAAXPEAX0PEAUdatamap_t@@@Z
@@ -2359,7 +2333,7 @@ $xmm9
 ?UnlockWrite_LockForRead@CThreadSpinRWLock@@QEAA?AW4RWLockTranstionResult_t@@PEBDH@Z
 ?UnpackIntoStructure@KeyValues@@QEAAXPEBUKeyValuesUnpackStructure@@PEAX@Z
 ?UnqualifiedFilenameAlloc@CUtlString@@QEBA?AV1@XZ
-?UnregisterEventListener_Base@CEventDispatcher_Base@@IEAA_NAEBVCUtlAbstractDelegate@@AEAV?$CUtlVector@UEventListenerInfo_t@CEventDispatcher_Base@@HV?$CUtlMemory@UEventListenerInfo_t@CEventDispatcher_Base@@H$0A@@@@@@Z
+?UnregisterEventListener_Base@CEventDispatcher_Base@@IEAA_NAEBVCUtlAbstractDelegate@@AEAV?$CUtlVector@UEventListenerInfo_t@CEventDispatcher_Base@@HV?$CUtlVectorMemory_Growable@UEventListenerInfo_t@CEventDispatcher_Base@@H$0A@@@@@@Z
 ?Unserialize@netadr_t@@QEAA_NAEAVbf_read@@@Z
 ?Update@CSHA1@@QEAAXPEBXI@Z
 ?UpdateSourceIndex@CVSymbolModule@@QEAA_NPEBXH_NPEA_N@Z
@@ -2372,22 +2346,22 @@ $xmm9
 ?V_GetUTF8BytesNeeded@@YAHPEBDH@Z
 ?V_GetUTF8BytesNeeded@@YAHPEBIH@Z
 ?V_GetUTF8BytesNeeded@@YAHPEB_WH@Z
-?V_JoinNumbers@@YAPEBDDAEBV?$CUtlVector@HHV?$CUtlMemory@HH$0A@@@@@PEAVCUtlString@@@Z
-?V_JoinNumbers@@YAPEBDDAEBV?$CUtlVector@IHV?$CUtlMemory@IH$0A@@@@@PEAVCUtlString@@@Z
-?V_JoinNumbers@@YAPEBDDAEBV?$CUtlVector@MHV?$CUtlMemory@MH$0A@@@@@PEAVCUtlString@@@Z
-?V_JoinNumbers@@YAPEBDDAEBV?$CUtlVector@NHV?$CUtlMemory@NH$0A@@@@@PEAVCUtlString@@@Z
-?V_JoinNumbers@@YAPEBDDAEBV?$CUtlVector@_JHV?$CUtlMemory@_JH$0A@@@@@PEAVCUtlString@@@Z
-?V_JoinNumbers@@YAPEBDDAEBV?$CUtlVector@_KHV?$CUtlMemory@_KH$0A@@@@@PEAVCUtlString@@@Z
+?V_JoinNumbers@@YAPEBDDAEBV?$CUtlVector@HHV?$CUtlVectorMemory_Growable@HH$0A@@@@@PEAVCUtlString@@@Z
+?V_JoinNumbers@@YAPEBDDAEBV?$CUtlVector@IHV?$CUtlVectorMemory_Growable@IH$0A@@@@@PEAVCUtlString@@@Z
+?V_JoinNumbers@@YAPEBDDAEBV?$CUtlVector@MHV?$CUtlVectorMemory_Growable@MH$0A@@@@@PEAVCUtlString@@@Z
+?V_JoinNumbers@@YAPEBDDAEBV?$CUtlVector@NHV?$CUtlVectorMemory_Growable@NH$0A@@@@@PEAVCUtlString@@@Z
+?V_JoinNumbers@@YAPEBDDAEBV?$CUtlVector@_JHV?$CUtlVectorMemory_Growable@_JH$0A@@@@@PEAVCUtlString@@@Z
+?V_JoinNumbers@@YAPEBDDAEBV?$CUtlVector@_KHV?$CUtlVectorMemory_Growable@_KH$0A@@@@@PEAVCUtlString@@@Z
 ?V_RandomString@@YA?AVCUtlString@@H@Z
 ?V_SanitizeTextForCommandLine@@YAPEBDPEBDPEAVCBufferString@@_N@Z
-?V_SplitNumbers@@YAHPEBDDAEAV?$CUtlVector@HHV?$CUtlMemory@HH$0A@@@@@@Z
-?V_SplitNumbers@@YAHPEBDDAEAV?$CUtlVector@IHV?$CUtlMemory@IH$0A@@@@@@Z
-?V_SplitNumbers@@YAHPEBDDAEAV?$CUtlVector@MHV?$CUtlMemory@MH$0A@@@@@@Z
-?V_SplitNumbers@@YAHPEBDDAEAV?$CUtlVector@NHV?$CUtlMemory@NH$0A@@@@@@Z
-?V_SplitNumbers@@YAHPEBDDAEAV?$CUtlVector@_JHV?$CUtlMemory@_JH$0A@@@@@@Z
-?V_SplitNumbers@@YAHPEBDDAEAV?$CUtlVector@_KHV?$CUtlMemory@_KH$0A@@@@@@Z
-?V_SplitString@@YAXPEBD0AEAV?$CUtlVector@VCUtlString@@HV?$CUtlMemory@VCUtlString@@H$0A@@@@@_N@Z
-?V_SplitStringInPlace@@YAXPEADPEBDAEAV?$CUtlVector@PEBDHV?$CUtlMemory@PEBDH$0A@@@@@@Z
+?V_SplitNumbers@@YAHPEBDDAEAV?$CUtlVector@HHV?$CUtlVectorMemory_Growable@HH$0A@@@@@@Z
+?V_SplitNumbers@@YAHPEBDDAEAV?$CUtlVector@IHV?$CUtlVectorMemory_Growable@IH$0A@@@@@@Z
+?V_SplitNumbers@@YAHPEBDDAEAV?$CUtlVector@MHV?$CUtlVectorMemory_Growable@MH$0A@@@@@@Z
+?V_SplitNumbers@@YAHPEBDDAEAV?$CUtlVector@NHV?$CUtlVectorMemory_Growable@NH$0A@@@@@@Z
+?V_SplitNumbers@@YAHPEBDDAEAV?$CUtlVector@_JHV?$CUtlVectorMemory_Growable@_JH$0A@@@@@@Z
+?V_SplitNumbers@@YAHPEBDDAEAV?$CUtlVector@_KHV?$CUtlVectorMemory_Growable@_KH$0A@@@@@@Z
+?V_SplitString@@YAXPEBD0AEAV?$CUtlVector@VCUtlString@@HV?$CUtlVectorMemory_Growable@VCUtlString@@H$0A@@@@@_N@Z
+?V_SplitStringInPlace@@YAXPEADPEBDAEAV?$CUtlLeanVector@PEBDHVCMemAllocAllocator@@@@@Z
 ?V_UnicodeAdvance@@YAPEADPEADH@Z
 ?V_UnicodeAdvance@@YAPEAIPEAIH@Z
 ?V_UnicodeAdvance@@YAPEA_WPEA_WH@Z
@@ -2436,6 +2410,7 @@ $xmm9
 ?WaitForMultiple@CThreadSyncObject@@SAIHPEAV1@_NI@Z
 ?WaitForRead@CThreadRWLock@@AEAAXXZ
 ?WaitForReadLockTransition@CEventRWLock@@IEAAXAEAVCEventListNode@@I@Z
+?WaitOrImmediatelyExecute@CThreadedJob@@QEAAXXZ
 ?Wait_NoDiagnostics@CThreadSyncObject@@QEAA_NI@Z
 ?Write@CCircularBuffer@@QEAAHPEBXH@Z
 ?WriteAsBinary@KVPacker@@QEAA_NPEAVKeyValues@@AEAVCUtlBuffer@@@Z
@@ -2459,7 +2434,6 @@ $xmm9
 ?rAj
 ?s_iCurrentUniqueNodeID@CVProfNode@@1HA
 ?ysB
-@"Xr2
 @^8U)zj
 @aQY
 @pn>6
@@ -2513,6 +2487,7 @@ ATTEMPTED TO DECOMMIT OWNED MEMORY STACK SPACE\n
 AUUUUUU
 AVX 
 AVX2 
+AVX512+VPCLMULQDQ 
 A]DG
 A`1w>
 AbsolutePoseControl
@@ -2526,6 +2501,7 @@ AcquireSRWLockExclusive
 AddLayer
 AddVectoredExceptionHandler
 Address range refers to non-existent CU at 0x%llx\n
+AdjustTokenPrivileges
 Alert
 Align
 AlignedByteArray not properly aligned\n
@@ -2583,8 +2559,6 @@ AppPolicyGetThreadInitializationType
 ApplyDiffs
 April
 AreFileApisANSI
-Arenas
-Assert
 AssertDlgThread
 Assertion Dialog could not be created. Breaking in debugger.\n
 Assertion Dialog could not be created. Ignoring assertion. Run under the debugger to break instead.\n
@@ -2605,7 +2579,8 @@ AssignProcessToJobObject
 AssignRangeMultipler with bitcount=32!\n
 AsyncScheduledFunctions
 AttachConsole
-Attempted to add job to job queue that has already been completed\n
+Attempted to add job '%s' to pool that has already been completed [status=%i]\n
+Aug 17 2025
 August
 AuthenticAMD
 AutoLayer
@@ -2614,6 +2589,7 @@ Average %.2f fps, %.2f ms per frame\n
 B,fK
 BC1%M
 BC?>6t9^\tc:>
+BCryptGenRandom
 BF>^G
 BOOL
 BTcq
@@ -2668,7 +2644,6 @@ BroadcastAssertionMiniDumpHandler - [Invoking crashdumpmailer]\n
 Buffers extend past the end of the input (%llu bytes)\n
 Build ID too large, %d bytes\n
 Build ID too large\n
-Build-time option settings
 BuiltDebug
 C-Yn
 C5R?\t
@@ -2692,7 +2667,7 @@ C:\buildworker\citadel_rel_win64\build\src\tier0\kv3format_manager.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\logging.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\mem_helpers.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\mempool.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\memprocessheap.cpp(346):***** OUT OF MEMORY! attempted allocation size: %I64d ****\n
+C:\buildworker\citadel_rel_win64\build\src\tier0\memprocessheap.cpp(336):***** OUT OF MEMORY! attempted allocation size: %I64d ****\n
 C:\buildworker\citadel_rel_win64\build\src\tier0\memstack.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\memstd.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\platform.cpp
@@ -2704,10 +2679,10 @@ C:\buildworker\citadel_rel_win64\build\src\tier0\stringparse.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\stringpool.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\threadtools.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\tier0_strtools.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\utlmemory.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\utlmemoryarena.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\utlobjectregistry.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\utlstringtokensystem.cpp
+C:\buildworker\citadel_rel_win64\build\src\tier0\utlvectormemory.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\vprof.cpp
 CAddAnimNode
 CAimMatrixAnimNode
@@ -3301,7 +3276,6 @@ CThreadPool::Start called and it was already initialized.
 CThreadPool::YieldWait
 CThreadPool::m_PerFrameJobListMutex
 CThreadPool::m_SuspendMutex
-CThreadedJob
 CThreadedTraverseJobSync::WaitForAllDone
 CThreadedTraverseJob_FastWin32::CThreadedTraverseJob_FastWin32
 CTimeCondition
@@ -3310,29 +3284,36 @@ CToggleComponentAction
 CTurnHelperAnimNode
 CTwoBoneIKAnimNode
 CURVE_TANGENT_LINEAR
-CUtlBlockMemory overflow!\n
+CUtlBlockVector<float const *,int,class CMemAllocAllocator>::GrowCount
 CUtlDict<class CThreadEvent *,class CDefFastCaselessStringLess>::Insert
 CUtlDict<int,class CDefFastCaselessStringLess>::Insert
-CUtlFixedMemory overflow!\n
+CUtlLeanVectorBase<struct UtlLinkedListElem_t<class CUtlString,unsigned int>,unsigned int,class CMemAllocAllocator>::EnsureCapacity
+CUtlLeanVectorBase<struct UtlLinkedListElem_t<struct CCvar::CommandCallbackData_t,unsigned short>,unsigned short,class CMemAllocAllocator>::EnsureCapacity
+CUtlLeanVectorBase<struct UtlLinkedListElem_t<struct CCvar::ConVarChangeCallbackData_t,unsigned short>,unsigned short,class CMemAllocAllocator>::EnsureCapacity
+CUtlLeanVectorBase<struct UtlLinkedListElem_t<struct CCvar::ConVarFilterCallbackData_t,unsigned short>,unsigned short,class CMemAllocAllocator>::EnsureCapacity
+CUtlLeanVectorBase<struct UtlLinkedListElem_t<struct CCvar::SharedCommandData_t,unsigned short>,unsigned short,class CMemAllocAllocator>::EnsureCapacity
+CUtlLeanVectorBase<struct UtlLinkedListElem_t<struct ConVarInfo_t *,unsigned short>,unsigned short,class CMemAllocAllocator>::EnsureCapacity
+CUtlLeanVectorBase<struct UtlRBTreeNode_t<char const *,unsigned short>,unsigned short,class CMemAllocAllocator>::EnsureCapacity
+CUtlLeanVectorBase<struct UtlRBTreeNode_t<struct ConVarOrConCommand,unsigned short>,unsigned short,class CMemAllocAllocator>::EnsureCapacity
+CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CUtlHashMap<struct CallRecordKey_t,struct CallRecordParam_t,class CDefEquals<struct CallRecordKey_t>,struct HashMapFunctor_t<struct CallRecordKey_t>,int>::HashBucket_t,int,class CMemAllocAllocator>,struct CUtlHashMap<struct CallRecordKey_t,struct CallRecordParam_t,class CDefEquals<struct CallRecordKey_t>,struct HashMapFunctor_t<struct CallRecordKey_t>,int>::HashBucket_t,int>::AddMultipleToTail
+CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CUtlHashMap<unsigned int,struct CThreadMonitorData::ThreadRecord_t,class CDefEquals<unsigned int>,struct HashMapFunctor_t<unsigned int>,int>::HashBucket_t,int,class CMemAllocAllocator>,struct CUtlHashMap<unsigned int,struct CThreadMonitorData::ThreadRecord_t,class CDefEquals<unsigned int>,struct HashMapFunctor_t<unsigned int>,int>::HashBucket_t,int>::AddMultipleToTail
+CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CUtlMemoryBlockAllocator<char,class CMemAllocAllocator>::MemPage_t,int,class CMemAllocAllocator>,struct CUtlMemoryBlockAllocator<char,class CMemAllocAllocator>::MemPage_t,int>::EnsureUnusedCapacity
+CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CUtlMemoryBlockAllocator<float const *,class CMemAllocAllocator>::MemPage_t,int,class CMemAllocAllocator>,struct CUtlMemoryBlockAllocator<float const *,class CMemAllocAllocator>::MemPage_t,int>::EnsureUnusedCapacity
 CUtlLinkedList overflow! (exhausted index range)\n
-CUtlLinkedList overflow! (exhausted memory allocator)\n
 CUtlMemoryArena::CUtlMemoryArena
 CUtlMemoryArena::Free
+CUtlMemoryBlockAllocator<char,class CMemAllocAllocator>::AddPage
+CUtlMemoryBlockAllocator<char,class CMemAllocAllocator>::Alloc
+CUtlMemoryBlockAllocator<float const *,class CMemAllocAllocator>::AddPage
 CUtlMemoryPoolBase: Cannot specify 0 elements to grow each time!\n
-CUtlMemory_RawAllocator<class CUtlHashtableEntry<unsigned int,struct empty_t> >::EnsureCapacity
-CUtlMemory_RawAllocator<struct CUtlMemoryBlockAllocator::MemPage_t>::EnsureCapacity
-CUtlMemory_RawAllocator<struct CUtlMemoryBlockAllocator::MemPage_t>::Grow
-CUtlMemory_RawAllocator<struct CUtlMemoryBlockAllocator::MemPage_t>::SetRawAllocatorType
-CUtlMemory_RawAllocator<unsigned int>::EnsureCapacity
-CUtlMemory_RawAllocator<unsigned int>::Grow
-CUtlRBTree overflow with %u elements!\n
-CUtlRBTree<char const *,class CDefFastCaselessStringLess,unsigned short,class CUtlMemory<struct UtlRBTreeNode_t<char const *,unsigned short>,unsigned short,0> >::Insert
-CUtlRBTree<struct CUtlOrderedMapBase<class HKeySymbol,bool,class CDefLess<class HKeySymbol>,int>::Node_t,class CUtlOrderedMapBase<class HKeySymbol,bool,class CDefLess<class HKeySymbol>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class HKeySymbol,bool,class CDefLess<class HKeySymbol>,int>::Node_t,int>,int,0> >::Insert
-CUtlRBTree<struct CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::Node_t,class CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::Node_t,int>,int,0> >::Insert
-CUtlRBTree<struct CUtlOrderedMapBase<struct CVirtRangeMap::VirtRange_t,struct CVirtRangeMap::VirtDesc_t,class CDefLess<struct CVirtRangeMap::VirtRange_t>,int>::Node_t,class CUtlOrderedMapBase<struct CVirtRangeMap::VirtRange_t,struct CVirtRangeMap::VirtDesc_t,class CDefLess<struct CVirtRangeMap::VirtRange_t>,int>::CKeyLess,int,class CUtlMemory<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<struct CVirtRangeMap::VirtRange_t,struct CVirtRangeMap::VirtDesc_t,class CDefLess<struct CVirtRangeMap::VirtRange_t>,int>::Node_t,int>,int,0> >::Insert
-CUtlRBTree<struct ConVarOrConCommand,class CLessFunc<&bool __cdecl ConCommandBaseLessFunc(struct ConVarOrConCommand const &,struct ConVarOrConCommand const &)>,unsigned short,class CUtlMemory<struct UtlRBTreeNode_t<struct ConVarOrConCommand,unsigned short>,unsigned short,0> >::Insert
-CUtlRBTree<struct ConVarOrConCommand,class CLessFunc<&bool __cdecl ConVarSortFunc(struct ConVarOrConCommand const &,struct ConVarOrConCommand const &)>,int,class CUtlMemory<struct UtlRBTreeNode_t<struct ConVarOrConCommand,int>,int,0> >::Insert
-CUtlRBTree<void *,class CDefLess<void *>,int,class CUtlMemory<struct UtlRBTreeNode_t<void *,int>,int,0> >::Insert
+CUtlRBTree<char const *,class CDefFastCaselessStringLess,unsigned short,class CUtlLeanVector<struct UtlRBTreeNode_t<char const *,unsigned short>,unsigned short,class CMemAllocAllocator> >::Insert
+CUtlRBTree<struct CUtlOrderedMapBase<class HKeySymbol,bool,class CDefLess<class HKeySymbol>,int>::Node_t,class CUtlOrderedMapBase<class HKeySymbol,bool,class CDefLess<class HKeySymbol>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class HKeySymbol,bool,class CDefLess<class HKeySymbol>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
+CUtlRBTree<struct CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::Node_t,class CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<enum KV3MetatextType_t,class CBufferString,class CDefLess<enum KV3MetatextType_t>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
+CUtlRBTree<struct CUtlOrderedMapBase<struct CVirtRangeMap::VirtRange_t,struct CVirtRangeMap::VirtDesc_t,class CDefLess<struct CVirtRangeMap::VirtRange_t>,int>::Node_t,class CUtlOrderedMapBase<struct CVirtRangeMap::VirtRange_t,struct CVirtRangeMap::VirtDesc_t,class CDefLess<struct CVirtRangeMap::VirtRange_t>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<struct CVirtRangeMap::VirtRange_t,struct CVirtRangeMap::VirtDesc_t,class CDefLess<struct CVirtRangeMap::VirtRange_t>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
+CUtlRBTree<struct ConVarOrConCommand,class CLessFunc<&bool __cdecl ConCommandBaseLessFunc(struct ConVarOrConCommand const &,struct ConVarOrConCommand const &)>,unsigned short,class CUtlLeanVector<struct UtlRBTreeNode_t<struct ConVarOrConCommand,unsigned short>,unsigned short,class CMemAllocAllocator> >::Insert
+CUtlRBTree<struct ConVarOrConCommand,class CLessFunc<&bool __cdecl ConVarSortFunc(struct ConVarOrConCommand const &,struct ConVarOrConCommand const &)>,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct ConVarOrConCommand,int>,int,class CMemAllocAllocator> >::Insert
+CUtlRBTree<void *,class CDefLess<void *>,int,class CUtlLeanVector<struct UtlRBTreeNode_t<void *,int>,int,class CMemAllocAllocator> >::Insert
+CUtlRBTreeBase
 CUtlString::FormatV
 CUtlStringTokenSystem could not open database file "%s" for writing. Aborting update operation\n
 CUtlStringTokenSystem could not update token database "%s" because the file is read-only.\n
@@ -3487,7 +3468,6 @@ C_OP_StopAfterCPDuration
 C_OP_TwistAroundAxis
 C_OP_WorldTraceConstraint
 Called Resume() on a thread that is not suspended!\n
-Called realloc(non-null-ptr, 0) with zero_realloc:abort set\n
 Can't allocate %d elements, will overflow.  Current count %d elements\n
 Can't convert an empty string to bool\n
 Can't convert an empty string to float64\n
@@ -3754,7 +3734,6 @@ Dw`z
 Dx,2$E
 DynamicConfigList
 E)nT
-E3x72
 E9NF
 E>nEA
 EIde
@@ -3811,7 +3790,6 @@ Error parsing string '%s' as int\n
 Error parsing string '%s' as uint, parsed to: '%s'\n
 Error parsing string '%s' as uint\n
 Error reading args file\n
-Error setting dss
 Error starting testscript '%s'\n
 EventActivityIdControl
 EventRegister
@@ -3843,6 +3821,7 @@ Expected hex byte (eg. 00-FF)
 Expected member name or '}'
 Expected object member name to be a string literal.
 Expected string (member name) or '}'
+Expected syntax is 'Name{ args... }'
 Expected token
 Expected type of next member
 Expected value after =
@@ -3921,8 +3900,6 @@ FindEntByClassNameWithin
 FindEntByName
 FindFirstFileExW
 FindFirstFileW
-FindGlobalSymbol
-FindGlobalSymbolByHash
 FindNextFileW
 FindOrCreateQuantizedFloatEncoder
 FindRegisteredGlobalObjectInternal
@@ -3986,6 +3963,8 @@ GameDVR_Enabled
 GameResourceServiceClientV001
 GameResourceServiceServerV001
 GameUIService_001
+General
+GenerateHashFromUniqueId
 GenericGameData
 Generic_x86
 GenuineIntel
@@ -4011,6 +3990,7 @@ GetCurrentPackageId
 GetCurrentProcess
 GetCurrentProcessId
 GetCurrentProcessorNumber
+GetCurrentProcessorNumberEx
 GetCurrentThread
 GetCurrentThreadId
 GetCurrentThreadStackLimits
@@ -4027,6 +4007,7 @@ GetDlgItemTextA
 GetDmElementTypeSymbolMap
 GetDriveTypeW
 GetEnvironmentStringsW
+GetEnvironmentVariableA
 GetEnvironmentVariableW
 GetExitCodeProcess
 GetExitCodeThread
@@ -4041,6 +4022,7 @@ GetFullPathNameW
 GetJSONCharConversion
 GetJobManualEventFromPool
 GetLRUCacheRegistry
+GetLargePageMinimum
 GetLastError
 GetLocalHostname
 GetLocaleInfoEx
@@ -4062,9 +4044,15 @@ GetModuleNTHeaders
 GetModuleNameFromAddress
 GetNameFromOSType
 GetNewMiniDumpFileName
+GetNumaHighestNodeNumber
+GetNumaNodeProcessorMask
+GetNumaNodeProcessorMaskEx
+GetNumaProcessorNode
+GetNumaProcessorNodeEx
 GetOEMCP
 GetObjectA
 GetPerfSortedLogicalProcessors
+GetPhysicallyInstalledSystemMemory
 GetPlatformName
 GetPriorityClass
 GetProcAddress
@@ -4073,6 +4061,7 @@ GetProcessHeap
 GetProcessId
 GetProcessMemoryInfo
 GetProcessPriorityBoost
+GetProcessTimes
 GetProcessUserModeExceptionPolicy
 GetQuantizedFloatEncoderByReg
 GetQuantizedFloatEncoderNameByReg
@@ -4125,10 +4114,10 @@ H$BQ
 H(VVH
 H*0"ZOW
 H>r1
-HEAP WARNING: memory block at %p appears to be corrupt\n
 HEAP WARNING: memory block at %p is unexpectedly allocated\n
 HEAP WARNING: memory block at %p is unexpectedly free\n
 HEAP WARNING: memory block at %p is unexpectedly unrecognized\n
+HEAP WARNING: memory pointer %p is invalid\n
 HH:MM:SS.z
 HH:mm:ss
 HIGHDPI
@@ -4355,6 +4344,7 @@ InitializeSListHead
 InitializeSRWLock
 InitializeSecurityDescriptor
 Inline attr without expected value\n
+Input contains no data
 InputService_001
 InputStackSystemVersion001
 InputSystemVersion001
@@ -4383,6 +4373,7 @@ Invalid Mach-O segment %d\n
 Invalid WCharPath synthesized for '%s'
 Invalid abbrev children setting %d\n
 Invalid alignment value %llu, must be a power of two\n
+Invalid alignment value %llu\n
 Invalid arange debug info offset\n
 Invalid arange header address size\n
 Invalid arange header segment size\n
@@ -4395,8 +4386,6 @@ Invalid common encodings block location (0x%x : 0x%x)\n
 Invalid compilation unit abbrev offset\n
 Invalid compilation unit header address size\n
 Invalid compressed buffer size
-Invalid conf pair
-Invalid conf value
 Invalid data for member '%s'
 Invalid data.
 Invalid default-arg index\n
@@ -4431,8 +4420,6 @@ Invalid second level page kind (%u)\n
 Invalid second level page offset (0x%x)\n
 Invalid set_address instruction\n
 Invalid set_discriminator size\n
-Invalid settings for bin_shards
-Invalid settings for slab_sizes
 Invalid source header %s format content type %llu\n
 Invalid source header %s format form %llu\n
 Invalid statement list line info offset 0x%llx\n
@@ -4459,7 +4446,6 @@ IsValidLocale
 IsValidLocaleName
 IterateCapturedStackAnnotations
 JAPANESE
-JE_MALLOC_CONF
 JIxX
 JJK1
 JSON error, unterminated element: 
@@ -4616,8 +4602,9 @@ LookAtTargetForward
 LookRelative_Move_Heading
 Look_Heading
 Look_Pitch
+LookupPrivilegeValueA
 Low PC attr without addr value\n
-Low-level allocator: jemalloc\n
+Low-level allocator: mimalloc\n
 Lowest-level allocator stats:\n
 LrwcE
 M'y>0y
@@ -4634,9 +4621,7 @@ MENUBAR_ITEM
 MFUL
 MGiI
 MINIDUMP_FULL
-MINIDUMP_WRAP_CODE: Entering [%s(%u):%s:]\n
 MINIDUMP_WRAP_CODE: In __except block\n
-MINIDUMP_WRAP_CODE: Wrapped execution\n
 MM/dd/yy
 MMX 
 MOBILE
@@ -4675,14 +4660,11 @@ Mach-O fallback symbols
 MagnitudeOnly
 MailMiniDump
 MainThrd
-MakeGlobalSymbol
-MakeGlobalSymbolCaseSensitive
 Malformed attribute list terminator\n
 MapListService_001
 March
 MatchTargetOrientation
 MaterialUtils_001
-Maximum thread-cached size class
 MemAlloc_AllocFunc
 MemAlloc_CallocFunc
 MemAlloc_FreeFunc
@@ -4748,7 +4730,6 @@ Multiple sibling attrs\n
 Multiple specific types given, '%s' and also '%s'
 Multiple specification attrs\n
 Multiple statement lists\n
-MurmurHash3_32
 N3`d?
 N5pB
 N>O=I9
@@ -4759,7 +4740,6 @@ NJ2"v
 NOTE: this is the total bytes of the regions above, not the growth since the old snapshot\n
 NOTHING
 NOTIFY
-NOT_CONNECTED
 NOZ[
 NO_GAME_ASSERT_DIALOG
 NPCAbilityHint
@@ -4785,7 +4765,6 @@ Newline in string literal
 NextBot
 Nl9\
 No Buffer
-No THP support
 No closing */ before end of file
 No samples\n
 No unwind info found in FDE\n
@@ -4808,15 +4787,13 @@ Not enough string data for string table
 Notes: 
 November
 NtAllocateVirtualMemory
+NtAllocateVirtualMemoryEx
 NtDelayExecution
 NtQueryDirectoryFile
 NtQueryInformationThread
 NtQuerySystemInformation
 Number contains invalid character 0x%02x
 Number contains invalid character 0x%02x ('%c')
-Number of bin size classes
-Number of large size classes
-Number of thread-cache bin size classes
 NvOptimusEnablement
 Ny9<
 N}zhA
@@ -4837,6 +4814,7 @@ OpenClipboard
 OpenEventA
 OpenFileMappingA
 OpenProcess
+OpenProcessToken
 OpenThread
 Out of keyvalue string space
 Out of logging channels.\n
@@ -4844,7 +4822,6 @@ Out of memory allocation hash_item_t
 Out of range abbrev code %llu\n
 Out of range abbrev tag %llu\n
 Out of range compilation unit code %llu\n
-Out-of-range conf value
 OutDefault
 Outflow_
 Outflow_Generic
@@ -4855,10 +4832,9 @@ Outflow_NPCScriptedMoveTo
 Outflow_NPCUseScriptedAbility
 Outflow_Simultaneous
 OutputDebugStringA
-P(YX@r2
+P(YXhM0
 P4_EXTRACT_CMD=p4.exe print -o %srcsrvtrg% -q "//%var3%#%var4%"\n
 P4_EXTRACT_TARGET=%targ%\%var2%\%fnbksl%(%var3%)\%var4%\%fnfile%(%var1%)\n
-P@72
 PARTICLE_DEPTH_FEATHERING_OFF
 PARTICLE_DEPTH_FEATHERING_ON_OPTIONAL
 PARTICLE_DIR_NOISE_CURL
@@ -4910,6 +4886,7 @@ PF_RANDOM_MODE_VARYING
 PF_TYPE_COLLECTION_AGE
 PF_TYPE_CONTROL_POINT_COMPONENT
 PF_TYPE_CONTROL_POINT_SPEED
+PF_TYPE_INVALID
 PF_TYPE_LITERAL
 PF_TYPE_NOISE
 PF_TYPE_PARTICLE_AGE_NORMALIZED
@@ -4946,7 +4923,6 @@ PVEC_TYPE_LITERAL_COLOR
 PVEC_TYPE_PARTICLE_VECTOR
 PVEC_TYPE_RANDOM_UNIFORM
 PVEC_TYPE_RANDOM_UNIFORM_OFFSET
-Page size
 PageHeap is off. Memory use will be normal.\n
 PageHeap is on. Memory use will be larger than normal.\n
 PageHeapFlags
@@ -5096,6 +5072,7 @@ Plat_GetShellWindow
 Plat_GetSteamLoginWithAccessCode
 Plat_GetSystemLoad
 Plat_GetTempDirectory
+Plat_GetThisProcessStdioRedirectFlags
 Plat_GetTime
 Plat_GetTimeString
 Plat_GetUserName
@@ -5287,13 +5264,11 @@ QAf?
 Q]XV
 QguI
 Qkkbal
-Qp62
 Qt5Core.dll
 Qt5Gui.dll
 QtCore4.dll
 QtGui4.dll
 Qt_GetCustomAllocators
-Quantum size
 QueryDirectoryFile
 QueryDirectoryFile for '%s' failed with NTSTATUS %ld
 QueryPerformanceCounter
@@ -5310,14 +5285,15 @@ RPCRT4.dll
 RSDSvE
 RUSSIAN
 RVfQp
-R\fpx
-R\vpx
+R\fpl
+R\vpl
 RaiseException
 RandomFloat
 RandomFloatExp
 RandomGaussianFloat
 RandomInt
 RandomSeed
+RandomizeBits
 Range end value 0x%llx out of virtual bound 0x%x\n
 Range length overflows\n
 Range list entry without a default base address\n
@@ -5438,7 +5414,6 @@ RtlPcToFileHeader
 RtlUnwind
 RtlUnwindEx
 RtlVirtualUnwind
-Run-time option settings
 RunTSListTests
 RunTSQueueTests
 RunThreadPoolTests
@@ -5496,6 +5471,7 @@ SDL_GetClipboardText
 SDL_GetClosestFullscreenDisplayMode
 SDL_GetCurrentAudioDriver
 SDL_GetCurrentDisplayMode
+SDL_GetCurrentVideoDriver
 SDL_GetCursor
 SDL_GetDefaultCursor
 SDL_GetDesktopDisplayMode
@@ -5573,6 +5549,8 @@ SDL_SetClipboardText failed: %s\n
 SDL_SetCurrentThreadPriority
 SDL_SetCursor
 SDL_SetHint
+SDL_SetLogOutputFunction
+SDL_SetLogPriorities
 SDL_SetNumberProperty
 SDL_SetPointerProperty
 SDL_SetScancodeName
@@ -5677,6 +5655,7 @@ SchemaTestExternal_One_001
 SchemaTestExternal_Two_001
 Scrub system off - not a dev build
 Scrubber: not a dev build\n
+SeLockMemoryPrivilege
 SearchForImageOrSymbolFile( %s, %s )\n
 Searching path noslashie
 Searching path slashie
@@ -5820,6 +5799,7 @@ Speed
 SpeedIn
 SpeedOut
 Spews information about all CUtlLRUCaches
+SplitNameAndKV3Args
 Spring
 Stack unwinding
 StackHelpers_Windows_AllocateDbgHelpUniqueID
@@ -6025,7 +6005,6 @@ ThreadPoolTest:   NOT to completion\n
 ThreadPoolTest:   To completion\n
 ThreadPoolTest: Job distribution speed\n
 ThreadPoolTest: Jobs doing work, %s main thread\n
-ThreadProcWrapped
 ThreadReadProcessMemory
 ThreadSetDebugNameS2
 ThreadSetPerfSetAffinity
@@ -6160,7 +6139,6 @@ Unable to seek to ELF shoff\n
 Unable to seek to Mach-O load commands\n
 Unable to seek to Macho-O slice base\n
 Unable to seek to module section at file offset 0x%x\n
-Unable to write file '%s'\n
 Unaccounted
 Unexpected EOF while parsing number
 Unexpected augmentation string byte 0x%x (shouldn't have augmentation data)\n
@@ -6233,10 +6211,10 @@ Usage:  help <cvarname>\n
 Usage: lrucache_flush [name]\n
 Usage: lrucache_set_size [name] [size]\n
 Using short stall threshold\n
-UtlMemory_Alloc
-UtlMemory_AllocAligned
-UtlMemory_CalcNewAllocationCount
-UtlMemory_FailedAllocation
+UtlVectorMemory_Alloc
+UtlVectorMemory_AllocAligned
+UtlVectorMemory_CalcNewAllocationCount
+UtlVectorMemory_FailedAllocation
 UuidCreate
 UuidFromStringA
 UuidToStringA
@@ -6684,11 +6662,12 @@ VerSetConditionMask
 VerifyFileIndexes( %s ) - 
 VerifyVersionInfoA
 VerifyVersionInfoW
-Version
 Vgh$
 Virtual Memory %s Report for PID %u\n
 Virtual memory regions sorted by size:\n
 VirtualAlloc
+VirtualAlloc2
+VirtualAlloc2FromApp
 VirtualFree
 VirtualProtect
 VirtualQuery
@@ -6700,7 +6679,7 @@ Vrad3_001
 Vtube
 VtuneApi32e.dll
 W 7x
-W)lQ 72
+W)lQ
 W/q#IX
 W4vC
 WARNING
@@ -6780,6 +6759,7 @@ Windows XP
 Working set: %s\n
 WorldRendererMgr001
 Worldsize_Init
+WriteConsoleA
 WriteConsoleW
 WriteFile
 Wrote
@@ -6808,7 +6788,7 @@ Z>w_F
 ZSq>
 Z\>z8
 Zjz\v
-Zvpcf1
+Zvpcf3
 ZwSetTimerResolution
 [   func+child         func ]
 [   func+child       func ]
@@ -6856,11 +6836,10 @@ ZwSetTimerResolution
 \n\nCMiniDumpComment encountered an error while generating the comment
 \nh?oT
 \nk>oB
+\r%s not expected here.  A valid JSON document should be a single object, which begins with '{' and ends with '}'
 \r00000000-0000-0000-0000-000000000000
-\rGeneral
-\rInput contains no data
+\rAssert
 \r\f\v\v\n\n\t\t\t\t\t
-\rhr2
 \rmj>zjZ
 \sdktools\bin
 \sdktools\bin\win32
@@ -6900,7 +6879,11 @@ _CCallStackStatsGatherer_Internal_DumpStatsToFile
 _CCallStackStatsGatherer_ReleaseSharedGlobalInstance
 _Error_AlwaysSpewCallStack_Enable
 _Error_AlwaysSpewCallStack_Length
+_FindGlobalSymbol
+_FindGlobalSymbolByHash
 _H^zvd
+_MakeGlobalSymbol
+_MakeGlobalSymbolCaseSensitive
 _NT_ALTERNATE_SYMBOL_PATH
 _NT_SYMBOL_PATH
 _NT_SYMCACHE_PATH
@@ -6937,7 +6920,6 @@ _V_wcsncat_cch
 _V_wcsncpy_bytes
 _Warning_AlwaysSpewCallStack_Enable
 _Warning_AlwaysSpewCallStack_Length
-___ Begin jemalloc statistics ___\n
 __based(
 __cdecl
 __clrcall
@@ -7015,30 +6997,25 @@ a6>r
 a?y#c?sIe?
 aC.B
 aG0"
-abandoned_vm
+abandoned_page_purge
+abandoned_page_reset
+abandoned_reclaim_on_free
 abcdefghijklmnopqrstuvwxyz
-abort
-abort_conf
-aborting
 accessviolation
 aciL
 aco-nz
 acos
 active
-activity_callback
 address family not supported
 address in use
 address not available
 advapi32.dll
+after alignment, the size of the arena becomes too small (memory at %p with size %zu)\n
 ai_model_info
-alloc
-alloc_dump
-alloc_max
-allocated
-allocatedp
+allocation request is too large (%zu bytes)\n
+allow_large_os_pages
 allowstatic
 already connected
-always
 anchor_angles
 anchor_position
 android*
@@ -7082,22 +7059,10 @@ animgraph9
 appears in lower database
 aq8D
 archive
-arena
-arena.4096.purge
-arena_large
+arena_eager_commit
+arena_purge_mult
+arena_reserve
 arenas
-arenas.bin
-arenas.dirty_decay_ms
-arenas.lextent
-arenas.muzzy_decay_ms
-arenas.narenas
-arenas.nbins
-arenas.nhbins
-arenas.nlextents
-arenas.page
-arenas.quantum
-arenas.tcache_max
-arenas_create_ext
 argument list too long
 argument not found
 argument out of domain
@@ -7123,7 +7088,6 @@ bForceLookAtPath
 bKill
 bReacquireAfterBreak
 bUpdate
-background_thread
 bad address
 bad allocation
 bad array new length
@@ -7133,23 +7097,20 @@ bad file descriptor
 bad function call
 bad locale name
 bad message
-base
 base64_decode
 base64_encode
-batch_alloc
-batch_query
+bcrypt.dll
 bin\stringtokendatabase.txt
 bin\win64
 bin\win64\tier0.dll
-bin_shards
 binary
 binary_auto
 binary_bc
 binary_blob
 binary_lz4
 binary_zstd
-bins
 blendamount
+block   
 blockLOS
 block_inflow_always
 block_outflow_always
@@ -7184,7 +7145,11 @@ c?FA@s}
 cO^c
 cable
 cache*
-cache_oblivious
+cannot commit OS memory (error: %d (0x%x), address: %p, size: 0x%zx bytes)\n
+cannot decommit OS memory (error: %d (0x%x), address: %p, size: 0x%zx bytes)\n
+cannot enable large OS page support, error %lu\n
+cannot reset OS memory (error: %d (0x%x), address: %p, size: 0x%zx bytes)\n
+cannot reuse OS memory (error: %d (0x%x), address: %p, size: 0x%zx bytes)\n
 cannot switch from automatic to manual argument indexing
 cannot switch from manual to automatic argument indexing
 cantdie
@@ -7214,21 +7179,10 @@ collision_prop
 color
 color32
 colorWeight
+commit mask overflow: idx=%zu count=%zu start=%zx end=%zx p=0x%p size=%zu fullsize=%zu\n
+commits
+committed
 composite
-config
-config.cache_oblivious
-config.debug
-config.fill
-config.lazy_lock
-config.malloc_conf
-config.opt_safety_checks
-config.prof
-config.prof_libgcc
-config.prof_libunwind
-config.stats
-config.utrace
-config.xmalloc
-confirm_conf
 connection aborted
 connection already in progress
 connection refused
@@ -7241,23 +7195,21 @@ content_assertion
 control_point
 coroutine.m_pStackHigh <= coroutinePrev.m_pStackHigh
 corrupted entry
+corrupted thread-free list\n
 cosf
 cosh
+could not allocate contiguous huge OS page %zu at %p\n
 covariant virtual thunk to 
 cpsr
 crash
-create
 create_particle
 cross device link
 curl --connect-timeout 5 --no-progress-meter --max-time %u -s -o "%s" %s
-curlextents
-curregs
-curslabs
+current   
 curve
 cvar list\n--------------\n
 cvarlist
 cvarlist:  [log logfile] [ partial ]\n
-d40p
 d4[I
 d8-t
 d8L2
@@ -7284,10 +7236,8 @@ dbghelp\8.1\dbghelp.dll
 dbghelp\8\dbghelp.dll
 dddd, MMMM dd, yyyy
 de2?/
-deallocated
-deallocatedp
 debris
-debug
+debug level : %d\n
 debug_abbrev
 debug_aranges
 debug_frame
@@ -7298,19 +7248,21 @@ debug_pubnames
 debug_ranges
 debug_rnglists
 debug_str
-decay
-decay_dirty
-decay_muzzy
 decltype 
 decltype(auto)
+decommit_extend_delay
 default
+default %s
 default-arg doesn't end with '_'\n
 delay
 delete
 delta
 demo
+deprecated_page_reset
+deprecated_segment_cache
+deprecated_segment_reset
 destination address required
-destroy
+destroy_on_exit
 detailed
 developer
 device or resource busy
@@ -7322,16 +7274,10 @@ differences
 dioxXu
 directory
 directory not empty
-dirty_bytes
-dirty_decay_ms
-dirty_decay_ms:30000,muzzy_decay_ms:30000
-dirty_nmadvise
-dirty_npurge
-dirty_purged
 disable
 disabled
-disabling
-disconnected
+disallow_arena_alloc
+disallow_os_alloc
 diuoxXfFeEgGaAcsp?
 dixXu
 dmg.bullets
@@ -7344,7 +7290,6 @@ done\n
 donotecho
 double
 ds\fw
-dump
 dupe
 duration
 dxXu
@@ -7360,13 +7305,14 @@ eF>t
 eGeneral
 eLK(w
 eVu#
-edata_cache
+eager_commit
+eager_commit_delay
+eager_region_commit
 eh_frame
 ehandle
+elapsed
 emitFromWorld
-empty_slabs
 enable_limit
-enabled
 encoding
 end_frame
 end_time
@@ -7374,7 +7320,8 @@ english
 entityName
 entityType
 entity_name
-epoch
+environment option "mimalloc_%s" is deprecated -- use "mimalloc_%s" instead.\n
+environment option mimalloc_%s has an invalid value.\n
 error
 essential
 eventID
@@ -7388,9 +7335,6 @@ executable format error
 execute_per_tick
 exists\n
 exitprocess_%d
-experimental
-experimental_
-experimental_infallible_new
 explosion_behavior
 explosion_buildup
 explosion_delay
@@ -7399,17 +7343,9 @@ explosive_damage
 explosive_radius
 expression assumed to be operator but no matching operator found\n
 expression_value
-extent_avail
-extent_grow
-extent_hooks
-extents
-extents_dirty
-extents_muzzy
-extents_retained
 extractbuildid -multi %u -getsrcmapopt - "%s"
 extractbuildid -multi %u -setdbg "%s" "%s"
 extractbuildid -multi %u -setsrcmap "%s" "%s"
-f072
 fD>b
 fGa>
 fP~V
@@ -7418,6 +7354,8 @@ f\fn\nr\rt\t                %d:%02d:%02d.%03
 fabs
 face
 faceMergeAngle
+failed to reserve %zu GiB huge pages\n
+failed to reserve %zu KiB memory\n
 failed\n
 false
 file
@@ -7425,7 +7363,6 @@ file exists
 file index mismatch\n
 file too large
 filename too long
-fill
 find
 findflags
 findflags 
@@ -7449,7 +7386,6 @@ fltinvalidoperation
 fltoverflow
 fltstackcheck
 fltunderflow
-flush
 fmod
 fmodf
 force
@@ -7467,7 +7403,6 @@ free
 frexp
 friction
 fu`z
-full_slabs
 fullbody
 function not supported
 f{C}M
@@ -7490,7 +7425,6 @@ g_bUpdateStringTokenDatabase
 g_flConfigMaxCoord
 g_pFiberJobPool
 g_pMemAlloc
-g_pPerfTraceDepot
 g_pScheduledFunctions
 g_pThreadPool
 game
@@ -7503,8 +7437,8 @@ game_keys
 gamemode.dll
 gc.dll
 gd>Z
-gdump
 generic
+generic_collect
 gfFeEaAG
 glow
 gqr<
@@ -7513,6 +7447,12 @@ guard after
 guard before
 guard both
 guard for static 
+guarded
+guarded_max
+guarded_min
+guarded_precise
+guarded_sample_rate
+guarded_sample_seed
 h0'D
 h>1my
 hEntity
@@ -7526,6 +7466,7 @@ header crc mismatch
 headtype
 health
 health_override
+heap stats
 help
 help text
 help:  no cvar or command named %s\n
@@ -7533,25 +7474,8 @@ hj>>d
 hljztL
 hm~iD
 holdevent
-hooks
 host unreachable
-hpa_central
-hpa_central_grow
-hpa_dirty_mult
-hpa_hugification_threshold
-hpa_hugification_threshold_ratio
-hpa_hugify_delay_ms
-hpa_min_purge_interval_ms
-hpa_sec
-hpa_sec_batch_fill_extra
-hpa_sec_bytes
-hpa_sec_bytes_after_flush
-hpa_sec_max_alloc
-hpa_sec_max_bytes
-hpa_sec_nshards
-hpa_shard
-hpa_shard_grow
-hpa_slab_max_alloc
+huge OS page allocation timed out (after allocating %zu page(s))\n
 hurt_me
 hurt_them
 i&Ma.
@@ -7559,7 +7483,6 @@ i91k
 i>VF
 i]Wb
 identifier removed
-idle
 ieg!
 ignored_assertions.txt
 ih0sUr
@@ -7575,18 +7498,16 @@ incorrect header check
 incorrect length check
 incremental_shapes
 inherit_owner_joints
-initialized
 inity
-install
 int( %d = 0x%X )
 int16
 int32
 int64
 int8
 intdividebyzero
-internal
+internal error: failed to visit all abandoned segments due to failure to acquire the OS visitor lock
+internal error: failed to visit all abandoned segments due to failure to acquire the visitor lock
 interrupted
-interval
 intoverflow
 invalid
 invalid argument
@@ -7617,40 +7538,27 @@ is_ragdoll
 item->next != nullptr
 izc}
 jeTb
-jemalloc
 jointWeightWeight
-junk
 jwK\v\n
 k*WBjL
 k=yI
 k>4\tF
 k>RU
 kernel32.dll
+kernelbase.dll
 l6qnk
 l<}2l
 lDa>
 lQ?2
 lR(g 
 lWi]
-lX72
 labM
-large
-lazy_lock
+large_os_pages
 lcQe
 ldexp
 length
 lerp_curve
-lextent
-lextents
-lg_extent_max_active_fit
-lg_prof_interval
-lg_prof_sample
-lg_sample
-lg_san_uaf_align
-lg_tcache_flush_large_div
-lg_tcache_flush_small_div
-lg_tcache_max
-lg_tcache_nslots_mul
+limit_os_alloc
 linked
 linux
 linux*
@@ -7672,14 +7580,11 @@ log_dumpchannels
 log_flags
 log_level
 log_level is deprecated, please use log_verbosity. Severity '%s' translates to verbosity '%s'.\n
-log_start
-log_stop
 log_verbosity
 logf
 long
 long long
 lookat
-lookup
 loop
 loop_break_on_damage
 loop_break_on_flashlight
@@ -8023,6 +7928,7 @@ m_flOutput0
 m_flOutput1
 m_flOutputMax
 m_flOutputMin
+m_flOutputRemap
 m_flPitch
 m_flProbability
 m_flRadius1
@@ -8239,22 +8145,22 @@ m_vecTailColorScale
 m_vecTexturesInput
 m_velocityInput
 macos
-malloc_conf
+malloc is redirected.\n
 map/set too long
-mapped
 master_morph_weight
 material
 materials/particle/base_projected.vmat
 materials/particle/base_sprite.vtex
 matrix3x4
+max %s
 maxHullVertices
 maxMeshVertices
 maxVerticesPerHull
 max_angle
-max_background_threads
-max_num_thds
-max_per_bg_thd
-max_wait_time
+max_errors
+max_segment_reclaim
+max_warnings
+mem tracking: %s\n
 memstats_%d.txt
 menubar_item
 merged next to file paths %s\n
@@ -8264,11 +8170,15 @@ mesh_references
 meshes
 message
 message size
-metadata
-metadata_thp
+mimalloc: 
+mimalloc: error: 
+mimalloc: warning: 
+mimalloc_
+min %s
 min_angle
 missing '}' in format string
 missing precision specifier
+mmaps
 model
 model_name
 modeldoc0
@@ -8316,42 +8226,24 @@ modf
 moredetailed
 moveto
 multiplayer_break
-mutex
-mutex_max_spin
-mutexes
-muzzy_bytes
-muzzy_decay_ms
-muzzy_nmadvise
-muzzy_npurge
-muzzy_purged
 n03>Pu
 n>log2
 nBits != 32
-nHr2
 nInterruptability
 nMax
 nMin
 nOffset < m_nAllocationSize
 nSwitchValue
 nTries < 10000000
+nUnable to write file '%s'\n
 n\f"pA3Q
 n\f"pA3Qh
 n]?iJ
-nactive_huge
-nactive_nonhuge
 name
 nan(ind)
 nan(snan)
-narenas
-narenas_ratio
 nav_attribute_avoid
 nav_data
-nbins
-ndalloc
-ndehugifies
-ndirty
-ndirty_huge
-ndirty_nonhuge
 negative precision
 negative width
 nested-name doesn't start with 'N'\n
@@ -8359,16 +8251,8 @@ nested-name ran out of qualifier slots\n
 network down
 network reset
 network unreachable
-never
 next_element_id
 nexttoken
-nfills
-nflushes
-nhbins
-nhugifies
-nlextents
-nmalloc
-nmuzzy
 no buffer space
 no child process
 no guard
@@ -8389,39 +8273,24 @@ no7=?BE
 nolog
 non-virtual thunk to 
 noncontinuableexception
-nonfull_slabs
+none
 norecord
 normalWeight
 not a directory
 not a socket
 not a stream
+not all freed
 not connected
 not enough memory
 not found
 not supported
 not using
-notconnected
 notify
-npageslabs_huge
-npageslabs_nonhuge
-npurge_passes
-npurges
-nregs
-nrequests
-nreslabs
-nretained
-nshards
-nslabs
 ntdll
 ntdll.dll
-nthreads
 null
-num_ops
-num_owner_switch
-num_runs
-num_spin_acq
-num_threads
-num_wait
+numa node %i: reserved %zu GiB huge pages (of the %zu GiB requested)\n
+numa nodes
 number is too big
 numsegments
 o21o
@@ -8444,70 +8313,13 @@ operator
 operator "" 
 operator co_await
 operator<=>
-opt.abort
-opt.abort_conf
-opt.background_thread
-opt.cache_oblivious
-opt.confirm_conf
-opt.dirty_decay_ms
-opt.dss
-opt.experimental_infallible_new
-opt.hpa
-opt.hpa_dirty_mult
-opt.hpa_hugification_threshold
-opt.hpa_hugify_delay_ms
-opt.hpa_min_purge_interval_ms
-opt.hpa_sec_batch_fill_extra
-opt.hpa_sec_bytes_after_flush
-opt.hpa_sec_max_alloc
-opt.hpa_sec_max_bytes
-opt.hpa_sec_nshards
-opt.hpa_slab_max_alloc
-opt.junk
-opt.lg_extent_max_active_fit
-opt.lg_prof_interval
-opt.lg_prof_sample
-opt.lg_tcache_flush_large_div
-opt.lg_tcache_flush_small_div
-opt.lg_tcache_nslots_mul
-opt.metadata_thp
-opt.mutex_max_spin
-opt.muzzy_decay_ms
-opt.narenas
-opt.oversize_threshold
-opt.percpu_arena
-opt.prof
-opt.prof_accum
-opt.prof_active
-opt.prof_final
-opt.prof_gdump
-opt.prof_leak
-opt.prof_leak_error
-opt.prof_prefix
-opt.prof_thread_active_init
-opt.retain
-opt.stats_interval
-opt.stats_interval_opts
-opt.stats_print
-opt.stats_print_opts
-opt.tcache
-opt.tcache_gc_delay_bytes
-opt.tcache_gc_incr_bytes
-opt.tcache_max
-opt.tcache_nslots_large
-opt.tcache_nslots_small_max
-opt.tcache_nslots_small_min
-opt.thp
-opt.utrace
-opt.xmalloc
-opt.zero
-opt.zero_realloc
-opt_safety_checks
+option '%s': %ld %s\n
 origin_max_delta
 origin_relative
+os_tag
 osx*
 out of order
-oversize_threshold
+out-of-memory on OS allocation, try again... (attempt %lu, 0x%zx bytes, error code: 0x%x, address: %p, alignment: 0x%zx, flags: 0x%x)\n
 owM&
 owner dead
 p,xj
@@ -8530,9 +8342,8 @@ pSwitchValue
 pTarget
 pTraceString
 pV }S
-pactive
-pactivep
-page
+page with tag %u cannot be reclaimed by a heap with the same tag (using heap tag %u instead)\n
+pages
 panorama
 param
 param2
@@ -8543,16 +8354,12 @@ pass\n
 pb>pAf>
 pdbstr -r -p:"%s" -s:srcsrv
 pdbstr -w -p:"%s" -s:srcsrv -i:"%s"
-pdirty
-peak
+peak   
 peak_frame
 peak_scale
 per_user
-percpu
-percpu_arena
 permission denied
 persistent
-phycpu
 physgun_interactions
 physics_joint_modification_mode
 physicsmode
@@ -8563,8 +8370,8 @@ placement_attach
 placement_bone
 placement_mode
 play_endcap
+pltgot
 pm>6/
-pmuzzy
 point0
 point1
 pointer
@@ -8573,34 +8380,11 @@ pose_control_type
 precision is not integer
 precision not allowed for this argument type
 preferred_carryangles
-prefix
-primary
 privinstruction
+process
+process done: 0x%zx\n
+process init: 0x%zx\n
 processutils
-prof
-prof.active
-prof.lg_sample
-prof.thread_active_init
-prof_accum
-prof_active
-prof_backtrace
-prof_dump
-prof_final
-prof_gdump
-prof_leak
-prof_leak_error
-prof_libgcc
-prof_libunwind
-prof_prefix
-prof_recent
-prof_recent_alloc
-prof_recent_alloc_max
-prof_recent_dump
-prof_stats
-prof_sys_thread_name
-prof_thds_data
-prof_thread_active_init
-prof_time_resolution
 prop_data
 prop_physics
 prot
@@ -8609,16 +8393,18 @@ protocol not supported
 psapi.dll
 ptr( 0x%p )
 purecall
-purge
+purge_decommits
+purge_delay
+purge_extend_delay
+purged
+purges
 q>F,3
 qJK8
 qS>g?h3
 q\nXA
 qangle
 qemError
-quantum
 quaternion
-query
 queue force advance\n
 queue max wait\n
 r%kf
@@ -8626,14 +8412,12 @@ r9T6
 rNm>)
 rT+6ZNw
 r\tVr.>T
-r\vpx
 radius
 radius0
 radius1
 ragdoll
 ragdoll_applies_bind_pose_root
 range check failure
-read
 read only file system
 recenter_on_parent_bone
 reference temporary for 
@@ -8643,12 +8427,18 @@ relative_origin
 release
 remainder
 remainderf
-remove
 removeSmallComponents
 reopening cached debug file
 replicated
+reserve_huge_os_pages
+reserve_huge_os_pages_at
+reserve_os_memory
+reserved
+reserved %zu KiB memory%s\n
 reset
-resident
+reset_decommits
+reset_delay
+resets
 resource
 resource deadlock would occur
 resource unavailable try again
@@ -8656,10 +8446,7 @@ resource_name
 restrict(
 result out of range
 resumecondition
-retain
-retain_grow_limit
-retained
-retained_bytes
+retry_on_oom
 retval
 rg3o
 rootNode
@@ -8667,10 +8454,8 @@ rotation
 rotation_vector
 rotation_xyz
 rq7x;P
-rtree
 ru&o
 rucG
-run_interval
 s1Y3JrMH]
 s3o\
 sHF'
@@ -8678,16 +8463,14 @@ sK9gh
 sVwES
 s_hModule != INVALID_HANDLE_VALUE
 s_pNtQueryDirectoryFile
-safety_check_abort
-san_guard_large
-san_guard_small
-sanitizer_bump_allocator
 schema
 scoped-name number doesn't end with '_'\n
 script
 scrubber
-sec_shard
+searches
 secondary
+secure level: %d\n
+segments
 seq-id doesn't end with '_'\n
 sequence_name
 server_can_execute
@@ -8696,6 +8479,8 @@ shapeType
 shell32.dll
 shlwapi.dll
 short
+show_errors
+show_stats
 signature has no argument types\n
 signed char
 simplification_params
@@ -8704,9 +8489,6 @@ singleplayer
 singlestep
 sinh
 size
-slab_size
-slab_sizes
-small
 smallComponentSize
 small_element_threshold
 smartprop0
@@ -8731,12 +8513,6 @@ start_frame
 start_scale
 start_time
 state not recoverable
-stats
-stats.mapped
-stats_interval
-stats_interval_opts
-stats_print
-stats_print_opts
 std::
 std::allocator
 std::basic_iostream< char, std::char_traits< char > >
@@ -8754,10 +8530,7 @@ stop_instantly
 stop_on_seq_change
 stream timeout
 string
-string pointed to by the global variable malloc_conf
-string pointed to by the global variable malloc_conf_2_conf_harder
 string pointer is null
-string specified via --with-malloc-conf
 string too long
 string_token
 stringtokendatabase.txt
@@ -8778,17 +8551,7 @@ tanf
 tanh
 targetError
 targetTrianglePercent
-tcache
-tcache_bytes
-tcache_gc_delay_bytes
-tcache_gc_incr_bytes
-tcache_list
-tcache_max
-tcache_nslots_large
-tcache_nslots_small_max
-tcache_nslots_small_min
-tcache_stashed_bytes
-tcaches
+target_segments_per_thread
 telemetry32.dll
 telemetry64.dll
 template-arg doesn't end with an 'E'\n
@@ -8800,9 +8563,9 @@ testscript_debug
 text
 text file busy
 texturescale
+the arena size is too small (memory at %p with size %zu)\n
 thin_element_threshold
-thread
-thread_active_init
+threads
 tier0
 timeBeginPeriod
 timed out
@@ -8814,13 +8577,16 @@ too many links
 too many symbolic link levels
 tools_stall_monitor_break_on_unknown_cause
 tooltips_class32
-total_wait_time
+total   
+total#   
+touched
 transaction clone for 
 transform
 true
-trust_madvise
 trying split debug file
-tsd_nominal_tsds_lock
+trying to free an already freed arena block: %p, size %zu\n
+trying to free from an invalid arena block: %p, size %zu, memid: 0x%zx\n
+trying to free from an invalid arena: %p, size %zu, memid: 0x%zx\n
 turn_rate
 type
 type info for 
@@ -8838,7 +8604,16 @@ uint64
 uint8
 ujGs?
 ujQD
+unable to allocate OS memory (error: %d (0x%x), addr: %p, size: 0x%zx bytes, align: 0x%zx, commit: %d, allow large: %d)\n
+unable to allocate aligned OS memory (0x%zx bytes, error code: 0x%x, address: %p, alignment: 0x%zx, flags: 0x%x)\n
+unable to allocate aligned OS memory directly, fall back to over-allocation (size: 0x%zx bytes, address: %p, alignment: 0x%zx, commit: %d)\n
+unable to allocate huge OS page (error: %d (0x%x), address: %p, size: %zx bytes)\n
+unable to allocate memory (%zu bytes)\n
+unable to allocate thread local heap metadata (%zu bytes)\n
+unable to allocate using huge (1GiB) pages, trying large (2MiB) pages instead (status 0x%lx)\n
+unable to free OS memory (error: %d (0x%x), size: 0x%zx bytes, address: %p)\n
 unable to get file indexes\n
+unable to use secure randomness\n
 unholsterweapon
 unknown
 unknown compression method
@@ -8858,24 +8633,23 @@ unsigned short
 unspecified
 unwind_info
 update
-uptime
 use_additional_offset
+use_numa_nodes
 user
 userinfo
 using
-utilization
-utrace
+using %zd numa regions\n
 uu\T
 uuids\
 uvWeight
 uzKs@>
+v%i.%i.%i%s%s (built on %s, %s)\n
 v,n%\nDH
 v2!L.2
 vARr5U)e
 vH7B
 vQO+t
 value
-value of the environment variable MALLOC_CONF
 value too large
 vanmgrph
 vcd1
@@ -8890,11 +8664,13 @@ vector2d
 vector3
 vector4
 vector4d
+verbose
 version
 vfbasics.dll
 virtual table for 
 virtual thunk to 
 virtual-table number doesn't end with '_'\n
+visit_abandoned
 visualizeEdges
 visualstudioautomation.exe -appverifier_setup %d
 visualstudioautomation.exe -attachtoprocessid %d
@@ -8906,6 +8682,7 @@ vmdlkeys4
 void
 volatile
 vpcf
+vpcf1
 vpcf10
 vpcf11
 vpcf12
@@ -8927,7 +8704,6 @@ vpcf26
 vpcf27
 vpcf28
 vpcf29
-vpcf3
 vpcf30
 vpcf31
 vpcf32
@@ -8964,6 +8740,7 @@ vpcf6
 vpcf60
 vpcf61
 vpcf62
+vpcf63
 vpcf7
 vpcf8
 vpcf9
@@ -9004,6 +8781,7 @@ wa=jv
 wait
 wakeup job
 warning
+warning: unable to allocate hinted aligned OS memory (%zu bytes, error code: 0x%x, address: %p, alignment: %zu, flags: 0x%x)\n
 wchar_t
 weldPositionTolerance
 weldVertices
@@ -9025,17 +8803,15 @@ xSvf$
 xT?V
 xYiu
 x`tm6
-xmalloc
-xqkfa]YUQMJGDA><97520.,*('%#! 
 xu37
 xuRCk
+y400
 y9*O
 yE>cb
 yTu=
 y]So
 yaw_end
 yaw_start
-z0r2
 z3zr
 z8ji
 z>h4
@@ -9046,9 +8822,7 @@ z]5T
 z^KD
 z`%1Is}
 zc%C1
-zero
-zero_realloc
-zero_reallocs
+zpM0
 zs}O
 { lambda
 { parm#
@@ -9057,6 +8831,7 @@ zs}O
 {unnamed type
 {}[]()=&, \t\n'"*;
 {}[]=, \t\n'":|;
+|PM0
 |jPZ
 ~DSTRCT
 ~NX4
