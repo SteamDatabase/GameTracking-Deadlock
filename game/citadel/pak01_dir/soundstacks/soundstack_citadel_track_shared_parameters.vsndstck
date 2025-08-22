@@ -101,6 +101,16 @@
 							property_group = "VSND Files"
 						}
 					}
+					volume_fade_in_track = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "Volume"
+							display_group = "advanced"
+						}
+					}
 				}
 			},
 			
@@ -162,9 +172,33 @@
 			},
 			
 			{
+				name = "get_event_info"
+				operator = "soundevent_get_info"
+			},
+			
+			{
 				name = "volume_db_to_gain_track"
 				operator = "math_db_to_gain"
 				input = "@public.vsnd_track_vol_offset_db"
+			},
+			
+			{
+				name = "volume_fade_in"
+				operator = "math_remap_float"
+				input = "@get_event_info.output_elapsed_time"
+				input_min = "0.000000"
+				input_max = "@public.volume_fade_in_track"
+				input_map_min = "0.000000"
+				input_map_max = "1.000000"
+				default_to_max = "true"
+			},
+			
+			{
+				name = "volume_accumulate"
+				operator = "math_accumulate12_float"
+				apply = "mult"
+				input1 = "@volume_fade_in.output"
+				input2 = "@volume_db_to_gain_track.output"
 			},
 			
 			{
@@ -184,7 +218,7 @@
 					track_volume = 
 					{
 						data_type = "float"
-						value = "@volume_db_to_gain_track.output"
+						value = "@volume_accumulate.output"
 					}
 					track_pitch = 
 					{

@@ -57,7 +57,7 @@
 					low_priority_vol_atten_db = 
 					{
 						data_type = "float"
-						value = "-16.0"
+						value = "-12.0"
 						_system_properties = 
 						{
 							display_group = "Normal"
@@ -76,7 +76,7 @@
 							property_help = "The speed with which volume changes are made."
 						}
 					}
-					scale_priority_over_distance = 
+					enable_pre_priority_volume_blocking = 
 					{
 						data_type = "bool"
 						value = "false"
@@ -85,39 +85,6 @@
 							display_group = "Normal"
 							property_group = "citadel_dialog"
 							property_help = "Scales the priority between a min and max distance."
-						}
-					}
-					priority_scale_min_distance = 
-					{
-						data_type = "float"
-						value = "2000.0"
-						_system_properties = 
-						{
-							display_group = "Normal"
-							property_group = "citadel_dialog"
-							property_help = "Scales the priority between a min and max distance."
-						}
-					}
-					priority_scale_max_distance = 
-					{
-						data_type = "float"
-						value = "2500.0"
-						_system_properties = 
-						{
-							display_group = "Normal"
-							property_group = "citadel_dialog"
-							property_help = "Scales the priority between a min and max distance."
-						}
-					}
-					priority_scale_floor = 
-					{
-						data_type = "float"
-						value = "-1.0"
-						_system_properties = 
-						{
-							display_group = "Normal"
-							property_group = "citadel_dialog"
-							property_help = "The minimum scaled priority value when at max distance."
 						}
 					}
 					enable_combat_blocking = 
@@ -228,10 +195,35 @@
 			},
 			
 			{
+				name = "citadel_find_perspective"
+				operator = "sos_import_stack"
+				import_stack = "citadel_find_perspective"
+				auto_connect_public_fields = "true"
+			},
+			
+			{
+				name = "perspective_switch_force_player_position"
+				operator = "logic_perspective_switch_float"
+				input_participant_perspective = "@citadel_find_perspective::game_entity_perspective.output"
+				input_player_value = "@public.play_from_listener_player"
+				input_team_value = "@public.play_from_listener_team"
+				input_opponent_value = "@public.play_from_listener_opponent"
+				input_neutral_value = "@public.play_from_listener_neutral"
+			},
+			
+			{
+				name = "test_from_player_index"
+				operator = "ctrl_switch_float"
+				input_switch = "@perspective_switch_force_player_position.output"
+				input2 = "-1"
+				input1 = "@source_info.output_entity_index"
+			},
+			
+			{
 				name = "get_entity_info"
 				input_execute = "1"
 				operator = "game_entity_info"
-				input_entity_index = "@source_info.output_entity_index"
+				input_entity_index = "@test_from_player_index.output"
 				input_default_world_position = "@public.position"
 				input_default_local_position = "@globals.output_listener_front"
 				input_hold_position_on_deleted_entity = "@public.hold_position_on_deleted_entity"
@@ -361,6 +353,71 @@
 			},
 			
 			{
+				name = "perspective_switch_volume_curve_field_name"
+				operator = "logic_perspective_switch_string"
+				input_participant_perspective = "@citadel_find_perspective::game_entity_perspective.output"
+				input_player_value = "public.volume_falloff_curve_db_player"
+				input_team_value = "public.volume_falloff_curve_db_team"
+				input_opponent_value = "public.volume_falloff_curve_db_opponent"
+				input_neutral_value = "public.volume_falloff_curve_db_neutral"
+			},
+			
+			{
+				name = "perspective_switch_volume_falloff_min"
+				operator = "logic_perspective_switch_float"
+				input_participant_perspective = "@citadel_find_perspective::game_entity_perspective.output"
+				input_player_value = "@public.volume_falloff_min_player"
+				input_team_value = "@public.volume_falloff_min_team"
+				input_opponent_value = "@public.volume_falloff_min_opponent"
+				input_neutral_value = "@public.volume_falloff_min_neutral"
+			},
+			
+			{
+				name = "perspective_switch_volume_falloff_max"
+				operator = "logic_perspective_switch_float"
+				input_participant_perspective = "@citadel_find_perspective::game_entity_perspective.output"
+				input_player_value = "@public.volume_falloff_max_player"
+				input_team_value = "@public.volume_falloff_max_team"
+				input_opponent_value = "@public.volume_falloff_max_opponent"
+				input_neutral_value = "@public.volume_falloff_max_neutral"
+			},
+			
+			{
+				name = "citadel_distance_falloff"
+				operator = "sos_import_stack"
+				import_stack = "citadel_distance_falloff"
+				auto_connect_public_fields = "true"
+				operator_variables = 
+				{
+					distance_falloff = 
+					{
+						data_type = "float"
+						value = "@distance_to_source.output"
+					}
+					source_position = 
+					{
+						data_type = "float3"
+						value = "@get_entity_info.output_position"
+					}
+					volume_falloff_min = 
+					{
+						data_type = "float"
+						value = "@perspective_switch_volume_falloff_min.output"
+					}
+					volume_falloff_max = 
+					{
+						data_type = "float"
+						value = "@perspective_switch_volume_falloff_max.output"
+					}
+					volume_falloff_curve_field_name = 
+					{
+						data_type = "string"
+						value = "@perspective_switch_volume_curve_field_name.output"
+					}
+				}
+			},
+			
+			{
 				name = "distance_to_source"
 				operator = "calc_distance"
 				input_position1 = "@get_entity_info.output_position"
@@ -368,39 +425,39 @@
 			},
 			
 			{
-				name = "outside_max_distance"
+				name = "volume_below_blocking_threshold"
 				operator = "math_float"
 				input_execute = "1.0"
-				apply = "greater_than"
-				input1 = "@distance_to_source.output"
-				input2 = "@public.priority_scale_max_distance"
+				apply = "less_than"
+				input1 = "@citadel_distance_falloff::output.result_vol_linear"
+				input2 = ".01"
 			},
 			
 			{
-				name = "blocking_enabled"
+				name = "volume_blocking_enabled"
 				operator = "math_float"
 				input_execute = "1.0"
 				apply = "mult"
-				input1 = "@public.scale_priority_over_distance"
-				input2 = "@outside_max_distance.output"
+				input1 = "@public.enable_pre_priority_volume_blocking"
+				input2 = "@volume_below_blocking_threshold.output"
 			},
 			
 			{
 				name = "blocking_message"
 				operator = "math_string"
-				input_execute = "@blocking_enabled.output"
+				input_execute = "@volume_blocking_enabled.output"
 				apply = "add"
 				input1 = "@get_event_info.output_soundevent_name"
-				input2 = " - blocked, outside max distance (citadel_dialog)."
+				input2 = " - blocked, below volume threshold (citadel_dialog)."
 			},
 			
 			{
 				name = "blocking_message_enabled"
 				operator = "math_float"
-				input_execute = "@blocking_enabled.output"
+				input_execute = "@volume_blocking_enabled.output"
 				apply = "mult"
 				input1 = "@convar_get_debug_enabled.output"
-				input2 = "@outside_max_distance.output"
+				input2 = "@volume_below_blocking_threshold.output"
 			},
 			
 			{
@@ -411,41 +468,37 @@
 			},
 			
 			{
-				name = "block_distance"
+				name = "block_volume"
 				operator = "sos_goto"
 				input_goto_end = "true"
 				execute_once = "1.000000"
-				input_execute = "@blocking_enabled.output"
+				input_execute = "@volume_blocking_enabled.output"
 			},
 			
 			{
-				name = "remap_priority"
-				operator = "math_remap_float"
-				input = "@distance_to_source.output"
-				input_execute = "@public.scale_priority_over_distance"
-				input_min = "@public.priority_scale_min_distance"
-				input_max = "@public.priority_scale_max_distance"
-				input_map_min = "@private.cached_priority"
-				input_map_max = "@public.priority_scale_floor"
-				default_to_max = "false"
+				name = "distance_falloff_less_than_threshold"
+				operator = "math_float"
+				apply = "less_than"
+				input1 = "@citadel_distance_falloff::output.result_vol_linear"
+				input2 = ".5"
 			},
 			
 			{
-				name = "overwrite_scaled_priority"
+				name = "switch_priority_below_volume_threshold"
+				operator = "ctrl_switch_float"
+				input_switch = "@distance_falloff_less_than_threshold.output"
+				input1 = "@private.cached_priority"
+				input2 = "-1.0"
+			},
+			
+			{
+				name = "overwrite_floored_priority"
 				operator = "opvar_set_float"
-				input = "@remap_priority.output"
-				input_execute = "@public.scale_priority_over_distance"
+				input = "@switch_priority_below_volume_threshold.output"
 				input_stack_name = ""
 				input_operator_name = "public"
 				input_field_name = "dialog_mix_priority"
 				input_use_namespace = "true"
-			},
-			
-			{
-				name = "citadel_find_perspective"
-				operator = "sos_import_stack"
-				import_stack = "citadel_find_perspective"
-				auto_connect_public_fields = "true"
 			},
 			
 			{
@@ -577,11 +630,19 @@
 			},
 			
 			{
+				name = "switch_debug_color_below_threshold"
+				operator = "ctrl_switch_float3"
+				input_switch = "@distance_falloff_less_than_threshold.output"
+				input1 = "[252., 3., 82.]"
+				input2 = "[3., 119., 252.]"
+			},
+			
+			{
 				name = "switch_debug_color"
 				operator = "ctrl_switch_float3"
 				input_switch = "@priority_less_than_max.output"
 				input1 = "[3., 252., 111.]"
-				input2 = "[252., 3., 82.]"
+				input2 = "@switch_debug_color_below_threshold.output"
 			},
 			
 			{
@@ -595,12 +656,10 @@
 				input_show_detailed_info = "1.0"
 				detail_label_1 = "pri"
 				detail_value_1 = "@public.dialog_mix_priority"
-				detail_label_2 = "vol"
-				detail_value_2 = "@add_volume_offset.output"
-				detail_label_3 = ""
-				detail_value_3 = ""
-				detail_label_4 = ""
-				detail_value_4 = ""
+				detail_label_3 = "fall"
+				detail_value_3 = "@citadel_distance_falloff::output.result_vol_linear"
+				detail_label_4 = "dist"
+				detail_value_4 = "@distance_to_source.output"
 				detail_label_5 = ""
 				detail_value_5 = ""
 				detail_label_6 = ""

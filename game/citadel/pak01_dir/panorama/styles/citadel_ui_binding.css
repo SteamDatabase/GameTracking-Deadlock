@@ -10,12 +10,26 @@ CitadelBinding
 	flow-children: right;
 }
 
-CitadelBinding.HasHoldAction #HoldProgress
+#HoldProgressBG,#HoldProgress
 {
+	visibility: collapse;
+}
+
+CitadelBinding.HasHoldAction #HoldProgressBG,CitadelBinding.HasHoldAction #HoldProgress
+{
+	visibility: visible;
 	width: 100%;
 	height: 100%;
 	border: 2px solid ominousGreen;
-	border-radius: 4px;
+	border-radius: 6px;
+}
+
+CitadelBinding.HasHoldAction #HoldProgressBG
+{
+	animation-name: WaitingPulse;
+	animation-duration: 1.8s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
 }
 
 CitadelBinding.HasHoldAction .Contents
@@ -27,6 +41,12 @@ CitadelBinding.HasHoldAction.HoldActivated
 {
 	animation-name: ActivatedPulse;
 	animation-duration: 0.2s;
+}
+
+CitadelBinding.HasHoldAction.IsPressed #HoldProgressBG
+{
+	animation-name: none;
+	visibility: collapse;
 }
 
 CitadelBinding.HasDownAction.DownActivated:not(.HasUpAction)
@@ -44,6 +64,25 @@ CitadelBinding.HasUpAction.HasDownAction
 CitadelBinding.HasUpAction.HasDownAction.IsPressed
 {
 	pre-transform-scale2d: 0.92;
+}
+
+@keyframes 'WaitingPulse'
+{
+	0%
+	{
+		opacity: 1.0;
+	}
+	
+	50%
+	{
+		opacity: 0.0;
+	}
+	
+	100%
+	{
+		opacity: 1.0;
+	}
+	
 }
 
 @keyframes 'ActivatedPulse'

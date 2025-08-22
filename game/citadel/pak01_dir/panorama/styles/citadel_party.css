@@ -13,24 +13,22 @@ CitadelParty
 .PartyMembersSection
 {
 	flow-children: down;
-	margin-right: 8px;
-	opacity-mask: url("s2r://panorama/images/main_menu/text_speckle_mask_main_psd.vtex") 0.7;
-	opacity-mask-scale: 100% 200%;
+	margin-right: 4px;
 }
 
 .PartyMembersSection #PartyMembersList
 {
 	flow-children: left;
-	padding-top: 16px;
-	padding-bottom: 16px;
+	padding: 16px 8px;
+	margin-top: 6px;
 }
 
 .PartyMember
 {
 	flow-children: down;
-	width: 47px;
-	height: 47px;
-	margin-left: 8px;
+	width: 52px;
+	height: 52px;
+	padding: 6px;
 }
 
 .PartyMember #AvatarImage
@@ -41,22 +39,6 @@ CitadelParty
 	transition-property: opacity, brightness, border;
 	transition-duration: 0.15s;
 	transition-timing-function: ease-in-out;
-}
-
-.PartyMember #AvatarImage.Invited
-{
-	opacity: 0.7;
-	saturation: 0.8;
-	animation-name: InvitePulse;
-	animation-duration: 2s;
-	animation-timing-function: ease-in-out;
-	animation-iteration-count: infinite;
-	box-shadow: 0px 0px 4px #013b2122;
-}
-
-.PartyMember #AvatarImage:hover
-{
-	brightness: 2;
 }
 
 .PartyMember #HeroImage
@@ -82,6 +64,8 @@ CitadelParty
 	background-color: #262424;
 	background-image: url("s2r://panorama/images/icons/icon_player.vsvg");
 	background-img-opacity: 0.4;
+	opacity-mask: url("s2r://panorama/images/main_menu/text_speckle_mask_main_psd.vtex") 0.7;
+	opacity-mask-scale: 100% 200%;
 	wash-color: #77736B;
 	background-size: 50% 50%;
 	background-repeat: no-repeat;
@@ -113,7 +97,6 @@ CitadelParty
 
 .PartyMember.Invited
 {
-	opacity: 0.5;
 	saturation: 0.5;
 	animation-name: InvitePulseScale;
 	animation-duration: 2s;
@@ -121,10 +104,20 @@ CitadelParty
 	animation-iteration-count: infinite;
 }
 
+.PartyMember.Invited #AvatarImage
+{
+	border: 2px solid ominousGreen;
+	wash-color: #222222aa;
+	animation-name: InviteGlow;
+	animation-duration: 2s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+}
+
 #LocalPlayer.PartyMember
 {
-	width: 60px;
-	height: 60px;
+	width: 64px;
+	height: 64px;
 	margin-left: 0px;
 	margin-top: 16px;
 	margin-right: 16px;
@@ -134,8 +127,8 @@ CitadelParty
 {
 	width: 40px;
 	height: 40px;
-	margin-right: 8px;
-	margin-top: 18px;
+	margin-right: 4px;
+	margin-top: 32px;
 	horizontal-align: left;
 	vertical-align: top;
 	wash-color: #77736B;
@@ -172,7 +165,7 @@ CitadelParty
 	width: 76px;
 	flow-children: none;
 	horizontal-align: right;
-	margin: 24px 16px 0px 0px;
+	margin: 12px 16px 0px 0px;
 }
 
 .FriendsCount
@@ -296,17 +289,36 @@ CitadelParty
 {
 	0%
 	{
-		transform: scale3d( 1.0, 1.0, 1.0 );
+		transform: scale3d( .88, .88, .88 );
 	}
 	
 	50%
 	{
-		transform: scale3d( 1.06, 1.06, 1.06 );
+		transform: scale3d( 1.16, 1.16, 1.16 );
 	}
 	
 	100%
 	{
-		transform: scale3d( 1.0, 1.0, 1.0 );
+		transform: scale3d( .88, .88, .88 );
+	}
+	
+}
+
+@keyframes 'InviteGlow'
+{
+	0%
+	{
+		box-shadow: 0px 0px 4px ominousGreen&22;
+	}
+	
+	50%
+	{
+		box-shadow: 0px 0px 12px deeplyOminousGreen&44;
+	}
+	
+	100%
+	{
+		box-shadow: 0px 0px 4px ominousGreen&22;
 	}
 	
 }
