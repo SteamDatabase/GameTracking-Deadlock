@@ -131,6 +131,7 @@
 		}
 		PauseSinglePlayerOnGameOverlay 1
 		DefensiveConCommands 1
+		DisableLoadingPlaque 1
 	}
 
 	ContentBuilder
