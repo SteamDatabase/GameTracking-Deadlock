@@ -171,8 +171,9 @@
  ( NOT SUPPORTED BY ANIMGRAPH ) 
  (!!! ERROR: NO HITGROUP FOUND IN HITBOXES NOR PHYSICS SHAPES: THIS WON'T BE DESTRUCTIBLE !!!)
  (%ld unused bits)\n
- (08@HPXb N[
- (0X`hpz N[
+ (08@HPXb
+ (08@HR
+ (0X`hpz
  (Dirty Animation)
  (Eluded)
  (INVALID PSS PARAMETERS)\n
@@ -1299,7 +1300,6 @@ $light_emissive
 (TestAnnounce)\nLane index (1=yellow, 3=green, 4=blue, 6=purple)
 (U1h
 (WIPE AND EXTRACT)
-(YLB
 (ZdOt\n&
 (\f"n\n CMsgGCToGCMasterSubscribeToCache
 (\f"r\n CClientMsg_CustomGameEventBounce
@@ -1745,7 +1745,6 @@ $light_emissive
 *DEAD*(REBEL)
 *DEAD*(TEAM)
 *DISABLED*
-*P2N
 *SPEC*
 *UlS
 *Y$ve
@@ -1781,6 +1780,7 @@ $light_emissive
 *doorman_hotel_start_relay
 *doorman_hotel_template_%d
 *doorman_victim_start
+*fog_blinded
 *gFBk
 *hbJ1
 *it%2
@@ -3094,6 +3094,7 @@ $light_emissive
 .?AV?$CModifierFactory@VCCitadel_Modifier_Hornet_Chain_Connection@@$0PP@@@
 .?AV?$CModifierFactory@VCCitadel_Modifier_Hornet_Snipe@@$0PP@@@
 .?AV?$CModifierFactory@VCCitadel_Modifier_Hornet_Sting@@$0PP@@@
+.?AV?$CModifierFactory@VCCitadel_Modifier_Hunger_Target@@$0PP@@@
 .?AV?$CModifierFactory@VCCitadel_Modifier_HunterAuraTarget@@$0PP@@@
 .?AV?$CModifierFactory@VCCitadel_Modifier_IceBeam_Stacking_Slow@@$0PP@@@
 .?AV?$CModifierFactory@VCCitadel_Modifier_IceDome@@$0PP@@@
@@ -3457,6 +3458,12 @@ $light_emissive
 .?AV?$CModifierFactory@VCModifier_CheatDeathImmunity@@$0PP@@@
 .?AV?$CModifierFactory@VCModifier_Citadel_Bull_Leap_LandingBonuses@@$0PP@@@
 .?AV?$CModifierFactory@VCModifier_CloakingDevice_Active_Ambush@@$0PP@@@
+.?AV?$CModifierFactory@VCModifier_Drifter_Darkness_Caster@@$0PP@@@
+.?AV?$CModifierFactory@VCModifier_Drifter_Darkness_Target@@$0PP@@@
+.?AV?$CModifierFactory@VCModifier_Drifter_Darkness_Target_BoundaryUnit@@$0PP@@@
+.?AV?$CModifierFactory@VCModifier_Drifter_Rend_BulletLifesteal@@$0PP@@@
+.?AV?$CModifierFactory@VCModifier_Drifter_ShadowMark_Target@@$0PP@@@
+.?AV?$CModifierFactory@VCModifier_Drifter_StalkersMark_PostTeleport@@$0PP@@@
 .?AV?$CModifierFactory@VCModifier_Fathom_LurkersAmbush_Debuff@@$0PP@@@
 .?AV?$CModifierFactory@VCModifier_FleetfootBoots_BonusClip@@$0PP@@@
 .?AV?$CModifierFactory@VCModifier_Headshot_Damage_Debuff@@$0PP@@@
@@ -4046,6 +4053,7 @@ $light_emissive
 .?AV?$CSubclassFactory@VCCitadel_Modifier_Hornet_Chain_Connection@@VCBaseModifier@@@@
 .?AV?$CSubclassFactory@VCCitadel_Modifier_Hornet_Snipe@@VCBaseModifier@@@@
 .?AV?$CSubclassFactory@VCCitadel_Modifier_Hornet_Sting@@VCBaseModifier@@@@
+.?AV?$CSubclassFactory@VCCitadel_Modifier_Hunger_Target@@VCBaseModifier@@@@
 .?AV?$CSubclassFactory@VCCitadel_Modifier_HunterAuraTarget@@VCBaseModifier@@@@
 .?AV?$CSubclassFactory@VCCitadel_Modifier_IceBeam_Stacking_Slow@@VCBaseModifier@@@@
 .?AV?$CSubclassFactory@VCCitadel_Modifier_IceDome@@VCBaseModifier@@@@
@@ -4409,6 +4417,12 @@ $light_emissive
 .?AV?$CSubclassFactory@VCModifier_CheatDeathImmunity@@VCBaseModifier@@@@
 .?AV?$CSubclassFactory@VCModifier_Citadel_Bull_Leap_LandingBonuses@@VCBaseModifier@@@@
 .?AV?$CSubclassFactory@VCModifier_CloakingDevice_Active_Ambush@@VCBaseModifier@@@@
+.?AV?$CSubclassFactory@VCModifier_Drifter_Darkness_Caster@@VCBaseModifier@@@@
+.?AV?$CSubclassFactory@VCModifier_Drifter_Darkness_Target@@VCBaseModifier@@@@
+.?AV?$CSubclassFactory@VCModifier_Drifter_Darkness_Target_BoundaryUnit@@VCBaseModifier@@@@
+.?AV?$CSubclassFactory@VCModifier_Drifter_Rend_BulletLifesteal@@VCBaseModifier@@@@
+.?AV?$CSubclassFactory@VCModifier_Drifter_ShadowMark_Target@@VCBaseModifier@@@@
+.?AV?$CSubclassFactory@VCModifier_Drifter_StalkersMark_PostTeleport@@VCBaseModifier@@@@
 .?AV?$CSubclassFactory@VCModifier_Fathom_LurkersAmbush_Debuff@@VCBaseModifier@@@@
 .?AV?$CSubclassFactory@VCModifier_FleetfootBoots_BonusClip@@VCBaseModifier@@@@
 .?AV?$CSubclassFactory@VCModifier_Headshot_Damage_Debuff@@VCBaseModifier@@@@
@@ -5281,6 +5295,13 @@ $light_emissive
 .?AVCAbilityWreckerTeleportVData@@
 .?AVCAbilityWreckerUltimateVData@@
 .?AVCAbilityWreckingBallVData@@
+.?AVCAbility_Drifter_BloodBlast@@
+.?AVCAbility_Drifter_BloodBlast_VData@@
+.?AVCAbility_Drifter_Darkness@@
+.?AVCAbility_Drifter_Darkness_VData@@
+.?AVCAbility_Drifter_ShadowMark@@
+.?AVCAbility_Drifter_ShadowMark_VData@@
+.?AVCAbility_Drifter_StalkersMark_Teleport@@
 .?AVCAbility_Fathom_LurkersAmbush@@
 .?AVCAbility_Fathom_LurkersAmbush_VData@@
 .?AVCAbility_Fathom_ReefdwellerHarpoon@@
@@ -5829,6 +5850,10 @@ $light_emissive
 .?AVCCitadel_Ability_Doorman_Doorway_VData@@
 .?AVCCitadel_Ability_Doorman_Hotel@@
 .?AVCCitadel_Ability_Doorman_Hotel_VData@@
+.?AVCCitadel_Ability_Drifter_Hunger@@
+.?AVCCitadel_Ability_Drifter_HungerVData@@
+.?AVCCitadel_Ability_Drifter_PrimaryWeapon@@
+.?AVCCitadel_Ability_Drifter_PrimaryWeapon_VData@@
 .?AVCCitadel_Ability_Dust_Storm@@
 .?AVCCitadel_Ability_EmpowerBullet@@
 .?AVCCitadel_Ability_Empty@@
@@ -6747,6 +6772,8 @@ $light_emissive
 .?AVCCitadel_Modifier_Hornet_Chain_Connection@@
 .?AVCCitadel_Modifier_Hornet_Snipe@@
 .?AVCCitadel_Modifier_Hornet_Sting@@
+.?AVCCitadel_Modifier_Hunger_Target@@
+.?AVCCitadel_Modifier_Hunger_Target_VData@@
 .?AVCCitadel_Modifier_HunterAuraTarget@@
 .?AVCCitadel_Modifier_IceBeam_Stacking_Slow@@
 .?AVCCitadel_Modifier_IceDome@@
@@ -7997,6 +8024,15 @@ $light_emissive
 .?AVCModifier_Citadel_Bull_Leap_LandingBonuses_VData@@
 .?AVCModifier_CloakingDevice_Active_Ambush@@
 .?AVCModifier_CloakingDevice_Active_Ambush_VData@@
+.?AVCModifier_Drifter_Darkness_Caster@@
+.?AVCModifier_Drifter_Darkness_Caster_VData@@
+.?AVCModifier_Drifter_Darkness_Target@@
+.?AVCModifier_Drifter_Darkness_Target_BoundaryUnit@@
+.?AVCModifier_Drifter_Darkness_Target_BoundaryUnit_VData@@
+.?AVCModifier_Drifter_Darkness_Target_VData@@
+.?AVCModifier_Drifter_Rend_BulletLifesteal@@
+.?AVCModifier_Drifter_ShadowMark_Target@@
+.?AVCModifier_Drifter_StalkersMark_PostTeleport@@
 .?AVCModifier_Fathom_LurkersAmbush_Debuff@@
 .?AVCModifier_Fathom_LurkersAmbush_Debuff_VData@@
 .?AVCModifier_FleetfootBoots_BonusClip@@
@@ -10450,7 +10486,7 @@ $light_emissive
 0123456789
 02V8[
 05=k
-08@J N[
+08@J
 08bX
 09,h
 0: (V0) Legacy save format, 1: (V1) KeyValues3 save format
@@ -10544,6 +10580,7 @@ $light_emissive
 1}oP
 2 .CMsgGCRoutingInfo.RoutingMethod:
 2 .PARTICLE_SYSTEM_MANAGER_MESSAGE
+2 9Y
 2!.CMsgAddSocketResponse.EAddSocket"
 2!.CMsgGCMsgSetOptions.GCSQLVersion
 2!.ESteamLearnGetAccessTokensResult
@@ -10572,6 +10609,8 @@ $light_emissive
 2-.CMsgGCToServerAddSpectatorResponse.EResponse
 2/.CMsgGameServerToClientConnectionStatus.EStatus
 2/.CMsgServerSignoutData_HeroXPGrant.EGrantReason
+20;Y
+20EY
 20t\f
 21.CMsgClientToGCUnpackBundleResponse.EUnpackBundle
 22.CMsgServerToGCMatchSignoutResponse.ESignoutResult"
@@ -10625,6 +10664,7 @@ $light_emissive
 2^pV
 2_BONE_IK
 2_tasks_left
+2`XT
 2a"l
 2bT~
 2cb:RO
@@ -10676,7 +10716,6 @@ $light_emissive
 3|rN>
 4)#bH
 4)m1
-41\fp
 474E4U4W4c4i4m4
 4<Td
 4@AA
@@ -10741,7 +10780,7 @@ $light_emissive
 65535"
 65535"j\n
 65535B$
-6666666666666666(|
+6666666666666666
 666666666666666666666666666666666666666666666666\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\.\ssl\s3_enc.c
 67-s
 6H,N
@@ -10814,6 +10853,7 @@ $light_emissive
 8= zp
 8A6j
 8GZS
+8Ik>
 8SIffK5W
 8TZvrv<
 8\n4GAME_PARTICLE_MANAGER_EVENT_CLEAR_MODELLIST_OVERRIDE
@@ -10835,6 +10875,8 @@ $light_emissive
 8]Vc2
 8ca1
 8dS2
+8et>
+8ir>
 8pe7?
 8q-S*]X
 8sOy
@@ -10878,6 +10920,8 @@ $light_emissive
 :%s PlayerSlot Damage
 :%s PlayerSlot Healed
 :':+:1:K:Q:[:c:g:m:y:
+:0EY
+:0XT
 :4\n\vdescription
 :9\n\tkey_field
 :BAD OBJECT
@@ -10885,7 +10929,6 @@ $light_emissive
 :EXTERNAL TYPE %s\n
 :LBN
 :NAy
-:P2N
 :QYJ
 :Vlq
 :\n5k_EMsgClientToGCCancelUnfinalizedTransactionsResponse
@@ -11052,7 +11095,6 @@ $light_emissive
 ?333?
 ?333?333?
 ?33s?
-?ELOSCheck_None
 ?HAI\t81\t9dcG'
 ?HP4
 ?Path_AddToTail failed, depth already == DEFAULT_MAX_PATH_DEPTH(%d)
@@ -11069,7 +11111,6 @@ $light_emissive
 ?ffffff
 ?gwL
 ?jOb
-?pXL
 ?srJO
 ?tya
 ?uWS
@@ -11081,6 +11122,8 @@ $light_emissive
 @333?
 @BH]f
 @BoneSetup
+@HPX`hv
+@HVp
 @MfKZ
 @Pgl
 @Pu\rm
@@ -11826,6 +11869,7 @@ Amount of damage done on the first drowning tick (+1 each subsequent interval)
 Amount of health to grant to a ragdoll before the ragdoll is destroyed.
 Amount of time for a bot to react to a player
 Amount of time for no Los to stop shooting at enemy
+AmpDamagePercent
 AmpDuration
 AmpPercentPerStack
 Amplitude
@@ -12775,6 +12819,7 @@ BulletDamageReflectedPct
 BulletID_t
 BulletLifesteal
 BulletLifestealPercent
+BulletLifestealPercentHero
 BulletMagnitude
 BulletProcDeflectionPercent
 BulletProof
@@ -12935,7 +12980,7 @@ C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_player_pa
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_player_pawn_shared.cpp:2166
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_stats_shared.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\heroes\citadel_hero_archer.cpp:1218
-C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\heroes\citadel_hero_bull.cpp:548
+C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\heroes\citadel_hero_bull.cpp:554
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\heroes\citadel_hero_kelvin.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\heroes\citadel_hero_lash.cpp:593
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\heroes\citadel_hero_tengu.cpp:1910
@@ -13314,6 +13359,13 @@ CAbilityWreckerScrapBlastVData
 CAbilityWreckerTeleportVData
 CAbilityWreckerUltimateVData
 CAbilityWreckingBallVData
+CAbility_Drifter_BloodBlast
+CAbility_Drifter_BloodBlast_VData
+CAbility_Drifter_Darkness
+CAbility_Drifter_Darkness_VData
+CAbility_Drifter_ShadowMark
+CAbility_Drifter_ShadowMark_VData
+CAbility_Drifter_StalkersMark_Teleport
 CAbility_Fathom_LurkersAmbush
 CAbility_Fathom_LurkersAmbush_VData
 CAbility_Fathom_ReefdwellerHarpoon
@@ -14006,6 +14058,10 @@ CCitadel_Ability_Doorman_Doorway
 CCitadel_Ability_Doorman_Doorway_VData
 CCitadel_Ability_Doorman_Hotel
 CCitadel_Ability_Doorman_Hotel_VData
+CCitadel_Ability_Drifter_Hunger
+CCitadel_Ability_Drifter_HungerVData
+CCitadel_Ability_Drifter_PrimaryWeapon
+CCitadel_Ability_Drifter_PrimaryWeapon_VData
 CCitadel_Ability_Dust_Storm
 CCitadel_Ability_EmpowerBullet
 CCitadel_Ability_Empty
@@ -14067,7 +14123,6 @@ CCitadel_Ability_HornetMark
 CCitadel_Ability_HornetSting
 CCitadel_Ability_Hornet_Chain
 CCitadel_Ability_Hornet_Snipe
-CCitadel_Ability_IceBeam
 CCitadel_Ability_IceBeamVData
 CCitadel_Ability_IceDome
 CCitadel_Ability_IceDomeVData
@@ -14926,6 +14981,8 @@ CCitadel_Modifier_HornetSnipeVData
 CCitadel_Modifier_Hornet_Chain_Connection
 CCitadel_Modifier_Hornet_Snipe
 CCitadel_Modifier_Hornet_Sting
+CCitadel_Modifier_Hunger_Target
+CCitadel_Modifier_Hunger_Target_VData
 CCitadel_Modifier_HunterAuraTarget
 CCitadel_Modifier_IceBeam_Stacking_Slow
 CCitadel_Modifier_IceDome
@@ -16885,6 +16942,15 @@ CModifier_Citadel_Bull_Leap_LandingBonuses
 CModifier_Citadel_Bull_Leap_LandingBonuses_VData
 CModifier_CloakingDevice_Active_Ambush
 CModifier_CloakingDevice_Active_Ambush_VData
+CModifier_Drifter_Darkness_Caster
+CModifier_Drifter_Darkness_Caster_VData
+CModifier_Drifter_Darkness_Target
+CModifier_Drifter_Darkness_Target_BoundaryUnit
+CModifier_Drifter_Darkness_Target_BoundaryUnit_VData
+CModifier_Drifter_Darkness_Target_VData
+CModifier_Drifter_Rend_BulletLifesteal
+CModifier_Drifter_ShadowMark_Target
+CModifier_Drifter_StalkersMark_PostTeleport
 CModifier_Fathom_LurkersAmbush_Debuff
 CModifier_Fathom_LurkersAmbush_Debuff_VData
 CModifier_FleetfootBoots_BonusClip
@@ -19726,7 +19792,7 @@ DAE!
 DAL\fL@
 DBDc
 DBF-
-DDamageIncreasePct
+DCCitadel_Ability_IceBeam
 DEAD
 DEBRIS
 DEFAULT
@@ -20127,6 +20193,7 @@ DamageHealMult
 DamageHealMultNonHero
 DamageHeavyMelee
 DamageHeight
+DamageIncreasePct
 DamageIndicatorSounds_t
 DamageInterval
 DamageMax
@@ -20183,6 +20250,7 @@ DampingFactor
 DangerousTime
 DangerousTimer
 Dangling
+DarkFactor
 DashAirSpeed
 DashAngleThreshold
 DashDistance
@@ -20318,6 +20386,7 @@ Delay after shooting stops to start decaying shooting spread penalty.  -1 means 
 Delay after teleporting to the source before control is given back to the player. This period is for the player to get their bearings
 Delay before ice shard's physics kick in to account for client latency
 DelayAfterChargeShot
+DelayBeforeInvisStarts
 DelayBeforeStun
 DelayBetweenDaggers
 DelayBetweenShots
@@ -20563,6 +20632,7 @@ Distance to surface: %d\n
 Distance(m) from Base center to be considered in base
 Distance(m) from Objective to consider it pushed to
 DistanceAboveGround
+DistanceForMaxProjSpeed
 DistanceOut
 DistanceToMaxTime
 DistanceToPlayer
@@ -20745,6 +20815,7 @@ Draws the LOS check generated by our fibonacci sphere trace algorithm
 Draws the attachments of the entity
 Draws the axis of the entity origin
 Draws the skeleton of the entity
+DrifterNearbyRangeCheck
 Drone
 Drone.Explosion
 DroneArmTime
@@ -21439,6 +21510,7 @@ ELOSCheck_Bounds_IgnoreObscureBlockers
 ELOSCheck_FibonacciSphere
 ELOSCheck_Head
 ELOSCheck_Head_IgnoreObscureBlockers
+ELOSCheck_None
 ELaneTrooperKill
 ELashGrappleState
 ELashGrappleState_HangingInAir
@@ -22801,7 +22873,6 @@ FL_SUPPRESS_SAVE
 FL_TRANSRAGDOLL
 FL_UNBLOCKABLE_BY_PLAYER
 FL_WATERJUMP
-FNORMAL
 FN|p
 FOLLOW_ENTITY_BIDIRECTIONAL
 FOLLOW_ENTITY_FORWARD
@@ -22928,6 +22999,7 @@ FastRetrigger
 FastRetrigger: %s
 Fatigue recovery: How long after the last wall jump does it take to recover a full wall jump. Seconds.
 Favorites
+Fbuffed
 FearDuration
 FeetSettings
 Ff,n
@@ -23109,6 +23181,7 @@ Float To Game Time
 Float32
 Float64
 FloatContextValue
+FloatDuration
 FloatTime
 Floor - round float down to nearest integer
 Floor Float
@@ -23865,7 +23938,7 @@ GlobalState
 GlobalSymbol
 GlobalSys
 GlowProxySize
-Gm_fWindSpeedVariationMultiplier
+Gm_fWindSpeedMultiplier
 Go to the last position you told an NPC to go.
 GoDormant
 GoDown
@@ -23979,7 +24052,6 @@ HDRColorScale
 HEAD 
 HEAVY
 HELPER_BONE
-HENB
 HH&a
 HIERARCHY
 HIERARCHY_ABSORIGIN
@@ -24718,10 +24790,10 @@ If in hierarchy, walks up the hierarchy to find the root parent.
 If it requires an ability upgrade, what ability property is required for to show? Empty if none
 If non-zero when a map loads, dynamic props won't be loaded
 If non-zero, game will restart in the specified number of seconds
+If positive, override initial spawn interval (in seconds) for all breakable_prop camps
 If positive, override initial spawn interval (in seconds) for all neutral camps
 If positive, override initial spawn interval (in seconds) for all powerup camps
 If positive, override initial spawn interval (in seconds) for midboss
-If positive, override initial spawn time (in seconds) for all breakable_prop camps
 If positive, override initial spawn time (in seconds) for all neutral camps
 If positive, override initial spawn time (in seconds) for all powerup camps
 If positive, override initial spawn time (in seconds) for midboss
@@ -25622,6 +25694,8 @@ IsValidEntity
 IsWorld
 IslandRemoval
 IslandRemoval - unable to find a poly near navlink location %g %g %g\n
+IsolationAssistPercentValue
+IsolationRange
 Issuer certificate lookup error
 Item
 Item %d contains both a team + corporation brand which is illegal!
@@ -25976,6 +26050,7 @@ LifeStealPercentOnHitNonHero
 LifeThreshold
 LifeTime
 Lifesteal
+LifestealDuration
 LifestealHeal
 LifestealHealPercent
 LifestealHealthMult
@@ -27161,6 +27236,7 @@ MaxNPCCount
 MaxNetworkableEntities
 MaxNonNetworkableEntities
 MaxPitch
+MaxProjectileSpeed
 MaxPushVelocity
 MaxRagdollCount
 MaxRange
@@ -27172,7 +27248,9 @@ MaxSlowPercent
 MaxSlowTime
 MaxSpread
 MaxStacks
+MaxTargets
 MaxTimeout
+MaxTrailTargets
 MaxWallToWallDistance
 MaxWeaponPower
 Maximum air-drag to apply when jumping out of a slide.
@@ -27289,6 +27367,7 @@ MinExposure
 MinHealthTakenPct
 MinHeight
 MinHitPointsToCommit
+MinProjectileSpeed
 MinRange
 MinReflectionDOTResult
 MinReflectionZ
@@ -27807,6 +27886,7 @@ NONAVNONSOLID
 NONE
 NON_ZUP
 NON_ZUP_TRANSITION
+NORMAL
 NORTH
 NOT BREAKABLE
 NOT Eligible for selection
@@ -28812,6 +28892,7 @@ OnStyleEvent3
 OnTakeDamage
 OnTakeDamage_React_Alive
 OnTeleport
+OnTeleportAnglesChanged
 OnTeleportTimeChanged
 OnThreeQuarterHealth
 OnTimeout
@@ -28978,10 +29059,9 @@ P-224
 P-256
 P-384
 P-521
-P08@J N[
+P08@J
 P08J
 P1\t98"
-P2 N[
 P5[1
 PAGN_4
 PANEL_ID
@@ -29686,6 +29766,8 @@ PostProcState_Blinded
 PostProcState_DoormanHotelVictim
 PostProcState_DrifterDarknessCaster
 PostProcState_Killed
+PostProcessFadeInTime
+PostProcessFadeOutTime
 PostProcessName
 PostProcessingGameStates
 PostSpawnDirection
@@ -30304,6 +30386,7 @@ Randomizes the order of items in the array (Knuth/Fisher-Yates Shuffle)
 Range
 Range(m) to Scan for Orbs
 RangeAttack
+RangeForBonusDamage
 Range_t
 Rangefinder didn't hit anything\n
 Ranges,
@@ -30437,6 +30520,7 @@ Remap and clamp input value from input range to output range (float)
 Remap camera angle delta to ability targeting spring strength
 Remap camera angle delta to aim spring strength
 Remap of number of capturers to capture time in seconds.  Smaller is faster!
+Remap values from Distance to Pitch (MinDistance, MaxDistance, MinDistancePitch, MaxDistancePitch)
 Remap values from Speed to Pitch (MinSpeed, MaxSpeed, MinSpeedPitch, MaxSpeedPitch)
 RemarkableEntityList
 RemotePlayersOnly
@@ -32527,6 +32611,7 @@ SlowResistance
 SlowTargetDuration
 Slowing Bullets
 Slowing Magic
+SmallVisionDistance
 Smallest possible fraction of a full wall jump you can perform regardless of really small times since last button press.
 SmartGoal
 Smear boneflags across the model.  Costs computation, but tests to make sure your bone flags are consistent.
@@ -32736,6 +32821,7 @@ Spirit Protection
 Spirit Range
 Spirit Slinger
 SpiritDamage
+SpiritDamagePerAttack
 SpiritDamageReductionProc
 SpiritDamageReflectedPct
 SpiritPower
@@ -33575,6 +33661,7 @@ TargetIdentifierOverride
 TargetIdentifierOverrideOrientation
 TargetLifesteal
 TargetLifestealNonHero
+TargetLingerDuration
 TargetName
 TargetOffSetScale
 TargetPracticeDuration
@@ -33667,6 +33754,8 @@ Teleport the specified entity to where the player is looking.\n\tFormat: ent_tel
 Teleport the target entity to wherever the point_teleport entity is currently. The Teleport input teleports to the initial position of the point_teleport, so this input was added to avoid breaking old content.
 Teleport the target entity.
 Teleport to Mark
+TeleportBackOffsetFromTarget
+TeleportHeightOffsetFromTarget
 TeleportToPathNode
 TeleportToTarget
 TeleporterParams_t
@@ -34063,6 +34152,7 @@ TrackingSpeed
 TrackingTime
 TrackingVariance
 Trail Particle
+TrailDuration
 TrailInterval
 TrailLength
 Trailer Field: 0x
@@ -34987,6 +35077,7 @@ WeaponDamageIncreaseDuration
 WeaponDamagePerHeat
 WeaponDamagePerStack
 WeaponDamageScale
+WeaponDmgPerIsolationKill
 WeaponIK_R
 WeaponName
 WeaponPower
@@ -35788,6 +35879,8 @@ Z~wl
 \n.CCitadelUserMsg_ParticipantSetSoundEventParams
 \n.steammessages_unified_base.steamworkssdk.proto
 \n0CCitadelUserMsg_ParticipantSetLibraryStackFields
+\n0VT
+\n0XT
 \n4CMsgClientToGCGetLimitedItemPurchaseQuantityResponse
 \n5CProtoItemSocket_Strange_DESERIALIZE_FROM_STRING_ONLY
 \n5a=Z
@@ -35797,7 +35890,7 @@ Z~wl
 \nDictionary: %s\n
 \nEnemy is %s
 \nGameTime_t
-\nP2N
+\nPHY
 \nSimulating Entities:\n\n
 \nVisMon: Polling now. (Frequency: %f)\n
 \n\fBPE_Teleport
@@ -35948,7 +36041,6 @@ Z~wl
 \n\nEM_DoSpark
 \n\nEPurchased
 \n\nGoldSource
-\n\nP2N
 \n\nPerfSample
 \n\nPlayerItem
 \n\nROLL_STATS
@@ -36748,9 +36840,8 @@ _to_curve_
 _tools_event_desc
 _xU`u
 _}eOk
+`20;Y
 `28)fk
-`60q
-`60r
 `:zQF
 `D$daM-l
 `DZG
@@ -36824,6 +36915,7 @@ abcdefghijklmnopqrstuvwxyzyxwvutsrqponmlkjihgfedcba
 abiilty_boho_channeltether
 abiilty_boho_doublehit
 ability
+ability used by killer
 ability used to escape
 ability_added
 ability_afterburn
@@ -36867,6 +36959,7 @@ ability_doorman_bomb
 ability_doorman_doorway
 ability_doorman_hotel
 ability_doorman_luggage_cart
+ability_drifter_hunger
 ability_druid_ability01
 ability_druid_ability02
 ability_druid_base_plant
@@ -38263,7 +38356,6 @@ buddha 1
 buddha_ignore_bots
 buddha_reset_hp
 buff_modifier
-buffed
 buffer
 buildNavigation: Could not build compact data.
 buildNavigation: Could not build detail mesh.
@@ -38628,6 +38720,7 @@ citadel_ability_cooldown_max 1
 citadel_ability_damage_falloff
 citadel_ability_dash
 citadel_ability_debug
+citadel_ability_drifter_primaryweapon
 citadel_ability_fissure_wall
 citadel_ability_fissure_wall_cancel
 citadel_ability_fissure_wall_trigger
@@ -39776,7 +39869,6 @@ context_team_id
 contextsubject
 continue_on_death
 continueguidedbotmatch
-continuous_fire_elapsed_time
 control
 control command failed
 control_point_configuration
@@ -40045,7 +40137,6 @@ d=%-2d hl=%ld l=inf
 dAN"
 dDV8
 dHHp
-dH\vp}K
 dITRedirect
 dNSDomain
 dOj\f,
@@ -40476,6 +40567,10 @@ draw_footstep_occlusion
 drawcross
 drawline
 draws footstep/foley events that are heard or not heard
+drifter_blood_blast
+drifter_darkness
+drifter_shadow_mark
+drifter_shadow_mark_teleport
 drop_position
 drop_rate_bonus
 drop_to_ground_range
@@ -40749,6 +40844,7 @@ e_BouncePadStomp
 e_DamageState
 e_DeathSequence
 e_ElectricBeamPosition
+e_EternalNight
 e_FallingGrace
 e_Flight
 e_FlinchType
@@ -42352,6 +42448,7 @@ g|MT
 h&eC
 h*Ax
 h0XB
+h1l>
 h2Wl
 h2n_\
 h5N.
@@ -42654,7 +42751,6 @@ hoverposeangles
 hoverposeflags
 hoverposeposition
 hows joint info for this entity
-hpz N[
 hr_H
 http request
 https proxy request
@@ -44962,6 +45058,7 @@ m_BlastedModifier
 m_BlastedPassiveModifier
 m_BleedModifier
 m_BleedParticle
+m_BlindedStatusParticle
 m_BlinkEndFinalSound
 m_BlinkEndParticle
 m_BlinkEndSound
@@ -45656,6 +45753,9 @@ m_HourParticle
 m_HoverParticle
 m_Hull
 m_HullForceFlags
+m_HungerTargetKillParticle
+m_HungerTargetParticle
+m_HungerTargetPlayerParticle
 m_ID
 m_IceDomeModifier
 m_IceGrenadeSlowModifier
@@ -45901,6 +46001,7 @@ m_NearDeathModifier
 m_NearPlayerSplitPct
 m_NearRejuvAuraModifier
 m_NearbyEnemyResist
+m_NearbyVictimStatusParticle
 m_NearestEntityDistance
 m_NestedElements
 m_NetWorth
@@ -46342,6 +46443,7 @@ m_PostCubeBuffModifier
 m_PostProcessingVolumes
 m_PostSleepModifier
 m_PostSleepStaminaModifier
+m_PostTeleportModifier
 m_PowerJumpModifier
 m_PowerSlashFullParticle
 m_PowerSlashParticle
@@ -46645,6 +46747,8 @@ m_SpinEndTime
 m_SpinLoopSound
 m_SpinModifier
 m_SpinUpSound
+m_SpiritBulletImpactParticle
+m_SpiritBulletTracerParticle
 m_SpiritBurnDamageTracker
 m_SpiritMeleeProcModifier
 m_SpiritReflectTracerReplacement
@@ -46757,6 +46861,7 @@ m_TargetBody
 m_TargetBuffSound
 m_TargetCastSound
 m_TargetDamageFx
+m_TargetDamageParticle
 m_TargetDebuffModifier
 m_TargetDir
 m_TargetEntities
@@ -46772,6 +46877,7 @@ m_TargetPracticeSelfModifier
 m_TargetPreview
 m_TargetPreviewParticle
 m_TargetPreviews
+m_TargetRevealModifier
 m_TargetScreenParticleEffect
 m_TargetWarningParticle
 m_TargetWarningSound
@@ -46916,6 +47022,7 @@ m_VerticallRecoil
 m_Vertices
 m_VictimMarkTriggerSound
 m_VictimModifier
+m_VictimParticleEffect
 m_VictimPushModifier
 m_VictimSound
 m_VictimWarningModifier
@@ -48495,6 +48602,7 @@ m_disabled
 m_disperseTimer
 m_distSq
 m_distance
+m_distanceToPitchRemap
 m_doorwayPairs
 m_dpv
 m_drawBounds
@@ -48775,7 +48883,7 @@ m_fWaypointFlags
 m_fWidth
 m_fWindDirectionVariationMultiplier
 m_fWindSpeed
-m_fWindSpeedMultiplier
+m_fWindSpeedVariationMultiplier
 m_fWindTurbulenceMultiplier
 m_fadeColor
 m_fadeMaxDist
@@ -49127,6 +49235,7 @@ m_flCastTimeDamage
 m_flCasterBonusPercent
 m_flCasterSpeed
 m_flCatchUpSpeed
+m_flCenterBulletRadiusOverride
 m_flCenterHeightOffset
 m_flCenterSize
 m_flChannelEndEnemyPopUpCylinderHeight
@@ -50837,6 +50946,7 @@ m_flTechResistancePctMin
 m_flTeleportDistance
 m_flTeleportToHotelDelay
 m_flTeleportToSourceDelay
+m_flTeleportedTime
 m_flTensionCompressScale
 m_flTensionSpringConstant
 m_flTensionStretchScale
@@ -51460,6 +51570,7 @@ m_hTargetEntity
 m_hTargetPlayer
 m_hTargetReference
 m_hTargetedEnemy
+m_hTeleportTarget
 m_hTetheredTo
 m_hTextureOverride
 m_hThrower
@@ -52138,6 +52249,7 @@ m_nAppliedIndexOffset
 m_nAreaDst
 m_nAreaSrc
 m_nAssignedLane
+m_nAssistsEarned
 m_nAsyncCallMode
 m_nAttachBoneIdx
 m_nAttachIndex
@@ -53237,6 +53349,7 @@ m_qNoiseDelta
 m_qOffset
 m_qOrientationOverride
 m_qParentBindRotation
+m_qPostTeleportAngles
 m_qRelativeOffset
 m_qStartRot
 m_qWSInit
@@ -53644,6 +53757,8 @@ m_strArriveSound
 m_strAttachmentName
 m_strAttackBuffParticle
 m_strAttackerHitSound
+m_strAuraEnterNPCSound
+m_strAuraEnterPlayerSound
 m_strBallApexSound
 m_strBarrageLoop
 m_strBarrageSound
@@ -53672,6 +53787,7 @@ m_strBoltSound
 m_strBonus
 m_strBossEntityName
 m_strBossKill
+m_strBoundaryPuffParticle
 m_strBreakableContentsParticleOverride
 m_strBreakableContentsPropGroupOverride
 m_strBuffGainedSound
@@ -53825,6 +53941,7 @@ m_strHitConfirmationSound
 m_strHitDebrisSound
 m_strHitEnemySound
 m_strHitHeroSound
+m_strHitNPCSound
 m_strHitProcSound
 m_strHitSound
 m_strHoldBegin
@@ -53939,6 +54056,7 @@ m_strPersonalBestJuggleSound
 m_strPlayerKill
 m_strPlayerKillAssist
 m_strPlayerOrb
+m_strPointBlankSweetenerSound
 m_strPopGraphParamter
 m_strPostGameDefeatSound
 m_strPostGameVictorySound
@@ -54017,6 +54135,7 @@ m_strSourceClassName
 m_strSpinDownSound
 m_strSpinUpLoopSound
 m_strSpinUpSound
+m_strSpiritBulletHitSound
 m_strSprintSound
 m_strStackSound
 m_strStaminaDrainedSound
@@ -54038,6 +54157,8 @@ m_strSwapCloneSound
 m_strSwapParticle
 m_strSwapSound
 m_strSwapStarted
+m_strSwipeTracerParticleLeft
+m_strSwipeTracerParticleRight
 m_strTarget
 m_strTargetCompleteSound
 m_strTargetEnemyParticleEffect
@@ -54173,6 +54294,7 @@ m_tActivationTime
 m_tBuffRechargeTime
 m_tCatRecallTime
 m_tDeactivationTime
+m_tDelayedShootTime
 m_tDieTime
 m_tDoubleCastWindow
 m_tDrainLifeStopTime
@@ -54666,9 +54788,11 @@ m_vecConnections
 m_vecConsumedComponents
 m_vecCornerPairsNetworked
 m_vecCrashDirection
+m_vecCrashDownLastPos
 m_vecCrashPosition
 m_vecCreatePosition
 m_vecCurrentPosition
+m_vecCurrentTargets
 m_vecDaggers
 m_vecDamageDirection
 m_vecDamageForce
@@ -54801,6 +54925,7 @@ m_vecOldViewAngles
 m_vecOptions
 m_vecOrigin
 m_vecOriginOffsets
+m_vecOriginOffsetsLeft
 m_vecOriginalAngles
 m_vecOtherDisplayStats
 m_vecOutgoingHitList
@@ -55693,6 +55818,12 @@ modifier_doorman_hotel_transition_freeze
 modifier_doorman_hotel_victim
 modifier_dps_aura_active
 modifier_dragonfire_ground_aura
+modifier_drifter_darkness_caster
+modifier_drifter_darkness_target
+modifier_drifter_darkness_target_boundary_unit
+modifier_drifter_rend_bullet_lifesteal
+modifier_drifter_shadow_mark_target
+modifier_drifter_stalkers_mark_post_teleport
 modifier_drone_tracker
 modifier_dump
 modifier_dump_list
@@ -55764,6 +55895,7 @@ modifier_hero_upgrade_bonuses
 modifier_hollow_point_proc
 modifier_hollow_point_stack
 modifier_hornet_leap
+modifier_hunger_target
 modifier_hunter_aura_target
 modifier_ice_dome
 modifier_ice_dome_friendly
@@ -56202,6 +56334,8 @@ muzzle_2
 muzzle_alt_0
 muzzle_alt_1
 muzzle_alt_2
+muzzle_flash_l
+muzzle_flash_r
 muzzle_fx
 muzzle_static_fx
 mvp_map_override
@@ -57340,14 +57474,12 @@ p.other
 p.ppBasis
 p.prime
 p.tpBasis
-p0j`
-p2 N[
+p0j@MS
 p2{l
 p4Z3
 p5Z3
 p5\nL,
 p618
-p6`X
 p@0pqE5tsO?|1
 pActivator
 pAnimGraphEntity
@@ -57891,6 +58023,7 @@ player_activate
 player_ahead_of_creeps
 player_ammobalancing_debug
 player_barriering
+player_blinded_by_darkness
 player_bullet_damage
 player_card
 player_changename
@@ -60025,6 +60158,7 @@ startcolor
 startdark
 startdelay
 startdisabled
+started
 starting_clip
 startloop
 startpos
@@ -60555,6 +60689,7 @@ tech_damage
 telemetry_message
 telemetry_toggle_timespan
 telephoneNumber
+teleport_available
 teleport_origin
 teleport_parented_entities
 teleport_trigger_debug
@@ -61816,7 +61951,7 @@ z/B,9d
 z<d2
 z>Hz
 zDCCitadel_Modifier_ClimbRopeSlowVData
-zDIf positive, override initial spawn interval (in seconds) for all breakable_prop camps
+zDIf positive, override initial spawn time (in seconds) for all breakable_prop camps
 zF):O4
 zFar
 zG2m8
