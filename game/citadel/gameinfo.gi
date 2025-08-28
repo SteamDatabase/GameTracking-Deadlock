@@ -507,7 +507,7 @@
 		"snd_event_browser_focus_events" "true"
 
 		"cl_max_particle_pvs_aabb_edge_length" "100"
-		"cl_aggregate_particles" "true"
+		//"cl_aggregate_particles" "true"
 		
 		"citadel_enable_vdata_sound_preload" "true"
 	}
