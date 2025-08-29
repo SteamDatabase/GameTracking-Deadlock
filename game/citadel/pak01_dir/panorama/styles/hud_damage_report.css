@@ -13,6 +13,17 @@
 	opacity: 0.5;
 }
 
+DropDown
+{
+	height: 30px;
+}
+
+DropDown Label
+{
+	font-size: 14px font-weight: bold;
+	horizontal-align: middle;
+}
+
 @define bgColor: #b7b7b7;
 @define bgColorDark: #909090;
 @define abilityDamageBarColor: #8A55B3;
@@ -34,7 +45,7 @@
 	border-radius: 2px;
 	width: 25px;
 	height: 100px;
-	margin: 5px 9px;
+	margin: 2px 5px;
 	margin-right: 5px;
 	horizontal-align: center;
 }
@@ -42,7 +53,7 @@
 .DamageRatioProgressBar.Horizontal
 {
 	width: 160px;
-	height: 40px;
+	height: 34px;
 }
 
 .DamageRatioProgressBar .ProgressBarLeft
@@ -82,6 +93,13 @@
 .DamageRatioProgressBar .ProgressBarMiddle
 {
 	background-color: abilityDamageBarColor;
+}
+
+.DamageRatioProgressBar .arrowIcon
+{
+	width: 10px;
+	height: 10px;
+	background-color: red;
 }
 
 .HudDamageReport.Tab
@@ -191,9 +209,9 @@
 {
 	vertical-align: top;
 	horizontal-align: right;
-	margin-top: 230px;
-	width: 470px;
-	border-radius: 5px 0px 0px 5px;
+	margin-top: 250px;
+	width: 350px;
+	border-radius: 20px 0px 0px 20px;
 	border: 1px solid #ffffff01;
 	font-family: sans;
 	flow-children: right;
@@ -261,9 +279,9 @@
 .HudDamageReport #ReportContents
 {
 	flow-children: down;
-	background-color: #1E2616;
+	background-color: #1E2616aa;
+	world-blur: ingameHudBlur;
 	horizontal-align: right z-index: 2;
-	opacity: 0.98;
 }
 
 .HudDamageReport .Header
@@ -275,7 +293,7 @@
 	padding-bottom: 4px;
 	flow-children: right;
 	vertical-align: middle;
-	background-color: #10130D;
+	background-color: #10130D90;
 	height: 70px;
 	transition-property: brightness,opacity;
 	transition-duration: 0.1s;
@@ -290,19 +308,19 @@
 .HudDamageReport .Header #ViewingHeroImage
 {
 	max-height: 45px;
-	margin: 8px;
+	margin: 8px 10px 8px 0px;
 	vertical-align: center;
 }
 
 .HudDamageReport .Header .DamageReportHeader
 {
-	font-size: 20px;
+	font-size: 16px;
 	vertical-align: middle;
 	font-weight: bold;
-	margin: 4px;
-	margin-left: 10px;
-	width: 165px;
+	width: 230px;
 	text-overflow: shrink;
+	font-family: block;
+	text-transform: uppercase;
 }
 
 .Tab .HudDamageReport .Header .DamageReportHeader
@@ -317,10 +335,10 @@
 
 .HudDamageReport .Header .TimeControl
 {
-	max-width: 150px;
-	margin: 4px 10px;
+	max-width: 200px;
+	margin: 4px 0px;
 	vertical-align: center;
-	horizontal-align: right;
+	horizontal-align: left;
 }
 
 .HudDamageReport .Header .CloseButton
@@ -768,15 +786,16 @@
 .HudDamageRows #Data .AbilityDamageContainer .AbilityDamageBarContainer .DamageBarInner
 {
 	ignore-parent-flow: true;
-	margin-left: 10px;
+	margin-left: 12px;
 	flow-children: right;
 	vertical-align: center;
+	width: 220px;
 }
 
 .HudDamageRows #Data .AbilityDamageContainer .AbilityDamageBarContainer .DamageBarInner #AbilityImage
 {
-	width: 30px;
-	height: 30px;
+	width: 20px;
+	height: 20px;
 	opacity: 0.9;
 	vertical-align: center;
 	margin: 3px;
@@ -788,10 +807,10 @@
 	horizontal-align: left;
 	margin-left: 5px;
 	font-weight: semi-bold;
-	font-size: 17px;
+	font-size: 15px;
 	max-width: 140px;
-	max-height: 36px;
-	text-overflow: shrink;
+	max-height: 30px;
+	text-overflow: ellipsis;
 }
 
 .HudDamageRows #Data .AbilityDamageContainer .AbilityDamageBarContainer .DamageBarInner .ExtraInfoContainer
@@ -799,6 +818,8 @@
 	flow-children: right;
 	vertical-align: center;
 	horizontal-align: right;
+	margin-left: 5px;
+	ignore-parent-flow: true;
 }
 
 .HudDamageRows #Data .AbilityDamageContainer .AbilityDamageBarContainer .DamageBarInner .killing_blow
@@ -820,13 +841,42 @@
 	color: #ffffff80;
 	vertical-align: center;
 	horizontal-align: center;
-	margin-left: 5px;
 	font-size: 12px;
 	font-weight: semi-bold;
-	background-color: #00000070;
-	border-radius: 3px;
-	padding: 3px 2px 3px 5px;
+	background-color: #000000aa;
+	border-radius: 2px;
+	margin: 0px 2px;
+	padding: 2px 4px;
 	visibility: collapse;
+}
+
+.HudDamageRows #Data .AbilityDamageContainer .AbilityDamageBarContainer .DamageBarInner .Hits.Hits,.HudDamageRows #Data .AbilityDamageContainer .AbilityDamageBarContainer .DamageBarInner .Adjusted.Hits
+{
+	font-weight: normal;
+}
+
+.HudDamageRows #Data .AbilityDamageContainer .AbilityDamageBarContainer .DamageBarInner .Hits.PercentDecreased,.HudDamageRows #Data .AbilityDamageContainer .AbilityDamageBarContainer .DamageBarInner .Adjusted.PercentDecreased
+{
+	color: #90ecb2aa;
+	background-color: #1c784590;
+}
+
+.Outgoing .HudDamageRows #Data .AbilityDamageContainer .AbilityDamageBarContainer .DamageBarInner .Hits.PercentDecreased,.Outgoing .HudDamageRows #Data .AbilityDamageContainer .AbilityDamageBarContainer .DamageBarInner .Adjusted.PercentDecreased
+{
+	color: #ff9797;
+	background-color: #79171790;
+}
+
+.HudDamageRows #Data .AbilityDamageContainer .AbilityDamageBarContainer .DamageBarInner .Hits.PercentIncreased,.HudDamageRows #Data .AbilityDamageContainer .AbilityDamageBarContainer .DamageBarInner .Adjusted.PercentIncreased
+{
+	color: #ff9797;
+	background-color: #79171790;
+}
+
+.Outgoing .HudDamageRows #Data .AbilityDamageContainer .AbilityDamageBarContainer .DamageBarInner .Hits.PercentIncreased,.Outgoing .HudDamageRows #Data .AbilityDamageContainer .AbilityDamageBarContainer .DamageBarInner .Adjusted.PercentIncreased
+{
+	color: #90ecb2aa;
+	background-color: #1c784590;
 }
 
 .Language_english .killing_blow
@@ -1039,6 +1089,12 @@ CitadelTooltipDamageReportHeroSummary #Contents,CitadelTooltipDamageReportAbilit
 	font-size: 24px;
 	font-weight: bold;
 	font-family: sansMono;
+}
+
+#TextContainer
+{
+	flow-children: down;
+	vertical-align: middle;
 }
 
 #ReportToggle

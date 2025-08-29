@@ -10,25 +10,49 @@ CitadelBinding
 	flow-children: right;
 }
 
-#HoldProgressBG,#HoldProgress
+#BouncingArrow,#HoldProgressBG,#HoldProgress
 {
 	visibility: collapse;
 }
 
-CitadelBinding.HasHoldAction #HoldProgressBG,CitadelBinding.HasHoldAction #HoldProgress
+CitadelBinding.HasHoldAction
 {
+	overflow: noclip;
+}
+
+CitadelBinding.HasHoldAction #BouncingArrow
+{
+	overflow: noclip;
+	margin-top: -3px;
+	background-image: url("s2r://panorama/images/glyphs/bindingholdarrow.vsvg");
+	background-size: 100% 100%;
+	width: 10px;
+	height: 10px;
 	visibility: visible;
-	width: 100%;
-	height: 100%;
-	border-radius: 6px;
+	horizontal-align: center;
+	vertical-align: top;
+	animation-name: AnimBouncingCycle;
+	animation-duration: 1.6s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
 }
 
 CitadelBinding.HasHoldAction #HoldProgressBG
 {
-	animation-name: WaitingPulse;
-	animation-duration: 1.6s;
-	animation-timing-function: ease-in-out;
-	animation-iteration-count: infinite;
+	width: 100%;
+	height: 100%;
+	border-radius: 6px;
+	visibility: visible;
+	clip: radial( 50% 50%, 30deg, 300deg );
+}
+
+CitadelBinding.HasHoldAction #HoldProgress
+{
+	overflow: noclip;
+	width: 100%;
+	height: 100%;
+	border: 2px solid offwhite;
+	border-radius: 6px;
 }
 
 CitadelBinding.HasHoldAction .Contents
@@ -42,10 +66,60 @@ CitadelBinding.HasHoldAction.HoldActivated
 	animation-duration: 0.2s;
 }
 
+@keyframes 'AnimBouncingCycle'
+{
+	0%
+	{
+		transform: translateY(-3px);
+	}
+	
+	2%
+	{
+		transform: translateY(-4px);
+	}
+	
+	5%
+	{
+		transform: translateY(1px);
+	}
+	
+	6%
+	{
+		transform: translateY(0px);
+	}
+	
+	95%
+	{
+		transform: translateY(0px);
+	}
+	
+	100%
+	{
+		transform: translateY(-3px);
+	}
+	
+}
+
+CitadelBinding.HasHoldAction.IsPressed .Contents
+{
+	transform: translateY( 1px );
+}
+
+CitadelBinding.HasHoldAction.IsPressed #BouncingArrow
+{
+	animation-name: none;
+	visibility: collapse;
+}
+
 CitadelBinding.HasHoldAction.IsPressed #HoldProgressBG
 {
 	animation-name: none;
 	visibility: collapse;
+}
+
+CitadelBinding.HasHoldAction.IsPressed #HoldProgress
+{
+	visibility: visible;
 }
 
 CitadelBinding.HasDownAction.DownActivated:not(.HasUpAction)
@@ -63,28 +137,6 @@ CitadelBinding.HasUpAction.HasDownAction
 CitadelBinding.HasUpAction.HasDownAction.IsPressed
 {
 	pre-transform-scale2d: 0.92;
-}
-
-@keyframes 'WaitingPulse'
-{
-	0%
-	{
-		opacity: 0.6;
-		border: .8px solid ominousGreen;
-	}
-	
-	50%
-	{
-		opacity: 0.0;
-		border: .2px solid #333;
-	}
-	
-	100%
-	{
-		opacity: 0.6;
-		border: .8px solid ominousGreen;
-	}
-	
 }
 
 @keyframes 'ActivatedPulse'
@@ -144,13 +196,45 @@ CitadelBinding CitadelGamePadBinding
 	visibility: collapse;
 }
 
-#MatchmakingStatus CitadelBinding.HasHoldAction #HoldProgress
+#MatchmakingStatus CitadelBinding.HasHoldAction #HoldProgress,#MatchmakingStatus CitadelBinding.HasHoldAction #HoldProgressBG
 {
-	background-color: ominousGreen;
+	border: 2px solid deeplyOminousGreen;
 }
 
-#Survey CitadelBinding.HasHoldAction #HoldProgress
+#MatchmakingStatus CitadelBinding.HasHoldAction #BouncingArrow
 {
-	background-color: ominousGreen;
+	wash-color: deeplyOminousGreen;
+}
+
+#Survey CitadelBinding.HasHoldAction #BouncingArrow
+{
+	wash-color: ominousGreen;
+}
+
+#Survey CitadelBinding.HasHoldAction #HoldProgress,#Survey CitadelBinding.HasHoldAction #HoldProgressBG
+{
+	border: 2px solid ominousGreen;
+}
+
+@define inviteColor: #48D595;
+@define declineColor: #9C3333;
+.InviteHotkeyAccept CitadelBinding.HasHoldAction #BouncingArrow
+{
+	wash-color: inviteColor;
+}
+
+.InviteHotkeyAccept CitadelBinding.HasHoldAction #HoldProgress,.InviteHotkeyAccept CitadelBinding.HasHoldAction #HoldProgressBG
+{
+	border: 2px solid inviteColor;
+}
+
+.InviteHotkeyDecline CitadelBinding.HasHoldAction #BouncingArrow
+{
+	wash-color: declineColor;
+}
+
+.InviteHotkeyDecline CitadelBinding.HasHoldAction #HoldProgress,.InviteHotkeyDecline CitadelBinding.HasHoldAction #HoldProgressBG
+{
+	border: 2px solid declineColor;
 }
 
