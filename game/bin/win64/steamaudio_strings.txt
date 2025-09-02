@@ -53,6 +53,7 @@
 !expected_len || s->s3->previous_server_finished_len
 !fUY\n
 !hcK+dbF&
+!m_nPackFileNumber
 !s8p
 "!"%"+"1"9"K"O"c"g"s"u"
 "2MR
@@ -206,6 +207,7 @@ $hRh
 'pSN.F
 'prB2
 'sp3s
+( m_nChunkHashesSize % sizeof( ChunkHashFraction_t ) ) == 0
 (!(1(=(?(I(Q([(](a(g(u(
 ((long)msg_hdr->msg_len) > 0
 (0'yX
@@ -662,8 +664,8 @@ $hRh
 2Zq)
 2\fWQx
 2\rlhp
-2\vpL
-2\vpPq
+2\vpl
+2\vppm
 2^pV
 2a"l
 2bT~
@@ -1098,6 +1100,7 @@ Ambisonics order to use for simulating reverb.
 Any Extended Key Usage
 Any Purpose
 Any language
+AssertFatalCast
 Authority Information Access
 Av $1
 B!rA
@@ -1281,7 +1284,9 @@ C3ps
 C6DN
 C7HSY
 C:\buildworker\citadel_rel_win64\build\_build_\soundsystem\steamaudio\_vpc_steamaudio\default\win64\_msvc_\Retail\steamaudio.pdb
+C:\buildworker\citadel_rel_win64\build\src\public\tier0\check_cast.h
 C:\buildworker\citadel_rel_win64\build\src\public\tier0\utlblockvector.h
+C:\buildworker\citadel_rel_win64\build\src\public\vpklib\packedstore.h
 C:\buildworker\citadel_rel_win64\build\src\soundsystem\steamaudio\steamaudio.cpp
 C:\buildworker\citadel_rel_win64\build\src\soundsystem\steamaudio\steamaudioscene.cpp
 C:\buildworker\citadel_rel_win64\build\src\vpklib\packedstore.cpp
@@ -1467,6 +1472,8 @@ CONN_STATE
 COPY_EMAIL
 COPY_ISSUER
 CPBQ
+CPackedStore::CPackedStore
+CPackedStore::VerifySingleChunk
 CR&C
 CRL Sign
 CRL has expired
@@ -1520,18 +1527,15 @@ CT Precertificate Poison
 CT Precertificate SCTs
 CT Precertificate Signer
 CUtlBlockVector<struct FileHandleTracker_t,int,class CMemAllocAllocator>::GrowCount
-CUtlBlockVector<unsigned char,int,class CMemAllocAllocator>::GrowCount
 CUtlLeanVectorBase<struct UtlLinkedListElem_t<class CSmartPtr<class CSteamAudioPartitioningTask,class CRefCountAccessor>,unsigned short>,unsigned short,class CMemAllocAllocator>::EnsureCapacity
 CUtlLeanVectorBase<struct UtlLinkedListElem_t<class CSmartPtr<class CSteamAudioSimulationData,class CRefCountAccessor>,unsigned short>,unsigned short,class CMemAllocAllocator>::EnsureCapacity
 CUtlLeanVectorBase<struct UtlLinkedListElem_t<class CSmartPtr<class CSteamAudioSource,class CRefCountAccessor>,unsigned short>,unsigned short,class CMemAllocAllocator>::EnsureCapacity
 CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CUtlHashMap<class CUtlStringToken,struct Mat3x4<float>,class CDefEquals<class CUtlStringToken>,struct HashMapFunctor_t<class CUtlStringToken>,int>::HashBucket_t,int,class CMemAllocAllocator>,struct CUtlHashMap<class CUtlStringToken,struct Mat3x4<float>,class CDefEquals<class CUtlStringToken>,struct HashMapFunctor_t<class CUtlStringToken>,int>::HashBucket_t,int>::AddMultipleToTail
 CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CUtlHashMap<int,struct _IPLSource_t *,class CDefEquals<int>,struct HashMapFunctor_t<int>,int>::HashBucket_t,int,class CMemAllocAllocator>,struct CUtlHashMap<int,struct _IPLSource_t *,class CDefEquals<int>,struct HashMapFunctor_t<int>,int>::HashBucket_t,int>::AddMultipleToTail
 CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CUtlMemoryBlockAllocator<struct FileHandleTracker_t,class CMemAllocAllocator>::MemPage_t,int,class CMemAllocAllocator>,struct CUtlMemoryBlockAllocator<struct FileHandleTracker_t,class CMemAllocAllocator>::MemPage_t,int>::EnsureUnusedCapacity
-CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CUtlMemoryBlockAllocator<unsigned char,class CMemAllocAllocator>::MemPage_t,int,class CMemAllocAllocator>,struct CUtlMemoryBlockAllocator<unsigned char,class CMemAllocAllocator>::MemPage_t,int>::EnsureUnusedCapacity
 CUtlMemoryBlockAllocator<struct FileHandleTracker_t,class CMemAllocAllocator>::AddPage
-CUtlMemoryBlockAllocator<unsigned char,class CMemAllocAllocator>::AddPage
 CUtlRBTree<struct CUtlOrderedMapBase<class CUtlStringToken,int,class CDefLess<class CUtlStringToken>,int>::Node_t,class CUtlOrderedMapBase<class CUtlStringToken,int,class CDefLess<class CUtlStringToken>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CUtlStringToken,int,class CDefLess<class CUtlStringToken>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
-CUtlSortVector<struct ChunkHashFraction_t,class ChunkHashFractionLess_t,class CUtlVector<struct ChunkHashFraction_t,int,class CUtlVectorMemory_Growable<struct ChunkHashFraction_t,int,0> > >::Find
+CUtlSortVector<struct ChunkHashFraction_t,class CUtlSortVectorDefaultLess<struct ChunkHashFraction_t::SortKey_t>,class CUtlVector<struct ChunkHashFraction_t,int,class CUtlVectorMemory_Growable<struct ChunkHashFraction_t,int,0> > >::Find
 CUtlString
 CUtlStringToken
 CVcn
@@ -1543,6 +1547,7 @@ Cam\v;
 Camellia(128)
 Camellia(256)
 Cannot allocate abstract class
+Cast of %s loses value information (returning %s) in %s on %s:%u\n
 Certificate Hold
 Certificate Sign
 Certificate:\n
@@ -1550,6 +1555,9 @@ Cessation Of Operation
 ChGg
 Char=
 Chunk hash not found.
+ChunkHashFraction_t::GetBLAKE3HashContents
+ChunkHashFraction_t::GetMD5HashContents
+ChunkHashFraction_t::GetPackFileNumber
 ClQ(|
 Class does not allow allocation from its schema binding
 CloseToolhelp32Snapshot
@@ -2252,6 +2260,8 @@ Generator (hybrid):
 Generator (uncompressed):
 GetConsoleCP
 GetCursorInfo
+GetHashType() == ChunkHashFraction_t::EHashType::BLAKE3
+GetHashType() == ChunkHashFraction_t::EHashType::MD5
 GetQueueStatus
 GetSystemTime
 Gew}
@@ -3111,9 +3121,9 @@ RSA_verify_ASN1_OCTET_STRING
 RSA_verify_PKCS1_PSS
 RSA_verify_PKCS1_PSS_mgf1
 RSDS
-R\fpPq
+R\fppm
 R\r1>Vp
-R\vpL
+R\vpl
 R]Di
 Rbg.E
 ReadConsoleInputW
@@ -3385,6 +3395,7 @@ SetGrowSize
 Sets the number of threads used for realtime reflection by Steam Audio.
 Signature verification failed.
 Sn^G
+SortKey_t
 SoundSystemLowLevel
 Sr89[
 Stack part of OpenSSL 1.0.2j  26 Sep 2016
@@ -3543,6 +3554,7 @@ Unable to create static mesh: %d.\n
 Unable to load custom HRTF [%s]\n
 Unknown version %d for vpk %s
 Unprocessed type %d\n
+Unrecognized EHashType found: %d
 Unspecified
 Unsupported extension feature
 Unused
@@ -3862,7 +3874,6 @@ Z~wl
 \W%08lX
 \Y|W2
 \\MVT
-\\tV_powd
 \f%\f/\f1\fA\f[\f_\fa\fm\fs\fw\f
 \f7ig
 \f<<0A1pq
@@ -3893,6 +3904,7 @@ Z~wl
 \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
 \n\tIPSec/IKE/Oakley curve #3 over a 155 bit binary field.\n\tNot suitable for ECDSA.\n\tQuestionable extension field!
 \n\tIPSec/IKE/Oakley curve #4 over a 185 bit binary field.\n\tNot suitable for ECDSA.\n\tQuestionable extension field!
+\n\tV_atanf
 \nqYu
 \ntM(ie-V
 \r!\r+\r-\r=\r?\rO\rU\ri\ry\r
@@ -3921,8 +3933,7 @@ Z~wl
 \tHAI8xpH\f
 \tJm_9
 \tLa0+
-\tP0e
-\tV_atanf
+\tPPa
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\v\n\v\n\v\n\v\n\v\n\v\n\v\n\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\r\f\r\f\r\f\r\f\r\f\r\f\r\f\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r
 \toRE
 \ttqE5
@@ -3964,6 +3975,7 @@ _}eOk
 `H(hqA1p
 `ITS
 `VX:H
+`\tV_powd
 `fPw.\vM
 `h9T~
 `o_je
@@ -5838,7 +5850,6 @@ mOD:V
 mS'7
 mXRecord
 mZKB
-m\tV_sinhf
 m\ta=\ruWb
 m_bEnableClustering
 m_bEnableCompression
@@ -6497,6 +6508,7 @@ qOy*o
 qPq2k
 qTm_fC=
 qUN1
+q\tV_sinhf
 qcStatements
 qf`ny
 qualifiers
@@ -6520,7 +6532,7 @@ rX&O0
 rZ1VwGf5
 rZPM
 r\vDi
-r\vpPq
+r\vppm
 rand
 rand2
 random number generation failed

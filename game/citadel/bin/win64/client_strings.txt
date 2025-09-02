@@ -84,11 +84,11 @@
  (%d)Unknown
  (%ld unused bits)\n
  (+%d more due to usercommand delivery)
- (08@HPXb0zC
- (08@HR0zC
- (08@J0zC
- (0X`hpz0zC
- (20zC
+ (08@HPX`j`N>
+ (08@HPXb
+ (08@HPZ`N>
+ (08@HR
+ (0X`hpz
  (Dirty Animation)
  (INVALID PSS PARAMETERS)\n
  (Negative)
@@ -227,6 +227,7 @@
 !m_bGraphBindingsCreated
 !m_bUseConfig
 !m_compressedData.CheckOverflow()
+!m_nPackFileNumber
 !pPanel || pResult
 !player
 !s8p
@@ -252,7 +253,6 @@
 ".CPublishedFile_GetDetails_Request
 ".CPublishedFile_Subscribe_Response"-
 "0\n\tCP2P_Ping
-"0zC
 "2MR
 "3\n!CMsgGCStorePurchaseCancelResponse
 "3\n"CPlayer_GetGameBadgeLevels_Request
@@ -351,7 +351,6 @@
 #.CPublishedFile_GetDetails_Response"9
 #.CPublishedFile_Unsubscribe_Request
 #00000000
-#<Should this message be bindable via Keybinds?
 #AbandonMatchPrompt_Cancel
 #AbandonMatchPrompt_Confirm
 #AbandonMatchPrompt_Countdown
@@ -662,6 +661,8 @@
 #Citadel_HeroXP_Reason_MostKills
 #Citadel_HeroXP_Reason_MostObjectiveDamage
 #Citadel_HeroXP_Reason_MostPlayerDamage
+#Citadel_HideoutBallJuggle_Increment
+#Citadel_HideoutBallJuggle_Land
 #Citadel_HideoutConnectionFailed_FailedToConnect
 #Citadel_HideoutConnectionFailed_NoServer
 #Citadel_HideoutConnectionFailed_VersionIncompatible
@@ -1140,6 +1141,7 @@
 #Citadel_Survey_Question_HeroPlayAgainst
 #Citadel_Survey_Question_HeroPlayAgainst_
 #Citadel_Survey_Question_HeroPower
+#Citadel_Survey_Question_HeroPower_
 #Citadel_Survey_Question_ItemDesign
 #Citadel_Survey_Question_ItemDesign_
 #Citadel_Survey_Question_ItemPower
@@ -2060,7 +2062,6 @@ $hRh
 %s: Suppressed sound '%s' due to rate limiting\n
 %s: bShow:%d\n
 %s: bWide:%d\n
-%s: invalid add count %d\n
 %s: modifier_set_modelscale can only be applied to model entities! (applied to %s)\n
 %s: nItemToSelect:%d\n
 %s: nLen:%d, nStart:%d, nEnd:%d\n
@@ -2316,6 +2317,7 @@ $hRh
 'vertical' setting must have a value of either 'lr' or 'rl'
 ( iSeed ) - Creates a separate random number stream.
 ( m_eUpgradeType != EAddToScale && m_eUpgradeType != EMultiplyScale )
+( m_nChunkHashesSize % sizeof( ChunkHashFraction_t ) ) == 0
 ( modelName, context ) - Manually precache a single model
 ( resourceType, resourcePath, context ) - Manually precache a single resource. Types: "model|model_folder|sound|soundfile|particle|particle_folder"
 ( string ) - Returns a 32-bit hash for a string
@@ -2339,6 +2341,7 @@ $hRh
 (0x%08X)'??'
 (5Me
 (5jP
+(?StateChanged
 (ACTIVE)
 (App Id to retrieve published files from.
 (BZq
@@ -12751,7 +12754,9 @@ $hRh
 0123456789
 02V8[
 05=k
-08@J0zC
+08@HR`N>
+08@J
+08B`N>
 08bX
 09,h
 0: (V0) Legacy save format, 1: (V1) KeyValues3 save format
@@ -12943,7 +12948,6 @@ $hRh
 200 200 200 196
 20t\f
 20x9
-20zC
 21.CMsgClientToGCGetHeroMMRRankingsResponse.EResult
 21.CMsgClientToGCGrantForumAccessResponse.EResponse
 21.CMsgClientToGCUnpackBundleResponse.EUnpackBundle
@@ -12981,7 +12985,6 @@ $hRh
 2:pS
 2?.CMsgClientToGCGetLimitedItemPurchaseQuantityResponse.EResponse
 2?.CMsgClientToGCRemoveItemAttributeResponse.ERemoveItemAttribute
-2@tD
 2Array of text tags to apply to the published file.
 2I y)
 2If true, return vote data in the returned details.
@@ -13020,6 +13023,7 @@ $hRh
 2\r.CameraAction
 2\r.ECommendType
 2\rlhp
+2\vpl
 2^pV
 2a"l
 2bT~
@@ -13088,6 +13092,7 @@ $hRh
 4@AA
 4Ch;
 4F0I
+4F\vpSu
 4Mv8
 4Redirection URI provided during client registration.2
 4Zis
@@ -13132,7 +13137,6 @@ $hRh
 5\n\tset_vdata
 5\n\vreward_type
 5\n\vtype_caches
-5\tV_isEntirelyWhitespace
 5\vFuo
 5b!g
 5dO7
@@ -13153,8 +13157,8 @@ $hRh
 65535"
 65535"j\n
 65535B$
+6666666666666666
 666666666666666666666666666666666666666666666666\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\.\ssl\s3_enc.c
-6666666666666666pf
 67-s
 6?NumberValue@Value@v8@@QEBA?AV?$Maybe@N@2@V?$Local@VContext@v8@@@2@@Z
 6H,N
@@ -13232,7 +13236,7 @@ $hRh
 8<pl
 8= zp
 8A6j
-8B@tD
+8B`N>
 8Client ID for which to count the number of issued tokens"
 8GZS
 8Gets the list of nicknames this user has for other users
@@ -13292,7 +13296,7 @@ $hRh
 9\n\taward_ids
 9\n\vdiagnostics
 9\not
-9\tV_isbreakablewspace32
+9\tV_isEntirelyWhitespace
 9\tiI
 9]ZV
 9aDW
@@ -13313,7 +13317,6 @@ $hRh
 :    client advancing tick base to %u for command %d\n
 :    initpredictable %d:%s for %d slots\n
 :':+:1:K:Q:[:c:g:m:y:
-:0zC
 :4\n\vdescription
 :9\n\tkey_field
 :BAD OBJECT
@@ -13321,6 +13324,7 @@ $hRh
 :EXTERNAL TYPE %s\n
 :LBN
 :NAy
+:PlD
 :QYJ
 :Vlq
 :\n5k_EMsgClientToGCCancelUnfinalizedTransactionsResponse
@@ -13338,6 +13342,7 @@ $hRh
 :eaI
 :gN(dq
 :mIR
+:plD
 :w4v
 ;!;#;-;9;E;S;Y;_;q;{;
 ;"lY7
@@ -13350,7 +13355,6 @@ $hRh
 ;\n7STEAMLEARN_INFERENCE_METADATA_ERROR_NO_PUBLISHED_CONFIG
 ;\n\fbook_rewards
 ;\n\fgold_sources
-;\tV_isfinited
 ;`Fzc
 ;bwP*
 ;sv_pausable;sv_cheats
@@ -13466,6 +13470,7 @@ $hRh
 =\n\nBookReward
 =\n\rability_stats
 =\n\tstat_type
+=\tV_isbreakablewspace32
 =cdE
 =trF6,#
 >#>)>/>3>A>W>c>e>w>
@@ -13540,7 +13545,7 @@ $hRh
 ?\n;STEAMLEARN_SNAPSHOT_PROJECT_ERROR_INVALID_PUBLISHED_VERSION
 ?\n\ncurrencies
 ?\n\rmatch_outcome
-?\tV_isvalidhex
+?\tV_isfinited
 ?d86L
 ?dt]X
 ?expf
@@ -13552,12 +13557,14 @@ $hRh
 ?uWS
 ?x29
 @!@%@+@1@?@C@E@]@a@g@m@
+@08N$
 @0pp
-@:0kD
-@:PkD
+@6pY
+@6pl
+@:0yD
 @?SlowGetInternalField@Object@v8@@AEAA?AV?$Local@VData@v8@@@2@H@Z
 @BH]f
-@HPX`hvP
+@HPX`hv`
 @MfKZ
 @Pgl
 @Pu\rm
@@ -13624,7 +13631,7 @@ ACTIVATE_TYPE_DATAUPDATE_CREATION
 ACTIVATE_TYPE_INITIAL_CREATION
 ACTIVATE_TYPE_ONRESTORE
 ACTOR
-ACUserMessageWaterShake_t
+ACUserMessageHapticsManagerPulse_t
 AD Time Stamping
 ADD_CERT_DIR
 ADD_FLOAT
@@ -13915,7 +13922,6 @@ A\n\tent_index
 A\n\vdescriptors
 A\n\vdiagnostics
 A\rjW
-A\v:prD
 A_txt
 AbW_
 Abandoned
@@ -14828,14 +14834,13 @@ BY_FILE_CTRL
 BY_Lq)
 BYldPromptYesNo
 BZZn\rN]#8f'
-B\fXt=
 B\n>STEAMLEARN_REGISTER_DATA_SOURCE_RESULT_ERROR_INVALID_TIMESTAMP
 B\n\fCOrientation
 B\n\nobjectives
 B\n\rHeroWhitelist
 B\n\vbook_reward
-B\tV_iswcntrl
 B\vP\n0
+B\vpSu
 B\vp\n0
 B_txt
 B`4I
@@ -15668,6 +15673,7 @@ C:\buildworker\citadel_rel_win64\build\src\public\tier0\interpolatedvar_wrapped.
 C:\buildworker\citadel_rel_win64\build\src\public\tier0\utlatomicaddvector.h
 C:\buildworker\citadel_rel_win64\build\src\public\tier0\utlblockvector.h
 C:\buildworker\citadel_rel_win64\build\src\public\tier0\utlqueue.h
+C:\buildworker\citadel_rel_win64\build\src\public\vpklib\packedstore.h
 C:\buildworker\citadel_rel_win64\build\src\pulse_runtime_lib\pulse_graph_def.cpp
 C:\buildworker\citadel_rel_win64\build\src\raytrace\raytrace.cpp
 C:\buildworker\citadel_rel_win64\build\src\thirdparty\protobuf-3.21.8\src\google\protobuf\map_field.h
@@ -19738,7 +19744,10 @@ CP2P_VRAvatarPosition
 CP2P_WatchSynchronization
 CPBQ
 CPU Level - Default: High
+CPackedStore::AssembleFile
+CPackedStore::CPackedStore
 CPackedStore::PackDirectory
+CPackedStore::VerifySingleChunk
 CPanel2D::BSetProperty
 CPanel2D::Initialize
 CPanel2D::SetDialogVariable - char *
@@ -20329,7 +20338,6 @@ CUserMessageFade_t
 CUserMessageGameTitle"
 CUserMessageHapticsManagerEffect_t
 CUserMessageHapticsManagerPulse
-CUserMessageHapticsManagerPulse_t
 CUserMessageHudMsg
 CUserMessageHudMsg_t
 CUserMessageHudText
@@ -20376,6 +20384,7 @@ CUserMessageUpdateCssClasses_t
 CUserMessageVoiceMask
 CUserMessageVoiceMask_t
 CUserMessageWaterShake
+CUserMessageWaterShake_t
 CUserMessage_DllStatus
 CUserMessage_ExtraUserData
 CUserMessage_Inventory_Response
@@ -20395,8 +20404,6 @@ CUtlBlockVector<struct CCitadelZipLineNode::ConnectionPath_t,int,class CMemAlloc
 CUtlBlockVector<struct CacheOptimizedTriangle_t,int,class CMemAllocAllocator>::GrowCount
 CUtlBlockVector<struct FileHandleTracker_t,int,class CMemAllocAllocator>::GrowCount
 CUtlBlockVector<struct StoredTriangleVertexPositions_t,int,class CMemAllocAllocator>::GrowCount
-CUtlBlockVector<unsigned char,int,class CMemAllocAllocator>::AddMultipleToTail
-CUtlBlockVector<unsigned char,int,class CMemAllocAllocator>::GrowCount
 CUtlDict
 CUtlDict<char const *,class CDefFastCaselessStringLess>::Insert
 CUtlDict<class CCitadel_AbilityHUDElement_Progress *,class CDefFastCaselessStringLess>::Insert
@@ -20578,7 +20585,6 @@ CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CUtlMemoryBlockAllocator<stru
 CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CUtlMemoryBlockAllocator<struct CacheOptimizedTriangle_t,class CMemAllocAllocator>::MemPage_t,int,class CMemAllocAllocator>,struct CUtlMemoryBlockAllocator<struct CacheOptimizedTriangle_t,class CMemAllocAllocator>::MemPage_t,int>::EnsureUnusedCapacity
 CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CUtlMemoryBlockAllocator<struct FileHandleTracker_t,class CMemAllocAllocator>::MemPage_t,int,class CMemAllocAllocator>,struct CUtlMemoryBlockAllocator<struct FileHandleTracker_t,class CMemAllocAllocator>::MemPage_t,int>::EnsureUnusedCapacity
 CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CUtlMemoryBlockAllocator<struct StoredTriangleVertexPositions_t,class CMemAllocAllocator>::MemPage_t,int,class CMemAllocAllocator>,struct CUtlMemoryBlockAllocator<struct StoredTriangleVertexPositions_t,class CMemAllocAllocator>::MemPage_t,int>::EnsureUnusedCapacity
-CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CUtlMemoryBlockAllocator<unsigned char,class CMemAllocAllocator>::MemPage_t,int,class CMemAllocAllocator>,struct CUtlMemoryBlockAllocator<unsigned char,class CMemAllocAllocator>::MemPage_t,int>::EnsureUnusedCapacity
 CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct PGDInstruction_t,int,class CMemAllocAllocator>,struct PGDInstruction_t,int>::InsertBeforeGetPtr
 CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct PendingEntityListOp_t,int,class CMemAllocAllocator>,struct PendingEntityListOp_t,int>::AddMultipleToTail
 CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct SceneObjectUpdaterHandle_t__ *,int,class CMemAllocAllocator>,struct SceneObjectUpdaterHandle_t__ *,int>::AddMultipleToTail
@@ -20590,7 +20596,6 @@ CUtlMemoryBlockAllocator<struct CCitadelZipLineNode::ConnectionPath_t,class CMem
 CUtlMemoryBlockAllocator<struct CacheOptimizedTriangle_t,class CMemAllocAllocator>::AddPage
 CUtlMemoryBlockAllocator<struct FileHandleTracker_t,class CMemAllocAllocator>::AddPage
 CUtlMemoryBlockAllocator<struct StoredTriangleVertexPositions_t,class CMemAllocAllocator>::AddPage
-CUtlMemoryBlockAllocator<unsigned char,class CMemAllocAllocator>::AddPage
 CUtlOctree
 CUtlOrderedMap
 CUtlOrderedMap<class CHandle<class C_BaseEntity>,struct SndOpEventGuid_t,class CDefLess<class CHandle<class C_BaseEntity> >,int>::FindElement
@@ -20785,9 +20790,9 @@ CUtlSortVector<struct CBasePlayerController::QueuedPredictionEvent_t,class CUtlS
 CUtlSortVector<struct CBasePlayerController::QueuedPredictionEvent_t,class CUtlSortVectorDefaultLess<struct CBasePlayerController::QueuedPredictionEvent_t>,class CUtlVector<struct CBasePlayerController::QueuedPredictionEvent_t,int,class CUtlVectorMemory_Growable<struct CBasePlayerController::QueuedPredictionEvent_t,int,0> > >::FindLessOrEqual
 CUtlSortVector<struct CBasePlayerController::QueuedPredictionEvent_t,class CUtlSortVectorDefaultLess<struct CBasePlayerController::QueuedPredictionEvent_t>,class CUtlVector<struct CBasePlayerController::QueuedPredictionEvent_t,int,class CUtlVectorMemory_Growable<struct CBasePlayerController::QueuedPredictionEvent_t,int,0> > >::Insert
 CUtlSortVector<struct CaptionLookup_t,class CCaptionLookupLess,class CUtlVector<struct CaptionLookup_t,int,class CUtlVectorMemory_Growable<struct CaptionLookup_t,int,0> > >::Find
-CUtlSortVector<struct ChunkHashFraction_t,class ChunkHashFractionLess_t,class CUtlVector<struct ChunkHashFraction_t,int,class CUtlVectorMemory_Growable<struct ChunkHashFraction_t,int,0> > >::Find
-CUtlSortVector<struct ChunkHashFraction_t,class ChunkHashFractionLess_t,class CUtlVector<struct ChunkHashFraction_t,int,class CUtlVectorMemory_Growable<struct ChunkHashFraction_t,int,0> > >::FindLessOrEqual
-CUtlSortVector<struct ChunkHashFraction_t,class ChunkHashFractionLess_t,class CUtlVector<struct ChunkHashFraction_t,int,class CUtlVectorMemory_Growable<struct ChunkHashFraction_t,int,0> > >::Insert
+CUtlSortVector<struct ChunkHashFraction_t,class CUtlSortVectorDefaultLess<struct ChunkHashFraction_t::SortKey_t>,class CUtlVector<struct ChunkHashFraction_t,int,class CUtlVectorMemory_Growable<struct ChunkHashFraction_t,int,0> > >::Find
+CUtlSortVector<struct ChunkHashFraction_t,class CUtlSortVectorDefaultLess<struct ChunkHashFraction_t::SortKey_t>,class CUtlVector<struct ChunkHashFraction_t,int,class CUtlVectorMemory_Growable<struct ChunkHashFraction_t,int,0> > >::FindLessOrEqual
+CUtlSortVector<struct ChunkHashFraction_t,class CUtlSortVectorDefaultLess<struct ChunkHashFraction_t::SortKey_t>,class CUtlVector<struct ChunkHashFraction_t,int,class CUtlVectorMemory_Growable<struct ChunkHashFraction_t,int,0> > >::Insert
 CUtlSortVector<struct GCSDK::CSharedObject::SharedObjectInfo_t,class GCSDK::CSharedObject::CCompareSharedObject,class CUtlVector<struct GCSDK::CSharedObject::SharedObjectInfo_t,int,class CUtlVectorMemory_Growable<struct GCSDK::CSharedObject::SharedObjectInfo_t,int,0> > >::Find
 CUtlSortVector<struct GCSDK::CSharedObject::SharedObjectInfo_t,class GCSDK::CSharedObject::CCompareSharedObject,class CUtlVector<struct GCSDK::CSharedObject::SharedObjectInfo_t,int,class CUtlVectorMemory_Growable<struct GCSDK::CSharedObject::SharedObjectInfo_t,int,0> > >::FindLessOrEqual
 CUtlSortVector<struct GCSDK::CSharedObject::SharedObjectInfo_t,class GCSDK::CSharedObject::CCompareSharedObject,class CUtlVector<struct GCSDK::CSharedObject::SharedObjectInfo_t,int,class CUtlVectorMemory_Growable<struct GCSDK::CSharedObject::SharedObjectInfo_t,int,0> > >::InsertIfNotFound
@@ -20841,7 +20846,6 @@ CWorldCompositionChunkReferenceElement_t
 CWorldTextSceneObjectDesc
 CZiplineRopeSegmentSceneObjectDesc
 C[L6
-C\fXt=
 C\lVQ
 C\n?k_EGCMsgInitiateTradeResponse_Free_Account_Initiator_DEPRECATED
 C\n\nGoldRecord
@@ -20852,7 +20856,7 @@ C\n\toperation
 C\n\votherentity
 C\n\vplayer_pawn
 C\tD\vD
-C\tV_iswdigit
+C\tV_isvalidhex
 C\tr9rW
 C_AI_BaseNPC
 C_AI_CitadelNPC
@@ -21483,6 +21487,10 @@ Choose the first outflow with all rules passing, from left to right
 ChoreoLookAtMode_t
 ChoreoLookAtSpeed_t
 Chunk hash not found.
+ChunkHashFraction_t
+ChunkHashFraction_t::GetBLAKE3HashContents
+ChunkHashFraction_t::GetMD5HashContents
+ChunkHashFraction_t::GetPackFileNumber
 Circle
 CircleScreenOriented
 CircularProgressBar
@@ -26307,7 +26315,7 @@ F\n\finventories3
 F\n\fitem_scalars
 F\n\trow_range
 F\rH'4
-F\tV_iswspace
+F\tV_iswcntrl
 Face
 Facial Expression
 Facing Angle: %.2f\t
@@ -27046,6 +27054,7 @@ GXy{
 G\f%G47
 G\n\fAbilityOrder
 G\n\vlong_frames
+G\tV_iswdigit
 GainSlamOnUse
 Game Blackboards: 
 Game Event Fired: %s\n
@@ -27237,6 +27246,8 @@ GetFrameCount
 GetFriendsGameplayInfo
 GetGameBadgeLevels
 GetGameDataClass error for %s: %s\n
+GetHashType() == ChunkHashFraction_t::EHashType::BLAKE3
+GetHashType() == ChunkHashFraction_t::EHashType::MD5
 GetHealth
 GetInflictor
 GetInlineConst R%d <- C%d (%s)
@@ -29044,6 +29055,7 @@ J\n\fDevQueueSize
 J\n\fcheer_remaps
 J\n\finput_errors
 J\n\foutput_items
+J\tV_iswspace
 J`KL
 Japanese
 JarDamage
@@ -31703,7 +31715,6 @@ OVERLAY_VIEWOFFSET
 OVERLAY_VISIBILITY_TRACES_BIT
 O\n\vinvite_sent
 O\r5x
-O\tV_log2f
 O_yG|
 Oakley-EC2N-3
 Oakley-EC2N-4
@@ -32102,14 +32113,14 @@ P-224
 P-256
 P-384
 P-521
-P08@J0zC
+P08@J
 P08J
+P08N$
 P1\t98"
-P20zC
 P2P ping to "%s". Timed out after %.2fms\n
 P2P_Messages
+P2`N>
 P5[1
-P:0zC
 PAGN_4
 PANEL_ID
 PANORAMA_LAYOUTFILE
@@ -32571,7 +32582,6 @@ PULSE_SHARED_SAVE_RESTORE_BLOCK_HANDLER_VERSION
 PUT 
 P\n\nnumperpage
 P\n\nregression
-P\tV_logd
 Packed store %s with refcount > 0.\n
 PackedAABB_t
 PackedDepthNormal
@@ -32861,6 +32871,7 @@ Pitch: %6.1f   Yaw: %6.1f %38s
 Pivot
 PivotPaint
 PixelToProj
+Pj`N>
 PlaceDecalEvent_t
 PlaceDistance
 PlaceDistanceInFrontOfCaster
@@ -33670,6 +33681,7 @@ R\n\nBookReward
 R\n\rincludekvtags
 R\r1>Vp
 R\vp!I
+R\vpl
 R]Di
 Rad2 Deg
 RadialAbilitySegment_%d
@@ -34602,6 +34614,7 @@ SXNET_get_id_ulong
 SXNetID
 SYNC_WAIT_FOR_COMPLETION
 S\n\rcheat_reports
+S\tV_log2f
 S\vQN
 Safe To Auto-Switch Away From
 Safe To Auto-Switch To
@@ -35426,6 +35439,7 @@ Should show ability icon on the hint?
 Should the entity die when this damage level is destroyed?
 Should this breakable break if a player rolls or dodges into it?
 Should this message be bindable on the Ping Wheel?
+Should this message be bindable via Keybinds?
 ShouldBounce
 ShouldDisplay
 ShoveRadius
@@ -35768,6 +35782,7 @@ SoloFriend
 Solved Foot 
 Solved Knee
 Solved Thigh
+SortKey_t
 SortedBy
 SoulRewards
 Souls
@@ -36151,7 +36166,6 @@ StatWithCategory_t
 State
 State mask: [%s]
 State: %s
-StateChanged
 StateModifierClass
 State_ConnectingToServer
 State_None
@@ -36803,6 +36817,7 @@ TS_VERIFY_CERT
 TS_VERIFY_CTX_new
 TXJw^{
 TYPE=
+T\tV_logd
 Tab Index
 TabBackward
 TabButton
@@ -37852,6 +37867,7 @@ UnrankedDisabled
 UnrankedMMDisabled
 UnrankedMMPaused
 UnreadyForDisplay
+Unrecognized EHashType found: %d
 UnserializeEvent
 Unspecified
 UnstoppableOnPullDuration
@@ -38971,6 +38987,7 @@ XRJ2
 XWY]
 XYD%
 X\tQo
+X`hr`N>
 Xd3h
 XfJ7
 XjfR
@@ -39052,7 +39069,6 @@ Z+5AS
 Z-Far
 Z-Near
 Z0000
-Z0zC
 Z0zd
 Z7"c
 Z72\v
@@ -39170,7 +39186,6 @@ Z~wl
 [vpcf
 [y_GE
 \%02X
-\0tD
 \1kYL\r
 \43n7
 \5Ok\n
@@ -39182,7 +39197,6 @@ Z~wl
 \\MVT
 \\n\tlanguages
 \\n\vCheerRemaps
-\\tV_powd
 \f%\f/\f1\fA\f[\f_\fa\fm\fs\fw\f
 \f*t\n ESteamLearnGetAccessTokensResult
 \f7ig
@@ -39382,7 +39396,8 @@ Z~wl
 \n/CMsgClientToGCUpdateHeroBuildPreferenceResponse
 \n/steammessages_publishedfile.steamworkssdk.proto
 \n0CCitadelUserMsg_ParticipantSetLibraryStackFields
-\n0zC
+\n0kD
+\n0lD
 \n1CHelpRequestLogs_UploadUserApplicationLog_Request
 \n3CPlayer_GetMutualFriendsForIncomingInvites_Response
 \n4CMsgClientToGCGetLimitedItemPurchaseQuantityResponse
@@ -39394,7 +39409,7 @@ Z~wl
 \nDictionary: %s\n
 \nFinished generating SSTs (%.1f seconds)\n\n
 \nGameTime_t
-\nPoD
+\nPkD
 \nSimulating Entities:\n\n
 \n[ Spirit ]
 \n[ Vitality ]
@@ -39883,6 +39898,7 @@ Z~wl
 \n\tTE_DustId
 \n\tTE_FizzId
 \n\tUpdateFan
+\n\tV_atanf
 \n\tabandoned
 \n\taccountid
 \n\tadd_slots
@@ -40154,6 +40170,8 @@ Z~wl
 \n\vversion_min
 \n\vvote_option
 \n\vworld_scale
+\npkD
+\npyD
 \nqYu
 \ntM(ie-V
 \r!\r+\r-\r=\r?\rO\rU\ri\ry\r
@@ -40289,9 +40307,8 @@ Z~wl
 \tText
 \tTotals: %d/%d (%.3f%%) EvaluatePoses Used, %dx using bones without eval [Ave Eval/tick: %.3f]\n
 \tUTIL_CountNumBitsSet([%s]) 
+\tV_acosd
 \tV_asind
-\tV_atand
-\tV_atanf
 \tV_cosd
 \tV_exp2f
 \tV_strcat([%s], [%s] 
@@ -40302,6 +40319,7 @@ Z~wl
 \tV_strcpy( [stringINVALID], [%s]->GetPlayerName() 
 \tV_strcpy([%s], [%s] 
 \tV_stricmp( [%s]->ModelName() 
+\tV_strstr32
 \tV_strtok
 \tV_strtoui64
 \tV_strupper_fast
@@ -40367,6 +40385,7 @@ Z~wl
 \t\tEnable %s\n
 \t\tResponseGroup %d: %s\n
 \t\tScore: %u, Type: %u, Type ID: %u, Last Displayed: %u\n
+\t\tV_atand
 \t\t\tResponse %d: %s\n
 \t\t\t\t"inputTexture%i"%s\n
 \t\t\t\t\n\n\n\n\n\n\n\n\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r
@@ -40471,11 +40490,9 @@ _to_curve_
 _tools_event_desc
 _xU`u
 _}eOk
-`20zC
 `28)fk
 `3?New@Array@v8@@SA?AV?$Local@VArray@v8@@@2@PEAVIsolate@2@H@Z
-`6pz
-`:0iD
+`:pxD
 `:zQF
 `D$daM-l
 `DZG
@@ -40484,6 +40501,7 @@ _}eOk
 `ITS
 `VX:H
 `\n\rvector_values
+`\tV_powd
 `adjustor{
 `fPw.\vM
 `generic-class-parameter-
@@ -40517,6 +40535,7 @@ a:typeparam
 a;Tg
 a@XZ
 aA0k
+aBv$
 aD/x
 aDSS
 aECDH
@@ -41346,7 +41365,6 @@ b0M%
 b2i_PVK_bio
 b5o-
 b=G3
-b@tD
 bB"`3
 bClip3DSkyBoxNearToWorldFar
 bDebug
@@ -42341,6 +42359,7 @@ choosePreferred
 choose_balanced_lanes
 choose_lane_on_interval
 chunk >= 0
+chunkHashFraction.GetHashType() != ChunkHashFraction_t::EHashType::Unset
 ci;e*
 ciO"A
 cipher
@@ -45429,6 +45448,7 @@ entindex_ability
 entindex_assisters
 entindex_attacker
 entindex_attacking_object
+entindex_ball
 entindex_caster
 entindex_flash_attacker
 entindex_flash_hitgroup
@@ -45437,6 +45457,7 @@ entindex_healed
 entindex_healer
 entindex_inflictor
 entindex_interrupter
+entindex_last_juggler
 entindex_orb
 entindex_owner
 entindex_parent
@@ -46925,17 +46946,19 @@ g|MT
 h&eC
 h*Ax
 h0XB
-h1N+
+h16+
+h1B+
+h1E+
 h2Wl
 h2n_\
 h5N.
+h5Q+
 hActivator
 hAttacker
 hCallbackFunc
 hCallbackScope
 hCaller
 hCamera
-hE1+
 hEM&!
 hEnemy
 hEnt
@@ -46943,6 +46966,7 @@ hEntityA
 hEntityB
 hF\rDz
 hFcg
+hI4+
 hJxRX@_
 hN2D
 hProjectile
@@ -46954,6 +46978,7 @@ hW_z
 hX@e
 h\n\frequiredtags
 h`Zr
+ha6+
 half_extent_xy
 half_extent_z
 halfhealth
@@ -47346,7 +47371,6 @@ hovering
 how fast to run (1 to use player max run speed).
 hows joint info for this entity
 hp_stat
-hpz0zC
 hr_H
 href="
 hscroll
@@ -47369,7 +47393,7 @@ https://store.steampowered.com/account/preferences#CommunityContentPreferences
 https://store.steampowered.com/news/app/1422450/view/524216645064852902?l=%s
 https://store.steampowered.com/news/app/1422450/view/530965072572320687?l=%s
 https://www.google.com/
-huG+
+huC+
 hu_HU
 hudPlayerStats
 hud_cur_gold
@@ -47404,6 +47428,7 @@ hundred_gold
 hundreds_gold
 hungarian
 hvL&
+hyJ+
 h|gg
 i <= EVP_MAX_MD_SIZE
 i%YR
@@ -48436,7 +48461,6 @@ j <= sizeof(c->iv)
 j"MRX
 j&LQ
 j0ksJ
-j0zC
 j2ty
 j3kg
 j>?Set@Object@v8@@QEAA?AV?$Maybe@_N@2@V?$Local@VContext@v8@@@2@IV?$Local@VValue@v8@@@2@@Z
@@ -48450,7 +48474,6 @@ jTuf
 jV*d9O
 j[6Z
 j\n\nOutputItem
-j\tV_sind
 j\vIP{s
 ja_JP
 janetMailbox
@@ -48511,6 +48534,11 @@ joystick
 jsondata
 jt(@L
 jtv2@
+juggle
+juggle_event_type
+juggle_floor
+juggle_increment
+juggle_type
 jump
 jump_sometimes
 jumpfactor
@@ -58636,6 +58664,7 @@ nSw}Z\tu
 nType
 nValue
 n\r2S
+n\tV_sind
 n_ActiveCards
 n`3i
 name constraints minimum and maximum not supported
@@ -59015,6 +59044,7 @@ num_heroes_in_roster
 num_hours
 num_invites
 num_item_unlocks
+num_juggles
 num_kills
 num_members
 num_players
@@ -59338,8 +59368,8 @@ p.other
 p.ppBasis
 p.prime
 p.tpBasis
-p20zC
-p2@tD
+p08@H^$
+p2`N>
 p2p_FightingGame_Connection
 p2p_FightingGame_GameData
 p2p_Ping
@@ -59357,7 +59387,6 @@ p4Z3
 p5Z3
 p5\nL,
 p618
-p6pJ
 p>?Set@Template@v8@@QEAAXV?$Local@VName@v8@@@2@V?$Local@VData@v8@@@2@W4PropertyAttribute@2@@Z
 p@0pqE5tsO?|1
 pCheckpointName
@@ -59744,6 +59773,7 @@ payload + padding <= 16381
 payment gateway capabilities
 payment_row_usd
 payment_us_usd
+pb`N>
 pbeWithMD2AndDES-CBC
 pbeWithMD2AndRC2-CBC
 pbeWithMD5AndCast5CBC
@@ -60049,6 +60079,7 @@ player_ability_upgraded
 player_account_id
 player_activate
 player_assists
+player_ball_juggle
 player_barriering
 player_blinded_by_darkness
 player_bullet_damage
@@ -60532,7 +60563,6 @@ qOy*o
 qPq2k
 qTm_fC=
 qUN1
-q\tV_snprintfcat
 q_%s_target_rot
 qangle_precise
 qcStatements
@@ -63405,6 +63435,7 @@ uGrants an implicit OAuth token (grant type 'token') for the specified client ID
 uJ4CA2
 uQ'ZH
 uQbK!
+u\tV_snprintfcat
 u\vMW
 uaqf
 ub=A
@@ -64386,7 +64417,6 @@ z(ov
 z-index
 z-offset
 z/B,9d
-z0zC
 z<d2
 z>Hz
 z?ff
@@ -64472,7 +64502,6 @@ zz2K
 ~If D
 ~P2T
 ~R65Fu
-~\tV_strstr32
 ~jLRG
 ~w]UG
 ~yhZ
