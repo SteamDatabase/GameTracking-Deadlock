@@ -26,6 +26,11 @@
 						data_type = "public_opvar"
 						value = "citadel_8track_parameters"
 					}
+					citadel_incrementer = 
+					{
+						data_type = "public_opvar"
+						value = "citadel_incrementer"
+					}
 					pitch_external = 
 					{
 						data_type = "float"
@@ -174,6 +179,13 @@
 			},
 			
 			{
+				name = "citadel_incrementer"
+				operator = "sos_import_stack"
+				import_stack = "citadel_incrementer"
+				auto_connect_public_fields = "true"
+			},
+			
+			{
 				name = "vsnd_valid_and_not_looping"
 				operator = "math_float"
 				execute_once = "true"
@@ -248,9 +260,27 @@
 			},
 			
 			{
+				name = "pitch_accumulate"
+				operator = "math_accumulate12_float"
+				apply = "add"
+				input1 = "@pitch_mult.output"
+				input2 = "@citadel_incrementer::output.pitch_increment_offset"
+				input3 = "0.0"
+				input4 = "0.0"
+				input5 = "0.0"
+				input6 = "0.0"
+				input7 = "0.0"
+				input8 = "0.0"
+				input9 = "0.0"
+				input10 = "0.0"
+				input11 = "0.0"
+				input12 = "0.0"
+			},
+			
+			{
 				name = "pitch_filter"
 				operator = "math_filter_float"
-				input = "@pitch_mult.output"
+				input = "@pitch_accumulate.output"
 				input_max_velocity = "@public.pitch_filter_rate"
 			},
 			

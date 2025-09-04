@@ -1,0 +1,91 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_incrementer = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "_builtins"
+				operator = "sos_builtins"
+				_voicegraph = "citadel.hrtf_basic"
+			},
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					pitch_increment_index = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							property_group = "Pitch - Increment"
+							display_group = "locked"
+							property_help = "Set in code."
+						}
+					}
+					incremental_pitch_offset = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							property_group = "Pitch - Increment"
+							display_group = "Normal"
+							property_help = "Pitch amount to add to sound's pitch, multiplied by the pitch_increment_index. IE, if set at 0.1, each count of the increment index will add 0.1 to the pitch. An index of 5 would add 0.5 to the pitch."
+						}
+					}
+					pitch_increment_count_max = 
+					{
+						data_type = "float"
+						value = "1.0"
+						_system_properties = 
+						{
+							property_group = "Pitch - Increment"
+							display_group = "Normal"
+							property_help = "The maximum value for the pitch_increment_index to increment to. If the index goes above this number, no more incremental offsets are applied, effectively acting as a pitch limiter for offsets."
+						}
+					}
+				}
+			},
+			
+			{
+				name = "pitch_increment_ceiling"
+				input_execute = "1.0"
+				operator = "math_float"
+				apply = "min"
+				input1 = "@public.pitch_increment_count_max"
+				input2 = "@public.pitch_increment_index"
+			},
+			
+			{
+				name = "math_mult_pitch_per_increment"
+				input_execute = "1.0"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@pitch_increment_ceiling.output"
+				input2 = "@public.incremental_pitch_offset"
+			},
+			
+			{
+				name = "output"
+				operator = "util_null"
+				operator_variables = 
+				{
+					pitch_increment_offset = 
+					{
+						data_type = "float"
+						value = "@math_mult_pitch_per_increment.output"
+					}
+				}
+			},
+		]
+		_system_properties = 
+		{
+			display_game = "citadel"
+		}
+	}
+}
