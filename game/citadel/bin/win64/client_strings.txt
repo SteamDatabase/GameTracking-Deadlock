@@ -84,9 +84,11 @@
  (%d)Unknown
  (%ld unused bits)\n
  (+%d more due to usercommand delivery)
- (08@HPXb
- (08@HR
- (0X`hpz
+ (08@HPX`jpJ>
+ (08@HPXb 
+ (08@HPZpJ>
+ (08@JpJ>
+ (0X`hpz 
  (Dirty Animation)
  (INVALID PSS PARAMETERS)\n
  (Negative)
@@ -349,7 +351,7 @@
 #.CPublishedFile_GetDetails_Response"9
 #.CPublishedFile_Unsubscribe_Request
 #00000000
-#<m_strSound
+#<m_strLabelToken
 #AbandonMatchPrompt_Cancel
 #AbandonMatchPrompt_Confirm
 #AbandonMatchPrompt_Countdown
@@ -2847,6 +2849,7 @@ $hRh
 )\n\fMessageRange
 )\n\nExtraField
 )\n\nQueryParam
+)\n\taux_stats
 )\n\tdir_index
 )binary_zstd
 )fuG
@@ -10403,6 +10406,7 @@ $hRh
 .?AVCMsgLookupMultipleAccountNamesResponse_Account@@
 .?AVCMsgMapLine@@
 .?AVCMsgMatchData@@
+.?AVCMsgMatchData_AuxStat@@
 .?AVCMsgMatchData_PlayerInfo@@
 .?AVCMsgMatchData_PlayerItem@@
 .?AVCMsgMatchMetaData@@
@@ -12230,6 +12234,7 @@ $hRh
 .CMsgLaneColor"
 .CMsgLaneColor"m\n
 .CMsgMatchData"
+.CMsgMatchData.AuxStat"
 .CMsgMatchData.EEndReason
 .CMsgMatchData.PlayerInfo
 .CMsgMatchData.PlayerItem
@@ -12320,6 +12325,7 @@ $hRh
 .ECitadelLobbyTeam
 .ECitadelMMPreference
 .ECitadelMMPreference"
+.ECitadelMatchAuxStat
 .ECitadelMatchMode
 .ECitadelMatchMode"
 .ECitadelNewPlayerProgressFlag"=\n*CMsgClientToGCSetNewPlayerProgressResponse
@@ -12747,7 +12753,9 @@ $hRh
 0123456789
 02V8[
 05=k
-08@J
+08@HRpJ>
+08@J 
+08BpJ>
 08bX
 09,h
 0: (V0) Legacy save format, 1: (V1) KeyValues3 save format
@@ -12939,7 +12947,7 @@ $hRh
 200 200 200 196
 20t\f
 20x9
-20yC
+20~D
 21.CMsgClientToGCGetHeroMMRRankingsResponse.EResult
 21.CMsgClientToGCGrantForumAccessResponse.EResponse
 21.CMsgClientToGCUnpackBundleResponse.EUnpackBundle
@@ -13015,7 +13023,6 @@ $hRh
 2\r.CameraAction
 2\r.ECommendType
 2\rlhp
-2\vpt
 2^pV
 2a"l
 2bT~
@@ -13024,7 +13031,7 @@ $hRh
 2f)l=
 2nIg
 2p"6
-2pA>
+2pJ>
 2prB
 3%3+3/353A3G3[3_3g3k3s3y3
 3(Optional) Preview filename for the published file." \n
@@ -13085,7 +13092,6 @@ $hRh
 4@AA
 4Ch;
 4F0I
-4F\vp^u
 4Mv8
 4Redirection URI provided during client registration.2
 4Zis
@@ -13103,6 +13109,7 @@ $hRh
 4\n\vPersonaName
 4\vU44
 4f h
+4pJ>
 4tpD
 4zj@1;IJ
 5'0v2ZP
@@ -13228,7 +13235,10 @@ $hRh
 851Pe
 8<pl
 8= zp
+8@JpJ>
 8A6j
+8B0~D
+8BpJ>
 8Client ID for which to count the number of issued tokens"
 8GZS
 8Gets the list of nicknames this user has for other users
@@ -13254,6 +13264,7 @@ $hRh
 8\n\tgame_info
 8\n\vAbilityStat
 8\n\vreason_code
+8\npJ>
 8\v8!83858A8G8K8S8W8_8e8o8q8}8
 8]Vc2
 8ca1
@@ -13316,8 +13327,6 @@ $hRh
 :EXTERNAL TYPE %s\n
 :LBN
 :NAy
-:PwD
-:PyD
 :QYJ
 :Vlq
 :\n5k_EMsgClientToGCCancelUnfinalizedTransactionsResponse
@@ -13335,6 +13344,7 @@ $hRh
 :eaI
 :gN(dq
 :mIR
+:pyD
 :w4v
 ;!;#;-;9;E;S;Y;_;q;{;
 ;"lY7
@@ -13342,13 +13352,13 @@ $hRh
 ;83\v\nHBJ7
 ;LGEW
 ;Qo0
+;Toggles showing which blocks are pending/loaded async.
 ;\n6k_EMsgClientToGCGetLimitedItemPurchaseQuantityResponse
 ;\n7STEAMLEARN_INFERENCE_METADATA_ERROR_NO_PUBLISHED_CONFIG
 ;\n\fbook_rewards
 ;\n\fgold_sources
 ;`Fzc
 ;bwP*
-;cc_showblocks
 ;sv_pausable;sv_cheats
 ;xsK
 <!-- dmx encoding keyvalues2_noids 4 format vtex 1 -->\n"CDmeVtex"\n{\n\t"m_inputTextureArray" "element_array"\n\t[\n
@@ -13516,6 +13526,7 @@ $hRh
 ?Exit@Isolate@v8@@QEAAXXZ
 ?Far field
 ?For@Symbol@v8@@SA?AV?$Local@VSymbol@v8@@@2@PEAVIsolate@2@V?$Local@VString@v8@@@2@@Z
+?Forces HUD and game to draw team colors as if you are a spectator
 ?FromJustIsNothing@api_internal@v8@@YAXXZ
 ?Get@Object@v8@@QEAA?AV?$MaybeLocal@VValue@v8@@@2@V?$Local@VContext@v8@@@2@I@Z
 ?Get@Object@v8@@QEAA?AV?$MaybeLocal@VValue@v8@@@2@V?$Local@VContext@v8@@@2@V?$Local@VValue@v8@@@2@@Z
@@ -13542,21 +13553,19 @@ $hRh
 ?expf
 ?ff&?333?
 ?gwL
-?info_particle_system
 ?jOb
 ?srJO
 ?tya
 ?uWS
 ?x29
 @!@%@+@1@?@C@E@]@a@g@m@
+@08Nd
 @0pp
-@6pO
-@:0hD
-@:PyD
+@2pJ>
+@60Z
 @?SlowGetInternalField@Object@v8@@AEAA?AV?$Local@VData@v8@@@2@H@Z
 @BH]f
 @HPX`hv
-@HVp
 @MfKZ
 @Pgl
 @Pu\rm
@@ -14610,6 +14619,7 @@ Automatically sprint when moving with an analog joystick
 Automatically start recording AnimGraphs when they get created, and save them to disk when they are destroyed
 Autosuggest_Prefix_txt
 Autosuggest_Suffix_txt
+AuxStat
 Av $1
 Available: 
 AvailableBooks
@@ -14832,7 +14842,6 @@ B\n\rHeroWhitelist
 B\n\vbook_reward
 B\vP\n0
 B\vp\n0
-B\vp^u
 B_txt
 B`4I
 Back
@@ -15235,6 +15244,7 @@ BounceVelocity
 Bounding Box
 BoundingRects
 BoxAngles
+BpJ>
 Brazilian
 Break On Dodge?
 Break Stage Health: %d
@@ -15544,7 +15554,7 @@ C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\abilities\ability
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\abilities\ability_slide.cpp:285
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\abilities\ability_slide.cpp:327
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\abilities\ability_slide.cpp:717
-C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_base_ability_shared.cpp:4084
+C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_base_ability_shared.cpp:4088
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_base_hero.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_bot_schema.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_camera_controller.cpp:167
@@ -16201,7 +16211,6 @@ CCitadelModifierChronoPulseGrenadePulseAreaVData
 CCitadelModifierDustStormAuraApplyVData
 CCitadelModifierFrameUpdateGameSystem
 CCitadelModifierIdolReturnTimerVData
-CCitadelModifierItemPickupTimerVData
 CCitadelModifierProjectilePitchingLoopSoundThinker
 CCitadelModifierProjectilePitchingLoopSoundThinkerVData
 CCitadelModifierResponseRulesFilterType_t
@@ -18912,6 +18921,7 @@ CLASS_PROP_MIDBOSS_INDICATOR
 CLASS_PUNCHABLE_POWERUP
 CLASS_ROLLERMINE
 CLASS_SENTRY
+CLASS_SHIELD
 CLASS_SPAWNED_DRONE
 CLASS_SPY_DRONE
 CLASS_STRONG_NEUTRAL_CAMP
@@ -23388,6 +23398,7 @@ DMG_SHOCK
 DMG_SLASH
 DMG_SONIC
 DMG_VEHICLE
+DMaxRange
 DNS:%s
 DNkv
 DOESN'T HAVE
@@ -23708,7 +23719,6 @@ Data_Branch1xy
 Data_Branch1zBranch2x
 Data_Branch2yz
 Date Cell
-Dattach_core_fx
 DcO/lcK+hSK
 Dd g4X3
 Deactivate
@@ -24783,6 +24793,7 @@ ECitadelHintFeature
 ECitadelLeaderboardRegion
 ECitadelLobbyTeam
 ECitadelMMPreference
+ECitadelMatchAuxStat
 ECitadelMatchMode
 ECitadelNewPlayerProgressFlag
 ECitadelObjective
@@ -26290,6 +26301,7 @@ F\n\finventories2
 F\n\finventories3
 F\n\fitem_scalars
 F\n\trow_range
+F\npJ>
 F\rH'4
 F\tV_iswcntrl
 Face
@@ -26682,7 +26694,6 @@ ForcedCrouchState_t
 Forces  bots to attack nearby enemies
 Forces  bots to avoid human allies
 Forces  bots to prioritize getting last hits on enemies below this health
-Forces HUD and game to draw team colors as if you are a spectator
 Forces a button to be a particular state - WHEN PROCESSING USERCOMMANDS
 Forces a button to be a particular state -- WHEN SAMPLING INPUT
 Forces a hint to be ready to show in the HUD
@@ -30533,7 +30544,6 @@ MaxNetworkableEntities
 MaxNonNetworkableEntities
 MaxProjectileSpeed
 MaxPushVelocity
-MaxRange
 MaxRecasts
 MaxSimultaneousVolley
 MaxSlow
@@ -32090,14 +32100,14 @@ P-224
 P-256
 P-384
 P-521
-P08@J
+P08@J 
 P08J
+P08Nd
 P1\t98"
 P2P ping to "%s". Timed out after %.2fms\n
 P2P_Messages
+P2pJ>
 P5[1
-P6@J
-P6P@
 PAGN_4
 PANEL_ID
 PANORAMA_LAYOUTFILE
@@ -32783,6 +32793,7 @@ PetLevelup_Rule_t
 PetrifyDamage
 PetrifyDamageBreakThreshold
 PetrifyDuration
+Pf@S
 Phoneme delay to account for sound system latency.
 Phrase
 Phrase%d
@@ -32848,6 +32859,7 @@ Pitch: %6.1f   Yaw: %6.1f %38s
 Pivot
 PivotPaint
 PixelToProj
+PjpJ>
 PlaceDecalEvent_t
 PlaceDistance
 PlaceDistanceInFrontOfCaster
@@ -32964,6 +32976,7 @@ Plots
 Plots view angles yaw at various stages of the frame/tick in Tracy.
 Pm8A?
 PmR"H?
+Pn@T
 Point entity.
 Point under crosshair
 PointCameraSettings_t
@@ -33449,7 +33462,6 @@ R%dC%d
 R(Optional) If true, only return the total number of files that satisfy this query.
 R(Optional) Tags that must NOT be present on a published file to satisfy the query."
 R/Qs
-R0yC
 R2I_CERTPOL
 R2I_PCI
 R=1C&b
@@ -33653,7 +33665,6 @@ RUMBLE_SHOTGUN_DOUBLE
 RUMBLE_SHOTGUN_SINGLE
 RUMBLE_SMG1
 RUMBLE_STOP_ALL
-R\fpt
 R\n\nBookReward
 R\n\rincludekvtags
 R\r1>Vp
@@ -34196,6 +34207,7 @@ Row%u
 RowHeader
 RowImage
 RowRange
+RpJ>
 Rq[R
 RrBoN
 RtIF
@@ -37329,7 +37341,6 @@ Toggles free cursor convar.
 Toggles input/output message display for the selected entity(ies).  The name of the entity will be displayed as well as any messages that it sends or receives.\n\tArguments:   \t{entity_name} / {class_name} / {entity_index} / {no argument = pick what player is looking at}
 Toggles muting/unmuting the audio.
 Toggles recording of animgraph replay of the given entity(s)\n\tArguments: entityName automaticallyOpenInAnimgraphEditor\n\tArguments:   \t{entity_name} / {class_name} / {entity_index} / {no argument = pick what player is looking at}
-Toggles showing which blocks are pending/loaded async.
 Toggles the spectator mode: 0=Directed - 1=Free Cam - 2=Hero Chase - 3=PlayerView
 Toggles visibility of the debug overlay system.
 Token Table Save/Restore overflow on token [%d]!\n
@@ -38962,6 +38973,7 @@ XRJ2
 XWY]
 XYD%
 X\tQo
+X`hrpJ>
 Xd3h
 XfJ7
 XjfR
@@ -39078,6 +39090,7 @@ Zoom
 ZoomBias
 ZoomTask
 ZoomTime
+ZpJ>
 Zpwz
 Z~wl
 [ (%f, %f, %f, %f), (%f, %f, %f, %f), (%f, %f, %f, %f), (%f, %f, %f, %f) ]
@@ -39180,9 +39193,11 @@ Z~wl
 \fResourceId_t
 \fW9c
 \fXu"L
+\f\nPRH
 \f]ne3
 \fdhWTh
 \fiaR
+\fp\vPl
 \ful2
 \fy&3Gl
 \l:ArR
@@ -39370,7 +39385,6 @@ Z~wl
 \n/CMsgClientToGCUpdateHeroBuildPreferenceResponse
 \n/steammessages_publishedfile.steamworkssdk.proto
 \n0CCitadelUserMsg_ParticipantSetLibraryStackFields
-\n0yC
 \n1CHelpRequestLogs_UploadUserApplicationLog_Request
 \n3CPlayer_GetMutualFriendsForIncomingInvites_Response
 \n4CMsgClientToGCGetLimitedItemPurchaseQuantityResponse
@@ -39382,7 +39396,6 @@ Z~wl
 \nDictionary: %s\n
 \nFinished generating SSTs (%.1f seconds)\n\n
 \nGameTime_t
-\nPyD
 \nSimulating Entities:\n\n
 \n[ Spirit ]
 \n[ Vitality ]
@@ -39693,6 +39706,7 @@ Z~wl
 \n\nstartindex
 \n\nstat_score
 \n\nstat_total
+\n\nstat_value
 \n\nstrip_html
 \n\nsubscriber
 \n\nswap_width
@@ -40462,9 +40476,9 @@ _tools_event_desc
 _xU`u
 _}eOk
 `28)fk
+`2pJ>
 `3?New@Array@v8@@SA?AV?$Local@VArray@v8@@@2@PEAVIsolate@2@H@Z
-`6pP
-`:PhD
+`:prD
 `:zQF
 `D$daM-l
 `DZG
@@ -40475,6 +40489,8 @@ _}eOk
 `\n\rvector_values
 `\tV_powd
 `adjustor{
+`bpJ>
+`dpJ>
 `fPw.\vM
 `generic-class-parameter-
 `generic-method-parameter-
@@ -40507,6 +40523,7 @@ a:typeparam
 a;Tg
 a@XZ
 aA0k
+aBvd
 aD/x
 aDSS
 aECDH
@@ -41188,6 +41205,7 @@ async_state
 asynchronous
 atMaxRewards
 attach_cat_fx
+attach_core_fx
 attach_ent_index
 attach_heal_fx
 attach_point_name
@@ -41332,6 +41350,7 @@ a|w9i
 b <= sizeof ctx->buf
 b <= sizeof ctx->final
 b0M%
+b0~D
 b2i_PVK_bio
 b5o-
 b=G3
@@ -41806,6 +41825,7 @@ box_outer_maxs
 box_outer_mins
 box_size
 bpFh
+bpJ>
 brace
 brainpoolP160r1
 brainpoolP160t1
@@ -42184,6 +42204,7 @@ cc_linger_time
 cc_log
 cc_noattenuate
 cc_random
+cc_showblocks
 cc_spectator_only
 cc_subtitles
 cc_vr_caption_catchup_interval
@@ -44964,6 +44985,7 @@ double_shot
 down
 down-wrap
 down-wrap-left
+dpJ>
 dpiaware
 dpspercent
 dpspercent_high
@@ -46916,6 +46938,7 @@ h0XB
 h2Wl
 h2n_\
 h5N.
+hA0+
 hActivator
 hAttacker
 hCallbackFunc
@@ -46930,6 +46953,8 @@ hEntityB
 hF\rDz
 hFcg
 hJxRX@_
+hM9+
+hMk+
 hN2D
 hProjectile
 hRB.
@@ -46938,9 +46963,9 @@ hW*m
 hW1M
 hW_z
 hX@e
+hYF+
 h\n\frequiredtags
 h`Zr
-ha8+
 half_extent_xy
 half_extent_z
 halfhealth
@@ -47333,6 +47358,7 @@ hovering
 how fast to run (1 to use player max run speed).
 hows joint info for this entity
 hp_stat
+hpz 
 hr_H
 href="
 hscroll
@@ -47355,6 +47381,7 @@ https://store.steampowered.com/account/preferences#CommunityContentPreferences
 https://store.steampowered.com/news/app/1422450/view/524216645064852902?l=%s
 https://store.steampowered.com/news/app/1422450/view/530965072572320687?l=%s
 https://www.google.com/
+hu3+
 hu_HU
 hudPlayerStats
 hud_cur_gold
@@ -47384,6 +47411,7 @@ hud_reportcard
 hud_skin
 hudtextparms_t
 hue-rotation
+huk+
 humans
 hundred_gold
 hundreds_gold
@@ -47908,6 +47936,7 @@ info_dynamic_shadow_hint
 info_dynamic_shadow_hint_box
 info_ladder_dismount
 info_offscreen_panorama_texture
+info_particle_system
 info_particle_target
 info_portal_link
 info_target
@@ -48491,6 +48520,7 @@ joy_xcontroller_cfg_loaded
 joy_yaw_sensitivity
 joy_yawsensitivity
 joystick
+jpJ>
 jsondata
 jt(@L
 jtv2@
@@ -49483,6 +49513,7 @@ k_eLobbyServerState_Assign
 k_eLobbyServerState_InGame
 k_eLobbyServerState_PostMatch
 k_eLobbyServerState_SignedOut
+k_eMatchAuxStat_Dummy
 k_eMatchCompleted
 k_eMatchDetailsTab
 k_eMatchForming
@@ -56475,7 +56506,6 @@ m_strKeyTurnSound
 m_strKillConfirmSound
 m_strKilledSound
 m_strKnightChargeExplosionSound
-m_strLabelToken
 m_strLandmarkName
 m_strLaneName
 m_strLaneTrooperKill
@@ -56611,6 +56641,7 @@ m_strSlashStart
 m_strSmallIconCssClass
 m_strSmallIconCssClassMax
 m_strSnipeImpactSound
+m_strSound
 m_strSoundEvent
 m_strSpinDownSound
 m_strSpinUpLoopSound
@@ -59319,6 +59350,9 @@ p.other
 p.ppBasis
 p.prime
 p.tpBasis
+p08@H^d
+p20~D
+p2pJ>
 p2p_FightingGame_Connection
 p2p_FightingGame_GameData
 p2p_Ping
@@ -59335,7 +59369,6 @@ p2{l
 p4Z3
 p5Z3
 p5\nL,
-p6 C
 p618
 p>?Set@Template@v8@@QEAAXV?$Local@VName@v8@@@2@V?$Local@VData@v8@@@2@W4PropertyAttribute@2@@Z
 p@0pqE5tsO?|1
@@ -59344,6 +59377,7 @@ pD4t
 pData->GetDataDescMap() == pTemplateDataMap
 pDescription
 pDest
+pFP9
 pField
 pFilter
 pG_*h
@@ -59736,6 +59770,7 @@ pbeWithSHA1And40BitRC2-CBC
 pbeWithSHA1And40BitRC4
 pbeWithSHA1AndDES-CBC
 pbeWithSHA1AndRC2-CBC
+pbpJ>
 pcPathLengthConstraint
 pct_complete
 pct_item_complete
@@ -60552,7 +60587,6 @@ r-IE
 r184
 r3A~
 r<\rND
-r@iD
 rAGW
 rB2pBB
 rC3rp
@@ -60567,7 +60601,6 @@ rZ1VwGf5
 rZPM
 r\n\vstart_index
 r\vDi
-r\vpt
 r_AirboatViewDampenDamp
 r_AirboatViewDampenFreq
 r_AirboatViewZHeight
@@ -60760,7 +60793,6 @@ r_textures_evict_all
 r_threaded_particles
 r_threaded_scene_object_update
 r_update_particles_on_render_only_frames
-r`iD
 rad2deg
 radial
 radial( 
@@ -61188,7 +61220,7 @@ rows2
 rows3
 rows4
 royalblue
-rpA>
+rpJ>
 rpg_camera_yaw
 rr_debugclassname
 rr_debugresponseconcept
@@ -64374,7 +64406,7 @@ z/B,9d
 z<d2
 z>Hz
 z?ff
-zDH\f
+zDCCitadelModifierItemPickupTimerVData
 zDShould show ability icon on the hint?
 zF):O4
 zFar
@@ -64408,6 +64440,7 @@ zoom-out
 zoomLevel%i
 zoom_sensitivity_ratio
 zoomwithuiscale
+zpJ>
 zxNIjo
 zz2K
 { className = 'IsControlFlowNode' }
