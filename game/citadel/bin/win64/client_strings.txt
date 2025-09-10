@@ -84,11 +84,11 @@
  (%d)Unknown
  (%ld unused bits)\n
  (+%d more due to usercommand delivery)
- (08@HPX`jpJ>
- (08@HPXb 
- (08@HPZpJ>
- (08@JpJ>
- (0X`hpz 
+ (08@HPX`j`i>
+ (08@HPXb
+ (08@HPZ`i>
+ (08@HR
+ (0X`hpz
  (Dirty Animation)
  (INVALID PSS PARAMETERS)\n
  (Negative)
@@ -351,7 +351,7 @@
 #.CPublishedFile_GetDetails_Response"9
 #.CPublishedFile_Unsubscribe_Request
 #00000000
-#<m_strLabelToken
+#<Concept for your ping message. These are populated in citadel_ping_wheel_data.h
 #AbandonMatchPrompt_Cancel
 #AbandonMatchPrompt_Confirm
 #AbandonMatchPrompt_Countdown
@@ -381,6 +381,7 @@
 #CITADEL_ABILITY_INVALID_CHAINED
 #CITADEL_ABILITY_INVALID_CLIP_IS_FULL
 #CITADEL_ABILITY_INVALID_DISARMED
+#CITADEL_ABILITY_INVALID_DOORWAY_NOT_ALLOWED
 #CITADEL_ABILITY_INVALID_ENEMY_HEALTH_TOO_LOW
 #CITADEL_ABILITY_INVALID_FAILED_DASH_JUMP_ALREADY_ATTEMPTED
 #CITADEL_ABILITY_INVALID_FAILED_DASH_JUMP_JUMPED_EARLY
@@ -2282,6 +2283,7 @@ $hRh
 '\n#k_EGCMsgUseItemResponse_ServerError
 '\n#k_EResult_NoRankedWhileReportBanned
 '\n#k_EServerSignoutData_Disconnections
+'\n#k_EServerSignoutData_PlayerBehavior
 '\n#k_EServerSignoutData_ReportCheaters
 '\n#k_ESignout_Success_AlreadySignedOut
 '\n#k_PackBundle_Failed_BadItemQuantity
@@ -2340,6 +2342,8 @@ $hRh
 (.CPlayer_SetPerFriendPreferences_Request
 (0'yX
 (0x%08X)'??'
+(142
+(1A2
 (5Me
 (5jP
 (?StateChanged
@@ -2595,6 +2599,7 @@ $hRh
 (\v2,.CMsgParticleSystemManager.UpdateParticleEnt
 (\v2,.CMsgParticleSystemManager.UpdateParticleFwd
 (\v2,.CMsgServerSignoutData_DetailedStats.MidBoss
+(\v2,.CMsgServerSignoutData_PlayerBehavior.Player
 (\v2,.CMsgSource1LegacyGameEventList.descriptor_t
 (\v2,.CUserMessage_Diagnostic_Response.Diagnostic
 (\v2,.CUserMsg_ParticleManager.ParticleSkipToTime
@@ -7299,6 +7304,7 @@ $hRh
 .?AVCCitadelSteamInputHandler@@
 .?AVCCitadelSteamShare@@
 .?AVCCitadelTriggerCapturePoint@@
+.?AVCCitadelTriggerNoPortals@@
 .?AVCCitadelTrooperMinimap@@
 .?AVCCitadelUserCmd@@
 .?AVCCitadelUserCmdPB@@
@@ -10529,6 +10535,8 @@ $hRh
 .?AVCMsgServerSignoutData_PenalizedPlayers@@
 .?AVCMsgServerSignoutData_PenalizedPlayers_Penalty@@
 .?AVCMsgServerSignoutData_PerfData@@
+.?AVCMsgServerSignoutData_PlayerBehavior@@
+.?AVCMsgServerSignoutData_PlayerBehavior_Player@@
 .?AVCMsgServerSignoutData_PlayerChat@@
 .?AVCMsgServerSignoutData_PlayerChat_ChatLine@@
 .?AVCMsgServerSignoutData_ServerPerfStats@@
@@ -12753,9 +12761,9 @@ $hRh
 0123456789
 02V8[
 05=k
-08@HRpJ>
-08@J 
-08BpJ>
+08@HR`i>
+08@J
+08B`i>
 08bX
 09,h
 0: (V0) Legacy save format, 1: (V1) KeyValues3 save format
@@ -12947,7 +12955,6 @@ $hRh
 200 200 200 196
 20t\f
 20x9
-20~D
 21.CMsgClientToGCGetHeroMMRRankingsResponse.EResult
 21.CMsgClientToGCGrantForumAccessResponse.EResponse
 21.CMsgClientToGCUnpackBundleResponse.EUnpackBundle
@@ -12988,6 +12995,7 @@ $hRh
 2Array of text tags to apply to the published file.
 2I y)
 2If true, return vote data in the returned details.
+2P\vA
 2Set of published file Ids to retrieve details for.
 2Tm=#
 2Uiwp"9
@@ -13031,7 +13039,6 @@ $hRh
 2f)l=
 2nIg
 2p"6
-2pJ>
 2prB
 3%3+3/353A3G3[3_3g3k3s3y3
 3(Optional) Preview filename for the published file." \n
@@ -13109,7 +13116,6 @@ $hRh
 4\n\vPersonaName
 4\vU44
 4f h
-4pJ>
 4tpD
 4zj@1;IJ
 5'0v2ZP
@@ -13235,10 +13241,8 @@ $hRh
 851Pe
 8<pl
 8= zp
-8@JpJ>
 8A6j
-8B0~D
-8BpJ>
+8B`i>
 8Client ID for which to count the number of issued tokens"
 8GZS
 8Gets the list of nicknames this user has for other users
@@ -13247,6 +13251,7 @@ $hRh
 8Name of the file to use as the published file's preview.
 8SIffK5W
 8TZvrv<
+8UW+
 8\n4GAME_PARTICLE_MANAGER_EVENT_CLEAR_MODELLIST_OVERRIDE
 8\n4STEAMLEARN_INFERENCE_ERROR_INVALID_PUBLISHED_VERSION
 8\n4STEAMLEARN_REGISTER_DATA_SOURCE_RESULT_ERROR_GENERIC
@@ -13264,7 +13269,6 @@ $hRh
 8\n\tgame_info
 8\n\vAbilityStat
 8\n\vreason_code
-8\npJ>
 8\v8!83858A8G8K8S8W8_8e8o8q8}8
 8]Vc2
 8ca1
@@ -13281,6 +13285,7 @@ $hRh
 9966
 9:dzGN
 9@Xp&
+9B0+
 9IGv
 9J9;6
 9N1=@
@@ -13344,7 +13349,6 @@ $hRh
 :eaI
 :gN(dq
 :mIR
-:pyD
 :w4v
 ;!;#;-;9;E;S;Y;_;q;{;
 ;"lY7
@@ -13526,7 +13530,6 @@ $hRh
 ?Exit@Isolate@v8@@QEAAXXZ
 ?Far field
 ?For@Symbol@v8@@SA?AV?$Local@VSymbol@v8@@@2@PEAVIsolate@2@V?$Local@VString@v8@@@2@@Z
-?Forces HUD and game to draw team colors as if you are a spectator
 ?FromJustIsNothing@api_internal@v8@@YAXXZ
 ?Get@Object@v8@@QEAA?AV?$MaybeLocal@VValue@v8@@@2@V?$Local@VContext@v8@@@2@I@Z
 ?Get@Object@v8@@QEAA?AV?$MaybeLocal@VValue@v8@@@2@V?$Local@VContext@v8@@@2@V?$Local@VValue@v8@@@2@@Z
@@ -13553,16 +13556,15 @@ $hRh
 ?expf
 ?ff&?333?
 ?gwL
+?info_particle_system
 ?jOb
 ?srJO
 ?tya
 ?uWS
 ?x29
 @!@%@+@1@?@C@E@]@a@g@m@
-@08Nd
+@08NT
 @0pp
-@2pJ>
-@60Z
 @?SlowGetInternalField@Object@v8@@AEAA?AV?$Local@VData@v8@@@2@H@Z
 @BH]f
 @HPX`hv
@@ -14303,6 +14305,7 @@ AllowOversized
 AllowRamMultiple
 AllowResetCooldownOnKill
 AllowSwap
+Allows bots to be puppeteered by the player.  The player will do nothing while the bots perform the inputs
 Allows canceling out of the reload at any time by firing your gun.
 Allows creating a hideout for a party even if a single player (dev only)
 Allows flipping the model, regardless of whether it is built left or right handed
@@ -14670,7 +14673,6 @@ BAcceptsFocus
 BAcceptsInput
 BAddToMessage
 BAdjustingVolume
-BAllows bots to be puppeteered by the player.  The player will do nothing while the bots perform the inputs
 BAscendantHasClass
 BAsyncSend
 BAsyncSendProto
@@ -14809,6 +14811,7 @@ BRUSHSOLID_NEVER
 BRUSHSOLID_TOGGLE
 BReadyForDisplay
 BRouteMsgToJob
+BScales how fast players can move
 BScrollParentToFitWhenFocused
 BSecureAllowed
 BSetProperty
@@ -15244,7 +15247,6 @@ BounceVelocity
 Bounding Box
 BoundingRects
 BoxAngles
-BpJ>
 Brazilian
 Break On Dodge?
 Break Stage Health: %d
@@ -15487,7 +15489,7 @@ C:\buildworker\citadel_rel_win64\build\src\game\client\citadel\c_citadel_player_
 C:\buildworker\citadel_rel_win64\build\src\game\client\citadel\c_citadel_triggers.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\client\citadel\citadel_hero_builds_manager.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\client\citadel\citadel_musicmanager.cpp
-C:\buildworker\citadel_rel_win64\build\src\game\client\citadel\citadel_thirdpersoncamera.cpp:1599
+C:\buildworker\citadel_rel_win64\build\src\game\client\citadel\citadel_thirdpersoncamera.cpp:1598
 C:\buildworker\citadel_rel_win64\build\src\game\client\citadel\clientmode_citadel.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\client\citadel\fx_citadel_impacts.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\client\citadel\renderingpipeline_citadel.cpp
@@ -15554,7 +15556,7 @@ C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\abilities\ability
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\abilities\ability_slide.cpp:285
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\abilities\ability_slide.cpp:327
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\abilities\ability_slide.cpp:717
-C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_base_ability_shared.cpp:4088
+C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_base_ability_shared.cpp:4089
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_base_hero.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_bot_schema.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_camera_controller.cpp:167
@@ -16270,6 +16272,7 @@ CCitadelTrackedBodygroupModifierState_t
 CCitadelTrackedProjectile
 CCitadelTriggerCapturePoint
 CCitadelTriggerHideout
+CCitadelTriggerNoPortals
 CCitadelTrooperMinimap
 CCitadelUserCmdPB
 CCitadelUserMessage_BulletHit
@@ -18938,6 +18941,7 @@ CLASS_TRIGGER_HIDEOUT
 CLASS_TRIGGER_HURT
 CLASS_TRIGGER_IDOL_RETURN
 CLASS_TRIGGER_MODIFIER
+CLASS_TRIGGER_NO_PORTALS
 CLASS_TRIGGER_OBSCURED_VOLUME
 CLASS_TRIGGER_SHOP_TUNNEL
 CLASS_TRIGGER_TELEPORT
@@ -22820,7 +22824,6 @@ Computes 2 ( 2.71...) raised to a power
 Computes e ( 2.71...) raised to a power
 ConCommand to fire when modifier added.
 ConCommand to fire when modifier removed.
-Concept for your ping message. These are populated in citadel_ping_wheel_data.h
 ConcreteEntityList:  approaching limit, allocating entity chuck %d/%d for ents [%d -> %d]\n
 Condition
 Condition to evaluate when any of its dependent values change.
@@ -24721,6 +24724,7 @@ ECitadelAbilityOrder_Invalid_DashJumpFailed_JumpedEarly
 ECitadelAbilityOrder_Invalid_DashJumpFailed_JumpedLate
 ECitadelAbilityOrder_Invalid_DashJumpFailed_NeedsStamina
 ECitadelAbilityOrder_Invalid_Disarmed
+ECitadelAbilityOrder_Invalid_DoorwayNotAllowed
 ECitadelAbilityOrder_Invalid_EnemyHealthTooLow
 ECitadelAbilityOrder_Invalid_HealthTooHigh
 ECitadelAbilityOrder_Invalid_Hidden
@@ -26301,7 +26305,6 @@ F\n\finventories2
 F\n\finventories3
 F\n\fitem_scalars
 F\n\trow_range
-F\npJ>
 F\rH'4
 F\tV_iswcntrl
 Face
@@ -26694,6 +26697,7 @@ ForcedCrouchState_t
 Forces  bots to attack nearby enemies
 Forces  bots to avoid human allies
 Forces  bots to prioritize getting last hits on enemies below this health
+Forces HUD and game to draw team colors as if you are a spectator
 Forces a button to be a particular state - WHEN PROCESSING USERCOMMANDS
 Forces a button to be a particular state -- WHEN SAMPLING INPUT
 Forces a hint to be ready to show in the HUD
@@ -27440,6 +27444,7 @@ HDTEDust_GameEvent_t
 HEAD 
 HEIGHT
 HH&a
+HI02
 HIERARCHY
 HIERARCHY_ABSORIGIN
 HIERARCHY_ATTACHMENT
@@ -28000,7 +28005,6 @@ HoveringItem
 How big of a trigger to use when tracing for targets
 How big to cap the size of the sphere when checking for really large explosion/effects
 How close is close enough for pathfinding to a node.
-How close to the crosshair to be.  Hints are next to the crosshair when by themselves, but get ordered by this priority when multiple are active on the same side.  0 is highest priority (closest to crosshair)
 How damage to this damage level is handled.
 How do you want the ping to behave?
 How does the power of 'Wall Jump Max Lateral Speed' fall off with speed along the wall (so that players can't stack this speed forever). X axis is speed along the wall in meters per second (using METERS_PER_INCH). Values from this curve are clamped to 0..1 output. 
@@ -28158,6 +28162,7 @@ HullDesc_tiny_centered
 HullFlags_t
 Hull_t
 Hungarian
+Hy02
 H{1S
 I"9|OxTex
 I+8G
@@ -32100,13 +32105,13 @@ P-224
 P-256
 P-384
 P-521
-P08@J 
+P08@J
 P08J
-P08Nd
+P08NT
 P1\t98"
 P2P ping to "%s". Timed out after %.2fms\n
 P2P_Messages
-P2pJ>
+P2`i>
 P5[1
 PAGN_4
 PANEL_ID
@@ -32793,7 +32798,7 @@ PetLevelup_Rule_t
 PetrifyDamage
 PetrifyDamageBreakThreshold
 PetrifyDuration
-Pf@S
+Pf0r
 Phoneme delay to account for sound system latency.
 Phrase
 Phrase%d
@@ -32859,7 +32864,7 @@ Pitch: %6.1f   Yaw: %6.1f %38s
 Pivot
 PivotPaint
 PixelToProj
-PjpJ>
+Pj`i>
 PlaceDecalEvent_t
 PlaceDistance
 PlaceDistanceInFrontOfCaster
@@ -32976,7 +32981,7 @@ Plots
 Plots view angles yaw at various stages of the frame/tick in Tracy.
 Pm8A?
 PmR"H?
-Pn@T
+Pn0s
 Point entity.
 Point under crosshair
 PointCameraSettings_t
@@ -34207,7 +34212,6 @@ Row%u
 RowHeader
 RowImage
 RowRange
-RpJ>
 Rq[R
 RrBoN
 RtIF
@@ -34662,7 +34666,6 @@ ScaleDamage
 ScaleFunctions
 ScaleTemp
 Scales entities.\tArguments: <scale factor> <{entity_name} / {class_name} / {entity_index} / {no argument = pick what player is looking at}>
-Scales how fast players can move
 ScalingPowerupDefinition_t
 ScalingStat
 ScalingStat%s
@@ -35423,6 +35426,7 @@ Should both primary and secondary attacks be cooled down together (so cooling do
 Should have already been loaded via CModel_Imp::RegisterAdditionalExtRefs
 Should have already been loaded via CVDataTypeManager::RegisterExtRefs
 Should labels try to wrap text before using text-overflow: shrink
+Should show ability icon on the hint?
 Should the entity die when this damage level is destroyed?
 Should this breakable break if a player rolls or dodges into it?
 Should this message be bindable on the Ping Wheel?
@@ -38973,7 +38977,7 @@ XRJ2
 XWY]
 XYD%
 X\tQo
-X`hrpJ>
+X`hr`i>
 Xd3h
 XfJ7
 XjfR
@@ -38984,6 +38988,7 @@ Xz"7
 Y Axis offset from our camera pivot. +Left and -Right.
 Y(Optional) Starting index to begin enumeration at. Defaults to the beginning of the list."Z\n"CCloud_EnumerateUserFiles_Response
 Y-Ny
+Y212
 Y4i%
 Y93a=7c@
 Y;C;8V
@@ -39090,7 +39095,6 @@ Zoom
 ZoomBias
 ZoomTask
 ZoomTime
-ZpJ>
 Zpwz
 Z~wl
 [ (%f, %f, %f, %f), (%f, %f, %f, %f), (%f, %f, %f, %f), (%f, %f, %f, %f) ]
@@ -39190,14 +39194,13 @@ Z~wl
 \f<<0A1pq
 \f@CitadelStatsSpiritDisplay_t
 \fKS1
+\fPJI
 \fResourceId_t
 \fW9c
 \fXu"L
-\f\nPRH
 \f]ne3
 \fdhWTh
 \fiaR
-\fp\vPl
 \ful2
 \fy&3Gl
 \l:ArR
@@ -39282,6 +39285,7 @@ Z~wl
 \n$CMsgGCToClientInFlightChargesUpdated
 \n$CMsgNotificationOfSuspiciousActivity
 \n$CMsgServerSignoutData_Disconnections
+\n$CMsgServerSignoutData_PlayerBehavior
 \n$CMsgServerToGCMatchSignoutPermission
 \n$CMsgServerToGCUpdateLobbyServerState
 \n$CPublishedFile_GetUserFiles_Response
@@ -39385,6 +39389,7 @@ Z~wl
 \n/CMsgClientToGCUpdateHeroBuildPreferenceResponse
 \n/steammessages_publishedfile.steamworkssdk.proto
 \n0CCitadelUserMsg_ParticipantSetLibraryStackFields
+\n0JI
 \n1CHelpRequestLogs_UploadUserApplicationLog_Request
 \n3CPlayer_GetMutualFriendsForIncomingInvites_Response
 \n4CMsgClientToGCGetLimitedItemPurchaseQuantityResponse
@@ -39396,6 +39401,7 @@ Z~wl
 \nDictionary: %s\n
 \nFinished generating SSTs (%.1f seconds)\n\n
 \nGameTime_t
+\nM12
 \nSimulating Entities:\n\n
 \n[ Spirit ]
 \n[ Vitality ]
@@ -40054,6 +40060,7 @@ Z~wl
 \n\vdata_int32s
 \n\vdelete_hits
 \n\vdescription
+\n\vdisconnects
 \n\vdisplaytime
 \n\vease_in_out
 \n\veffectindex
@@ -40476,9 +40483,8 @@ _tools_event_desc
 _xU`u
 _}eOk
 `28)fk
-`2pJ>
 `3?New@Array@v8@@SA?AV?$Local@VArray@v8@@@2@PEAVIsolate@2@H@Z
-`:prD
+`6PP
 `:zQF
 `D$daM-l
 `DZG
@@ -40486,16 +40492,16 @@ _}eOk
 `H(hqA1p
 `ITS
 `VX:H
+`Y32
 `\n\rvector_values
 `\tV_powd
 `adjustor{
-`bpJ>
-`dpJ>
 `fPw.\vM
 `generic-class-parameter-
 `generic-method-parameter-
 `generic-type-
 `h9T~
+`i52
 `local static destructor helper'
 `non-type-template-parameter
 `o_je
@@ -40507,6 +40513,7 @@ _}eOk
 `unknown ecsu'
 `vtordispex{
 `vtordisp{
+`y42
 `yNT
 a null shared library handle was used
 a world layer in a dota map
@@ -40523,7 +40530,7 @@ a:typeparam
 a;Tg
 a@XZ
 aA0k
-aBvd
+aBvT
 aD/x
 aDSS
 aECDH
@@ -40980,6 +40987,7 @@ align_with_parent
 alive
 all-scroll
 all_chat
+all_chat_messages
 all_time_life_max
 all_time_match_max
 all_time_total
@@ -41350,7 +41358,6 @@ a|w9i
 b <= sizeof ctx->buf
 b <= sizeof ctx->final
 b0M%
-b0~D
 b2i_PVK_bio
 b5o-
 b=G3
@@ -41825,7 +41832,6 @@ box_outer_maxs
 box_outer_mins
 box_size
 bpFh
-bpJ>
 brace
 brainpoolP160r1
 brainpoolP160t1
@@ -43352,6 +43358,7 @@ citadel_toggle_mute
 citadel_track_player_vs_player_accuracy
 citadel_tracked_projectile
 citadel_trigger_hideout_teleport
+citadel_trigger_no_portals
 citadel_trooper_boss_shield_disable_duration
 citadel_trooper_crit_multiplier
 citadel_trooper_glow_disabled
@@ -44985,7 +44992,6 @@ double_shot
 down
 down-wrap
 down-wrap-left
-dpJ>
 dpiaware
 dpspercent
 dpspercent_high
@@ -46232,12 +46238,15 @@ firing
 first num too large
 first octet invalid
 firstPlayer
+first_all_chat_gametime
 first_damage_time_s
 first_loot_list_override
 first_playtime
+first_team_chat_gametime
 first_valid_class
 first_valid_item_slot
 first_valid_item_slot not set!
+first_voice_chat_gametime
 firstperson
 fish_debug
 fish_pos_x
@@ -46935,10 +46944,10 @@ g|MT
 h&eC
 h*Ax
 h0XB
+h1g+
 h2Wl
 h2n_\
 h5N.
-hA0+
 hActivator
 hAttacker
 hCallbackFunc
@@ -46952,9 +46961,8 @@ hEntityA
 hEntityB
 hF\rDz
 hFcg
+hIi+
 hJxRX@_
-hM9+
-hMk+
 hN2D
 hProjectile
 hRB.
@@ -46963,7 +46971,6 @@ hW*m
 hW1M
 hW_z
 hX@e
-hYF+
 h\n\frequiredtags
 h`Zr
 half_extent_xy
@@ -47358,7 +47365,6 @@ hovering
 how fast to run (1 to use player max run speed).
 hows joint info for this entity
 hp_stat
-hpz 
 hr_H
 href="
 hscroll
@@ -47381,7 +47387,6 @@ https://store.steampowered.com/account/preferences#CommunityContentPreferences
 https://store.steampowered.com/news/app/1422450/view/524216645064852902?l=%s
 https://store.steampowered.com/news/app/1422450/view/530965072572320687?l=%s
 https://www.google.com/
-hu3+
 hu_HU
 hudPlayerStats
 hud_cur_gold
@@ -47411,7 +47416,6 @@ hud_reportcard
 hud_skin
 hudtextparms_t
 hue-rotation
-huk+
 humans
 hundred_gold
 hundreds_gold
@@ -47936,7 +47940,6 @@ info_dynamic_shadow_hint
 info_dynamic_shadow_hint_box
 info_ladder_dismount
 info_offscreen_panorama_texture
-info_particle_system
 info_particle_target
 info_portal_link
 info_target
@@ -48520,7 +48523,6 @@ joy_xcontroller_cfg_loaded
 joy_yaw_sensitivity
 joy_yawsensitivity
 joystick
-jpJ>
 jsondata
 jt(@L
 jtv2@
@@ -49234,6 +49236,7 @@ k_EServerSignoutData_MatchDevStats
 k_EServerSignoutData_MatchKills
 k_EServerSignoutData_PenalizedPlayers
 k_EServerSignoutData_PerfData
+k_EServerSignoutData_PlayerBehavior
 k_EServerSignoutData_PlayerChat
 k_EServerSignoutData_ReportCheaters
 k_EServerSignoutData_ServerPerfStats
@@ -56506,6 +56509,7 @@ m_strKeyTurnSound
 m_strKillConfirmSound
 m_strKilledSound
 m_strKnightChargeExplosionSound
+m_strLabelToken
 m_strLandmarkName
 m_strLaneName
 m_strLaneTrooperKill
@@ -59350,9 +59354,8 @@ p.other
 p.ppBasis
 p.prime
 p.tpBasis
-p08@H^d
-p20~D
-p2pJ>
+p08@H^T
+p2`i>
 p2p_FightingGame_Connection
 p2p_FightingGame_GameData
 p2p_Ping
@@ -59377,7 +59380,7 @@ pD4t
 pData->GetDataDescMap() == pTemplateDataMap
 pDescription
 pDest
-pFP9
+pF@X
 pField
 pFilter
 pG_*h
@@ -59749,6 +59752,7 @@ pause_cooldown
 pause_duration_s
 paused_text
 pauser
+pauses
 pawn swapped
 pawn_entity_handle
 pawn_mimic_all
@@ -59757,6 +59761,7 @@ payload + padding <= 16381
 payment gateway capabilities
 payment_row_usd
 payment_us_usd
+pb`i>
 pbeWithMD2AndDES-CBC
 pbeWithMD2AndRC2-CBC
 pbeWithMD5AndCast5CBC
@@ -59770,7 +59775,6 @@ pbeWithSHA1And40BitRC2-CBC
 pbeWithSHA1And40BitRC4
 pbeWithSHA1AndDES-CBC
 pbeWithSHA1AndRC2-CBC
-pbpJ>
 pcPathLengthConstraint
 pct_complete
 pct_item_complete
@@ -61220,7 +61224,6 @@ rows2
 rows3
 rows4
 royalblue
-rpJ>
 rpg_camera_yaw
 rr_debugclassname
 rr_debugresponseconcept
@@ -63006,6 +63009,7 @@ team_2_container
 team_abandoned
 team_chat_auto_join
 team_chat_hold_join_time
+team_chat_messages
 team_class
 team_id
 team_image
@@ -63270,11 +63274,15 @@ top_speed_scale
 topleft
 totalNetWorth
 total_damage
+total_disconnect_time
 total_gold
 total_heal
 total_health
+total_idle_time
+total_inactive_time
 total_item_unlocks
 total_items
+total_pause_time
 total_souls
 total_stat_value
 total_story_unlocks
@@ -64080,6 +64088,7 @@ voiceActiveButNotInChat
 voice_active_box
 voice_all_icons
 voice_ban.dt
+voice_chat_seconds
 voice_clientdebug
 voice_modenable
 voice_vox
@@ -64407,7 +64416,7 @@ z<d2
 z>Hz
 z?ff
 zDCCitadelModifierItemPickupTimerVData
-zDShould show ability icon on the hint?
+zDHow close to the crosshair to be.  Hints are next to the crosshair when by themselves, but get ordered by this priority when multiple are active on the same side.  0 is highest priority (closest to crosshair)
 zF):O4
 zFar
 zG2m8
@@ -64440,7 +64449,6 @@ zoom-out
 zoomLevel%i
 zoom_sensitivity_ratio
 zoomwithuiscale
-zpJ>
 zxNIjo
 zz2K
 { className = 'IsControlFlowNode' }
