@@ -139,9 +139,10 @@
  %i refs\n
  (08@HPX`hpx
  (08@HPX`j
- (08@HPXb`
+ (08@HPXb
  (08@HPZ
- (0X`hpz`
+ (08@HR
+ (0X`hpz
  (Start: 
  (Texture)
  (default = .tga + .wav file)\n
@@ -500,6 +501,8 @@ $tI(knN
 %-32s: %6.3f ms (+/- %6.3f) ms\n
 %.1f%% %s missed due to network (%d dropped, %d late)   Good:%d   BadOther:%d    Fixed: %d dropped, %d late\n
 %.2f GB
+%.2f, STREAM_DELTAFRAMES Failed to get fragment %d, stopping playback. Server tick: %d\n\n
+%.2f, Tick: %d. playcast: Play delta Fragment %d\n
 %.2f. Broadcast IO error. Please try again later.\n
 %.2f. Broadcast Streaming error %d %s\n
 %.2f. Broadcast failed to start: cannot retrieve startup packet data\n
@@ -518,8 +521,7 @@ $tI(knN
 %.2f. Broadcast: Synchronizing stream\n
 %.2f. Could not get http response body (size %d bytes)\n
 %.2f. Failed to retrieve %s fragment %d, status %d\n
-%.2f. Playcast cannot retrieve fragment %d, retrying\n
-%.2f. Playcast failed to retrieve fragment %d (succ=%d, %.1f sec)\n
+%.2f. Playcast failed to retrieve fragment %d (succ=%d, %.1f sec), http response: %d\n
 %.2f. Received signup fragment %d\n
 %.2f. Releasing fragment %d (older than %d)\n
 %.2f. Requesting sync from GC, start fragment %d match id %llu instance %d\n
@@ -581,7 +583,6 @@ $tI(knN
 %d. parsing tick %d; %d bytes\n
 %d. playcast: Adjusting fragment %d->%d, tick %d->%d\n
 %d. playcast: Fragment %d keyframe and delta frames ready, delayed precache took %.2f sec\n
-%d. playcast: Play delta Fragment %d\n
 %d. playcast: Play keyframe Fragment %d\n
 %d.%d.%d.%d
 %d/%d [%.3f msec]
@@ -1035,7 +1036,7 @@ $tI(knN
 ../src/shaders
 ..\content
 .00cfg
-.0xE
+.0yE
 .9GXdx
 .>\rfJBGo
 .?AU?$Container@VUnknownFieldSet@protobuf@google@@@InternalMetadata@internal@protobuf@google@@
@@ -2389,8 +2390,6 @@ $tI(knN
 .P6AXPEBD@Z
 .PLACEHOLDER_VALUE
 .ProtoFlattenedSerializer_t
-.PwE
-.PxE
 .RequestPause_t
 .SignonState_t
 .TBMD
@@ -2403,6 +2402,7 @@ $tI(knN
 .bss
 .cfg
 .csv
+.dJA
 .data
 .data$r
 .data$rs
@@ -2430,8 +2430,6 @@ $tI(knN
 .lzh
 .pdata
 .placeholder.proto
-.pwE
-.pxE
 .rdata
 .rdata$00
 .rdata$T
@@ -2500,7 +2498,7 @@ $tI(knN
 0123456789abcdefghijklmnopqrstuvwxyz
 08@HP
 08@HR
-08@J`
+08@J
 08\fj
 0: Force z prepass off. 1: Force on. -1: Don't force
 0: Use normals reconstructed from depth. 1: Output correct normals in z prepass.
@@ -2511,11 +2509,13 @@ $tI(knN
 0B_u
 0C&C
 0E>X
+0LHA
 0T.Q
 0X8b?~
 0\n\vserializers
 0\tV_frexpf
 0iN>/
+0vdJA
 0x%x,
 0|t?L
 0|t?uj
@@ -2568,9 +2568,9 @@ $tI(knN
 2\r%2t
 2\r.PrefetchType"h\n
 2\rU2t
-2\vpT
+2\vpLHA
 2i0/
-2pY$
+2pR+
 3$EE\f
 3'F^7
 30000
@@ -2636,17 +2636,15 @@ $tI(knN
 8>0RF>
 8@HP:
 8A3b
-8BpY$
 8Csinf
 8Smt
 8W?i
-8YR\
 8\n\textension
 8\n\vdescriptors
 8\vu8t
 8b  16-May-2010
+8ek\
 8ke?;
-8mF\
 8}WW`
 9*ubC'
 9=aA\E
@@ -3081,13 +3079,15 @@ $tI(knN
 ?ysB
 @ Current  :  %s\n
 @08@HPX`hpx
-@08N
-@6 xE
+@08NdJA
+@Error trying to register a handler for an unknown game event type!\n
 @HPX
 @HPX&I
 @HPX`hv
 @^8U)zj
+@fdJA
 @i-kuX
+@ndJA
 A command with the specified name already exists. Cannot create an alias with the same name.\n
 A dB floor of when to stop transmitting packets, the volume between this and voice_threshold will still transmit packets to allow for volume ramping.
 A file with this name is already in the pool.
@@ -4921,7 +4921,6 @@ Error reading file "%s\gameinfo.gi"!\n\tThis is necessary to run!
 Error reading keybindings!\n
 Error reading string table %s\n
 Error text not found (please report)
-Error trying to register a handler for an unknown game event type!\n
 Error while parsing option value for "
 Error writing user config file '%s'\n
 Error: Unable to process input keybinding %s\n
@@ -6297,6 +6296,7 @@ OnClientProcessNetworking
 OnClientSceneSystemThreadStateChange
 OnClientSimulate
 OnDemoFileEndReached
+OnDemoStreamStop()\n
 OnEngineClientSignonStateChange
 OnEngineDisconnectReason
 OnEngineLevelLoadingFinished
@@ -6368,9 +6368,10 @@ Override Fog color: %f %f %f\n
 Overrides the SourceTV master root address.
 Overrides the max players reported to prospective clients
 Overriding minidump handler with Engine2MinidumpFunction\n
-P08@J`
-P08Jp
-P08N
+P08@J
+P08J 
+P08NdJA
+P6P~E
 P:S;A
 P?fff?33s?{
 P@HPX`hpx\f
@@ -6384,6 +6385,7 @@ PLATFORM
 PLAYBACK: At end of data\n
 PLAYBACK: ReadReplayMessage returning deltaFrame clientTick=%d tick=%d delta=%d\n
 PLAYBACK: ReadReplayMessage waiting for next tick at clientTick=%d\n
+PLHA
 PNG\r\n
 POSIX collating elements are not supported
 POSIX named classes are supported only within a class
@@ -6493,7 +6495,6 @@ PerFrameSleepChanged
 PerFrameSleepMS
 Perf stats buffer full, no more data will be collected.\n
 Performs a bind <key> "increment var <cvar> 0 1 1".
-Pf@~E
 Phags_Pa
 Phoenician
 Physics interface checksum is 0x%08X, expected 0x%08X. One of the binaries is out of date, please rebuild %s.\n
@@ -6645,6 +6646,7 @@ Playing Broadcast (%s)
 Playing Demo (%s)
 Playing back demo: '%s' at tick %u\n
 PmNk
+PndJA
 Pointers cannot be used as numeric values
 PollAndProcessInput
 Poor man's restart: reload the current map from disk.
@@ -6825,6 +6827,7 @@ RP_PAUSE
 RP_TOGGLEPAUSE
 RSDS.Ak//
 RST%d
+R\vpLHA
 RaiseException
 Random Float
 Random Integer
@@ -6990,6 +6993,7 @@ Resume
 Resumes demo playback.
 Resumes instant replay.
 Retrying connection to %s, server requires lobby reservation but is unreserved.\n
+Retrying request for fragment %d\n
 Retrying sync\n
 ReturnJobManualEventToPool
 RevisionVersion
@@ -7093,7 +7097,6 @@ STEAMVIDEO_INTERFACE_V002
 STEAM_
 STEAM_ID_LAN
 STEAM_ID_PENDING
-STREAM_DELTAFRAMES Failed to get fragment %d, stopping...\n
 STRING
 STRING_CHAR
 ST_Tick
@@ -7235,6 +7238,7 @@ SendSpawnGroupManifestUpdateCall_t
 SendVprofLiteProfileToServer
 Sending A2S_RESERVE_CHECK [%u protocol] %08X:%08X [%llu] to %s\n
 Sending C2S_CONNECT [%u protocol %u auth %d] to %s\n
+Sending Get Request (pending:%d): %s\n
 Sending S2A_RESERVE_CHECK_RESPONSE %08X:%08X [%d/%d] to %s @ %s\n
 Sending S2A_RESERVE_CHECK_RESPONSE to all [%d/%d] (%d clients)\n
 Sending S2C_CHALLENGE [%u auth %d] to %s\n
@@ -8492,6 +8496,8 @@ Zq",9\fB
 \fV4U
 \fX\fm\vH\vH\vm\v
 \f\tV_atofloat32
+\fpLHA
+\fp\v`LHA
 \g is not followed by a braced, angle-bracketed, or quoted name/number or by a plain number
 \n    Actual    : 
 \n    Field type: 
@@ -8796,6 +8802,8 @@ Zq",9\fB
 \r\n\tsvc_Print
 \r\r\f\f\f\f\v\v\v\n\n\n\t\t\t\t\t\t
 \rmj>zjZ
+\rp\f`\v0LHA
+\rp\f`\vPLHA
 \t The lexer was matching from line %d, offset %d, which\n\t 
 \t"%s" has %d known peers:\n
 \t"%s" has no known peers.\n
@@ -8877,6 +8885,7 @@ Zq",9\fB
 \vm\vm\vm\vH\vm\vm\v
 \vm\vm\vm\vm\vH\v
 \vnJH
+\vpLHA
 \vxYT
 ] is an invalid data character in JavaScript compatibility mode
 ]\n,NETWORK_DISCONNECT_REJECT_INVALIDRESERVATION
@@ -8937,8 +8946,8 @@ _temp_mapcycle.txt
 _whitelist.txt
 `-uRQg
 `3Q"X
-`6`wE
 `?m'_?&~]?(
+`LHA
 `RTTI
 `anonymous namespace'
 `copy constructor closure'
@@ -8950,6 +8959,7 @@ _whitelist.txt
 `eh vector destructor iterator'
 `eh vector vbase constructor iterator'
 `eh vector vbase copy constructor iterator'
+`fdJA
 `hp\nU
 `hyz
 `local static guard'
@@ -8959,6 +8969,7 @@ _whitelist.txt
 `managed vector constructor iterator'
 `managed vector copy constructor iterator'
 `managed vector destructor iterator'
+`ndJA
 `omni callsig'
 `placement delete closure'
 `placement delete[] closure'
@@ -8981,6 +8992,7 @@ a numbered reference must not be zero
 a&M-=Z]<i*k)n-t&q&p&|
 a6>r
 a?wSa?\
+aBvdJA
 a\tV_powf
 a\v4+Wk
 abcdefghijklmnopqrstuvwxyz
@@ -9191,7 +9203,6 @@ bool
 boolean
 bools
 boot
-bpY$
 branch gameinfo
 broken pipe
 broken promise
@@ -9691,7 +9702,6 @@ f#kI3\t
 f5J5J5J5J5J5J5J5J5J5J5J5J5J5J5J5Jx
 f9U\n
 f?3Jf?6
-f@vE
 fD""B
 fD>b
 fDD"AUDT$t
@@ -9711,6 +9721,7 @@ false:<\n
 false:=\n
 false:=\n\rvalve_map_key
 false:?\n
+fdJA
 field
 field_serializer_name_sym
 field_serializer_version
@@ -9904,6 +9915,7 @@ high
 highest
 histo 1 by offset
 history
+hiw\
 hk|j
 hl1mp
 hl2mp
@@ -9938,7 +9950,6 @@ hostname
 hostname : %s\n
 hostname_in_client_status
 hostport
-hpz`
 hscript
 hscript_lightbinding
 http Send %.3f ms ave, %.3f ms max\n
@@ -10445,6 +10456,7 @@ n`xBF|7T
 name
 nan(ind)
 nan(snan)
+ndJA
 ndZTNGA:3-' 
 near '%c' :\n
 near char(%#02X) :\n
@@ -10641,12 +10653,12 @@ overwatch
 owM&
 owner dead
 oz>!km>
-p08@H^
+p08@H^dJA
 p0p@
-p2pY$
 p2p_listpeers
 p2p_ping "%s"
 p4edit
+p>dJA
 p?ff
 p@HPX`h\f
 pClass
@@ -10654,10 +10666,12 @@ pClass->m_ClassID(%i) >= %i\n
 pClient
 pCm)
 pH\fy
+pLHA
 pMessage
 pServerClass
 pYa(bu
 p\r0\fP
+p\r`\fPLHA
 package
 packed
 packet
@@ -10726,6 +10740,7 @@ playing %s from '%s'\n
 playsound
 playsound 
 playsound <soundname>
+pndJA
 png 
 png_screenshot
 polymorphic_dependent_arg
@@ -11518,6 +11533,7 @@ tv_password1
 tv_playcast_delay_prediction
 tv_playcast_delay_resync
 tv_playcast_fragment_cache_history_length
+tv_playcast_http_delta_fragment_timeout_s
 tv_playcast_max_rcvage
 tv_playcast_max_rtdelay
 tv_playcast_origin_auth
@@ -11672,6 +11688,7 @@ vaudio_speex
 vconcomm
 vconsole_rcon_server_details
 vcss
+vdJA
 vecSave
 vector
 vector too long
