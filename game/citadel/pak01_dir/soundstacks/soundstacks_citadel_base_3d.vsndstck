@@ -1663,13 +1663,6 @@
 			},
 			
 			{
-				name = "citadel_instance_attenuator"
-				operator = "sos_import_stack"
-				import_stack = "citadel_instance_attenuator"
-				auto_connect_public_fields = "true"
-			},
-			
-			{
 				name = "opvar_get_is_in_hideout"
 				operator = "opvar_get_float"
 				input_execute = "1.0"
@@ -1712,17 +1705,32 @@
 				input8 = "@public.volume_mult"
 				input9 = "@volume_atten_override_switch.output"
 				input10 = "@remap_recency_bias_linear_vol.output"
-				input11 = "@citadel_instance_attenuator::output.result_vol_offset_linear"
 				input12 = "@remap_fade_over_time.output"
+			},
+			
+			{
+				name = "citadel_instance_attenuator"
+				operator = "sos_import_stack"
+				import_stack = "citadel_instance_attenuator"
+				auto_connect_public_fields = "true"
+				operator_variables = 
+				{
+					input_vol_ls = 
+					{
+						data_type = "float"
+						value = "@volume_accumulate_pre_reverb.output"
+					}
+				}
 			},
 			
 			{
 				name = "math_volume_scale_mixer"
 				input_execute = "1.0"
-				operator = "math_float"
+				operator = "math_accumulate12_float"
 				apply = "mult"
 				input1 = "@mixer.output_volume"
 				input2 = "@volume_accumulate_pre_reverb.output"
+				input3 = "@citadel_instance_attenuator::output.result_vol_offset_linear"
 			},
 			
 			{

@@ -5,6 +5,20 @@
 		<include src="s2r://panorama/styles/citadel_base_styles.vcss_c" />
 		<include src="s2r://panorama/styles/hud_health_container.vcss_c" />
 	</styles>
+	<snippets>
+		<snippet name="RecentHealCounter">
+			<Panel class="recentHealCounter">
+				<Image class="healCounterIcon" id="healCounterIcon" src="s2r://panorama/images/control_icons/plus_png.vtex" />
+				<Label class="healCounterLabel" text="+{i:healCounterTotal}" />
+			</Panel>
+		</snippet>
+		<snippet name="RecentDamageCounter">
+			<Panel class="recentDamageCounter">
+				<Image class="damageCounterIcon" id="damageCounterIcon" />
+				<Label class="recentDamageCounterLabel" text="{i:damageCounterTotal}" />
+			</Panel>
+		</snippet>
+	</snippets>
 	<Panel hittest="false">
 		<GlobalClassListener id="healthbar_container" hittest="false" classes="gAbilityUpgradeMenu" />
 		<Panel id="HealthBarContent">
@@ -14,34 +28,8 @@
 			<CitadelHudAbilities id="hud_held" class="abilities held" slots="ability_held" />
 			<CitadelHudHealth id="hud_health_bars" />
 			<Panel id="HealthRegenAndTotal">
-				<Panel class="recentHealCounters">
-					<Panel class="healthHealCounter healCounter1">
-						<Image class="healCounterIcon" id="healCounterIcon1" />
-						<Label class="healthHealCounterLabel" text="+{i:healCounter1}" />
-					</Panel>
-					<Panel class="healthHealCounter healCounter2">
-						<Image class="healCounterIcon" id="healCounterIcon2" />
-						<Label class="healthHealCounterLabel" text="+{i:healCounter2}" />
-					</Panel>
-					<Panel class="healthHealCounter healCounter3">
-						<Image class="healCounterIcon" id="healCounterIcon3" />
-						<Label class="healthHealCounterLabel" text="+{i:healCounter3}" />
-					</Panel>
-				</Panel>
-				<Panel class="recentDamageCounters">
-					<Panel class="healthDamageCounter damageCounter1">
-						<CitadelHeroImage class="damageCounterIcon" id="damageCounterIcon1" />
-						<Label class="healthDamageCounterLabel" text="{i:damageCounter1}" />
-					</Panel>
-					<Panel class="healthDamageCounter damageCounter2">
-						<CitadelHeroImage class="damageCounterIcon" id="damageCounterIcon2" />
-						<Label class="healthDamageCounterLabel" text="{i:damageCounter2}" />
-					</Panel>
-					<Panel class="healthDamageCounter damageCounter3">
-						<CitadelHeroImage class="damageCounterIcon" id="damageCounterIcon3" />
-						<Label class="healthDamageCounterLabel" text="{i:damageCounter3}" />
-					</Panel>
-				</Panel>
+				<Panel id="RecentHealContainer" class="recentHealCounters" />
+				<Panel id="RecentDamageContainer" class="recentDamageCounters" />
 				<Panel class="healthRegenContainer">
 					<Panel class="healtRegenArrows" />
 					<Label class="healthRegenLabel" text="{f:health_regen}/s" />

@@ -897,6 +897,46 @@
 							property_group = "Perspective"
 						}
 					}
+					block_player = 
+					{
+						data_type = "bool"
+						value = "false"
+						_system_properties = 
+						{
+							display_group = "normal"
+							property_group = "Perspective"
+						}
+					}
+					block_opponent = 
+					{
+						data_type = "bool"
+						value = "false"
+						_system_properties = 
+						{
+							display_group = "normal"
+							property_group = "Perspective"
+						}
+					}
+					block_team = 
+					{
+						data_type = "bool"
+						value = "false"
+						_system_properties = 
+						{
+							display_group = "normal"
+							property_group = "Perspective"
+						}
+					}
+					block_neutral = 
+					{
+						data_type = "bool"
+						value = "false"
+						_system_properties = 
+						{
+							display_group = "normal"
+							property_group = "Perspective"
+						}
+					}
 				}
 			},
 			
@@ -969,6 +1009,24 @@
 				operator = "sos_import_stack"
 				import_stack = "citadel_find_perspective"
 				auto_connect_public_fields = "true"
+			},
+			
+			{
+				name = "perspective_switch_block"
+				operator = "logic_perspective_switch_float"
+				input_participant_perspective = "@citadel_find_perspective::game_entity_perspective.output"
+				input_player_value = "@public.block_player"
+				input_team_value = "@public.block_team"
+				input_opponent_value = "@public.block_opponent"
+				input_neutral_value = "@public.block_neutral"
+			},
+			
+			{
+				name = "exec_block_perspective"
+				operator = "sos_goto"
+				execute_once = "true"
+				input_execute = "@perspective_switch_block.output"
+				input_goto_end = "true"
 			},
 			
 			{

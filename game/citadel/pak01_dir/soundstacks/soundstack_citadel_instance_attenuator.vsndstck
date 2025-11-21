@@ -55,7 +55,47 @@
 							property_help = "The name of the branch that the group evaluates."
 						}
 					}
+					instance_attenuator_vol_threshold_ls = 
+					{
+						data_type = "float"
+						value = "0.01"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "Instance Attenuator"
+							property_help = "Volume in linear scale - less than this value will deactivate group counts."
+						}
+					}
+					input_vol_ls = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "Instance Attenuator"
+							property_help = "Linear scale volume to measure for threshold."
+						}
+					}
 				}
+			},
+			
+			{
+				name = "math_vol_above_threshold"
+				operator = "math_float"
+				input_execute = "1.0"
+				input1 = "@public.input_vol_ls"
+				input2 = "@public.instance_attenuator_vol_threshold_ls"
+				apply = "greater_than_or_equal"
+			},
+			
+			{
+				name = "math_attenuator_enabled"
+				operator = "math_float"
+				input_execute = "1.0"
+				input1 = "@public.instance_attenuator_enabled"
+				input2 = "@math_vol_above_threshold.output"
+				apply = "mult"
 			},
 			
 			{
@@ -70,7 +110,7 @@
 			{
 				name = "switch_instance_attenuator_group_mode"
 				execute_once = "true"
-				input_execute = "@public.instance_attenuator_enabled"
+				input_execute = "@math_attenuator_enabled.output"
 				operator = "ctrl_switch_string"
 				input_switch = "@instance_attenuator_name_not_empty.output"
 				input1 = "instance_attenuator_mode_soundevent"
@@ -79,7 +119,7 @@
 			
 			{
 				name = "join_instance_attenuator_group"
-				input_execute = "@public.instance_attenuator_enabled"
+				input_execute = "@math_attenuator_enabled.output"
 				execute_once = "true"
 				operator = "soundevent_group_join"
 				input_group_name = "@switch_instance_attenuator_group_mode.output"
@@ -89,7 +129,7 @@
 			{
 				name = "get_instance_attenuator_kv3"
 				execute_once = "false"
-				input_execute = "@public.instance_attenuator_enabled"
+				input_execute = "@math_attenuator_enabled.output"
 				operator = "soundevent_group_get_float"
 				input_group_result = "@join_instance_attenuator_group.output_result"
 				input_name = "current_count"
@@ -97,7 +137,7 @@
 			
 			{
 				name = "get_group_result_info"
-				input_execute = "@public.instance_attenuator_enabled"
+				input_execute = "@math_attenuator_enabled.output"
 				execute_once = "true"
 				operator = "soundevent_group_info"
 				input_group_result = "@join_instance_attenuator_group.output_result"
@@ -106,7 +146,7 @@
 			{
 				name = "evaluate_opvar_instance_atten"
 				operator = "math_curve_2d"
-				input_execute = "@public.instance_attenuator_enabled"
+				input_execute = "@math_attenuator_enabled.output"
 				input = "@get_instance_attenuator_kv3.output"
 				public_field_name = "public.instance_count_offset_amount_db"
 				input_scale_x = "1.0"
@@ -115,17 +155,17 @@
 			
 			{
 				name = "volume_offset_instance_mult"
-				input_execute = "@public.instance_attenuator_enabled"
+				input_execute = "1"
 				operator = "math_float"
 				apply = "mult"
-				input1 = "@public.instance_attenuator_enabled"
+				input1 = "@math_attenuator_enabled.output"
 				input2 = "@evaluate_opvar_instance_atten.output"
 			},
 			
 			{
 				name = "volume_to_gain"
 				operator = "math_db_to_gain"
-				input_execute = "@public.instance_attenuator_enabled"
+				input_execute = "@math_attenuator_enabled.output"
 				input = "@volume_offset_instance_mult.output"
 			},
 			
