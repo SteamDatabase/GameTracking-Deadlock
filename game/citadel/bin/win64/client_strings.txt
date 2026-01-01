@@ -1873,18 +1873,21 @@ $hRh
 %s copying array count %d\n
 %s created page that doesn't auto-delete "%s"\n
 %s executing script: %s\n
+%s fireworks finished\n
 %s has %d %s interpolation eligible\n
 %s has %d variants\n
 %s has a single variant\n
 %s is a handle 0x%p!!\n
 %s is abstract but didn't have any networkable descendents [found %d possibles], make (at least) one of these leaf classes networkable!!!\n
 %s is not supported by CPredictionCopy::GetValue!!\n
+%s launching firework %s at %d+%2.1fs\n
 %s not found\n
 %s overrides identical base gameevent in '%s'\n
 %s reading array count %d\n
 %s requires %d arguments; only %d given.
 %s restored from text format, should be converted to keyvalues3 text format using sceneimagebuilder -kv3convert -game <dota, etc.>\n
 %s skel=%p agg=%p[%d] %s\n
+%s starting fireworks\n
 %s stopping '%s' to trigger '%s'.\n
 %s was not composed of trivial POD-type fields
 %s will be used\n
@@ -2342,32 +2345,31 @@ $hRh
 (.CPlayer_SetPerFriendPreferences_Request
 (0'yX
 (0x%08X)'??'
-(1L0
-(1f0
-(4@NE
-(4`ye
-(540
+(1T0
+(4@hE
+(520
 (5Me
+(5W0
+(5f0
 (5jP
-(5t0
-(9o0
-(A10
-(AB0
+(9Q0
+(9n0
+(A70
 (ACTIVE)
+(AD0
 (App Id to retrieve published files from.
 (BZq
 (CLIENT) Inventory:\n
 (D4D
-(Ea0
-(El0
 (Fade Removed: [%d,%d,%d,%d])\n
 (I?Value@External@v8@@QEBAPEAXXZ
-(IA0
+(IB0
 (ID of the Cloud file to get details for.
+(IK0
+(IV0
 (Interp Ready=%s)
-(MI0
 (NONE)
-(Qd0
+(Qb0
 (SST) Disconnecting for the purpose of editing %s\n
 (SST) Disconnecting for the purpose of removing all SST data from vpk\n
 (SST) Moving %s to %s\n
@@ -2375,11 +2377,10 @@ $hRh
 (SST) Zipping %s (%d files)\n
 (Text description for the published file.
 (U1h
-(UC0
-(Uj0
+(UG0
 (WIPE AND EXTRACT)
-(Y30
-(Yi0
+(YI0
+(Ye0
 (ZdOt\n&
 (\f"K\n"CMsgClientToGCReplacementSDRTicket
 (\f"h\n\nCP2P_Voice
@@ -2760,24 +2761,27 @@ $hRh
 (\v2\v.CMsgVector"W\n
 (\v2\v.CMsgVector"a\n
 (\v2\v.CMsgVector*
-(ab0
+(aR0
+(ao0
 (d4t8
 (default)
-(e00
 (fS{ggRcjh
 (from angle, to angle, time) - Spherical lerp of angle from->to based on time
 (h`H1pqA
 (i/Al
-(i20
-(iT0
+(iL0
+(iM0
+(ig0
 (int iIndex, int iPoint, Vector vOrigin, QAngle qAngles ) - Set the transform for a control on a particle effect
 (int iIndex, int iPoint, Vector vOrigin, Vector vecForward ) - Set the origin and forward direction for a control on a particle effect
 (int iIndex, int iPoint, Vector vecOffset ) - Set the linear offset for a control on a particle effect
 (int index, bool bDestroyImmediately) - Destroy a particle, if bDestroyImmediately destroy it without playing end caps.
 (jvg;
-(mZ0
+(mQ0
+(mX0
+(ma0
 (memory)
-(mz0
+(mw0
 (needs match)
 (new) AIM: VMDL FOV: %.1f
 (new) IDLE: VMDL FOV: %.1f
@@ -2786,11 +2790,11 @@ $hRh
 (old) IDLE: Old Default FOV: %.1f
 (parent %d)
 (partial match ok)
-(ql0
+(qZ0
 (quaternion,quaternion,float) very basic interpolation of v0 to v1 over t on [0,1]
 (quaternion,vector,float) rotates a quaternion by the specified angle around the specified vector axis
-(uJ0
-(uW0
+(u00
+(uY0
 (update disabled)
 (vQF
 (vector,float) constructs a quaternion representing a rotation by angle around the specified vector axis
@@ -2798,7 +2802,7 @@ $hRh
 (vector,vector,float) lerp between two vectors by a float factor returning new vector
 (vector,vector,float) very basic interpolation of v0 to v1 over t on [0,1]
 (wMww
-(yr0
+(y70
 ) == false\n
 )!)#)?)G)])e)i)o)u)
 )->AmmoEmpty() 
@@ -9134,6 +9138,7 @@ $hRh
 .?AVCCitadel_NPCAbility_HealthNova_VData@@
 .?AVCCitadel_NPCAbility_Shield@@
 .?AVCCitadel_NPCAbility_Shield_VData@@
+.?AVCCitadel_NewYears_Fireworks@@
 .?AVCCitadel_ObjectivesTooltip@@
 .?AVCCitadel_ParticleManager@@
 .?AVCCitadel_Player_Award_Tooltip@@
@@ -12873,6 +12878,7 @@ $hRh
 0;Q5[
 0<cz
 0=Model, 1=Particle, 2=Model+Particle
+0>PY
 0M2~@p
 0Marks latest announcement timestamp read by user
 0Name of the file to publish in the user's cloud.
@@ -12985,6 +12991,7 @@ $hRh
 2 .CMsgGCToClientPartyEvent.EEvent
 2 .CSOAccountChallenge.ERewardType
 2 .PARTICLE_SYSTEM_MANAGER_MESSAGE
+2 XD
 2!.CMsgAddSocketResponse.EAddSocket"
 2!.CMsgGCMsgSetOptions.GCSQLVersion
 2!.CMsgSurveyQuestion.EQuestionType
@@ -13092,7 +13099,7 @@ $hRh
 2Array of text tags to apply to the published file.
 2I y)
 2If true, return vote data in the returned details.
-2PGF
+2PaF
 2Set of published file Ids to retrieve details for.
 2Tm=#
 2Uiwp"9
@@ -13129,7 +13136,7 @@ $hRh
 2\r.ECommendType
 2\rlhp
 2^pV
-2`GB
+2`aB
 2a"l
 2bT~
 2cb:RO
@@ -13197,7 +13204,6 @@ $hRh
 4@AA
 4Ch;
 4F0I
-4F\vp-w
 4Mv8
 4Redirection URI provided during client registration.2
 4Zis
@@ -13334,20 +13340,19 @@ $hRh
 7sAP'
 7wKR
 7zRQ
-8%w0
+8!c0
 8+Qw
-8-D0
+8-s0
 80F2<
+81[0
 82\n:XPH
 851Pe
 8<pl
 8= zp
 8A6j
 8Client ID for which to count the number of issued tokens"
-8E80
 8GZS
 8Gets the list of nicknames this user has for other users
-8IP0
 8If set, remove from ignore/block list instead of adding "\\n
 8If true, return tag information in the returned details.
 8Name of the file to use as the published file's preview.
@@ -13371,21 +13376,19 @@ $hRh
 8\n\tgame_info
 8\n\vAbilityStat
 8\n\vreason_code
+8\tp0
 8\v8!83858A8G8K8S8W8_8e8o8q8}8
 8]Vc2
-8a\v0
+8]r0
+8ax/
 8ca1
 8dS2
-8ei/
-8i?0
-8m90
-8mM0
-8m~0
+8ic0
 8pe7?
 8q-S*]X
 8sOy
 8webm
-8yD0
+8ys0
 9#9%9)9/9=9A9M9[9k9y9}9
 9)PF
 9)jx
@@ -13440,7 +13443,7 @@ $hRh
 :EXTERNAL TYPE %s\n
 :LBN
 :NAy
-:PJE
+:PdE
 :QYJ
 :Vlq
 :\n5k_EMsgClientToGCCancelUnfinalizedTransactionsResponse
@@ -13675,12 +13678,11 @@ $hRh
 ?x29
 @!@%@+@1@?@C@E@]@a@g@m@
 @0pp
+@602
 @?SlowGetInternalField@Object@v8@@AEAA?AV?$Local@VData@v8@@@2@H@Z
-@Az6
 @BH]f
 @HPX`hv 
 @MfKZ
-@My6
 @Pgl
 @Pu\rm
 @Requests the metadata that was generated from a specified fetch.
@@ -13694,10 +13696,11 @@ $hRh
 @absorigin_follow
 @dKb]
 @fff>fff>fff>fff>
-@ht@NE
+@ht@hE
 @i1V
 @keyframes 
 @keyframes '%s'\r\n{\r\n
+@m_bPreIntroFinished
 @n2w
 A bias on the lerp
 A capsule light entity
@@ -13734,7 +13737,7 @@ A<fP
 A>x8
 AA Compromise
 AA->Output
-AA:`GB
+AA:`aB
 AABBDirection
 AABB_t
 AACompromise
@@ -14968,7 +14971,6 @@ B\n\nobjectives
 B\n\rHeroWhitelist
 B\n\vbook_reward
 B\vP\n0
-B\vp-w
 B\vp\n0
 B_txt
 B`4I
@@ -18063,6 +18065,7 @@ CCitadel_NPCAbility_HealthNova_VData
 CCitadel_NPCAbility_Shield
 CCitadel_NPCAbility_Shield_VData
 CCitadel_Nano_Predatory_Statue
+CCitadel_NewYears_Fireworks
 CCitadel_PestilenceDroneDispenser
 CCitadel_PickupItemSpawner
 CCitadel_PlayController::CancelFindMatch
@@ -22590,7 +22593,6 @@ CitadelStatsPanelTooltip
 CitadelStatsSpiritDisplay_t
 CitadelStatsTooltip
 CitadelStatsVitalityDisplay_t
-CitadelStatsWeaponDisplay_t
 CitadelStatusEffect
 CitadelStolenAbilitySlot_t
 CitadelStopEditingProfileCard
@@ -23324,7 +23326,7 @@ D2Lb!
 D4tp
 D514p
 D@D/lcO+hcK
-D@NE
+D@hE
 DAE!
 DAL\fL@
 DBDc
@@ -26761,6 +26763,16 @@ Fired
 Fired after spawning an instance of this template.
 Fired when the relay is spawned. If the relay is set to only trigger once, it will delete itself after firing this output.
 Fired when the relay is triggered. If the relay is set to only trigger once, it will delete itself after firing this output.
+FireworkIntervalMax
+FireworkIntervalMin
+FireworkParticle1
+FireworkParticle2
+FireworkParticle3
+FireworkParticle4
+FireworkParticle5
+FireworkParticle6
+FireworkParticle7
+FireworkParticle8
 Fireworks
 Fireworks.Explode
 Firing Behavior
@@ -27613,10 +27625,8 @@ GunImage
 GyroCamera
 Gz,J
 G{Ol
-H)y6
 H.aR
 H0+G+R
-H1|6
 H5gRR-
 H8,2
 H8xp
@@ -28356,7 +28366,6 @@ HullDesc_tiny_centered
 HullFlags_t
 Hull_t
 Hungarian
-Huz6
 H{1S
 I"9|OxTex
 I+8G
@@ -32332,7 +32341,7 @@ P1\t98"
 P2P ping to "%s". Timed out after %.2fms\n
 P2P_Messages
 P5[1
-P6P!
+P6P;
 PAGN_4
 PANEL_ID
 PANORAMA_LAYOUTFILE
@@ -34926,6 +34935,7 @@ ScoreboardMods
 ScoreboardSelected
 ScrapDamage
 ScratchRT: %s changed, %u->%u\n
+Screen Space Particle FX
 Screen-space particle system to create if the parent of the modifier is the local player
 ScreenShake
 ScreenSpaceParticlesRT
@@ -35745,7 +35755,9 @@ ShowDebugComputed
 ShowDebugDevInfo
 ShowDebugDialogVariables
 ShowDebugStyle
+ShowDelaySeconds
 ShowDescriptionIcon
+ShowDurationSeconds
 ShowEnemyTeam
 ShowEscapeMenu
 ShowFavoriteSelector
@@ -36360,6 +36372,7 @@ StartSoundEventFromPositionReliable
 StartSoundEventFromPositionUnreliable
 StartSoundEventReliable
 StartSoundEventUnreliable
+StartSoundVerticalOffset
 StartTouch
 StartTouch+Collision
 Start_txt
@@ -37536,6 +37549,7 @@ Timed out.
 TimedEvent
 Timeline
 TimelineCompression_t
+Timers
 Tint Color
 TintColor
 Title
@@ -39242,8 +39256,8 @@ X\tQo
 X`hr
 Xd3h
 XfJ7
-XfP\t
-Xfp\n
+XfP#
+Xfp$
 XjfR
 XqgA+
 Xuub
@@ -39337,7 +39351,7 @@ ZOffset
 ZSz@
 ZXF,`i
 Z\n\nmap_values
-Z`GB
+Z`aB
 Zd[w
 Ze2Zh@
 ZipAcc
@@ -39456,7 +39470,7 @@ Z~wl
 \f*t\n ESteamLearnGetAccessTokensResult
 \f7ig
 \f<<0A1pq
-\f@Screen Space Particle FX
+\f@CitadelStatsWeaponDisplay_t
 \fKS1
 \fResourceId_t
 \fW9c
@@ -39652,9 +39666,7 @@ Z~wl
 \n/CMsgClientToGCUpdateHeroBuildPreferenceResponse
 \n/steammessages_publishedfile.steamworkssdk.proto
 \n0CCitadelUserMsg_ParticipantSetLibraryStackFields
-\n0GF
-\n0bK
-\n0zL
+\n0aF
 \n1CHelpRequestLogs_UploadUserApplicationLog_Request
 \n3CMsgServerSteamLearnCitadelPlayerMechanicalBehavior
 \n3CPlayer_GetMutualFriendsForIncomingInvites_Response
@@ -39667,9 +39679,8 @@ Z~wl
 \nDictionary: %s\n
 \nFinished generating SSTs (%.1f seconds)\n\n
 \nGameTime_t
-\nPGF
-\nPJE
-\nPzL
+\nPaF
+\nPdE
 \nSimulating Entities:\n\n
 \n[ Spirit ]
 \n[ Vitality ]
@@ -40754,7 +40765,7 @@ _tools_event_desc
 _xU`u
 _}eOk
 `28)fk
-`2`GB
+`2`aB
 `3?New@Array@v8@@SA?AV?$Local@VArray@v8@@@2@PEAVIsolate@2@H@Z
 `:zQF
 `D$daM-l
@@ -40762,7 +40773,6 @@ _}eOk
 `F?ToLocalEmpty@api_internal@v8@@YAXXZ
 `H(hqA1p
 `ITS
-`IX0
 `VX:H
 `\n\rvector_values
 `\tV_powd
@@ -40772,7 +40782,6 @@ _}eOk
 `generic-method-parameter-
 `generic-type-
 `h9T~
-`ht`ye
 `local static destructor helper'
 `non-type-template-parameter
 `o_je
@@ -43386,6 +43395,9 @@ citadel_napalm_projectile_show_debug
 citadel_new_player_flow_finished can't be turned off (because of the callback) unless you reset the other new player convars. This allows you to turn it off.
 citadel_new_player_flow_visible
 citadel_new_player_progress
+citadel_new_years_fireworks
+citadel_new_years_fireworks_epoch_override
+citadel_new_years_fireworks_force_start
 citadel_news_entries_list_request_count
 citadel_news_entries_seen
 citadel_news_entry_override_latest
@@ -47295,14 +47307,12 @@ gxv>
 g{syW*
 g|FeW\v
 g|MT
-h!g0
 h&eC
 h*Ax
 h0XB
 h2Wl
 h2n_\
 h5N.
-h990
 hActivator
 hAttacker
 hCallbackFunc
@@ -52916,7 +52926,6 @@ m_bPlayerSelectable
 m_bPlayingIdle
 m_bPointTrace
 m_bPowerupActive
-m_bPreIntroFinished
 m_bPrecomputedFieldsValid
 m_bPredErrorCheckCasting
 m_bPredErrorCheckChanneling
@@ -54090,6 +54099,8 @@ m_flFastChargeEndTime
 m_flFastChargeStartTime
 m_flFastSpeed
 m_flFinalValue
+m_flFireworkIntervalMax
+m_flFireworkIntervalMin
 m_flFirstSpawnTime
 m_flFlashpoint
 m_flFlatGroundFrictionGraceTime
@@ -55021,6 +55032,7 @@ m_flStartRadius
 m_flStartScale
 m_flStartScatterTime
 m_flStartScattering
+m_flStartSoundVerticalOffset
 m_flStartSpotted
 m_flStartTimeInCommentary
 m_flStartValue
@@ -56594,6 +56606,14 @@ m_sExpiredSound
 m_sFacingModeUsePath
 m_sFacingReason
 m_sFailureSound
+m_sFireworkParticle1
+m_sFireworkParticle2
+m_sFireworkParticle3
+m_sFireworkParticle4
+m_sFireworkParticle5
+m_sFireworkParticle6
+m_sFireworkParticle7
+m_sFireworkParticle8
 m_sFlashlightMode
 m_sFootstepSound
 m_sFriendName
@@ -57318,6 +57338,8 @@ m_unPingWheelOptionID
 m_unQuickbuyAutoPurchaseRequest
 m_unRecommendedDistance
 m_unRequiredGold
+m_unShowDelaySeconds
+m_unShowDurationSeconds
 m_unSpectatorCount
 m_unVerticalAlign
 m_unpausingPlayerId
@@ -61743,7 +61765,6 @@ rows3
 rows4
 royalblue
 rpg_camera_yaw
-rpzL
 rr_debugclassname
 rr_debugresponseconcept
 rr_debugresponses
@@ -64955,8 +64976,8 @@ z-offset
 z/B,9d
 z<d2
 z>Hz
+z>hD
 z?ff
-zDTimers
 zF):O4
 zFar
 zG2m8

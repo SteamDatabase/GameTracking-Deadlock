@@ -1,0 +1,200 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_seasonal_fireworks = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "_builtins"
+				operator = "sos_builtins"
+				_voicegraph = "citadel.hrtf_basic"
+			},
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					citadel_default_3d = 
+					{
+						data_type = "public_opvar"
+						value = "citadel_default_3d"
+					}
+					probability_block = 
+					{
+						data_type = "float"
+						value = ".5"
+					}
+					probability_big = 
+					{
+						data_type = "float"
+						value = ".15"
+					}
+					vol_big_db = 
+					{
+						data_type = "float"
+						value = "-9.0"
+					}
+					vol_med_db = 
+					{
+						data_type = "float"
+						value = "-9.0"
+					}
+					pitch_big = 
+					{
+						data_type = "float"
+						value = "1.0"
+					}
+					pitch_med = 
+					{
+						data_type = "float"
+						value = "1.5"
+					}
+					pitch_rand_max_big = 
+					{
+						data_type = "float"
+						value = ".1"
+					}
+					pitch_rand_min_big = 
+					{
+						data_type = "float"
+						value = ".1"
+					}
+					pitch_rand_max_med = 
+					{
+						data_type = "float"
+						value = ".1"
+					}
+					pitch_rand_min_med = 
+					{
+						data_type = "float"
+						value = ".1"
+					}
+				}
+			},
+			
+			{
+				name = "block_rand_float"
+				operator = "math_random_float"
+				execute_once = "true"
+				input_min = 0.000000
+				input_max = 1.000000
+			},
+			
+			{
+				name = "block_rand_compare"
+				operator = "math_float"
+				execute_once = "true"
+				apply = "less_than"
+				input1 = "@block_rand_float.output"
+				input2 = "@public.probability_block"
+			},
+			
+			{
+				name = "block_rand"
+				operator = "sos_goto"
+				input_goto_end = "true"
+				execute_once = "1.000000"
+				input_execute = "@block_rand_compare.output"
+			},
+			
+			{
+				name = "rand_size"
+				operator = "math_random_float"
+				execute_once = "true"
+				input_min = 0.000000
+				input_max = 1.000000
+			},
+			
+			{
+				name = "is_big"
+				operator = "math_float"
+				execute_once = "true"
+				apply = "less_than"
+				input1 = "@rand_size.output"
+				input2 = "@public.probability_big"
+			},
+			
+			{
+				name = "is_med"
+				operator = "math_float"
+				execute_once = "true"
+				apply = "greater_than_or_equal"
+				input1 = "@rand_size.output"
+				input2 = "@public.probability_block"
+			},
+			
+			{
+				name = "select_pitch"
+				operator = "ctrl_switch_float"
+				execute_once = "true"
+				input_switch = "@is_big.output"
+				input1 = "@public.pitch_med"
+				input2 = "@public.pitch_big"
+			},
+			
+			{
+				name = "select_pitch_min"
+				operator = "ctrl_switch_float"
+				execute_once = "true"
+				input_switch = "@is_big.output"
+				input1 = "@public.pitch_rand_min_med"
+				input2 = "@public.pitch_rand_min_big"
+			},
+			
+			{
+				name = "select_pitch_max"
+				operator = "ctrl_switch_float"
+				execute_once = "true"
+				input_switch = "@is_big.output"
+				input1 = "@public.pitch_rand_max_med"
+				input2 = "@public.pitch_rand_max_big"
+			},
+			
+			{
+				name = "select_vol"
+				operator = "ctrl_switch_float"
+				execute_once = "true"
+				input_switch = "@is_big.output"
+				input1 = "@public.vol_med_db"
+				input2 = "@public.vol_big_db"
+			},
+			
+			{
+				name = "citadel_default_3d_import"
+				operator = "sos_import_stack"
+				import_stack = "citadel_default_3d"
+				auto_connect_public_fields = "true"
+				operator_variables = 
+				{
+					hrtf_on = 
+					{
+						data_type = "float"
+						value = "@is_med.output"
+					}
+					pitch = 
+					{
+						data_type = "float"
+						value = "@select_pitch.output"
+					}
+					pitch_rand_min = 
+					{
+						data_type = "float"
+						value = "@select_pitch_min.output"
+					}
+					pitch_rand_max = 
+					{
+						data_type = "float"
+						value = "@select_pitch_max.output"
+					}
+					volume = 
+					{
+						data_type = "float"
+						value = "@select_vol.output"
+					}
+				}
+			},
+		]
+	}
+}

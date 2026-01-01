@@ -175,12 +175,10 @@
  (!!! ERROR: NO HITGROUP FOUND IN HITBOXES NOR PHYSICS SHAPES: THIS WON'T BE DESTRUCTIBLE !!!)
  (%ld unused bits)\n
  (08@HPX`j
- (08@HPXbpKa
+ (08@HPXb
  (08@HPZ
- (08@HRpKa
- (08@JpKa
- (0X`hpzpKa
- (2pKa
+ (08@HR
+ (0X`hpz
  (Dirty Animation)
  (Eluded)
  (INVALID PSS PARAMETERS)\n
@@ -427,7 +425,6 @@
 "h\n CUserMessageHapticsManagerEffect
 "l7ql`R2lWf
 "lbN.
-"pKa
 "qVS
 "r\n CMsgClientToGCWrapAndDeliverGift
 "u\n\vECombatType
@@ -846,6 +843,7 @@ $light_emissive
 %s executing script: %s\n
 %s failed on: %s\n
 %s finished post idle at %0.2f\n
+%s fireworks finished\n
 %s firing output OnConditionsSatisfied\n
 %s firing output OnConditionsTimeout (%f seconds)\n
 %s is a priority script and cannot be kicked out of the queue\n
@@ -856,6 +854,7 @@ $light_emissive
 %s is not known landmark\n
 %s is specified as the 'Next Script' and cannot be kicked out of the queue\n
 %s landmarks offset (%.2f %2.f %.2f) ang (%.2f %.2f %.2f)\n
+%s launching firework %s at %d+%2.1fs\n
 %s missing from scenes.vcdlist_c\n
 %s overrides identical base gameevent in '%s'\n
 %s playing CChoreoEvent::SEQUENCE but AI has forced them to do something different\n
@@ -863,6 +862,7 @@ $light_emissive
 %s restored from text format, should be converted to keyvalues3 text format using sceneimagebuilder -kv3convert -game <dota, etc.>\n
 %s skel=%p agg=%p[%d] %s\n
 %s speaking to %s in lane %d\n
+%s starting fireworks\n
 %s waiting... %f\n
 %s was not composed of trivial POD-type fields
 %s was stuck on world geo while being off nav and/or performing an illegal move. Trying to move towards a valid position: %g %g %g\n
@@ -1269,15 +1269,15 @@ $light_emissive
 (.CMsgSteamLearn_SnapshotProject_Response"-
 (0'yX
 (0x%08X)'??'
-(1ZD
+(40A[
+(5DD
+(5MD
 (5Me
-(5ND
-(5XD
 (5jP
-(9SD
+(5pD
+(9BD
 (ACTIVE)
-(ATD
-(AYD
+(AtD
 (BZq
 (CAI_BaseNPC)\nActive behavior name
 (CAI_BaseNPC)\nDistaince to enemy (inches)
@@ -1301,21 +1301,18 @@ $light_emissive
 (CResponseQueue)
 (Calico Cat Form)
 (D4D
-(E4D
-(EQD
-(ERD
+(E5D
+(EjD
 (Global)
 (Has breakpieces or commands)
-(IVD
-(IvD
-(MOD
+(MND
 (NAV IGNORED)
 (NAV_IGNORED)
 (NONE)
 (No Choreo Services)
 (Output drawable)
-(Q2E
-(QJD
+(QCD
+(QOD
 (REBEL)
 (SERVER) Inventory for account (%d):\n
 (Spectator)
@@ -1324,8 +1321,9 @@ $light_emissive
 (TestAnnounce)\n
 (TestAnnounce)\nLane index (1=yellow, 3=green, 4=blue, 6=purple)
 (U1h
-(U2D
+(UKD
 (WIPE AND EXTRACT)
+(YAD
 (ZdOt\n&
 (\f"n\n CMsgGCToGCMasterSubscribeToCache
 (\f"r\n CClientMsg_CustomGameEventBounce
@@ -1653,22 +1651,17 @@ $light_emissive
 (d4t8
 (debug)
 (default)
-(ePD
 (fS{ggRcjh
 (from angle, to angle, time) - Spherical lerp of angle from->to based on time
 (hInflictor, hAttacker, flDamage) - Allocate a damageinfo object, used as an argument to TakeDamage(). Call DestroyDamageInfo( hInfo ) to free the object.
 (h`H1pqA
 (i/Al
-(iWD
-(iaD
 (int iIndex, int iPoint, Vector vOrigin, QAngle qAngles ) - Set the transform for a control on a particle effect
 (int iIndex, int iPoint, Vector vOrigin, Vector vecForward ) - Set the origin and forward direction for a control on a particle effect
 (int iIndex, int iPoint, Vector vecOffset ) - Set the linear offset for a control on a particle effect
 (int index, bool bDestroyImmediately) - Destroy a particle, if bDestroyImmediately destroy it without playing end caps.
 (jvg;
-(mFD
-(mYD
-(moD
+(mBD
 (needs match)
 (no attrib dynamic)
 (no attrib)
@@ -1678,12 +1671,13 @@ $light_emissive
 (only for reason=thank_player)
 (parent %d)
 (partial match ok)
-(qZD
-(qqD
-(qtD
+(qWD
 (quaternion,quaternion,float) very basic interpolation of v0 to v1 over t on [0,1]
 (quaternion,vector,float) rotates a quaternion by the specified angle around the specified vector axis
 (tokamak heatsinks)
+(uLD
+(uMD
+(uPD
 (until %.2f)
 (update disabled)
 (vQF
@@ -1693,6 +1687,7 @@ $light_emissive
 (vector,vector,float) very basic interpolation of v0 to v1 over t on [0,1]
 (wMww
 (while holding)
+(yJD
 )!)#)?)G)])e)i)o)u)
 ).CMsgSteamLearn_InferenceMetadata_Request
 )Ck?B
@@ -1823,6 +1818,7 @@ $light_emissive
 *kf[R
 *laM-\SO
 *o\n\teRollType
+*pvZ
 +'+1+3+=+?+K+O+U+i+m+o+{+
 +(#\v&dbF:xrJ'$#
 +++ %s[%d]: 
@@ -7416,6 +7412,7 @@ $light_emissive
 .?AVCCitadel_NPCAbility_Shield_VData@@
 .?AVCCitadel_Nano_Predatory_Statue@@
 .?AVCCitadel_NeutralCampVData@@
+.?AVCCitadel_NewYears_Fireworks@@
 .?AVCCitadel_ParticleManager@@
 .?AVCCitadel_PestilenceDroneDispenser@@
 .?AVCCitadel_PickupItemSpawner@@
@@ -10619,7 +10616,7 @@ $light_emissive
 02V8[
 05=k
 08@HR
-08@JpKa
+08@J
 08bX
 09,h
 0: (V0) Legacy save format, 1: (V1) KeyValues3 save format
@@ -10743,7 +10740,6 @@ $light_emissive
 2-.CMsgGCToServerAddSpectatorResponse.EResponse
 2/.CMsgGameServerToClientConnectionStatus.EStatus
 2/.CMsgServerSignoutData_HeroXPGrant.EGrantReason
-20#Y
 20t\f
 21.CMsgClientToGCUnpackBundleResponse.EUnpackBundle
 22.CMsgServerToGCMatchSignoutResponse.ESignoutResult"
@@ -10794,7 +10790,7 @@ $light_emissive
 2\n\tsource_gc
 2\r.CameraAction
 2\rlhp
-2\vpd*
+2\vp\ft
 2^pV
 2_BONE_IK
 2_tasks_left
@@ -10805,8 +10801,8 @@ $light_emissive
 2f)l=
 2nIg
 2p"6
-2pKa
 2prB
+2pvZ
 3%3+3/353A3G3[3_3g3k3s3y3
 30.0
 31tPR
@@ -10915,7 +10911,7 @@ $light_emissive
 65535"
 65535"j\n
 65535B$
-6666666666666666 h&
+6666666666666666
 666666666666666666666666666666666666666666666666\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\.\ssl\s3_enc.c
 67-s
 6H,N
@@ -10980,17 +10976,16 @@ $light_emissive
 7sAP'
 7wKR
 7zRQ
-8!6D
-8)GD
 8+Qw
 80F2<
 82\n:XPH
 851Pe
 8<pl
 8= zp
+8A$E
 8A6j
 8GZS
-8I+E
+8I\vD
 8SIffK5W
 8TZvrv<
 8\n0time_spent_not_contributing_to_game_events_ratio
@@ -11013,17 +11008,15 @@ $light_emissive
 8]Vc2
 8ca1
 8dS2
-8eHD
-8i6D
+8e(D
+8m9D
 8pe7?
 8q-S*]X
 8sOy
-8}ND
 9#9%9)9/9=9A9M9[9k9y9}9
 9)PF
 9)jx
 9*VU
-92ID
 95\r9{
 9966
 9:dzGN
@@ -11056,7 +11049,7 @@ $light_emissive
 9oB#
 9q6\r#m
 9r#xV
-9rID
+9v;D
 : Stopped for %.2f. 
 :%s PlayerSlot Damage
 :%s PlayerSlot Healed
@@ -11085,7 +11078,6 @@ $light_emissive
 :eaI
 :gN(dq
 :mIR
-:pKa
 :parsed on tick %d of %d got %d new commands through command number %d [%s]\n
 :w4v
 ;!;#;-;9;E;S;Y;_;q;{;
@@ -11260,10 +11252,9 @@ $light_emissive
 @!@%@+@1@?@C@E@]@a@g@m@
 @0pp
 @333?
-@6py
 @BH]f
 @BoneSetup
-@HeroDraftPositionChanged
+@CCitadelItemPunchableNeutralGoldVData
 @MfKZ
 @Pgl
 @Pu\rm
@@ -11277,6 +11268,7 @@ $light_emissive
 @\n\fSingleObject
 @dKb]
 @fff>fff>fff>fff>
+@ht0A[
 @i1V
 @n2w
 @player_start_teleport_destination
@@ -13944,7 +13936,6 @@ CCitadelItemPickupRejuvHeroTestInfoSpawn
 CCitadelItemPickupRejuvHeroTestVData
 CCitadelItemPickupRejuvVData
 CCitadelItemPunchableNeutralGold
-CCitadelItemPunchableNeutralGoldVData
 CCitadelLobby
 CCitadelMatchDataWatcher Tracked Stats\n
 CCitadelMatchmakingStatusInfo
@@ -15720,6 +15711,7 @@ CCitadel_NPCAbility_Shield
 CCitadel_NPCAbility_Shield_VData
 CCitadel_Nano_Predatory_Statue
 CCitadel_NeutralCampVData
+CCitadel_NewYears_Fireworks
 CCitadel_PestilenceDroneDispenser
 CCitadel_PickupItemSpawner
 CCitadel_PickupItemSpawnerAPI
@@ -20009,6 +20001,7 @@ D(n%6
 D*64
 D.Hog^
 D.]ppM
+D0A[
 D2I_ASN1_BIT_STRING
 D2I_ASN1_GENERALIZEDTIME
 D2I_ASN1_HEADER
@@ -23383,6 +23376,16 @@ Fired when the relay is spawned. If the relay is set to only trigger once, it wi
 Fired when the relay is triggered. If the relay is set to only trigger once, it will delete itself after firing this output.
 Fired whenever this sensor hears any sound it cares about. The activator is the owner of the event (can be null).
 Fires off this entity's OnTrigger responses.
+FireworkIntervalMax
+FireworkIntervalMin
+FireworkParticle1
+FireworkParticle2
+FireworkParticle3
+FireworkParticle4
+FireworkParticle5
+FireworkParticle6
+FireworkParticle7
+FireworkParticle8
 Fireworks
 Fireworks.Explode
 Firing Behavior
@@ -24579,6 +24582,7 @@ HeroBuildTagID_t
 HeroBulletLifestealEffectiveness
 HeroDataManifest_global_server
 HeroDataSystem
+HeroDraftPositionChanged
 HeroID
 HeroID_t
 HeroID_t"
@@ -28824,7 +28828,6 @@ OffsetScatterAngle
 OffsetScatterDir
 Offsets the bot yaw.
 Oh%u'
-Om_nActiveCapturers
 On Canceled
 On End
 On Finished
@@ -29348,14 +29351,11 @@ P-224
 P-256
 P-384
 P-521
-P08@JpKa
-P08J
+P08@J
+P08J0
 P1\t98"
-P2pKa
 P5[1
-P60_
-P6ps
-P:pKa
+P6p=
 PAGN_4
 PANEL_ID
 PARALYZE
@@ -30641,9 +30641,9 @@ RUMBLE_SHOTGUN_DOUBLE
 RUMBLE_SHOTGUN_SINGLE
 RUMBLE_SMG1
 RUMBLE_STOP_ALL
-R\fpd*
 R\n\nBookReward
 R\r1>Vp
+R\vp\ft
 R]Di
 Rad2 Deg
 RadiationThink
@@ -32667,6 +32667,7 @@ Sets a variable on the animgraph of the given entity(s)\n\tArguments:   <varname
 Sets an opvar value for a single player
 Sets an opvar value for all players
 Sets damage display mode.  When on, you will see the amount of damage dealt over the target's head.
+Sets fireworks start time to be N seconds in the future.
 Sets the inertia scale on the motor, which affects the maximum amount of torque it can generate (this will also affect the actual time the motor takes to spin up or spin down).
 Sets the joint limit angles. Only valid for prismatic and revolute joints.
 Sets the target's health, even above max. Optionally matches based on npc name to set multiple npc's health.\n\tArgs: [npc] <amount>
@@ -32789,6 +32790,8 @@ Show the free split line.
 Show the steering regulations associated with the NPC
 Show verbose matching output (1 for simple, 2 for rule scoring, 3 for noisy). If set to 4, it will only show response success/failure for npc_selected NPCs.
 Show when a NPC is waiting for facing tolerance to be reached while at the end of its path
+ShowDelaySeconds
+ShowDurationSeconds
 ShowHint
 ShowLogo
 ShowMessage
@@ -33291,6 +33294,7 @@ StartSoundEventFromPositionReliable
 StartSoundEventFromPositionUnreliable
 StartSoundEventReliable
 StartSoundEventUnreliable
+StartSoundVerticalOffset
 StartSpark
 StartSpawnGroupLoad
 StartSpawnGroupUnload
@@ -35624,7 +35628,6 @@ Which ability to fire a MODIFIER_EVENT_ABILITY_TRIGGER_ACTIVATED event to when t
 Which entity should we spew input for? (Useful for debugging bot input)
 Which hero do we spawn when we spawn and enemy or ally hero
 Which hero to auto-select the first time in the game.
-Which lane should be active? 0 means all
 Which lesson to associate with activating this ability
 Which material group of the model should be used?
 Which recipients do you want this ping message sent to?
@@ -35933,7 +35936,6 @@ Zone2Distance
 Zoom
 ZoomBias
 ZoomTime
-ZpKa
 Zpwz
 Z~wl
 [ %s ( %i ) ] The maximum time ( %.2f sec ) in state %s has elapsed. Forcing either idle or loop state based on path existence
@@ -36230,6 +36232,7 @@ Z~wl
 \n.CCitadelUserMsg_ParticipantSetSoundEventParams
 \n.steammessages_unified_base.steamworkssdk.proto
 \n0CCitadelUserMsg_ParticipantSetLibraryStackFields
+\n0qb
 \n3CMsgServerSteamLearnCitadelPlayerMechanicalBehavior
 \n4CMsgClientToGCGetLimitedItemPurchaseQuantityResponse
 \n5CProtoItemSocket_Strange_DESERIALIZE_FROM_STRING_ONLY
@@ -36240,6 +36243,8 @@ Z~wl
 \nDictionary: %s\n
 \nEnemy is %s
 \nGameTime_t
+\nPqb
+\nPta
 \nSimulating Entities:\n\n
 \nVisMon: Polling now. (Frequency: %f)\n
 \n\fBPE_Teleport
@@ -36989,7 +36994,6 @@ Z~wl
 \n\vvalue_float
 \n\vversion_max
 \n\vversion_min
-\npKa
 \nqYu
 \ntM(ie-V
 \r!\r+\r-\r=\r?\rO\rU\ri\ry\r
@@ -37108,7 +37112,6 @@ Z~wl
 \tvn %f %f %f\n
 \t}BzJ88
 \v#\v)\v-\v?\vG\vQ\vW\v]\ve\vo\v{\v
-\v1aM
 \vBCeA
 \vCPlayerSlot"
 \vCPlayerSlot"x\n)CCitadelUserMsg_ParticipantStopSoundEvent
@@ -37197,25 +37200,21 @@ _tools_event_desc
 _xU`u
 _}eOk
 `28)fk
-`2pKa
-`52D
-`60O
 `:zQF
+`ATD
 `D$daM-l
 `DZG
-`EmD
 `H(hqA1p
 `ITS
 `VX:H
 `\n\rvector_values
 `adjustor{
-`ehD
 `fPw.\vM
 `generic-class-parameter-
 `generic-method-parameter-
 `generic-type-
 `h9T~
-`htp<
+`iTD
 `local static destructor helper'
 `non-type-template-parameter
 `o_je
@@ -37228,7 +37227,6 @@ _}eOk
 `vtordispex{
 `vtordisp{
 `yNT
-`yeD
 a null shared library handle was used
 a trigger_changelevel doesn't have a map
 a world layer in a dota map
@@ -39653,6 +39651,10 @@ citadel_neutral_initial_spawn_time_override
 citadel_neutral_spawn_enabled
 citadel_neutral_spawn_interval_override
 citadel_neutral_spawn_range
+citadel_new_years_fireworks
+citadel_new_years_fireworks_epoch_override
+citadel_new_years_fireworks_force_start
+citadel_new_years_fireworks_test
 citadel_no_orbs_on_hero_kill
 citadel_no_orbs_on_objective_kill
 citadel_npc_allow_climb
@@ -42861,21 +42863,19 @@ gxv>
 g{syW*
 g|FeW\v
 g|MT
+h!XD
 h&eC
 h*Ax
 h0XB
-h1_D
 h2Wl
 h2n_\
 h5N.
-h5lD
-h93D
-h=xD
+h5eD
+h9lD
 hActivator
 hAdditionalActor%d
 hAttacker
 hAttributeValue
-hA|D
 hCallbackFunc
 hCallbackScope
 hCaller
@@ -42910,12 +42910,11 @@ hSystem
 hTargetEnt
 hTargetEntity
 hThinkFunc
-hUiD
-hUnD
 hW*m
 hW1M
 hW_z
 hX@e
+h\tVD
 h`Zr
 hack
 hack_send_matchperfstats
@@ -43137,7 +43136,6 @@ hltv_replay
 hltv_title
 hltv_versioninfo
 hlvr
-hm`D
 hmac
 hmac-md5
 hmac-sha1
@@ -43178,10 +43176,10 @@ hoverposeangles
 hoverposeflags
 hoverposeposition
 hows joint info for this entity
-hpzpKa
 hr_H
 http request
 https proxy request
+huQD
 hud_skin
 hudtextparms_t
 hull
@@ -43195,7 +43193,7 @@ hulls
 hurtme
 hurtthem
 hvL&
-hyiD
+hy^D
 h|gg
 i <= EVP_MAX_MD_SIZE
 i%YR
@@ -44133,7 +44131,6 @@ joint-iso-itu-t
 joint_friction
 jointfriction
 joy_autoaimdampen
-jpKa
 jt(@L
 jtv2@
 juggle_event_type
@@ -50128,6 +50125,8 @@ m_flFieldOfView
 m_flFinalValue
 m_flFinishedTime
 m_flFireInterval
+m_flFireworkIntervalMax
+m_flFireworkIntervalMin
 m_flFiringInterval
 m_flFirstSpawnTime
 m_flFirstThink
@@ -51361,6 +51360,7 @@ m_flStartRadius
 m_flStartScale
 m_flStartScatterTime
 m_flStartScattering
+m_flStartSoundVerticalOffset
 m_flStartSpeed
 m_flStartSpotted
 m_flStartTimeInCommentary
@@ -52766,6 +52766,7 @@ m_nAbilityTargetFlags
 m_nAbilityTargetTypes
 m_nAbillityUnlocksCost
 m_nActivateTime
+m_nActiveCapturers
 m_nActiveFX
 m_nActiveIKChainMask
 m_nActiveRopeFX
@@ -54027,6 +54028,14 @@ m_sExpiredSound
 m_sFacingModeUsePath
 m_sFacingReason
 m_sFailureSound
+m_sFireworkParticle1
+m_sFireworkParticle2
+m_sFireworkParticle3
+m_sFireworkParticle4
+m_sFireworkParticle5
+m_sFireworkParticle6
+m_sFireworkParticle7
+m_sFireworkParticle8
 m_sFixedSpawnGroupName
 m_sFlashlightMode
 m_sFootstepSound
@@ -54959,6 +54968,8 @@ m_unPrevWaypointMovableMeshId
 m_unQuickbuyAutoPurchaseRequest
 m_unRecommendedDistance
 m_unRequiredGold
+m_unShowDelaySeconds
+m_unShowDurationSeconds
 m_unSpectatorCount
 m_unVerticalAlign
 m_unpausingPlayerId
@@ -58066,12 +58077,12 @@ p.other
 p.ppBasis
 p.prime
 p.tpBasis
-p2pKa
 p2{l
 p4Z3
 p5Z3
 p5\nL,
 p618
+p6P@
 p@0pqE5tsO?|1
 pActivator
 pAnimGraphEntity
@@ -58095,6 +58106,7 @@ pData->GetDataDescMap() == pTemplateDataMap
 pDefault
 pDescription
 pEntity
+pF0G
 pField
 pFilter
 pFirstWaypoint type[%d]
@@ -59092,7 +59104,6 @@ queueing followup after '%s' speaks '%s', in %.3f seconds (%.3f duration, %.3f d
 quickbuy
 quiet
 qx(q
-r 2b
 r$0I
 r-IE
 r184
@@ -59111,7 +59122,6 @@ rX&O0
 rZ1VwGf5
 rZPM
 r\vDi
-r\vpd*
 r_AirboatViewDampenDamp
 r_AirboatViewDampenFreq
 r_AirboatViewZHeight
@@ -59546,6 +59556,7 @@ round_end
 round_start
 routing
 routing_app_id
+rpqb
 rr_debugclassname
 rr_debugresponseconcept
 rr_debugresponses
@@ -62568,6 +62579,7 @@ z(ov
 z/B,9d
 z<d2
 z>Hz
+zDWhich lane should be active? 0 means all
 zF):O4
 zFar
 zG2m8
@@ -62591,7 +62603,6 @@ zlib compression
 zmax
 zmin
 zone
-zpKa
 zxNIjo
 zz2K
 { 'Output'='m_strEntityOutput' 'Param'='m_strEntityOutputParam' 'Until Canceled'='m_bListenUntilCanceled' }
