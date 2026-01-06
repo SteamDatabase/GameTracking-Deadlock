@@ -174,12 +174,13 @@
  ( NOT SUPPORTED BY ANIMGRAPH ) 
  (!!! ERROR: NO HITGROUP FOUND IN HITBOXES NOR PHYSICS SHAPES: THIS WON'T BE DESTRUCTIBLE !!!)
  (%ld unused bits)\n
- (08@HPX`j0
- (08@HPXb
- (08@HPZ0
- (08@HR
- (08@J0
- (0X`hpz
+ (08@HPX`j
+ (08@HPXbPFe
+ (08@HPZ
+ (08@HRPFe
+ (08@JPFe
+ (0X`hpzPFe
+ (2PFe
  (Dirty Animation)
  (Eluded)
  (INVALID PSS PARAMETERS)\n
@@ -373,7 +374,6 @@
 ":\n$CCitadelUserMsg_SpectatorTeamChanged
 "; boundary="----%s"%s%s
 ";\n\tEChatMode
-"=\n\rEMatchOutcome
 "C\n)CCitadelClientMsg_HideoutMatchmakingState
 "Console<0>" say "%s"\n
 "Console<0>" say_team "%s"\n
@@ -388,6 +388,7 @@
 "Limit Count: " + m_nLimitCount
 "N\n!CMsgGCToGCUpdateSubscriptionItems
 "O\n CMsgGCToGCStoreProcessSettlement
+"PFe
 "Q\n!CClientMsg_ListenForResponseFound
 "R\n CCitadelUserMsg_FlexSlotUnlocked
 "S\n CCitadelClientMsg_GetDamageStats
@@ -520,6 +521,12 @@
 #Citadel_Hud_KillFeedTrooper
 #Citadel_Hud_KillFeedWalker
 #Citadel_Hud_KillFeedWorld
+#Citadel_Team1_Name
+#Citadel_Team2_Name
+#Citadel_TeamName_Invalid
+#Citadel_TeamName_Neutral
+#Citadel_TeamName_Spectator
+#Citadel_TeamName_Unassigned
 #EntFire:Generate and entity i/o event
 #EntFireByHandle:Generate and entity i/o event
 #Ignore_Broadcast_Messages
@@ -578,6 +585,7 @@ $\n k_eBannedFeature_CommsRestricted
 $\n\fplayer_slots
 $\n\nparam_mode
 $\n\tgame_mode
+$\n\vaccolade_id
 $d`D-laM
 $f;Zv9l\r
 $flash_start_time
@@ -585,6 +593,7 @@ $g#8lu#
 $gender
 $hRh 
 $light_emissive
+$tJ@T\tK
 %%%d.%ds [%%3.3s] (%%5d) %%%d.%ds:
 %%%d.%ds [%%s::%%s] 
 %%s  %%c %%10s : %c%%%ds%c %%s
@@ -1219,6 +1228,7 @@ $light_emissive
 '\n#STEAMLEARN_INFERENCE_METADATA_ERROR
 '\n#k_ECitadelLeaderboardRegion_Oceania
 '\n#k_EGCMsgUseItemResponse_ServerError
+'\n#k_EServerLobbyData_PlayerStatValues
 '\n#k_EServerSignoutData_Disconnections
 '\n#k_EServerSignoutData_PlayerBehavior
 '\n#k_ESignout_Success_AlreadySignedOut
@@ -1270,20 +1280,16 @@ $light_emissive
 (.CMsgSteamLearn_SnapshotProject_Response"-
 (0'yX
 (0x%08X)'??'
-(12D
-(18D
-(1HD
-(1LD
-(1PD
-(1QD
-(4PA[
+(5JJ
 (5Me
+(5aJ
+(5fJ
 (5jP
-(5tD
-(95D
-(9jD
+(5pI
+(98J
+(9NJ
+(9fI
 (ACTIVE)
-(AND
 (BZq
 (CAI_BaseNPC)\nActive behavior name
 (CAI_BaseNPC)\nDistaince to enemy (inches)
@@ -1307,18 +1313,22 @@ $light_emissive
 (CResponseQueue)
 (Calico Cat Form)
 (D4D
-(ECD
-(EOD
+(EBJ
+(EUJ
 (Global)
 (Has breakpieces or commands)
-(IKD
-(MAD
+(M2I
+(MEJ
+(MTJ
+(MVI
 (NAV IGNORED)
 (NAV_IGNORED)
 (NONE)
 (No Choreo Services)
 (Output drawable)
-(QuD
+(QZJ
+(QcI
+(QzI
 (REBEL)
 (SERVER) Inventory for account (%d):\n
 (Spectator)
@@ -1327,7 +1337,12 @@ $light_emissive
 (TestAnnounce)\n
 (TestAnnounce)\nLane index (1=yellow, 3=green, 4=blue, 6=purple)
 (U1h
+(U5J
+(UnI
 (WIPE AND EXTRACT)
+(YLJ
+(YTI
+(YcJ
 (ZdOt\n&
 (\f"n\n CMsgGCToGCMasterSubscribeToCache
 (\f"r\n CClientMsg_CustomGameEventBounce
@@ -1416,6 +1431,7 @@ $light_emissive
 (\v2 .CMsgItemAges.MaxItemIDTimestamp
 (\v2 .CMsgMatchMetaDataContents.Items
 (\v2 .CMsgMatchMetaDataContents.Pause
+(\v2 .CMsgMatchMetaDataContents.Teams"=\n\rEMatchOutcome
 (\v2 .CMsgSerializedSOCache.TypeCache
 (\v2 .CUserMsg_ParticleManager.AddFan
 (\v2!.CMsgAMSendEmail.ReplacementToken
@@ -1487,6 +1503,7 @@ $light_emissive
 (\v2).CMsgGCHAppCheersReceived.CheerTypeAmount"F\n
 (\v2).CMsgGCMsgMasterSetClientMsgRouting.Entry
 (\v2).CMsgMatchMetaDataContents.CustomUserStat
+(\v2).CMsgMatchMetaDataContents.PlayerAccolade
 (\v2).CMsgMatchPlayerDamageMatrix.DamageDealer
 (\v2).CMsgMatchPlayerDamageMatrix.DamageSource
 (\v2).CMsgParticleSystemManager.CreateParticle
@@ -1579,6 +1596,7 @@ $light_emissive
 (\v23.CMsgParticleSystemManager.DestroyParticleInvolving
 (\v23.CMsgParticleSystemManager.UpdateParticleShouldDraw
 (\v23.CMsgSteamLearn_InferenceMetadata_Response.RowRange
+(\v23.CServerLobbyData_PlayerStatValues.StatDistribution
 (\v23.CUserMessageCameraTransition.Transition_DataDriven
 (\v23.CUserMsg_ParticleManager.SetParticleShouldCheckFoW
 (\v23.CUserMsg_ParticleManager.SetSceneObjectGenericFlag
@@ -1588,6 +1606,7 @@ $light_emissive
 (\v24.CUserMsg_ParticleManager.SetSceneObjectTintAndDesat
 (\v24.CUserMsg_ParticleManager.UpdateParticleFwd_OBSOLETE
 (\v25.CMsgServerSignoutData_DetailedStats.TimeSample.Stats
+(\v25.CServerLobbyData_PlayerStatValues.AccoladeThresholds
 (\v25.CUserMsg_ParticleManager.AddModellistOverrideElement
 (\v25.CWorkshop_GetSpecialPayments_Response.SpecialPayment
 (\v26.CMsgServerSignoutData_AccountStatChanges.AccountStats
@@ -1652,25 +1671,35 @@ $light_emissive
 (\v2\v.CMsgVector"W\n
 (\v2\v.CMsgVector"a\n
 (\v2\v.CMsgVector*
-(aBD
+(a0I
+(a3I
+(aGI
+(aQJ
+(aXI
+(aZI
+(agI
 (d4t8
 (debug)
 (default)
-(eWD
+(e6I
+(eCJ
+(eLI
 (fS{ggRcjh
 (from angle, to angle, time) - Spherical lerp of angle from->to based on time
 (hInflictor, hAttacker, flDamage) - Allocate a damageinfo object, used as an argument to TakeDamage(). Call DestroyDamageInfo( hInfo ) to free the object.
 (h`H1pqA
 (i/Al
-(iLD
-(iMD
-(iPD
+(iJJ
+(iUI
 (int iIndex, int iPoint, Vector vOrigin, QAngle qAngles ) - Set the transform for a control on a particle effect
 (int iIndex, int iPoint, Vector vOrigin, Vector vecForward ) - Set the origin and forward direction for a control on a particle effect
 (int iIndex, int iPoint, Vector vecOffset ) - Set the linear offset for a control on a particle effect
 (int index, bool bDestroyImmediately) - Destroy a particle, if bDestroyImmediately destroy it without playing end caps.
+(ioI
 (jvg;
-(mJD
+(mDJ
+(mQI
+(mgJ
 (needs match)
 (no attrib dynamic)
 (no attrib)
@@ -1680,11 +1709,10 @@ $light_emissive
 (only for reason=thank_player)
 (parent %d)
 (partial match ok)
-(qED
 (quaternion,quaternion,float) very basic interpolation of v0 to v1 over t on [0,1]
 (quaternion,vector,float) rotates a quaternion by the specified angle around the specified vector axis
 (tokamak heatsinks)
-(u8D
+(ubJ
 (until %.2f)
 (update disabled)
 (vQF
@@ -1694,8 +1722,11 @@ $light_emissive
 (vector,vector,float) very basic interpolation of v0 to v1 over t on [0,1]
 (wMww
 (while holding)
-(yFD
-(yKD
+(y7I
+(yBI
+(yGJ
+(yKI
+(yTJ
 )!)#)?)G)])e)i)o)u)
 ).CMsgSteamLearn_InferenceMetadata_Request
 )Ck?B
@@ -1989,6 +2020,7 @@ $light_emissive
 -0700
 -0800
 -1 255
+-1 = force disabled, 0 = default, 1 = force enabled
 -1 means use m_flCycleTime
 -1"&\n$CMsgGCToGCReloadServerRegionSettings"K\n
 -1"8\n%CGCSystemMsg_GetPurchaseTrust_Request
@@ -2104,6 +2136,7 @@ $light_emissive
 .?AUSquadModeInfo_t@@
 .?AUStatViewerModifierValues_t@@
 .?AUStolenAbilityPair_t@@
+.?AUTrackedStatNetworkData_t@@
 .?AUTranslationTrack_t@@
 .?AUVDataInitInfo_t@@
 .?AUVPhysicsCollisionAttribute_t@@
@@ -2539,6 +2572,7 @@ $light_emissive
 .?AV?$CEntitySpawner@VCItemFlare@@@@
 .?AV?$CEntitySpawner@VCItemGenericTriggerHelper@@@@
 .?AV?$CEntitySpawner@VCItemXP@@@@
+.?AV?$CEntitySpawner@VCMatchTrackedStatsEntity@@@@
 .?AV?$CEntitySpawner@VCNPC_Escort@@@@
 .?AV?$CEntitySpawner@VCNPC_HeroCloneTrooper@@@@
 .?AV?$CEntitySpawner@VCNPC_HeroDecoy@@@@
@@ -2558,6 +2592,7 @@ $light_emissive
 .?AV?$CEntitySpawner@VCPhysicsEntitySolver@@@@
 .?AV?$CEntitySpawner@VCPhysicsNPCSolver@@@@
 .?AV?$CEntitySpawner@VCPlatTrigger@@@@
+.?AV?$CEntitySpawner@VCPlayerTrackedStatsEntity@@@@
 .?AV?$CEntitySpawner@VCPointEntity@@@@
 .?AV?$CEntitySpawner@VCRagdollProp@@@@
 .?AV?$CEntitySpawner@VCRagdollPropAttached@@@@
@@ -2566,6 +2601,7 @@ $light_emissive
 .?AV?$CEntitySpawner@VCShatterGlassShardPhysics@@@@
 .?AV?$CEntitySpawner@VCSprite@@@@
 .?AV?$CEntitySpawner@VCTeam@@@@
+.?AV?$CEntitySpawner@VCTeamTrackedStatsEntity@@@@
 .?AV?$CEntitySpawner@VCTriggerBurrowUnderground@@@@
 .?AV?$CEntitySpawner@VCTriggerIcePathVolume@@@@
 .?AV?$CEntitySpawner@VCTriggerMultiple@@@@
@@ -2635,6 +2671,7 @@ $light_emissive
 .?AV?$CEntitySpawnerBase@VCItemFlare@@@@
 .?AV?$CEntitySpawnerBase@VCItemGenericTriggerHelper@@@@
 .?AV?$CEntitySpawnerBase@VCItemXP@@@@
+.?AV?$CEntitySpawnerBase@VCMatchTrackedStatsEntity@@@@
 .?AV?$CEntitySpawnerBase@VCNPC_Escort@@@@
 .?AV?$CEntitySpawnerBase@VCNPC_HeroCloneTrooper@@@@
 .?AV?$CEntitySpawnerBase@VCNPC_HeroDecoy@@@@
@@ -2655,6 +2692,7 @@ $light_emissive
 .?AV?$CEntitySpawnerBase@VCPhysicsNPCSolver@@@@
 .?AV?$CEntitySpawnerBase@VCPhysicsProp@@@@
 .?AV?$CEntitySpawnerBase@VCPlatTrigger@@@@
+.?AV?$CEntitySpawnerBase@VCPlayerTrackedStatsEntity@@@@
 .?AV?$CEntitySpawnerBase@VCPointEntity@@@@
 .?AV?$CEntitySpawnerBase@VCRagdollProp@@@@
 .?AV?$CEntitySpawnerBase@VCRagdollPropAttached@@@@
@@ -2663,6 +2701,7 @@ $light_emissive
 .?AV?$CEntitySpawnerBase@VCShatterGlassShardPhysics@@@@
 .?AV?$CEntitySpawnerBase@VCSprite@@@@
 .?AV?$CEntitySpawnerBase@VCTeam@@@@
+.?AV?$CEntitySpawnerBase@VCTeamTrackedStatsEntity@@@@
 .?AV?$CEntitySpawnerBase@VCTriggerBurrowUnderground@@@@
 .?AV?$CEntitySpawnerBase@VCTriggerIcePathVolume@@@@
 .?AV?$CEntitySpawnerBase@VCTriggerMultiple@@@@
@@ -2800,6 +2839,7 @@ $light_emissive
 .?AV?$CGameSystemStaticFactory@VCAnchorList@@V1@@@
 .?AV?$CGameSystemStaticFactory@VCCitadeNPCMovementTaskQueue@@V1@@@
 .?AV?$CGameSystemStaticFactory@VCCitadelAbilityManager@@V1@@@
+.?AV?$CGameSystemStaticFactory@VCCitadelAccoladesGameSystem@@V1@@@
 .?AV?$CGameSystemStaticFactory@VCCitadelAudioEntityInfo@@V1@@@
 .?AV?$CGameSystemStaticFactory@VCCitadelAudioManager@@V1@@@
 .?AV?$CGameSystemStaticFactory@VCCitadelBotGameSystem@@V1@@@
@@ -2814,6 +2854,7 @@ $light_emissive
 .?AV?$CGameSystemStaticFactory@VCCitadelHeroDataSystem@@V1@@@
 .?AV?$CGameSystemStaticFactory@VCCitadelHeroInspectAutoGameSystem@@V1@@@
 .?AV?$CGameSystemStaticFactory@VCCitadelInventoryManager@@V1@@@
+.?AV?$CGameSystemStaticFactory@VCCitadelMVPSchemaGameSystem@@V1@@@
 .?AV?$CGameSystemStaticFactory@VCCitadelMinimapGameSystem@@V1@@@
 .?AV?$CGameSystemStaticFactory@VCCitadelMusicData@@V1@@@
 .?AV?$CGameSystemStaticFactory@VCCitadelNeutralManagementSystem@@V1@@@
@@ -2822,8 +2863,11 @@ $light_emissive
 .?AV?$CGameSystemStaticFactory@VCCitadelPingWheelData@@V1@@@
 .?AV?$CGameSystemStaticFactory@VCCitadelPointPulseSystem@@V1@@@
 .?AV?$CGameSystemStaticFactory@VCCitadelRecentGameEventsTracker@@V1@@@
+.?AV?$CGameSystemStaticFactory@VCCitadelServerAccoladesGameSystem@@V1@@@
 .?AV?$CGameSystemStaticFactory@VCCitadelServerGCSystem@@V1@@@
 .?AV?$CGameSystemStaticFactory@VCCitadelServerHideoutGameSystem@@V1@@@
+.?AV?$CGameSystemStaticFactory@VCCitadelStatTrackerSchemaGameSystem@@V1@@@
+.?AV?$CGameSystemStaticFactory@VCCitadelStatTrackerServerGameSystem@@V1@@@
 .?AV?$CGameSystemStaticFactory@VCCitadelSteamLearnGameSystem@@V1@@@
 .?AV?$CGameSystemStaticFactory@VCCitadelTrooperSpawnGameSystem@@V1@@@
 .?AV?$CGameSystemStaticFactory@VCCitadelZipLineNetwork@@V1@@@
@@ -2880,6 +2924,7 @@ $light_emissive
 .?AV?$CGameSystemStaticFactory@VCVisibilityMonitor@@V1@@@
 .?AV?$CGameSystemStaticFactory@VCWeakPointManager@@V1@@@
 .?AV?$CGameSystemStaticFactory@VChangeLogger@@V1@@@
+.?AV?$CGenericExprEval@MVCCitadelStatTrackerExpressionEval@@@@
 .?AV?$CInterpolatedVarArrayBase@UEnableRenderingInfo_t@@$0A@$00V?$CGlobalInterpolationLerpFuncs@UEnableRenderingInfo_t@@@@@@
 .?AV?$CInterpolatedVarArrayBase@UMeshGroupMaskInfo_t@@$0A@$00V?$CGlobalInterpolationLerpFuncs@UMeshGroupMaskInfo_t@@@@@@
 .?AV?$CInterpolatedVarBase@UEnableRenderingInfo_t@@$0A@$00V?$CGlobalInterpolationLerpFuncs@UEnableRenderingInfo_t@@@@@@
@@ -2889,6 +2934,9 @@ $light_emissive
 .?AV?$CInterpolatedVarProceduralBase@UEnableRenderingInfo_t@@$0A@$00V?$CGlobalInterpolationLerpFuncs@UEnableRenderingInfo_t@@@@@@
 .?AV?$CInterpolatedVarProceduralBase@UMeshGroupMaskInfo_t@@$0A@$00V?$CGlobalInterpolationLerpFuncs@UMeshGroupMaskInfo_t@@@@@@
 .?AV?$CKV3Transfer_UtlSymbolLargeInterface@V?$CUtlSymbolTableLargeBase@$00$0IAA@VCThreadMutex@@VCMemAllocAllocator@@@@@@
+.?AV?$CListenerList@VIMatchStatListener@@@@
+.?AV?$CListenerList@VIPlayerStatListener@@@@
+.?AV?$CListenerList@VITeamStatListener@@@@
 .?AV?$CLoopModeFactory@VCLoopModeGame@@@@
 .?AV?$CModifierFactory@VCCitadelModifierAura_Cone@@$0PPPP@@@
 .?AV?$CModifierFactory@VCCitadelModifierAura_Default@@$0PPPP@@@
@@ -3839,6 +3887,8 @@ $light_emissive
 .?AV?$CProtoBufSharedObject@VCSOCitadelServerDynamicLobby@@$0GK@@GCSDK@@
 .?AV?$CProtoBufSharedObject@VCSOCitadelServerStaticLobby@@$0GG@@GCSDK@@
 .?AV?$CPulseModuleRegistrationHook@VCPulseDomainScopeLoader@@@@
+.?AV?$CRefCountServiceBase@VCRefST@@@@
+.?AV?$CRefCounted@V?$CRefCountServiceBase@VCRefST@@@@@@
 .?AV?$CScaleFunctionFactory@VCScaleFunctionAbilityPropertyBase@@@@
 .?AV?$CScaleFunctionFactory@VCScaleFunctionAbilityPropertyMultiStats@@@@
 .?AV?$CScaleFunctionFactory@VCScaleFunctionAbilityPropertySingleStat@@@@
@@ -5415,6 +5465,7 @@ $light_emissive
 .?AVCAbility_Synth_Pulse@@
 .?AVCAbility_Synth_Pulse_VData@@
 .?AVCAdditionalWearableModifier@@
+.?AVCAggregateStatTracker@@
 .?AVCAimConstraint@@
 .?AVCAimTargetManager@@
 .?AVCAmbientGeneric@@
@@ -5481,6 +5532,7 @@ $light_emissive
 .?AVCBaseRecipeComponent@CEconTool_ItemDynamicRecipe@@
 .?AVCBaseTempEntity@@
 .?AVCBaseToggle@@
+.?AVCBaseTrackedStatsEntity@@
 .?AVCBaseTrigger@@
 .?AVCBaseTriggerAbilityVData@@
 .?AVCBaseUserCmdPB@@
@@ -5534,6 +5586,8 @@ $light_emissive
 .?AVCCitadelAbilityLoop@@
 .?AVCCitadelAbilityManager@@
 .?AVCCitadelAbilityTangoTetherVData@@
+.?AVCCitadelAccoladesGameSystem@@
+.?AVCCitadelAccoladesSchema@@
 .?AVCCitadelAmmoDef@@
 .?AVCCitadelAnimatingModelEntity@@
 .?AVCCitadelAudioAnimEventHandler@@
@@ -5641,6 +5695,7 @@ $light_emissive
 .?AVCCitadelItemSchema@@
 .?AVCCitadelItemSystem@@
 .?AVCCitadelLobby@@
+.?AVCCitadelMVPSchemaGameSystem@@
 .?AVCCitadelMatchDataWatcher@@
 .?AVCCitadelMatchmakingStatusInfo@@
 .?AVCCitadelMinimapBoundary@@
@@ -5701,6 +5756,7 @@ $light_emissive
 .?AVCCitadelRegenComponent@@
 .?AVCCitadelSatVolumesGameSystem@@
 .?AVCCitadelSatVolumesGameSystemDebugVisualizer@@
+.?AVCCitadelServerAccoladesGameSystem@@
 .?AVCCitadelServerCrashSentinel@@
 .?AVCCitadelServerDynamicLobby@@
 .?AVCCitadelServerGCSystem@@
@@ -5714,6 +5770,13 @@ $light_emissive
 .?AVCCitadelSource2Server@@
 .?AVCCitadelSpawnBlocker@@
 .?AVCCitadelSpeedBoostTrigger@@
+.?AVCCitadelStatTrackerExpressionEval@@
+.?AVCCitadelStatTrackerExpressionEval_Match@@
+.?AVCCitadelStatTrackerExpressionEval_Player@@
+.?AVCCitadelStatTrackerExpressionEval_Team@@
+.?AVCCitadelStatTrackerSchema@@
+.?AVCCitadelStatTrackerSchemaGameSystem@@
+.?AVCCitadelStatTrackerServerGameSystem@@
 .?AVCCitadelSteamLearnGameSystem@@
 .?AVCCitadelTeam@@
 .?AVCCitadelTeamRecipientFilter@@
@@ -7736,6 +7799,7 @@ $light_emissive
 .?AVCEventLog@@
 .?AVCEventQueue_SaveRestoreBlockHandler@@
 .?AVCEventsSaveDataOps@@
+.?AVCExpressionStatTracker@@
 .?AVCExtraMsgBlock@@
 .?AVCFilterAttributeInt@@
 .?AVCFilterClass@@
@@ -8051,6 +8115,10 @@ $light_emissive
 .?AVCMarkupVolumeTagged_NavCitadel@@
 .?AVCMarkupVolumeTagged_NavGame@@
 .?AVCMarkupVolumeWithRef@@
+.?AVCMatchExpressionStatTracker@@
+.?AVCMatchPlayerAggregateStatTracker@@
+.?AVCMatchTeamAggregateStatTracker@@
+.?AVCMatchTrackedStatsEntity@@
 .?AVCMathColorBlend@@
 .?AVCMathCounter@@
 .?AVCMathRemap@@
@@ -8535,6 +8603,7 @@ $light_emissive
 .?AVCMsgMatchData_AuxStat@@
 .?AVCMsgMatchData_PlayerInfo@@
 .?AVCMsgMatchData_PlayerItem@@
+.?AVCMsgMatchData_TeamInfo@@
 .?AVCMsgMatchMetaData@@
 .?AVCMsgMatchMetaDataContents@@
 .?AVCMsgMatchMetaDataContents_AbilityStat@@
@@ -8549,9 +8618,11 @@ $light_emissive
 .?AVCMsgMatchMetaDataContents_Objective@@
 .?AVCMsgMatchMetaDataContents_Pause@@
 .?AVCMsgMatchMetaDataContents_Ping@@
+.?AVCMsgMatchMetaDataContents_PlayerAccolade@@
 .?AVCMsgMatchMetaDataContents_PlayerStats@@
 .?AVCMsgMatchMetaDataContents_Players@@
 .?AVCMsgMatchMetaDataContents_Position@@
+.?AVCMsgMatchMetaDataContents_Teams@@
 .?AVCMsgMatchMetaDataContents_WatchedDeathReplay@@
 .?AVCMsgMatchPlayerDamageMatrix@@
 .?AVCMsgMatchPlayerDamageMatrix_DamageDealer@@
@@ -8777,6 +8848,7 @@ $light_emissive
 .?AVCMsgTESmoke@@
 .?AVCMsgTESparks@@
 .?AVCMsgTEWorldDecal@@
+.?AVCMsgTrackedStat@@
 .?AVCMsgUseItem@@
 .?AVCMsgUseMultipleItems@@
 .?AVCMsgVDebugGameSessionIDEvent@@
@@ -9022,9 +9094,11 @@ $light_emissive
 .?AVCPhysicsWire@@
 .?AVCPlatTrigger@@
 .?AVCPlayerCommandQueue@@
+.?AVCPlayerExpressionStatTracker@@
 .?AVCPlayerHeroDataCache@@
 .?AVCPlayerInventory@@
 .?AVCPlayerPawnComponent@@
+.?AVCPlayerTrackedStatsEntity@@
 .?AVCPlayerVisibility@@
 .?AVCPlayerVoiceListener@@
 .?AVCPlayer_CameraServices@@
@@ -9362,6 +9436,7 @@ $light_emissive
 .?AVCRenderGameSystem@@
 .?AVCRenderMesh@@
 .?AVCRenderPortal@@
+.?AVCReportOutput_Lambda@?1???$PrintReportLambda@V<lambda_1>@?1??PrintReport@CUtlReportPrinter@@QEBAXAEAVCGCEmitGroup@GCSDK@@I_N@Z@@CUtlReportPrinter@@QEBAX$$QEAV<lambda_1>@?1??PrintReport@1@QEBAXAEAVCGCEmitGroup@GCSDK@@I_N@Z@I1@Z@
 .?AVCResourcePrecacherGameSystem@@
 .?AVCResponseCriteriaModifier@@
 .?AVCResponseCriteriaSet@@
@@ -9476,6 +9551,9 @@ $light_emissive
 .?AVCServerLobbyData_PlayerInfo@@
 .?AVCServerLobbyData_PlayerMMR@@
 .?AVCServerLobbyData_PlayerMMR_Player@@
+.?AVCServerLobbyData_PlayerStatValues@@
+.?AVCServerLobbyData_PlayerStatValues_AccoladeThresholds@@
+.?AVCServerLobbyData_PlayerStatValues_StatDistribution@@
 .?AVCServerLobbyData_PostMatchSurvey@@
 .?AVCServerLobbyData_PostMatchSurvey_PlayerSurvey@@
 .?AVCServerOnlyEntity@@
@@ -9507,6 +9585,7 @@ $light_emissive
 .?AVCShower@@
 .?AVCSimSequenceSetup@@
 .?AVCSimThinkManager@@
+.?AVCSimpleErrorListener@@
 .?AVCSimpleMarkupVolumeTagged@@
 .?AVCSingleUserPlusObserversFilter@@
 .?AVCSingleUserRecipientFilter@@
@@ -9616,8 +9695,11 @@ $light_emissive
 .?AVCTankTargetChange@@
 .?AVCTankTrainAI@@
 .?AVCTeam@@
+.?AVCTeamExpressionStatTracker@@
+.?AVCTeamPlayerAggregateStatTracker@@
 .?AVCTeamRecipientFilter@@
 .?AVCTeamRelativeParticleSystem@@
+.?AVCTeamTrackedStatsEntity@@
 .?AVCTeamplayRules@@
 .?AVCTempEntsSystem@@
 .?AVCTemplateNPCMaker@@
@@ -9837,6 +9919,7 @@ $light_emissive
 .?AVCUtlMultiJobProcessor@@
 .?AVCUtlSymbolDataOps@@
 .?AVCVCDIOSignature@@
+.?AVCVDataReloadNotifyScope@@
 .?AVCVScriptGameEventListener@@
 .?AVCVScriptGameSystem@@
 .?AVCVersusScreenModifier@@
@@ -9963,6 +10046,7 @@ $light_emissive
 .?AVILagCompensationManager@@
 .?AVILoadingSpawnGroup@@
 .?AVILoopModeGameSharedState@@
+.?AVIMatchStatListener@@
 .?AVIModifierFactorySpecific@@
 .?AVIModifierFunctionTable@@
 .?AVIModifierStateChangeCallback@@
@@ -10000,6 +10084,7 @@ $light_emissive
 .?AVIPhysicsWorldEventListener@@
 .?AVIPlayerCommandQueue@@
 .?AVIPlayerPickupVPhysics@@
+.?AVIPlayerStatListener@@
 .?AVIPoseAccessor@@
 .?AVIPositionWatcher@@
 .?AVIPredictionSuppressEffects@@
@@ -10044,6 +10129,7 @@ $light_emissive
 .?AVISpawnListenerAI@@
 .?AVIStreamEntitiesFromFileCompletion@@
 .?AVISubclassFactoryDictionary@@
+.?AVITeamStatListener@@
 .?AVITempEntsSystem@@
 .?AVIToolGameSimulationAPI@@
 .?AVIToolGameSimulationAPI_IPhysicsGrab@@
@@ -10150,7 +10236,7 @@ $light_emissive
 .CMsgAccountBookStats
 .CMsgAccountChallengesActive
 .CMsgAccountHeroStats
-.CMsgAccountHeroStats"E\n
+.CMsgAccountHeroStats"q\n
 .CMsgAddItemToSocketData"
 .CMsgAdjustItemEquippedState"?\n CMsgClientToGCEquipItemsResponse
 .CMsgApplyRemoteConVars"
@@ -10185,6 +10271,7 @@ $light_emissive
 .CMsgMatchData.EEndReason
 .CMsgMatchData.PlayerInfo
 .CMsgMatchData.PlayerItem
+.CMsgMatchData.TeamInfo
 .CMsgMatchMetaDataContents.Ping
 .CMsgMatchPlayerDamageMatrix
 .CMsgMatchPlayerPathsData
@@ -10222,6 +10309,8 @@ $light_emissive
 .CMsgSteamLearnDataSource"[\n CMsgSteamLearn_CacheData_Request
 .CMsgSteamLearnServerInfo
 .CMsgTEBaseBeam
+.CMsgTrackedStat
+.CMsgTrackedStat"
 .CMsgTransform*
 .CMsgWebAPIKey
 .CProtoItemSocket
@@ -10622,9 +10711,8 @@ $light_emissive
 0123456789
 02V8[
 05=k
-08@HR0
-08@J
-08B0
+08@HR
+08@JPFe
 08bX
 09,h
 0: (V0) Legacy save format, 1: (V1) KeyValues3 save format
@@ -10768,6 +10856,7 @@ $light_emissive
 2?.CMsgClientToGCGetLimitedItemPurchaseQuantityResponse.EResponse
 2?.CMsgClientToGCRemoveItemAttributeResponse.ERemoveItemAttribute
 2I y)
+2PFe
 2Tm=#
 2Uiwp"9
 2Zq)
@@ -10798,7 +10887,6 @@ $light_emissive
 2\n\tsource_gc
 2\r.CameraAction
 2\rlhp
-2\vp,t
 2^pV
 2_BONE_IK
 2_tasks_left
@@ -10809,6 +10897,7 @@ $light_emissive
 2f)l=
 2nIg
 2p"6
+2pW\
 2prB
 3%3+3/353A3G3[3_3g3k3s3y3
 30.0
@@ -10853,7 +10942,6 @@ $light_emissive
 3|rN>
 4)#bH
 4)m1
-41\fp
 474E4U4W4c4i4m4
 4<Td
 4@AA
@@ -10918,8 +11006,8 @@ $light_emissive
 65535"
 65535"j\n
 65535B$
-6666666666666666
 666666666666666666666666666666666666666666666666\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\.\ssl\s3_enc.c
+6666666666666666|
 67-s
 6H,N
 6O|T%
@@ -10983,19 +11071,22 @@ $light_emissive
 7sAP'
 7wKR
 7zRQ
+8!PI
 8+Qw
 80F2<
+81*J
 82\n:XPH
-85$E
 851Pe
 8<pl
 8= zp
-8@J0
 8A6j
 8GZS
+8I|I
+8MjI
+8Q<J
 8SIffK5W
 8TZvrv<
-8Y(D
+8Y+J
 8\n0time_spent_not_contributing_to_game_events_ratio
 8\n4GAME_PARTICLE_MANAGER_EVENT_CLEAR_MODELLIST_OVERRIDE
 8\n4STEAMLEARN_INFERENCE_ERROR_INVALID_PUBLISHED_VERSION
@@ -11014,12 +11105,18 @@ $light_emissive
 8\n\vreason_code
 8\v8!83858A8G8K8S8W8_8e8o8q8}8
 8]Vc2
-8a9D
+8a#J
 8ca1
 8dS2
+8e0J
+8mPI
+8miI
 8pe7?
 8q-S*]X
 8sOy
+8u,J
+8u9J
+8ufJ
 9#9%9)9/9=9A9M9[9k9y9}9
 9)PF
 9)jx
@@ -11027,12 +11124,12 @@ $light_emissive
 95\r9{
 9966
 9:dzGN
-9>-memory-
 9@Xp&
 9IGv
 9J9;6
 9N1=@
 9QTA
+9V}I
 9Y@nJM
 9Zr4
 9\n4k_ECitadelDisconnectReason_GameDestroyedUnexpectedly
@@ -11052,7 +11149,6 @@ $light_emissive
 9dYeiJ
 9fkj
 9g3|3\rX
-9j;D
 9o!5
 9oB#
 9q6\r#m
@@ -11068,6 +11164,7 @@ $light_emissive
 :EXTERNAL TYPE %s\n
 :LBN
 :NAy
+:PFe
 :QYJ
 :Vlq
 :\n5k_EMsgClientToGCCancelUnfinalizedTransactionsResponse
@@ -11128,6 +11225,7 @@ $light_emissive
 <\n8STEAMLEARN_SNAPSHOT_PROJECT_ERROR_MISSING_CACHE_DURATION
 <\n\rcheer_targets
 <\n\rproject_infos
+<\n\taccolades
 <\n\vdiagnostics
 <bot name> <command string...>. Sends specified command to one or more player bots: [all], [east/west], [bot name]
 <classptr>
@@ -11232,11 +11330,12 @@ $light_emissive
 ?333?
 ?333?333?
 ?33s?
+?CPointPulse
+?Force a breakable to break
 ?HAI\t81\t9dcG'
 ?HP4
-?Path_AddToTail failed, depth already == DEFAULT_MAX_PATH_DEPTH(%d)
+?Logs sound event information for CCitadelAudioFilter.
 ?VBH;
-?WIDE_HUMAN_HULL
 ?\n1increase_spring_strength_to_keep_target_on_screen
 ?\n;GAME_PARTICLE_MANAGER_EVENT_CHANGE_CONTROL_POINT_ATTACHMENT
 ?\n;GAME_PARTICLE_MANAGER_EVENT_SET_SCENE_OBJECT_TINT_AND_DESAT
@@ -11244,25 +11343,24 @@ $light_emissive
 ?\n\ncurrencies
 ?\n\rmatch_outcome
 ?\tV_isfinited
-?animTimeSerializer
 ?d86L
 ?dt]X
 ?expf
 ?ffffff
 ?gwL
 ?jOb
-?point_worldtext
 ?srJO
 ?tya
 ?uWS
 ?wait
 ?x29
 @!@%@+@1@?@C@E@]@a@g@m@
+@08N$
 @0pp
 @333?
 @BH]f
 @BoneSetup
-@HPX`hv0
+@HPX`hvp
 @MfKZ
 @Pgl
 @Pu\rm
@@ -11276,9 +11374,7 @@ $light_emissive
 @\n\fSingleObject
 @dKb]
 @fff>fff>fff>fff>
-@htPA[
 @i1V
-@m_iMaxAmmo
 @n2w
 @player_start_teleport_destination
 @zipline_panel_tutorial_relay
@@ -11314,13 +11410,13 @@ A<fP
 A>x8
 A@d0I
 AA Compromise
+AA:pW\
 AABBDirection
 AABB_t
 AACompromise
 ABORT_DO_NOT_APPLY_DAMAGE
 ABS BBox
 AC2,h
-ACAI_Component
 ACCESS_DESCRIPTION
 ACHIEVEMENT_EVENT_
 ACID
@@ -11329,6 +11425,7 @@ ACTIVATE_TYPE_DATAUPDATE_CREATION
 ACTIVATE_TYPE_INITIAL_CREATION
 ACTIVATE_TYPE_ONRESTORE
 ACTOR
+ACUserMessageRequestDllStatus_t
 AD Time Stamping
 ADDED %s (%s) to transition.\n
 ADDED.\n
@@ -11784,6 +11881,11 @@ AccelerationPercentage
 AcceptUserInput
 Acceptable OCSP Responses
 AccepterSlot
+Accolade %s references unknown tracked stat '%s'
+AccoladeID_t
+AccoladeThresholds
+Accolades
+AccoladesDataManifest_global_server
 Account
 Account %u abandoned lobby\n
 AccountChallenges
@@ -12261,6 +12363,7 @@ AutoSaveDangerous
 Autoaim Radius
 Autogenerated
 Autograph
+Automatic
 Automatically set by the game when a commentary file is available for the current map.
 Automatically sets debug flags on NPCs spawned that match this class name. Flags with be set based on the value of the ai_autoselect_class_settings convar.
 Automatically start recording AnimGraphs when they get created, and save them to disk when they are destroyed
@@ -12288,7 +12391,6 @@ B-283
 B-409
 B-571
 B.z\85p
-B0:X
 B2I_DSS
 B2I_RSA
 B2pr
@@ -12309,7 +12411,7 @@ BAddToMessage
 BAsyncSend
 BAsyncSendProto
 BC (default)
-BCNPC_ShieldedSentry_GraphController
+BCOND_TROOPER_MOVE_OUT
 BC_DEFAULT
 BC_EMPTY
 BC_PARTICLE_SYSTEM_OVERRIDE
@@ -12368,7 +12470,6 @@ BITSTR_CB
 BITWRAP
 BInitUnusualLists
 BInitUnusualLists: Attribute definition "%s" was not found
-BInitialActivate
 BLAST
 BLAST_SURFACE
 BLEND_PREALIGNED
@@ -12431,6 +12532,7 @@ BOT TEST: Bot %s failed moving to node %s\n
 BPE_Diagnostic
 BPE_StringCommand
 BPE_Teleport
+BPingWheelMessage_t
 BREAKABLE
 BRUSHSOLID_ALWAYS
 BRUSHSOLID_NEVER
@@ -13131,6 +13233,7 @@ C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\abilities\tier_3_
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\abilities\tier_3_boss_abilities.cpp:436
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_ability_beam.cpp:208
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_ability_beam.cpp:243
+C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_accolades_schema.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_base_ability_shared.cpp:4130
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_base_hero.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_bot_schema.cpp
@@ -13143,6 +13246,7 @@ C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_ping_whee
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_player_movementservices.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_player_pawn_shared.cpp:1861
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_player_pawn_shared.cpp:1862
+C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_stat_tracker_schema.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_stats_shared.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\heroes\citadel_hero_archer.cpp:1251
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\heroes\citadel_hero_bull.cpp:554
@@ -13273,6 +13377,7 @@ CAI_CitadelNPC_GraphController
 CAI_CitadelPlayerBotMotor
 CAI_CitadelPlayerBotNavigator
 CAI_CitadelSenses::PerformSensing
+CAI_Component
 CAI_DefaultNPC
 CAI_Enemies
 CAI_EnemyServices
@@ -13563,6 +13668,7 @@ CAbility_Synth_PlasmaFlux_Trigger
 CAbility_Synth_PlasmaFlux_VData
 CAbility_Synth_Pulse
 CAbility_Synth_Pulse_VData
+CAccoladeDefinition
 CAimConstraint
 CAmbientGeneric
 CAnimAttachment
@@ -13763,6 +13869,7 @@ CBasePulseGraphInstance::StartGraphReload( %p ) %s\n
 CBasePulseGraphInstance::~CBasePulseGraphInstance( %p )\n
 CBaseTempEntity::StaticInitTempEnts()
 CBaseToggle
+CBaseTrackedStatsEntity
 CBaseTrigger
 CBaseTriggerAPI
 CBaseTriggerAPI::FindEntitiesInTrigger
@@ -13829,6 +13936,9 @@ CCitadelAbilityHealingSlashVData
 CCitadelAbilityIncendiaryProjectileVData
 CCitadelAbilityManager
 CCitadelAbilityTangoTetherVData
+CCitadelAccoladesGameSystem
+CCitadelAccoladesSchema: %s\n
+CCitadelAccoladesSchema: Couldn't load accolades data\n
 CCitadelAnimatingModelEntity
 CCitadelAudioEntityInfo
 CCitadelAutoScaledTime
@@ -13948,6 +14058,8 @@ CCitadelItemPickupRejuvVData
 CCitadelItemPunchableNeutralGold
 CCitadelItemPunchableNeutralGoldVData
 CCitadelLobby
+CCitadelMVPSchema: %s\n
+CCitadelMVPSchemaGameSystem
 CCitadelMatchDataWatcher Tracked Stats\n
 CCitadelMatchmakingStatusInfo
 CCitadelMinimapBoundary
@@ -13971,7 +14083,6 @@ CCitadelModifierAura_Default
 CCitadelModifierCadenceGunSpikesVData
 CCitadelModifierChronoPulseGrenadePulseAreaVData
 CCitadelModifierDustStormAuraApplyVData
-CCitadelModifierIdolReturnTimerVData
 CCitadelModifierItemPickupTimerVData
 CCitadelModifierProjectilePitchingLoopSoundThinker
 CCitadelModifierProjectilePitchingLoopSoundThinkerVData
@@ -14043,6 +14154,9 @@ CCitadelSoundOpvarSetOBB
 CCitadelSoundStackFieldOBB
 CCitadelSpawnBlocker
 CCitadelSpeedBoostTrigger
+CCitadelStatTrackerSchema: Couldn't load resource %s
+CCitadelStatTrackerSchemaGameSystem
+CCitadelStatTrackerServerGameSystem
 CCitadelSteamLearnGameSystem
 CCitadelTaggedSound_t
 CCitadelTeam
@@ -14298,6 +14412,7 @@ CCitadel_Ability_Gunslinger_SalvoVData
 CCitadel_Ability_Gunslinger_SpreadingFire
 CCitadel_Ability_Gunslinger_SpreadingFireVData
 CCitadel_Ability_HatTrick
+CCitadel_Ability_Haze_StackingDamage
 CCitadel_Ability_HealingSlash
 CCitadel_Ability_HealthSwap
 CCitadel_Ability_HealthSwapVData
@@ -14460,7 +14575,6 @@ CCitadel_Ability_ShivDaggerVData
 CCitadel_Ability_ShivDash
 CCitadel_Ability_ShivDash::OnThink
 CCitadel_Ability_ShivWeapon
-CCitadel_Ability_ShivWeapon_VData
 CCitadel_Ability_Shiv_Defer_Damage
 CCitadel_Ability_Shiv_KillingBlow
 CCitadel_Ability_Shiv_KillingBlowVData
@@ -16029,6 +16143,7 @@ CEntitySpawner<class CInstancedSceneEntity>::Spawn
 CEntitySpawner<class CItemFlare>::Spawn
 CEntitySpawner<class CItemGenericTriggerHelper>::Spawn
 CEntitySpawner<class CItemXP>::Spawn
+CEntitySpawner<class CMatchTrackedStatsEntity>::Spawn
 CEntitySpawner<class CNPC_Escort>::Spawn
 CEntitySpawner<class CNPC_HeroCloneTrooper>::Spawn
 CEntitySpawner<class CNPC_HeroDecoy>::Spawn
@@ -16048,6 +16163,7 @@ CEntitySpawner<class COrbSpawner>::Spawn
 CEntitySpawner<class CPhysicsEntitySolver>::Spawn
 CEntitySpawner<class CPhysicsNPCSolver>::Spawn
 CEntitySpawner<class CPlatTrigger>::Spawn
+CEntitySpawner<class CPlayerTrackedStatsEntity>::Spawn
 CEntitySpawner<class CPointEntity>::Spawn
 CEntitySpawner<class CRagdollProp>::Spawn
 CEntitySpawner<class CRagdollPropAttached>::Spawn
@@ -16056,6 +16172,7 @@ CEntitySpawner<class CSceneEntity>::Spawn
 CEntitySpawner<class CShatterGlassShardPhysics>::Spawn
 CEntitySpawner<class CSprite>::Spawn
 CEntitySpawner<class CTeam>::Spawn
+CEntitySpawner<class CTeamTrackedStatsEntity>::Spawn
 CEntitySpawner<class CTriggerBurrowUnderground>::Spawn
 CEntitySpawner<class CTriggerIcePathVolume>::Spawn
 CEntitySpawner<class CTriggerMultiple>::Spawn
@@ -17055,6 +17172,8 @@ CMarkupVolumeTagged_Nav
 CMarkupVolumeTagged_NavCitadel
 CMarkupVolumeTagged_NavGame
 CMarkupVolumeWithRef
+CMatchTrackedStatDefinition
+CMatchTrackedStatsEntity
 CMaterialDrawDescriptor
 CMaterialDrawDescriptor::RigidMeshPart_t
 CMathColorBlend
@@ -17508,6 +17627,7 @@ CMsgTEMuzzleFlash
 CMsgTEPhysicsProp
 CMsgTEShatterSurface
 CMsgTEWorldDecal
+CMsgTrackedStat
 CMsgUseMultipleItems
 CMsgVDebugGameSessionIDEvent
 CMsgWebAPIRequest
@@ -17566,6 +17686,7 @@ CNPC_PestilenceDrone
 CNPC_PestilenceDrone::NavigateToTarget
 CNPC_ShieldedSentry
 CNPC_ShieldedSentryVData
+CNPC_ShieldedSentry_GraphController
 CNPC_SimpleAnimatingAI
 CNPC_SimpleAnimatingAIVData
 CNPC_SimpleAnimatingAI_GraphController
@@ -17777,7 +17898,6 @@ COND_TROOPER_FOLLOW_OWNER_CLOSE_ENOUGH
 COND_TROOPER_FORCE_ADVANCE
 COND_TROOPER_INACTIVE
 COND_TROOPER_IN_ENEMY_BASE
-COND_TROOPER_MOVE_OUT
 COND_TROOPER_NEAR_BASE_ATTACKER
 COND_TROOPER_NEAR_DEATH
 COND_TROOPER_ON_ZIPLINE
@@ -17914,6 +18034,8 @@ CPlayerControllerComponent
 CPlayerInventory::RemoveTestItemByItemDefIndex no such item definition index: %u\n
 CPlayerPawnComponent
 CPlayerSlot
+CPlayerTrackedStatDefinition
+CPlayerTrackedStatsEntity
 CPlayerVisibility
 CPlayerVoiceListener::GameInit()\n
 CPlayerVoiceListener::GameShutdown()\n
@@ -17942,6 +18064,7 @@ CPointAngularVelocitySensor
 CPointBroadcastClientCommand
 CPointCamera
 CPointCameraVFOV
+CPointChildModifier
 CPointClientCommand
 CPointClientUIDialog
 CPointClientUIWorldPanel
@@ -17955,7 +18078,6 @@ CPointModifierThinker
 CPointOrient
 CPointPrefab
 CPointProximitySensor
-CPointPulse
 CPointPush
 CPointServerCommand
 CPointTeleport
@@ -18538,6 +18660,8 @@ CTankTargetChange
 CTankTrainAI
 CTeam
 CTeamRelativeParticleSystem
+CTeamTrackedStatDefinition
+CTeamTrackedStatsEntity
 CTeamplayRules
 CTemplateNPCMaker
 CTestEffect
@@ -18689,7 +18813,6 @@ CUserMessageLagCompensationError_t
 CUserMessageRequestDiagnostic
 CUserMessageRequestDiagnostic_t
 CUserMessageRequestDllStatus
-CUserMessageRequestDllStatus_t
 CUserMessageRequestInventory
 CUserMessageRequestInventory_t
 CUserMessageRequestState"@\n
@@ -18742,6 +18865,7 @@ CUtlBlockVector<class CShatterJob,int,class CMemAllocAllocator>::GrowCount
 CUtlBlockVector<struct CCitadelZipLineNode::ConnectionPath_t,int,class CMemAllocAllocator>::GrowCount
 CUtlDict
 CUtlDict<char const *,class CDefFastCaselessStringLess>::Insert
+CUtlDict<class CAccoladeDefinition const *,class CDefFastCaselessStringLess>::Insert
 CUtlDict<class CAttachment,class CDefFastCaselessStringLess>::Insert
 CUtlDict<class CConVar<class CUtlString> *,class CDefFastCaselessStringLess>::Insert
 CUtlDict<class CEconItemSetDefinition *,class CDefFastCaselessStringLess>::Insert
@@ -18936,6 +19060,9 @@ CUtlRBTree<struct CResponseCriteriaSet::CritEntry_t,class CLessFunc<&public: sta
 CUtlRBTree<struct CUtlOrderedMapBase<__int64,class ProtoBufHelper::CDeltaMsgGenerator::CDroppedFieldTreeNode *,class CDefLess<__int64>,int>::Node_t,class CUtlOrderedMapBase<__int64,class ProtoBufHelper::CDeltaMsgGenerator::CDroppedFieldTreeNode *,class CDefLess<__int64>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<__int64,class ProtoBufHelper::CDeltaMsgGenerator::CDroppedFieldTreeNode *,class CDefLess<__int64>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<char const *,class CEntityClass *,class CDefFastCaselessStringLess,unsigned short>::Node_t,class CUtlOrderedMapBase<char const *,class CEntityClass *,class CDefFastCaselessStringLess,unsigned short>::CKeyLess,unsigned short,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<char const *,class CEntityClass *,class CDefFastCaselessStringLess,unsigned short>::Node_t,unsigned short>,unsigned short,class CMemAllocAllocator> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<char const *,class CEntityComponentHelper *,class CDefFastCaselessStringLess,unsigned short>::Node_t,class CUtlOrderedMapBase<char const *,class CEntityComponentHelper *,class CDefFastCaselessStringLess,unsigned short>::CKeyLess,unsigned short,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<char const *,class CEntityComponentHelper *,class CDefFastCaselessStringLess,unsigned short>::Node_t,unsigned short>,unsigned short,class CMemAllocAllocator> >::Insert
+CUtlRBTree<struct CUtlOrderedMapBase<char const *,class CMatchTrackedStatDefinition *,class CDefStringLess,int>::Node_t,class CUtlOrderedMapBase<char const *,class CMatchTrackedStatDefinition *,class CDefStringLess,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<char const *,class CMatchTrackedStatDefinition *,class CDefStringLess,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
+CUtlRBTree<struct CUtlOrderedMapBase<char const *,class CPlayerTrackedStatDefinition *,class CDefStringLess,int>::Node_t,class CUtlOrderedMapBase<char const *,class CPlayerTrackedStatDefinition *,class CDefStringLess,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<char const *,class CPlayerTrackedStatDefinition *,class CDefStringLess,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
+CUtlRBTree<struct CUtlOrderedMapBase<char const *,class CTeamTrackedStatDefinition *,class CDefStringLess,int>::Node_t,class CUtlOrderedMapBase<char const *,class CTeamTrackedStatDefinition *,class CDefStringLess,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<char const *,class CTeamTrackedStatDefinition *,class CDefStringLess,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<char const *,class GameTime_t,class CDefFastCaselessStringLess,int>::Node_t,class CUtlOrderedMapBase<char const *,class GameTime_t,class CDefFastCaselessStringLess,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<char const *,class GameTime_t,class CDefFastCaselessStringLess,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<char const *,float,class CDefFastCaselessStringLess,int>::Node_t,class CUtlOrderedMapBase<char const *,float,class CDefFastCaselessStringLess,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<char const *,float,class CDefFastCaselessStringLess,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<char const *,float,class CDefStringLess,int>::Node_t,class CUtlOrderedMapBase<char const *,float,class CDefStringLess,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<char const *,float,class CDefStringLess,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
@@ -18971,6 +19098,7 @@ CUtlRBTree<struct CUtlOrderedMapBase<class CUtlSymbolLarge,class CAI_Schedule *,
 CUtlRBTree<struct CUtlOrderedMapBase<class CUtlSymbolLarge,unsigned int,class CDefLess<class CUtlSymbolLarge>,int>::Node_t,class CUtlOrderedMapBase<class CUtlSymbolLarge,unsigned int,class CDefLess<class CUtlSymbolLarge>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CUtlSymbolLarge,unsigned int,class CDefLess<class CUtlSymbolLarge>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<class CitadelLobbyPlayerSlot_t,bool,class CDefLess<class CitadelLobbyPlayerSlot_t>,int>::Node_t,class CUtlOrderedMapBase<class CitadelLobbyPlayerSlot_t,bool,class CDefLess<class CitadelLobbyPlayerSlot_t>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CitadelLobbyPlayerSlot_t,bool,class CDefLess<class CitadelLobbyPlayerSlot_t>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<class CitadelLobbyPlayerSlot_t,class CMsgServerSignoutData_PlayerBehavior_Player *,class CDefLess<class CitadelLobbyPlayerSlot_t>,int>::Node_t,class CUtlOrderedMapBase<class CitadelLobbyPlayerSlot_t,class CMsgServerSignoutData_PlayerBehavior_Player *,class CDefLess<class CitadelLobbyPlayerSlot_t>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CitadelLobbyPlayerSlot_t,class CMsgServerSignoutData_PlayerBehavior_Player *,class CDefLess<class CitadelLobbyPlayerSlot_t>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
+CUtlRBTree<struct CUtlOrderedMapBase<class CitadelLobbyPlayerSlot_t,class CServerLobbyData_PlayerStatValues *,class CDefLess<class CitadelLobbyPlayerSlot_t>,int>::Node_t,class CUtlOrderedMapBase<class CitadelLobbyPlayerSlot_t,class CServerLobbyData_PlayerStatValues *,class CDefLess<class CitadelLobbyPlayerSlot_t>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CitadelLobbyPlayerSlot_t,class CServerLobbyData_PlayerStatValues *,class CDefLess<class CitadelLobbyPlayerSlot_t>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<class CitadelLobbyPlayerSlot_t,class CUtlVector<struct CCitadelMatchDataWatcher::PlayerDeath_t,int,class CUtlVectorMemory_Growable<struct CCitadelMatchDataWatcher::PlayerDeath_t,int,0> > *,class CDefLess<class CitadelLobbyPlayerSlot_t>,int>::Node_t,class CUtlOrderedMapBase<class CitadelLobbyPlayerSlot_t,class CUtlVector<struct CCitadelMatchDataWatcher::PlayerDeath_t,int,class CUtlVectorMemory_Growable<struct CCitadelMatchDataWatcher::PlayerDeath_t,int,0> > *,class CDefLess<class CitadelLobbyPlayerSlot_t>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CitadelLobbyPlayerSlot_t,class CUtlVector<struct CCitadelMatchDataWatcher::PlayerDeath_t,int,class CUtlVectorMemory_Growable<struct CCitadelMatchDataWatcher::PlayerDeath_t,int,0> > *,class CDefLess<class CitadelLobbyPlayerSlot_t>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<class CitadelLobbyPlayerSlot_t,class CUtlVector<struct CCitadelMatchDataWatcher::PlayerPing_t,int,class CUtlVectorMemory_Growable<struct CCitadelMatchDataWatcher::PlayerPing_t,int,0> > *,class CDefLess<class CitadelLobbyPlayerSlot_t>,int>::Node_t,class CUtlOrderedMapBase<class CitadelLobbyPlayerSlot_t,class CUtlVector<struct CCitadelMatchDataWatcher::PlayerPing_t,int,class CUtlVectorMemory_Growable<struct CCitadelMatchDataWatcher::PlayerPing_t,int,0> > *,class CDefLess<class CitadelLobbyPlayerSlot_t>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CitadelLobbyPlayerSlot_t,class CUtlVector<struct CCitadelMatchDataWatcher::PlayerPing_t,int,class CUtlVectorMemory_Growable<struct CCitadelMatchDataWatcher::PlayerPing_t,int,0> > *,class CDefLess<class CitadelLobbyPlayerSlot_t>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<class CitadelLobbyPlayerSlot_t,class CUtlVector<struct CCitadelMatchDataWatcher::PlayerPurchase_t,int,class CUtlVectorMemory_Growable<struct CCitadelMatchDataWatcher::PlayerPurchase_t,int,0> > *,class CDefLess<class CitadelLobbyPlayerSlot_t>,int>::Node_t,class CUtlOrderedMapBase<class CitadelLobbyPlayerSlot_t,class CUtlVector<struct CCitadelMatchDataWatcher::PlayerPurchase_t,int,class CUtlVectorMemory_Growable<struct CCitadelMatchDataWatcher::PlayerPurchase_t,int,0> > *,class CDefLess<class CitadelLobbyPlayerSlot_t>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CitadelLobbyPlayerSlot_t,class CUtlVector<struct CCitadelMatchDataWatcher::PlayerPurchase_t,int,class CUtlVectorMemory_Growable<struct CCitadelMatchDataWatcher::PlayerPurchase_t,int,0> > *,class CDefLess<class CitadelLobbyPlayerSlot_t>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
@@ -18984,6 +19112,10 @@ CUtlRBTree<struct CUtlOrderedMapBase<class IWorldReference *,class CShadowCastin
 CUtlRBTree<struct CUtlOrderedMapBase<class PulseCursorID_t,struct PulseGraphExecutionHistoryCursorDesc_t *,class CDefLess<class PulseCursorID_t>,int>::Node_t,class CUtlOrderedMapBase<class PulseCursorID_t,struct PulseGraphExecutionHistoryCursorDesc_t *,class CDefLess<class PulseCursorID_t>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class PulseCursorID_t,struct PulseGraphExecutionHistoryCursorDesc_t *,class CDefLess<class PulseCursorID_t>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<class PulseDocNodeID_t,struct PulseGraphExecutionHistoryNodeDesc_t *,class CDefLess<class PulseDocNodeID_t>,int>::Node_t,class CUtlOrderedMapBase<class PulseDocNodeID_t,struct PulseGraphExecutionHistoryNodeDesc_t *,class CDefLess<class PulseDocNodeID_t>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class PulseDocNodeID_t,struct PulseGraphExecutionHistoryNodeDesc_t *,class CDefLess<class PulseDocNodeID_t>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<class PulseSymbol_t,class CPulseGraphInstance_GameBlackboard *,class CDefLess<class PulseSymbol_t>,int>::Node_t,class CUtlOrderedMapBase<class PulseSymbol_t,class CPulseGraphInstance_GameBlackboard *,class CDefLess<class PulseSymbol_t>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class PulseSymbol_t,class CPulseGraphInstance_GameBlackboard *,class CDefLess<class PulseSymbol_t>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
+CUtlRBTree<struct CUtlOrderedMapBase<class TrackedStatID_t,class CMatchTrackedStatDefinition *,class CDefLess<class TrackedStatID_t>,int>::Node_t,class CUtlOrderedMapBase<class TrackedStatID_t,class CMatchTrackedStatDefinition *,class CDefLess<class TrackedStatID_t>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class TrackedStatID_t,class CMatchTrackedStatDefinition *,class CDefLess<class TrackedStatID_t>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
+CUtlRBTree<struct CUtlOrderedMapBase<class TrackedStatID_t,class CPlayerTrackedStatDefinition *,class CDefLess<class TrackedStatID_t>,int>::Node_t,class CUtlOrderedMapBase<class TrackedStatID_t,class CPlayerTrackedStatDefinition *,class CDefLess<class TrackedStatID_t>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class TrackedStatID_t,class CPlayerTrackedStatDefinition *,class CDefLess<class TrackedStatID_t>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
+CUtlRBTree<struct CUtlOrderedMapBase<class TrackedStatID_t,class CTeamTrackedStatDefinition *,class CDefLess<class TrackedStatID_t>,int>::Node_t,class CUtlOrderedMapBase<class TrackedStatID_t,class CTeamTrackedStatDefinition *,class CDefLess<class TrackedStatID_t>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class TrackedStatID_t,class CTeamTrackedStatDefinition *,class CDefLess<class TrackedStatID_t>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
+CUtlRBTree<struct CUtlOrderedMapBase<class TrackedStatID_t,struct CCitadelServerStatTracker::MatchTrackedStatInfo_t,class CDefLess<class TrackedStatID_t>,int>::Node_t,class CUtlOrderedMapBase<class TrackedStatID_t,struct CCitadelServerStatTracker::MatchTrackedStatInfo_t,class CDefLess<class TrackedStatID_t>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class TrackedStatID_t,struct CCitadelServerStatTracker::MatchTrackedStatInfo_t,class CDefLess<class TrackedStatID_t>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<class WorldGroupId_t,struct CPhysicsGameSystem::PhysicsWorld_t,class CDefLess<class WorldGroupId_t>,unsigned short>::Node_t,class CUtlOrderedMapBase<class WorldGroupId_t,struct CPhysicsGameSystem::PhysicsWorld_t,class CDefLess<class WorldGroupId_t>,unsigned short>::CKeyLess,unsigned short,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class WorldGroupId_t,struct CPhysicsGameSystem::PhysicsWorld_t,class CDefLess<class WorldGroupId_t>,unsigned short>::Node_t,unsigned short>,unsigned short,class CMemAllocAllocator> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<class WorldGroupId_t,struct SecondarySceneWorld_t,class CDefLess<class WorldGroupId_t>,int>::Node_t,class CUtlOrderedMapBase<class WorldGroupId_t,struct SecondarySceneWorld_t,class CDefLess<class WorldGroupId_t>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class WorldGroupId_t,struct SecondarySceneWorld_t,class CDefLess<class WorldGroupId_t>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<class attrib_definition_index_t,class CEconItemAttributeDefinition,class CDefLess<class attrib_definition_index_t>,int>::Node_t,class CUtlOrderedMapBase<class attrib_definition_index_t,class CEconItemAttributeDefinition,class CDefLess<class attrib_definition_index_t>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class attrib_definition_index_t,class CEconItemAttributeDefinition,class CDefLess<class attrib_definition_index_t>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
@@ -19032,9 +19164,12 @@ CUtlRBTree<struct CUtlOrderedMapBase<struct AccountHero_t,bool,class CDefLess<st
 CUtlRBTree<struct CUtlOrderedMapBase<struct AccountHero_t,struct CAsyncDataCache<struct AccountHero_t,class CMsgPlayerHeroData>::DataContainer_t *,class CDefLess<struct AccountHero_t>,int>::Node_t,class CUtlOrderedMapBase<struct AccountHero_t,struct CAsyncDataCache<struct AccountHero_t,class CMsgPlayerHeroData>::DataContainer_t *,class CDefLess<struct AccountHero_t>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<struct AccountHero_t,struct CAsyncDataCache<struct AccountHero_t,class CMsgPlayerHeroData>::DataContainer_t *,class CDefLess<struct AccountHero_t>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<struct AsyncQueryHandle_t,class CUtlVector<class CHandle<class CBaseEntity>,int,class CUtlVectorMemory_Growable<class CHandle<class CBaseEntity>,int,0> >,class CDefLess<struct AsyncQueryHandle_t>,int>::Node_t,class CUtlOrderedMapBase<struct AsyncQueryHandle_t,class CUtlVector<class CHandle<class CBaseEntity>,int,class CUtlVectorMemory_Growable<class CHandle<class CBaseEntity>,int,0> >,class CDefLess<struct AsyncQueryHandle_t>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<struct AsyncQueryHandle_t,class CUtlVector<class CHandle<class CBaseEntity>,int,class CUtlVectorMemory_Growable<class CHandle<class CBaseEntity>,int,0> >,class CDefLess<struct AsyncQueryHandle_t>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<struct AsyncQueryHandle_t,struct CPhysicsAsyncQueryManager::TraceLineResult_t,class CDefLess<struct AsyncQueryHandle_t>,int>::Node_t,class CUtlOrderedMapBase<struct AsyncQueryHandle_t,struct CPhysicsAsyncQueryManager::TraceLineResult_t,class CDefLess<struct AsyncQueryHandle_t>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<struct AsyncQueryHandle_t,struct CPhysicsAsyncQueryManager::TraceLineResult_t,class CDefLess<struct AsyncQueryHandle_t>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
+CUtlRBTree<struct CUtlOrderedMapBase<struct CCitadelServerAccoladesGameSystem::PlayerAccoladeKey_t,struct CCitadelServerAccoladesGameSystem::PlayerAccoladeState_t,class CDefLess<struct CCitadelServerAccoladesGameSystem::PlayerAccoladeKey_t>,int>::Node_t,class CUtlOrderedMapBase<struct CCitadelServerAccoladesGameSystem::PlayerAccoladeKey_t,struct CCitadelServerAccoladesGameSystem::PlayerAccoladeState_t,class CDefLess<struct CCitadelServerAccoladesGameSystem::PlayerAccoladeKey_t>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<struct CCitadelServerAccoladesGameSystem::PlayerAccoladeKey_t,struct CCitadelServerAccoladesGameSystem::PlayerAccoladeState_t,class CDefLess<struct CCitadelServerAccoladesGameSystem::PlayerAccoladeKey_t>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<struct GCSDK::SOID_t,class GCSDK::CGCClientSharedObjectCache *,class CDefLess<struct GCSDK::SOID_t>,int>::Node_t,class CUtlOrderedMapBase<struct GCSDK::SOID_t,class GCSDK::CGCClientSharedObjectCache *,class CDefLess<struct GCSDK::SOID_t>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<struct GCSDK::SOID_t,class GCSDK::CGCClientSharedObjectCache *,class CDefLess<struct GCSDK::SOID_t>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<struct GCSDK::SOID_t,struct GCSDK::CGCClient::PartialSOCache_t *,class CDefLess<struct GCSDK::SOID_t>,int>::Node_t,class CUtlOrderedMapBase<struct GCSDK::SOID_t,struct GCSDK::CGCClient::PartialSOCache_t *,class CDefLess<struct GCSDK::SOID_t>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<struct GCSDK::SOID_t,struct GCSDK::CGCClient::PartialSOCache_t *,class CDefLess<struct GCSDK::SOID_t>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<struct GCSDK::SOID_t,struct GCSDK::CGCClient::SOVersion_t *,class CDefLess<struct GCSDK::SOID_t>,int>::Node_t,class CUtlOrderedMapBase<struct GCSDK::SOID_t,struct GCSDK::CGCClient::SOVersion_t *,class CDefLess<struct GCSDK::SOID_t>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<struct GCSDK::SOID_t,struct GCSDK::CGCClient::SOVersion_t *,class CDefLess<struct GCSDK::SOID_t>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
+CUtlRBTree<struct CUtlOrderedMapBase<struct PlayerStat_t,struct CCitadelServerStatTracker::PlayerTrackedStatInfo_t,class CDefLess<struct PlayerStat_t>,int>::Node_t,class CUtlOrderedMapBase<struct PlayerStat_t,struct CCitadelServerStatTracker::PlayerTrackedStatInfo_t,class CDefLess<struct PlayerStat_t>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<struct PlayerStat_t,struct CCitadelServerStatTracker::PlayerTrackedStatInfo_t,class CDefLess<struct PlayerStat_t>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
+CUtlRBTree<struct CUtlOrderedMapBase<struct TeamStat_t,struct CCitadelServerStatTracker::TeamTrackedStatInfo_t,class CDefLess<struct TeamStat_t>,int>::Node_t,class CUtlOrderedMapBase<struct TeamStat_t,struct CCitadelServerStatTracker::TeamTrackedStatInfo_t,class CDefLess<struct TeamStat_t>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<struct TeamStat_t,struct CCitadelServerStatTracker::TeamTrackedStatInfo_t,class CDefLess<struct TeamStat_t>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<struct flexsettinghdr_t const *,struct FS_LocalToGlobal_t,class CDefLess<struct flexsettinghdr_t const *>,unsigned short>::Node_t,class CUtlOrderedMapBase<struct flexsettinghdr_t const *,struct FS_LocalToGlobal_t,class CDefLess<struct flexsettinghdr_t const *>,unsigned short>::CKeyLess,unsigned short,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<struct flexsettinghdr_t const *,struct FS_LocalToGlobal_t,class CDefLess<struct flexsettinghdr_t const *>,unsigned short>::Node_t,unsigned short>,unsigned short,class CMemAllocAllocator> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<unsigned __int64,struct CSteamUnifiedMessageDispatcher::MethodResultCallback_t,class CDefLess<unsigned __int64>,int>::Node_t,class CUtlOrderedMapBase<unsigned __int64,struct CSteamUnifiedMessageDispatcher::MethodResultCallback_t,class CDefLess<unsigned __int64>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<unsigned __int64,struct CSteamUnifiedMessageDispatcher::MethodResultCallback_t,class CDefLess<unsigned __int64>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
 CUtlRBTree<struct CUtlOrderedMapBase<unsigned int,bool,class CDefLess<unsigned int>,int>::Node_t,class CUtlOrderedMapBase<unsigned int,bool,class CDefLess<unsigned int>,int>::CKeyLess,int,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<unsigned int,bool,class CDefLess<unsigned int>,int>::Node_t,int>,int,class CMemAllocAllocator> >::Insert
@@ -19178,6 +19313,9 @@ Can't find landmark %s\n
 Can't find target of train %s\n
 Can't find top track for track change! %s\n
 Can't find train for track change! %s\n
+Can't get a player stat '%s' inside a match stat.
+Can't get a player stat '%s' inside a team stat.
+Can't get a team stat '%s' inside a match stat.
 Can't load saved game, incorrect FILEID\n
 Can't load saved game, incorrect version (got %i expecting %i)\n
 Can't reach any nodes
@@ -19289,7 +19427,6 @@ Center 2
 Center Position: %f, %f, %f\n
 CenterDamage
 CenterRadius
-Cenv_volumetric_fog_controller
 Certificate Hold
 Certificate Sign
 Certificate:\n
@@ -19470,6 +19607,7 @@ CitadelSceneSettings_t
 CitadelServerLobby
 CitadelSignOutPlayerInfo
 CitadelSpreadPerShotNormalization_t
+CitadelStatTracker_global_server
 CitadelStatsDisplay_t
 CitadelStatsSpiritDisplay_t
 CitadelStatsVitalityDisplay_t
@@ -19478,6 +19616,7 @@ CitadelStolenAbilitySlot_t
 CitadelTVDirector
 CitadelTaggedSoundSettings_t
 CitadelTeamRelativeParticleSettings_t
+CitadelTeam_t
 CitadelTrackedAbilityProjectileCreateInfo_t
 CitadelTrooperUnstick
 CitadelUnitStatusSettings_t
@@ -20032,7 +20171,7 @@ DAE!
 DAL\fL@
 DBDc
 DBF-
-DCCitadel_Ability_Haze_StackingDamage
+DCCitadel_Ability_ShivWeapon_VData
 DEAD
 DEBRIS
 DEFAULT
@@ -20306,7 +20445,6 @@ DO_PVK_HEADER
 DO_RSA_PRINT
 DO_SIGVER_INIT
 DO_SSL3_WRITE
-DPA[
 DPSIncrease
 DPSMax
 DPSPercentHealth
@@ -20924,6 +21062,7 @@ Don't show any effects at the apex of a juggled ball if it's less juggles than t
 Don't show deltas because it's being applied to an enemy. i.e. We don't want to show fire rate or movement slow on yourself.
 Don't test validity of a lag comp restore, just do it.
 Don't turn towards velocity
+Done.
 DontMessageParent
 Door %s using obsolete 'Start Open' spawnflag with 'Spawn Position' set to 'Open'. Reverting to old behavior.\n
 Door %s with conflicting collision settings, removing ignoredebris\n
@@ -21095,15 +21234,23 @@ Dumps the names and values of this entity's script scope to the console\n\tArgum
 Duplicate Asset modifier definition (%d)
 Duplicate Difficulty def name %d
 Duplicate Market remap definition '%s'.\n
+Duplicate accolade id %u
+Duplicate accolade name %s
 Duplicate alternate icon definition (%d)
 Duplicate attribute definition index (%d)
 Duplicate item definition (%u)
 Duplicate itemset name (%s) found!
 Duplicate kill eater score type index %u.
 Duplicate lootlist name (%s) found!
+Duplicate match stat id %u (%s and %s)
+Duplicate match stat name %s (%u and %u)
+Duplicate player stat id %u (%s and %s)
+Duplicate player stat name %s (%u and %u)
 Duplicate prefab name (%s)
 Duplicate quality value (%d)
 Duplicate rarity value (%d)
+Duplicate team stat id %u (%s and %s)
+Duplicate team stat name %s (%u and %u)
 Durability
 Duration
 Duration Bot prioritizes changing lanes vs fighting
@@ -21182,6 +21329,7 @@ EAbilityUpgradeTier_3
 EAbilityUpgradeTier_Invalid
 EAbilityUpgradeType
 EAbilityUpgradeTypeCount
+EAccoladeThresholdType
 EActives
 EAddGem
 EAddToBase
@@ -21803,6 +21951,7 @@ EMantleType
 EMarkerCount
 EMarkerShopTunnelExit
 EMarkerShopTunnels
+EMatchTrackedStatImpl
 EMaxAbilitySlots
 EMaxAbilityUpgradeTier
 EMaxChargesIncrease
@@ -22057,6 +22206,7 @@ EPlayerKillComeback
 EPlayerPlayState
 EPlayerPlayStateCount
 EPlayerStateInvalid
+EPlayerTrackedStatImpl
 EPointType
 EPointType_DamageZone
 EPointType_EnemyBot
@@ -22122,6 +22272,7 @@ ERROR: %s navigation not terminating. Possibly bad cyclical solving?\n
 ERROR: (%s) can't teleport object (%s) as it has a parent (%s)!\n
 ERROR: (%s) target '%s' not found. Deleting.\n
 ERROR: Attempting to remove non-existing squad member!\n
+ERROR: CCitadelAccoladesSchema reload failed\n
 ERROR: CCitadelBotSchema reload failed\n
 ERROR: CSource2Server::Connect - 'g_pCVar' is nullptr\n
 ERROR: CSource2Server::Connect - Failed to connect to engine\n
@@ -22343,6 +22494,7 @@ ETEProtobufIds
 ET`K\
 ETankingBullets
 ETeamBonus
+ETeamTrackedStatImpl
 ETechArmorDamageReduction
 ETechCooldown
 ETechCooldownBetweenChargeUses
@@ -22373,6 +22525,7 @@ ETier3State_Alive
 ETier3State_Dying
 ETier3State_Falling
 ETier3State_t
+ETrackedStatAggregate
 ETreasureChest
 EVENTQUEUE_SAVE_RESTORE_VERSION
 EVP lib
@@ -23484,13 +23637,18 @@ For Parent Team Only
 For far before a following NPC uses an approximate path to get to their follow target, instead of a direct calculation.
 For how long after landing and starting a slide on flat ground we apply 'Flat Ground Friction Grace' before applying 'Flat Ground Friction'
 For how long after starting to slide on flat ground we apply 'Flat Ground Friction Grace' before applying 'Flat Ground Friction'
+For k_eMatchTrackedStatImpl_Expression, what is the expression information.
+For k_eMatchTrackedStatImpl_PlayerAggregate or k_eMatchTrackedStatImpl_TeamAggregate, what is the aggregate information.
+For k_ePlayerTrackedStatImpl_Expression, what is the expression information.
+For k_ePlayerTrackedStatImpl_HeroAdjective, what is the adjective information.
+For k_eTeamTrackedStatImpl_Expression, what is the expression information.
+For k_eTeamTrackedStatImpl_PlayerAggregate, what is the aggregate information.
 For npc's so marked, don't take damage caused by friendly (D_LI) npc's
 ForAllAreasOverlappingExtent
 Force Display:
 Force Spawn
 Force Spawn At Location
 Force Spawn Return Entities
-Force a breakable to break
 Force a busy wait for the specified number of milliseconds during save to simulate a hitch
 Force all abilities to call OnUpgrade()
 Force bots to path to the origin
@@ -23655,7 +23813,6 @@ GCConnectionStatus_STEAM_GOING_DOWN
 GCConnectionStatus_SUSPENDED
 GCHost
 GCInfo
-GCPointChildModifier
 GCProtoBufMsgSrc
 GCProtoBufMsgSrc_FromGC
 GCProtoBufMsgSrc_FromSteamID
@@ -23768,6 +23925,7 @@ GOST94-GOST89-GOST89
 GOST94-NULL-GOST94
 GPM that scales with game time
 GPUDriverName
+GPointTemplateOwnerSpawnGroupType_t
 GRAPHICSTRING
 GService for submitting data, training, and inferencing with SteamLearn.
 GTsW
@@ -24461,6 +24619,7 @@ HULL_WIDE_HUMAN
 HUMAN_HULL
 HVDataResource
 HWyn
+H\n\taccolades
 H\n\vFrameCounts
 Half width of the cone at the player
 HalfHeight
@@ -25102,6 +25261,7 @@ If set, uses wall placement rules
 If set, will be used for the conditional localization token lookup instead of [ItemName]_conditional
 If set, will be used for the localization token lookup instead of the name
 If sets filters to drawing to a specific lane
+If someone abandons before this match time (in seconds), we will call the match forfeit and not update mmr for anyone in the match.
 If specified, each wait interval will vary randomly between WaitInterval this value
 If specified, the damage used to compute physics forces. Otherwise normal damage is used (and is not scaled by the NPC damage scalar.
 If specified, this model will be used if convar citadel_use_wip_models is true.
@@ -25153,6 +25313,7 @@ IgnoreHealthCheck
 IgnoreKillEntityFlag
 IgnoreUserInput
 Ignoring impact, energy %.0f (%.2f)\n
+Ignoring tracking accolade %s (%u) for player %d - not enabled in game mode %d\n
 Ignoring unsupported entity class '%s' in shared environment: %s\n
 Ij)s
 Ik\f`dub`D
@@ -25251,6 +25412,7 @@ Initial deaht penalty gold for players.
 Initial gold for players.
 Initial rotation of the hinge (values -1 to 1 where -1 mean open at minimum limit and 1 means open at maximum limit)
 Initial trooper wave spawn time
+InitialActivate
 InitialDelay
 InitialFireRateDecrease
 InitialForce
@@ -25880,6 +26042,7 @@ Invalid 'team' index. Fallback to first valid team '%s'\n
 Invalid COMPILED_CAPTION_FILEID id for %s [got %d, expected %d]\n
 Invalid COMPILED_CAPTION_VERSION id for %s [got %d, expected %d]\n
 Invalid Position.
+Invalid argument '%s'\n
 Invalid attach type specified for particle effect anim event. Trying to spawn effect '%s' on model %s\n
 Invalid attach type specified for particle_test in cvar 'particle_test_attach_mode.\n
 Invalid certificate verification context
@@ -26479,7 +26642,6 @@ Logged off of Steam, set GC connection state to NO_STEAM\n
 Logged on to Steam, set GC connection state to GC_GOING_DOWN\n
 Logged on to Steam, set GC connection state to NO_SESSION\n
 Logged on to Steam, set GC connection state to STEAM_GOING_DOWN\n
-Logs sound event information for CCitadelAudioFilter.
 Long Range
 LongRangeBonusWeaponPower
 Look At
@@ -26849,6 +27011,7 @@ MODIFIER_STATE_GLOW_IN_LOS_TO_ENEMY
 MODIFIER_STATE_GLOW_THROUGH_WALLS_TO_ENEMY
 MODIFIER_STATE_GLOW_THROUGH_WALLS_TO_PROVIDER
 MODIFIER_STATE_GLOW_THROUGH_WALLS_TO_PROVIDER_TEAMMATES_WITHIN_RANGE
+MODIFIER_STATE_GLOW_TO_ALLIES_AS_ENEMY
 MODIFIER_STATE_GLOW_TO_PROVIDER
 MODIFIER_STATE_GROUND_DASHING
 MODIFIER_STATE_GUNSLINGER_MARK
@@ -27327,6 +27490,9 @@ MVDataRoot
 MVDataSingleton
 MVDataUniqueMonotonicInt
 MVDataUseLinkedEntityClasses
+MVP Score: Player %d final score: %.2f\n
+MVP Score: Player %d starting calculation\n
+MVP Score: Player %d stat %s (%u) has value %d. Compared to mean %.2f, std dev %.2f. Player std dev is %.2f, multiplied by %.2f score is %.2f\n
 MZL}
 M\n\fperf_samples
 M\n\ngold_stats
@@ -27390,6 +27556,7 @@ Mantle_128
 Mantle_32
 Mantle_64
 Mantle_96
+Manual
 ManualAccelSpeed
 ManualDecelSpeed
 ManualSpeedChanges
@@ -27423,6 +27590,7 @@ Match Settings
 Match reservation was canceled didn't match the reservation match id %llu or hideout %llu or state was invalid: %u\n
 Match signed out time: %u\n
 Match signout has not yet been initiated\n
+Match stat %u ( %s ) set: %d -> %d\n
 Match status:\n
 Match was active for too long. Recycling the server
 MatchID: %llu, LobbyID: %llu, Match Mode: %u, Cluster: %u\n
@@ -29207,6 +29375,7 @@ OnTouchedActiveWeapon
 OnTouchedByEntity
 OnTouching
 OnTouchingEachEntity
+OnTrackedStatsChanged
 OnTransformChanged
 OnTransitionToPathNodeComplete
 OnTrigger
@@ -29364,9 +29533,13 @@ P-224
 P-256
 P-384
 P-521
-P08@J
+P08@JPFe
+P08J
+P08N$
 P1\t98"
+P2PFe
 P5[1
+P:PFe
 PAGN_4
 PANEL_ID
 PARALYZE
@@ -29454,7 +29627,6 @@ PBF_ValidateTargetLineOfSight
 PBKDF2
 PBKDF2PARAM
 PBMAC1
-PCG@T\tK
 PEIF
 PEM lib
 PEM part of OpenSSL 1.0.2j  26 Sep 2016
@@ -29884,7 +30056,6 @@ Pin or Unpin the overlay to the Entity's location
 Ping Target and Pinging Player only
 PingCommonData
 PingMessageID_t
-PingWheelMessage_t
 PingWheelOptionID_t
 PingWheelOptionID_t"
 Pitch
@@ -29929,6 +30100,9 @@ Played to the player who claimed the orb.
 Played to the teammates of the player who claimed the orb.
 Played when the client hit the orb but it isn't confirmed by the server yet.
 Played when the server receives a hit on the orb but is waiting to fully claim it.
+Player %d achieved accolade threshold %d for accolade %u with stat value %u\n
+Player %d stat %u ( %s ) increment: %d -> %d\n
+Player %d stat %u ( %s ) set: %d -> %d\n
 Player %s given %d gold\n
 Player %s is out of the play area\n
 Player %s trying to pick hero %s out of draft order\n
@@ -29959,6 +30133,7 @@ Player.AbilityLevelUp
 Player.FallDamage
 Player.Negative.Interact
 Player.SonicDamage
+PlayerAccolade
 PlayerActorFOV
 PlayerActorFOVTrueCone
 PlayerActorLOS
@@ -29980,8 +30155,10 @@ PlayerFogController
 PlayerHasAmmo
 PlayerHasNoAmmo
 PlayerHealth
+PlayerID
 PlayerInVehicle
 PlayerInstanceFromIndex
+PlayerName
 PlayerNeverConnected
 PlayerOpen
 PlayerPenaltyCount
@@ -30031,7 +30208,6 @@ PointCameraSettings_t
 PointOrientConstraint_t
 PointOrientGoalDirectionType_t
 PointTemplateClientOnlyEntityBehavior_t
-PointTemplateOwnerSpawnGroupType_t
 PointType
 PointWorldTextJustifyHorizontal_t
 PointWorldTextJustifyVertical_t
@@ -30653,7 +30829,6 @@ RUMBLE_SMG1
 RUMBLE_STOP_ALL
 R\n\nBookReward
 R\r1>Vp
-R\vp,t
 R]Di
 Rad2 Deg
 RadiationThink
@@ -30818,6 +30993,7 @@ ReloadSpeedConstant
 ReloadSpeedMultipler
 ReloadTime
 Reloading
+Reloading...
 Reloads schedules for all NPC's from their script files\n\tArguments:\t-none-
 Reloads the MotD file
 Reloads the item master schema.
@@ -31156,6 +31332,7 @@ RumbleEffect_t
 Run UTIL_FindUnitsInRadius centered around 
 Run a gun DPS test and record the results\nusage: <hero_target>
 Run one usercmd per server tick and maintain a buffer.  Client speeds up/slows down it's usercmd tick rate to maintain server command queue buffering.
+Run the MVP calculation right now
 RunAcceleration
 RunAnimation
 RunPathfindMeshSpaceTransitionTests failed.
@@ -32191,6 +32368,7 @@ Server sound helpers.
 Server state transitioned to state %s
 Server will stop generating substitute commands if client hasn't sent one, after N in a row
 Server: Missing precache for effect "%s"!\n
+ServerAccoladesGameSystem
 ServerBuild
 ServerCurTime
 ServerHideoutGameSystem
@@ -33323,6 +33501,11 @@ Starting Amount
 Starting new game  lobby_id=%llu, match_id=%llu\n
 Starting new hideout lobby id=%llu\n
 Starting replay recording in %d seconds...\n
+Starting to track accolade %s (%u) for player %d\n
+Starting to track match stat %s (%u)\n
+Starting to track mvp stat %s (%u) for player %d\n
+Starting to track player stat %s (%u) for player %d\n
+Starting to track team stat %s (%u) for team %d\n
 StartingAnim
 StartingAnimationLoopMode
 Starts a sound event, returns a handle that can be used to stop it.
@@ -33332,10 +33515,14 @@ StasisRadius
 Stat
 Stat changes displayed will be for this hero.
 StatDesc_%s
+StatDistribution
+StatID
 StatName
 StatStealDamageInstances
 StatStealDuration
+StatTracker
 StatType
+StatValue
 StatViewerModifierValues_t
 StatWithCategory_t
 State
@@ -33465,6 +33652,9 @@ StopTilt
 StopTimer
 StopWaitingForActor
 Stopped at Node [path=%s node=%i dir=%s speed=%.2f]
+Stopping tracking match stat %s (%u)\n
+Stopping tracking stat %s (%u) for player %d\n
+Stopping tracking team stat %s (%u) for team %d\n
 Stops a named sound playing from this entity.
 Stops a sound event
 Stops a sound event with optional delivery
@@ -34030,17 +34220,22 @@ TaskHandshakeScope_t
 TaskStatus_t
 Tasks
 Team
+Team %d stat %u ( %s ) set: %d -> %d\n
 Team Aliens
 Team Generated Bonus
 Team Humans
 Team: %d - %s
 TeamBonusGold
+TeamInfo
+TeamName
 TeamNum
+TeamNumber
 TeamObjective
 TeamWin
 Teammate Barriering
 Teammate Healing
 Teammate footstep sounds are relative to whoever we're spectating.
+Teams
 Tech
 Tech Damage Absorbed
 Tech Damage Absorption Provided
@@ -34118,7 +34313,6 @@ Template NPC Spawner "%s" has only %d valid spawn destinations out of %d.\n
 Terminating due to %d missing responses from the GC\n
 Terminating immediately due to version change since server is hibernating\n
 Test AI LOS from the player's POV
-Test Kill feed hype: citadel_test_kill_feed_hype [player_slot] [num_kills] [first_blood] [duration]
 Test Mode Assert True
 Test Position.
 Test Proxy
@@ -34173,6 +34367,8 @@ The HOST file to load.
 The MOTD file to load.
 The Navigation Mesh was built with an old server dll - reanalyze the mesh!
 The Stat Type
+The adjective
+The aggregate function
 The amount of outstanding memory required to trigger a memory report. 0 disables.
 The amount of speed boost to apply when running forward and initiating a slide.
 The amount of time in milliseconds where if we have less than this in idle time, count it as a low idle frame
@@ -34202,6 +34398,7 @@ The entity origin (absolute).
 The entity origin (local)
 The entity team number
 The entity to specifically debug
+The expression
 The extent to which the Wrecker's boulder behaves 'muddy', meaning how much its jumps up are dampened
 The field of view angle of the camera.
 The first level of the level map is expected to have 0 for the required gold, but found %d instead
@@ -34239,6 +34436,7 @@ The move type to switch to.  Some move types will have weird behaviors when swap
 The name for the body (bone) that we're targeting.
 The name of the weapon entity to spawn for this NPC weapon.
 The nav mesh needs a full nav_analyze\n
+The number of accolades stored in the metadata. -1 means all
 The number of minutes required between memory samples. Set to 0 to disable memory sampling
 The number of minutes required to have elapsed before recording a memory sample
 The number of seconds to randomize the timeouts to help avoid the risk of all servers restarting at the same time
@@ -34262,6 +34460,7 @@ The shallowest slope degree to start applying downhill acceleration.
 The speed to start a slide out of a dash if the timing was incorrect.
 The speed to start a slide out of a dash.
 The start lerp value
+The stat to aggregate
 The target offset position of the camera when the character is backed up against a wall. X = forward/back. Y = right/left. Z = up/down. Use citadel_camera_parrot_pov 1 to tune. Requires Save & Recompile to apply.
 The target value
 The target value to spring to
@@ -34494,6 +34693,13 @@ TrackSpeedNear
 TrackTrain %s arrived at %s, maintaining speed at %4.2f\n
 TrackTrain %s arrived at %s, speed to %4.2f\n
 TrackedObject%d
+TrackedStatAggregateData_t
+TrackedStatExpressionData_t
+TrackedStatHeroAdjectiveData_t
+TrackedStatID_t
+TrackedStatNetworkData_t
+TrackedStatValue_t
+TrackedStatValue_t"E\n
 Tracking
 Tracking entity %s with interest score %d\n
 TrackingDistance
@@ -34792,15 +34998,28 @@ Unable to find footstep entry %s\n
 Unable to find hero named "%s" for kill eater score type %u.
 Unable to find item definition '%s' for bundle '%s'.
 Unable to find mapping for flexcontroller %i, settings %p on %i/%s\n
+Unable to find player stat %s for match aggregate stat %s
+Unable to find player stat %s for team aggregate stat %s
 Unable to find set item remap definition '%s' for '%s'.
+Unable to find team stat %s for match aggregate stat %s
+Unable to find tracked stat %s
+Unable to get match stat value %s
+Unable to get player %d stat value %s
+Unable to get player %d stat value %s (team %d)
+Unable to get team %d stat value %s
 Unable to init game event %s\n
 Unable to load manifest file '%s'\n
 Unable to parse charge cost item def index %s for %s.
 Unable to parse compressed message\n
+Unable to parse expression for player stat %s: %s
+Unable to parse expression for stat %s: %s
 Unable to parse message for extra message block of type %u (Key: %llu)%s\n
 Unable to queue speech that is lower priority than current speech\n
 Unable to set charge cost item def index for %s to itself.
 Unable to set set item remap for definition '%s' to itself.
+Unable to start accolade tracking for player %d stat %u - no stat distribution\n
+Unable to start stat tracking for player %d mvp stat %s (%u)\n
+Unable to start stat tracking for player %d stat %u\n
 Unassigned
 UnblockNav
 Unexpected end of file expanding save game\n
@@ -34845,6 +35064,7 @@ Unprocessed type %d\n
 Unranked
 UnreachableTargetType_t
 UnreachableTarget_t
+Unrecognized function %s
 Unreferenced parameters will display dimmer like this.\n
 UnregisterListener
 Unresolved off nav mesh\n
@@ -34949,6 +35169,7 @@ Usage:\n\t%s <subclassname> [ent index/name]\n
 Usage:\n\tgive <subclassname> [additional arguments]\n
 Usage:\n\tremove_weapon <item subclass name>\n
 Usage:\n\tsubclass_change <new subclass name> [ent index/name]\n
+Use a KDA ratio for the mvp score instead of the real algorithm.
 Use a particular weapon\t\nArguments: <weapon_name>
 Use best
 Use block solving for constraint entities
@@ -35014,6 +35235,7 @@ VDPr
 VData:%s
 VDataChoice( scripts/ammo.vdata )
 VDataChoice( scripts/nav_hulls.vdata )
+VDataReload:%s
 VEHICLE
 VF+c
 VGG@
@@ -35271,6 +35493,7 @@ WEAPON_SOUND_SPECIAL2
 WEAPON_SOUND_SPECIAL3
 WEBAPI_PARAM_STEAMID_ACCOUNTID
 WEST
+WIDE_HUMAN_HULL
 WIN32_BIND_FUNC
 WIN32_BIND_VAR
 WIN32_GLOBALLOOKUP
@@ -35709,6 +35932,10 @@ WreckingBallPushForce
 WrgoI
 Write the KV3 entity data as a text file in the save directory
 WriteToBuffer Message %s is not initialized! Probably missing required fields!\n
+Wrong arg count for '%s' %d, expected 1
+Wrong arg count for '%s' %d, expected 2
+Wrong arg count for '%s' %d, expected 3
+Wrong arg type for 'stat' function. Expected string literal but got %d
 Wrote metadata file %s, %u bytes\n
 X to the Y power
 X.509 part of OpenSSL 1.0.2j  26 Sep 2016
@@ -35863,7 +36090,7 @@ XRJ2
 XWY]
 XYD%
 X\tQo
-X`hr0
+X`hr
 Xd3h
 XfJ7
 XjfR
@@ -35915,7 +36142,6 @@ Z+5AS
 Z-Far
 Z-Near
 Z0000
-Z0:X
 Z0zd
 Z7"c
 Z72\v
@@ -35924,6 +36150,7 @@ ZH^r
 ZL9L
 ZLIB
 ZLONG
+ZPFe
 ZSz@
 ZXF,`i
 Z\n\nmap_values
@@ -35947,6 +36174,7 @@ Zone2Distance
 Zoom
 ZoomBias
 ZoomTime
+ZpW\
 Zpwz
 Z~wl
 [ %s ( %i ) ] The maximum time ( %.2f sec ) in state %s has elapsed. Forcing either idle or loop state based on path existence
@@ -36084,6 +36312,7 @@ Z~wl
 [Tick: %i] Generated procedural shatter debris model "%s"\n
 [\n\nmap_values
 [\n\tChallenge
+[all|player|team|match] Dump currently tracked stats.
 [custom]
 [dt %5.2f] velocity: %s
 [ex %5.2f] extrap  : frac %.6f%s
@@ -36116,16 +36345,18 @@ Z~wl
 \\n\vCheerRemaps
 \f%\f/\f1\fA\f[\f_\fa\fm\fs\fw\f
 \f*t\n ESteamLearnGetAccessTokensResult
-\f04a
 \f7ig
 \f<<0A1pq
+\fAccoladeID_t
 \fKS1
 \fResourceId_t
 \fW9c
 \fXu"L
+\f\n\nPlayerInfo
 \f]ne3
 \fdhWTh
 \fiaR
+\fp\vPL
 \ful2
 \fy&3Gl
 \l:ArR
@@ -36152,6 +36383,7 @@ Z~wl
 \n!CMsgServerSignoutData_BookRewards
 \n!CMsgServerSignoutData_HeroXPGrant
 \n!CMsgSteamLearn_Inference_Response
+\n!CServerLobbyData_PlayerStatValues
 \n!\n1\n9\n=\nI\nW\na\nc\ng\no\nu\n{\n
 \n"CCitadelClientMsg_HideoutMenuState
 \n"CCitadelUserMsg_AbilityInterrupted
@@ -36254,7 +36486,7 @@ Z~wl
 \nDictionary: %s\n
 \nEnemy is %s
 \nGameTime_t
-\nPqb
+\nPFe
 \nSimulating Entities:\n\n
 \nVisMon: Polling now. (Frequency: %f)\n
 \n\fBPE_Teleport
@@ -36374,6 +36606,7 @@ Z~wl
 \n\fsteam_txn_id
 \n\fsteamid_left
 \n\fstrange_type
+\n\fstreak_ended
 \n\fsurface_type
 \n\fsync_version
 \n\ftarget_float
@@ -36519,6 +36752,7 @@ Z~wl
 \n\nteam_kills
 \n\nteamnumber
 \n\ntech_power
+\n\nthresholds
 \n\ntime_stamp
 \n\ntoken_name
 \n\nturbo_mode
@@ -37004,8 +37238,6 @@ Z~wl
 \n\vvalue_float
 \n\vversion_max
 \n\vversion_min
-\npqb
-\npta
 \nqYu
 \ntM(ie-V
 \r!\r+\r-\r=\r?\rO\rU\ri\ry\r
@@ -37131,7 +37363,6 @@ Z~wl
 \vHCK/
 \vNCE\v
 \vUY6[E
-\v\n\nPlayerInfo
 \v\vTSG
 \vj0k
 \vjC7
@@ -37189,7 +37420,11 @@ _builtins
 _cells
 _commentary
 _cone
+_editor/next_accolade_id
+_editor/next_match_stat_id
 _editor/next_ping_wheel_id
+_editor/next_player_stat_id
+_editor/next_team_stat_id
 _entname_fixup_local
 _entname_fixup_parent
 _entname_fixup_prefix
@@ -37212,16 +37447,17 @@ _tools_event_desc
 _xU`u
 _}eOk
 `28)fk
-`5TD
+`2PFe
+`2pW\
 `:zQF
 `D$daM-l
 `DZG
 `H(hqA1p
+`IKI
 `ITS
-`Q0D
-`QyD
 `VX:H
 `\n\rvector_values
+`\tV_powd
 `adjustor{
 `fPw.\vM
 `generic-class-parameter-
@@ -37256,6 +37492,7 @@ a:typeparam
 a;Tg
 a@XZ
 aA0k
+aBv$
 aD/x
 aDSS
 aECDH
@@ -37386,6 +37623,7 @@ ability_infinity_slash
 ability_intimidate
 ability_kali_dust_storm
 ability_kali_trappers_bolo
+ability_kills
 ability_lash_flog
 ability_level_changed
 ability_life_drain
@@ -37509,6 +37747,8 @@ accept error
 acceptableResponses
 acceptdamagefromheldobjects
 accepted
+accolade_stat_value
+accolade_threshold_achieved
 account
 account bound
 account_challenges
@@ -37915,6 +38155,7 @@ angular_velocity_cp
 angulardampingratio
 angularfrequency
 anim
+animTimeSerializer
 anim_bounds_max
 anim_bounds_min
 anim_disable
@@ -38709,6 +38950,8 @@ break_twist_pieces
 breakable_debug_spawn_transform_time
 breakable_force_break
 breakable_multiplayer
+breakables_destroyed_gold
+breakables_destroyed_powerup
 breakaftertime_x
 breakaftertime_y
 breakaftertime_z
@@ -39199,6 +39442,8 @@ citadel_abilityprojectile
 citadel_abrams_cone_debug
 citadel_abrams_fastcharge_lagcomp
 citadel_abrams_max_charge_unlag_players
+citadel_accolades_enabled
+citadel_accolades_in_metadata_per_player
 citadel_activate_cps_for_team
 citadel_active_lane
 citadel_afk_detection_enabled
@@ -39377,6 +39622,8 @@ citadel_cat_animating
 citadel_catapult_on_damage_channel_time
 citadel_catapult_on_damage_disable_time
 citadel_change_team
+citadel_clear_killstreak
+citadel_clear_killstreak [player_slot]
 citadel_clientmessages.proto
 citadel_constants.h
 citadel_control_point
@@ -39575,6 +39822,8 @@ citadel_ice_dome_blocker
 citadel_idle_time
 citadel_idle_time_grace_period
 citadel_inactive_time_grace_period
+citadel_increment_killstreak
+citadel_increment_killstreak [player_slot] [first_blood] [duration]
 citadel_initial_wall_jump_stamina_cost
 citadel_item
 citadel_item_aura_base
@@ -39655,6 +39904,9 @@ citadel_movement_skyclip_push_min_force
 citadel_movement_slip_accel
 citadel_movement_solver_iterations
 citadel_movespeed_bonus_max
+citadel_mvp_calculate_now
+citadel_mvp_enabled
+citadel_mvp_score_kda_ratio
 citadel_nano_predatory_statue
 citadel_nano_set_shouldercat_bodygroup
 citadel_napalm_projectile_show_debug
@@ -39864,6 +40116,7 @@ citadel_spider_animating
 citadel_start_lane_challenge
 citadel_start_multi
 citadel_stat_preview
+citadel_stat_tracker.h
 citadel_steamlearn_disable
 citadel_steamlearn_mechanical_behavior_allowed_game_modes_bitfield
 citadel_steamlearn_mechanical_behavior_allowed_match_modes_bitfield
@@ -39893,7 +40146,6 @@ citadel_team_size
 citadel_teleport_trigger_delay
 citadel_teleporter_enabled_time
 citadel_test_force_zipline_start
-citadel_test_kill_feed_hype
 citadel_test_portal_trace
 citadel_test_team_intros
 citadel_test_team_msg
@@ -40121,6 +40373,8 @@ close
 closed
 closed_loop
 closesound
+closeup_damage
+closeup_kills
 cloth
 cluster
 clusters
@@ -40585,6 +40839,7 @@ damage_per_hero_ability
 damage_percent
 damage_position
 damage_position_cp
+damage_received
 damage_records
 damage_sources
 damage_summary
@@ -40972,6 +41227,7 @@ door_speed
 doorman_bomb_projectile
 dotProductMax
 dota_overhead_on_received_item
+dota_tracked_stats_dump
 double_shot
 down
 drag_override
@@ -41748,6 +42004,7 @@ env_tilt
 env_tonemap_controller
 env_tonemap_controller2
 env_viewpunch
+env_volumetric_fog_controller
 env_volumetric_fog_volume
 env_wind
 env_wind_controller
@@ -42127,6 +42384,7 @@ first num too large
 first octet invalid
 first_all_chat_gametime
 first_all_chat_time
+first_blood
 first_damage_time_s
 first_loot_list_override
 first_pickup_time
@@ -42860,6 +43118,7 @@ guide_line
 guided_arrow_projectile
 guided_player_ap
 guided_player_gold
+gun_kills
 gun_ring_fx
 gun_ring_key_a_fx
 gun_ring_key_b_fx
@@ -42877,9 +43136,8 @@ g{syW*
 g|FeW\v
 g|MT
 h&eC
-h)eD
+h)OJ
 h*Ax
-h-lD
 h0XB
 h2Wl
 h2n_\
@@ -42893,6 +43151,7 @@ hCallbackScope
 hCaller
 hCamera
 hCaster
+hE'J
 hEM&!
 hEnemy
 hEnt
@@ -42909,6 +43168,7 @@ hEntityParent
 hEvent
 hF\rDz
 hFcg
+hI"J
 hIgnoreEntity
 hInfo
 hJxRX@_
@@ -42926,7 +43186,6 @@ hW*m
 hW1M
 hW_z
 hX@e
-h\tbD
 h`Zr
 hack
 hack_send_matchperfstats
@@ -42970,6 +43229,8 @@ headless
 headline
 heads
 headshot
+headshot_damage
+headshots
 heal_amount
 heal_heroes
 heal_prevented
@@ -42993,6 +43254,7 @@ heat_temp
 heavy
 heavy_melee_chance
 heavy_melee_chance_in_reload
+heavy_melee_damage
 height_tolerance
 heightfog
 held_time
@@ -43048,7 +43310,6 @@ hex_model
 hex_to_string
 hexkey
 hhwi
-hiQD
 hidden_in_tool
 hide
 hide_debug_complaints
@@ -43149,7 +43410,7 @@ hltv_replay
 hltv_title
 hltv_versioninfo
 hlvr
-hm^D
+hmYJ
 hmac
 hmac-md5
 hmac-sha1
@@ -43189,14 +43450,16 @@ hovering
 hoverposeangles
 hoverposeflags
 hoverposeposition
+how this stat is implemented
 hows joint info for this entity
-hq%D
+hpzPFe
+hq"J
+hq%J
 hr_H
 http request
 https proxy request
 hud_skin
 hudtextparms_t
-hujD
 hull
 hull index %d
 hull_index
@@ -43205,11 +43468,9 @@ hullivr_faceisland_merge_disp
 hullivr_faceisland_merge_tan
 hullivr_version
 hulls
-hupD
 hurtme
 hurtthem
 hvL&
-hynD
 h|gg
 i <= EVP_MAX_MD_SIZE
 i%YR
@@ -43773,6 +44034,7 @@ input not reduced
 inputOffset
 inputType
 inputs
+inrange
 inside
 instance_data
 instance_file
@@ -44127,6 +44389,7 @@ jHLy
 jLTKTz
 jNXcA
 jOJw"
+jPFe
 jTuf
 jV*d9O
 j[6Z
@@ -44658,6 +44921,7 @@ k_ESOMsg_UpdateMultiple
 k_EServerLobbyData_AutoTest
 k_EServerLobbyData_PlayerInfo
 k_EServerLobbyData_PlayerMMR
+k_EServerLobbyData_PlayerStatValues
 k_EServerLobbyData_PostMatchSurvey
 k_EServerSignoutData_AccountStatChanges
 k_EServerSignoutData_BookRewards
@@ -44855,6 +45119,11 @@ k_eLobbyServerState_InGame
 k_eLobbyServerState_PostMatch
 k_eLobbyServerState_SignedOut
 k_eMatchAuxStat_Dummy
+k_eMatchTrackedStatImpl_Direct
+k_eMatchTrackedStatImpl_Expression
+k_eMatchTrackedStatImpl_Invalid
+k_eMatchTrackedStatImpl_PlayerAggregate
+k_eMatchTrackedStatImpl_TeamAggregate
 k_eMemberRights_Admin
 k_eMemberRights_Creator
 k_eMissingPrereq
@@ -44872,6 +45141,9 @@ k_eNone
 k_eOutcome_Error
 k_eOutcome_TeamWin
 k_ePlay
+k_ePlayerTrackedStatImpl_Direct
+k_ePlayerTrackedStatImpl_Expression
+k_ePlayerTrackedStatImpl_Invalid
 k_ePlayerType_Player
 k_ePlayerType_Spectator
 k_eResources
@@ -44880,6 +45152,16 @@ k_eSilver
 k_eSplinePushAlong
 k_eSplinePushAway
 k_eSplinePushTowards
+k_eTeamTrackedStatImpl_Direct
+k_eTeamTrackedStatImpl_Expression
+k_eTeamTrackedStatImpl_Invalid
+k_eTeamTrackedStatImpl_PlayerAggregate
+k_eTrackedStatAggregate_And
+k_eTrackedStatAggregate_Invalid
+k_eTrackedStatAggregate_Max
+k_eTrackedStatAggregate_Min
+k_eTrackedStatAggregate_Or
+k_eTrackedStatAggregate_Sum
 k_eType_Damage
 k_eType_HealPrevented
 k_eType_Healing
@@ -44970,6 +45252,15 @@ killing %s\n
 killing_team
 killme
 kills
+killstreak_10
+killstreak_3
+killstreak_4
+killstreak_5
+killstreak_6
+killstreak_7
+killstreak_8
+killstreak_9
+killstreak_kills
 killtarget
 killvector
 kingme
@@ -45134,6 +45425,7 @@ light_dynamic
 light_dynamic at [%d %d %d] has invalid exponent value (%d must be between %d and %d).\n
 light_environment
 light_map_uniqueid
+light_melee_damage
 light_name
 light_omni
 light_omni2
@@ -45286,6 +45578,8 @@ logic_scene_list_manager
 logic_script
 logic_timer
 long 
+long_distance_damage
+long_distance_kills
 long_frame_threshold
 look target
 look_at_forced_up
@@ -47594,6 +47888,7 @@ m_agentMaxSlope
 m_agentRadius
 m_agentShortHeight
 m_agentShortHeightEnabled
+m_aggregateData
 m_aiLOD
 m_allAsleep
 m_allowIntersection
@@ -49121,6 +49416,7 @@ m_eAbilityType
 m_eAbilityType != EAbilityType_Cosmetic
 m_eAccess
 m_eActiveFireMode
+m_eAggregate
 m_eAliveState
 m_eApplyFilter
 m_eArrivalStance
@@ -49236,6 +49532,12 @@ m_eSpawnPosition
 m_eSpecificStatScaleType
 m_eSpiritStatsDisplay
 m_eStatCategory
+m_eStatImpl
+m_eStatImpl != k_eMatchTrackedStatImpl_Expression
+m_eStatImpl != k_eMatchTrackedStatImpl_PlayerAggregate && m_eStatImpl != k_eMatchTrackedStatImpl_TeamAggregate
+m_eStatImpl != k_ePlayerTrackedStatImpl_Expression
+m_eStatImpl != k_ePlayerTrackedStatImpl_HeroAdjective
+m_eStatImpl != k_eTeamTrackedStatImpl_PlayerAggregate
 m_eStatType
 m_eState
 m_eStatsUsageFlags
@@ -49244,6 +49546,7 @@ m_eStolenSlot
 m_eSwingState
 m_eTargettingLOSCheck
 m_eTelepunchState
+m_eThresholdType
 m_eTimeScaleSource
 m_eTransitionedToPathNodeAction
 m_eTrooperType
@@ -49295,6 +49598,7 @@ m_explosionCustomSound
 m_explosionDangerSound
 m_explosionDelay
 m_explosionModifier
+m_expressionData
 m_externalMethodTargetGraph
 m_fActive
 m_fActorInPVS
@@ -52152,6 +52456,7 @@ m_heading
 m_healCurve
 m_height
 m_hero
+m_heroAdjectiveData
 m_heroStatsDisplay
 m_heroStatsUI
 m_hierarchyAttachName
@@ -52321,6 +52626,7 @@ m_iLootListDeckSize
 m_iMagnitude
 m_iMatchTimeMinsForLevel2Pickups
 m_iMatchTimeMinsForLevel3Pickups
+m_iMaxAmmo
 m_iMaxClip1
 m_iMaxClip2
 m_iMaxGroundIterations
@@ -53379,6 +53685,7 @@ m_nPhysicsMaterial
 m_nPlatformType
 m_nPlayerDeathEventID
 m_nPlayerKillNumber
+m_nPlayerSlot
 m_nPositionX
 m_nPositionXY
 m_nPositionY
@@ -54053,6 +54360,7 @@ m_sFireworkParticle7
 m_sFireworkParticle8
 m_sFixedSpawnGroupName
 m_sFlashlightMode
+m_sFlavorName
 m_sFootstepSound
 m_sFriendlyGlowParticle
 m_sFriendlyHitConfirmParticle
@@ -54186,6 +54494,7 @@ m_sTaskHandshakeTypeShared
 m_sTeam1MaterialGroupName
 m_sTeam2MaterialGroupName
 m_sToolsOnlyOwnerModelName
+m_sTrackedStatName
 m_sTrailParticleOverrideName
 m_sTransitionType
 m_sType
@@ -54312,6 +54621,7 @@ m_strActivateAmbushSound
 m_strActivateSound
 m_strActiveEffectConfigName
 m_strAdditionalClasses
+m_strAdjective
 m_strAirCastAnimGraphParam
 m_strAirDashSound
 m_strAllyPositionPreview
@@ -54537,6 +54847,7 @@ m_strImpactSound
 m_strImportantProperty
 m_strImportantProperty != StatusEffectEMP && m_strImportantProperty != StatusEffectStun && m_strImportantProperty != StatusEffectFreeze && m_strImportantProperty != StatusEffectBurn && m_strImportantProperty != StatusEffectBleed && m_strImportantProperty != StatusEffectSleep && m_strImportantProperty != StatusEffectTethered && m_strImportantProperty != StatusEffectImmobilize && m_strImportantProperty != StatusEffectDisarmed && m_strImportantProperty != StatusEffectInvisible && m_strImportantProperty != StatusEffectStacks && m_strImportantProperty != StatusEffectInfiniteClip && m_strImportantProperty != StatusEffectBulletDebuff && m_strImportantProperty != StatusEffectBuff && m_strImportantProperty != StatusEffectPetrify && m_strImportantProperty != StatusEffectCustomDebuff && m_strImportantProperty != StatusEffectUnstoppable && m_strImportantProperty != StatusEffectDisplacement && m_strImportantProperty != StatusEffectSilence
 m_strInFlightAnimGraphParam
+m_strIndividualStat
 m_strInteractLocString
 m_strInvisRevealedSound
 m_strItemClass
@@ -54958,6 +55269,7 @@ m_twistLowLimitValue
 m_type
 m_ubInterpolationFrame
 m_uchShuffleCaseMap
+m_unAccoladeID
 m_unAlignmentDegrees
 m_unClientFlags
 m_unComponentID
@@ -54986,6 +55298,7 @@ m_unRequiredGold
 m_unShowDelaySeconds
 m_unShowDurationSeconds
 m_unSpectatorCount
+m_unStatID
 m_unVerticalAlign
 m_unpausingPlayerId
 m_untranslatedSchedule
@@ -55404,6 +55717,7 @@ m_vecDistanceOperations
 m_vecDynamicAbilityValues
 m_vecElectricBeamLookTarget
 m_vecElevatedAbilityProperties
+m_vecEnabledGameModes
 m_vecEndLocation
 m_vecEndLocationCaster
 m_vecEndPos
@@ -55628,8 +55942,10 @@ m_vecTeleportPosition
 m_vecTeleportPositionNormal
 m_vecTetheredEnemies
 m_vecThreats
+m_vecThresholds
 m_vecTimeWarps
 m_vecTooltipSectionInfo
+m_vecTrackedStats
 m_vecTrackedUnitsThisFrame
 m_vecTravellingPosition
 m_vecUniqueHitList
@@ -55758,6 +56074,7 @@ matRocks
 matUnbreakableGlass
 matWeb
 matWood
+match
 match_clock
 match_disconnect_time
 match_duration_s
@@ -55768,7 +56085,9 @@ match_reconnect_delay
 match_signout_book_loss_xp
 match_signout_book_win_xp
 match_start_time
+match_stat
 match_time
+match_tracked_stats
 matchid
 material_base
 material_damage
@@ -55901,6 +56220,7 @@ medium
 melee
 melee_air_dashing
 melee_charging
+melee_damage
 melee_ground_dashing
 melee_heavy
 melee_hit
@@ -55909,6 +56229,7 @@ melee_hit_player
 melee_hit_world
 melee_immune
 melee_kill
+melee_kills
 melee_light1
 melee_light2
 melee_miss
@@ -56952,6 +57273,7 @@ muzzle_flash_r
 muzzle_fx
 muzzle_static_fx
 mvp_map_override
+mvp_rank
 my_hero
 mzP"T
 n < (int)sizeof(ctx->enc_data)
@@ -57443,6 +57765,7 @@ net_payment_us_usd
 net_reloadgameevents
 net_showeventlisteners
 net_showevents
+net_worth
 net_worth_game_ratio
 net_worth_nag
 net_worth_task_incomplete
@@ -57462,6 +57785,7 @@ neutral
 neutral_creep_orb
 neutral_damage
 neutral_gold
+neutral_last_hits
 neutral_sinners_sacrifice
 neutral_trooper_normal
 neutral_trooper_strong
@@ -58092,12 +58416,14 @@ p.other
 p.ppBasis
 p.prime
 p.tpBasis
+p08@H^$
+p0j`
+p2PFe
 p2{l
 p4Z3
 p5Z3
 p5\nL,
 p618
-p6p@
 p@0pqE5tsO?|1
 pActivator
 pAnimGraphEntity
@@ -58121,7 +58447,6 @@ pData->GetDataDescMap() == pTemplateDataMap
 pDefault
 pDescription
 pEntity
-pFPG
 pField
 pFilter
 pFirstWaypoint type[%d]
@@ -58131,7 +58456,6 @@ pIdentifier
 pIp 
 pJointName
 pLocationEntity
-pMODIFIER_STATE_GLOW_TO_ALLIES_AS_ENEMY
 pMaterialGroup
 pMeshGroupName
 pModelName
@@ -58559,6 +58883,8 @@ pickup_particles
 pickup_radius_override
 pickup_script_func
 pickup_sound
+pickups_collected_gold
+pickups_collected_powerup
 piece_name
 pilot
 pilotAttributeSyntax
@@ -58659,6 +58985,7 @@ player_connect
 player_connect_full
 player_controller
 player_controller_and_pawn
+player_damage
 player_damage_mitigated
 player_damage_taken
 player_death
@@ -58695,8 +59022,10 @@ player_shoot
 player_slot
 player_spawn
 player_squad
+player_stat
 player_team
 player_thrown
+player_tracked_stats
 player_uncertainty
 player_used_ability
 player_used_item
@@ -58757,6 +59086,7 @@ point_template '%s' is missing its template entity lump names: '%s' or '%s'.\n
 point_value_remapper
 point_velocitysensor
 point_viewcontrol
+point_worldtext
 pointclass
 pointentityclass
 pointer != NULL
@@ -59068,6 +59398,7 @@ purchase_report_status
 purchase_result_detail
 purchase_upgrades_in_order
 purchaser_player_slot
+pure_damage
 push
 push_direction
 push_x
@@ -59504,6 +59835,7 @@ result_set
 retransmit:  message %d non-existant\n
 return_location
 returndelay
+returned_idol
 returnspeed
 reuse cert length not zero
 reuse cert type not zero
@@ -59802,6 +60134,7 @@ scripted_sequence %d:"%s" found NPC "%s" (Allow Interrupts: %s)\n
 scripted_sequence %d:"%s" using NPC %d:"%s"(%s)\n
 scriptlist
 scripts/abilities.vdata
+scripts/accolades.vdata
 scripts/ai_lod.vdata
 scripts/bots/bot_difficulty.vdata
 scripts/decalgroups.vdata
@@ -59883,6 +60216,7 @@ section:
 section=
 secure device signature
 secure_allowed
+secures
 security
 seeAlso
 see_midboss
@@ -60308,6 +60642,8 @@ singleExtensions
 singleLevelQuality
 singleRequestExtensions
 single_shot
+sinners_sacrifice_destroyed
+sinners_sacrifice_jackpot
 size_params
 sk_autoaim_mode
 sk_player_arm
@@ -60799,6 +61135,7 @@ startup_ServerModuleInit
 startup_SteamLoggedOn
 startvalue
 stat.m_eType == eType
+stat_distributions
 stat_id
 stat_ids
 stat_max
@@ -60814,6 +61151,12 @@ staticImpactVolume
 static_attributes
 static_recipe
 stationary_turn
+stats/tracked_stats_match.vdata
+stats/tracked_stats_match_staging.vdata
+stats/tracked_stats_player.vdata
+stats/tracked_stats_player_staging.vdata
+stats/tracked_stats_team.vdata
+stats/tracked_stats_team_staging.vdata
 stats_type_stat
 statue
 status expired
@@ -60872,6 +61215,7 @@ strArg3
 strBindingName
 strCellDesc
 strEntityName
+strExpression
 strGroup
 strInValue
 strModel
@@ -61199,6 +61543,7 @@ t80z
 t=%8.2f id=%d n='%-16s' c=%d starve=%d maxstarve=%d maxbloat=%d avgq=%.2f %s
 t=%8.2f name=%-16s %s
 tA`KO/3G!\n7h=
+tBHd
 tGTS
 tLY^m`6
 tLl 
@@ -61300,6 +61645,8 @@ team_networth_diff
 team_networth_pct_diff
 team_number
 team_objective_id
+team_stat
+team_tracked_stats
 team_wipe
 teammate_barriering
 teammate_healing
@@ -61536,6 +61883,10 @@ tracer_additional
 tracer_replacement
 tracer_resource_id
 tracked_object_count
+tracked_stat_id
+tracked_stat_mean
+tracked_stat_std_dev
+tracked_stat_value
 tracking_speed
 tradable after date
 trade cooldown until date
@@ -61627,6 +61978,7 @@ trooper_kill_all
 trooper_kill_excluded
 trooper_kill_non_bosses
 trooper_killed
+trooper_last_hits
 trooper_medic_ag2
 trooper_melee_ag2
 trooper_nano
@@ -61716,6 +62068,8 @@ un-grabs all objects
 unFlags
 unRequiredFlexSlots
 unSellPriority
+unStatID
+unStatValue
 unable to bind socket
 unable to create new section
 unable to create socket
@@ -61770,6 +62124,7 @@ unimplemented public key method
 uninitialized
 union 
 unique integer ID of this ping wheel message
+unique integer ID of this stat
 uniqueMember
 unique_target
 unit_status_offset
@@ -62390,6 +62745,7 @@ we?0
 weapon pistol rifle survivor common_male
 weapon%d
 weapon_ar2
+weapon_damage
 weapon_entindex
 weapon_fire
 weapon_l_fx
@@ -62590,14 +62946,14 @@ ymin
 yyen
 z(ov
 z/B,9d
-z0:X
 z<d2
 z>Hz
-zDIf someone abandons before this match time (in seconds), we will call the match forfeit and not update mmr for anyone in the match.
+zDCCitadelModifierIdolReturnTimerVData
 zF):O4
 zFar
 zG2m8
 zNear
+zPFe
 zRXU 
 zero_value
 zfriction
