@@ -52,18 +52,10 @@
 	<CitadelHud class="WindowRoot" hittest="false" disallowedstyleflags="hover,descendantfocus">
 		<Panel class="HudCore" hittest="false" disallowedstyleflags="hover,descendantfocus">
 			<CitadelPingIndicator id="PingIndicator" hittest="false" />
-			<Panel id="GameOverButtonContainer">
-				<TextButton id="DisconnectButton" class="ButtonBevel gameOverButtons Green" text="#Citadel_Hud_Disconnect" onactivate="CitadelDisconnectFromGame()" />
-				<TextButton id="LeaveMatchButton" class="ButtonBevel gameOverButtons Green" text="#Citadel_Hud_LeaveMatch" onactivate="CitadelConfirmAbandonGame()" />
-				<TextButton id="ReturnToGameButton" class="ButtonBevel gameOverButtons Green" text="#Citadel_Hud_ReturnToMatch" onactivate="CitadelHidePostGameButtons()" />
-			</Panel>
-			<CitadelDamageFeedbackDisplay id="DamageFeedbackDisplay" />
 			<CitadelHudEventIndicatorsPanel id="HudEventIndicatorsPanel" />
 			<CitadelModifierMessage id="ModifierMessages" />
-			<CitadelPlayerLevelUpBonuses id="LevelUpBonuses" />
-			<CitadelFlexUnlockMessage id="FlexUnlockMessage" />
 			<CitadelHudQuickResponse id="CitadelQuickResponse" />
-			<CitadelRadialAbilities id="RadialAbilitiesMenu" startangle="-55" endangle="55" />
+			<CitadelRadialAbilities id="RadialAbilitiesMenu" startangle="-70" endangle="70" />
 			<Panel id="SafeToAbandonIndicator">
 				<Button class="MinimizeSafeToLeave CloseButton" onactivate="$.GetContextPanel().ToggleClass(&apos;MinimizeSafeToLeave&apos;)" />
 				<Label class="SafeToAbandonLabel" text="#SafeToAbandon_Text" />
@@ -109,32 +101,16 @@
 					<Label text="Gun Position" style="font-size: 30px;" />
 				</Panel>
 			</Panel>
-			<Panel id="join_team" hittest="true">
-				<Panel id="join_team_mid" hittest="true">
-					<Panel class="join_team_box">
-						<Panel class="join_team_play" onactivate="CitadelJoinTeam(-1); PlaySoundEffect( UI.TeamPick.Select );" hittest="true" onmouseover="PlaySoundEffect( UI.TeamPick.Hover );">
-							<Label class="join_team_auto" text="#Citadel_Hud_ChooseHero" />
-							<Label class="join_team_full_warning" text="#Citadel_Hud_MatchFull" />
-							<Panel class="join_team_specific">
-								<Label class="join_team_team" text="#Citadel_Hud_TeamChoice" />
-								<Label class="join_team_autoselect" text="#Citadel_Hud_AutoSelect" onactivate="CitadelJoinTeam(-1); PlaySoundEffect( UI.TeamPick.Select );" />
-								<Label class="join_team_humans" text="#citadel_east_team_name" onactivate="CitadelJoinTeam(2); PlaySoundEffect( UI.TeamPick.Select );" />
-								<Label class="join_team_aliens" text="#citadel_west_team_name" onactivate="CitadelJoinTeam(3); PlaySoundEffect( UI.TeamPick.Select );" />
-							</Panel>
-						</Panel>
-					</Panel>
-					<Panel class="join_team_spectate" onactivate="CitadelJoinTeam(1); PlaySoundEffect( UI.TeamPick.Select );" onmouseover="PlaySoundEffect( UI.TeamPick.Hover );">
-						<Label text="#Citadel_Hud_Spectate" />
-					</Panel>
-				</Panel>
-			</Panel>
+			<CitadelHudJoinTeam id="join_team" />
 			<Panel id="gameplay_hud" class="gameplay_hud" hittest="false">
 				<GlobalClassListener classes="gShopOpen" />
 				<Panel id="hudBacker" />
 				<TeamObjectiveHealthPanel id="objectives_health_friendly" team="2" />
-				<Panel id="spectator_count">
-					<Panel class="spectatorIcon" />
-					<Label class="specatorLabel" text="#hud_spectate_count" />
+				<Panel id="spectator_count" onmouseover="UIShowTextTooltip( #hud_spectate_count_tooltip )" onmouseout="UIHideTextTooltip()">
+					<Panel id="spectator_count_container">
+						<Panel class="spectatorIcon" />
+						<Label class="specatorLabel" text="#hud_spectate_count" />
+					</Panel>
 				</Panel>
 				<Panel id="voice_active_box">
 					<Panel style="flow-children:right;">
@@ -192,8 +168,7 @@
 				<CitadelHudDamageSummary id="hud_damage_summary" />
 				<CitadelHudHealthContainer id="health_and_abilities_container" />
 				<CitadelHudAbilityInterrupt id="ability_interrupt_panel" />
-				<CitadelDamageImpact />
-				<CitadelDamageSourceImpact />
+				<CitadelDamageImpact id="damage_impact" />
 				<Panel id="friendly_final_objective_container" class="final_objective_container friendly">
 					<Panel id="center_container">
 						<Panel id="cp_container" class="cp_container" />
@@ -221,16 +196,18 @@
 					<CitadelHudActivePlayerStats id="hudPlayerStats" />
 				</Panel>
 			</Panel>
-			<CitadelHeroSelection id="hero_selection" hittest="true" />
-			<CitadelGameOverDisplay id="GameOverDisplay" />
+			<CitadelHudMatchEnd id="MatchEnd" />
+			<CitadelHudStreetBrawlRoundScoringDisplay id="StreetBrawlDisplay" />
 			<CitadelHudReportCard id="hud_reportcard" />
 			<CitadelHudPlayerIntents id="hud_playerintents" />
 			<CitadelChatWheel id="ChatWheel" />
+			<CitadelItemDraftPanel id="ItemDraft" />
 			<CitadelHudTopBar id="TopBar" hittest="false" />
 			<CitadelPregameCountdown id="PregameCountdown" />
-			<CitadelHudHeroTesting id="hud_hero_testing" />
+			<CitadelHudGameAnnouncements id="CitadelHudGameAnnouncements" />
 			<CitadelHudHeroShop id="CitadelHudHeroShop" />
 			<CitadelHudDamageReport id="CitadelHudDamageReport" />
+			<CitadelHudHeroTesting id="hud_hero_testing" />
 			<Panel id="gameplay_hud_dead" hittest="false" hittestchildren="false">
 				<GlobalClassListener classes="gShopOpen" />
 				<Panel id="respawn_timer">
@@ -262,6 +239,7 @@
 				<CitadelAbilityDetailsPanel id="AbilityDetailsPanel4" class="abilityDetailsPanels" ability_slot="4" />
 			</Panel>
 			<CitadelPaused id="PausedInfo" />
+			<CitadelHudSubtitles id="HudSubtitles" />
 			<Panel id="CheaterVoteBox">
 				<GlobalClassListener classes="gScoreboardOpen" />
 				<Panel id="AbramsImg" />
@@ -291,12 +269,11 @@
 			<Panel id="StatsAndModsContainer" hittest="false">
 				<GlobalClassListener id="DamageReportGlobalClassListener" classes="gEditingBuilds gShopOpen gScoreboardOpen gAbilityUpgradeMenu" />
 				<Panel id="LowerLeft" hittest="false">
-					<CitadelModBonusDisplay id="ModBonusDisplay" />
 					<CitadelStatusEffect id="StatusEffects" display_location="bottom_left" />
 					<CitadelHudSoulAPContainer id="gold_and_ap_container" />
 					<Panel class="ModsContainer" hittest="false">
 						<Panel id="BarGraphContainer">
-							<CitadelHudItemBarGraph id="ModBarGraph" />
+							<CitadelHudItemBarGraph id="ModBarGraph" tooltip_style="stats_panel" interactive_tooltip="true" interactive_tooltip_delay="0" />
 						</Panel>
 						<Panel class="ModSection FlexMods" hittest="false">
 							<CitadelModsPurchasedPanel id="ModPurchasedPanelUniversal" class="mod_universal modsButton" mod_category="Universal" show_cooldowns="true" show_spectating_player_items="true" />
@@ -306,23 +283,25 @@
 						</Panel>
 					</Panel>
 					<CitadelHudQuickbuy id="CitadelHudQuickbuy" hittest="false" />
-					<Panel id="HeroStatsTooltips" class="HeroStatsContainer" hittest="false">
-						<CitadelHeroStatsWeapon id="HeroStatsWeapon" class="heroStatsDisplay" bonus_type="Weapon" onmouseout="CitadelHideStatsTooltip();" />
-						<CitadelHeroStatsArmor id="HeroStatsArmor" class="heroStatsDisplay" bonus_type="Armor" onmouseout="CitadelHideStatsTooltip();" />
-						<CitadelHeroStatsTech id="HeroStatsTech" class="heroStatsDisplay" bonus_type="Tech" onmouseout="CitadelHideStatsTooltip();" />
-					</Panel>
 				</Panel>
 			</Panel>
 			<Panel id="AbilitiesContainer" class="abilitiesContainer" hittest="false">
-				<GlobalClassListener classes="gDetailView gShopOpen gAbilityUpgradeMenu" />
-				<Panel class="unlockMessage upgradeReminderUI">
-					<Label html="true" text="#Citadel_HUD_AbilityUnlockAvailable" />
+				<GlobalClassListener classes="gDetailView gScoreboardOpen gShopOpen gAbilityUpgradeMenu gItemDraftOpen" />
+				<Panel class="scoreboardBindMessages">
+					<Panel class="unlockMessage upgradeReminderUI">
+						<Label html="true" text="#Citadel_HUD_AbilityUnlockAvailable" />
+					</Panel>
+					<Panel class="upgradeMessage upgradeReminderUI">
+						<Label html="true" text="#Citadel_HUD_AbilityUpgradeAvailable" />
+					</Panel>
 				</Panel>
-				<Panel class="upgradeMessage upgradeReminderUI">
-					<Label html="true" text="#Citadel_HUD_AbilityUpgradeAvailable" />
-				</Panel>
-				<Panel class="radialMessage upgradeReminderUI">
-					<Label html="true" text="#Citadel_HUD_AbilityUpgradeAvailableRadial" />
+				<Panel class="radialBindMessages" hittest="false">
+					<Panel class="unlockMessage upgradeReminderUI">
+						<Label html="true" text="#Citadel_HUD_AbilityUnlockAvailableRadial" />
+					</Panel>
+					<Panel class="upgradeMessage upgradeReminderUI">
+						<Label html="true" text="#Citadel_HUD_AbilityUpgradeAvailableRadial" />
+					</Panel>
 				</Panel>
 				<CitadelHudPassiveAbilities id="hud_passive_items" class="items passive_items" hittest="false" hittestchildren="false" />
 				<CitadelHudAbilities id="hud_signature" class="abilities" slots="signature_1 signature_2 signature_3 signature_4" />
@@ -334,19 +313,24 @@
 						<Label class="APCurrencyAmount" text="{d:current_ap}" />
 						<Image id="hudAPInfinite" src="s2r://panorama/images/upgrades/infinity_psd.vtex" />
 					</Panel>
-					<CitadelBinding id="UnlockBinding" class="APUnlockBinding" action="Scoreboard" />
+					<CitadelBinding id="UnlockBinding_Scoreboard" class="APUnlockBinding" action="Scoreboard" />
+					<CitadelBinding id="UnlockBinding_AbilityRadial" class="APUnlockBinding" action="AbilityUpgradeRadial" />
 				</Panel>
 			</Panel>
 			<CitadelHudChat id="HudChat" />
 			<CitadelChat id="Chat" />
 			<CitadelHudHideout id="CitadelHudHideout" />
 		</Panel>
+		<Panel class="HudTakeovers" hittest="false">
+			<CitadelHudPregame id="Pregame" hittest="false" />
+			<CitadelHudMatchStart id="MatchStart" />
+		</Panel>
+		<ToastManager id="ToastManager" hittest="false" toastduration="5s" maxtoastsvisible="4" />
 		<CitadelHudEscapeMenu id="EscapeMenu" />
 		<Panel id="CitadelPartyContainer" hittest="false">
 			<GlobalClassListener classes="gShopOpen" />
 			<CitadelParty id="CitadelParty" hittest="false" />
 		</Panel>
-		<ToastManager id="ToastManager" hittest="false" toastduration="5s" maxtoastsvisible="4" />
 		<PopupManager id="PopupManager" hittest="false" />
 		<CitadelContextMenuManager id="ContextMenuManager" hittest="false" />
 		<CitadelTooltipManager id="TooltipManager" hittest="false" />

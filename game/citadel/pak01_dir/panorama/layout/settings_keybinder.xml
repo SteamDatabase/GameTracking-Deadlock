@@ -3,34 +3,55 @@
 	<styles>
 		<include src="s2r://panorama/styles/citadel_base_styles.vcss_c" />
 		<include src="s2r://panorama/styles/settings_keybinder.vcss_c" />
+		<include src="s2r://panorama/styles/popups/popup_settings.vcss_c" />
 	</styles>
 	<snippets>
 		<snippet name="PingOption">
 			<Label class="pingOptionLabel" text="{s:chat_wheel_message}" />
 		</snippet>
+		<snippet name="SettingsDropDown">
+			<Panel class="DropDownNew">
+				<Panel id="SettingsDropDownContent" class="DropDownContent NEWDropdown">
+					<Panel class="Background" />
+					<Panel class="Border" />
+					<Panel class="Arrow" />
+					<DropDown class="SettingsDropDown NEWDropdown" />
+				</Panel>
+			</Panel>
+		</snippet>
 	</snippets>
 	<CitadelSettingsKeyBinder class="BindingRow">
 		<Panel id="KeybindContainer" class="LeftRightFlow">
-			<Label id="title" text="" class="BindingRowLabel" html="true">
-				<Panel class="unitSpecificBindIndicator" />
-			</Label>
-			<Panel id="LabelFXContainer">
+			<Panel class="SettingLabel LeftRightFlow" html="true">
+				<Label id="title" text="" html="true" />
+			</Panel>
+			<Panel id="LabelFXContainer" class="LeftRightFlow">
+				<Image id="HeroIcon" />
 				<Panel id="BindingLabelContainer">
-					<CitadelKeyboardGlyph id="keyboardMainGlyph" class="BindingRowButton" />
+					<Panel class="Background" />
+					<Panel class="Border" />
+					<CitadelKeyboardGlyph id="keyboardMainGlyph" />
 				</Panel>
 			</Panel>
 			<Panel id="LabelFXContainer2">
+				<Label class="KeybindConjunction" text="or" />
 				<Panel id="BindingLabelContainer2">
-					<CitadelKeyboardGlyph id="keyboardSecondaryGlyph" class="BindingRowButton" />
+					<Panel class="Background" />
+					<Panel class="Border" />
+					<CitadelKeyboardGlyph id="keyboardSecondaryGlyph" />
 				</Panel>
+			</Panel>
+			<Panel id="AddSecondaryBindingContainer" class="AddBinding">
+				<Label id="PlusSign" class="ExpandSecondary" text="+" />
 			</Panel>
 			<Panel id="ChatWheelConceptsContainer" />
 			<Panel id="ClearAndResetContainer" class="LeftRightFlow">
 				<Button id="ClearBindingButton" class="ClearKeybinding" onactivate="CitadelClearKeybinding()" onmouseover="UIShowTextTooltip( #citadel_settings_clear_keybind_tooltip );" onmouseout="UIHideTextTooltip()" />
-				<Label id="ResetBindingButton" class="ResetKeybinding" text="#citadel_settings_reset_keybind" onactivate="CitadelResetKeybinding()" onmouseover="UIShowTextTooltip( #citadel_settings_reset_keybind_tooltip );" onmouseout="UIHideTextTooltip()" />
+				<Label id="ResetBindingButton" class="ResetKeybinding" text="" onactivate="CitadelResetKeybinding()" onmouseover="UIShowTextTooltip( #citadel_settings_reset_keybind_tooltip );" onmouseout="UIHideTextTooltip()" />
 			</Panel>
 		</Panel>
 		<Panel id="QuickCastContainer">
+			<Panel id="UnitHasBindsIndicator" class="QuickCastBind" />
 			<Label id="QuickCastDescription" class="QuickCastDesc" text="#citadel_settings_quick_cast_desc" />
 		</Panel>
 	</CitadelSettingsKeyBinder>

@@ -1,5 +1,6 @@
 /* Prettified by Source 2 Viewer - https://valveresourceformat.github.io */
 
+@define playerDetailsWidth: 88px;
 .GraphPage
 {
 	width: 100%;
@@ -22,19 +23,25 @@
 DropDown
 {
 	border: 0px solid offWhite&05;
-	background-color: offBlack;
-	height: 80px;
+	background-color: offWhite&05;
+	height: 60px;
 	min-width: 400px;
 	box-shadow: none;
+	margin-bottom: 16px;
+	border-radius: 5px;
+	wash-color: offWhite;
+	background-position: right 36px 85%;
+	world-blur: ingameHudBlur;
 }
 
 DropDown Label
 {
-	font-size: 32px;
+	font-size: 24px;
 	font-weight: bold;
 	margin-top: 23px;
 	font-family: oracle;
 	text-overflow: shrink;
+	color: white;
 }
 
 DropDownMenu.DropDownMenuVisible
@@ -57,9 +64,10 @@ DropDownMenu Label
 
 .TeamsRow
 {
-	width: 100%;
+	width: 1260px;
 	height: 170px;
 	margin-bottom: 10px;
+	horizontal-align: center;
 }
 
 .DeckDropdownCategory
@@ -96,11 +104,13 @@ DropDownMenu Label
 #TeamCtnLeft
 {
 	horizontal-align: left;
+	flow-children: left;
 }
 
 #TeamCtnRight
 {
 	horizontal-align: right;
+	flow-children: right;
 }
 
 .MainCol
@@ -110,13 +120,11 @@ DropDownMenu Label
 	max-height: 780px;
 	margin-top: 20px;
 	flow-children: down;
-	background-color: #000000aa;
 }
 
 .GraphSelectCtn
 {
 	width: 100%;
-	background-color: offBlack&90;
 }
 
 .GraphOptionsCtn
@@ -162,11 +170,12 @@ DropDownMenu Label
 	margin-right: 15px;
 	margin-left: 20px;
 	vertical-align: center;
+	color: offWhite;
 }
 
 .GraphOptionButton
 {
-	border: 1px solid ritualGreen&30;
+	border: 1px solid offWhite&88;
 	padding: 8px 5px;
 	min-width: 80px;
 }
@@ -183,10 +192,10 @@ DropDownMenu Label
 
 .ShowAsValue #ValueButton,.ShowAsPct #PctButton,.ShowAsPlayer #HeroButton,.ShowAsTeam #TeamButton
 {
-	background-color: ritualGreen;
+	background-color: offWhite&66;
 	color: black;
 	font-size: 16px;
-	border: 1px solid ritualGreen;
+	border: 1px solid offWhite&88;
 }
 
 .ShowAsValue #ValueButton Label,.ShowAsPct #PctButton Label,.ShowAsPlayer #HeroButton Label,.ShowAsTeam #TeamButton Label
@@ -217,7 +226,7 @@ DropDownMenu Label
 	height: 700px;
 	visibility: collapse;
 	padding: 20px;
-	background-color: black;
+	background-color: #00000000;
 }
 
 .ShowGraph .GraphCtn
@@ -247,6 +256,7 @@ DropDownMenu Label
 .TeamCtn
 {
 	flow-children: right;
+	width: 528px;
 	height: 100%;
 }
 
@@ -255,6 +265,8 @@ DropDownMenu Label
 	width: 100%;
 	height: 100%;
 	height: 700px;
+	saturation: 0.5;
+	brightness: 0.5;
 }
 
 #XLabels
@@ -312,9 +324,8 @@ DropDownMenu Label
 
 .Player
 {
-	width: 95px;
+	width: playerDetailsWidth;
 	brightness: 0.1;
-	padding: 0px 5px;
 	height: 100%;
 }
 
@@ -382,6 +393,11 @@ CitadelPostGame .PlayerLevel,CitadelPostGame #PlayerUserName
 	vertical-align: top;
 	margin-top: 100px;
 	opacity: 0.3;
+}
+
+.DontShowSwitchPage #SwitchPage
+{
+	visibility: collapse;
 }
 
 #SwitchPage Label
@@ -539,5 +555,368 @@ CitadelPostGame .PlayerLevel,CitadelPostGame #PlayerUserName
 	height: 26px;
 	text-align: center;
 	text-overflow: shrink;
+}
+
+.TopPanel
+{
+	horizontal-align: center;
+}
+
+#HeroImageArea
+{
+	width: 100%;
+	height: 100px;
+}
+
+.HeroIconContainer
+{
+	width: playerDetailsWidth;
+	vertical-align: bottom;
+}
+
+#HeroBadge
+{
+	vertical-align: bottom;
+	horizontal-align: center;
+	ignore-parent-flow: true;
+	z-index: 1;
+	visibility: visible;
+}
+
+.HeroContents
+{
+	height: 120px;
+	width: 100%;
+	flow-children: none;
+	z-index: 2;
+	margin-top: 0px;
+}
+
+.HeroContentsCoinBackground
+{
+	height: 100%;
+	width: 100%;
+	background-img-opacity: 1;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: bottom;
+	opacity: 0;
+	background-image: url("s2r://panorama/images/hud/top_bar/coin_background_selected.vsvg");
+	background-img-opacity: 1;
+	opacity-brush: gradient( linear, 0% 100%, 0% 0%, from( #00000090 ), to( #e8e8e860 ) );
+	transition-property: opacity;
+	transition-duration: 0.25s;
+}
+
+.LocalPlayer .HeroContentsCoinBackground,.SpectatorTarget .HeroContentsCoinBackground,.IsInLocalPlayerLane .HeroContentsCoinBackground
+{
+	opacity: 0.5;
+}
+
+.team1 .IsInLocalPlayerLane .HeroContentsCoinBackground
+{
+	wash-color: team1Color;
+}
+
+.team2 .IsInLocalPlayerLane .HeroContentsCoinBackground
+{
+	wash-color: team2Color;
+}
+
+.team1 .SpectatorTarget .HeroContentsCoinBackground,.team1 .LocalPlayer .HeroContentsCoinBackground
+{
+	brightness: 3;
+	wash-color: team1Color;
+	opacity: 1;
+}
+
+.team2 .SpectatorTarget .HeroContentsCoinBackground,.team2 .LocalPlayer .HeroContentsCoinBackground
+{
+	brightness: 3;
+	wash-color: team2Color;
+	opacity: 1;
+}
+
+.LocalPlayer .HeroContentsCoinBackground,.SpectatorTarget .HeroContentsCoinBackground,.IsInLocalPlayerLane .HeroContentsCoinBackground
+{
+	wash-color: colorEnemy;
+}
+
+.HeroContentsCoinInnerBorder
+{
+	height: 100%;
+	width: 100%;
+	background-image: url("s2r://panorama/images/hud/top_bar/coin_inner_border.vsvg");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: bottom;
+	opacity: 0;
+}
+
+.Team1 .HeroContentsCoinInnerBorder
+{
+	wash-color: team1Color;
+}
+
+.Team2 .HeroContentsCoinInnerBorder
+{
+	wash-color: team2Color;
+}
+
+.SoulsValueContainer
+{
+	flow-children: right;
+	horizontal-align: center;
+	vertical-align: center;
+	margin-bottom: 0px;
+	padding: 1px 5px 0px 5px;
+	border-radius: 0px 0px 3px 3px;
+	background-color: offBlack;
+	margin-top: 76px;
+	padding-top: 20px;
+	box-shadow: 2px 2px 0px #00000050;
+	border-bottom: 3px solid #00000000;
+}
+
+.GameMode_StreetBrawl .SoulsValueContainer
+{
+	visibility: collapse;
+}
+
+.team1 .SoulsValueContainer
+{
+	background-color: team1Color;
+}
+
+.team2 .SoulsValueContainer
+{
+	background-color: team2Color;
+}
+
+.SoulsValue
+{
+	color: offWhite;
+	font-size: 15px;
+	font-family: oracle;
+	font-weight: bold;
+	vertical-align: center;
+	color: offWhite;
+	vertical-align: middle;
+	margin-left: 0px;
+	opacity: 1;
+	text-align: center;
+	horizontal-align: center;
+	text-overflow: shrink min( 15px );
+}
+
+.team1 .SoulsValue
+{
+	wash-color: team1Foreground;
+}
+
+.GameClock
+{
+	width: fit-children;
+	vertical-align: top;
+	horizontal-align: center;
+	background-color: #00000090;
+	ignore-parent-flow: true;
+	world-blur: ingameHudBlur;
+	padding: 5px;
+	margin-top: 8px;
+	overflow: noclip;
+	border-radius: 5px;
+}
+
+.GameTime
+{
+	font-size: 14px;
+	color: offWhite&90;
+	horizontal-align: center;
+	vertical-align: center;
+	width: 80px;
+	height: 20px;
+	font-weight: semi-bold;
+	text-align: center;
+	padding: 2px 10px;
+	font-family: block;
+	margin-top: 1px;
+}
+
+.TeamNetworth
+{
+	width: 300px;
+	margin-top: 45px;
+	horizontal-align: center;
+}
+
+.GameMode_StreetBrawl .TeamNetworth
+{
+	visibility: collapse;
+}
+
+.TeamScore
+{
+	width: 145px;
+}
+
+.TeamScore.Right
+{
+	horizontal-align: right;
+}
+
+.ScoreBG
+{
+	width: 100%;
+	height: 100%;
+	background-color: #ffffff;
+	wash-color: #000000;
+	padding-left: 50px;
+	opacity-mask: url("s2r://panorama/images/masks/dust_01_psd.vtex");
+}
+
+.Right .ScoreBG
+{
+	padding-left: 0px;
+	padding-right: 50px;
+}
+
+.team1 .ScoreBG
+{
+	wash-color: team1Color;
+}
+
+.team2 .ScoreBG
+{
+	wash-color: team2Color;
+}
+
+.ScoreLabel
+{
+	horizontal-align: center;
+	font-size: 22px;
+	font-weight: bold;
+	vertical-align: center;
+	text-align: center;
+	color: white;
+	font-family: oracle;
+}
+
+.ScoreLabel .demote
+{
+	font-size: 14px;
+	color: offWhite&90;
+}
+
+.TeamIcon
+{
+	background-size: 100% 100%;
+	vertical-align: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	height: 28px;
+	width: 30px;
+	margin: 2px;
+}
+
+.team1 .TeamIcon
+{
+	background-image: url("s2r://panorama/images/hud/core/icon_team1_psd.vtex");
+}
+
+.team2 .TeamIcon
+{
+	background-image: url("s2r://panorama/images/hud/core/icon_team2_psd.vtex");
+}
+
+.ScoreContainer
+{
+	flow-children: right;
+	horizontal-align: right;
+	vertical-align: middle;
+	padding-right: 5px;
+}
+
+.Language_brazilian .ScoreContainer
+{
+	padding-right: 2px;
+}
+
+.Language_czech .ScoreContainer
+{
+	padding-right: 1px;
+}
+
+.Language_german .ScoreContainer
+{
+	padding-right: 5px;
+}
+
+.Language_latam .ScoreContainer
+{
+	padding-right: 1px;
+}
+
+.Language_polish .ScoreContainer
+{
+	padding-right: 0px;
+}
+
+.Language_russian .ScoreContainer
+{
+	padding-right: 0px;
+}
+
+.Language_spanish .ScoreContainer
+{
+	padding-right: 2px;
+}
+
+.Right .ScoreContainer
+{
+	horizontal-align: left;
+	padding-right: 0px;
+	padding-left: 5px;
+}
+
+.Language_brazilian .Right .ScoreContainer
+{
+	padding-left: 2px;
+}
+
+.Language_czech .Right .ScoreContainer
+{
+	padding-left: 1px;
+}
+
+.Language_german .Right .ScoreContainer
+{
+	padding-left: 5px;
+}
+
+.Language_latam .Right .ScoreContainer
+{
+	padding-left: 1px;
+}
+
+.Language_polish .Right .ScoreContainer
+{
+	padding-left: 0px;
+}
+
+.Language_russian .Right .ScoreContainer
+{
+	padding-left: 0px;
+}
+
+.Language_spanish .Right .ScoreContainer
+{
+	padding-left: 2px;
+}
+
+.team1 .ScoreContainer
+{
+	wash-color: team1Foreground;
 }
 

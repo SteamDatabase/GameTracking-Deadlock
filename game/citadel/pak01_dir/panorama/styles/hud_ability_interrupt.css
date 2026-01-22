@@ -1,13 +1,32 @@
 /* Prettified by Source 2 Viewer - https://valveresourceformat.github.io */
 
+@keyframes 'InterruptAnim'
+{
+	0%
+	{
+		transform: translateY( 1px );
+	}
+	
+	50%
+	{
+		transform: translateX( 1px );
+	}
+	
+	100%
+	{
+		transform: translateY( -1px );
+	}
+	
+}
+
 CitadelHudAbilityInterrupt
 {
-	background-color: #000000ee;
-	flow-children: right;
 	padding: 12px;
 	opacity: 0;
 	transition-property: opacity;
 	transition-duration: 0.2s;
+	flow-children: down;
+	visibility: collapse;
 }
 
 CitadelHudAbilityInterrupt.ability_canceled
@@ -32,15 +51,126 @@ CitadelHudAbilityInterrupt Label
 
 .interrupted_text
 {
-	font-size: 20px;
+	overflow: squish;
+	horizontal-align: center;
+}
+
+.interrupted_text Label
+{
+	font-size: 36px;
 	color: gray;
 	margin-right: 10px;
-	font-style: italic;
 	font-weight: semi-bold;
+	font-family: oracle;
+	color: #df350f;
+	horizontal-align: center;
+	text-shadow: 0px 0px 0px 8.0 offBlack;
+	text-transform: uppercase;
+	font-style: italic;
+}
+
+.interrupted_text #ImageSlices Image
+{
+	animation-name: InterruptAnim;
+	animation-duration: 0.4s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	animation-frame-time: 300ms;
+}
+
+.interrupted_text #ImageSlices Image:nth-child(odd)
+{
+	animation-direction: alternate-reverse;
+}
+
+.interrupted_text #ImageSlices Image:nth-child(even)
+{
+	animation-direction: alternate;
 }
 
 #interrupted_ability_icon
 {
 	margin-right: 10px;
+	visibility: collapse;
+}
+
+.ability_name_container
+{
+	width: fit-children;
+	flow-children: right;
+	horizontal-align: right;
+	ui-scale: 80%;
+}
+
+.AbilityNameIcon
+{
+	width: 36px;
+	height: 36px;
+	vertical-align: center;
+	margin-right: 5px;
+	wash-color: offWhite;
+}
+
+.ability_icon .AbilityNameIcon
+{
+	wash-color: offWhite;
+}
+
+.AbilityNameLabel
+{
+	font-size: 26px;
+	font-weight: bold;
+	text-shadow: 0px 0px 0px 5.0 offBlack;
+	font-family: oracle;
+	text-align: center;
+	padding-left: 2px;
+	padding-right: 2px;
+	vertical-align: bottom;
+	color: offWhite&50;
+}
+
+.ModifierProgressBarContainer
+{
+	width: 94%;
+	margin: 0px 18px;
+	height: 12px;
+	background-color: offWhite;
+	border-radius: 2px;
+	horizontal-align: center;
+	border: 4px solid offBlack;
+}
+
+.ModifierProgressBar
+{
+	width: 100%;
+	height: 100%;
+	horizontal-align: left;
+	background-color: darkgrey;
+}
+
+.SplitLabelProgressBar
+{
+	width: fit-children;
+	height: fit-children;
+	horizontal-align: center;
+	overflow: noclip;
+}
+
+.SplitLabelProgressBar .SplitLabelName Label
+{
+	padding: 12px;
+	font-size: 30px;
+	font-weight: bold;
+	text-shadow: 0px 0px 0px 6 offBlack;
+	font-family: oracle;
+	text-transform: uppercase;
+	text-align: center;
+}
+
+.SplitLabelProgressBar .SplitLabelProgress
+{
+	width: 100%;
+	height: 100%;
+	wash-color: darkorange;
 }
 

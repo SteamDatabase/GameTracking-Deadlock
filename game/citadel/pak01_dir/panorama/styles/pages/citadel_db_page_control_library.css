@@ -5,7 +5,8 @@ CitadelControlLibraryPage
 	width: 100%;
 	height: 100%;
 	flow-children: down;
-	background-color: #0009;
+	background-image: url("s2r://panorama/images/buttons/temp_background_environment_png.vtex");
+	world-blur: ingameHudBlur;
 }
 
 .ZooHeader
@@ -89,6 +90,72 @@ CitadelControlLibraryPage
 .ZooContainerPanel:selected
 {
 	visibility: visible;
+}
+
+.ZooContainerPanel .Row
+{
+	flow-children: right;
+	width: fit-children;
+	margin: 4px 0px;
+}
+
+.ZooContainerPanel .Col
+{
+	flow-children: down;
+	width: fit-children;
+	min-width: 240px;
+	height: fit-children;
+	min-height: 240px;
+	margin: 0px 16px 0px 0px;
+}
+
+.ZooContainerPanel .Col .Section
+{
+	flow-children: down;
+	width: fit-children;
+	min-width: 240px;
+	height: fit-children;
+	min-height: 96px;
+	margin: 0px 0px 16px 0px;
+	padding: 24px;
+	background-image: url("s2r://panorama/images/textures/paper_tile_1k_01_psd.vtex");
+	background-repeat: repeat;
+	background-size: 1024px;
+	opacity-mask: url("s2r://panorama/images/masks/rough_edge_02_png.vtex");
+	box-shadow: 0px 8px 12px -6px rgba(0, 0, 0, 0.5);
+}
+
+.ZooContainerPanel .Col .Section .Row
+{
+	flow-children: right;
+	width: fit-children;
+	margin: 4px 0px;
+}
+
+.ZooContainerPanel .Col .Section .Row .SettingLabel
+{
+	vertical-align: center;
+	padding-right: 16px;
+	font-size: 18px;
+	font-weight: semi-bold;
+	color: offWhite&44;
+}
+
+.ZooContainerPanel .Col .Title
+{
+	margin: 8px 0px;
+	font-size: 24px;
+	font-weight: semi-bold;
+	color: offWhite&66;
+}
+
+.ZooContainerPanel .Col .SubTitle
+{
+	margin: 8px 0px;
+	font-size: 16px;
+	font-weight: semi-bold;
+	color: offWhite&33;
+	text-transform: uppercase;
 }
 
 .GlyphWithLabel
@@ -1224,16 +1291,23 @@ CitadelControlLibraryPage
 	margin-right: 8px;
 }
 
+.MaterialPanelTest
+{
+	width: 300px;
+	height: 300px;
+	border: 2px solid red;
+}
+
+.MaterialPanelTest #MaterialPanel
+{
+	width: 100%;
+	height: 100%;
+}
+
 #CardHoverTest
 {
 	width: 250px;
 	height: 250px;
-	border: 1px solid red;
-	horizontal-align: right;
-	vertical-align: top;
-	ignore-parent-flow: true;
-	margin-bottom: 100px;
-	margin-right: 100px;
 }
 
 #BackgroundTexture
@@ -1496,6 +1570,7 @@ CitadelControlLibraryPage
 	height: 24px;
 	margin: 8px;
 	background-size: contain;
+	background-texture-size: 24px;
 	background-repeat: no-repeat;
 	background-position: center;
 }
@@ -1528,5 +1603,464 @@ CitadelControlLibraryPage
 .IconsTabEntry .IconsTabImage.ColorSource
 {
 	wash-color: none;
+}
+
+.MaskTestContainer
+{
+	flow-children: right;
+	width: 100%;
+	height: fit-children;
+}
+
+.MaskTestContainer Label
+{
+	horizontal-align: center;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 48px;
+	text-shadow: 0px 0px 4px 5 black;
+}
+
+.MaskTestContainer .MaskTest
+{
+	width: 600px;
+	height: 600px;
+	margin-right: 32px;
+	background-image: url("s2r://panorama/images/main_menu/background_gothic_jpg.vtex");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	opacity-mask: url("s2r://panorama/images/masks/wipe_alpha_test_01_white_png.vtex");
+	opacity-mask-threshold: 0% 20%;
+	transition-property: opacity-mask;
+	transition-duration: 1s;
+}
+
+.MaskTestContainer .MaskTest:hover
+{
+	opacity-mask-threshold: 100% 20%;
+}
+
+@keyframes 'MaskWipe'
+{
+	0%
+	{
+		opacity-mask: url("s2r://panorama/images/masks/wipe_test_star_stroke_psd.vtex") 1;
+		opacity-mask-threshold: 100% 4%;
+	}
+	
+	25%
+	{
+		opacity-mask: url("s2r://panorama/images/masks/wipe_test_star_stroke_psd.vtex") 1;
+		opacity-mask-threshold: 0% 4%;
+	}
+	
+	50%
+	{
+		opacity-mask: url("s2r://panorama/images/masks/wipe_test_star_stroke_psd.vtex") 1;
+		opacity-mask-threshold: 0% 4%;
+	}
+	
+	100%
+	{
+		opacity-mask: url("s2r://panorama/images/masks/wipe_test_star_stroke_psd.vtex") 1;
+		opacity-mask-threshold: 100% 4%;
+	}
+	
+}
+
+.MaskTestAnim
+{
+	width: 600px;
+	height: 600px;
+	margin-right: 32px;
+	background-image: url("s2r://panorama/images/masks/wipe_test_star_psd.vtex");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	opacity-mask: url("s2r://panorama/images/masks/wipe_test_star_stroke_psd.vtex");
+	opacity-mask-threshold: 0% 4%;
+	animation-name: MaskWipe;
+	animation-duration: 5s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+@keyframes 'WiggleUpDown'
+{
+	0%
+	{
+		transform: rotateZ( 10.0deg );
+	}
+	
+	100%
+	{
+		transform: rotateZ( -10.0deg );
+	}
+	
+}
+
+.SplitLabelTest
+{
+	width: 300px;
+	height: 100px;
+	overflow: squish;
+	border: 1px solid red;
+}
+
+.SplitLabelTest Label
+{
+	font-size: 48px;
+	text-shadow: 0px 0px 0px 5 magenta;
+	letter-spacing: 0px;
+	padding: 12px;
+	text-overflow: shrink;
+}
+
+.SplitLabelTest Label b
+{
+	font-weight: bold;
+}
+
+.SplitLabelTest #ImageSlices Image:nth-child(even)
+{
+	animation-name: WiggleUpDown;
+	animation-duration: 0.2s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate-reverse;
+}
+
+.SplitLabelTest #ImageSlices Image:nth-child(odd)
+{
+	animation-name: WiggleUpDown;
+	animation-duration: 0.2s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+}
+
+.BORDERTEST
+{
+	width: 520px;
+	height: fit-children;
+	vertical-align: center;
+	border-radius: 4px;
+}
+
+.BORDERTEST .Border
+{
+	ignore-parent-flow: true;
+	width: 100%;
+	height: 100%;
+	background-color: none;
+	background-image: none;
+	background-repeat: repeat;
+	border: 8px solid transparent;
+	border-image: url("s2r://panorama/images/buttons/border_test_01_psd.vtex");
+	border-image-slice: 8px;
+	border-image-width: 8;
+	border-image-outset: 8px;
+	border-image-repeat: repeat;
+	opacity: 1;
+}
+
+.BORDERTEST .Background
+{
+	ignore-parent-flow: true;
+	width: 100%;
+	height: 100%;
+	margin: 2px;
+	background-image: url("s2r://panorama/images/textures/paper_tile_1k_01_png.vtex");
+	box-shadow: inset rgba( 0, 0, 0, 0.5) 0px 4px 8px;
+	brightness: 0.75;
+}
+
+.BORDERTEST Label
+{
+	width: 100%;
+	height: fit-children;
+	padding: 8px 16px;
+	font-weight: semi-bold;
+}
+
+.DropDownNewContainer
+{
+	flow-children: down;
+	width: 520px;
+	height: fit-children;
+	background-image: url("s2r://panorama/images/textures/paper_tile_1k_01_png.vtex");
+	box-shadow: inset rgba( 0, 0, 0, 0.5) 0px 2px 4px;
+}
+
+.DropDownNewContainer .RowTop
+{
+	width: 100%;
+	height: 8px;
+	vertical-align: top;
+}
+
+.DropDownNewContainer .RowTop .TopLeft
+{
+	width: 8px;
+	height: 8px;
+	background-size: 8px 8px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-image: url("s2r://panorama/images/buttons/9slice_test_corner.vsvg");
+}
+
+.DropDownNewContainer .RowTop .EdgeTop
+{
+	width: fill-parent-flow(1);
+	height: 8px;
+	background-color: red;
+	background-size: 8px 8px;
+	background-repeat: repeat;
+	background-position: center;
+	background-image: url("s2r://panorama/images/buttons/border_test_top_psd.vtex");
+}
+
+.DropDownNewContainer .RowTop .TopRight
+{
+	width: 8px;
+	height: 8px;
+	background-size: 8px 8px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-image: url("s2r://panorama/images/buttons/9slice_test_corner.vsvg");
+	pre-transform-rotate2d: 90deg;
+}
+
+.DropDownNewContainer .RowCenter
+{
+	width: 100%;
+	height: fit-children;
+	vertical-align: center;
+}
+
+.DropDownNewContainer .RowCenter .EdgeLeft
+{
+	width: 8px;
+	height: 100%;
+	background-color: magenta;
+	background-size: 8px 8px;
+	background-repeat: repeat;
+	background-position: center;
+	background-image: url("s2r://panorama/images/buttons/border_test_side_psd.vtex");
+}
+
+.DropDownNewContainer .RowCenter .Middle
+{
+	width: fill-parent-flow(1);
+	height: fit-children;
+	padding: 8px;
+}
+
+.DropDownNewContainer .RowCenter .Middle Label
+{
+	width: 100%;
+	vertical-align: center;
+}
+
+.DropDownNewContainer .RowCenter .Middle .Arrow
+{
+	width: 24px;
+	height: 24px;
+	horizontal-align: right;
+	vertical-align: center;
+	background-size: 24px 24px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-image: url("s2r://panorama/images/control_icons/arrow_dropdown_png.vtex");
+}
+
+.DropDownNewContainer .RowCenter .EdgeRight
+{
+	width: 8px;
+	height: 100%;
+	background-color: magenta;
+	background-size: 8px 8px;
+	background-repeat: repeat;
+	background-position: center;
+	background-image: url("s2r://panorama/images/buttons/border_test_side_psd.vtex");
+}
+
+.DropDownNewContainer .RowBottom
+{
+	width: 100%;
+	height: 8px;
+	vertical-align: bottom;
+}
+
+.DropDownNewContainer .RowBottom .BottomLeft
+{
+	width: 8px;
+	height: 8px;
+	background-size: 8px 8px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-image: url("s2r://panorama/images/buttons/9slice_test_corner.vsvg");
+	pre-transform-rotate2d: 270deg;
+}
+
+.DropDownNewContainer .RowBottom .EdgeBottom
+{
+	width: fill-parent-flow(1);
+	height: 8px;
+	background-color: red;
+	background-size: 8px 8px;
+	background-repeat: repeat;
+	background-position: center;
+	background-image: url("s2r://panorama/images/buttons/border_test_top_psd.vtex");
+}
+
+.DropDownNewContainer .RowBottom .BottomRight
+{
+	width: 8px;
+	height: 8px;
+	background-size: 8px 8px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-image: url("s2r://panorama/images/buttons/9slice_test_corner.vsvg");
+	pre-transform-rotate2d: 180deg;
+}
+
+.CitadelBinding
+{
+	flow-children: right;
+	height: 24px;
+	vertical-align: center;
+}
+
+.CitadelBinding .HeroIcon
+{
+	vertical-align: center;
+	width: 24px;
+	height: 24px;
+	margin-right: 8px;
+	background-size: 24px;
+	background-repeat: no-repeat;
+	background-image: url("s2r://panorama/images/heroes/hornet_mm_psd.vtex");
+}
+
+.CitadelBinding .Binding
+{
+	height: 24px;
+	margin-right: 16px;
+	horizontal-align: middle;
+	vertical-align: center;
+	opacity-mask: url("s2r://panorama/images/main_menu/text_speckle_mask_main_psd.vtex") 1;
+}
+
+.CitadelBinding .Binding Label
+{
+	horizontal-align: center;
+	vertical-align: center;
+	padding: 1px 6px 1px 6px;
+	border-radius: 4px;
+	text-align: center;
+	font-size: 18px;
+	line-height: 0px;
+	font-family: oracle, sans;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: offBlack;
+	background-color: keybindHousingBGColor&ff;
+	transition-property: color, background-color;
+	transition-duration: 0.15s;
+	transition-timing-function: ease-in-out;
+}
+
+.CitadelBinding .Binding .Border
+{
+	ignore-parent-flow: true;
+	width: 100%;
+	height: 100%;
+	background-color: none;
+	background-image: none;
+	opacity: 0;
+}
+
+.CitadelBinding .Binding .Background
+{
+	ignore-parent-flow: true;
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	border-radius: 4px;
+}
+
+.CitadelBinding .Binding:hover
+{
+	height: 24px;
+}
+
+.CitadelBinding .Binding:hover Label
+{
+	color: offWhite;
+	background-color: keybindHousingBGColor&00;
+	transition-property: color, background-color;
+}
+
+.CitadelBinding .Binding:hover .Background
+{
+	margin: 2px;
+	background-image: url("s2r://panorama/images/textures/paper_tile_1k_01_png.vtex");
+	box-shadow: inset rgba( 0, 0, 0, 0.5) 0px 2px 6px;
+	brightness: 0.75;
+}
+
+.CitadelBinding .Binding:hover .Border
+{
+	border: 5px solid transparent;
+	border-image: url("s2r://panorama/images/buttons/input_field_border_png.vtex");
+	border-image-slice: 5px fill;
+	border-image-width: 5;
+	border-image-outset: 5px;
+	border-image-repeat: repeat;
+	wash-color: offWhite;
+	opacity: 0.05;
+}
+
+.CitadelBinding .BindingEdit .InputField.Keybind
+{
+	visibility: collapse;
+	width: 48px;
+	opacity: 0;
+	transition-property: width, opacity;
+	transition-duration: 0.1s;
+}
+
+.CitadelBinding.Hero .Binding Label
+{
+	background-color: brandGreen&ff;
+}
+
+.CitadelBinding.Hero .Binding:hover Label
+{
+	background-color: brandGreen&00;
+}
+
+.HeroScenePanelTest
+{
+	flow-children: right;
+	margin-left: 16px;
+}
+
+.HeroScenePanelTest .Test
+{
+	border: 2px solid red;
+	margin-right: 16px;
+}
+
+.HeroScenePanelTest .Test Label
+{
+	horizontal-align: center;
+	text-align: center;
+}
+
+.HeroScenePanelTest .HeroScenePanel
+{
+	width: 300px;
+	height: 500px;
 }
 

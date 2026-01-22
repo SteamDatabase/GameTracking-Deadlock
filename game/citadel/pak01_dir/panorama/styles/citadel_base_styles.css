@@ -4,9 +4,9 @@
 @define sansMono: Retail Text Demo, Noto Sans;
 @define serif: Reaver, serif;
 @define block: VALVEPulp, Noto Sans, sans-serif;
-@define oracle: VALVEOccult, Reaver, sans-serif;
+@define oracle: VALVEOracle, Reaver, sans-serif;
 @define numericSans: MingLiu, Retail Demo, Noto Sans, sans-serif;
-@define numericSerif: Gulim, Reaver, serif;
+@define numericOracle: Gulim, VALVEOracle, Reaver, sans-serif;
 @define baseText: #FFEFD7;
 @define baseBorder: #444444ff;
 @define selectedTextBackgroundColor: #66666633;
@@ -35,16 +35,21 @@
 @define steamBlue: #1A9FFF;
 @define colorUpgrades: #00FFFF;
 @define apCurrencyColor: #d8b8ff;
-@define team1Color: #BF9A53;
 @define team1ColorBright: #FBDCA0;
 @define team1ColorDark: #937600;
-@define team1ColorDarker: #423A1D;
+@define team1ColorDarker: #6F3806;
 @define team1ColorNeutral: #55503E;
-@define team2Color: #5B79E6;
 @define team2ColorBright: #BDCBFF;
 @define team2ColorDark: #4156A0;
 @define team2ColorDarker: #243265;
 @define team2ColorNeutral: #54596C;
+@define team1Color: #D4860B;
+@define team1Foreground: #201500;
+@define team2Color: #4D75C3;
+@define team2Foreground: #FFFFFF;
+@define team2ColorAlt: #03667b;
+@define team1ColorFade: gradient( linear, 0% 0%, 0% 100%, from( team1Color ), to( team1ColorDarker ) );
+@define team2ColorFade: gradient( linear, 0% 0%, 0% 100%, from( team2Color ), to( team2ColorDarker ) );
 @define courageLightColor: #FFD18D;
 @define courageBrightColor: #EC9719;
 @define courageColor: #9D620B;
@@ -60,6 +65,10 @@
 @define spiritColor: #8A55B3;
 @define spiritDarkColor: #613484;
 @define spiritDarkerColor: #362147;
+@define enhancedColorLight: #94F4FF;
+@define enhancedColorBright: #3FDCFF;
+@define enhancedColorDark: #0E8FAC;
+@define enhancedColorDarker: #112179;
 @define ingameHudBlur: gaussian(2,2,2);
 @define menuBlur: mipmapgaussian( 4, 4, 4);
 @define weaponColor: #E58A00;
@@ -96,7 +105,7 @@
 @define rank11Color: #5CE9A9;
 @define abramsColor: #2092AE;
 @define bookwormColor: #258F63;
-@define priestColor: #7354CA;
+@define priestColor: #BD3599;
 @define frankColor: #658B6F;
 @define drifterColor: #9D2C2B;
 @define doormanColor: #B77528;
@@ -105,6 +114,11 @@
 @define vampirebatColorDk: #200B0B;
 @define viperColor: #A7AD00;
 @define punkgoatColor: #D4AD0E;
+@define necroColor: #D9F334;
+@define fencerColor: #FF3333;
+@define werewolfColor: #BFBC9F;
+@define familiarColor: #5383D1;
+@define unicornColor: #BBA9E1;
 @define atlasColor: #2092AE;
 @define astroColor: #A35A1B;
 @define bebopColor: #9F4734;
@@ -150,6 +164,18 @@
 @define ominousGreen: #69e799;
 @define deeplyOminousGreen: #47A36C;
 @define alternateProgressBarYellow: #9DCF40;
+@define electricYellow: #DED44C;
+@define redShine: gradient( radial, 50% 50%, -5% -5%, 60% 60%, from( #ff9578), to( #c44e48 ) );
+@define lightRedShine: gradient( radial, 50% 50%, -5% -5%, 60% 60%, from( #e0b7a4), to( #ae6652) );
+@define orangeShine: gradient( radial, 50% 50%, -5% -5%, 60% 60%, from( #FF9900), to( #995C00 ) );
+@define greenShine: gradient( radial, 50% 50%, -5% -5%, 60% 60%, from( #ccdbbc), to( #38873d ) );
+@define soulShine: gradient( radial, 50% 50%, -5% -5%, 60% 60%, from( #bae7df), to( #169771 ) );
+@define steelShine: gradient( radial, 50% 50%, -5% -5%, 60% 60%, from( #deeff4), to( #728487 ) );
+@define goldenShine: gradient( radial, 50% 50%, -5% -5%, 60% 60%, from( #E6C694), to( #92703C ) );
+@define goldenLightShine: gradient( radial, 50% 50%, -5% -5%, 60% 60%, from( #FFE2AA), to( #BE9D6B ) );
+@define goldenLight: #c6a269;
+@define goldenDark: #92703C;
+@define eggshell: #DEC5A0;
 @define vivaciousGreen: #142304;
 @define debuffColor: #D74949;
 @define silencedDebuffColor: #bc1dca;
@@ -367,6 +393,1205 @@ Button:active
 .PrimaryButton:active
 {
 	wash-color: #666;
+}
+
+.InputButton
+{
+	flow-children: right;
+	width: fit-children;
+	min-width: 44px;
+	height: 44px;
+	margin-right: 16px;
+	vertical-align: center;
+}
+
+.InputButton.JustifyRight
+{
+	margin: 0px;
+	margin-left: 16px;
+}
+
+.InputButton.JustifyCenter
+{
+	margin: 0px 8px;
+}
+
+.InputButton .Bottom
+{
+	ignore-parent-flow: true;
+	horizontal-align: center;
+	vertical-align: center;
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+	background-color: none;
+	background-image: none;
+	border: 22px solid transparent;
+	border-image: url("s2r://panorama/images/buttons/button_border_psd.vtex");
+	border-image-slice: 88px fill;
+	border-image-repeat: repeat;
+	wash-color: offWhite;
+	brightness: 0.75;
+	saturation: 2;
+	opacity: 0.15;
+	transition-property: opacity;
+	transition-duration: 0.2s;
+}
+
+.InputButton .Top
+{
+	ignore-parent-flow: true;
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+	background-color: none;
+	background-image: none;
+	border: 22px solid transparent;
+	border-image: url("s2r://panorama/images/buttons/button_border_fill_psd.vtex");
+	border-image-slice: 88px fill;
+	border-image-repeat: repeat;
+	wash-color: offWhite;
+	brightness: 0.75;
+	saturation: 2;
+	opacity: 0.5;
+	opacity-mask: url("s2r://panorama/images/buttons/button_mask_threshold_psd.vtex");
+	opacity-mask-threshold: 100% 2%;
+	transition-property: opacity-mask;
+	transition-duration: 0.2s;
+}
+
+.InputButton .Content
+{
+	flow-children: right;
+	horizontal-align: center;
+	vertical-align: center;
+	width: fit-children;
+	height: fit-children;
+	padding: 4px 20px;
+}
+
+.InputButton .Content.IconOnly
+{
+	padding: 4px;
+}
+
+.InputButton .Icon
+{
+	vertical-align: center;
+	width: height-percentage( 65% );
+	height: 32px;
+	margin-left: -4px;
+	margin-right: 4px;
+	background-image: url("s2r://panorama/images/icons/settings_shortcut.vsvg");
+	background-size: contain;
+	background-texture-size: 32px;
+	background-repeat: no-repeat;
+	background-position: center;
+	wash-color: offWhite;
+	opacity: 0.7;
+}
+
+.InputButton Label
+{
+	horizontal-align: center;
+	vertical-align: center;
+	width: fit-children;
+	height: fit-children;
+	text-align: center;
+	font-family: oracle, block, sans;
+	font-size: 18px;
+	font-weight: bold;
+	color: offWhite&aa;
+	opacity-mask: url("s2r://panorama/images/main_menu/text_speckle_mask_main_psd.vtex") 1;
+	text-shadow: 0px 0px 12px rgba(0, 0, 0, 0.75);
+	transition-property: color;
+	transition-duration: 0.2s;
+}
+
+.InputButton Image
+{
+	vertical-align: center;
+	wash-color: offWhite;
+	opacity: 0.7;
+}
+
+.InputButton Image.IconLeft
+{
+	margin-left: -4px;
+	margin-right: 6px;
+}
+
+.InputButton Image.IconCenter
+{
+	margin: 0px;
+}
+
+.InputButton:hover
+{
+	sound: "UI.MainMenu.Hover";
+}
+
+.InputButton:hover .Bottom
+{
+	opacity: 0;
+	transition-duration: 0.3s;
+}
+
+.InputButton:hover .Top
+{
+	wash-color: offWhite;
+	opacity-mask: url("s2r://panorama/images/buttons/button_mask_threshold_psd.vtex");
+	opacity-mask-threshold: 2% 2%;
+	opacity: 0.5;
+	transition-property: opacity-mask;
+	transition-duration: 0.3s;
+}
+
+.InputButton:hover Image
+{
+	opacity: 1;
+}
+
+.InputButton:hover Label
+{
+	color: offWhite;
+}
+
+.InputButton.CTA .Bottom
+{
+	brightness: 0.35;
+	wash-color: brandGreen;
+	opacity: 0.5;
+}
+
+.InputButton.CTA .Top
+{
+	wash-color: brandGreen;
+	opacity: 1;
+}
+
+.InputButton.CTA Label
+{
+	color: offWhite&aa;
+	transition-property: color;
+	transition-duration: 0.2s;
+}
+
+.InputButton.CTA:hover Label
+{
+	color: offWhite;
+}
+
+.InputButton.CTA:hover .Border
+{
+	opacity: 0;
+}
+
+.InputButton.Caution .Bottom
+{
+	brightness: 0.35;
+	wash-color: #ffcc00;
+	opacity: 0.5;
+}
+
+.InputButton.Caution .Top
+{
+	wash-color: #ffcc00;
+	opacity: 1;
+}
+
+.InputButton.Caution:hover Label
+{
+	color: offWhite;
+}
+
+.InputButton.Caution:hover .Border
+{
+	opacity: 0;
+}
+
+.InputButton.Warning .Bottom
+{
+	brightness: 0.35;
+	wash-color: colorEnemy;
+	opacity: 0.5;
+}
+
+.InputButton.Warning .Top
+{
+	wash-color: colorEnemy;
+	opacity: 1;
+}
+
+.InputButton.Warning:hover Label
+{
+	color: offWhite;
+}
+
+.InputButton.Warning:hover .Border
+{
+	opacity: 0;
+}
+
+.InputButton.Dark .Bottom
+{
+	wash-color: offBlack;
+	opacity: 1;
+}
+
+.InputButton.Dark .Top
+{
+	wash-color: offBlack;
+	brightness: 1;
+	opacity: 1;
+}
+
+.InputButton.Dark Label
+{
+	color: offBlack;
+	text-shadow: none;
+}
+
+.InputButton.Dark:hover Label
+{
+	color: offWhite;
+	brightness: 1;
+}
+
+.InputButton.Fill .Bottom
+{
+	border-image: url("s2r://panorama/images/buttons/button_border_fill_psd.vtex");
+}
+
+.InputButton.Fill.Dark Label
+{
+	color: offWhite&66;
+}
+
+.InputButton.Fill.Dark .Bottom
+{
+	border-color: offBlack&22;
+	opacity: 0.5;
+}
+
+.InputButton.Fill.Dark:hover Label
+{
+	color: offWhite;
+}
+
+.InputButton.Large
+{
+	height: 48px;
+	margin-right: 20px;
+}
+
+.InputButton.Large.JustifyRight
+{
+	margin: 0px;
+	margin-left: 20px;
+}
+
+.InputButton.Large.JustifyCenter
+{
+	margin: 0px 10px;
+}
+
+.InputButton.Large .Bottom
+{
+	border: 24px solid transparent;
+	border-image-slice: 88px fill;
+}
+
+.InputButton.Large .Top
+{
+	border: 24px solid transparent;
+	border-image-slice: 88px fill;
+}
+
+.InputButton.Large .Content
+{
+	padding: 4px 24px;
+}
+
+.InputButton.Large Label
+{
+	font-size: 22px;
+}
+
+.InputButton.Small
+{
+	height: 32px;
+	margin-right: 12px;
+}
+
+.InputButton.Small.JustifyRight
+{
+	margin: 0px;
+	margin-left: 12px;
+}
+
+.InputButton.Small.JustifyCenter
+{
+	margin: 0px 6px;
+}
+
+.InputButton.Small .Bottom
+{
+	border: 16px solid transparent;
+}
+
+.InputButton.Small .Top
+{
+	border: 16px solid transparent;
+}
+
+.InputButton.Small .Content
+{
+	padding: 4px 16px;
+}
+
+.InputButton.Small Label
+{
+	font-size: 16px;
+}
+
+.InputButton.XSmall
+{
+	height: 24px;
+	margin-right: 8px;
+}
+
+.InputButton.XSmall.JustifyRight
+{
+	margin: 0px;
+	margin-left: 8px;
+}
+
+.InputButton.XSmall.JustifyCenter
+{
+	margin: 0px 4px;
+}
+
+.InputButton.XSmall .Bottom
+{
+	border: 12px solid transparent;
+}
+
+.InputButton.XSmall .Top
+{
+	border: 12px solid transparent;
+}
+
+.InputButton.XSmall .Content
+{
+	padding: 1px 12px;
+}
+
+.InputButton.XSmall Label
+{
+	font-size: 14px;
+}
+
+.InputButton.XSmall .Icon
+{
+	margin-right: 2px;
+}
+
+.InputButton.IconOnly
+{
+	width: height-percentage( 100% );
+}
+
+.InputButton.IconOnly .Content
+{
+	padding: 4px;
+}
+
+.InputButton.IconOnly .Icon
+{
+	horizontal-align: center;
+	vertical-align: center;
+	margin: 0px;
+}
+
+.InputButton:active
+{
+	sound: "UI.MainMenu.Activate";
+	brightness: 1.5;
+	transform: scale3d( 0.98, 0.98, 1 );
+}
+
+.InputButton:selected
+{
+	sound: "UI.MainMenu.Activate";
+}
+
+.InputButton:disabled,.InputButton.Disabled
+{
+	sound: none;
+}
+
+.InputButton:disabled .Bottom,.InputButton.Disabled .Bottom
+{
+	wash-color: offBlack;
+	opacity: 0.2;
+}
+
+.InputButton:disabled .Top,.InputButton.Disabled .Top
+{
+	visibility: collapse;
+}
+
+.InputButton:disabled Image,.InputButton.Disabled Image
+{
+	opacity: 0.1;
+}
+
+.InputButton:disabled Label,.InputButton.Disabled Label
+{
+	color: offWhite&11;
+	text-shadow: none;
+}
+
+.InputButton:disabled:hover,.InputButton.Disabled:hover
+{
+	sound: none;
+}
+
+.InputButton:disabled:hover Label,.InputButton.Disabled:hover Label
+{
+	color: offWhite&11;
+	brightness: 1;
+}
+
+.InputButtonBorderRadius
+{
+	vertical-align: center;
+	width: fit-children;
+	height: 40px;
+	margin-right: 16px;
+	opacity-mask: url("s2r://panorama/images/main_menu/text_speckle_mask_main_psd.vtex") 1;
+}
+
+.InputButtonBorderRadius.JustifyRight
+{
+	margin: 0px;
+	margin-left: 16px;
+}
+
+.InputButtonBorderRadius.JustifyCenter
+{
+	margin: 0px 8px;
+}
+
+.InputButtonBorderRadius .Bottom
+{
+	ignore-parent-flow: true;
+	horizontal-align: center;
+	vertical-align: center;
+	width: 100%;
+	height: 100%;
+	border-radius: 32px;
+	border: 2px solid offWhite&66;
+	opacity-mask: url("s2r://panorama/images/buttons/button_mask_threshold_psd.vtex") -1;
+	opacity-mask-threshold: 100% 2%;
+	brightness: 0.75;
+	opacity: 0.5;
+	transition-property: border-radius, opacity;
+	transition-duration: 0.2s;
+}
+
+.InputButtonBorderRadius .Bottom .Background
+{
+	ignore-parent-flow: true;
+	width: 100%;
+	height: 100%;
+	margin: 2px;
+	border-radius: 32px;
+	background-color: offWhite&00;
+	background-size: cover;
+	wash-color: offWhite;
+	transition-property: border-radius;
+	transition-duration: 0.2s;
+}
+
+.InputButtonBorderRadius .Top
+{
+	ignore-parent-flow: true;
+	horizontal-align: center;
+	vertical-align: center;
+	width: 100%;
+	height: 100%;
+	border-radius: 32px;
+	border: 2px solid offWhite&44;
+	brightness: 0.7;
+	opacity-mask: url("s2r://panorama/images/buttons/button_mask_threshold_psd.vtex");
+	opacity-mask-threshold: 100% 2%;
+	transition-property: border-radius, opacity-mask;
+	transition-duration: 0.2s;
+}
+
+.InputButtonBorderRadius .Top .Background
+{
+	ignore-parent-flow: true;
+	width: 100%;
+	height: 100%;
+	margin: 2px;
+	border-radius: 32px;
+	background-image: url("s2r://panorama/images/buttons/button_paper_tile_psd.vtex");
+	background-size: cover;
+	wash-color: offWhite;
+	opacity: 0.75;
+	opacity-mask: url("s2r://panorama/images/buttons/button_mask_threshold_psd.vtex");
+	opacity-mask-threshold: 100% 2%;
+	transition-property: border-radius, opacity-mask;
+	transition-duration: 0.2s;
+}
+
+.InputButtonBorderRadius .Content
+{
+	flow-children: right;
+	horizontal-align: center;
+	vertical-align: center;
+	width: fit-children;
+	height: fit-children;
+	padding: 4px 20px;
+}
+
+.InputButtonBorderRadius .Icon
+{
+	vertical-align: center;
+	width: height-percentage( 65% );
+	height: 32px;
+	margin-left: -4px;
+	margin-right: 4px;
+	background-image: url("s2r://panorama/images/icons/settings_shortcut.vsvg");
+	background-size: contain;
+	background-texture-size: 32px;
+	background-repeat: no-repeat;
+	background-position: center;
+	wash-color: offWhite;
+	opacity: 0.7;
+}
+
+.InputButtonBorderRadius Label
+{
+	horizontal-align: center;
+	vertical-align: center;
+	width: fit-children;
+	height: fit-children;
+	text-align: center;
+	font-family: oracle, block, sans;
+	font-size: 18px;
+	font-weight: bold;
+	color: offWhite&aa;
+	text-shadow: 0px 0px 12px rgba(0, 0, 0, 0.75);
+	transition-property: color, brightness;
+	transition-duration: 0.2s;
+}
+
+.InputButtonBorderRadius.CTA .Bottom
+{
+	border-color: brandGreen&aa;
+}
+
+.InputButtonBorderRadius.CTA .Bottom .Background
+{
+	wash-color: brandGreen;
+}
+
+.InputButtonBorderRadius.CTA .Top
+{
+	border-color: brandGreen&66;
+	brightness: 1;
+}
+
+.InputButtonBorderRadius.CTA .Top .Background
+{
+	wash-color: brandGreen;
+}
+
+.InputButtonBorderRadius.CTA:hover Label
+{
+	color: offWhite&aa;
+}
+
+.InputButtonBorderRadius.CTA:disabled Label
+{
+	color: offWhite&11;
+}
+
+.InputButtonBorderRadius.Caution .Bottom
+{
+	border-color: #ffcc00aa;
+}
+
+.InputButtonBorderRadius.Caution .Bottom .Background
+{
+	wash-color: #ffcc00;
+}
+
+.InputButtonBorderRadius.Caution .Top
+{
+	border-color: #ffcc0066;
+	brightness: 1;
+}
+
+.InputButtonBorderRadius.Caution .Top .Background
+{
+	wash-color: #ffcc00;
+}
+
+.InputButtonBorderRadius.Warning .Bottom
+{
+	border-color: colorEnemy&aa;
+}
+
+.InputButtonBorderRadius.Warning .Bottom .Background
+{
+	wash-color: colorEnemy;
+}
+
+.InputButtonBorderRadius.Warning .Top
+{
+	border-color: colorEnemy&66;
+	brightness: 1;
+}
+
+.InputButtonBorderRadius.Warning .Top .Background
+{
+	wash-color: colorEnemy;
+}
+
+.InputButtonBorderRadius.Dark Label
+{
+	color: offBlack;
+	text-shadow: none;
+}
+
+.InputButtonBorderRadius.Dark .Bottom
+{
+	border-color: offBlack;
+	opacity: 1;
+}
+
+.InputButtonBorderRadius.Dark .Bottom .Background
+{
+	wash-color: offBlack;
+}
+
+.InputButtonBorderRadius.Dark .Top
+{
+	border-color: offBlack;
+	brightness: 0;
+}
+
+.InputButtonBorderRadius.Dark .Top .Background
+{
+	wash-color: offBlack;
+}
+
+.InputButtonBorderRadius.Dark:hover Label
+{
+	color: offWhite;
+	brightness: 1;
+}
+
+.InputButtonBorderRadius.Fill .Bottom .Background
+{
+	background-image: url("s2r://panorama/images/buttons/button_paper_tile_psd.vtex");
+}
+
+.InputButtonBorderRadius.Fill.Dark Label
+{
+	color: offWhite&66;
+}
+
+.InputButtonBorderRadius.Fill.Dark .Bottom
+{
+	border-color: offBlack&66;
+	opacity: 1;
+}
+
+.InputButtonBorderRadius.Fill.Dark .Bottom .Background
+{
+	wash-color: offBlack;
+	opacity: 0.5;
+}
+
+.InputButtonBorderRadius.Fill.Dark:hover Label
+{
+	brightness: 1.5;
+}
+
+.InputButtonBorderRadius.Large
+{
+	height: 48px;
+	margin-right: 20px;
+}
+
+.InputButtonBorderRadius.Large.JustifyRight
+{
+	margin: 0px;
+	margin-left: 20px;
+}
+
+.InputButtonBorderRadius.Large.JustifyCenter
+{
+	margin: 0px 10px;
+}
+
+.InputButtonBorderRadius.Large .Content
+{
+	padding: 4px 24px;
+}
+
+.InputButtonBorderRadius.Large Label
+{
+	font-size: 22px;
+}
+
+.InputButtonBorderRadius.Large .Bottom
+{
+	border: 3px;
+}
+
+.InputButtonBorderRadius.Large .Bottom .Background
+{
+	margin: 3px;
+}
+
+.InputButtonBorderRadius.Large .Top
+{
+	border: 3px;
+}
+
+.InputButtonBorderRadius.Large .Top .Background
+{
+	margin: 3px;
+}
+
+.InputButtonBorderRadius.Small
+{
+	height: 32px;
+	margin-right: 12px;
+}
+
+.InputButtonBorderRadius.Small.JustifyRight
+{
+	margin: 0px;
+	margin-left: 12px;
+}
+
+.InputButtonBorderRadius.Small.JustifyCenter
+{
+	margin: 0px 6px;
+}
+
+.InputButtonBorderRadius.Small .Content
+{
+	padding: 4px 16px;
+}
+
+.InputButtonBorderRadius.Small Label
+{
+	font-size: 16px;
+}
+
+.InputButtonBorderRadius.Small .Bottom .Background
+{
+	margin: 1.5px;
+}
+
+.InputButtonBorderRadius.Small .Top .Background
+{
+	margin: 1.5px;
+}
+
+.InputButtonBorderRadius.XSmall
+{
+	height: 24px;
+	margin-right: 8px;
+}
+
+.InputButtonBorderRadius.XSmall.JustifyRight
+{
+	margin: 0px;
+	margin-left: 8px;
+}
+
+.InputButtonBorderRadius.XSmall.JustifyCenter
+{
+	margin: 0px 4px;
+}
+
+.InputButtonBorderRadius.XSmall .Bottom
+{
+	border: 1.5px;
+}
+
+.InputButtonBorderRadius.XSmall .Bottom .Background
+{
+	margin: 1.5px;
+}
+
+.InputButtonBorderRadius.XSmall .Top
+{
+	border: 1.5px;
+}
+
+.InputButtonBorderRadius.XSmall .Top .Background
+{
+	margin: 1.5px;
+}
+
+.InputButtonBorderRadius.XSmall .Content
+{
+	padding: 1px 12px;
+}
+
+.InputButtonBorderRadius.XSmall Label
+{
+	font-size: 14px;
+}
+
+.InputButtonBorderRadius.XSmall .Icon
+{
+	margin-right: 2px;
+}
+
+.InputButtonBorderRadius.IconOnly
+{
+	width: height-percentage( 100% );
+}
+
+.InputButtonBorderRadius.IconOnly .Content
+{
+	padding: 4px;
+}
+
+.InputButtonBorderRadius.IconOnly .Icon
+{
+	horizontal-align: center;
+	vertical-align: center;
+	margin: 0px;
+}
+
+.InputButtonBorderRadius:enabled:hover
+{
+	sound: "UI.MainMenu.Hover";
+}
+
+.InputButtonBorderRadius:enabled:hover Label,.InputButtonBorderRadius:enabled:hover Image
+{
+	brightness: 1.5;
+}
+
+.InputButtonBorderRadius:enabled:hover .Bottom
+{
+	border-radius: 2px;
+	opacity-mask: url("s2r://panorama/images/buttons/button_mask_threshold_psd.vtex");
+	opacity-mask-threshold: 100% 2%;
+	opacity: 0;
+	transition-property: border-radius, opacity;
+	transition-duration: 0.4s;
+}
+
+.InputButtonBorderRadius:enabled:hover .Bottom .Background
+{
+	border-radius: 0px;
+	transition-duration: 0.4s;
+}
+
+.InputButtonBorderRadius:enabled:hover .Top
+{
+	border-radius: 4px;
+	opacity-mask: url("s2r://panorama/images/buttons/button_mask_threshold_psd.vtex");
+	opacity-mask-threshold: 1.5% 2%;
+	transition-property: border-radius, opacity-mask;
+	transition-duration: 0.4s;
+}
+
+.InputButtonBorderRadius:enabled:hover .Top .Background
+{
+	border-radius: 4px;
+	opacity-mask: url("s2r://panorama/images/buttons/button_mask_threshold_psd.vtex");
+	opacity-mask-threshold: 1.5% 2%;
+	transition-property: border-radius, opacity-mask;
+	transition-duration: 0.4s;
+}
+
+.InputButtonBorderRadius:active
+{
+	sound: "UI.MainMenu.Activate";
+	brightness: 1.5;
+	transform: scale3d( 0.98, 0.98, 1 );
+}
+
+.InputButtonBorderRadius:selected
+{
+	sound: "UI.MainMenu.Activate";
+}
+
+.InputButtonBorderRadius:disabled,.InputButtonBorderRadius.Disabled
+{
+	sound: none;
+}
+
+.InputButtonBorderRadius:disabled Image,.InputButtonBorderRadius.Disabled Image
+{
+	opacity: 0.1;
+}
+
+.InputButtonBorderRadius:disabled Label,.InputButtonBorderRadius.Disabled Label
+{
+	color: offWhite&11;
+	text-shadow: none;
+}
+
+.InputButtonBorderRadius:disabled .Bottom,.InputButtonBorderRadius.Disabled .Bottom
+{
+	border-color: offBlack;
+	opacity: .2;
+}
+
+.InputButtonBorderRadius:disabled .Bottom .Background,.InputButtonBorderRadius.Disabled .Bottom .Background
+{
+	wash-color: offBlack;
+}
+
+.InputButtonBorderRadius:disabled .Top,.InputButtonBorderRadius.Disabled .Top
+{
+	visibility: collapse;
+}
+
+.InputButtonBorderRadius:disabled:hover,.InputButtonBorderRadius.Disabled:hover
+{
+	sound: none;
+}
+
+.InputButtonBorderRadius:disabled:hover Label,.InputButtonBorderRadius.Disabled:hover Label
+{
+	color: offWhite&11;
+	brightness: 1;
+}
+
+.InputButtonBorderRadius:disabled:hover .Bottom,.InputButtonBorderRadius.Disabled:hover .Bottom
+{
+	border-color: offBlack;
+	opacity: .2;
+	border-radius: 32px;
+}
+
+.InputButtonBorderRadius:disabled:hover .Bottom .Background,.InputButtonBorderRadius.Disabled:hover .Bottom .Background
+{
+	border-radius: 32px;
+}
+
+.InputButtonBorderRadius:disabled:active,.InputButtonBorderRadius.Disabled:active
+{
+	sound: none;
+	brightness: 1;
+	transform: scale3d( 1, 1, 1);
+}
+
+.InputButtonBorderRadiusSimple
+{
+	vertical-align: center;
+	width: fit-children;
+	height: 44px;
+	margin-right: 16px;
+	border-radius: 22px;
+	border: 3px solid offBlack&ee;
+	transition-property: border-radius;
+	transition-duration: 0.2s;
+	opacity-mask: url("s2r://panorama/images/main_menu/text_speckle_mask_main_psd.vtex") 1;
+}
+
+.InputButtonBorderRadiusSimple .Content
+{
+	flow-children: right;
+	horizontal-align: center;
+	vertical-align: center;
+	width: fit-children;
+	height: fit-children;
+	padding: 4px 20px;
+}
+
+.InputButtonBorderRadiusSimple Image
+{
+	vertical-align: center;
+	wash-color: offWhite;
+	opacity: 0.5;
+}
+
+.InputButtonBorderRadiusSimple Image.IconLeft
+{
+	margin-left: -8px;
+	margin-right: 8px;
+}
+
+.InputButtonBorderRadiusSimple .Background
+{
+	ignore-parent-flow: true;
+	horizontal-align: center;
+	vertical-align: center;
+	width: 100%;
+	height: 100%;
+	margin: 2px 1px;
+	border-radius: 22px;
+	background-color: #ffff0033;
+	background-color: none;
+	background-image: url("s2r://panorama/images/buttons/button_paper_tile_psd.vtex");
+	background-size: cover;
+	brightness: 1;
+	wash-color: offBlack;
+	opacity: 0.9;
+	opacity-mask: url("s2r://panorama/images/buttons/button_mask_threshold_psd.vtex");
+	opacity-mask-threshold: 100% 2%;
+	transition-property: opacity-mask;
+	transition-duration: 0.2s;
+	transition-property: border-radius, opacity-mask;
+	transition-duration: 0.2s;
+}
+
+.InputButtonBorderRadiusSimple Label
+{
+	horizontal-align: center;
+	vertical-align: center;
+	width: fit-children;
+	height: fit-children;
+	text-align: center;
+	font-family: block;
+	font-size: 16px;
+	font-weight: bold;
+	color: offWhite&aa;
+	text-shadow: 0px 0px 12px rgba(0, 0, 0, 0.75);
+}
+
+.InputButtonBorderRadiusSimple.CTA
+{
+	border-color: brandGreen&11;
+}
+
+.InputButtonBorderRadiusSimple.CTA Label
+{
+	color: brandGreen;
+}
+
+.InputButtonBorderRadiusSimple.CTA .Background
+{
+	brightness: 1;
+	wash-color: brandGreen;
+}
+
+.InputButtonBorderRadiusSimple.CTA:hover
+{
+	border-color: brandGreen;
+}
+
+.InputButtonBorderRadiusSimple.Caution
+{
+	border-color: colorEnemy&11;
+}
+
+.InputButtonBorderRadiusSimple.Caution .Background
+{
+	brightness: 1;
+	wash-color: colorEnemy;
+}
+
+.InputButtonBorderRadiusSimple.Caution:hover
+{
+	border-color: colorEnemy;
+}
+
+.InputButtonBorderRadiusSimple:hover
+{
+	sound: "UI.MainMenu.Hover";
+	border-radius: 2px;
+	transition-property: border-radius;
+	transition-duration: 0.3s;
+}
+
+.InputButtonBorderRadiusSimple:hover .Background
+{
+	border-radius: 0px;
+	opacity-mask: url("s2r://panorama/images/buttons/button_mask_threshold_psd.vtex");
+	opacity-mask-threshold: 2% 2%;
+	transition-property: border-radius, opacity-mask;
+	transition-duration: 0.3s;
+}
+
+.InputButtonBorderRadiusSimple:hover .Border
+{
+	border-radius: 2px;
+	transition-property: border-radius;
+	transition-duration: 0.3s;
+}
+
+.InputButtonBorderRadiusSimple:active
+{
+	sound: "UI.MainMenu.Activate";
+	brightness: 1.5;
+	transform: scale3d( 0.98, 0.98, 1 );
+}
+
+.InputButtonBorderRadiusSimple:selected
+{
+	sound: "UI.MainMenu.Activate";
+}
+
+.InputButtonBorderRadiusSimple:disabled,.InputButtonBorderRadiusSimple.Disabled
+{
+	sound: none;
+}
+
+.InputButtonBorderRadiusSimple:disabled Label,.InputButtonBorderRadiusSimple.Disabled Label
+{
+	color: offWhite&11;
+	text-shadow: none;
+}
+
+.InputButtonBorderRadiusSimple:disabled .Bottom,.InputButtonBorderRadiusSimple.Disabled .Bottom
+{
+	border-color: offBlack;
+	opacity: .2;
+}
+
+.InputButtonBorderRadiusSimple:disabled .Bottom .Background,.InputButtonBorderRadiusSimple.Disabled .Bottom .Background
+{
+	wash-color: offBlack;
+}
+
+.InputButtonBorderRadiusSimple:disabled .Top,.InputButtonBorderRadiusSimple.Disabled .Top
+{
+	visibility: collapse;
+}
+
+.InputButtonBorderRadiusSimple:disabled:hover,.InputButtonBorderRadiusSimple.Disabled:hover
+{
+	sound: none;
+}
+
+.InputButtonBorderRadiusSimple:disabled:hover Label,.InputButtonBorderRadiusSimple.Disabled:hover Label
+{
+	color: offWhite&11;
+	brightness: 1;
+}
+
+.InputButtonBorderRadiusSimple:disabled:hover .Bottom,.InputButtonBorderRadiusSimple.Disabled:hover .Bottom
+{
+	border-color: offBlack;
+	opacity: .2;
+	border-radius: 32px;
+}
+
+.InputButtonBorderRadiusSimple:disabled:hover .Bottom .Background,.InputButtonBorderRadiusSimple.Disabled:hover .Bottom .Background
+{
+	border-radius: 32px;
 }
 
 .SecondaryButton
@@ -1054,6 +2279,8 @@ Button:active
 {
 	font-size: 48px;
 	font-family: block;
+	font-family: oracle;
+	font-weight: black;
 	color: offWhite;
 	horizontal-align: center;
 }
@@ -1089,13 +2316,14 @@ Label.ProbablyUnlocalizedText
 
 TextEntry
 {
-	border: 1px solid baseBorder;
+	vertical-align: center;
 	width: 352px;
-	height: 36px;
-	padding: 4px 7px 3px 7px;
-	background-color: #00000050;
+	height: 40px;
+	margin: 0px;
+	padding: 8px 16px;
 	font-size: 18px;
-	color: offWhite;
+	font-weight: semi-bold;
+	color: offWhite&66;
 	text-overflow: clip;
 	white-space: nowrap;
 }
@@ -1107,12 +2335,23 @@ TextEntry:disabled
 	color: #999999ff;
 }
 
+TextEntry:focus
+{
+	color: offWhite;
+}
+
+CitadelSettingsSlider TextEntry:focus
+{
+	color: red;
+}
+
 TextEntry #PlaceholderText
 {
-	opacity: 0.3;
+	vertical-align: center;
+	opacity: 0.1;
 	transition-property: opacity;
 	transition-duration: 0.2s;
-	margin-top: 2px;
+	margin-top: 0px;
 	color: offWhite;
 	font-size: 18px;
 	font-weight: medium;
@@ -1289,6 +2528,285 @@ TextEntry.ThinTextEntry
 	wash-color: #666;
 }
 
+.InputField
+{
+	width: 320px;
+	height: fit-children;
+	vertical-align: center;
+	border-radius: 4px;
+}
+
+.InputField .Border
+{
+	ignore-parent-flow: true;
+	width: 100%;
+	height: 100%;
+	background-color: none;
+	background-image: none;
+	border: 5px solid transparent;
+	border-image: url("s2r://panorama/images/buttons/input_field_border_png.vtex");
+	border-image-slice: 5px fill;
+	border-image-width: 5;
+	border-image-outset: 5px;
+	border-image-repeat: repeat;
+	wash-color: offWhite;
+	opacity: 0.05;
+}
+
+.InputField .Background
+{
+	ignore-parent-flow: true;
+	width: 100%;
+	height: 100%;
+	margin: 2px;
+	background-image: url("s2r://panorama/images/textures/paper_tile_1k_01_png.vtex");
+	box-shadow: inset rgba( 0, 0, 0, 0.5) 0px 2px 6px;
+	brightness: 0.75;
+}
+
+.InputField Label
+{
+	font-weight: semi-bold;
+	font-style: italic;
+}
+
+.InputField.Keybind
+{
+	width: 96px;
+	height: 24px;
+	transition-property: width;
+	transition-duration: 0.2s;
+}
+
+.InputField.Keybind Label
+{
+	horizontal-align: center;
+	vertical-align: center;
+	padding: 3px 6px 1px 6px;
+	text-align: center;
+	font-size: 14px;
+	line-height: 0px;
+	font-family: block;
+	text-transform: uppercase;
+}
+
+.CycleButton
+{
+	flow-children: right;
+	width: 320px;
+	height: fit-children;
+	vertical-align: center;
+	border-radius: 4px;
+}
+
+.CycleButton .Arrow
+{
+	ignore-parent-flow: true;
+	width: 24px;
+	height: 24px;
+	horizontal-align: center;
+	vertical-align: center;
+	background-size: 24px 24px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-image: url("s2r://panorama/images/buttons/component_arrow.vsvg");
+	wash-color: offWhite;
+	opacity: 0.2;
+}
+
+.CycleButton .Left
+{
+	width: 40px;
+	height: 40px;
+}
+
+.CycleButton .Left .Background
+{
+	ignore-parent-flow: true;
+	width: 100%;
+	height: 100%;
+	background-size: 40px;
+	background-repeat: no-repeat;
+	background-image: url("s2r://panorama/images/buttons/cycle_button_cap_left_png.vtex");
+}
+
+.CycleButton .Left .Border
+{
+	ignore-parent-flow: true;
+	width: 100%;
+	height: 100%;
+	background-size: 40px;
+	background-repeat: no-repeat;
+	background-image: url("s2r://panorama/images/buttons/cycle_button_cap_border_left_png.vtex");
+	wash-color: offWhite;
+	opacity: 0.05;
+}
+
+.CycleButton .Left .Arrow
+{
+	margin-left: 8px;
+	pre-transform-rotate2d: 90deg;
+}
+
+.CycleButton .Middle
+{
+	width: fill-parent-flow(1);
+	height: 40px;
+}
+
+.CycleButton .Middle Label
+{
+	horizontal-align: center;
+	vertical-align: center;
+	width: 100%;
+	height: fit-children;
+	padding: 8px 16px;
+	text-align: center;
+	font-weight: semi-bold;
+}
+
+.CycleButton .Middle .Background
+{
+	ignore-parent-flow: true;
+	width: 100%;
+	height: 100%;
+	background-image: url("s2r://panorama/images/textures/paper_tile_1k_01_png.vtex");
+	brightness: 0.5;
+}
+
+.CycleButton .Middle .Border
+{
+	ignore-parent-flow: true;
+	width: 100%;
+	height: 100%;
+	background-size: auto;
+	background-repeat: repeat;
+	background-image: url("s2r://panorama/images/buttons/cycle_button_middle_border_png.vtex");
+	wash-color: offWhite;
+	opacity: 0.05;
+}
+
+.CycleButton .Right
+{
+	width: 40px;
+	height: 40px;
+}
+
+.CycleButton .Right .Background
+{
+	ignore-parent-flow: true;
+	width: 100%;
+	height: 100%;
+	background-size: 40px;
+	background-repeat: no-repeat;
+	background-image: url("s2r://panorama/images/buttons/cycle_button_cap_right_png.vtex");
+}
+
+.CycleButton .Right .Border
+{
+	ignore-parent-flow: true;
+	width: 100%;
+	height: 100%;
+	background-size: 40px;
+	background-repeat: no-repeat;
+	background-image: url("s2r://panorama/images/buttons/cycle_button_cap_border_right_png.vtex");
+	wash-color: offWhite;
+	opacity: 0.05;
+}
+
+.CycleButton .Right .Arrow
+{
+	margin-right: 8px;
+	pre-transform-rotate2d: -90deg;
+}
+
+.DropDownNew
+{
+	flow-children: right;
+	width: 320px;
+	height: fit-children;
+	vertical-align: center;
+	border-radius: 8px;
+}
+
+.DropDownNew .Border
+{
+	ignore-parent-flow: true;
+	width: 100%;
+	height: 100%;
+	background-color: none;
+	background-image: none;
+	border: 12px solid transparent;
+	border-image: url("s2r://panorama/images/buttons/dropdown_border_png.vtex");
+	border-image-slice: 12px fill;
+	border-image-width: 12;
+	border-image-outset: 12px;
+	border-image-repeat: repeat;
+	wash-color: offWhite;
+	opacity: 0.05;
+	brightness: 1;
+	transition-property: brightness;
+	transition-duration: 0.15s;
+}
+
+.DropDownNew .Background
+{
+	ignore-parent-flow: true;
+	width: 100%;
+	height: 100%;
+	border-radius: 8px;
+	background-image: url("s2r://panorama/images/textures/paper_tile_1k_01_png.vtex");
+	box-shadow: inset rgba( 0, 0, 0, 0.5) 0px 0px 32px;
+	brightness: 0.75;
+}
+
+.DropDownNew .DropDownContent
+{
+	width: 100%;
+	height: fit-children;
+	padding: 8px 8px 8px 16px;
+}
+
+.DropDownNew .DropDownContent.NEWDropdown
+{
+	padding: 0px;
+}
+
+.DropDownNew Label
+{
+	width: fit-children;
+	height: fit-children;
+	margin-right: 32px;
+	font-weight: semi-bold;
+	brightness: 1;
+	transition-property: brightness;
+	transition-duration: 0.15s;
+}
+
+.DropDownNew .Arrow
+{
+	ignore-parent-flow: true;
+	width: 24px;
+	height: 24px;
+	margin-right: 8px;
+	horizontal-align: right;
+	vertical-align: center;
+	background-size: 24px 24px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-image: url("s2r://panorama/images/buttons/component_arrow.vsvg");
+	wash-color: offWhite;
+	opacity: 0.2;
+	brightness: 1;
+	transition-property: brightness;
+	transition-duration: 0.15s;
+}
+
+.DropDownNew .HoveredPingSlot Label
+{
+	color: offWhite;
+}
+
 DropDown,CitadelSettingsEnumDropDown
 {
 	background-color: gradient( linear, 0% 0%, 0% 100%, from( #292e2e ), to( #191e1e ) );
@@ -1306,6 +2824,48 @@ DropDown,CitadelSettingsEnumDropDown
 	transition-property: background-color, border;
 	transition-duration: 0.15s;
 	transition-timing-function: linear;
+}
+
+DropDown.NEWDropdown,CitadelSettingsEnumDropDown.NEWDropdown
+{
+	width: 100%;
+	height: fit-children;
+	margin: 0px;
+	padding: 0px;
+	padding-right: 40px;
+	background-color: none;
+	background-image: none;
+	border: 0px;
+	box-shadow: none;
+}
+
+DropDown.NEWDropdown Label,CitadelSettingsEnumDropDown.NEWDropdown Label
+{
+	width: fit-children;
+	margin: 0px;
+	padding: 8px 8px 8px 16px;
+}
+
+DropDown.NEWDropdown:hover,CitadelSettingsEnumDropDown.NEWDropdown:hover
+{
+	background-color: none;
+}
+
+DropDown.NEWDropdown:focus,CitadelSettingsEnumDropDown.NEWDropdown:focus
+{
+	background-image: none;
+}
+
+DropDown.NEWDropdown:disabled,CitadelSettingsEnumDropDown.NEWDropdown:disabled
+{
+	border: 0px;
+	background-color: offBlack&cc;
+	background-image: none;
+}
+
+DropDown.NEWDropdown:disabled Label,CitadelSettingsEnumDropDown.NEWDropdown:disabled Label
+{
+	color: offWhite&06;
 }
 
 DropDown:enabled:hover,CitadelSettingsEnumDropDown:enabled:hover
@@ -1359,45 +2919,58 @@ DropDown.DropDownMenuVisible:focus Label,CitadelSettingsEnumDropDown.DropDownMen
 
 DropDownMenu
 {
-	width: 352px;
-	flow-children: down;
-	background-color: #3d4448;
-	color: #e1e1e1;
-	font-size: 28px;
-	overflow: squish scroll;
 	z-index: 0;
+	flow-children: down;
+	overflow: squish scroll;
+	width: 352px;
+	border-radius: 4px;
+	background-color: #393731;
+	background-image: url("s2r://panorama/images/textures/paper_tile_1k_01_psd.vtex");
+	background-size: 100%;
+	background-repeat: repeat;
+	box-shadow: fill #00000088 0px 0px 24px 0px ;
 	transform: translateY(-40px);
-	opacity: 0.0;
+	opacity: 0;
+	brightness: 1.25;
+	saturation: 1.1;
 	transition-property: opacity, transform;
 	transition-duration: 0.15s;
 	transition-timing-function: ease-in;
-	box-shadow: fill #00000066 0px 0px 6px 0px ;
 }
 
 DropDownMenu Label
 {
-	width: 100%;
-	padding: 6px 0px 2px 0px;
-	margin-top: 0px 0px;
-	margin-right: 0px;
-	margin-left: 0px;
-	padding-left: 16px;
-	font-family: sans;
-	background-color: #3d4448;
-	font-size: 18px;
-	font-weight: medium;
-	opacity: 0.9;
 	z-index: 0;
+	width: 100%;
+	margin: 0px;
+	padding: 4px 16px;
+	font-size: 18px;
+	font-family: sans;
+	font-weight: semi-bold;
+	color: offWhite&66;
 	border-top: 1px solid #00000066;
 	border-bottom: 1px solid #00000066;
-	transition-property: background-color;
-	transition-duration: 0.2s;
+	background-image: none;
+	opacity: 0.9;
+	brightness: 1;
+	transition-property: background-image, brightness, color;
+	transition-duration: 0.1s;
 	transition-timing-function: ease-in-out;
 }
 
 DropDownMenu Label:hover
 {
-	background-color: #585e62;
+	background-image: url("s2r://panorama/images/textures/paper_tile_1k_01_psd.vtex");
+	color: white;
+	brightness: 2;
+	transition-property: background-image, brightness;
+	transition-duration: 1s;
+	transition-timing-function: ease-in-out;
+}
+
+DropDownMenu Label:active
+{
+	color: brandGreen;
 }
 
 DropDownMenu.DropDownMenuVisible
@@ -1420,14 +2993,95 @@ DropDown.ThinDropDown
 	font-size: 18px;
 }
 
+CitadelSettingsToggle
+{
+	flow-children: right;
+}
+
+CitadelSettingsToggle.RightLeftFlow
+{
+	flow-children: left;
+}
+
+CitadelSettingsToggle.RightLeftFlow .SwitchButton
+{
+	margin-right: 16px;
+}
+
+CitadelSettingsToggle.RightLeftFlow.ToggleOn .SettingLabel
+{
+	color: brandGreen;
+}
+
+CitadelSettingsToggle Label
+{
+	vertical-align: center;
+	font-weight: semi-bold;
+	color: offWhite&44;
+}
+
+CitadelSettingsToggle .SwitchButton
+{
+	width: 40px;
+	height: 20px;
+	vertical-align: center;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 40px 20px;
+	background-image: url("s2r://panorama/images/buttons/switch_background.vsvg");
+	flow-children: right;
+}
+
+CitadelSettingsToggle .SwitchButton:active
+{
+	sound: "UI.MainMenu.Activate";
+	brightness: 1.5;
+	transform: scale3d( 0.98, 0.98, 1 );
+}
+
+CitadelSettingsToggle #handle
+{
+	transition-property: transform;
+	transition-duration: 0.1s;
+	transition-timing-function: ease-out;
+}
+
+CitadelSettingsToggle.ToggleOff #handle
+{
+	width: 20px;
+	height: 20px;
+	margin-left: 0px;
+	vertical-align: center;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 20px 20px;
+	background-image: url("s2r://panorama/images/buttons/switch_handle_off.vsvg");
+	img-shadow: 0px 2px 8px 2 rgba( 0, 0, 0, 0.5);
+	transform: translateX(0px);
+}
+
+CitadelSettingsToggle.ToggleOn #handle
+{
+	width: 20px;
+	height: 20px;
+	vertical-align: center;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 20px 20px;
+	background-image: url("s2r://panorama/images/buttons/switch_handle_on.vsvg");
+	img-shadow: 0px 0px 12px 1 brandGreen&66;
+	transform: translateX(20px);
+}
+
+CitadelSettingsToggle:active
+{
+	sound: soundMainMenuActivate;
+}
+
 ToggleButton,CitadelSettingsCheckbox
 {
 	flow-children: right;
-	padding: 1px 4px;
-	color: white;
-	transition-property: background-color, box-shadow, color;
-	transition-duration: 0.25s;
-	transition-timing-function: ease-in-out;
+	vertical-align: center;
 }
 
 ToggleButton .TickBox,CitadelSettingsCheckbox .TickBox
@@ -1435,161 +3089,361 @@ ToggleButton .TickBox,CitadelSettingsCheckbox .TickBox
 	width: 18px;
 	height: 18px;
 	vertical-align: center;
-	background-color: black;
-	border: 2px solid #5e686966;
-	box-shadow: #00000055 0px 0px 1px 3px ;
-	transition-property: background-color, box-shadow, color, border, background-image, wash-color, pre-transform-scale2d;
-	transition-duration: 0.20s;
+	border-radius: 2px;
+	background-color: rgba( 0, 0, 0, 0.5);
+	border: 2px solid offWhite&11;
+	pre-transform-scale2d: 1;
+	transition-property: brightness, pre-transform-scale2d;
+	transition-duration: 0.2s;
 	transition-timing-function: ease-in-out;
-}
-
-ToggleButton:selected .TickBox,CitadelSettingsCheckbox:selected .TickBox
-{
-	background-color: gradient( linear, 0% 0%, 0% 100%, from( #e7f6f5 ), to( #a0d6d7 ) );
-	border: 3px solid #000000;
-	box-shadow: #5b62bf77 0px 0px 8px 0px ;
-}
-
-ToggleButton:hover .TickBox,CitadelSettingsCheckbox:hover .TickBox
-{
-	border: 2px solid #697879;
 }
 
 ToggleButton Label,CitadelSettingsCheckbox Label
 {
-	font-size: 16px;
 	margin-left: 8px;
-	color: baseText;
-	transition-property: color;
+	font-size: 18px;
+	font-weight: semi-bold;
+	color: offWhite&66;
+	transition-property: brightness;
 	transition-duration: 0.2s;
 	transition-timing-function: linear;
 }
 
-ToggleButton:enabled:hover Label,CitadelSettingsCheckbox:enabled:hover Label
+ToggleButton:hover .TickBox,CitadelSettingsCheckbox:hover .TickBox
 {
-	color: #d2d6d1;
+	brightness: 1.5;
+	pre-transform-scale2d: 1.1;
 }
 
-ToggleButton:selected Label,CitadelSettingsCheckbox:selected Label
+ToggleButton:hover Label,CitadelSettingsCheckbox:hover Label
 {
-	color: white;
+	brightness: 1.5;
 }
 
-ToggleButton:disabled Label,CitadelSettingsCheckbox:disabled Label
+ToggleButton:selected .TickBox,CitadelSettingsCheckbox:selected .TickBox
 {
-	color: #333333;
+	border: 0px;
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #5FE6A2 ), to( #A3FFB7 ) );
+	background-image: url("s2r://panorama/images/icons/checkbox_check.vsvg");
+	background-size: 18px;
+	background-texture-size: 18px;
+	background-repeat: no-repeat;
+	background-position: center;
+	box-shadow: brandGreen&11 0px 0px 12px 0px ;
+	brightness: 1;
+	pre-transform-scale2d: 1;
+}
+
+ToggleButton:selected:hover .TickBox,CitadelSettingsCheckbox:selected:hover .TickBox
+{
+	pre-transform-scale2d: 1.1;
+}
+
+ToggleButton:disabled,CitadelSettingsCheckbox:disabled
+{
+	saturation: 0;
+	brightness: 0.1;
+	opacity: 0.35;
 }
 
 ToggleButton:disabled .TickBox,CitadelSettingsCheckbox:disabled .TickBox
 {
-	border-color: #333333;
+	pre-transform-scale2d: 1;
 }
 
-ToggleButton:disabled:selected .TickBox,CitadelSettingsCheckbox:disabled:selected .TickBox
+.SettingLabel
 {
-	background-color: gradient( linear, 0% 0%, 0% 100%, from( #222222 ), to( #333333 ) );
-	border: 3px solid #000000;
-	box-shadow: #33333377 0px 0px 8px 0px ;
+	width: 280px;
 }
 
-RadioButton
+RadioButton,CitadelSettingsEnum RadioButton,CitadelSettingsEnum
 {
-	background-color: none;
 	flow-children: right;
-	color: white;
+	vertical-align: center;
+	width: fit-children;
 	transition-property: background-color, box-shadow, color, brightness;
 	transition-duration: 0.25s;
 	transition-timing-function: ease-in-out;
 }
 
-RadioButton > .RadioBox
+RadioButton .RadioBox,CitadelSettingsEnum RadioButton .RadioBox,CitadelSettingsEnum .RadioBox
 {
+	vertical-align: center;
 	min-width: 20px;
 	min-height: 20px;
+	margin-right: 6px;
 	border-radius: 50%;
-	background-color: gradient( radial, 50% 50%, 0% 0%, 10% 10%, from( #000000 ), to( #000000 ) );
-	border: 2px solid #8c7e7022;
-	box-shadow: #00000055 0px 0px 1px 3px ;
-	transition-property: background-color, box-shadow, color, border;
+	background-color: rgba( 0, 0, 0, 0.5);
+	border: 2px solid offWhite&11;
+	box-shadow: #00000011 0px 0px 1px 0px ;
+	pre-transform-scale2d: 0.9;
+	transition-property: background-color, box-shadow, color, border, brightness, pre-transform-scale2d;
 	transition-duration: 0.20s;
 	transition-timing-function: ease-in-out;
 }
 
-RadioButton:selected > .RadioBox
+RadioButton Label,CitadelSettingsEnum RadioButton Label,CitadelSettingsEnum Label
 {
-	background-color: gradient( radial, 50% 50%, 0% 0%, 50% 50%, from( offWhite ), to( #8c7e70) );
-	background-color: offWhite;
-	border: 3px solid #000000;
-	box-shadow: #8c7e7033 0px 0px 6px 0px ;
+	vertical-align: center;
+	margin-left: 0px;
+	padding-right: 16px;
+	font-size: 18px;
+	font-weight: semi-bold;
+	color: offWhite&44;
+	transition-property: color;
+	transition-duration: 0.2s;
+	transition-timing-function: linear;
+}
+
+RadioButton RadioButton:hover,CitadelSettingsEnum RadioButton RadioButton:hover,CitadelSettingsEnum RadioButton:hover
+{
+	brightness: 3;
+}
+
+RadioButton RadioButton:hover .RadioBox,CitadelSettingsEnum RadioButton RadioButton:hover .RadioBox,CitadelSettingsEnum RadioButton:hover .RadioBox
+{
+	background-color: rgba( 0, 0, 0, 0.75);
+	border: 2px solid offWhite&33;
+	pre-transform-scale2d: 1;
+}
+
+RadioButton RadioButton:hover:selected,CitadelSettingsEnum RadioButton RadioButton:hover:selected,CitadelSettingsEnum RadioButton:hover:selected
+{
+	brightness: 1;
+}
+
+RadioButton RadioButton:hover:selected .RadioBox,CitadelSettingsEnum RadioButton RadioButton:hover:selected .RadioBox,CitadelSettingsEnum RadioButton:hover:selected .RadioBox
+{
+	border: 0px;
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #5FE6A2 ), to( #A3FFB7 ) );
+	pre-transform-scale2d: 0.9;
+}
+
+RadioButton:active .RadioBox,CitadelSettingsEnum RadioButton:active .RadioBox,CitadelSettingsEnum:active .RadioBox
+{
+	sound: "UI.MainMenu.Activate";
+	border: 3px solid offWhite&33;
+}
+
+RadioButton:selected .RadioBox,CitadelSettingsEnum RadioButton:selected .RadioBox,CitadelSettingsEnum:selected .RadioBox
+{
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #5FE6A2 ), to( #A3FFB7 ) );
+	background-image: url("s2r://panorama/images/icons/checkbox_check.vsvg");
+	background-size: 18px;
+	background-texture-size: 18px;
+	background-repeat: no-repeat;
+	background-position: center;
+	box-shadow: brandGreen&11 0px 0px 12px 0px ;
 	transition-property: background-color;
 	transition-duration: 0.5s;
 	transition-timing-function: ease-in-out;
 }
 
-RadioButton:enabled:hover > .RadioBox
-{
-	border: 2px solid #8c7e7044;
-}
-
-RadioButton:enabled:selected:hover > .RadioBox
-{
-	border: 3px solid #000000;
-}
-
-RadioButton > Label
-{
-	color: offWhite&44;
-	margin-left: 8px;
-	font-size: 16px;
-	transition-property: color;
-	transition-duration: 0.2s;
-	transition-timing-function: linear;
-}
-
-CitadelSettingsEnum RadioButton > Label
-{
-	font-size: 18px;
-	color: #7d8688;
-}
-
-RadioButton:selected > Label
+RadioButton:selected Label,CitadelSettingsEnum RadioButton:selected Label,CitadelSettingsEnum:selected Label
 {
 	color: offWhite;
-	transition-property: color, text-shadow;
-	transition-duration: 0.2s;
-	transition-timing-function: linear;
 }
 
-RadioButton:enabled:hover > Label
+RadioButton:selected:hover,CitadelSettingsEnum RadioButton:selected:hover,CitadelSettingsEnum:selected:hover
 {
-	color: offWhite;
-	transition-property: color;
-	transition-duration: 0.2s;
-	transition-timing-function: linear;
+	brightness: 1;
 }
 
-RadioButton:disabled > .RadioBox
+RadioButton:disabled,CitadelSettingsEnum RadioButton:disabled,CitadelSettingsEnum:disabled
 {
-	color: transparent;
-	box-shadow: #33333377 0px 0px 8px 0px ;
-	background-color: #00000000;
+	saturation: 0;
+	brightness: 0.1;
+	opacity: 0.35;
 }
 
-RadioButton:disabled:selected > .RadioBox
+@keyframes 'SliderTest'
 {
-	background-color: gradient( radial, 50% 50%, 0% 0%, 50% 50%, from( #e7f6f533 ), to( #33339933 ) );
+	0%
+	{
+		opacity-mask: url("s2r://panorama/images/masks/progress_bar_threshold_01_psd.vtex");
+		opacity-mask-threshold: 100% 0%;
+	}
+	
+	100%
+	{
+		opacity-mask: url("s2r://panorama/images/masks/progress_bar_threshold_01_psd.vtex");
+		opacity-mask-threshold: 0% 0%;
+	}
+	
 }
 
-RadioButton:disabled > Label
+@keyframes 'SliderTestThumb'
 {
-	color: #333333;
+	0%
+	{
+		position: 0px 0px 0px;
+	}
+	
+	100%
+	{
+		position: 325px 0px 0px;
+	}
+	
+}
+
+.Slider
+{
+	vertical-align: center;
+	width: 344px;
+	height: 32px;
+	margin-left: -8px;
+	overflow: noclip;
+}
+
+.Slider .Fill
+{
+	width: 100%;
+	height: 100%;
+	background-image: url("s2r://panorama/images/buttons/slider_fill_psd.vtex");
+	background-size: 344px 32px;
+	background-repeat: no-repeat;
+	opacity-mask: url("s2r://panorama/images/masks/progress_bar_threshold_01_psd.vtex");
+	opacity-mask-threshold: 100% 0%;
+	transition-property: opacity-mask;
+	transition-duration: 1s;
+}
+
+.Slider .Fill.VoiceLevel
+{
+	background-image: url("s2r://panorama/images/buttons/voice_level_fill_psd.vtex");
+	animation-name: SliderTest;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate-reverse;
+	animation-timing-function: linear;
+}
+
+.Slider Image
+{
+	vertical-align: center;
+	width: 344px;
+	height: 32px;
+	img-shadow: 0px 0px 12px 1 offWhite&22;
+	opacity-mask: url("s2r://panorama/images/masks/progress_bar_threshold_01_psd.vtex");
+	opacity-mask-threshold: 100% 0%;
+	transition-property: opacity-mask;
+	transition-duration: 1s;
+}
+
+.Slider .Background
+{
+	width: 100%;
+	height: 100%;
+	background-image: url("s2r://panorama/images/buttons/slider_fill_psd.vtex");
+	background-size: 344px 32px;
+	background-repeat: no-repeat;
+	wash-color: black;
+	opacity: 0.75;
+}
+
+.Slider .Background.VoiceLevel
+{
+	background-image: url("s2r://panorama/images/buttons/voice_level_fill_psd.vtex");
+}
+
+.Slider .SliderThumb
+{
+	vertical-align: center;
+	width: 20px;
+	height: 20px;
+	border-radius: 100%;
+	background-color: brandGreen;
+	background-color: gradient( radial, 50% 50%, 0px 0px, 50% 50%, from( black ), color-stop( 0.45, black ),color-stop( 0.65, #A3FFB7 ), to( brandGreen ) );
+	position: 0px 0px 0px;
+	transition-property: position, background-color;
+	transition-duration: 1s;
+}
+
+.Slider:hover .Fill
+{
+	opacity-mask: url("s2r://panorama/images/masks/progress_bar_threshold_01_psd.vtex");
+	opacity-mask-threshold: 0% 0%;
+}
+
+.Slider:hover Image
+{
+	opacity-mask: url("s2r://panorama/images/masks/progress_bar_threshold_01_psd.vtex");
+	opacity-mask-threshold: 0% 0%;
+}
+
+.Slider:hover .SliderThumb
+{
+	position: 320px 0px 0px;
+	background-color: gradient( radial, 50% 50%, 0px 0px, 50% 50%, from( black ), color-stop( 0.45, black ),color-stop( 0.65, #EABFFF ), to( #FF99BB ) );
+}
+
+.SliderGradient
+{
+	vertical-align: center;
+	width: 344px;
+	height: 32px;
+	margin-left: -8px;
+	overflow: noclip;
+}
+
+.SliderGradient .Bar
+{
+	vertical-align: center;
+	width: 344px;
+	height: 32px;
+	border-radius: 64px;
+	opacity-mask: url("s2r://panorama/images/buttons/slider_fill_mask_psd.vtex");
+	overflow: noclip;
+}
+
+.SliderGradient .Bar .Fill
+{
+	width: 0px;
+	height: 100%;
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( brandGreen), color-stop(0.2, brandGreen), color-stop(0.8, #EABFFF), to( #FF99BB ) );
+	transition-property: width;
+	transition-duration: 1s;
+}
+
+.SliderGradient .Bar .Background
+{
+	width: 100%;
+	height: 100%;
+	background-image: url("s2r://panorama/images/buttons/slider_fill_psd.vtex");
+	background-size: 344px 32px;
+	background-repeat: no-repeat;
+	wash-color: black;
+	opacity: 0.75;
+}
+
+.SliderGradient .SliderThumb
+{
+	vertical-align: center;
+	width: 20px;
+	height: 20px;
+	border-radius: 100%;
+	background-color: brandGreen;
+	background-color: gradient( radial, 50% 50%, 0px 0px, 50% 50%, from( black ), color-stop( 0.45, black ),color-stop( 0.65, #A3FFB7 ), to( brandGreen ) );
+	position: 0px 0px 0px;
+	transition-property: position, background-color;
+	transition-duration: 1s;
+}
+
+.SliderGradient:hover .Fill
+{
+	width: 320px;
+}
+
+.SliderGradient:hover .SliderThumb
+{
+	position: 320px 0px 0px;
+	background-color: gradient( radial, 50% 50%, 0px 0px, 50% 50%, from( black ), color-stop( 0.45, black ),color-stop( 0.65, #EABFFF ), to( #FF99BB ) );
 }
 
 Slider
 {
 	width: 30px;
 	height: 130px;
-	margin-bottom: 20px;
 }
 
 #ReticleSection Slider
@@ -1603,9 +3457,7 @@ Slider
 	width: 16px;
 	background-color: #283842;
 	align: center center;
-	background-color: black;
-	border: 2px solid #5e686966;
-	box-shadow: #00000055 0px 0px 1px 3px ;
+	background-color: rgba( 0, 0, 0, 0.75);
 	z-index: 2;
 }
 
@@ -1638,7 +3490,7 @@ SlottedSlider.HorizontalSlider .SliderNotch
 	border-radius: 13%;
 	width: 30px;
 	height: 16px;
-	box-shadow: fill black 7px 1px 11px 0px;
+	box-shadow: fill brandGreen&11 0px 0px 16px 1px;
 	z-index: 4;
 }
 
@@ -1660,18 +3512,18 @@ Slider.HorizontalSlider,SlottedSlider.HorizontalSlider
 
 Slider.HorizontalSlider #SliderTrack,SlottedSlider.HorizontalSlider #SliderTrack
 {
-	height: 16px;
+	height: 4px;
 	width: 100%;
 	padding: 10px;
+	border-radius: 4px;
 }
 
 Slider.HorizontalSlider #SliderTrackProgress,SlottedSlider.HorizontalSlider #SliderTrackProgress
 {
 	width: 100%;
-	height: 10px;
-	background-color: gradient( linear, 0% 0%, 100% 0%, from( #222222FF ), to( #444f52FF ) );
-	box-shadow: inset black -2px 1px 3px 0px;
-	margin-left: 1px;
+	height: 4px;
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( offWhite&88 ), color-stop( 0.60, offWhite ), to( brandGreen ) );
+	box-shadow: offWhite&33 0px 0px 8px 0px;
 }
 
 Slider.HorizontalSlider #SliderTrackProgress:disabled,SlottedSlider.HorizontalSlider #SliderTrackProgress:disabled
@@ -1685,15 +3537,28 @@ Slider.HorizontalSlider #SliderTrackProgress:disabled,SlottedSlider.HorizontalSl
 
 Slider.HorizontalSlider #SliderThumb,SlottedSlider.HorizontalSlider #SliderThumb
 {
-	background-color: gradient( radial, 50% 50%, -5% -5%, 60% 60%, from( #91a5b9 ), to( #444f52 ) );
-	border-radius: 13%;
-	width: 16px;
-	height: 30px;
+	vertical-align: center;
+	width: 20px;
+	height: 20px;
+	border-radius: 100%;
+	background-color: brandGreen;
+	background-color: gradient( radial, 50% 50%, 0px 0px, 50% 50%, from( black ), color-stop( 0.42, black ),color-stop( 0.62, #A3FFB7 ), to( brandGreen ) );
+	transition-property: background-color, brightness;
+	transition-duration: 0.2s;
 }
 
 Slider.HorizontalSlider #SliderThumb:hover,SlottedSlider.HorizontalSlider #SliderThumb:hover
 {
-	background-color: gradient( radial, 50% 50%, -5% -5%, 60% 60%, from( #b8c5d3 ), to( #444f52 ) );
+	background-color: gradient( radial, 50% 50%, 0px 0px, 50% 50%, from( black ), color-stop( 0.62, black ),color-stop( 0.82, #A3FFB7 ), to( brandGreen ) );
+	brightness: 1.5;
+	transition-property: background-color, brightness;
+	transition-duration: 0.2s;
+}
+
+Slider.HorizontalSlider:active #SliderThumb,SlottedSlider.HorizontalSlider #SliderThumb:active
+{
+	background-color: gradient( radial, 50% 50%, 0px 0px, 50% 50%, from( black ), color-stop( 0.4, black ),color-stop( 0.6, #A3FFB7 ), to( brandGreen ) );
+	brightness: 1;
 }
 
 Slider.HorizontalSlider #SliderThumb:disabled,SlottedSlider.HorizontalSlider #SliderThumb:disabled
@@ -2090,6 +3955,18 @@ ProgressBar
 	background-color: #000000ff;
 }
 
+ProgressBar#CurrentMicLevel
+{
+	height: 32px;
+	background-color: rgba(0, 0, 0, 0.80));
+	opacity-mask: url("s2r://panorama/images/buttons/voice_level_mask_psd.vtex");
+}
+
+ProgressBar#CurrentMicLevel .ProgressBarLeft
+{
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( brandGreen), color-stop(0.2, brandGreen), color-stop(0.8, #EABFFF), to( #FF99BB ) );
+}
+
 .ProgressBarLeft
 {
 	background-color: gradient( linear, 0% 0%, 100% 0%, from( #222222FF ), to( #444f52FF ) );
@@ -2124,7 +4001,7 @@ CitadelTooltipProfileCard #Contents
 
 .light .MouseGlyphBackground
 {
-	background-color: offWhite;
+	background-color: white;
 }
 
 .light .MouseButton1
@@ -2345,17 +4222,20 @@ CitadelTooltipProfileCard #Contents
 
 #CommendPlayerButton
 {
-	width: 35px;
-	height: 35px;
-	border-radius: 100px;
+	width: 48px;
+	height: 48px;
+	border-radius: 44px;
 	horizontal-align: center;
-	border: 2px solid offWhite&30;
+	transition-property: brightness, pre-transform-scale2d;
+	transition-duration: 0.08s;
+	transition-timing-function: ease-in-out;
+	pre-transform-scale2d: 0.9;
+	box-shadow: 1px 1px 12px #00000033;
 }
 
 .CanCommendPlayers .localplayer #PlayerCommendContainer,.CanCommendPlayers .localplayer.PlayerSnippet:hover #PlayerCommendContainer,.CanCommendPlayers .localplayer.Selected #PlayerCommendContainer
 {
 	opacity: 1;
-	brightness: 0.5;
 }
 
 .CanReportPlayers #CommendPlayerButton
@@ -2375,7 +4255,8 @@ CitadelTooltipProfileCard #Contents
 
 #CommendPlayerButton:hover
 {
-	background-color: offWhite;
+	pre-transform-scale2d: 1;
+	brightness: 1.3;
 }
 
 #commendIcon
@@ -2385,18 +4266,15 @@ CitadelTooltipProfileCard #Contents
 	background-repeat: no-repeat;
 	background-position: center;
 	wash-color: offWhite;
-	opacity: 0.5;
-	margin-bottom: 1px;
-	width: 15px;
-	height: 15px;
+	opacity: 1;
+	margin-bottom: 4px;
+	margin-left: 1px;
+	width: 18px;
+	height: 18px;
+	img-shadow: 0px 0px 4px #00000088;
 	horizontal-align: center;
 	vertical-align: center;
-}
-
-#CommendPlayerButton:hover #commendIcon
-{
-	wash-color: offBlack;
-	opacity: 0.9;
+	opacity: 0.6;
 }
 
 #CommendedPlayerLabel,.CommendedPlayer #CommendPlayerButton
@@ -2480,49 +4358,6 @@ CitadelTooltipProfileCard #Contents
 	background-position: center;
 	background-repeat: no-repeat;
 	background-image: url("s2r://panorama/images/icons/icon_x.vsvg");
-}
-
-.CommendToast
-{
-	padding-right: 4px;
-	horizontal-align: right;
-}
-
-.CommendToast Label
-{
-	margin-right: 8px;
-}
-
-.CommendToast #CommendPlayerButton
-{
-	visibility: collapse;
-	vertical-align: center;
-	margin: 4px;
-	margin-right: 6px;
-}
-
-.CommendToast:not(.AlreadyCommended) #CommendPlayerButton
-{
-	visibility: visible;
-}
-
-.CommendToast #HeroImage
-{
-	width: 60px;
-	height: 60px;
-	border-radius: 5px 0px 0px 5px;
-	background-color: #00000090;
-}
-
-.CommendToast .commendIcon
-{
-	background-color: black;
-	width: 40px;
-	height: 40px;
-	background-repeat: no-repeat;
-	background-position: 50% 50%;
-	background-size: 80% 80%;
-	visibility: collapse;
 }
 
 .commendIcon
@@ -2896,9 +4731,12 @@ CitadelHTMLPanel TextTooltip
 
 .InlineAttributeIcon
 {
-	width: 20px;
-	height: 20px;
+	width: 16px;
+	height: 16px;
 	margin-right: 2px;
+	margin-bottom: 2px;
+	margin-left: 2px;
+	wash-color: offWhite;
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center;
@@ -2941,7 +4779,7 @@ CitadelHTMLPanel TextTooltip
 	background-image: url("s2r://panorama/images/icons/properties/damage_magic_color.vsvg");
 }
 
-.InlineAttributeIcon.Heals,.InlineAttributeIcon.Healing,.InlineAttributeIcon.Heal,.InlineAttributeIcon.Regen,.InlineAttributeIcon.MaxHealth
+.InlineAttributeIcon.Heals,.InlineAttributeIcon.Healing,.InlineAttributeIcon.Heal,.InlineAttributeIcon.Regen,.InlineAttributeIcon.MaxHealth,.InlineAttributeIcon.Health
 {
 	background-image: url("s2r://panorama/images/icons/properties/heal.vsvg");
 	wash-color: armorColor;
@@ -3000,6 +4838,12 @@ CitadelHTMLPanel TextTooltip
 	wash-color: offWhite;
 }
 
+.InlineAttributeIcon.Sleep
+{
+	background-image: url("s2r://panorama/images/icons/properties/condition_sleep.vsvg");
+	wash-color: offWhite;
+}
+
 .InlineAttributeIcon.StaminaRegenPerSecond
 {
 	background-image: url("s2r://panorama/images/hud/modifiers/immobilize_psd.vtex");
@@ -3026,7 +4870,7 @@ CitadelHTMLPanel TextTooltip
 
 .InlineAttributeName
 {
-	font-weight: bold;
+	font-weight: semi-bold;
 }
 
 .InlineAttributeName.Fortitude
@@ -3049,7 +4893,7 @@ CitadelHTMLPanel TextTooltip
 	color: offWhite;
 }
 
-.InlineAttributeName.Stun,.InlineAttributeName.Immobilize
+.InlineAttributeName.Stun,.InlineAttributeName.Immobilize,.InlineAttributeName.Sleep
 {
 	color: offWhite;
 }
@@ -3064,7 +4908,7 @@ CitadelHTMLPanel TextTooltip
 	color: spiritBrightColor;
 }
 
-.InlineAttributeName.Heals,.InlineAttributeName.Healing,.InlineAttributeName.Heal,.InlineAttributeName.Regen,.InlineAttributeName.MaxHealth
+.InlineAttributeName.Heals,.InlineAttributeName.Healing,.InlineAttributeName.Heal,.InlineAttributeName.Regen,.InlineAttributeName.MaxHealth,.InlineAttributeName.Health
 {
 	color: #99f051;
 }
@@ -3336,7 +5180,8 @@ NumberEntry .ChangeValueButtons .ChangeValueButton .ChangeValueButtonLabel
 	
 }
 
-@keyframes 'TagGroove1'
+@import url("s2r://panorama/styles/split_label.vcss_c");
+@keyframes 'Groove1'
 {
 	0%
 	{

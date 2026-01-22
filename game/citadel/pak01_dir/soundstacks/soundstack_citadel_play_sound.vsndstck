@@ -1,0 +1,134 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_play_sound = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "_builtins"
+				operator = "sos_builtins"
+				_voicegraph = "core.default"
+			},
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					volume = 
+					{
+						data_type = "float"
+						value = "1.000000"
+						_system_properties = 
+						{
+							property_group = "Volume"
+							display_edit_type = "field_linear_atten_editor"
+						}
+					}
+					volume_atten = 
+					{
+						data_type = "float"
+						value = "1.000000"
+						_system_properties = 
+						{
+							property_group = "Volume"
+							display_group = "locked"
+							property_help = "set in code."
+						}
+					}
+					volume_fade_out = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "Volume"
+						}
+					}
+					delay = 
+					{
+						data_type = "float"
+						value = "0.000000"
+					}
+					pitch = 
+					{
+						data_type = "float"
+						value = "1.000000"
+					}
+					vsnd_files = 
+					{
+						data_type = "vsnd"
+						value = "sounds/common/null.vsnd"
+					}
+					send_name = 
+					{
+						data_type = "string"
+						value = "main"
+						_system_properties = 
+						{
+							display_group = "advanced"
+							property_help = "name of the track of the voice in the main mixgraph"
+						}
+					}
+				}
+			},
+			
+			{
+				name = "globals"
+				operator = "get_system_globals"
+				input_execute = "1"
+				input_listener_index = "0"
+			},
+			
+			{
+				name = "speakers_spatialize"
+				operator = "calc_spatialize_speakers_hrtf"
+				execute_once = "1.0"
+				input_360_listener = 0.000000
+				input_listener_angles = "@globals.output_listener_angles"
+				input_hrtf_on = "0.0"
+				input_hrtf_mix = "0.0"
+				input_distance = "0.0"
+				input_source_position = "@globals.output_listener_position"
+				input_listener_position = "@globals.output_listener_position"
+				input_listener_left = "@globals.output_listener_left"
+				input_listener_forward = "@globals.output_listener_forward"
+				input_listener_up = "@globals.output_listener_up"
+			},
+			
+			{
+				name = "math_mult_volume"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@public.volume"
+				input2 = "@public.volume_atten"
+			},
+			
+			{
+				name = "submix_send"
+				operator = "vmix_mixgraph_send"
+				input_execute = "1"
+				input = "@math_mult_volume.output"
+				submix_name = "@public.send_name"
+				send_type = "named"
+			},
+			
+			{
+				name = "start_vmix"
+				operator = "vmix_voice_start"
+				input_execute = "1"
+				input_start = "1.0"
+				input_speaker_volumes = "@speakers_spatialize.output"
+				input_vsnd1 = "@public.vsnd_files"
+				execute_once = "false"
+				input_should_pause = "1.0"
+				input_should_play_tail = "1.0"
+				input_pitch = "@public.pitch"
+				input_fade_out = "@public.volume_fade_out"
+				input_delay = "@public.delay"
+				input_max_gain_change_per_second = "10.0"
+			},
+		]
+	}
+}

@@ -232,6 +232,14 @@ table {
 <p> This only makes sense in large systems because in small systems the spring will be solved the very first time, and solving it again won't change any behavior. You can only observe the difference in behavior in a large system, where there are many other springs tugging on cloth so that it makes sense to re-solve this spring after those other springs had the chance to move the joint</p>
 
 <p><b>Use with caution</b>: this will affect performance if used a lot, and you get most of the benefits, if any, with very small numbers like 1 or 2. Usually setting it to higher number makes no difference but costs CPU. But in general, solving springs is very cheap and won't cost any CPU if just used sparingly here and there</p>"
+		"clothchain.stray_box:help"		"The same as stray radius, but keeps the node inside a box (rather than sphere)
+Enter x y z like: 1 0 0 will allow the node to slide along X axis -1 to 1, and will not allow it to slide along Y and Z axes"
+
+
+		"Element.CDestructiblePart:name_ref"		"CDestructiblePart"
+		"Element.CDestructiblePart:help_ref"		"CDestructiblePart"
+		"Element.CDestructiblePart:help"		"Tie a hitgroup to a set of 'parts' that each have a pool of health, that can shatter breakable parts at certain thresholds, toggling body groups and do things like pass on damage to the base entity, cause death, etc."
+
 		"modeldocnode.BreakPieceSimpleParticles:name_ref"		"BreakPieceSimpleParticles"
 		"modeldocnode.BreakPieceSimpleParticles:help_ref"		"Spawn particle meshes when this prop breaks. (Automatically creates a helper model with a bodygroup choice for each particle, a snapshot that positions them in the appropriate places, and a breakcommand that spawns a particlesystem driven by the model and vsnaps.)"
 		"modeldocnode.BreakPieceSimpleParticles:help"		"Spawn particle meshes when this prop breaks. (Automatically creates a helper model with a bodygroup choice for each particle, a snapshot that positions them in the appropriate places, and a breakcommand that spawns a particlesystem driven by the model and vsnaps.)
@@ -261,6 +269,48 @@ The danger is that if you animate this model, look away and then back at it, the
 <b>Blue</b> edges are on a border (two open edges) but do not have attribute seams.<br>
 <b>Magenta</b> are \"complex\".<br>
 "
+		"modeldocattr.CRenderMeshSimplifyParams.targetError:name_ref"		"Maximum Error Percent"
+		"modeldocattr.CRenderMeshSimplifyParams.targetError:help"		"The error threshold where simplification will stop (computed as a function of changes in vertex positions, and changes in vertex attributes when \"Attribute-Aware Simplification\" is enabled).
+
+If you are reducing Target Triangle Percent and nothing is happening, you may need to increase this value."
+		"modeldocattr.CRenderMeshSimplifyParams.attributeAware:name_ref"		"Attribute-Aware Simplification"
+		"modeldocattr.CRenderMeshSimplifyParams.attributeAware:help"		"Enables using other vertex attributes when considering simplification error.  This almost universally results in a better simplified mesh, because normals, uvs, etc will not be ignored and merged across seams, etc.
+
+The \"Simplification Weight\" properties are used when calculating the total position + attribute error, increasing/decreasing those values will control how much the simplification will attempt to preserve the values."
+		"modeldocattr.CRenderMeshSimplifyParams.normalWeight:name_ref"		"Normal Attribute Simplification Weight"
+		"modeldocattr.CRenderMeshSimplifyParams.normalWeight:help"		"When \"Attribute-Aware Simplification\" is enabled, this will increase/decrease the error contribution from changes in the meshes normals.  Increasing this will cause the simplfication algorithm to try to avoid changing normals more aggressively."
+		"modeldocattr.CRenderMeshSimplifyParams.uvWeight:name_ref"		"UV Attribute Simplification Weight"
+		"modeldocattr.CRenderMeshSimplifyParams.uvWeight:help"		"When \"Attribute-Aware Simplification\" is enabled, this will increase/decrease the error contribution from changes in the meshes uvs.  Increasing this will cause the simplfication algorithm to try to avoid changing uvs more aggressively."
+		"modeldocattr.CRenderMeshSimplifyParams.jointWeightWeight:name_ref"		"Joint Weight Attribute Simplification Weight"
+		"modeldocattr.CRenderMeshSimplifyParams.jointWeightWeight:help"		"When \"Attribute-Aware Simplification\" is enabled, this will increase/decrease the error contribution from changes in the meshes skinning weights.  Increasing this will cause the simplfication algorithm to try to avoid changing weights more aggressively.
+
+This only applies for skinned meshes."
+		"modeldocattr.CRenderMeshSimplifyParams.colorWeight:name_ref"		"Color Attribute Simplification Weight"
+		"modeldocattr.CRenderMeshSimplifyParams.colorWeight:help"		"When \"Attribute-Aware Simplification\" is enabled, this will increase/decrease the error contribution from changes in the meshes vertex colors.  Increasing this will cause the simplfication algorithm to try to avoid changing colors more aggressively."
+		"modeldocattr.CRenderMeshSimplifyParams.regularization:name_ref"		"Regularize Faces"
+		"modeldocattr.CRenderMeshSimplifyParams.regularization:help"		"Regularization attempts to keep triangles evenly sized.  Can improve skinning results on simplified meshes by avoiding long, skinny triangles that would deform poorly."
+		"modeldocattr.CRenderMeshSimplifyParams.recomputeVertices:name_ref"		"[experimental] Recompute Vertices"
+		"modeldocattr.CRenderMeshSimplifyParams.recomputeVertices:help"		"Recomputes the values of vertex positions and attributes after simplification, to attempt to reduce errors in shading, silhouette, etc.
+
+Generally improves results, especially normal mapping.  With extreme simplification levels, may not be worthwhile or do some harm."
+		"modeldocattr.CRenderMeshSimplifyParams.permissive:name_ref"		"[experimental] Permissive of Facets"
+		"modeldocattr.CRenderMeshSimplifyParams.permissive:help"		"Allows simplifying across seams in the mesh.  Generally only useful for poor content with lots of hard edges, uv shells, etc which would otherwise prevent simplification."
+		"modeldocattr.CRenderMeshSimplifyParams.lockBorder:name_ref"		"Lock Border"
+		"modeldocattr.CRenderMeshSimplifyParams.lockBorder:help"		"Locks the border (open edges) of the mesh.
+Generally not useful, avoid using."
+		"modeldocattr.CRenderMeshSimplifyParams.prune:name_ref"		"Prune pieces < error threshold"
+		"modeldocattr.CRenderMeshSimplifyParams.prune:help"		"Prunes small pieces of the mesh based on the total error threshold."
+		"modeldocattr.CRenderMeshSimplifyParams.removeSmallComponents:name_ref"		"Remove Small Components"
+		"modeldocattr.CRenderMeshSimplifyParams.removeSmallComponents:help"		"Prunes small disconnected components based only on the size of the components.
+Generally advised to enable this for lower LODs to remove small details that would otherwise get mangled (eg, bolts, etc)"
+		"modeldocattr.CRenderMeshSimplifyParams.smallComponentSize:name_ref"		"Small Component Size Percent"
+		"modeldocattr.CRenderMeshSimplifyParams.smallComponentSize:help"		"Size threshold used when removing small components.  This is a percentage of the size of the overall mesh."
+		"modeldocattr.CRenderMeshSimplifyParams.weldVertices:name_ref"		"Weld Vertices before simplifying"
+		"modeldocattr.CRenderMeshSimplifyParams.weldVertices:help"		"Welds vertices (non destructively) before simplifying the mesh.
+This should generally be enabled - it will fix small seams in the input model that otherwise might not be noticed, but would otherwise lead to gaps in the mesh as each side of the seam is simplified independenly."
+		"modeldocattr.CRenderMeshSimplifyParams.weldPositionTolerance:name_ref"		"Weld Position Tolerance"
+		"modeldocattr.CRenderMeshSimplifyParams.weldPositionTolerance:help"		"Tolerance used for \"Weld Vertices before Simplifying\""
+
 		"modeldocattr.ClothEffectWind.local_space:name_ref"		"Local Space"
 		"modeldocattr.ClothEffectWind.local_space:help"		"Generally wind is computed from the entity motion plus effect wind . So even with wind = 0 there will still be wind if the hero is on a zipline or running.
 When you set Local Space to 1, the oncoming wind will be excluded (wind from animation will be included, e.g. when waving a flag in animation without moving a hero, the flag will still be affected by the oncoming wind from animtion)
@@ -275,5 +325,6 @@ You can blend it, too, between 0 and 1"
 		"modeldocattr.ClothEffectWind.vortex_cell_size:help"		"The size of every vortex, in inches. Smaller size means it will reach into smaller region. Imagine real vortices, how small do you want them to be?"
 		"modeldocattr.ClothEffectWind.vortex_choppiness:name_ref"		"Variety, Hz"
 		"modeldocattr.ClothEffectWind.vortex_choppiness:help"		"How many times per second vortex will change"
+	
 	}
 }

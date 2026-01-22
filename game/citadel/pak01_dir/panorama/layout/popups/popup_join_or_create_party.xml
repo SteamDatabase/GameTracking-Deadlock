@@ -6,16 +6,69 @@
 		<include src="s2r://panorama/styles/popups/popup_join_or_create_party.vcss_c" />
 	</styles>
 	<PopupJoinOrCreateParty class="PopupPanel Hidden" popupbackground="dim" oncancel="UIPopupButtonClicked()">
-		<Label class="Title" text="#Citadel_JoinOrCreateParty_Title" />
+		<Panel id="TitleSection" class="Header">
+			<Label class="Title" text="#Citadel_JoinOrCreateParty_Title" />
+		</Panel>
 		<Panel class="Sections">
-			<Panel class="JoinSection Section">
-				<Label class="SectionTitle" text="#Citadel_JoinOrCreateParty_JoinPartyWithCode" />
-				<TextEntry id="JoinCodeTextEntry" placeholder="#Citadel_JoinOrCreateParty_EnterCode" onsubmit="CitadelJoinOrCreatePopupJoinActivated()" />
-				<TextButton id="JoinButton" class="SecondaryButton" text="#Citadel_JoinOrCreateParty_JoinParty" onactivate="CitadelJoinOrCreatePopupJoinActivated()" />
+			<Panel id="CreateSection" class="Section">
+				<Panel class="SectionColumnContainer">
+					<Panel class="SectionLeftColumn">
+						<Label class="SectionTitle" text="{s:create_party_label}" />
+						<Label class="SectionDesc" text="{S:create_party_desc}" />
+						<Panel id="CreatedPartyCodePanel" class="HiddenValueInputRow">
+							<Label id="CreatedPartyCode" />
+							<Panel id="ShowHideIcon" onactivate="CitadelTogglePartyCodeHidden()" />
+						</Panel>
+					</Panel>
+					<Panel class="SectionRightColumn">
+						<TextButton id="CreateButton" class="SecondaryButton" text="#Citadel_JoinOrCreateParty_CreateParty" onactivate="CitadelJoinOrCreatePopupCreateActivated()" />
+						<TextButton id="CopyButton" class="SecondaryButton" text="#Citadel_JoinOrCreateParty_CopyPartyCode" onactivate="CitadelCopyPartyCode()" />
+					</Panel>
+				</Panel>
+				<Panel class="HR1px" />
 			</Panel>
-			<Panel class="CreateSection Section">
-				<Label class="SectionTitle" text="#Citadel_JoinOrCreateParty_CreateNewParty" />
-				<TextButton id="CreateButton" class="SecondaryButton" text="#Citadel_JoinOrCreateParty_CreateParty" onactivate="CitadelJoinOrCreatePopupCreateActivated()" />
+			<Panel id="JoinSection" class="Section">
+				<Panel class="SectionColumnContainer">
+					<Panel class="SectionLeftColumn">
+						<Label class="SectionTitle" text="#Citadel_JoinOrCreateParty_JoinPartyWithCode" />
+						<Label class="SectionDesc" text="#Citadel_JoinOrCreateParty_JoinPartyWithCode_Desc" />
+					</Panel>
+					<Panel class="SectionRightColumn">
+						<TextEntry id="JoinCodeTextEntry" placeholder="#Citadel_JoinOrCreateParty_EnterCode" oninputsubmit="CitadelJoinOrCreatePopupJoinActivated()" />
+					</Panel>
+				</Panel>
+				<Panel class="HR1px" />
+			</Panel>
+			<Panel id="LaneSection" class="Section">
+				<Panel class="SectionColumnContainer">
+					<Panel class="SectionLeftColumn">
+						<Panel id="LanePreferenceContainer">
+							<Panel id="LanePreferenceIcon" />
+							<Label class="SectionTitle" text="#Citadel_LanePreference_Title" />
+							<Panel id="InfoIcon" class="InfoIcon" onmouseover="UIShowTextTooltipStyled( #Citadel_LanePreference_Tooltip, OptionsTooltip)" onmouseout="UIHideTextTooltip()" />
+						</Panel>
+					</Panel>
+					<Panel class="SectionRightColumn">
+						<DropDown id="LanePreferenceSelector">
+							<Label id="lanepreference_0" value="0" text="#Citadel_LanePreference_BalancedLanes" onmouseover="UIShowTextTooltipStyled( #Citadel_LanePreference_Balanced_Desc , OptionsTooltip)" onmouseout="UIHideTextTooltip()" />
+							<Label id="lanepreference_1" value="1" text="#Citadel_LanePreference_WithParty" onmouseover="UIShowTextTooltipStyled( #Citadel_LanePreference_Party_Desc , OptionsTooltip)" onmouseout="UIHideTextTooltip()" />
+						</DropDown>
+					</Panel>
+				</Panel>
+				<Panel class="HR1px" />
+			</Panel>
+			<Panel id="ButtonSection" class="Section">
+				<Panel class="SectionColumnContainer">
+					<Panel id="EscapeButtonPanel" class="SectionLeftColumn">
+						<CitadelBindingButton id="EscapeButton" action="MenuBack" text="#Close" onactivate="UIPopupButtonClicked()" />
+					</Panel>
+					<Panel class="SectionRightColumn">
+						<TextButton id="LeavePartyButton" class="SecondaryButton LeaveParty" onactivate="UIPopupButtonClicked( CitadelPartyLeave() )">
+							<Image src="s2r://panorama/images/icons/icon_leave.vsvg" />
+							<Label text="#Citadel_Party_LeaveParty" />
+						</TextButton>
+					</Panel>
+				</Panel>
 			</Panel>
 		</Panel>
 	</PopupJoinOrCreateParty>

@@ -9,72 +9,61 @@
 		<include src="s2r://panorama/scripts/citadel_db_post_game_progress.vts_c" />
 	</scripts>
 	<snippets>
-		<snippet name="XPGain">
-			<Panel class="XPGain">
-				<Label class="Reason" text="{s:reason}" />
-				<Label class="Amount" text="#Citadel_HeroXP_GainAmount" />
+		<snippet name="MVPHonorableMention">
+			<Panel class="MVPHonorableMention">
+				<Panel class="MainContents">
+					<Panel class="HeroFrame">
+						<CitadelHeroScenePanelNew id="HeroScenePanel" heroscenestyle="Shop" />
+						<CitadelHeroLogo id="HeroLogo" />
+					</Panel>
+					<Panel class="Footer">
+						<Label class="PlayedBy" text="played by" />
+						<CitadelUserName id="PlayerName" />
+					</Panel>
+				</Panel>
+				<Panel id="Accolades" />
 			</Panel>
+		</snippet>
+		<snippet name="Accolade">
+			<Panel class="Accolade">
+				<Panel id="AccoladeStars" />
+				<Label class="AccoladeTitle" text="{s:accolade_title}" />
+				<Label class="AccoladeDesc" text="{s:accolade_desc}" html="true" />
+			</Panel>
+		</snippet>
+		<snippet name="AccoladeStar">
+			<Panel class="AccoladeStar" />
 		</snippet>
 	</snippets>
 	<CitadelPostGameProgress onactivate="ProgressSequenceSkip()">
-		<ScenePanel id="HeroScenePanel" scene_data_name="hero_selection" hero_graph_base_state="hero_select" hero_animgraph_enum="HeroSelect" parent_entity_name="hero_root" camera="portrait_camera" use_hero_map="true" sound="PORTRAIT_SOUND_MODE_ALL_SOUNDS" require-composition-layer="true" />
-		<Panel class="PlayerIdentity">
-			<Label class="PlayerName" text="{g:citadel_persona:account_id}" html="true" />
-			<Label class="HeroName" text="{g:citadel_hero_name:hero_id}" />
-		</Panel>
-		<Panel class="PlayerScoreboardEntry">
-			<Panel id="Overhead" />
-			<CitadelHeroBadgeProgress id="HeroBadge" />
-			<Panel class="MainContents">
-				<Panel id="NameBarGraphs">
-					<CitadelUserName id="PlayerName" />
-					<CitadelHudModBarGraph id="ModBarGraph" />
-				</Panel>
-				<Panel class="PlayerStatsContainer">
-					<Panel id="Networth" class="StatsLabelContainer">
-						<Panel class="BandingBackground" />
-						<Panel class="PlayerAwardBackground" />
-						<Label class="PlayerNetworth Row0 StatsLabel" text="{i:stat_value}" />
-						<Panel class="PlayerAward" />
-					</Panel>
-					<Panel id="Kills" class="StatsLabelContainer">
-						<Panel class="BandingBackground" />
-						<Panel class="PlayerAwardBackground" />
-						<Label class="PlayerKills Row1 StatsLabel" text="{i:stat_value}" />
-						<Panel class="PlayerAward" />
-					</Panel>
-					<Panel id="Deaths" class="StatsLabelContainer">
-						<Panel class="BandingBackground" />
-						<Panel class="PlayerAwardBackground" />
-						<Label class="PlayerDeaths Row2 StatsLabel" text="{i:stat_value}" />
-						<Panel class="PlayerAward" />
-					</Panel>
-					<Panel id="Assists" class="StatsLabelContainer">
-						<Panel class="BandingBackground" />
-						<Panel class="PlayerAwardBackground" />
-						<Label class="PlayerAssists Row3 StatsLabel" text="{i:stat_value}" />
-						<Panel class="PlayerAward" />
-					</Panel>
-					<Panel id="PlayerDamage" class="StatsLabelContainer">
-						<Panel class="BandingBackground" />
-						<Panel class="PlayerAwardBackground" />
-						<Label class="PlayerHeroDmg Row4 StatsLabel" text="{i:stat_value}" />
-						<Panel class="PlayerAward" />
-					</Panel>
-					<Panel id="ObjDamage" class="StatsLabelContainer">
-						<Panel class="BandingBackground" />
-						<Panel class="PlayerAwardBackground" />
-						<Label class="PlayerObjDmg Row5 StatsLabel" text="{i:stat_value}" />
-						<Panel class="PlayerAward" />
-					</Panel>
-					<Panel id="Healing" class="StatsLabelContainer">
-						<Panel class="BandingBackground" />
-						<Panel class="PlayerAwardBackground" />
-						<Label class="PlayerHealing Row6 StatsLabel" text="{i:stat_value}" />
-						<Panel class="PlayerAward" />
-					</Panel>
+		<Panel id="MVPScreen" class="ProgressScreen">
+			<CitadelHeroScenePanelNew id="MVPHeroScenePanel" heroscenestyle="Portrait" />
+			<Panel class="MVPDetails">
+				<Label class="MVPTitle" text="MVP" />
+				<Panel id="MVPAccolades" />
+				<Panel class="MVPPlayerIdentity">
+					<CitadelHeroLogo id="MVPHeroLogo" />
+					<Label class="MVPPlayedBy" text="played by" />
+					<CitadelUserName id="MVPPlayerName" />
 				</Panel>
 			</Panel>
+			<Panel id="HonorableMentions" />
+		</Panel>
+		<Panel id="PlayerProgressScreen" class="ProgressScreen">
+			<CitadelHeroScenePanelNew id="PlayerProgressHeroScenePanel" heroscenestyle="Portrait" />
+			<Panel class="PlayerProgressDetails">
+				<Panel class="PlayerTop">
+					<Panel class="PlayerIdentity">
+						<CitadelHeroBadge id="PlayerProgressHeroBadge" />
+						<CitadelUserName id="PlayerProgressPlayerName" />
+					</Panel>
+					<CitadelHeroLogo id="PlayerProgressHeroLogo" />
+				</Panel>
+				<Panel id="PlayerProgressAccolades" />
+			</Panel>
+		</Panel>
+		<Panel class="Loading">
+			<Panel class="Spinner" />
 		</Panel>
 	</CitadelPostGameProgress>
 </root>

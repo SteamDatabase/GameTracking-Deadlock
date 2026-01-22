@@ -28,6 +28,7 @@
 @define ZIndexFriendlyPlayerLow: 12;
 @define ZIndexEnemyPlayerLow: 11;
 @define ZIndexObjectiveMapTargetting: 10;
+@define ZIndexMidboss: 4;
 @define ZIndexT1Shop: 3;
 @define ZIndexNeutral: 2;
 @define ZIndexTeleporter: 1;
@@ -412,6 +413,14 @@
 	wash-color: rgb(130, 255, 249);
 }
 
+.map_button.rejuv_crystal
+{
+	width: 16px;
+	height: 16px;
+	background-image: url("s2r://panorama/images/minimap/rejuv_crystal_psd.vtex");
+	wash-color: rgb(130, 255, 249);
+}
+
 .map_button.powerup_spawn
 {
 	width: 20px;
@@ -467,14 +476,8 @@
 	background-position: center;
 	opacity: 0;
 	z-index: -1;
-	transform: translateX(31.5%) translateY(-10%);
 	transition-property: opacity;
 	transition-duration: 0.5s;
-}
-
-.invert_map .map_button.shop_tunnel
-{
-	transform: translateX(31.5%) translateY(-10%);
 }
 
 .map_button.shop_tunnel.is_visible
@@ -608,10 +611,78 @@
 
 .map_button.mid_boss
 {
-	background-image: url("s2r://panorama/images/minimap/super_neutral_marker_psd.vtex");
 	width: 64px;
 	height: 64px;
-	z-index: ZIndexObjective;
+	z-index: ZIndexMidboss;
+}
+
+.map_button.boss_icon_t1 .boss_health_bg,.map_button.boss_barracks_icon .boss_health_bg
+{
+	background-image: url("s2r://panorama/images/minimap/boss_health_psd.vtex");
+}
+
+.map_button.mid_boss .boss_image
+{
+	background-image: url("s2r://panorama/images/minimap/boss_health_fill_psd.vtex");
+	background-image: url("s2r://panorama/images/minimap/super_neutral_marker_psd.vtex");
+	saturation: 0;
+	opacity: 0.5;
+	brightness: 0.3;
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+}
+
+.map_button.mid_boss #BackerRing
+{
+	width: 66%;
+	height: 66%;
+	background-color: #000000ee;
+	horizontal-align: center;
+	vertical-align: middle;
+	border-radius: 50%;
+	opacity: 0.4;
+	border: 2px solid rgba(163, 163, 163, 0.137);
+}
+
+.map_button.mid_boss #Ring
+{
+	width: 66%;
+	height: 66%;
+	background-color: #00000090;
+	horizontal-align: middle;
+	vertical-align: middle;
+	border-radius: 50%;
+	border: 2px solid rgba(163, 163, 163, 0.137);
+}
+
+.map_button.mid_boss #Spawned
+{
+	width: 100%;
+	height: 100%;
+	visibility:collapse;
+}
+
+.map_button.mid_boss.midboss_spawned #Spawned
+{
+	width: 64px;
+	height: 64px;
+	background-size: 100% 100%;
+	background-position: 50% 50%;
+	background-image: url("s2r://panorama/images/minimap/super_neutral_marker_psd.vtex");
+	visibility:visible;
+	overflow: noclip;
+}
+
+.map_button.mid_boss #BossHealth
+{
+	visibility: visible;
+	opacity: 0.7;
+}
+
+.map_button.mid_boss.midboss_spawned #BossHealth,.map_button.mid_boss.midboss_spawned #BackerRing
+{
+	visibility: collapse;
 }
 
 .map_button.boss
@@ -960,6 +1031,23 @@
 	background-repeat: no-repeat;
 }
 
+.map_button.necro_gravestone
+{
+	background-image: url("s2r://panorama/images/minimap/necro_gravestone_psd.vtex");
+	background-size: 75% 75%;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+}
+
+.map_button.necro_skele
+{
+	width: 5px;
+	height: 5px;
+	border-radius: 50%;
+	background-color: #C3FA82 background-position: 50% 50%;
+	background-repeat: no-repeat;
+}
+
 .map_button.doorman_doorway
 {
 	background-image: url("s2r://panorama/images/minimap/doorman_doorway_psd.vtex");
@@ -970,18 +1058,36 @@
 
 .map_button.capture_point
 {
-	background-image: url("s2r://panorama/images/minimap/outpost_psd.vtex");
-	background-size: 85% 85%;
+	background-image: url("s2r://panorama/images/minimap/escort_capture_psd.vtex");
+	background-size: 100%;
 	background-position: 50% 50%;
 	background-repeat: no-repeat;
+	img-shadow: 0px 0px 8px 0 #555;
 }
 
 .map_button.escort
 {
-	background-image: url("s2r://panorama/images/minimap/health_pad_psd.vtex");
-	background-size: 85% 85%;
-	background-position: 50% 50%;
+	background-image: url("s2r://panorama/images/minimap/escort_friendly_psd.vtex");
+	width: 96px;
+	height: 96px;
+	background-size: 35%;
+	background-position: 35%;
 	background-repeat: no-repeat;
+}
+
+.map_button.escort .enemy
+{
+	background-image: url("s2r://panorama/images/minimap/escort_enemy_psd.vtex");
+}
+
+.map_button.escort .team1
+{
+	background-image: url("s2r://panorama/images/minimap/escort_team2_psd.vtex");
+}
+
+.map_button.escort .team2
+{
+	background-image: url("s2r://panorama/images/minimap/escort_team2_psd.vtex");
 }
 
 .map_button.mid_stairs
@@ -1481,7 +1587,7 @@
 	height: 100%;
 }
 
-.map_targeting .boss
+.map_targeting .boss,.map_targeting .mid_boss
 {
 	z-index: ZIndexObjectiveMapTargetting;
 }

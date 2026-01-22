@@ -1,14 +1,19 @@
 /* Prettified by Source 2 Viewer - https://valveresourceformat.github.io */
 
-CitadelHudItemBarGraph
+#BarsContainer
 {
 	flow-children: right;
 	width: fit-children;
 	height: 100%;
 	horizontal-align: center;
-	background-color: #ffffff02;
+	background-color: #ffffff05;
 	border-radius: 3px;
-	padding: 5px;
+}
+
+CitadelHudTopBar #BarsContainer
+{
+	border-radius: 0px;
+	background-color: none;
 }
 
 .modsProgressBar
@@ -17,10 +22,10 @@ CitadelHudItemBarGraph
 	height: 70%;
 	horizontal-align: center;
 	vertical-align: middle;
-	border-radius: 2px;
+	border-radius: 50px;
 	border: 1px solid #ffffff10;
 	tooltip-position: top;
-	margin-top: 6px;
+	margin-top: 3px;
 }
 
 .gShopOpen .modsProgressBar
@@ -36,10 +41,11 @@ CitadelHudItemBarGraph
 	width: 30px;
 }
 
-CitadelHudTopBar .modsProgressBar
+CitadelHudItemBarGraph.TopBarStyle .modsProgressBar
 {
 	height: 100%;
 	margin-top: 0px;
+	border: 0px solid #ffffff00;
 }
 
 CitadelTooltipModBonusDisplay .modsProgressBar
@@ -50,16 +56,11 @@ CitadelTooltipModBonusDisplay .modsProgressBar
 
 .progressBarContainer
 {
-	width: 15px;
+	width: 22px;
 	height: 100%;
 	flow-children: down;
-	margin-top: 5px;
-}
-
-.gShopOpen .progressBarContainer
-{
-	margin-left: 2px;
-	margin-right: 2px;
+	padding: 5px 3px 0px 3px;
+	tooltip-position: bottom;
 }
 
 #CitadelModBonusDisplay .progressBarContainer
@@ -68,7 +69,7 @@ CitadelTooltipModBonusDisplay .modsProgressBar
 	padding: 0px 10px;
 }
 
-CitadelHudTopBar .progressBarContainer
+CitadelHudItemBarGraph.TopBarStyle .progressBarContainer
 {
 	margin-top: 0px;
 }
@@ -108,12 +109,13 @@ CitadelHudTopBar .progressBarContainer
 
 .progressBarImage
 {
-	height: 14px;
-	width: 14px;
+	height: 12px;
+	width: 12px;
 	background-size: 100% 100%;
 	tooltip-position: top;
-	margin-left: 1px;
-	margin-top: 3px;
+	horizontal-align: center;
+	margin-top: 5px;
+	opacity: 0.4;
 }
 
 .gShopOpen .progressBarImage
@@ -124,21 +126,27 @@ CitadelHudTopBar .progressBarContainer
 .weaponImage
 {
 	background-image: url("s2r://panorama/images/shop/keystat_courage_png.vtex");
+	background-image: url("s2r://panorama/images/hud/core/icon_courage.vsvg");
+	wash-color: courageBrightColor;
 }
 
 .armorImage
 {
 	background-image: url("s2r://panorama/images/shop/keystat_fortitude_png.vtex");
+	background-image: url("s2r://panorama/images/hud/core/icon_fortitude.vsvg");
+	wash-color: fortitudeBrightColor;
 }
 
 .techImage
 {
 	background-image: url("s2r://panorama/images/shop/keystat_spirit_png.vtex");
+	background-image: url("s2r://panorama/images/hud/core/icon_spirit.vsvg");
+	wash-color: spiritBrightColor;
 }
 
 .ProgressBarRight
 {
-	background-color: black;
+	background-color: gradient( linear, 0% 100%, 0% 0%, from( #000000 ), to( #222) );
 }
 
 #CenterProgressBar
@@ -202,7 +210,7 @@ CitadelScoreboardMods .ProgressBarRight
 {
 	width: 100%;
 	height: 100%;
-	opacity: 1;
+	opacity: 0;
 	z-index: 5;
 	transition-property: opacity;
 	transition-duration: 0.2s;
@@ -213,26 +221,118 @@ CitadelScoreboardMods .ProgressBarRight
 	opacity: 1;
 }
 
-#TopBar #BarPercentContainer
+CitadelHudItemBarGraph.TopBarStyle #BarPercentContainer
 {
 	visibility: collapse;
 }
 
-#TopBar CitadelHudItemBarGraph
+CitadelHudItemBarGraph.TopBarStyle CitadelHudItemBarGraph
 {
 	padding: 0px;
 	margin: 8px 0px;
 }
 
-#TopBar .modsProgressBar
+CitadelHudItemBarGraph.TopBarStyle .modsProgressBar
 {
-	width: 10px;
+	width: 6px;
 	margin: 0px 2px;
 	border-radius: 50px;
 }
 
-#TopBar .progressBarContainer
+CitadelHudItemBarGraph.TopBarStyle .progressBarContainer
 {
-	width: 14px;
+	width: 11px;
+}
+
+CitadelHudItemBarGraph
+{
+	height: 40px;
+}
+
+CitadelHudItemBarGraph:hover #BarsContainer
+{
+	box-shadow: -2px 2px 3.0 white;
+}
+
+.progressBarContainer
+{
+	padding: 8px 0px;
+}
+
+#WeaponBarContainer:hover
+{
+	background-color: courageDarkColor;
+}
+
+#ArmorBarContainer:hover
+{
+	background-color: fortitudeDarkColor;
+}
+
+#TechBarContainer:hover
+{
+	background-color: spiritDarkColor;
+}
+
+CitadelHudItemBarGraph.TopBarStyle:hover .modsProgressBar
+{
+	width: 8px;
+	margin: 0px 3px;
+}
+
+CitadelHudItemBarGraph.TopBarStyle:hover .progressBarContainer
+{
+	width: 16px;
+	padding: 5px 2px;
+}
+
+#StatsAndModsContainer CitadelHudItemBarGraph
+{
+	height: 100%;
+	horizontal-align: middle;
+}
+
+CitadelPostGameScoreboardNew #BarsContainer
+{
+	background-color: #ffffff00;
+}
+
+CitadelPostGameScoreboardNew CitadelHudItemBarGraph
+{
+	height: 80%;
+	horizontal-align: middle;
+	padding: 8px;
+}
+
+CitadelPostGameScoreboardNew .progressBarContainer
+{
+	padding: 0px 0px;
+}
+
+CitadelPostGameScoreboardNew CitadelHudItemBarGraph.TopBarStyle:hover .modsProgressBar
+{
+	margin: 0px 3px;
+}
+
+CitadelPostGameScoreboardNew CitadelHudItemBarGraph.TopBarStyle:hover .progressBarContainer
+{
+	width: 16px;
+	width: 11px;
+	padding: 0px 0px;
+}
+
+CitadelPostGameScoreboardNew #WeaponBarContainer:hover
+{
+	background-color: courageDarkColor&00;
+}
+
+CitadelPostGameScoreboardNew #ArmorBarContainer:hover
+{
+	background-color: fortitudeDarkColor&00;
+}
+
+CitadelPostGameScoreboardNew #TechBarContainer:hover
+{
+	background-color: spiritDarkColor&00;
 }
 

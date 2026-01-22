@@ -1,8 +1,8 @@
 /* Prettified by Source 2 Viewer - https://valveresourceformat.github.io */
 
 @define arrowOffset: 60px;
-@define angleBetweenWheelSlices: 2;
-@define angleBetweenSubnavWheelSlices: 1;
+@define angleBetweenWheelSlices: 0;
+@define angleBetweenSubnavWheelSlices: 0;
 @define subnavSliceDegrees: 30;
 @define selectedPhraseOffset: 22px;
 @define selectedPhraseTwoSliceOffset: 40px;
@@ -14,11 +14,20 @@ CitadelChatWheel
 	height: 950px;
 	horizontal-align: center;
 	vertical-align: middle;
+	opacity: 0;
+	transition-property: opacity;
+	transition-delay: 0.15s;
+	transition-duration: 0.1s;
+	transition-timing-function: ease-out;
 }
 
-.Hidden
+CitadelChatWheel.ChatWheelOpen
 {
-	visibility: collapse;
+	transition-property: opacity, transform;
+	transition-delay: 0.0s;
+	transition-duration: 0.2s;
+	opacity: 1;
+	transform: scale3d( 1.0, 1.0, 1.0 );
 }
 
 #SubnavPhrasesContainer
@@ -29,14 +38,17 @@ CitadelChatWheel
 	vertical-align: center;
 	horizontal-align: center;
 	opacity: 0;
+	transform: scale3d( 0.8 , 0.8, 0.8 );
+	transition-property: opacity, transform;
+	transition-delay: 0.0s;
+	transition-duration: 0.15s;
+	transition-timing-function: ease-out;
 }
 
 #SubnavPhrasesContainer.Selected
 {
 	opacity: 1;
-	animation-name: SubnavNavigateIn;
-	animation-duration: 0.2s;
-	animation-iteration-count: 1;
+	transform: scale3d( 1.0 , 1.0, 1.0 );
 }
 
 @keyframes 'SubnavNavigateIn'
@@ -77,6 +89,19 @@ CitadelChatWheel
 	horizontal-align: center;
 }
 
+#PhrasesContainer
+{
+	transform: scale3d( 1.2, 1.2, 1.2 );
+	transition-property: transform;
+	transition-duration: 0.2s;
+	transition-timing-function: ease-out;
+}
+
+.ChatWheelOpen #PhrasesContainer
+{
+	transform: scale3d( 1.0, 1.0, 1.0 );
+}
+
 .SubnavPhrase.Phrase
 {
 	vertical-align: middle;
@@ -102,9 +127,8 @@ CitadelChatWheel
 	opacity-mask: url("s2r://panorama/images/masks/chat_wheel_mask_psd.vtex");
 	border-radius: 50%;
 	clip: radial( 50% 50%, -21.5deg, 43deg );
-	ui-scale: 100%;
 	transition-property: background-color;
-	transition-duration: 0.1s;
+	transition-duration: 0.25s;
 	flow-children: down;
 }
 
@@ -136,10 +160,10 @@ CitadelChatWheel
 	visibility: visible;
 }
 
-.Phrase,.Icon
+.Icon
 {
-	transition-delay: 0.2s;
-	transition-duration: 0.2s;
+	transition-delay: 0.15s;
+	transition-duration: 0.1s;
 	transition-property: opacity;
 }
 
@@ -183,7 +207,6 @@ CitadelChatWheel
 
 .Phrase.Selected
 {
-	ui-scale: 115%;
 	background-color: #ffffffaa;
 	z-index: 9;
 }
@@ -193,6 +216,9 @@ CitadelChatWheel
 	margin-left: 10px;
 	width: 32px;
 	height: 32px;
+	transition-property: opacity;
+	transition-duration: 0.2s;
+	opacity: 1;
 }
 
 .Phrase #ChatWheelEmoticon.Hidden
@@ -435,7 +461,7 @@ CitadelChatWheel
 	margin-top: 30px;
 	opacity: 0.5;
 	ui-scale: 75%;
-	transition-property: ui-scale, opacity;
+	transition-property: opacity;
 	transition-duration: 0.1s;
 }
 
@@ -446,7 +472,6 @@ CitadelChatWheel
 
 .Selected #IconPanel
 {
-	ui-scale: 85%;
 	opacity: 1;
 }
 

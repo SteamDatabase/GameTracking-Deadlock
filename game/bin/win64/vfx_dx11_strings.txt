@@ -62,6 +62,7 @@ $Globals
 'extension'
 'extern'
 'float'
+'float16_t'
 'globallycoherent'
 'groupshared'
 'half'
@@ -177,8 +178,8 @@ $Globals
 *** Feature source "%s" on bool variable "%s" must stay in the range 0..1!\n
 *** Feature source "%s" on variable "%s" can only be set to an int, bool or float!\n
 *** Unknown source "%s" on variable "%s"!\n
-*** VfxReadAndPrepForDynamicShaderCompileMaterialEditor(1187): Error opening file "%s"!\n\n
-*** VfxReadAndPrepForDynamicShaderCompileMaterialEditor(1197): Error masking unused parts for "%s"!\n\n
+*** VfxReadAndPrepForDynamicShaderCompileMaterialEditor(1173): Error opening file "%s"!\n\n
+*** VfxReadAndPrepForDynamicShaderCompileMaterialEditor(1183): Error masking unused parts for "%s"!\n\n
 ***Error! Variable %s is not an input texture\n
 *.vshadercache
 .?AUID3DInclude@@
@@ -200,8 +201,8 @@ $Globals
 // Relocated $Globals\n
 0x%X
 1:1: Tokens : ( T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | BOOLLITERAL | ID | INTEGERLITERAL | HEXINTEGERLITERAL | FLOATLITERAL | COMMENT | WS );
-1:1: Tokens : ( T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | T__64 | T__65 | T__66 | T__67 | T__68 | T__69 | T__70 | T__71 | T__72 | T__73 | T__74 | T__75 | T__76 | T__77 | T__78 | T__79 | T__80 | T__81 | T__82 | T__83 | T__84 | T__85 | T__86 | T__87 | T__88 | T__89 | T__90 | T__91 | T__92 | T__93 | T__94 | T__95 | T__96 | T__97 | T__98 | T__99 | T__100 | T__101 | T__102 | T__103 | T__104 | T__105 | T__106 | T__107 | T__108 | T__109 | T__110 | T__111 | T__112 | T__113 | T__114 | T__115 | T__116 | T__117 | T__118 | T__119 | T__120 | T__121 | T__122 | T__123 | T__124 | T__125 | T__126 | T__127 | T__128 | T__129 | T__130 | T__131 | T__132 | T__133 | T__134 | T__135 | T__136 | T__137 | T__138 | T__139 | T__140 | T__141 | T__142 | T__143 | CONSTANT_REGISTER | DXC_DESCRIPTOR_SPACE | PACK_OFFSET | VECTOR_TYPE | MATRIX_TYPE | STATIC | EXPORT | ID | INTEGERLITERAL | FLOATLITERAL | STRINGLITERAL | WS | LINE | PRAGMA | UNKNOWN );
-2\vpx
+1:1: Tokens : ( T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | T__64 | T__65 | T__66 | T__67 | T__68 | T__69 | T__70 | T__71 | T__72 | T__73 | T__74 | T__75 | T__76 | T__77 | T__78 | T__79 | T__80 | T__81 | T__82 | T__83 | T__84 | T__85 | T__86 | T__87 | T__88 | T__89 | T__90 | T__91 | T__92 | T__93 | T__94 | T__95 | T__96 | T__97 | T__98 | T__99 | T__100 | T__101 | T__102 | T__103 | T__104 | T__105 | T__106 | T__107 | T__108 | T__109 | T__110 | T__111 | T__112 | T__113 | T__114 | T__115 | T__116 | T__117 | T__118 | T__119 | T__120 | T__121 | T__122 | T__123 | T__124 | T__125 | T__126 | T__127 | T__128 | T__129 | T__130 | T__131 | T__132 | T__133 | T__134 | T__135 | T__136 | T__137 | T__138 | T__139 | T__140 | T__141 | T__142 | T__143 | T__144 | CONSTANT_REGISTER | DXC_DESCRIPTOR_SPACE | PACK_OFFSET | VECTOR_TYPE | MATRIX_TYPE | STATIC | EXPORT | ID | INTEGERLITERAL | FLOATLITERAL | STRINGLITERAL | WS | LINE | PRAGMA | UNKNOWN );
+2\vpD
 77:1: element : ( struct_decl | attribute | function_definition | groupshared_defintion | variable_definition[ false ] | constant_buffer | type_def | valve_compiler_option | slang_enum | slang_interface | slang_extension | slang_namespace | slang_typealias | semicolon= ';' );
 7xicuU
 =\t ();,\n\r<>
@@ -286,9 +287,6 @@ CUtlLeanVectorBase<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CUtlSt
 CUtlLeanVectorBase<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CUtlString,class CVfxParsedShaderParam *,class CDefStringLess,unsigned short>::Node_t,unsigned short>,unsigned short,class CMemAllocAllocator>::EnsureCapacity
 CUtlRBTree<struct CUtlOrderedMapBase<class CUtlString,class CVfxParsedShaderParam *,class CDefStringLess,unsigned short>::Node_t,class CUtlOrderedMapBase<class CUtlString,class CVfxParsedShaderParam *,class CDefStringLess,unsigned short>::CKeyLess,unsigned short,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<class CUtlString,class CVfxParsedShaderParam *,class CDefStringLess,unsigned short>::Node_t,unsigned short>,unsigned short,class CMemAllocAllocator> >::Insert
 CUtlStreamBuffer does not support TEXT_BUFFER's use CUtlBuffer\n
-CVfxD3dInclude::Open(101): Cannot read file "%s"\n
-CVfxD3dInclude::Open(116): Cannot find include file %s\n
-CVfxD3dInclude::Open(45): Cannot use absolute paths for shader includes. Found %s\n
 CVfxDx11::GetAllShaderVariables
 CVfxDx::Init() - fsFactory can't get '%s' interface.
 Calling D3DCompile()
@@ -297,7 +295,7 @@ Can't find constant buffer %s in constant buffer list\n
 Can't find resource %s in effect parameter list\n
 Can't find shader constant %s in effect parameter list\n
 Cannot determine output type of variable %s in mesh shader VS_INPUT! Automatic FillSemantics reflection code will not be accurate!\n
-Cannot determine size of variable %s in cbuffer %s!  cbuffer packoffsets will be incorrect and cause bugs!\n
+Cannot determine size of variable '%s' in struct '%s'!  cbuffer packoffsets will be incorrect and cause bugs!\n
 CheckBox
 ColorCorrection
 ColorWriteEnable0
@@ -322,10 +320,10 @@ D3DCompile
 D3DCompiler_47.dll
 D3DDisassemble
 D3DPreprocess
-D3DPreprocess() failed with no error message! CVfxDx11::GetAllShaderVariables(1040): \n
+D3DPreprocess() failed with no error message! CVfxDx11::GetAllShaderVariables(1054): \n
 D3DReflect
 D3DStripShader
-D3DXPreprocess() failed with no error message! CVfxDx11::CompileShaderAndGetVariables(646): \n
+D3DXPreprocess() failed with no error message! CVfxDx11::CompileShaderAndGetVariables(644): \n
 DECR
 DECR_SAT
 DEFAULT
@@ -374,8 +372,8 @@ EXPORT
 Enum
 Error adding shader to cache\n
 Error loading D3D compiler DLL %s!\n
-Error masking unused parts for vfx file CVfxDx11::CompileShaderAndGetVariables(614): \n
-Error opening vfx file CVfxDx11::CompileShaderAndGetVariables(602): \n
+Error masking unused parts for vfx file CVfxDx11::CompileShaderAndGetVariables(612): \n
+Error opening vfx file CVfxDx11::CompileShaderAndGetVariables(600): \n
 Error while running preprocessor over shader code:\n%s
 Error: D3DCompile() failed with no error string!
 Error: Invalid shader variable reference in expression: %s can't be used in expression because it is not an artist-editable variable\n
@@ -422,12 +420,13 @@ INV_SRC_COLOR
 IOS_VULKAN_4_0
 IOS_VULKAN_4_1
 IOS_VULKAN_5_0
+I\tV_log2f
 IndependentBlendEnable
 InvTextureDim
 InvViewportSize
 Invalid character '%c' in swizzle operation. Only xyzw or rgba are allowed.
 Invalid descriptor set name used in layout specifier
-Invalid shader program CVfxDx11::CompileShaderAndGetVariables(561): \n
+Invalid shader program CVfxDx11::CompileShaderAndGetVariables(559): \n
 Invalid shader program for %s()\n
 Invalid value data type for annotation %s\n
 KEEP
@@ -504,6 +503,7 @@ PRAGMA
 PROGRAM
 PS_RENDER_STATE
 PS_RTX
+PackedBlobNormal
 Parameter '%s' has the same name in two constant buffers: '%s' and '%s'\n
 PerVertexLighting
 PivotPaint
@@ -524,6 +524,7 @@ RWTexture1DArray
 RWTexture2D
 RWTexture2DArray
 RWTexture3D
+R\fpD
 Raytracing Shader
 RaytracingAccelerationStructure
 Remap01ScaleOffset
@@ -541,7 +542,6 @@ SRC_COLOR
 STATIC
 STRINGLITERAL
 SUBTRACT
-S\tV_log2f
 SampleMask
 Sampler
 Sampler1D
@@ -647,6 +647,9 @@ VertexPaintTintColor
 VertexShader
 Vfx Error: attribute type does not exist or does not support attribute literals.
 Vfx Error: attribute unsupported or requires a parameter binding.
+VfxLoadShaderSource(16): Cannot use absolute paths for shader includes. Found %s\n
+VfxLoadShaderSource(77): Cannot read file "%s"\n
+VfxLoadShaderSource(85): Cannot find include file %s\n
 VfxParseAndCompileExpression(597): : Failed to create input stream from "%s"\n
 VfxParseAndCompileExpression(605): : Failed to create lexer from "%s"\n
 VfxParseAndCompileExpression(613): : Failed to create token stream from "%s"\n
@@ -661,12 +664,12 @@ ZERO
 \nMaterial Owned CB size: %d\n\n
 \n\tFetchBDAGlobals( g_GlobalsBDAPushConstant.nGlobalsBDAPerStage[ %d ] );\n
 \n\t__g_rtx_material_data__ = g_MaterialData.Load<__RTX_MATERIAL_DATA__>( RtxInstanceData( InstanceIndex() ).m_nMaterialData );\n
+\ncbuffer '%s' is missing %d bytes of padding between '%s' and '%s', if this definition is used in C++ it will mismatch.  Add padding to start on correct offsets.\n
 \nvoid FillVSInput( inout VS_INPUT i, uint *m_pVertexBuffer, uint nVertexBufferStride, uint *m_pSplitVertexBuffer, uint nSplitVertexBufferStride, uint4 nMeshletLayout, uint nVertexIndex )\n{\n
 \src\shaders\
 \t %s = transpose( %s );\n
 \t %s = vk::RawBufferLoad<%s>( address + %i*4 );\n
 \tV_exp2f
-\tV_strspn
 \tV_towlower
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\v\n\v\n\v\n\v\n\v\n\v\n\v\n\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\r\f\r\f\r\f\r\f\r\f\r\f\r\f\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r
 \t\ti.%s = DecodeVSInputSemanticFloat(%d, m_pVertexBuffer, nVertexBufferStride, m_pSplitVertexBuffer, nSplitVertexBufferStride, nMeshletLayout, nVertexIndex);\n
@@ -675,6 +678,7 @@ ZERO
 \t\ti.%s = DecodeVSInputSemanticFloat4(%d, m_pVertexBuffer, nVertexBufferStride, m_pSplitVertexBuffer, nSplitVertexBufferStride, nMeshletLayout, nVertexIndex);\n
 \t\ti.%s = DecodeVSInputSemanticUint(%d, m_pVertexBuffer, nVertexBufferStride, m_pSplitVertexBuffer, nSplitVertexBufferStride, nMeshletLayout, nVertexIndex);\n
 \t\ti.%s = DecodeVSInputSemanticUint4(%d, m_pVertexBuffer, nVertexBufferStride, m_pSplitVertexBuffer, nSplitVertexBufferStride, nMeshletLayout, nVertexIndex);\n
+\t_V_StringAfterPrefixCaseSensitive
 \t_V_strcspn
 \tuint64_t nGlobalsBDAPerStage[ 6 ];\n};\n
 _BindlessIndex
@@ -689,6 +693,7 @@ __FeatureToInt__
 __RenderStateLiteral__
 __SetByArtistAndExpression__
 __SetByArtist__
+__ValveBindlessIndex__%s
 __init
 _maxRes
 _sampler
@@ -737,6 +742,7 @@ expression
 externaldescriptorset
 features
 fileExt
+float16_t
 float2
 float3
 float3x3
@@ -823,6 +829,7 @@ ps_4_1
 ps_5_0
 ps_6_0
 pushconstants
+r\vpD
 radians
 random
 range%d
@@ -909,4 +916,5 @@ vs_4_0
 vs_4_1
 vs_5_0
 vs_6_0
+w\tV_strspn
 xyzw

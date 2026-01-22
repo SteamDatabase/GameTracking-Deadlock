@@ -56,12 +56,17 @@ CitadelModifiedAttributeLabel.Elevated
 	margin-bottom: 2px;
 }
 
-CitadelModifiedAttributeLabel.Enhanced
+#StatsAppliedContainer .Enhanced #AdditionalText
 {
-	color: yellow;
 	ui-scale: 105%;
 	margin-bottom: 15px;
 	margin-bottom: 2px;
+}
+
+CitadelModifiedAttributeLabel.Enhanced
+{
+	opacity-brush: gradient( linear, 0% 0%, 100% 0%, from( enhancedColorBright&ee ), to( offWhite ) );
+	ui-scale: 105%;
 }
 
 CitadelModifiedAttributeLabel.PropertySearchMatch
@@ -225,6 +230,12 @@ CitadelTooltipModDetails #ImportantAttributeContainer .LabelsText
 	text-overflow: shrink;
 	max-height: 35px;
 	font-size: 18px;
+}
+
+.Enhanced #ModifiedLabel
+{
+	text-shadow: 0px 0px 3.0 enhancedColorDarker;
+	color: enhancedColorBright;
 }
 
 .hero_stats #ModifiedLabel,.hero_stats #BaseLabel
@@ -392,13 +403,17 @@ CitadelTooltipModDetails #ImportantAttributeContainer .LabelsText
 	visibility: collapse;
 	vertical-align: middle;
 	margin-top: 1px;
-	width: 8px;
-	height: 15px;
+	width: 10px;
+	height: 16px;
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-image: url("s2r://panorama/images/shop/tooltip_modified_arrow_1.vsvg");
 	vertical-align: center;
 	margin-left: 3px;
+	wash-color: #00FF99;
+	animation-name: ArrowPulse;
+	animation-duration: 0.4s;
+	animation-iteration-count: infinite;
 }
 
 .Show2Arrows .GreenUpArrow
@@ -409,6 +424,35 @@ CitadelTooltipModDetails #ImportantAttributeContainer .LabelsText
 .Show3Arrows .GreenUpArrow
 {
 	background-image: url("s2r://panorama/images/shop/tooltip_modified_arrow_3.vsvg");
+}
+
+.IsEnhanced .GreenUpArrow
+{
+	wash-color: none;
+	width: 15px;
+	height: 20px;
+	margin-left: -4px;
+	z-index: -1;
+	background-image: url("s2r://panorama/images/shop/enhanced_arrow_png.vtex");
+}
+
+@keyframes 'ArrowPulse'
+{
+	0%
+	{
+		pre-transform-scale2d: 1;
+	}
+	
+	50%
+	{
+		pre-transform-scale2d: 1.04;
+	}
+	
+	100%
+	{
+		pre-transform-scale2d: 1;
+	}
+	
 }
 
 #CooldownLabel .GreenUpArrow
@@ -480,6 +524,7 @@ CitadelTooltipModDetails #ImportantAttributeContainer .LabelsText
 	width: 18px;
 	height: 18px;
 	background-size: contain;
+	background-texture-size: 18px 18px;
 	margin-right: 4px;
 	vertical-align: center;
 	opacity: 0.3;

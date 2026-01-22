@@ -142,6 +142,28 @@
 							property_help = "The amount in decibels that a teammate's VO will be changed after crossing the low health threshold."
 						}
 					}
+					pitch_shrunken_scalar = 
+					{
+						data_type = "float"
+						value = "1.25"
+						_system_properties = 
+						{
+							property_group = "citadel_dialog - pitch"
+							display_group = "Normal"
+							property_help = "Pitch scalar while player is shrunken."
+						}
+					}
+					volume_shrunken_offset_db = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							property_group = "citadel_dialog - pitch"
+							display_group = "Normal"
+							property_help = "Amount in decibels to offset volume while shrunken."
+						}
+					}
 				}
 			},
 			
@@ -298,12 +320,52 @@
 			},
 			
 			{
+				name = "opvar_get_is_in_hideout"
+				operator = "opvar_get_float"
+				input_execute = "1.0"
+				execute_once = "1.0"
+				input_stack_name = "citadel_global_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "citadel_in_hideout"
+			},
+			
+			{
+				name = "min_hideout"
+				operator = "math_float"
+				execute_once = "1.0"
+				input_execute = "1.0"
+				apply = "max"
+				input1 = "@opvar_get_is_in_hideout.output"
+				input2 = "0.0"
+			},
+			
+			{
+				name = "invert_in_hideout"
+				operator = "math_float"
+				execute_once = "1.0"
+				input_execute = "1.0"
+				apply = "sub"
+				input1 = "1.0"
+				input2 = "@min_hideout.output"
+			},
+			
+			{
+				name = "disable_combat_threshold"
+				operator = "math_float"
+				execute_once = "1.0"
+				input_execute = "1.0"
+				apply = "mult"
+				input1 = "@invert_in_hideout.output"
+				input2 = "@math_add_combat_criteria.output"
+			},
+			
+			{
 				name = "test_is_in_combat"
 				operator = "math_float"
 				execute_once = "1.0"
 				input_execute = "1.0"
 				apply = "greater_than"
-				input1 = "@math_add_combat_criteria.output"
+				input1 = "@disable_combat_threshold.output"
 				input2 = "0.0"
 			},
 			
@@ -615,6 +677,92 @@
 			},
 			
 			{
+				name = "get_citadel_entity_info"
+				operator = "citadel_entity_info"
+				input_execute = "1"
+				input_entity_index = "@source_info.output_entity_index"
+			},
+			
+			{
+				name = "modifier_cache"
+				operator = "util_null"
+				operator_variables = 
+				{
+					shrink_cache = 
+					{
+						data_type = "float"
+						value = "0.0"
+					}
+				}
+			},
+			
+			{
+				name = "set_initial_shrink_cache"
+				input = "@get_citadel_entity_info.output_entity_is_shrunken"
+				execute_once = "1.0"
+				input_execute = "1.0"
+				operator = "opvar_set_float"
+				input_operator_name = "modifier_cache"
+				input_field_name = "shrink_cache"
+			},
+			
+			{
+				name = "math_filter_smooth_shrink_value"
+				operator = "math_filter_smooth_approach_float"
+				input_start_value = "@modifier_cache.shrink_cache"
+				input_target_value = "@get_citadel_entity_info.output_entity_is_shrunken"
+				input_rate_rising = "100.0"
+				input_rate_falling = "100.0"
+			},
+			
+			{
+				name = "set_lerped_shrink_cache"
+				input = "@math_filter_smooth_shrink_value.output"
+				input_execute = "1.0"
+				operator = "opvar_set_float"
+				input_operator_name = "modifier_cache"
+				input_field_name = "shrink_cache"
+			},
+			
+			{
+				name = "remap_shrink_to_pitch"
+				operator = "math_remap_float"
+				input = "@math_filter_smooth_shrink_value.output"
+				input_min = "0.0"
+				input_max = "1.0"
+				input_map_min = "1.0"
+				input_map_max = "@public.pitch_shrunken_scalar"
+				default_to_max = "false"
+			},
+			
+			{
+				name = "math_mult_pitch"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@remap_shrink_to_pitch.output"
+				input2 = "@public.pitch_adjust"
+			},
+			
+			{
+				name = "remap_shrink_to_volume"
+				operator = "math_remap_float"
+				input = "@math_filter_smooth_shrink_value.output"
+				input_min = "0.0"
+				input_max = "1.0"
+				input_map_min = "0.0"
+				input_map_max = "@public.volume_shrunken_offset_db"
+				default_to_max = "false"
+			},
+			
+			{
+				name = "math_add_shrink_vol_offset"
+				operator = "math_float"
+				apply = "add"
+				input1 = "@add_volume_offset.output"
+				input2 = "@remap_shrink_to_volume.output"
+			},
+			
+			{
 				name = "citadel_perspective_default"
 				operator = "sos_import_stack"
 				import_stack = "citadel_perspective_default"
@@ -624,7 +772,12 @@
 					volume = 
 					{
 						data_type = "float"
-						value = "@add_volume_offset.output"
+						value = "@math_add_shrink_vol_offset.output"
+					}
+					pitch_adjust = 
+					{
+						data_type = "float"
+						value = "@math_mult_pitch.output"
 					}
 				}
 			},

@@ -10,21 +10,19 @@
 				event_name = "Base.SourceReverb"
 				field_name = "citadel_source_reverb_send"
 			},
+			
+			{
+				event_name = "Volume.Falloff.VO.Hero"
+				field_name = "citadel_perspective_default"
+			},
 		]
 		mix_group_prefix = "VO-Hero"
 		enable_pre_priority_volume_blocking = true
 		enable_combat_blocking = true
 		combat_blocking_priority_threshold = 380.000000
 		volume_fade_out = 0.100000
+		max_distance_recipient_filter = 3000.000000
 		block_distance_max = 3000.000000
-		volume_falloff_min_player = 99999.000000
-		volume_falloff_min_team = 200.000000
-		volume_falloff_min_opponent = 300.000000
-		volume_falloff_min_neutral = 200.000000
-		volume_falloff_max_player = 99999.000000
-		volume_falloff_max_team = 1200.000000
-		volume_falloff_max_opponent = 2500.000000
-		volume_falloff_max_neutral = 1200.000000
 		volume = 2.000000
 		position_offset = 
 		[
@@ -45,145 +43,8 @@
 		mono_downmix_enabled = 1.000000
 		mono_downmix_min_distance = 0.000000
 		mono_downmix_max_distance = 0.000000
-		volume_falloff_use_curve_editor = true
-		volume_falloff_curve_db_player = 
-		[
-			
-			[
-				0.000000,
-				0.000000,
-				0.000000,
-				0.000000,
-				0.000000,
-				0.000000,
-			],
-			
-			[
-				1.000000,
-				0.000000,
-				0.000000,
-				0.000000,
-				0.000000,
-				1.000000,
-			],
-		]
-		volume_falloff_curve_db_team = 
-		[
-			
-			[
-				0.000000,
-				0.000000,
-				0.000000,
-				0.000000,
-				0.000000,
-				0.000000,
-			],
-			
-			[
-				204.741379,
-				0.000000,
-				0.000000,
-				-0.003145,
-				0.000000,
-				0.000000,
-			],
-			
-			[
-				2248.563232,
-				-6.428571,
-				0.005327,
-				0.005327,
-				2.000000,
-				3.000000,
-			],
-			
-			[
-				2500.000000,
-				-60.000000,
-				-0.213061,
-				-0.213061,
-				3.000000,
-				1.000000,
-			],
-		]
-		volume_falloff_curve_db_opponent = 
-		[
-			
-			[
-				0.000000,
-				0.000000,
-				0.000000,
-				0.000000,
-				0.000000,
-				0.000000,
-			],
-			
-			[
-				204.741379,
-				0.000000,
-				0.000000,
-				-0.003145,
-				0.000000,
-				0.000000,
-			],
-			
-			[
-				2248.563232,
-				-6.428571,
-				0.005327,
-				0.005327,
-				2.000000,
-				3.000000,
-			],
-			
-			[
-				2500.000000,
-				-60.000000,
-				-0.213061,
-				-0.213061,
-				3.000000,
-				1.000000,
-			],
-		]
-		volume_falloff_curve_db_neutral = 
-		[
-			
-			[
-				0.000000,
-				0.000000,
-				0.000000,
-				0.000000,
-				0.000000,
-				0.000000,
-			],
-			
-			[
-				204.741379,
-				0.000000,
-				0.000000,
-				-0.003145,
-				0.000000,
-				0.000000,
-			],
-			
-			[
-				2248.563232,
-				-6.428571,
-				0.005327,
-				0.005327,
-				2.000000,
-				3.000000,
-			],
-			
-			[
-				2500.000000,
-				-60.000000,
-				-0.213061,
-				-0.213061,
-				3.000000,
-				1.000000,
-			],
-		]
+		pitch_shrunken_scalar = 1.400000
+		volume_shrunken_offset_db = 2.000000
 	}
 	Base.Hero.VO.Death = 
 	{
@@ -217,17 +78,25 @@
 	}
 	Base.Hero.VO.Zipline = 
 	{
-		base = "Base.Hero.VO"
+		type = "citadel_dialog"
+		base = 
+		[
+			
+			{
+				event_name = "Base.Hero.VO"
+			},
+			
+			{
+				event_name = "Volume.Falloff.VO.Hero.Zipline"
+				field_name = "citadel_perspective_default"
+			},
+		]
 		mix_group_prefix = ""
 		mixer_mixgroup = "VO-Hero-Zipline"
 		occlusion_min = 1.000000
-		volume_falloff_min_team = 99999.000000
-		volume_falloff_max_team = 99999.000000
-		volume_falloff_use_curve_editor = false
 		spread_max_value_team = 0.600000
 		spread_min_value = 0.600000
 		volume_offset_team = 0.000000
-		block_distance_max = 18432.000000
 		enable_pre_priority_volume_blocking = false
 	}
 	Base.VO.2d = 
@@ -269,6 +138,8 @@
 		volume = 0.000000
 		enable_combat_blocking = true
 		combat_blocking_priority_threshold = 380.000000
+		pitch_shrunken_scalar = 1.000000
+		mixer_mixlayer_volume_gate = 0.100000
 	}
 	Base.Shopkeeper.VO = 
 	{
@@ -281,50 +152,12 @@
 		base = "Base.VO.2d"
 		mixer_mixgroup = "VO-Hero-Ping"
 		mix_group_prefix = ""
-		volume = -9.000000
+		volume = -7.000000
 		delay = 0.300000
 		apply_radio_effect_for_voice = true
 		voice_radio_effect_distance_threshold = 0.000000
-	}
-	Base.VO.NPC = 
-	{
-		type = "citadel_perspective_default"
-		mix_group_prefix = "VO-NPC"
-		volume_fade_out = 0.100000
-		block_distance_max = 3000.000000
-		volume_falloff_min_player = 99999.000000
-		volume_falloff_min_team = 200.000000
-		volume_falloff_min_opponent = 300.000000
-		volume_falloff_min_neutral = 200.000000
-		volume_falloff_max_player = 99999.000000
-		volume_falloff_max_team = 1200.000000
-		volume_falloff_max_opponent = 2500.000000
-		volume_falloff_max_neutral = 1200.000000
-		volume = -6.000000
-		volume_offset_player = 0.000000
-		volume_offset_team = 0.000000
-		volume_offset_opponent = 0.000000
-		volume_offset_neutral = 0.000000
-		position_offset = 
-		[
-			0.000000,
-			0.000000,
-			50.000000,
-		]
-		spread_max_value_team = 0.000000
-		spread_max_value_opponent = 0.000000
-		spread_max_value_neutral = 0.000000
-		spread_min_value = 0.000000
-		volume_enemy_targeting_boost = 0.000000
-		apply_radio_effect_for_voice = false
-		voice_radio_effect_distance_threshold = 800.000000
-		use_pathing_distance = 0.000000
-		use_pathing_render = 0.000000
-		use_pathing_render_eq = 0.000000
-	}
-	Base.Announcer.VO.2d = 
-	{
-		base = "Base.VO.Announcer"
+		volume_shrunken_offset_db = 4.000000
+		block_distance_max = -1.000000
 	}
 	Base.Announcer.Tutorial = 
 	{
@@ -339,14 +172,25 @@
 	Base.HeroPick.VO.2d = 
 	{
 		base = "Base.VO.2d"
-		volume = -4.000000
+		volume = -3.000000
 		mixer_mixgroup = "VO-Hero-Pick"
+		send_name_player = "vo-pick"
+		send_name_team = "vo-pick"
+		send_name_opponent = "vo-pick"
+		send_name_neutral = "vo-pick"
 	}
 	Base.HeroRemove.VO.2d = 
 	{
-		base = "Base.VO.2d"
-		volume = -4.000000
+		base = "Base.HeroPick.VO.2d"
+		volume = -3.000000
 		mixer_mixgroup = "VO-Hero-Pick"
+	}
+	Base.VO.HeroVictory = 
+	{
+		base = "Base.HeroPick.VO.2d"
+		volume = 0.000000
+		mixer_mixgroup = "VO-Hero-Pick"
+		delay = 1.200000
 	}
 	Base.Hero.VO.3d = 
 	{
@@ -358,58 +202,56 @@
 	}
 	Base.Hero.VO.Ultimate.3d = 
 	{
-		base = "Base.Hero.VO"
+		type = "citadel_dialog"
+		base = 
+		[
+			
+			{
+				event_name = "Base.Hero.VO"
+			},
+			
+			{
+				event_name = "Volume.Falloff.Hero.Ult"
+				field_name = "citadel_perspective_default"
+			},
+		]
 		mix_group_prefix = "VO-Hero-ULT"
+		occlusion_scale_non_player = 0.300000
+		volume_falloff_floor = 0.100000
+		volume_falloff_floor_enemy_relevance = 0.100000
+		play_from_listener_player = 1.000000
+		send_name_player = "hero_vo_ult"
+		send_name_neutral = "hero_vo_ult"
+		send_name_opponent = "hero_vo_ult"
+		send_name_team = "hero_vo_ult"
+		max_distance_recipient_filter = -1.000000
+		enable_pre_priority_volume_blocking = false
+		enable_combat_blocking = false
+		block_distance_max = -1.000000
+		block_volume_min = -1.000000
+		hpf_non_player_enabled = 1.000000
+		lpf_non_player_enabled = 1.000000
 	}
 	Base.Hero.VO.Pain.3d = 
 	{
-		base = "Base.Hero.VO"
+		type = "citadel_dialog"
+		base = 
+		[
+			
+			{
+				event_name = "Base.Hero.VO"
+			},
+			
+			{
+				event_name = "Volume.Falloff.VO.Hero.Pain"
+				field_name = "citadel_perspective_default"
+			},
+		]
 		enable_combat_blocking = false
 		volume = -6.000000
-		volume_falloff_max_team = 3250.000000
-		block_distance_max = 3250.000000
 		health_volume_enabled = true
 		low_health_fraction_vol_offset_threshold = 0.400000
 		low_health_volume_offset_db = 9.000000
-		volume_falloff_curve_db_team = 
-		[
-			
-			[
-				0.000000,
-				0.000000,
-				0.000000,
-				0.000000,
-				0.000000,
-				0.000000,
-			],
-			
-			[
-				204.741379,
-				0.000000,
-				0.000000,
-				-0.003145,
-				0.000000,
-				0.000000,
-			],
-			
-			[
-				2800.563232,
-				-6.000000,
-				0.005327,
-				0.005327,
-				2.000000,
-				3.000000,
-			],
-			
-			[
-				3500.000000,
-				-20.000000,
-				-0.213061,
-				-0.213061,
-				3.000000,
-				1.000000,
-			],
-		]
 	}
 	Base.Hero.VO.Death.3d = 
 	{

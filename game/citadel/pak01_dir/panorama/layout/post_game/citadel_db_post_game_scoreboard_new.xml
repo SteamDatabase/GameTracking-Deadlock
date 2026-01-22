@@ -1,0 +1,120 @@
+<!-- xml reconstructed by Source 2 Viewer - https://valveresourceformat.github.io -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/citadel_base_styles.vcss_c" />
+		<include src="s2r://panorama/styles/post_game/citadel_db_post_game_scoreboard_new.vcss_c" />
+	</styles>
+	<snippets>
+		<snippet name="TableHeaderStats">
+			<Panel class="TableHeaderStats">
+				<Panel class="StatsContainer SoulsContainer">
+					<Label text="#Citadel_Hero_Stats_Souls" />
+				</Panel>
+				<Panel class="StatsContainer KDAContainer">
+					<Label text="#Citadel_Scoreboard_KDA_Kills" />
+					<Label text="#Citadel_Scoreboard_KDA_Deaths" />
+					<Label text="#Citadel_Scoreboard_KDA_Assists" />
+				</Panel>
+				<Panel class="StatsContainer DamageContainer">
+					<Label text="#Citadel_MatchDetails_PlayerDmg" />
+					<Label text="#Citadel_MatchDetails_ObjDmg" />
+				</Panel>
+				<Panel class="StatsContainer HealingContainer">
+					<Label text="#Citadel_MatchDetails_PlayerHealing" />
+				</Panel>
+				<Panel class="StatsContainer ItemsContainer">
+					<Label text="#Citadel_Scoreboard_Items" />
+				</Panel>
+				<Panel class="StatsContainer MatchTimeContainer">
+					<Label id="MatchStartTime" text="{t:s:t:m:match_start_time}" />
+					<Label id="MatchID" text="#Citadel_MatchDetails_MatchID" onmouseover="UIShowTextTooltip( #Citadel_PostGame_CopyMatchID )" onmouseout="UIHideTextTooltip()" onactivate="CitadelPostGameCopyMatchID()" />
+					<Label class="TimeLabel" text="{s:match_minutes}:{s:match_seconds}" />
+				</Panel>
+			</Panel>
+		</snippet>
+		<snippet name="Player">
+			<Panel class="Player">
+				<Button id="CommendPlayerButton" class="CommendColumn" onmouseover="UIShowTextTooltip( #Citadel_MatchDetails_CommendTooltip );" onmouseout="UIHideTextTooltip()">
+					<Panel id="commendIcon" />
+				</Button>
+				<Panel class="PlayerRow">
+					<Panel class="PlayerInfoContainer">
+						<CitadelHeroBadgeIcon id="HeroBadge" />
+						<Panel class="PlayerNameContainer">
+							<CitadelUserName id="PlayerName" />
+							<Label id="HeroName" text="{g:citadel_hero_name:hero_id}" />
+						</Panel>
+						<Panel class="RightSide">
+							<Panel class="MVPContainer">
+								<Panel class="MVP_HonorableMention" onmouseover="CitadelUIShowTextTooltip( &apos;#Citadel_Post_Game_MVP_HonorableMention&apos; )" onmouseout="CitadelUIHideTextTooltip()" />
+								<Panel class="MVP" onmouseover="CitadelUIShowTextTooltip( &apos;#Citadel_Post_Game_MVP&apos; )" onmouseout="CitadelUIHideTextTooltip()" />
+							</Panel>
+							<CitadelHudItemBarGraph class="TopBarStyle ItemBreakdown" id="ItemBarGraph" tooltip_style="stats_panel" />
+						</Panel>
+					</Panel>
+					<Panel class="StatsContainer SoulsContainer">
+						<Label id="SoulsValue" text="{g:citadel_thousands:net_worth}" html="true" />
+					</Panel>
+					<Panel class="StatsContainer KDAContainer">
+						<Label id="KillsValue" text="{i:player_kills}" />
+						<Label id="DeathsValue" text="{i:player_deaths}" />
+						<Label id="AssistsValue" text="{i:player_assists}" />
+					</Panel>
+					<Panel class="StatsContainer DamageContainer">
+						<Label id="PlayerDmgValue" text="{g:citadel_thousands:player_dmg}" html="true" />
+						<Label id="ObjDmgValue" text="{g:citadel_thousands:obj_dmg}" html="true" />
+					</Panel>
+					<Panel class="StatsContainer HealingContainer" onmouseover="UIShowCustomLayoutTooltip( HealingTooltip, file://{resources}/layout/tooltips/citadel_tooltip_post_game_healing.xml );" onmouseout="UIHideCustomLayoutTooltip( HealingTooltip )">
+						<Label id="HealingValue" text="{g:citadel_thousands:player_healing}" html="true" />
+					</Panel>
+					<Panel class="StatsContainer ItemsContainer" id="ItemsContainer" />
+					<Panel class="StatsConatiner AbilitiesContainer" id="AbilitiesContainer">
+						<CitadelAbilityIcon id="AbilityButton1" class="abilityButton1" read_only="true" ability_slot="1" />
+						<CitadelAbilityIcon id="AbilityButton2" class="abilityButton2" read_only="true" ability_slot="2" />
+						<CitadelAbilityIcon id="AbilityButton3" class="abilityButton3" read_only="true" ability_slot="3" />
+						<CitadelAbilityIcon id="AbilityButton4" class="abilityButton4" read_only="true" ability_slot="4" />
+					</Panel>
+					<Button class="CopyBuildButton" id="CopyBuildButton" onmouseover="UIShowTextTooltip( #Citadel_HeroBuilds_CopyPostGameBuild )" onmouseout="UIHideTextTooltip()" />
+				</Panel>
+			</Panel>
+		</snippet>
+		<snippet name="RoundInfo">
+			<Panel class="RoundInfo">
+				<Label class="RoundName" text="{s:title}" />
+				<Label class="RoundTime" text="{s:round_minutes}:{s:round_seconds}" />
+			</Panel>
+		</snippet>
+	</snippets>
+	<CitadelPostGameScoreboardNew hittest="false">
+		<Panel class="ScoreboardScrollContainer">
+			<Panel id="MatchInfoContainer">
+				<Panel id="RoundInfoContainer" />
+			</Panel>
+			<Panel id="MatchModeContainer">
+				<Label class="MatchMode" text="{s:match_mode}" />
+			</Panel>
+			<Panel class="Team" id="Team1">
+				<Panel id="TeamTableHeader">
+					<Panel class="TeamNameContainer">
+						<Label text="#Citadel_MatchDetails_Victory" class="VictoryLabel" />
+						<Panel class="TeamName" />
+						<CitadelRankedBadgeMini id="RankedBadge" show_rank_tooltip="true" />
+					</Panel>
+					<Panel id="TableHeaderStatsContainer" />
+				</Panel>
+				<Panel class="TeamPlayerContainer" id="TeamPlayers" />
+			</Panel>
+			<Panel class="Team" id="Team2">
+				<Panel id="TeamTableHeader">
+					<Panel class="TeamNameContainer">
+						<Label text="#Citadel_MatchDetails_Victory" class="VictoryLabel" />
+						<Panel class="TeamName" />
+						<CitadelRankedBadgeMini id="RankedBadge" show_rank_tooltip="true" />
+					</Panel>
+					<Panel id="TableHeaderStatsContainer" />
+				</Panel>
+				<Panel class="TeamPlayerContainer" id="TeamPlayers" />
+			</Panel>
+		</Panel>
+	</CitadelPostGameScoreboardNew>
+</root>

@@ -11,60 +11,30 @@
 				<Panel class="ReadyStatus" />
 			</Panel>
 		</snippet>
+		<snippet name="RandomHeroCard">
+			<Panel class="RandomHeroCard" onactivate="CitadelRosterRandomActivated()" onmouseover="UIShowTitleTextTooltip( &apos;#Citadel_Roster_RandomHero&apos;, &apos;#Citadel_Roster_RandomHero_Desc&apos; )" onmouseout="UIHideTitleTextTooltip()">
+				<Label text="?" />
+			</Panel>
+		</snippet>
+		<snippet name="DragPriorityToken">
+			<Panel class="DragPriorityToken" />
+		</snippet>
 	</snippets>
 	<CitadelPopupRosterSelect class="PopupPanel Hidden" popupbackground="dim" oncancel="CitadelRosterSelectCancel()">
-		<ScenePanel id="HeroScenePanelBacker" map="ui/hero_select_backer/hero_select_backer" camera="hero_select_backer_camera" particleonly="false" />
-		<CustomLayoutPanel id="CustomHeroBackground" layout="s2r://panorama/layout/hero_backgrounds/hero_background_default.vxml_c" />
-		<ScenePanel id="HeroScenePanel" map="ui/hero_select" scene_data_name="hero_selection" hero_graph_base_state="hero_select" hero_animgraph_enum="HeroSelect" parent_entity_name="hero_root" rotation_entity_name="root" camera="portrait_camera" use_hero_map="true" sound="PORTRAIT_SOUND_MODE_ALL_SOUNDS" rotateonhover="true" rotateonmousemove="true" acceleration="0.01" yawmin="3.2" yawmax="-1.2" pitchmin="0.2" pitchmax="-0.2" />
-		<Image id="HeroScenePanelMask" src="panel://HeroScenePanel" hittest="false" />
-		<Panel id="HeroScenePanelBlur" hittest="false">
-			<Panel class="FilmGrain" />
-		</Panel>
+		<CitadelScenePanel id="HeroScenePanelBacker" map="ui/hero_select_backer/hero_select_backer" camera="hero_select_backer_camera" particleonly="false" />
+		<CitadelHeroSpotlight id="HeroSpotlight" />
 		<Panel class="clampwidth">
-			<Panel id="HeroInfo">
-				<Label id="HeroName" text="{s:hero_name}" />
-				<Panel id="HeroLogo" />
-				<Panel id="HeroTags">
-					<Panel class="heroTag Tag1">
-						<Panel class="tagBacker" />
-						<Label text="{s:hero_tag_1}" />
-					</Panel>
-					<Panel class="heroTag Tag2">
-						<Panel class="tagBacker" />
-						<Label text="{s:hero_tag_2}" />
-					</Panel>
-					<Panel class="heroTag Tag3">
-						<Panel class="tagBacker" />
-						<Label text="{s:hero_tag_3}" />
-					</Panel>
-				</Panel>
-				<Panel id="HeroAbilities" hittest="false" />
-				<Panel id="GunTag">
-					<Label text="{s:gun_tag}" />
-				</Panel>
-			</Panel>
-			<Panel id="HeroStats">
-				<Panel id="WeaponStats" class="statHoverIcon" onmouseout="CitadelHideStatsTooltip();">
-					<Panel class="statIcon" />
-				</Panel>
-				<Panel id="VitalityStats" class="statHoverIcon" onmouseout="CitadelHideStatsTooltip();">
-					<Panel class="statIcon" />
-				</Panel>
-				<Panel id="SpiritStats" class="statHoverIcon" onmouseout="CitadelHideStatsTooltip();">
-					<Panel class="statIcon" />
-				</Panel>
-				<Panel id="MiscStats" class="statHoverIcon">
-					<CitadelHeroImage id="MiscStatsHeroIcon" class="statIcon" />
-				</Panel>
-			</Panel>
-			<Panel id="LoreButton" onactivate="CitadelRosterShowLore()" onmouseover="CitadelUIShowTextTooltip( &apos;#Citadel_Roster_ViewBackstory_Tooltip&apos; )" onmouseout="CitadelUIHideTextTooltip()">
-				<Panel class="loreIcon" />
-			</Panel>
 			<Panel id="HeroRowContainer" hittest="false">
-				<Panel id="NameTest">
+				<Panel class="GridHeader">
 					<Label class="PageTitle Roster" text="#Roster_Create_Title" />
 					<Label class="PageTitle SingleHero" text="#Select_Hero_Title" />
-					<Panel class="lineBreak" />
+					<Panel id="PriorityToken" draggable="true" onactivate="CitadelRosterPriorityTokenActivated()" onmouseover="CitadelShowPriorityTokenTooltip()" onmouseout="CitadelHidePriorityTokenTooltip()">
+						<Panel class="PriorityTokenImage">
+							<Panel id="PriorityTokenProgressOverlay" />
+							<CitadelHeroImage id="PriorityTokenHeroImage" heroimagestyle="small" />
+						</Panel>
+						<Label class="PriorityTokenStatus" text="{s:priority_token_status}" />
+					</Panel>
 				</Panel>
 				<Panel id="GridContainer">
 					<Panel id="RosterHeroes" />
@@ -76,16 +46,51 @@
 						<Panel class="buttonContent">
 							<Panel class="btn_bg" />
 							<Panel class="btn_texture" />
-							<Label text="#menu_play_roster_button" />
+							<SplitLabel text="#menu_play_roster_button" />
 						</Panel>
 					</Panel>
 				</Panel>
 			</Panel>
-			<Button class="EscapeButton light" onactivate="CitadelRosterSelectCancel()">
-				<CitadelBinding id="BackBinding" action="MenuBack" />
-				<Label class="FooterCommandLabel" text="#menu_exit_db_page" />
-			</Button>
 		</Panel>
+		<Panel id="HeroInfo">
+			<CitadelHeroLogo id="HeroLogo" />
+			<Panel id="HeroTags">
+				<Panel class="heroTag Tag1">
+					<Panel class="tagBacker" />
+					<Label text="{s:hero_tag_1}" />
+				</Panel>
+				<Panel class="heroTag Tag2">
+					<Panel class="tagBacker" />
+					<Label text="{s:hero_tag_2}" />
+				</Panel>
+				<Panel class="heroTag Tag3">
+					<Panel class="tagBacker" />
+					<Label text="{s:hero_tag_3}" />
+				</Panel>
+			</Panel>
+			<Panel id="HeroAbilities" hittest="false" />
+			<Panel id="GunTag">
+				<Label text="{s:gun_tag}" />
+			</Panel>
+		</Panel>
+		<Panel id="HeroStats">
+			<Panel id="WeaponStats" class="statHoverIcon" onmouseout="CitadelHideStatsTooltip();">
+				<Panel class="statIcon" />
+			</Panel>
+			<Panel id="VitalityStats" class="statHoverIcon" onmouseout="CitadelHideStatsTooltip();">
+				<Panel class="statIcon" />
+			</Panel>
+			<Panel id="SpiritStats" class="statHoverIcon" onmouseout="CitadelHideStatsTooltip();">
+				<Panel class="statIcon" />
+			</Panel>
+			<Panel id="MiscStats" class="statHoverIcon">
+				<CitadelHeroImage id="MiscStatsHeroIcon" class="statIcon" />
+			</Panel>
+		</Panel>
+		<Panel id="LoreButton" onactivate="CitadelRosterShowLore()" onmouseover="CitadelUIShowTextTooltip( &apos;#Citadel_Roster_ViewBackstory_Tooltip&apos; )" onmouseout="CitadelUIHideTextTooltip()">
+			<Panel class="loreIcon" />
+		</Panel>
+		<CitadelBindingButton class="EscapeButton" action="MenuBack" onactivate="CitadelRosterSelectCancel()" text="#menu_exit_db_page" />
 		<Panel class="PartyStatus">
 			<Panel id="PartyMembers" />
 			<Label class="PartyReadyCount" text="{d:party_member_ready_count} / {d:party_member_count}" />

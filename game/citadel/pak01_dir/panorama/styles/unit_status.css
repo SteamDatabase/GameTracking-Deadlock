@@ -5,7 +5,7 @@
 @define Team1Color: #E7B659;
 @define Team2Color: #5B79E6;
 @define TeamNeutralColor: #5befb5;
-@define TeamEnemyColor: #e16161;
+@define TeamEnemyColor: #fd4949;
 @define TeamFriendColor: #FFEFD7;
 @define Team1DamageDeltaColor: #ffedb8;
 @define Team2DamageDeltaColor: #ffedb8;
@@ -27,8 +27,29 @@
 
 .verticalHealthbars .WindowRoot
 {
-	transform: rotateZ(-75deg) translateY(400px) translateX(100px);
-	height: 200%;
+	transform: rotateZ(-70deg) translateY(170px) translateX(-500px);
+	height: 100%;
+	padding: 20px;
+	width: 80%;
+	height: 100%;
+}
+
+.verticalHealthbars .WindowRoot.boss_tier1
+{
+	transform: rotateZ(-50deg) translateY(0px) translateX(0px);
+	border: 1px solid green;
+}
+
+.verticalHealthbars .WindowRoot.boss_tier1
+{
+	transform: rotateZ(-50deg) translateY(0px) translateX(0px);
+	border: 3px solid green;
+}
+
+.verticalHealthbars.boss_tier1 .WindowRoot
+{
+	transform: rotateZ(-50deg) translateY(500px) translateX(-200px);
+	border: 3px solid green;
 }
 
 #UnitStatus
@@ -42,6 +63,7 @@
 
 .verticalHealthbars #UnitStatus
 {
+	padding: 300px;
 	vertical-align: center;
 }
 
@@ -63,9 +85,13 @@
 
 .verticalHealthbars #InfoHealthContainer
 {
-	margin-bottom: 1700px;
+	opacity-mask: url("s2r://panorama/images/hud/healthbar/healthbar_backer_horiz_mask.vsvg");
+	height: 160px;
+	width: 480px;
+	horizontal-align: center;
 	margin-left: 0px;
 	height: fit-children;
+	ui-scale: 100%;
 }
 
 .health_hidden #InfoHealthContainer,.GameStatePreGame #InfoHealthContainer
@@ -86,6 +112,11 @@
 	horizontal-align: right;
 	z-index: 3;
 	flow-children: left;
+}
+
+.verticalHealthbars #UnitInfoContainer.unit_info_panel
+{
+	visibility: collapse;
 }
 
 #BulletShieldContainer
@@ -166,12 +197,12 @@
 
 .team1 #unit_ult_ready_icon
 {
-	wash-color: Team1Color;
+	wash-color: team1Color;
 }
 
 .team2 #unit_ult_ready_icon
 {
-	wash-color: Team2Color;
+	wash-color: team2Color;
 }
 
 .team_neutral #unit_ult_ready_icon
@@ -302,6 +333,42 @@
 	vertical-align: middle;
 }
 
+.verticalHealthbars #UnitHealthbarContainer
+{
+	height: 140px;
+	width: 700px;
+	vertical-align: middle;
+	overflow: noclip;
+	margin-left: 0px;
+}
+
+#UnitHealthbarContainer.healthbar_empty
+{
+	opacity: 1;
+}
+
+.verticalHealthbars #UnitHealthbarContainer
+{
+	margin-right: 0px;
+	overflow: noclip;
+	z-index: 10;
+}
+
+.front
+{
+	z-index: 11;
+}
+
+#UnitHealthbarContainer.healthbar_empty
+{
+	opacity: 1;
+}
+
+.verticalHealthbars #UnitHealthbarContainer
+{
+	margin-right: 0px;
+}
+
 .boss_tier1 #UnitHealthbarContainer,.boss_tier2 #UnitHealthbarContainer,.boss_tier3 #UnitHealthbarContainer
 {
 	height: 170px;
@@ -314,9 +381,32 @@
 	width: 600px;
 }
 
-.verticalHealthbars #UnitHealthbarContainer
+.health_critical #UnitHealthbarContainer.last_nonempty_bar
 {
-	margin-right: 0px;
+	animation-name: healthCritFlash3;
+	animation-duration: 0.3s;
+	animation-iteration-count: infinite;
+}
+
+@keyframes 'healthCritFlash3'
+{
+	0%
+	{
+		pre-transform-scale2d: 1;
+	}
+	
+	50%
+	{
+		pre-transform-scale2d: 1.2;
+		transform: rotateY(-40deg) rotateX(10deg);
+		transform: rotateY(-60deg) rotateX(0deg);
+	}
+	
+	100%
+	{
+		pre-transform-scale2d: 1;
+	}
+	
 }
 
 #unit_healthbar_bg
@@ -329,10 +419,52 @@
 	border-image-source: url("s2r://panorama/images/hud/world_space/hero_healthbar_bg_psd.vtex");
 	border-image-repeat: round;
 	border-image-slice: 28% fill;
-	border-width: 20px;
+	border-width: 10px;
 	border-color: #ffffffff;
 	flow-children: right;
 	z-index: 0;
+}
+
+.verticalHealthbars #unit_healthbar_bg
+{
+	border-image-source: none;
+}
+
+.healthbar_border
+{
+	background-image: url("s2r://panorama/images/hud/healthbar/healthbar_backer_horiz_border.vsvg");
+	background-size: 100% 100%;
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+	ignore-parent-flow: true;
+	wash-color: offBlack;
+	visibility: collapse;
+}
+
+.team1 .healthbar_border
+{
+	wash-color: team1ColorDarker;
+}
+
+.team2 .healthbar_border
+{
+	wash-color: team2ColorDarker;
+}
+
+.friend .healthbar_border
+{
+	wash-color: offBlack;
+}
+
+.enemy .healthbar_border
+{
+	wash-color: rgb(113, 0, 0);
+}
+
+.verticalHealthbars .healthbar_border
+{
+	visibility: visible;
 }
 
 #unit_healthbar_missing
@@ -346,6 +478,32 @@
 	background-size: cover;
 }
 
+.health_critical .last_nonempty_bar #unit_healthbar_border_parent
+{
+	animation-name: healthCritFlash;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+}
+
+@keyframes 'healthCritFlash'
+{
+	0%
+	{
+		border: 12px solid offBlack;
+	}
+	
+	50%
+	{
+		border: 12px solid #b82323;
+	}
+	
+	100%
+	{
+		border: 12px solid offBlack;
+	}
+	
+}
+
 #unit_healthbar_active_parent
 {
 	height: 100%;
@@ -356,6 +514,16 @@
 	background-color: offBlack;
 }
 
+.verticalHealthbars #unit_healthbar_active_parent
+{
+	background-color: none;
+}
+
+.back.healthbar_empty #unit_healthbar_active_parent
+{
+	background-color: #363636aa;
+}
+
 #unit_healthbar_lagging
 {
 	horizontal-align: left;
@@ -364,19 +532,32 @@
 	height: 100%;
 	background-image: url("s2r://panorama/images/hud/world_space/hero_healthbar_fill_center_psd.vtex");
 	background-size: 1024px 128px;
+	border-image-source: url("s2r://panorama/images/hud/world_space/hero_healthbar_bg_psd.vtex");
+	border-image-repeat: round;
+	border-image-slice: 28%;
+	border-width: 10px;
+	border-color: #ffffffff;
 	z-index: 3;
 	wash-color: red;
 	box-shadow: inset DropshadowColor 4px 8px 5px 8px;
 }
 
+.verticalHealthbars #unit_healthbar_lagging
+{
+	border-image-source: none;
+	wash-color: none;
+	box-shadow: none;
+	border: 0px solid #00000000;
+}
+
 .team1 #unit_healthbar_lagging
 {
-	wash-color: Team1Color;
+	wash-color: team1Color;
 }
 
 .team2 #unit_healthbar_lagging
 {
-	wash-color: Team2Color;
+	wash-color: team2Color;
 }
 
 .team_neutral #unit_healthbar_lagging
@@ -394,6 +575,32 @@
 	wash-color: TeamFriendColor;
 }
 
+.health_critical #unit_healthbar_lagging
+{
+	animation-name: healthCritFlash2;
+	animation-duration: 0.4s;
+	animation-iteration-count: infinite;
+}
+
+@keyframes 'healthCritFlash2'
+{
+	0%
+	{
+		brightness: 1;
+	}
+	
+	50%
+	{
+		brightness: 4;
+	}
+	
+	100%
+	{
+		brightness: 1;
+	}
+	
+}
+
 #unit_healthbar_delta
 {
 	horizontal-align: left;
@@ -405,6 +612,11 @@
 	background-size: 1024px 128px;
 	wash-color: black;
 	z-index: 5;
+}
+
+.verticalHealthbars #unit_healthbar_delta
+{
+	border: 0px solid #00000000;
 }
 
 .team1 #unit_healthbar_delta
@@ -525,6 +737,11 @@
 	pre-transform-scale2d: 1.0, 2.8;
 }
 
+.verticalHealthbars #unit_healthbar_pip_label
+{
+	visibility: collapse;
+}
+
 #unit_healthbar_fg
 {
 	width: 100%;
@@ -568,12 +785,12 @@
 
 .team1 #state_progressbar
 {
-	wash-color: Team1Color;
+	wash-color: team1Color;
 }
 
 .team2 #state_progressbar
 {
-	wash-color: Team2Color;
+	wash-color: team2Color;
 }
 
 .team_neutral #state_progressbar
@@ -613,12 +830,12 @@
 
 .team1 #pip_image
 {
-	wash-color: Team1Color;
+	wash-color: team1Color;
 }
 
 .team2 #pip_image
 {
-	wash-color: Team2Color;
+	wash-color: team2Color;
 }
 
 .friend #pip_image
@@ -667,6 +884,11 @@
 }
 
 .player.beingSpectatedInEye #name
+{
+	visibility: collapse;
+}
+
+.GameStatePreGame.player.verticalHealthbars #name,.player.show_name.verticalHealthbars #name
 {
 	visibility: collapse;
 }
@@ -749,6 +971,32 @@
 	100%
 	{
 		brightness: 1;
+	}
+	
+}
+
+.health_critical #unit_healthbar_bg
+{
+	animation-name: healthCritFlash;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+}
+
+@keyframes 'healthCritFlash'
+{
+	0%
+	{
+		border: 12px solid offBlack;
+	}
+	
+	50%
+	{
+		border: 12px solid #b82323;
+	}
+	
+	100%
+	{
+		border: 12px solid offBlack;
 	}
 	
 }

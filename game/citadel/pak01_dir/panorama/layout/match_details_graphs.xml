@@ -8,10 +8,19 @@
 	<snippets>
 		<snippet name="Player">
 			<Panel class="Player">
-				<Panel class="PlayerContainer">
-					<CitadelHeroImage id="HeroImage" scaling="stretch-to-fit-x-preserve-aspect" />
-					<Panel id="PlayerColor" />
-					<CitadelUserName id="PlayerUserName" />
+				<Panel id="HeroContents" class="HeroContents">
+					<Panel class="SoulsValueContainer">
+						<Panel class="SoulsImage" />
+						<Label id="SoulsValue" class="SoulsValue" html="true" text="{g:citadel_thousands:gold}" />
+						<Panel id="PlayerColor" />
+					</Panel>
+					<Panel id="HeroImageArea">
+						<Panel class="HeroContentsCoinBackground" />
+						<Panel class="HeroIconContainer">
+							<CitadelHeroBadge id="HeroBadge" class="TopBar" />
+						</Panel>
+						<Panel class="HeroContentsCoinInnerBorder" />
+					</Panel>
 				</Panel>
 			</Panel>
 		</snippet>
@@ -39,14 +48,35 @@
 	</snippets>
 	<MatchDetailsGraphs>
 		<Panel class="GraphPage">
-			<Panel class="TeamsRow">
-				<Panel id="TeamCtnLeft" class="TeamCtn" />
-				<Panel id="SwitchPage" onactivate="CitadelShowPostGameTab( 0 );">
-					<Panel id="NavArrow" />
-					<Label text="#Citadel_MatchDetails_ViewScoreboard" />
-					<Panel id="GraphIcon" />
+			<Panel class="TopPanel">
+				<Panel class="GameClock">
+					<Label class="GameTime" text="{s:match_minutes}:{s:match_seconds}" />
 				</Panel>
-				<Panel id="TeamCtnRight" class="TeamCtn" />
+				<Panel class="TeamNetworth">
+					<Panel id="TeamScoreFriendly" class="TeamScore">
+						<Panel class="ScoreBG" />
+						<Panel class="ScoreContainer">
+							<Label class="ScoreLabel" html="true" text="{g:citadel_thousands:team_networth}" />
+							<Panel class="TeamIcon" />
+						</Panel>
+					</Panel>
+					<Panel id="TeamScoreEnemy" class="TeamScore Right">
+						<Panel class="ScoreBG" />
+						<Panel class="ScoreContainer">
+							<Panel class="TeamIcon" />
+							<Label class="ScoreLabel" html="true" text="{g:citadel_thousands:team_networth}" />
+						</Panel>
+					</Panel>
+				</Panel>
+				<Panel class="TeamsRow">
+					<Panel id="TeamCtnLeft" class="TeamCtn" />
+					<Panel id="SwitchPage" onactivate="CitadelShowPostGameTab( 0 );">
+						<Panel id="NavArrow" />
+						<Label text="#Citadel_MatchDetails_ViewScoreboard" />
+						<Panel id="GraphIcon" />
+					</Panel>
+					<Panel id="TeamCtnRight" class="TeamCtn" />
+				</Panel>
 			</Panel>
 			<Panel class="MainCol">
 				<Panel class="GraphSelectCtn">

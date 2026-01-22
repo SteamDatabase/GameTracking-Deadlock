@@ -130,6 +130,17 @@
 							display_edit_type = "field_curve_2d_editor"
 						}
 					}
+					damage_effectiveness_enabled = 
+					{
+						data_type = "bool"
+						value = "true"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "citadel_damage"
+							property_help = "Enables damage effectiveness curve db offset."
+						}
+					}
 					chip_damage_offset_db = 
 					{
 						data_type = "float"
@@ -267,6 +278,36 @@
 							property_help = "Sets the prefix of the instance attenuator group name."
 						}
 					}
+					block_attacker = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "citadel_damage"
+						}
+					}
+					block_victim = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "citadel_damage"
+						}
+					}
+					block_other = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							display_group = "Normal"
+							property_group = "citadel_damage"
+						}
+					}
 				}
 			},
 			
@@ -275,6 +316,60 @@
 				operator = "sos_import_stack"
 				import_stack = "citadel_damage_info"
 				auto_connect_public_fields = "true"
+			},
+			
+			{
+				name = "should_block_attacker"
+				execute_once = "true"
+				input_execute = "1.0"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@public.block_attacker"
+				input2 = "@citadel_damage_info::output.is_viewing_attacker"
+			},
+			
+			{
+				name = "block_attacker"
+				operator = "sos_goto"
+				execute_once = "1.0"
+				input_goto_end = "true"
+				input_execute = "@should_block_attacker.output"
+			},
+			
+			{
+				name = "should_block_victim"
+				execute_once = "true"
+				input_execute = "1.0"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@public.block_victim"
+				input2 = "@citadel_damage_info::output.is_viewing_victim"
+			},
+			
+			{
+				name = "block_victim"
+				operator = "sos_goto"
+				execute_once = "1.0"
+				input_goto_end = "true"
+				input_execute = "@should_block_victim.output"
+			},
+			
+			{
+				name = "should_block_other"
+				execute_once = "true"
+				input_execute = "1.0"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@public.block_other"
+				input2 = "@citadel_damage_info::output.is_viewing_other"
+			},
+			
+			{
+				name = "block_other"
+				operator = "sos_goto"
+				execute_once = "1.0"
+				input_goto_end = "true"
+				input_execute = "@should_block_other.output"
 			},
 			
 			{
@@ -513,6 +608,16 @@
 			},
 			
 			{
+				name = "math_mult_damage_effectiveness_curve_enabled"
+				execute_once = "true"
+				input_execute = "1.0"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@math_curve_effectiveness_db_offset.output"
+				input2 = "@public.damage_effectiveness_enabled"
+			},
+			
+			{
 				name = "volume_accumulate"
 				operator = "math_accumulate12_float"
 				apply = "add"
@@ -521,7 +626,7 @@
 				input3 = "@chip_damage_offset_result.output"
 				input4 = "0.0"
 				input5 = "@mult_volume_offset_npc.output"
-				input6 = "@math_curve_effectiveness_db_offset.output"
+				input6 = "@math_mult_damage_effectiveness_curve_enabled.output"
 				input7 = "0.0"
 				input8 = "0.0"
 				input9 = "0.0"
@@ -574,12 +679,12 @@
 					}
 					position_force_from_input = 
 					{
-						data_type = "float"
+						data_type = "bool"
 						value = "@eval_viewer_is_victim_and_damage_not_dot.output"
 					}
 					position_force_from_player = 
 					{
-						data_type = "float"
+						data_type = "bool"
 						value = "@eval_viewer_is_victim_and_damage_dot.output"
 					}
 					distance_hpf_on = 

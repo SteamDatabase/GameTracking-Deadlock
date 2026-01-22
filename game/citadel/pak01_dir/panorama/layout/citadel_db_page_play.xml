@@ -6,7 +6,7 @@
 		<include src="s2r://panorama/styles/citadel_db_page_play.vcss_c" />
 	</styles>
 	<CitadelPlayPage class="DashboardPage" oncancel="CitadelNavigateBack();" dashboardclass="isShowingPlayPage">
-		<ScenePanel id="HeroScenePanelBacker" map="ui/hero_select_backer/hero_select_backer" camera="hero_select_backer_camera" particleonly="false" />
+		<CitadelScenePanel id="HeroScenePanelBacker" map="ui/hero_select_backer/hero_select_backer" camera="hero_select_backer_camera" particleonly="false" />
 		<Panel id="PlayModes">
 			<Label class="PlayTitle" text="#Citadel_Main_PlayMode" />
 			<Panel id="PlayOptions" hittest="false">
@@ -45,10 +45,27 @@
 							</Panel>
 						</Panel>
 					</Button>
+					<Button id="Option_StreetBrawl" class="playoption option1 largeButton" onactivate="CitadelStartUnrankedStreetBrawl()" onmouseover="CitadelMusicQueueArpeggiatorNote()">
+						<Panel id="UnavailableOverlay">
+							<Label class="unavailable_queue" text="#menu_play_unavailable_in_queue" />
+						</Panel>
+						<Panel class="backgroundImg" />
+						<Panel class="playImage" />
+						<Panel class="TextArea">
+							<Panel class="TitleArea">
+								<Panel class="titleBG" />
+								<Label text="#Citadel_Play_StreetBrawl_Title" class="playoptionLabel" />
+							</Panel>
+							<Panel class="DescArea">
+								<Panel class="titleBG" />
+								<Label id="Citadel_Play_StreetBrawl_Desc" text="#Citadel_Play_StreetBrawl_Desc" class="playModeDesc" />
+							</Panel>
+						</Panel>
+					</Button>
 				</Panel>
 				<Panel id="SubModes">
 					<Panel id="SubModesContainerTop">
-						<Button id="Option_PlayersVsBots" class="playoption medButton" onactivate="CitadelStartBotMatch()" onmouseover="CitadelMusicQueueArpeggiatorNote()">
+						<Button id="Option_PlayersVsBots" class="playoption smallButton" onactivate="CitadelStartBotMatch()" onmouseover="CitadelMusicQueueArpeggiatorNote()">
 							<Panel id="UnavailableOverlay">
 								<Label class="unavailable_queue" text="#menu_play_unavailable_in_queue" />
 							</Panel>
@@ -65,8 +82,6 @@
 								</Panel>
 							</Panel>
 						</Button>
-					</Panel>
-					<Panel id="SubModesContainerBottom">
 						<Button id="Option_HeroTesting" class="playoption smallButton" onactivate="CitadelStartHeroTesting(false)" onmouseover="CitadelMusicQueueArpeggiatorNote()">
 							<Panel class="backgroundImg" />
 							<Panel class="playImage" />
@@ -81,6 +96,8 @@
 								</Panel>
 							</Panel>
 						</Button>
+					</Panel>
+					<Panel id="SubModesContainerBottom">
 						<Button id="Option_ExploreMap" class="playoption smallButton" onactivate="CitadelRunExploreMap()" onmouseover="CitadelMusicQueueArpeggiatorNote()">
 							<Panel id="UnavailableOverlay">
 								<Label class="unavailable_queue" text="#menu_play_unavailable_in_queue" />

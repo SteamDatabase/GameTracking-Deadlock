@@ -209,7 +209,7 @@
 			display_group = "basic"
 		}
 	}
-	core_import_test_import_namespace = 
+	core_import_test_import_scope = 
 	{
 		operators = 
 		[
@@ -239,13 +239,13 @@
 					{
 						data_type = "public_opvar"
 						value = "core_import_test_parent1"
-						use_namespace = "1"
+						use_public_opvar_scope = "1"
 					}
 					core_import_test_parent2 = 
 					{
 						data_type = "public_opvar"
 						value = "core_import_test_parent2"
-						use_namespace = "1"
+						use_public_opvar_scope = "1"
 					}
 				}
 			},
@@ -290,7 +290,7 @@
 				operator = "sos_import_stack"
 				import_stack = "core_import_test_parent1"
 				auto_connect_public_fields = "true"
-				auto_connect_namespace = "core_import_test_parent"
+				auto_connect_field_scope = "core_import_test_parent"
 			},
 		]
 		_system_properties = 
@@ -356,7 +356,7 @@
 			display_group = "basic"
 		}
 	}
-	core_import_test_import_recursive_namespace = 
+	core_import_test_import_recursive_scope = 
 	{
 		operators = 
 		[
@@ -371,11 +371,11 @@
 						data_type = "float"
 						value = "8.0"
 					}
-					core_import_test_import_namespace = 
+					core_import_test_import_scope = 
 					{
 						data_type = "public_opvar"
-						value = "core_import_test_import_namespace"
-						use_namespace = "true"
+						value = "core_import_test_import_scope"
+						use_public_opvar_scope = "true"
 					}
 				}
 			},
@@ -384,28 +384,28 @@
 				name = "print_val1"
 				operator = "util_print_float"
 				execute_once = "false"
-				input = "@public.core_import_test_import_namespace.core_import_test_parent.value1"
+				input = "@public.core_import_test_import_scope.core_import_test_parent.value1"
 			},
 			
 			{
 				name = "print_val2"
 				operator = "util_print_float"
 				execute_once = "false"
-				input = "@public.core_import_test_import_namespace.core_import_test_parent.value2"
+				input = "@public.core_import_test_import_scope.core_import_test_parent.value2"
 			},
 			
 			{
 				name = "print_val3"
 				operator = "util_print_float"
 				execute_once = "false"
-				input = "@public.core_import_test_import_namespace.core_import_test_parent2.value3"
+				input = "@public.core_import_test_import_scope.core_import_test_parent2.value3"
 			},
 			
 			{
 				name = "print_val4"
 				operator = "util_print_float"
 				execute_once = "false"
-				input = "@public.core_import_test_import_namespace.core_import_test_parent2.value4"
+				input = "@public.core_import_test_import_scope.core_import_test_parent2.value4"
 			},
 		]
 		_system_properties = 
@@ -556,13 +556,13 @@
 					{
 						data_type = "public_opvar"
 						value = "parent_stack"
-						use_namespace = "1"
+						use_public_opvar_scope = "1"
 					}
 					import_parent_field_2 = 
 					{
 						data_type = "public_opvar"
 						value = "parent_stack_2"
-						use_namespace = "1"
+						use_public_opvar_scope = "1"
 					}
 					value4 = 
 					{
@@ -577,7 +577,7 @@
 				operator = "sos_import_stack"
 				import_stack = "parent_stack"
 				auto_connect_public_fields = "true"
-				auto_connect_namespace = "import_parent_field"
+				auto_connect_field_scope = "import_parent_field"
 			},
 			
 			{
@@ -585,7 +585,1000 @@
 				operator = "sos_import_stack"
 				import_stack = "parent_stack_2"
 				auto_connect_public_fields = "true"
-				auto_connect_namespace = "import_parent_field_2"
+				auto_connect_field_scope = "import_parent_field_2"
+			},
+		]
+	}
+	curve_test_01 = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					curve_standard = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 1.0, 0.0, 0.0, 1.0, 1.0 ]",
+							"[ 1.0, 1.0, 1.0, 1.0, 0.0, 1.0 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "advanced"
+							display_edit_type = "field_curve_2d_editor"
+							property_group = "Filter"
+							property_help = "Remaps the aggregate inverse opvar value to the filter value"
+						}
+					}
+					curve_array = 
+					{
+						data_type = "float12"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 0.0, 0.33, 0.0, 0.5, 0, 0.66, 0, 0.75, 0, 1.0, 0.0 ]",
+							"[ 0.0, 0.5, 0.33, 0.5, 0.5, 0.5, 0.66, 0.5, 0.75, 0.5, 1.0, 0.5 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "advanced"
+							display_edit_type = "field_2d6knot_editor"
+							curve_type = "linear"
+						}
+					}
+				}
+			},
+		]
+	}
+	curve_test_multi_import = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					import_curve_test_01_01 = 
+					{
+						data_type = "public_opvar"
+						value = "curve_test_01"
+						use_public_opvar_scope = "true"
+					}
+					import_curve_test_01_02 = 
+					{
+						data_type = "public_opvar"
+						value = "curve_test_01"
+						use_public_opvar_scope = "true"
+					}
+				}
+			},
+			
+			{
+				name = "import_01"
+				operator = "sos_import_stack"
+				import_stack = "curve_test_01"
+				auto_connect_public_fields = "true"
+				auto_connect_field_scope = "import_curve_test_01_01"
+			},
+			
+			{
+				name = "import_02"
+				operator = "sos_import_stack"
+				import_stack = "curve_test_01"
+				auto_connect_public_fields = "true"
+				auto_connect_field_scope = "import_curve_test_01_02"
+			},
+		]
+	}
+	test_1_layer_4 = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					opvar_parent_field = 
+					{
+						soundevent_data = "true"
+						data_type = "string"
+						value = ""
+					}
+					opvar_parent_curve = 
+					{
+						soundevent_data = "true"
+						data_type = "string"
+						value = ""
+					}
+					local_field = 
+					{
+						soundevent_data = "true"
+						data_type = "string"
+						value = "core_exterior"
+					}
+					local_curve = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+							"[ 1.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+						]
+						_system_properties = 
+						{
+							display_edit_type = "field_curve_2d_editor"
+						}
+					}
+				}
+			},
+			
+			{
+				name = "get_parent_string"
+				operator = "opvar_get_string"
+				input_execute = "1.0"
+				check_event_data = "true"
+				input_operator_name = "public"
+				input_field_name = "@public.opvar_parent_field"
+				input_use_namespace = "false"
+			},
+			
+			{
+				name = "get_parent_curve"
+				operator = "math_opvar_curve_2d"
+				input_execute = "1.0"
+				input_operator_name = "public"
+				input_field_name = "@public.opvar_parent_curve"
+				input_use_namespace = "false"
+			},
+			
+			{
+				name = "get_parent_string_2"
+				operator = "opvar_get_string"
+				input_execute = "1.0"
+				check_event_data = "true"
+				input_operator_name = "public"
+				input_field_name = "parent_string_lookup_2"
+				input_use_namespace = "false"
+			},
+			
+			{
+				name = "get_parent_curve_2"
+				operator = "math_opvar_curve_2d"
+				input_execute = "1.0"
+				input_operator_name = "public"
+				input_field_name = "parent_curve_lookup_2"
+				input_use_namespace = "false"
+			},
+			
+			{
+				name = "get_local_string_namspaced"
+				operator = "opvar_get_string"
+				input_execute = "1.0"
+				check_event_data = "true"
+				input_operator_name = "public"
+				input_field_name = "local_field"
+				input_use_namespace = "true"
+			},
+			
+			{
+				name = "get_local_curve_namspaced"
+				operator = "math_opvar_curve_2d"
+				input_execute = "1.0"
+				input_operator_name = "public"
+				input_field_name = "local_curve"
+				input_use_namespace = "true"
+			},
+			
+			{
+				name = "get_local_string"
+				operator = "opvar_get_string"
+				input_execute = "1.0"
+				check_event_data = "true"
+				input_operator_name = "public"
+				input_field_name = "local_field"
+				input_use_namespace = "false"
+			},
+			
+			{
+				name = "get_local_curve"
+				operator = "math_opvar_curve_2d"
+				input_execute = "1.0"
+				input_operator_name = "public"
+				input_field_name = "local_curve"
+				input_use_namespace = "false"
+			},
+			
+			{
+				name = "output"
+				operator = "util_null"
+				operator_variables = 
+				{
+					local_string_namspaced = 
+					{
+						data_type = "string"
+						value = "@get_local_string_namspaced.output"
+					}
+				}
+			},
+		]
+	}
+	test_1_layer_3 = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					parent_string_lookup = 
+					{
+						soundevent_data = "true"
+						data_type = "string"
+						value = 
+						[
+							"opvar_name_1",
+						]
+					}
+					parent_curve_lookup = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+							"[ 1.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+						]
+					}
+					test_1_layer_4_field = 
+					{
+						data_type = "public_opvar"
+						value = "test_1_layer_4"
+					}
+				}
+			},
+			
+			{
+				name = "import_1_layer_4"
+				operator = "sos_import_stack"
+				import_stack = "test_1_layer_4"
+				auto_connect_public_fields = "true"
+				operator_variables = 
+				{
+					opvar_parent_field = 
+					{
+						data_type = "string"
+						value = "parent_string_lookup"
+					}
+					opvar_parent_curve = 
+					{
+						data_type = "string"
+						value = "parent_curve_lookup"
+					}
+				}
+			},
+			
+			{
+				name = "print_output_string"
+				operator = "util_print_string"
+				input = "@import_1_layer_4::output.local_string_namspaced"
+			},
+		]
+	}
+	test_1_layer_2 = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					test_1_layer_3_field = 
+					{
+						data_type = "public_opvar"
+						value = "test_1_layer_3"
+					}
+					parent_string_lookup_2 = 
+					{
+						soundevent_data = "true"
+						data_type = "string"
+						value = 
+						[
+							"opvar_name_4",
+						]
+					}
+					parent_curve_lookup_2 = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+							"[ 1.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+						]
+					}
+				}
+			},
+			
+			{
+				name = "import_1_layer_3"
+				operator = "sos_import_stack"
+				import_stack = "test_1_layer_3"
+				auto_connect_public_fields = "true"
+			},
+		]
+	}
+	test_1_layer_1 = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					test_1_layer_2_field = 
+					{
+						data_type = "public_opvar"
+						value = "test_1_layer_2"
+					}
+				}
+			},
+			
+			{
+				name = "import_1_layer_2"
+				operator = "sos_import_stack"
+				import_stack = "test_1_layer_2"
+				auto_connect_public_fields = "true"
+			},
+		]
+	}
+	test_2_layer_4 = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					opvar_parent_field = 
+					{
+						soundevent_data = "true"
+						data_type = "string"
+						value = ""
+					}
+					opvar_parent_curve = 
+					{
+						soundevent_data = "true"
+						data_type = "string"
+						value = ""
+					}
+					local_field = 
+					{
+						soundevent_data = "true"
+						data_type = "string"
+						value = "core_exterior"
+					}
+					local_curve = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+							"[ 1.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+						]
+						_system_properties = 
+						{
+							display_edit_type = "field_curve_2d_editor"
+						}
+					}
+				}
+			},
+			
+			{
+				name = "get_parent_string"
+				operator = "opvar_get_string"
+				input_execute = "1.0"
+				check_event_data = "true"
+				input_operator_name = "public"
+				input_field_name = "@public.opvar_parent_field"
+				input_use_namespace = "false"
+			},
+			
+			{
+				name = "get_parent_curve"
+				operator = "math_opvar_curve_2d"
+				input_execute = "1.0"
+				input_operator_name = "public"
+				input_field_name = "@public.opvar_parent_curve"
+				input_use_namespace = "false"
+			},
+			
+			{
+				name = "get_parent_string_2"
+				operator = "opvar_get_string"
+				input_execute = "1.0"
+				check_event_data = "true"
+				input_operator_name = "public"
+				input_field_name = "parent_string_lookup_2"
+				input_use_namespace = "false"
+			},
+			
+			{
+				name = "get_parent_curve_2"
+				operator = "math_opvar_curve_2d"
+				input_execute = "1.0"
+				input_operator_name = "public"
+				input_field_name = "parent_curve_lookup_2"
+				input_use_namespace = "false"
+			},
+			
+			{
+				name = "get_local_string_namspaced"
+				operator = "opvar_get_string"
+				input_execute = "1.0"
+				check_event_data = "true"
+				input_operator_name = "public"
+				input_field_name = "local_field"
+				input_use_namespace = "true"
+			},
+			
+			{
+				name = "get_local_curve_namspaced"
+				operator = "math_opvar_curve_2d"
+				input_execute = "1.0"
+				input_operator_name = "public"
+				input_field_name = "local_curve"
+				input_use_namespace = "true"
+			},
+			
+			{
+				name = "get_local_string"
+				operator = "opvar_get_string"
+				input_execute = "1.0"
+				check_event_data = "true"
+				input_operator_name = "public"
+				input_field_name = "local_field"
+				input_use_namespace = "false"
+			},
+			
+			{
+				name = "get_local_curve"
+				operator = "math_opvar_curve_2d"
+				input_execute = "1.0"
+				input_operator_name = "public"
+				input_field_name = "local_curve"
+				input_use_namespace = "false"
+			},
+			
+			{
+				name = "output"
+				operator = "util_null"
+				operator_variables = 
+				{
+					local_string_namspaced = 
+					{
+						data_type = "string"
+						value = "@get_local_string_namspaced.output"
+					}
+				}
+			},
+		]
+	}
+	test_2_layer_3 = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					parent_string_lookup = 
+					{
+						soundevent_data = "true"
+						data_type = "string"
+						value = 
+						[
+							"opvar_name_2",
+						]
+					}
+					parent_curve_lookup = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+							"[ 1.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+						]
+					}
+					test_2_layer_4_field = 
+					{
+						data_type = "public_opvar"
+						value = "test_2_layer_4"
+						use_public_opvar_scope = "true"
+					}
+				}
+			},
+			
+			{
+				name = "import_2_layer_4"
+				operator = "sos_import_stack"
+				import_stack = "test_2_layer_4"
+				auto_connect_public_fields = "true"
+				auto_connect_field_scope = "test_2_layer_4_field"
+				operator_variables = 
+				{
+					opvar_parent_field = 
+					{
+						data_type = "string"
+						value = "parent_string_lookup"
+					}
+					opvar_parent_curve = 
+					{
+						data_type = "string"
+						value = "parent_curve_lookup"
+					}
+				}
+			},
+			
+			{
+				name = "print_output_string"
+				operator = "util_print_string"
+				input = "@import_2_layer_4::output.local_string_namspaced"
+			},
+		]
+	}
+	test_2_layer_2 = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					test_2_layer_3_field = 
+					{
+						data_type = "public_opvar"
+						value = "test_2_layer_3"
+						use_public_opvar_scope = "true"
+					}
+					parent_string_lookup_2 = 
+					{
+						soundevent_data = "true"
+						data_type = "string"
+						value = 
+						[
+							"opvar_name_4",
+						]
+					}
+					parent_curve_lookup_2 = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+							"[ 1.0, 1.0, 0.0, 0.0, 0.0, 0.0 ]",
+						]
+					}
+				}
+			},
+			
+			{
+				name = "import_2_layer_3"
+				operator = "sos_import_stack"
+				import_stack = "test_2_layer_3"
+				auto_connect_public_fields = "true"
+				auto_connect_field_scope = "test_2_layer_3_field"
+			},
+		]
+	}
+	test_2_layer_1 = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					test_2_layer_2_field = 
+					{
+						data_type = "public_opvar"
+						value = "test_2_layer_2"
+						use_public_opvar_scope = "true"
+					}
+				}
+			},
+			
+			{
+				name = "import_2_layer_2"
+				operator = "sos_import_stack"
+				import_stack = "test_2_layer_2"
+				auto_connect_public_fields = "true"
+				auto_connect_field_scope = "test_2_layer_2_field"
+			},
+		]
+	}
+	test_3_layer_4 = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					vsnd_files_field_name = 
+					{
+						data_type = "string"
+						value = "vsnd_files"
+					}
+				}
+			},
+			
+			{
+				name = "print_output_string"
+				operator = "util_print_string"
+				input = "@public.vsnd_files_field_name"
+			},
+		]
+	}
+	test_3_layer_3 = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					test_3_layer_4 = 
+					{
+						data_type = "public_opvar"
+						value = "test_3_layer_4"
+						use_public_opvar_scope = "true"
+					}
+					vsnd_files = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = "sounds/common/null.vsnd"
+					}
+					vsnd_files_nested_field = 
+					{
+						data_type = "string"
+						value = "vsnd_files"
+					}
+				}
+			},
+			
+			{
+				name = "test_3_layer_4"
+				operator = "sos_import_stack"
+				import_stack = "test_3_layer_4"
+				auto_connect_public_fields = "true"
+				auto_connect_field_scope = "test_3_layer_4"
+				operator_variables = 
+				{
+					vsnd_files_field_name = 
+					{
+						data_type = "string"
+						value = "@public.vsnd_files_nested_field"
+					}
+				}
+			},
+		]
+	}
+	test_3_layer_2 = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					test_3_layer_3 = 
+					{
+						data_type = "public_opvar"
+						value = "test_3_layer_3"
+					}
+				}
+			},
+			
+			{
+				name = "test_3_layer_3"
+				operator = "sos_import_stack"
+				import_stack = "test_3_layer_3"
+				auto_connect_public_fields = "true"
+			},
+		]
+	}
+	test_3_layer_1 = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					test_3_layer_2 = 
+					{
+						data_type = "public_opvar"
+						value = "test_3_layer_2"
+					}
+					vsnd_files_base_field = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = "sounds/common/null.vsnd"
+					}
+				}
+			},
+			
+			{
+				name = "test_3_layer_2"
+				operator = "sos_import_stack"
+				import_stack = "test_3_layer_2"
+				auto_connect_public_fields = "true"
+				operator_variables = 
+				{
+					vsnd_files_nested_field = 
+					{
+						data_type = "string"
+						value = "vsnd_files_base_field"
+					}
+				}
+			},
+		]
+	}
+	base_event_multiple_vsnd_files = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					vsnd_files_1 = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = "sounds/common/null.vsnd"
+					}
+					vsnd_files_2 = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = "sounds/common/null.vsnd"
+					}
+					vsnd_files_3 = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = "sounds/common/null.vsnd"
+					}
+					vsnd_files_4 = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = "sounds/common/null.vsnd"
+					}
+				}
+			},
+			
+			{
+				name = "get_vsnd_1"
+				operator = "opvar_get_vsnd"
+				execute_once = "true"
+				check_event_data = "true"
+				input_operator_name = "public"
+				input_field_name = "vsnd_files_1"
+				array_selection_type = "forward"
+			},
+			
+			{
+				name = "print_vsnd_element_1"
+				operator = "util_print_vsnd"
+				execute_once = "false"
+				input = "@get_vsnd_1.output"
+			},
+			
+			{
+				name = "get_vsnd_2"
+				operator = "opvar_get_vsnd"
+				execute_once = "true"
+				check_event_data = "true"
+				input_operator_name = "public"
+				input_field_name = "vsnd_files_2"
+				array_selection_type = "forward"
+			},
+			
+			{
+				name = "print_vsnd_element_2"
+				operator = "util_print_vsnd"
+				execute_once = "false"
+				input = "@get_vsnd_2.output"
+			},
+			
+			{
+				name = "get_vsnd_3"
+				operator = "opvar_get_vsnd"
+				execute_once = "true"
+				check_event_data = "true"
+				input_operator_name = "public"
+				input_field_name = "vsnd_files_3"
+				array_selection_type = "forward"
+			},
+			
+			{
+				name = "print_vsnd_element_3"
+				operator = "util_print_vsnd"
+				execute_once = "false"
+				input = "@get_vsnd_3.output"
+			},
+			
+			{
+				name = "get_vsnd_4"
+				operator = "opvar_get_vsnd"
+				execute_once = "true"
+				check_event_data = "true"
+				input_operator_name = "public"
+				input_field_name = "vsnd_files_4"
+				array_selection_type = "forward"
+			},
+			
+			{
+				name = "print_vsnd_element_4"
+				operator = "util_print_vsnd"
+				execute_once = "false"
+				input = "@get_vsnd_4.output"
+			},
+		]
+	}
+	test_5_layer_2 = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					vsnd_files_field_name = 
+					{
+						data_type = "string"
+						value = "vsnd_files_base_field"
+					}
+					value1 = 
+					{
+						data_type = "float"
+						value = "1.0"
+					}
+				}
+			},
+			
+			{
+				name = "get_parent_vsnd"
+				operator = "opvar_get_vsnd"
+				input_execute = "1.0"
+				check_event_data = "true"
+				input_operator_name = "public"
+				input_field_name = "@public.vsnd_files_field_name"
+				input_use_namespace = "false"
+			},
+			
+			{
+				name = "print_output_vsnd"
+				operator = "util_print_vsnd"
+				input = "@get_parent_vsnd.output"
+			},
+		]
+	}
+	test_5_layer_1 = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					test_5_layer_2 = 
+					{
+						data_type = "public_opvar"
+						value = "test_5_layer_2"
+						use_public_opvar_scope = "true"
+					}
+					vsnd_files_base_field = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = "sounds/common/noise.vsnd"
+					}
+				}
+			},
+			
+			{
+				name = "test_5_layer_2"
+				operator = "sos_import_stack"
+				import_stack = "test_5_layer_2"
+				auto_connect_public_fields = "true"
+				auto_connect_field_scope = "test_5_layer_2"
+			},
+		]
+	}
+	test_5_layer_0 = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					test_5_layer_1 = 
+					{
+						data_type = "public_opvar"
+						value = "test_5_layer_1"
+					}
+					vsnd_files_outer_field = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = "sounds/diagnostics/ambient/pink_quad_-10_rs.vsnd"
+					}
+				}
+			},
+			
+			{
+				name = "test_5_layer_1"
+				operator = "sos_import_stack"
+				import_stack = "test_5_layer_1"
+				auto_connect_public_fields = "true"
+				operator_variables = 
+				{
+					test_5_layer_2.vsnd_files_field_name = 
+					{
+						data_type = "string"
+						value = "vsnd_files_outer_field"
+					}
+				}
 			},
 		]
 	}

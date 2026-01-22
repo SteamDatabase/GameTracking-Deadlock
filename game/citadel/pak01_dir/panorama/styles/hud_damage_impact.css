@@ -8,7 +8,8 @@
 	width: fit-children;
 	height: fit-children;
 	ui-scale: 80%;
-	margin-top: 170px;
+	padding: 20px;
+	margin-top: 220px;
 	transition-property: opacity;
 	transition-duration: 1s;
 }
@@ -24,7 +25,6 @@
 
 .damageImpactInstance
 {
-	flow-children: down;
 	width: fit-children;
 	height: fit-children;
 	pre-transform-scale2d: .1;
@@ -32,16 +32,8 @@
 	transition-property: opacity, pre-transform-scale2d;
 	transition-duration: .32s;
 	transition-timing-function: cubic-bezier(.75,1.53,.97,1.4);
-	margin: 20px;
-}
-
-.playerName
-{
-	flow-children: right;
-	font-size: 18px;
-	color: #FF5F11;
-	margin-left: 4px;
-	vertical-align: center;
+	margin: 10px;
+	overflow: noclip;
 }
 
 .is_heal .playerName
@@ -56,14 +48,69 @@
 	visibility: collapse;
 }
 
+@keyframes 'active_damage_wiggle'
+{
+	0%
+	{
+		transform: rotateZ(-83deg) translateX(14px) translateY(10px);
+		pre-transform-scale2d: 1.05;
+	}
+	
+	50%
+	{
+		transform: rotateZ(-86deg) translateX(14px) translateY(10px);
+	}
+	
+	100%
+	{
+		transform: rotateZ(-83deg) translateX(14px) translateY(10px);
+		pre-transform-scale2d: 1.05;
+	}
+	
+}
+
 .healthBarContainer
 {
-	width: 140px;
+	width: 90px;
 	height: 30px;
-	background-color: #222222;
-	border-bottom: 2px solid #343435;
+	opacity-mask: url("s2r://panorama/images/hud/healthbar/healthbar_backer_horiz_mask.vsvg");
 	z-index: 2;
-	border: 2px solid #222;
+	transform: rotateZ(-83deg) translateX(14px);
+	vertical-align: top;
+	margin-top: 56px;
+	horizontal-align: right;
+	ui-scale: 80%;
+	pre-transform-scale2d: 1.2;
+	brightness: 1;
+	animation-name: active_damage_wiggle;
+	animation-duration: 0.3s;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-out;
+}
+
+.killed .healthBarContainer,.assist .healthBarContainer
+{
+	visibility: collapse;
+}
+
+#healthBar_backer
+{
+	width: 100%;
+	height: 100%;
+	ignore-parent-flow: true;
+	background-color: offBlack&ee;
+}
+
+#healthBar_border
+{
+	width: 100%;
+	height: 100%;
+	background-size: contain;
+	z-index: 10;
+	ignore-parent-flow: true;
+	wash-color: offBlack;
+	background-image: url("s2r://panorama/images/hud/healthbar/healthbar_backer_horiz_border.vsvg");
+	background-size: 101% 101%;
 }
 
 #healthBar
@@ -71,6 +118,8 @@
 	flow-children: right;
 	width: 100%;
 	height: 100%;
+	margin: 0px;
+	wash-color: white;
 }
 
 #healthRemaining
@@ -78,8 +127,7 @@
 	flow-children: right;
 	width: 120px;
 	height: 100%;
-	background-color: #884A2D;
-	border-bottom: 2px solid #FD6011;
+	background-color: #FF5656;
 	transition-property: width, background-color;
 	transition-duration: 0.5s;
 }
@@ -87,7 +135,6 @@
 .is_heal #healthRemaining
 {
 	background-color: #eae4c8;
-	border-bottom: 2px solid #fffcea;
 }
 
 #healthRemoved
@@ -121,13 +168,14 @@
 
 .techShieldBarContainer
 {
-	width: 140px;
-	height: 15px;
+	width: 60px;
+	height: 12px;
 	background-color: #222222;
 	border-bottom: 2px solid #343435;
 	z-index: 2;
-	border: 2px solid #222;
+	border: 3px solid #000;
 	visibility: collapse;
+	transform: rotateZ(-83deg) translateY(76px) translateX(62px);
 }
 
 .has_tech_shield .techShieldBarContainer
@@ -147,8 +195,7 @@
 	flow-children: right;
 	width: 120px;
 	height: 100%;
-	background-color:lightblue;
-	border-bottom: 2px solid rgb(3, 141, 233);
+	background-color:rgb(42, 210, 86);
 	transition-property: width;
 	transition-duration: 0.5s;
 }
@@ -215,67 +262,85 @@
 	transition-duration: 0.5s;
 }
 
-#heroIconContainer
-{
-	width: 120px;
-	height: 120px;
-	margin-bottom: -16px;
-	horizontal-align: center;
-}
-
-#heroIconBackground
-{
-	width: 120px;
-	height: 120px;
-	border: 2px solid black;
-	border-radius: 50%;
-	background-color: #900;
-	box-shadow: fill 0px 2px 12px black;
-}
-
-.is_heal #heroIconBackground
-{
-	background-color: rgb(15, 110, 2);
-}
-
-#heroIcon
+#heroBadge
 {
 	visibility: visible;
-	width: 120px;
-	height: 120px;
-	border-bottom-left-radius: 50%;
-	border-bottom-right-radius: 50%;
+	horizontal-align: center;
+	vertical-align: middle;
+	ui-scale: 150%;
 }
 
-.killText
+.killed #heroBadge,.assist #heroBadge
+{
+	wash-color: colorEnemy;
+}
+
+#KillAssistContainer
+{
+	flow-children: down;
+	horizontal-align: middle;
+	pre-transform-rotate2d: -15deg;
+	vertical-align: middle;
+}
+
+.killLabel,.assistLabel
 {
 	vertical-align: center;
 	horizontal-align: center;
-	color: white;
+	color: colorEnemy;
 	font-weight: bold;
-	font-size: 20px;
-	pre-transform-rotate2d: -25deg;
+	font-size: 26px;
+	font-family: block;
+	text-shadow: 0px 0px 0px 8.0 offBlack;
 	text-align: center;
-	color: white;
+	horizontal-align: middle;
+	color: colorEnemy;
 	visibility: collapse;
 	text-transform: uppercase;
 	max-width: 100px;
 	text-overflow: shrink;
+	padding: 0px 3px;
 }
 
-.killed #killLabel
+.damageImpactInstance.killed,.damageImpactInstance.assist
+{
+	animation-name: Groove1;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+}
+
+.killed #heroIconContainer,.assist #heroIconContainer
+{
+	wash-color: colorEnemy;
+}
+
+.killed .killLabel
 {
 	visibility: visible;
 }
 
-.assist #assistLabel
+.assist .assistLabel
 {
 	visibility: visible;
 }
 
-#heroIcon.heroDead
+.playerName
 {
-	wash-color: red;
+	flow-children: right;
+	font-size: 22px;
+	color: offWhite;
+	font-family: oracle;
+	font-weight: bold;
+	text-shadow: 0px 0px 0px 5.0 offBlack;
+	vertical-align: center;
+	horizontal-align: middle;
+	visibility: collapse;
+	color: offWhite;
+}
+
+.killed .playerName
+{
+	visibility: visible;
 }
 
 .damageImpactInstance.fadeIn.fadeOut
@@ -289,5 +354,174 @@
 	transition-duration: 3s;
 	pre-transform-scale2d: 1;
 	opacity: 1;
+}
+
+.criticalLabel
+{
+	font-size: 16px;
+	color: white;
+	font-family: block;
+	text-transform: uppercase;
+	text-shadow: 0px 0px 5.0 colorEnemy;
+	text-overflow: shrink;
+	margin-top: 100px;
+	padding: 0px 3px;
+	animation-name: TagGroove1;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+	visibility: collapse;
+}
+
+.damageImpactInstance.Critical .criticalLabel
+{
+	visibility: visible;
+}
+
+@keyframes 'TagGroove1'
+{
+	0%
+	{
+		transform: rotateZ(-3deg);
+	}
+	
+	25%
+	{
+		transform: rotateZ(-3deg);
+	}
+	
+	26%
+	{
+		transform: rotateZ(2deg);
+	}
+	
+	50%
+	{
+		transform: rotateZ(2deg);
+	}
+	
+	51%
+	{
+		transform: rotateZ(-1deg);
+	}
+	
+	75%
+	{
+		transform: rotateZ(-1deg);
+	}
+	
+	76%
+	{
+		transform: rotateZ(0deg);
+	}
+	
+	100%
+	{
+		transform: rotateZ(0deg);
+	}
+	
+}
+
+.statusEffectDisplay
+{
+	opacity: 0.0;
+	transition-property: opacity;
+	transition-duration: 0.2s;
+}
+
+.damageImpactInstance.ShowStatusEffect .statusEffectDisplay
+{
+	opacity: 1.0;
+}
+
+.damageImpactInstance.assist .statusEffectDisplay,.damageImpactInstance.killed .statusEffectDisplay
+{
+	visibility: collapse;
+}
+
+.statusEffectLabel
+{
+	margin-top: 124px;
+	width: 120px;
+	text-align: left;
+	text-shadow: 0px 0px 0px 5 black;
+	font-weight: bold;
+	font-size: 20px;
+	transform: rotateZ(7deg) translateX(10px);
+	font-family: oracle;
+}
+
+.damageImpactInstance.Stunned .statusEffectLabel
+{
+	color: gold;
+}
+
+.damageImpactInstance.Asleep .statusEffectLabel
+{
+	color: #729be7;
+}
+
+.damageImpactInstance.Immobolized .statusEffectLabel
+{
+	color: #349c4c;
+}
+
+.damageImpactInstance.Silenced .statusEffectLabel
+{
+	color: spiritBrightColor;
+}
+
+.damageImpactInstance.Disarmed .statusEffectLabel
+{
+	color: colorEnemy;
+}
+
+.damageImpactInstance.Cursed .statusEffectLabel
+{
+	color: spiritBrightColor;
+}
+
+.statusEffectIcon
+{
+	width: 30px;
+	height: 30px;
+	margin-top: 110px;
+	margin-left: 85px;
+	background-size: cover;
+	img-shadow: 0px 0px 0px 5.0 offBlack;
+}
+
+.Immobolized .statusEffectIcon
+{
+	background-image: url("s2r://panorama/images/icons/properties/condition_immobilize.vsvg");
+	wash-color: #349c4c;
+}
+
+.Asleep .statusEffectIcon
+{
+	background-image: url("s2r://panorama/images/icons/properties/condition_sleep.vsvg");
+	wash-color: #729be7;
+}
+
+.Disarmed .statusEffectIcon
+{
+	background-image: url("s2r://panorama/images/icons/properties/condition_disarm.vsvg");
+	wash-color: colorEnemy;
+}
+
+.Silenced .statusEffectIcon
+{
+	background-image: url("s2r://panorama/images/icons/properties/condition_silence.vsvg");
+	wash-color: spiritBrightColor;
+}
+
+.Stunned .statusEffectIcon
+{
+	background-image: url("s2r://panorama/images/icons/properties/condition_stun.vsvg");
+	wash-color: gold;
+}
+
+#damage_impact .damageImpactInstance.assist .criticalLabel,#damage_impact .damageImpactInstance.assist .impactStateLabel,#damage_impact .damageImpactInstance.killed .criticalLabel,#damage_impact .damageImpactInstance.killed .impactStateLabel
+{
+	visibility: collapse;
 }
 

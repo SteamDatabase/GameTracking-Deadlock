@@ -528,31 +528,121 @@ CitadelHeroBadgeIcon.TierNone .BadgeBackground
 {
 	width: 80%;
 	margin-top: 5px;
+	background-color: none;
 }
 
-CitadelHudTopBarPlayer.SpectatorTarget #HeroBadge .BadgeBackground,CitadelHudTopBarPlayer.LocalPlayer #HeroBadge .BadgeBackground
+CitadelHudTopBarPlayer.SpectatorTarget CitadelHeroBadge .BadgeBackground,CitadelHudTopBarPlayer.LocalPlayer CitadelHeroBadge .BadgeBackground
 {
 	opacity: 0;
 }
 
-.team1 CitadelHudTopBarPlayer #HeroBadge .BadgeBackground
+.team1 CitadelHeroBadge.TopBar .BadgeBackground
 {
-	background-color: team1ColorDarker;
+	background-color: team1Color;
 }
 
-.team2 CitadelHudTopBarPlayer #HeroBadge .BadgeBackground
+.team2 CitadelHeroBadge.TopBar .BadgeBackground
 {
-	background-color: team2ColorDarker;
+	background-color: team2Color;
 }
 
-CitadelHudTopBarPlayer.Dead #HeroBadge #HeroImage
+CitadelHudTopBarPlayer.KillStreak CitadelHeroBadge .BadgeBackground
+{
+	background-color: #90FFE3;
+}
+
+.team1 CitadelHudTopBarPlayer.healthLow CitadelHeroBadge .BadgeBackground,.team2 CitadelHudTopBarPlayer.healthLow CitadelHeroBadge .BadgeBackground
+{
+	background-color: #b02727;
+	animation-name: LowHealthFlash;
+	animation-iteration-count: infinite;
+	animation-duration: 0.7s;
+	box-shadow: 0px 0px 20px #b02727;
+}
+
+CitadelHudTopBarPlayer.Dead CitadelHeroBadge #HeroImage
 {
 	saturation: 0;
 	brightness: 0.2;
 }
 
-CitadelHudTopBarPlayer.Dead #HeroBadge .BadgeBackground
+CitadelHudTopBarPlayer.Dead CitadelHeroBadge .BadgeBackground
 {
-	background-color: rgba(72, 5, 5, 0.7);
+	background-color: offBlack&ee;
+}
+
+@keyframes 'LowHealthFlash'
+{
+	0%
+	{
+		background-color: #b02727;
+		box-shadow: 0px 0px 20px #b02727;
+	}
+	
+	50%
+	{
+		background-color: #ff3c3c;
+		box-shadow: 0px 0px 20px #ff3c3c;
+	}
+	
+	100%
+	{
+		background-color: #b02727;
+		box-shadow: 0px 0px 20px #b02727;
+	}
+	
+}
+
+.healthLow #HeroImage
+{
+	wash-color: colorEnemy&90;
+	animation-name: LowHealthPortraitFlash;
+	animation-iteration-count: infinite;
+	animation-duration: 0.7s;
+}
+
+@keyframes 'LowHealthPortraitFlash'
+{
+	0%
+	{
+		wash-color: colorEnemy&50;
+	}
+	
+	50%
+	{
+		wash-color: colorEnemy&00;
+	}
+	
+	100%
+	{
+		wash-color: colorEnemy&50;
+	}
+	
+}
+
+.damageImpactInstance.team1 CitadelHeroBadge .BadgeBackground
+{
+	background-color: team1Color;
+}
+
+.damageImpactInstance.team2 CitadelHeroBadge .BadgeBackground
+{
+	background-color: team2Color;
+}
+
+.damageImpactInstance.team1.Critical CitadelHeroBadge .BadgeBackground,.damageImpactInstance.team2.Critical CitadelHeroBadge .BadgeBackground
+{
+	background-color: #b02727;
+	animation-name: LowHealthFlash;
+	animation-iteration-count: infinite;
+	animation-duration: 0.7s;
+	box-shadow: 0px 0px 20px #b02727;
+}
+
+.damageImpactInstance.killed CitadelHeroBadge .BadgeBackground,.damageImpactInstance.assist CitadelHeroBadge .BadgeBackground
+{
+	background-color: #b02727;
+	animation-iteration-count: infinite;
+	animation-duration: 0.7s;
 }
 

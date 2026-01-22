@@ -11,6 +11,12 @@ CitadelTooltipModDetails
 	z-index: 2;
 }
 
+#PrimaryTooltipContainer
+{
+	flow-children: left;
+	horizontal-align: right;
+}
+
 .usingComponentGrouping #PrimaryTooltipContainer,.usingComponentGrouping CitadelTooltipModDetails.TooltipPositionRight #PrimaryTooltipContainer,.usingComponentGrouping CitadelTooltipModDetails.TooltipPositionLeft #PrimaryTooltipContainer
 {
 	flow-children: down;
@@ -19,11 +25,13 @@ CitadelTooltipModDetails
 CitadelTooltipModDetails.TooltipPositionRight #PrimaryTooltipContainer
 {
 	flow-children: right;
+	horizontal-align: left;
 }
 
 CitadelTooltipModDetails.TooltipPositionLeft #PrimaryTooltipContainer
 {
 	flow-children: left;
+	margin-right: 10px;
 }
 
 .usingComponentGrouping CitadelTooltipModDetails.HasModifiedAbilities
@@ -34,6 +42,11 @@ CitadelTooltipModDetails.TooltipPositionLeft #PrimaryTooltipContainer
 CitadelTooltipModDetails.HasModifiedAbilities
 {
 	width: 840px;
+}
+
+CitadelTooltipModDetails.HasModifiedAbilities.gScoreboardOpen:not(.gShopOpen)
+{
+	width: 450px;
 }
 
 #ModTooltipContainer
@@ -86,21 +99,82 @@ CitadelTooltipModDetails.TooltipVisible
 
 .HeaderContainer
 {
+	width: 100%;
 	min-height: 96px;
 	height: fit-children;
+}
+
+#HeaderBGOverlay
+{
+	ignore-parent-flow: true;
+	width: 100%;
+	height: 100%;
+	background-color: red;
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( enhancedColorBright&00 ), to( enhancedColorDarker&90 ) );
+	visibility: collapse;
+}
+
+.IsEnhanced #HeaderBGOverlay
+{
+	visibility: visible;
+}
+
+#EnhancedIndicator
+{
+	visibility: collapse;
+	ignore-parent-flow: true;
+	horizontal-align: right;
+	vertical-align: bottom;
+	margin: 10px;
+	border-radius: 3px;
+	padding: 3px 8px;
 	flow-children: right;
+	transform: rotateZ(-3deg);
+	ui-scale: 120%;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+}
+
+#EnhancedIndicator Label
+{
+	color: offWhite;
+	text-shadow: 0px 0px 4.0 enhancedColorDarker;
+	font-size: 12px;
+	font-family: block;
+	color: enhancedColorBright;
+	text-transform: uppercase;
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
+#EnhancedIndicator .enhancedIcon
+{
+	width: 16px;
+	height: 30px;
+	margin-left: -8px;
+	margin-bottom: 2px;
+	background-image: url("s2r://panorama/images/shop/enhanced_arrow_png.vtex");
+	background-size: contain;
+	background-repeat: no-repeat;
+	z-index: -1;
+}
+
+.IsEnhanced #EnhancedIndicator
+{
+	visibility: visible;
+}
+
+#HeaderContents
+{
+	flow-children: right;
+	padding: 0px 20px;
+	vertical-align: middle;
 }
 
 .AttributeLineItem
 {
 	width: 100%;
 	margin: 2px 0px;
-}
-
-.HeaderContainer
-{
-	padding: 0px 20px 0px 20px;
-	width: 100%;
 }
 
 .ModNameContainer
@@ -203,7 +277,6 @@ CitadelTooltipModDetails.TooltipVisible
 .StatsAppliedBackground
 {
 	width: 100%;
-	border-radius: 5px;
 	margin-top: 15px;
 	flow-children: right;
 	min-height: 80px;
@@ -464,6 +537,23 @@ CitadelTooltipModDetails.TooltipVisible
 	font-size: 32px;
 }
 
+#Enhanced
+{
+	padding-left:5px;
+	vertical-align:center;
+	visibility: collapse;
+	color:enhancedColorLight;
+	font-weight: bold;
+	font-size: 35px;
+	text-shadow: 2px 2px 0px black;
+	opacity: 0.5;
+}
+
+.IsEnhanced #Enhanced
+{
+	visibility: visible;
+}
+
 .ModCost
 {
 	font-weight: bold;
@@ -505,7 +595,7 @@ CitadelTooltipModDetails.TooltipVisible
 {
 	font-weight: bold;
 	font-style: italic;
-	font-size: 14px;
+	font-size: 20px;
 	color: #000000aa;
 	margin-right: 3px;
 	vertical-align: middle;
@@ -685,6 +775,11 @@ CitadelAltInfoPanel
 	margin-top: 9px;
 }
 
+CitadelTooltipModDetails.gScoreboardOpen:not(.gShopOpen) .AffectedAbilitiesContainer
+{
+	visibility: collapse;
+}
+
 .HeaderAttributesContainer
 {
 	flow-children: right;
@@ -839,7 +934,7 @@ CitadelTooltipModDetails.TechMod .AffectedAbilitiesTogglePanel
 	opacity: 1;
 }
 
-.usedAsComponent .AffectedAbilitiesContainer
+.usedAsComponent .AffectedAbilitiesContainer,#Dashboard .AffectedAbilitiesContainer
 {
 	visibility: collapse;
 }
@@ -1052,7 +1147,7 @@ CitadelTooltipModDetails.TechMod .AffectedAbilitiesTogglePanel
 	visibility: collapse;
 }
 
-.IsCosmetic .purchased_label
+.IsCosmetic .purchased_label,.IsImbued .purchased_label
 {
 	visibility: collapse;
 }
@@ -1168,6 +1263,7 @@ CitadelTooltipModDetails.TechMod .AffectedAbilitiesTogglePanel
 	max-width: 450px;
 	flow-children: down;
 	z-index: 100;
+	horizontal-align: right;
 	visibility: collapse;
 }
 
@@ -1178,12 +1274,12 @@ CitadelTooltipModDetails.TechMod .AffectedAbilitiesTogglePanel
 
 .TooltipPositionLeft .componentsSection
 {
-	horizontal-align: right;
+	margin-right: 10px;
 }
 
-.TooltipPositionLeft.HasModifiedAbilities .componentsSection
+.TooltipPositionRight .componentsSection
 {
-	margin-right: 10px;
+	horizontal-align: left;
 }
 
 .componentsSection .componentGroup
@@ -1460,7 +1556,7 @@ CitadelTooltipModDetails.TechMod .AffectedAbilitiesTogglePanel
 	visibility: collapse;
 }
 
-#ModImbuedContainer.IsImbued
+.IsImbued #ModImbuedContainer
 {
 	visibility: visible;
 }

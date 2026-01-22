@@ -23,6 +23,11 @@
 	background-color: gradient( linear, 0% 0%, 100% 0%, from( spiritBrightColor&00 ), color-stop( 0.25, spiritBrightColor&00 ), color-stop( 0.5, spiritBrightColor&00 ), color-stop( 0.75, spiritBrightColor&00 ), to( spiritBrightColor&00 ) );
 }
 
+.ability_container:hover
+{
+	z-index: 1;
+}
+
 .ability_container.trained.ability_upgrade_available:hover
 {
 	background-color: gradient( linear, 0% 0%, 100% 0%, from( spiritBrightColor&00 ), color-stop( 0.25, spiritBrightColor&10 ), color-stop( 0.5, spiritBrightColor&20 ), color-stop( 0.75, spiritBrightColor&10 ), to( spiritBrightColor&00 ) );
@@ -31,12 +36,14 @@
 #hud_signature .ability_container,.wants_scoreboard .gShopOpen #hud_signature .ability_container,.gDetailView .gShopOpen #hud_signature .ability_container,.gShopOpen #hud_signature .ability_container
 {
 	height: 245px;
+	padding: 0px 20px;
+	margin: 0px -20px;
 }
 
 CitadelHudTopBarPlayer #PlayerAbilitiesContainer CitadelAbilityIcon
 {
-	margin-right: 3px;
-	margin-left: 3px;
+	margin-right: 2px;
+	margin-left: 2px;
 	margin-bottom: 5px;
 }
 
@@ -132,6 +139,22 @@ CitadelHudTopBarPlayer #PlayerAbilitiesContainer .button_container
 	margin: 0px 0px;
 }
 
+CitadelPostGameScoreboardNew #AbilitiesContainer .ability_container
+{
+	flow-children: down;
+	ui-scale: 30%;
+}
+
+CitadelPostGameScoreboardNew #AbilitiesContainer .button_container
+{
+	margin: 0px 0px;
+}
+
+CitadelPostGameScoreboardNew #AbilitiesContainer #BonusContainer
+{
+	visibility: collapse;
+}
+
 .SegmentHover CitadelAbilityIcon:not(.ReadOnly) .button_container,CitadelAbilityIcon:not(.ReadOnly):hover .button_container
 {
 	pre-transform-scale2d: 1.15;
@@ -155,10 +178,12 @@ CitadelHudTopBarPlayer #PlayerAbilitiesContainer CitadelAbilityIcon:hover .butto
 	height: 100%;
 	background-size: cover;
 	wash-color: keybindBGColor;
-	background-image: url("s2r://panorama/images/hud/core/ability_static_frame_icon_tex_png.vtex");
-	background-image: url("s2r://panorama/images/hud/core/ability_static_frame_icon.vsvg");
-	background-image: url("s2r://panorama/images/hud/core/ability_frame_passive_0.vsvg");
 	background-image: url("s2r://panorama/images/hud/core/ability_frame_passive_0_psd.vtex");
+}
+
+.hasSubAbility .ability_bg
+{
+	background-image: url("s2r://panorama/images/hud/core/ability_frame_passive_withsub_0_psd.vtex");
 }
 
 CitadelHudTopBarPlayer #PlayerAbilitiesContainer .ability_bg
@@ -453,7 +478,6 @@ CitadelAbilityIcon.AbilityCooldownEndChanged .ability_bg
 	background-size: cover;
 	wash-color: keybindBGColor;
 	opacity: 0.8;
-	background-image: url("s2r://panorama/images/hud/core/ability_static_frame_border.vsvg");
 	background-image: url("s2r://panorama/images/hud/core/ability_frame_passive_1_psd.vtex");
 }
 
@@ -469,47 +493,14 @@ CitadelAbilityIcon.AbilityCooldownEndChanged .ability_bg
 	background-position: center;
 }
 
-.Tier1 .ability_bg
-{
-	background-image: url("s2r://panorama/images/hud/core/ability_frame_1.vsvg");
-	background-image: url("s2r://panorama/images/hud/core/ability_frame_passive_0.vsvg");
-}
-
 .Tier2 .ability_bg
 {
-	background-image: url("s2r://panorama/images/hud/core/ability_frame_2.vsvg");
 	background-image: url("s2r://panorama/images/hud/core/ability_frame_passive_2_psd.vtex");
 }
 
 .Tier3 .ability_bg
 {
-	background-image: url("s2r://panorama/images/hud/core/ability_frame_3.vsvg");
 	background-image: url("s2r://panorama/images/hud/core/ability_frame_passive_3_psd.vtex");
-}
-
-.signature.item_passive.Tier0 .ability_bg,.usingControllerSpecificGlyphs.isUsingController .signature.Tier0 .ability_bg
-{
-	background-image: url("s2r://panorama/images/hud/core/ability_frame_passive_0.vsvg");
-}
-
-.signature.item_passive.Tier0.not_trained .ability_bg,.usingControllerSpecificGlyphs.isUsingController .signature.Tier0.not_trained .ability_bg
-{
-	background-image: url("s2r://panorama/images/hud/core/ability_frame_1.vsvg");
-}
-
-.signature.item_passive.Tier1 .ability_bg,.usingControllerSpecificGlyphs.isUsingController .signature.Tier1 .ability_bg
-{
-	background-image: url("s2r://panorama/images/hud/core/ability_frame_passive_1.vsvg");
-}
-
-.signature.item_passive.Tier2 .ability_bg,.usingControllerSpecificGlyphs.isUsingController .signature.Tier2 .ability_bg
-{
-	background-image: url("s2r://panorama/images/hud/core/ability_frame_passive_2.vsvg");
-}
-
-.signature.item_passive.Tier3 .ability_bg,.usingControllerSpecificGlyphs.isUsingController .signature.Tier3 .ability_bg
-{
-	background-image: url("s2r://panorama/images/hud/core/ability_frame_passive_3.vsvg");
 }
 
 .ReadOnly .ability_bg,.ReadOnly.item_passive.signature .ability_bg
@@ -861,7 +852,7 @@ Label.ability_key
 
 CitadelHudTopBarPlayer #PlayerAbilitiesContainer .ability_image
 {
-	visibility: collapse;
+	wash-color: offBlack;
 }
 
 .not_trained .ability_image
@@ -1041,6 +1032,16 @@ CitadelHudTopBarPlayer #PlayerAbilitiesContainer .ability_image
 	width: height-percentage( 100% );
 }
 
+CitadelTooltipModDetails .ability_image
+{
+	height: 100%;
+}
+
+#ModImbuedContainer .ability_image
+{
+	height: 50%;
+}
+
 #UltimateAbilityIcon .ability_image
 {
 	height: 20px;
@@ -1062,18 +1063,45 @@ CitadelHudTopBarPlayer #PlayerAbilitiesContainer .ability_image
 	visibility: visible;
 }
 
+#BonusContainer
+{
+	horizontal-align: center;
+	margin-top: 0px;
+	height: 40px;
+	width: 40px;
+	ignore-parent-flow: true;
+	margin-top: 85px;
+	opacity: 0;
+}
+
+#slot_signature_2 #BonusContainer,#slot_signature_3 #BonusContainer
+{
+	margin-top: 65px;
+}
+
+.bonusBG
+{
+	width: 90%;
+	height: 90%;
+	horizontal-align: center;
+	vertical-align: center;
+	border: 2px solid rgba(200, 200, 200, 0.1);
+	border-radius: 50px;
+}
+
 .bonusCounter
 {
 	font-size: 18px;
 	font-weight: bold;
+	ignore-parent-flow: true;
 	horizontal-align: center;
 	text-align: center;
-	vertical-align: bottom;
-	color: black;
-	text-shadow: 0px 0px 0px 5.0 rgba(200, 200, 200, 0.95);
-	opacity: 0;
+	vertical-align: middle;
+	padding: 5px;
+	color: offWhite&90;
+	font-family: oracle;
+	text-shadow: 0px 0px 0px 6.0 offBlack&90;
 	text-overflow: shrink;
-	margin-bottom: 25px;
 }
 
 .active .bonusCounter,.toggled_on .bonusCounter
@@ -1081,9 +1109,9 @@ CitadelHudTopBarPlayer #PlayerAbilitiesContainer .ability_image
 	text-shadow: 0px 0px 0px 5.0 #dab0ffc2;
 }
 
-.hasBonusCounter .bonusCounter
+.hasBonusCounter #BonusContainer
 {
-	opacity: 1;
+	opacity: 0.3;
 	z-index: 1;
 }
 
@@ -1094,29 +1122,37 @@ CitadelHudTopBarPlayer #PlayerAbilitiesContainer .ability_image
 	text-shadow: 0px 0px 0px 5.0 offBlack;
 }
 
+.gScoreboardOpen #BonusContainer,.gShopOpen #BonusContainer
+{
+	visibility: collapse;
+}
+
 @keyframes 'FlashBonusCounter'
 {
 	0%
 	{
-		text-shadow: 0px 0px 0px 5.0 rgba(200, 200, 200, 0.95);
 		transform: translateY(0px);
+		opacity: 0.3;
 	}
 	
 	50%
 	{
-		text-shadow: 0px 0px 0px 5.0 yellow;
+		wash-color: spiritLightColor;
+		color: spiritBrightColor;
 		transform: translateY(-10px);
+		pre-transform-scale2d: 1.2;
+		opacity: 1;
 	}
 	
 	100%
 	{
-		text-shadow: 0px 0px 0px 5.0 rgba(200, 200, 200, 0.95);
 		transform: translateY(0px);
+		opacity: 0.3;
 	}
 	
 }
 
-.bonusCounterIncreased .bonusCounter
+.bonusCounterIncreased #BonusContainer
 {
 	animation-name: FlashBonusCounter;
 	animation-duration: 0.8s;
@@ -1425,7 +1461,7 @@ CitadelRadialAbilitiesSegment CitadelHudAbilityUpgradePips,CitadelHudAbilities C
 	ui-scale: 60%;
 }
 
-.wants_scoreboard CitadelHudAbilities CitadelHudAbilityUpgradePips,.gDetailView CitadelHudAbilities CitadelHudAbilityUpgradePips,.gShopOpen CitadelHudAbilities:hover CitadelHudAbilityUpgradePips,.alwaysShowPips CitadelHudAbilityUpgradePips
+.wants_scoreboard CitadelHudAbilities CitadelHudAbilityUpgradePips,.gDetailView CitadelHudAbilities CitadelHudAbilityUpgradePips,.gShopOpen CitadelHudAbilities:hover CitadelHudAbilityUpgradePips,.alwaysShowPips CitadelHudAbilityUpgradePips,#hud_signature:hover CitadelHudAbilityUpgradePips
 {
 	visibility: visible;
 	background-color: none;
@@ -1439,5 +1475,35 @@ CitadelHeroDetailsPage .ability_ring
 CitadelHeroDetailsPage .item_passive .ability_bg,.usingControllerSpecificGlyphs.isUsingController .ability_bg,.usingControllerSpecificGlyphs.isUsingController CitadelHeroDetailsPage .ability_bg
 {
 	background-image: url("s2r://panorama/images/hud/core/ability_frame_passive_0.vsvg");
+}
+
+#SubAbility
+{
+	width: 36px;
+	height: 36px;
+	vertical-align: bottom;
+	horizontal-align: right;
+	ignore-parent-flow: true;
+	background-image: url("s2r://panorama/images/hud/core/ability_sub_frame_psd.vtex");
+	background-size: contain;
+	margin-bottom: 12px;
+	margin-right: 2px;
+	visibility: collapse;
+}
+
+.hasSubAbility #SubAbility
+{
+	visibility: visible;
+}
+
+#SubAbility #SubAbilityImage
+{
+	width: 100%;
+	height: 100%;
+	horizontal-align: center;
+	vertical-align: middle;
+	margin: 4px;
+	wash-color: offBlack;
+	opacity: 0.95;
 }
 

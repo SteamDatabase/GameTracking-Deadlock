@@ -317,37 +317,6 @@
 		m_bIsHidden = true
 		m_flAuraRadius = 70.000000
 	}
-	modifier_payload_pusher_aura = 
-	{
-		_class = "modifier_base_aura"
-		m_strParticleEffect = resource_name:"particles/generic/payload_push_aoe.vpcf"
-		m_nAmbientParticleRadiusControlPoint = 1
-		m_flAuraRadius = 700.000000
-		m_iAuraSearchType = "CITADEL_UNIT_TARGET_HERO_FRIENDLY"
-		m_iAuraSearchFlags = "CITADEL_UNIT_TARGET_FLAG_PENETRATE_INVULNERABLE | CITADEL_UNIT_TARGET_FLAG_NO_INVIS"
-		m_modifierProvidedByAura = subclass:
-		{
-			_class = "modifier_payload_pusher_aura_target"
-			_my_subclass_name = "modifier_payload_pusher_aura_target"
-			m_strParticleEffect = resource_name:"particles/abilities/nano/nano_cohesion.vpcf"
-			m_nAttributes = "MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
-			m_bIsHidden = true
-		}
-	}
-	modifier_payload_blocker_aura = 
-	{
-		_class = "modifier_base_aura"
-		m_flAuraRadius = 700.000000
-		m_iAuraSearchType = "CITADEL_UNIT_TARGET_HERO_ENEMY"
-		m_iAuraSearchFlags = "CITADEL_UNIT_TARGET_FLAG_PENETRATE_INVULNERABLE | CITADEL_UNIT_TARGET_FLAG_NO_INVIS"
-		m_modifierProvidedByAura = subclass:
-		{
-			_class = "modifier_base"
-			_my_subclass_name = "modifier_aura_target"
-			m_nAttributes = "MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
-			m_bIsHidden = true
-		}
-	}
 	modifier_citadel_disarmed = 
 	{
 		_class = "modifier_citadel_disarmed"
@@ -423,11 +392,25 @@
 		_class = "modifier_citadel_power_generator"
 		m_EffectToTitan = resource_name:"particles/npc/tier3boss/tier3_boss_generator_beam.vpcf"
 	}
+	modifier_tier2boss_laser_charge = 
+	{
+		_class = "modifier_tier2boss_laser_charge"
+	}
+	modifier_tier2boss_electric_beam = 
+	{
+		_class = "modifier_tier2boss_electric_beam"
+	}
+	modifier_t3boss_phase1 = 
+	{
+		_class = "modifier_t3boss_phase1"
+	}
+	modifier_tier3_damage_pulse = 
+	{
+		_class = "modifier_tier3_damage_pulse"
+	}
 	modifier_tier3_boss_invuln = 
 	{
 		_class = "modifier_tier3_boss_invuln"
-		m_ShieldParticle = resource_name:"particles/npc/tier3boss/tier3_boss_invulerability_shield.vpcf"
-		m_flShieldRadius = 350.000000
 	}
 	modifier_citadel_can_damage_tier3phase2_boss = 
 	{
@@ -519,8 +502,17 @@
 		m_bIsHidden = true
 		m_nAttributes = "MODIFIER_ATTRIBUTE_CANNOT_BE_PURGED"
 		m_eDebuffType = "MODIFIER_DEBUFF_ENEMY_TEAM_ONLY"
-		m_flMoveSpeedBoost = 50.000000
+		m_flMoveSpeedBoost = 70.000000
 		m_strParticleEffect = resource_name:"particles/generic/sprint.vpcf"
+	}
+	modifier_force_duck = 
+	{
+		_class = "modifier_base"
+		m_bIsHidden = true
+		m_nAttributes = "MODIFIER_ATTRIBUTE_CANNOT_BE_PURGED"
+		m_eDebuffType = "MODIFIER_DEBUFF_NO"
+		m_nEnabledStateMask = "MODIFIER_STATE_DUCKING_FORCED"
+		m_bAllowApplicationPrediction = false
 	}
 	modifier_near_climbable_rope = 
 	{
@@ -657,14 +649,6 @@
 		_class = "modifier_citadel_in_hideout_zone"
 		m_bIsHidden = true
 		m_eDebuffType = "MODIFIER_DEBUFF_NO"
-		m_vecSetAndTrackedAnimGraphParams = 
-		[
-			
-			{
-				m_strName = "b_Invisible"
-				m_strSetValue = "1"
-			},
-		]
 	}
 	modifier_citadel_hideout_intro = 
 	{
@@ -740,6 +724,25 @@
 			]
 		}
 	}
+	modifier_nearby_ally_resist = 
+	{
+		_class = "modifier_nearby_ally_resist"
+		m_nAttributes = "MODIFIER_ATTRIBUTE_CANNOT_BE_PURGED"
+		m_flNearbyAllyResistRange = 1181.100000
+		m_flResistValues = 
+		[
+			0,
+			30,
+			50,
+			70,
+			90,
+		]
+	}
+	modifier_citadel_trooper_in_enemy_base_resist = 
+	{
+		_class = "modifier_citadel_trooper_in_enemy_base_resist"
+		m_flDamageReductionForTroopers = 35.000000
+	}
 	modifier_combat_status_bullet_hit = 
 	{
 		_class = "modifier_combat_status_bullet_hit"
@@ -757,5 +760,183 @@
 		m_flModifierWindow = 7.000000
 		m_flReductionPerModifier = 8.000000
 		m_flMaxReduction = 24.000000
+	}
+	modifier_street_brawl_round_start_zipline_boost = 
+	{
+		_class = "modifier_zipline_boost"
+		m_strSmallIconCssClass = "zipline_speed_pickup"
+		m_strParticleEffect = resource_name:"particles/upgrades/zipline_mastery_landing_buff.vpcf"
+		m_sLocalizationName = "zipline_boost"
+		m_nEnabledStateMask = "MODIFIER_STATE_USING_ZIPLINE_BOOST"
+		m_eModifierDisplayLocaiton = "MODIFIER_DISPLAY_BOTTOM_LEFT"
+		m_eHudDisplayLocation = "DISPLAY_HUD_NONE"
+		m_flDuration = 8.000000
+		m_flRampUpTime = 8.000000
+		m_flPercentageSpeedIncreaseRampFrom = 100.000000
+		m_flPercentageSpeedIncreaseRampTo = 0.000000
+		m_cameraSequenceStartBoost = 
+		{
+			m_vecFOVOperations = 
+			[
+				
+				{
+					m_flApproachTarget = 40.000000
+					m_flApproachSpeed = 10.000000
+					m_flApproachMinDuration = 1.000000
+					m_bLerpEndAtDefault = false
+					m_flLerpEnd = 110.000000
+					m_flLerpBias = 0.750000
+					m_flLerpDuration = 1.000000
+					m_eCameraOperation = "k_ECameraOp_Lerp"
+				},
+				
+				{
+					m_eCameraOperation = "k_ECameraOp_Maintain"
+				},
+			]
+			m_vecDistanceOperations = 
+			[
+				
+				{
+					m_flApproachSpeed = 60.000000
+					m_flApproachTarget = 1000.000000
+					m_flApproachMinDuration = 1.000000
+					m_bLerpEndAtDefault = false
+					m_flLerpEnd = 200.000000
+					m_flLerpDuration = 1.000000
+					m_eCameraOperation = "k_ECameraOp_Lerp"
+				},
+				
+				{
+					m_eCameraOperation = "k_ECameraOp_Maintain"
+				},
+			]
+			m_vecTargetPosOperations = 
+			[
+			]
+		}
+		m_sStartSound = soundevent:"Gameplay.World.Zipline.Speed.Boost.Start"
+	}
+	modifier_cinematic_intro_player = 
+	{
+		_class = "modifier_cinematic_intro_player"
+		m_bIsHidden = true
+		m_bAllowApplicationPrediction = false
+		m_nEnabledStateMask = "MODIFIER_STATE_CINEMATIC_INTRO | MODIFIER_STATE_ZIPLINE_LOCKED"
+		m_flZiplineStartDelayDuration = 7.250000
+		m_vecIntroCameraSequenceAmber = 
+		[
+			
+			{
+				m_sCameraEntityName = "intro_camera_amber_1"
+				m_flDuration = 7.500000
+				m_flTransitionTime = 7.500000
+			},
+			
+			{
+				m_sCameraEntityName = "intro_camera_amber_2"
+				m_flDuration = 0.000000
+				m_flTransitionTime = 0.000000
+			},
+		]
+		m_vecIntroCameraSequenceSapphire = 
+		[
+			
+			{
+				m_sCameraEntityName = "intro_camera_sapphire_1"
+				m_flDuration = 7.500000
+				m_flTransitionTime = 7.500000
+			},
+			
+			{
+				m_sCameraEntityName = "intro_camera_sapphire_2"
+				m_flDuration = 0.000000
+				m_flTransitionTime = 0.000000
+			},
+		]
+		m_flPostProcessingFadeInTime = 0.000000
+		m_flPostProcessingHoldTime = 2.000000
+		m_flPostProcessingFadeOutTime = 5.000000
+		m_vecPostProcessEffects = 
+		[
+			
+			{
+				m_eState = "PostProcState_MatchIntro"
+				m_flHoldTime = 2.000000
+				m_flFadeOutTime = 5.000000
+			},
+		]
+	}
+	modifier_cinematic_intro_npc = 
+	{
+		_class = "modifier_base"
+		m_bIsHidden = true
+		m_bAllowApplicationPrediction = false
+		m_nEnabledStateMask = "MODIFIER_STATE_CINEMATIC_INTRO"
+	}
+	modifier_cinematic_intro_shrine = 
+	{
+		_class = "modifier_cinematic_intro_shrine"
+		m_bIsHidden = true
+		m_bAllowApplicationPrediction = false
+		m_nEnabledStateMask = "MODIFIER_STATE_CINEMATIC_INTRO"
+	}
+	modifier_street_brawl_intro_player = 
+	{
+		_class = "modifier_cinematic_intro_player"
+		m_bIsHidden = true
+		m_bAllowApplicationPrediction = false
+		m_flZiplineStartDelayDuration = 7.250000
+		m_flPostProcessingFadeInTime = 0.000000
+		m_flPostProcessingHoldTime = 2.000000
+		m_flPostProcessingFadeOutTime = 5.000000
+		m_bTeamSpecificCameras = true
+		m_vecIntroCameraSequenceAmber = 
+		[
+			
+			{
+				m_sCameraEntityName = "intro_camera_amber_1"
+				m_flDuration = 5.750000
+				m_flTransitionTime = 5.750000
+			},
+			
+			{
+				m_sCameraEntityName = "intro_camera_amber_2"
+				m_flDuration = 0.000000
+				m_flTransitionTime = 0.000000
+			},
+		]
+		m_vecIntroCameraSequenceSapphire = 
+		[
+			
+			{
+				m_sCameraEntityName = "intro_camera_sapphire_1"
+				m_flDuration = 5.750000
+				m_flTransitionTime = 5.750000
+			},
+			
+			{
+				m_sCameraEntityName = "intro_camera_sapphire_2"
+				m_flDuration = 0.000000
+				m_flTransitionTime = 0.000000
+			},
+		]
+		m_flDuration = 8.000000
+		m_vecPostProcessEffects = 
+		[
+			
+			{
+				m_eState = "PostProcState_MatchIntro"
+				m_flHoldTime = 2.000000
+				m_flFadeOutTime = 3.000000
+			},
+			
+			{
+				m_flStartDelay = 5.000000
+				m_flFadeInTime = 0.750000
+				m_flHoldTime = 0.500000
+				m_flFadeOutTime = 2.000000
+			},
+		]
 	}
 }

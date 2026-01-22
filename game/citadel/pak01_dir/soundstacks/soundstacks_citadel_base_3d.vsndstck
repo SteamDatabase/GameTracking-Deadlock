@@ -866,15 +866,6 @@
 							property_group = "Recency Bias"
 						}
 					}
-					metadata = 
-					{
-						data_type = "string"
-						soundevent_data = "true"
-						value = 
-						[
-							"",
-						]
-					}
 					max_distance_recipient_filter = 
 					{
 						data_type = "float"
@@ -897,10 +888,11 @@
 							property_help = "Lookup name for per speaking voice volume"
 						}
 					}
-					vsnd_file = 
+					vsnd_files_for_envelope = 
 					{
 						data_type = "vsnd"
 						value = "sounds/common/null.vsnd"
+						soundevent_data = "true"
 						_system_properties = 
 						{
 							display_group = "advanced"
@@ -1734,9 +1726,54 @@
 			},
 			
 			{
+				name = "voice_volume_protection_level"
+				operator = "convar_get"
+				convar = "audio_voice_volume_protection"
+			},
+			
+			{
+				name = "math_limit_voice_volume_convar"
+				input_execute = "1.0"
+				operator = "math_float"
+				apply = "min"
+				input1 = "@voice_volume_protection_level.output"
+				input2 = "@math_volume_scale_mixer.output"
+			},
+			
+			{
+				name = "math_vol_protection_exceeded"
+				input_execute = "1.0"
+				operator = "math_float"
+				apply = "greater_than"
+				input1 = "@math_volume_scale_mixer.output"
+				input2 = "@voice_volume_protection_level.output"
+			},
+			
+			{
+				name = "vol_protection_message"
+				operator = "math_string"
+				input_execute = "@math_vol_protection_exceeded.output"
+				execute_once = "1.0"
+				apply = "add"
+				input1 = "@get_event_info.output_soundevent_name"
+				input2 = """
+ - VOLUME EXCEEDED voice protection limit!!!! 
+
+"""
+			},
+			
+			{
+				name = "print_volume_limit_exceeded"
+				operator = "util_print_string"
+				execute_once = "1.0"
+				input_execute = "@math_vol_protection_exceeded.output"
+				input = "@vol_protection_message.output_string"
+			},
+			
+			{
 				name = "volume_filter"
 				operator = "math_filter_float"
-				input = "@math_volume_scale_mixer.output"
+				input = "@math_limit_voice_volume_convar.output"
 				input_max_velocity = "@public.volume_filter_amount"
 			},
 			
@@ -1753,7 +1790,7 @@
 			{
 				name = "get_vsnd_info"
 				operator = "vmix_vsnd_info"
-				input_vsnd = "@public.vsnd_file"
+				input_vsnd = "@public.vsnd_files_for_envelope"
 			},
 			
 			{
@@ -1767,15 +1804,31 @@
 				operator = "container_sample_curve"
 				input_execute = "@get_vsnd_info.output_has_envelope"
 				input_time = "@get_voice_elapsed_time.output_voice_seek_time"
-				input_container = "@public.vsnd_file"
+				input_container = "@public.vsnd_files_for_envelope"
+			},
+			
+			{
+				name = "math_seek_time_is_zero"
+				operator = "math_float"
+				apply = "less_than_or_equal"
+				input1 = "@get_voice_elapsed_time.output_voice_seek_time"
+				input2 = "0.0"
+			},
+			
+			{
+				name = "ctrl_switch_env_seek_time_zero"
+				operator = "ctrl_switch_float"
+				input_switch = "@math_seek_time_is_zero.output"
+				input1 = "@sample_env_curve.output"
+				input2 = "0.0"
 			},
 			
 			{
 				name = "select_envelope_check"
 				operator = "ctrl_switch_float"
 				input_switch = "@get_vsnd_info.output_has_envelope"
-				input1 = "@volume_filter.output"
-				input2 = "@sample_env_curve.output"
+				input1 = "0.0"
+				input2 = "@ctrl_switch_env_seek_time_zero.output"
 			},
 			
 			{

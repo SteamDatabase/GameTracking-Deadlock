@@ -4,37 +4,63 @@
 		<include src="s2r://panorama/styles/citadel_base_styles.vcss_c" />
 		<include src="s2r://panorama/styles/hud_common.vcss_c" />
 		<include src="s2r://panorama/styles/citadel_hud_top_bar.vcss_c" />
+		<include src="s2r://panorama/styles/unit_status_icons.vcss_c" />
 	</styles>
 	<CitadelHudTopBar hittest="false">
 		<GlobalClassListener classes="gDetailView gScoreboardOpen" />
 		<Panel id="GradientBacker" />
-		<Panel id="TeamsContainer" hittest="false">
-			<CitadelHudTopBarTeam id="TeamFriendly" team="2" />
-			<CitadelHudTopBarTeam id="TeamEnemy" team="3" />
-		</Panel>
-		<CitadelObjectivesMap id="ObjectivesMap" liveGame="true" />
 		<Panel class="GameClock">
 			<Label class="GameTime" text="{s:game_clock}" />
+			<Label class="Overtime" text="#Citadel_Overtime" />
 		</Panel>
 		<Panel class="TeamNetworth">
 			<Panel id="TeamScoreFriendly" class="TeamScore">
 				<Panel class="ScoreBG" />
 				<Panel class="ScoreContainer">
-					<Panel class="SoulsImage" />
 					<Label class="ScoreLabel" html="true" text="{s:team_networth}" />
+					<Panel class="TeamIcon" />
 				</Panel>
 			</Panel>
 			<Panel id="TeamScoreEnemy" class="TeamScore Right">
 				<Panel class="ScoreBG" />
 				<Panel class="ScoreContainer">
-					<Panel class="SoulsImage" />
+					<Panel class="TeamIcon" />
 					<Label class="ScoreLabel" html="true" text="{s:team_networth}" />
 				</Panel>
 			</Panel>
 		</Panel>
+		<Panel id="StretBrawlContainer">
+			<Label class="roundTitle" text="#Citadel_StreetBrawl_RoundTitle" />
+			<Panel id="ScoreCounter">
+				<Panel class="point pt1" />
+				<Panel class="point pt2" />
+				<Panel class="point pt3 matchpoint" />
+				<Panel class="point pt4" />
+				<Panel class="point pt5" />
+			</Panel>
+			<Label class="subTitle" text="#Citadel_StreetBrawl_RoundSubtitle" />
+		</Panel>
+		<Panel class="ChatContainer" hittest="false">
+			<CitadelHudTopBarChat id="Team1Chat" team="TEAM_AMBER" />
+			<CitadelHudTopBarChat id="Team2Chat" team="TEAM_SAPPHIRE" />
+		</Panel>
+		<Panel id="TeamsContainer" hittest="false">
+			<CitadelHudTopBarTeam id="TeamFriendly" team="2" />
+			<CitadelHudTopBarTeam id="TeamEnemy" team="3" />
+		</Panel>
+		<CitadelObjectivesMap id="ObjectivesMap" liveGame="true" />
 		<Panel id="RejuvenatorCharges">
 			<Panel id="RejuvenatorFriendly">
 				<Panel class="rejuvIcon" />
+			</Panel>
+			<Panel id="RejuvenatorTimer">
+				<Panel class="rejuvTimer">
+					<Panel id="StatusEffectsBorder" />
+					<Panel id="StatusEffectCooldownOverlay" />
+					<Panel id="StatusEffectInner" />
+					<Image id="StatusEffectImage" />
+					<Panel class="statusEffectImage" />
+				</Panel>
 			</Panel>
 			<Panel id="RejuvenatorEnemy">
 				<Panel class="rejuvIcon" />
@@ -66,6 +92,5 @@
 				</Panel>
 			</Panel>
 		</Panel>
-		<CitadelScoreboardMods id="ScoreboardMods" />
 	</CitadelHudTopBar>
 </root>

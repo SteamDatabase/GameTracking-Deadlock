@@ -937,6 +937,16 @@
 							property_group = "Perspective"
 						}
 					}
+					block_npc_emitter = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							display_group = "normal"
+							property_group = "Perspective"
+						}
+					}
 				}
 			},
 			
@@ -1301,6 +1311,24 @@
 			},
 			
 			{
+				name = "math_should_block_npc_emitter"
+				operator = "math_float"
+				execute_once = "1.0"
+				input_execute = "1.0"
+				apply = "mult"
+				input1 = "@get_citadel_entity_info.output_entity_is_npc"
+				input2 = "@public.block_npc_emitter"
+			},
+			
+			{
+				name = "exec_block_npc"
+				operator = "sos_goto"
+				execute_once = "true"
+				input_execute = "@math_should_block_npc_emitter.output"
+				input_goto_end = "true"
+			},
+			
+			{
 				name = "remap_volume_falloff_floor"
 				operator = "math_remap_float"
 				input_execute = "1"
@@ -1393,7 +1421,7 @@
 					}
 					position_force_from_player = 
 					{
-						data_type = "float"
+						data_type = "bool"
 						value = "@perspective_switch_force_player_position.output"
 					}
 					spread_max_value = 
@@ -1438,7 +1466,17 @@
 					}
 					mixer_set_mixlayer_input = 
 					{
-						data_type = "float"
+						data_type = "enum"
+						enum_decl = 
+						{
+							value = 
+							[
+								"Disabled",
+								"Volume",
+								"Envelope",
+								"Custom Amount",
+							]
+						}
 						value = "@mix_layer_select_input.output"
 					}
 					mixer_mixlayer_amount_manual = 

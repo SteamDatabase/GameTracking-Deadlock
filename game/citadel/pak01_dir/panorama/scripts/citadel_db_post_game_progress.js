@@ -2,163 +2,382 @@
 /// <reference path="citadel.d.ts" />
 /// <reference path="async.ts" />
 let gAsyncAbort = null;
-function TestProgressAnimation() {
+function TestProgressAnimation(strTestScreen) {
     let data = {
         match_id: "0",
+        winning_team: 0 /* ECitadelLobbyTeam.k_ECitadelLobbyTeam_Team0 */,
         local_player: {
             player_slot: 0,
-            ui_slot: 5,
-            account_id: 0,
-            hero_id: 1,
-            hero_name: "hero_inferno",
+            account_id: 85501006,
+            hero_id: 63,
             hero_xp: 2500,
-            team: 2 /* CitadelTeam_t.TEAM_AMBER */,
-            win: true,
+            team: 0 /* ECitadelLobbyTeam.k_ECitadelLobbyTeam_Team0 */,
             match_hero_xp: 100,
             match_outcome_sound: "Generated.Inferno.Hero.Pick.VO",
-            stats: [
+            mvp_rank: 0,
+            accolades: [
                 {
-                    stat_panel_id: "Networth",
-                    stat_value: 46332,
-                    award_xp: 0,
+                    accolade_id: 1,
+                    accolade_name: "#Citadel_VData_accolades_assists_FlavorName",
+                    accolade_desc: "#Citadel_VData_accolades_assists_Description:p",
+                    accolade_stars_achieved: 3,
+                    accolade_stat_value: 23,
                 },
                 {
-                    stat_panel_id: "Kills",
-                    stat_value: 16,
-                    award_xp: 0,
+                    accolade_id: 2,
+                    accolade_name: "#Citadel_VData_accolades_returned_idol_FlavorName",
+                    accolade_desc: "#Citadel_VData_accolades_returned_idol_Description:p",
+                    accolade_stars_achieved: 2,
+                    accolade_stat_value: 2,
                 },
                 {
-                    stat_panel_id: "Deaths",
-                    stat_value: 4,
-                    award_xp: 0,
-                },
-                {
-                    stat_panel_id: "Assists",
-                    stat_value: 12,
-                    award_xp: 0,
-                },
-                {
-                    stat_panel_id: "PlayerDamage",
-                    stat_value: 21887,
-                    award_xp: 25,
-                    award_title: "#Citadel_HeroXP_Reason_MostPlayerDamage",
-                },
-                {
-                    stat_panel_id: "ObjDamage",
-                    stat_value: 12233,
-                    award_xp: 0,
-                },
-                {
-                    stat_panel_id: "Healing",
-                    stat_value: 2023,
-                    award_xp: 0,
+                    accolade_id: 3,
+                    accolade_name: "#Citadel_VData_accolades_breakables_destroyed_FlavorName",
+                    accolade_desc: "#Citadel_VData_accolades_breakables_destroyed_Description:p",
+                    accolade_stars_achieved: 1,
+                    accolade_stat_value: 123,
                 },
             ],
-            mod_costs: {
-                weapon_cost: 6400,
-                armor_cost: 12800,
-                tech_cost: 3200,
-            }
+        },
+        mvp_data: {
+            players: [
+                {
+                    player_slot: 1,
+                    account_id: 108002,
+                    hero_id: 6,
+                    hero_xp: 0,
+                    team: 0 /* ECitadelLobbyTeam.k_ECitadelLobbyTeam_Team0 */,
+                    match_hero_xp: 100,
+                    match_outcome_sound: "Generated.Inferno.Hero.Pick.VO",
+                    mvp_rank: 1,
+                    accolades: [
+                        {
+                            accolade_id: 1,
+                            accolade_name: "#Citadel_VData_accolades_assists_FlavorName",
+                            accolade_desc: "Citadel_VData_accolades_assists_Description:p",
+                            accolade_stars_achieved: 3,
+                            accolade_stat_value: 23,
+                        },
+                        {
+                            accolade_id: 2,
+                            accolade_name: "#Citadel_VData_accolades_returned_idol_FlavorName",
+                            accolade_desc: "#Citadel_VData_accolades_returned_idol_Description:p",
+                            accolade_stars_achieved: 2,
+                            accolade_stat_value: 2,
+                        },
+                        {
+                            accolade_id: 3,
+                            accolade_name: "#Citadel_VData_accolades_breakables_destroyed_FlavorName",
+                            accolade_desc: "#Citadel_VData_accolades_breakables_destroyed_Description:p",
+                            accolade_stars_achieved: 1,
+                            accolade_stat_value: 123,
+                        },
+                    ],
+                },
+                {
+                    player_slot: 2,
+                    account_id: 85501006,
+                    hero_id: 63,
+                    hero_xp: 0,
+                    team: 1 /* ECitadelLobbyTeam.k_ECitadelLobbyTeam_Team1 */,
+                    match_hero_xp: 100,
+                    match_outcome_sound: "Generated.Inferno.Hero.Pick.VO",
+                    mvp_rank: 2,
+                    accolades: [
+                        {
+                            accolade_id: 1,
+                            accolade_name: "#Citadel_VData_accolades_player_damage_FlavorName",
+                            accolade_desc: "#Citadel_VData_accolades_player_damage_Description:p",
+                            accolade_stars_achieved: 3,
+                            accolade_stat_value: 83435,
+                        },
+                        {
+                            accolade_id: 2,
+                            accolade_name: "#Citadel_VData_accolades_killstreak_kills_FlavorName",
+                            accolade_desc: "#Citadel_VData_accolades_killstreak_kills_Description:p",
+                            accolade_stars_achieved: 2,
+                            accolade_stat_value: 5,
+                        },
+                    ],
+                },
+                {
+                    player_slot: 3,
+                    account_id: 85502759,
+                    hero_id: 2,
+                    hero_xp: 0,
+                    team: 0 /* ECitadelLobbyTeam.k_ECitadelLobbyTeam_Team0 */,
+                    match_hero_xp: 100,
+                    match_outcome_sound: "Generated.Inferno.Hero.Pick.VO",
+                    mvp_rank: 3,
+                    accolades: [
+                        {
+                            accolade_id: 1,
+                            accolade_name: "#Citadel_VData_accolades_long_distance_kills_FlavorName",
+                            accolade_desc: "#Citadel_VData_accolades_long_distance_kills_Description:p",
+                            accolade_stars_achieved: 3,
+                            accolade_stat_value: 8,
+                        },
+                        {
+                            accolade_id: 2,
+                            accolade_name: "#Citadel_VData_accolades_ability_damage_FlavorName",
+                            accolade_desc: "#Citadel_VData_accolades_ability_damage_Description:p",
+                            accolade_stars_achieved: 2,
+                            accolade_stat_value: 9345,
+                        },
+                    ],
+                },
+            ]
         },
     };
-    StartProgressAnimation(data);
+    StartProgressAnimation(data, strTestScreen);
 }
 let gPostGameProgressSequence = null;
-function StartProgressAnimation(data) {
+function StartProgressAnimation(data, strTestScreen) {
     $.Msg("Running progress sequence:");
     $.Msg(JSON.stringify(data));
     if (gPostGameProgressSequence && !gPostGameProgressSequence.IsFinished())
         gPostGameProgressSequence.Abort();
     gPostGameProgressSequence = new Async.SequenceController();
     const panel = $.GetContextPanel();
-    DoProgressAnimation(panel, data, gPostGameProgressSequence);
+    DoProgressAnimation(panel, gPostGameProgressSequence, data, strTestScreen);
 }
 function ProgressSequenceSkip() {
     if (gPostGameProgressSequence)
         gPostGameProgressSequence.Skip();
 }
-async function DoProgressAnimation(panel, data, sequence) {
-    let localPlayer = data.local_player;
-    panel.RemoveClass("ShowHeroModel");
-    panel.RemoveClass("ShowScoreboardEntry");
-    // Setup the hero model
-    let heroScenePanel = panel.FindChildInLayoutFile("HeroScenePanel");
-    heroScenePanel.SetUnit(localPlayer.hero_name, "", "roster", false);
-    panel.SetDialogVariableInt("hero_id", localPlayer.hero_id);
-    // Setup the team's class  
-    let sTeamClass = (localPlayer.team == 2 /* CitadelTeam_t.TEAM_AMBER */) ? "localPlayerIsTeam1" : "localPlayerIsTeam2";
-    panel.SwitchClass("local_player_team", sTeamClass);
-    // Setup the UI slot class
-    panel.SwitchClass("ui_slot", "UISlot" + localPlayer.ui_slot);
-    // Setup the player name
-    let userName = panel.FindChildInLayoutFile("PlayerName");
-    userName.accountid = "" + localPlayer.account_id;
-    panel.SetDialogVariableInt("account_id", localPlayer.account_id);
-    // Setup the hero bar graphs
-    let modGraph = panel.FindChildInLayoutFile("ModBarGraph");
-    modGraph.SetProgressBarValues(localPlayer.mod_costs.weapon_cost, localPlayer.mod_costs.armor_cost, localPlayer.mod_costs.tech_cost);
-    // Setup the hero badge
-    let badge = panel.FindChildInLayoutFile("HeroBadge");
-    badge.heroid = localPlayer.hero_id;
-    badge.heroxp = localPlayer.hero_xp;
-    // Setup the stats
-    const stats = [];
-    for (const playerStat of localPlayer.stats || []) {
-        const statPanel = panel.FindChildInLayoutFile(playerStat.stat_panel_id);
-        statPanel.SetDialogVariableInt("stat_value", playerStat.stat_value);
-        statPanel.RemoveClass("ShowStat");
-        statPanel.RemoveClass("HasAward");
-        stats.push({ data: playerStat, panel: statPanel });
-    }
-    // Wait for the hero model to load
-    await sequence.WaitFor(() => heroScenePanel.BHasClass("SceneLoaded"));
-    sequence.Run(() => heroScenePanel.ApplyStyles(true));
-    //sequence.Run( () => heroScenePanel.PlayPanelSound( "UI.PostGame.ProgressStart" ) );
-    sequence.Run(() => heroScenePanel.PlayPanelSound(localPlayer.match_outcome_sound));
-    sequence.Run(() => panel.AddClass("ShowHeroModel"));
-    await sequence.Delay(0.5);
-    sequence.Run(() => panel.AddClass("ShowScoreboardEntry"));
-    await sequence.Delay(1.0);
-    sequence.Run(() => panel.PlayPanelSound("UI.PostGame.Award"));
-    await AnimateAwardXP(panel, localPlayer.match_hero_xp, localPlayer.win ? "#Citadel_HeroXP_Reason_Win" : "#Citadel_HeroXP_Reason_Loss", sequence);
-    // Animate the stats appearing
-    for (const stat of stats) {
-        sequence.Run(() => stat.panel.AddClass("ShowStat"));
-        sequence.Run(() => stat.panel.PlayPanelSound("UI.PostGame.StatAppear"));
-        await sequence.Delay(0.2);
-        if (stat.data.award_xp) {
-            sequence.Run(() => stat.panel.AddClass("HasAward"));
-            sequence.Run(() => stat.panel.PlayPanelSound("UI.PostGame.Award"));
-            await AnimateAwardXP(panel, stat.data.award_xp, stat.data.award_title || "", sequence);
+function BShouldShowScreen(strTestScreen, strScreenName) {
+    if (strTestScreen == "")
+        return true;
+    if (strTestScreen == strScreenName)
+        return true;
+    return false;
+}
+async function DoProgressAnimation(panel, sequence, data, strTestScreen) {
+    let arrScreens = [
+        {
+            screen: new MVPScreen(),
+            strTestName: "mvp",
+            bEnabled: true,
+        },
+        {
+            screen: new PlayerProgressScreen(),
+            strTestName: "player",
+            bEnabled: true,
+        },
+    ];
+    // First, initialize any screens we're going to show
+    for (let i = 0; i < arrScreens.length; ++i) {
+        let bScreenEnabled = true;
+        if (!BShouldShowScreen(strTestScreen, arrScreens[i].strTestName)) {
+            bScreenEnabled = false;
         }
+        if (bScreenEnabled && !arrScreens[i].screen.BInitScreen(panel, data)) {
+            bScreenEnabled = false;
+        }
+        arrScreens[i].bEnabled = bScreenEnabled;
     }
-    sequence.EndSkipping();
-    // A little delay at the end
-    await sequence.Delay(1.0);
+    panel.AddClass("LoadingScreens");
+    // Wait one frame so that all the loading actually kicks in.
+    await sequence.Delay(0.0);
+    // Now wait to let any async loading finish
+    for (let i = 0; i < arrScreens.length; ++i) {
+        if (!arrScreens[i].bEnabled)
+            continue;
+        await arrScreens[i].screen.WaitForScreenToLoad(panel, sequence, data);
+    }
+    panel.RemoveClass("LoadingScreens");
+    // Now do the animation
+    for (let i = 0; i < arrScreens.length; ++i) {
+        if (!arrScreens[i].bEnabled)
+            continue;
+        await arrScreens[i].screen.AnimateScreen(panel, sequence, data, strTestScreen == arrScreens[i].strTestName);
+    }
     sequence.Finish();
     $.DispatchEvent('CitadelPostGameProgressFinished', data.match_id);
 }
-async function AnimateAwardXP(panel, xp, title, sequence) {
-    let overheadContainer = panel.FindChildInLayoutFile("Overhead");
-    let overheadDisplay = $.CreatePanel('Panel', overheadContainer, "");
-    overheadDisplay.BLoadLayoutSnippet("XPGain");
-    overheadDisplay.SetDialogVariableLocString("reason", title);
-    overheadDisplay.SetDialogVariableInt("xp_amount", xp);
-    // Count up the progress bar
-    // todo(ericl): if you hit a level up, then need to animate that.
-    let badge = panel.FindChildInLayoutFile("HeroBadge");
-    const xpStart = badge.progressheroxp;
-    const duration = 1.0; // todo(ericl): scale this based on how much xp?
-    const startTime = $.FrameTime();
-    while (!sequence.IsAborted() && !sequence.IsSkipping()) {
-        const curTime = $.FrameTime();
-        const progress = (curTime - startTime) / (duration);
-        const xpGain = Math.floor(progress * xp);
-        badge.progressheroxp = xpStart + xpGain;
-        if (curTime >= startTime + duration)
-            break;
-        await Async.NextFrame();
+function EnsureSnippetList(parent, strSnippetName, nCount) {
+    while (parent.GetChildCount() < nCount) {
+        let child = $.CreatePanel("Panel", parent, '');
+        child.BLoadLayoutSnippet(strSnippetName);
     }
-    badge.progressheroxp = xpStart + xp;
-    overheadDisplay.DeleteAsync(0.0);
+    while (parent.GetChildCount() > nCount) {
+        // todo(ericl): is there a way to delete not async?
+        parent.GetChild(parent.GetChildCount() - 1).DeleteAsync(0.0);
+    }
+}
+function SetupAccolades(parent, accolades, nMaxCount) {
+    let nCount = Math.min(nMaxCount, accolades.length);
+    EnsureSnippetList(parent, "Accolade", nCount);
+    for (let i = 0; i < nCount; ++i) {
+        let accoladePanel = parent.GetChild(i);
+        let accoladeStarsPanel = accoladePanel.FindChildInLayoutFile('AccoladeStars');
+        let accolade = accolades[i];
+        accoladePanel.SetDialogVariableLocString("accolade_title", accolade.accolade_name);
+        accoladePanel.SetDialogVariableInt("stat_value", accolade.accolade_stat_value);
+        accoladePanel.SetDialogVariablePluralLocStringIntNested("accolade_desc", accolade.accolade_desc, accolade.accolade_stat_value);
+        accoladePanel.SwitchClass("accolade_stars", "StarsAchieved" + accolade.accolade_stars_achieved);
+        accoladePanel.RemoveClass('ShowAccolade');
+        EnsureSnippetList(accoladeStarsPanel, 'AccoladeStar', accolade.accolade_stars_achieved);
+    }
+}
+// ----------------------------------------------------------------------------
+function GetMVPPlayerByRank(mvpData, mvpRank) {
+    for (let i = 0; i < mvpData.players.length; ++i) {
+        if (mvpData.players[i].mvp_rank == mvpRank)
+            return mvpData.players[i];
+    }
+    return undefined;
+}
+function GetMVPPlayer(mvpData) {
+    return GetMVPPlayerByRank(mvpData, 1);
+}
+function GetHonorableMentions(mvpData) {
+    let ret = [];
+    let honorableMention = GetMVPPlayerByRank(mvpData, 2);
+    if (honorableMention) {
+        ret.push(honorableMention);
+    }
+    honorableMention = GetMVPPlayerByRank(mvpData, 3);
+    if (honorableMention) {
+        ret.push(honorableMention);
+    }
+    return ret;
+}
+class MVPScreen {
+    BInitScreen(panel, data) {
+        let mvpData = data.mvp_data;
+        if (mvpData.players.length == 0)
+            return false;
+        let mvpPlayer = GetMVPPlayer(data.mvp_data);
+        if (mvpPlayer == undefined)
+            return false;
+        let mvpScreen = panel.FindChildInLayoutFile('MVPScreen');
+        let mvpHeroScene = mvpScreen.FindChildInLayoutFile('MVPHeroScenePanel');
+        let mvpHeroLogo = mvpScreen.FindChildInLayoutFile('MVPHeroLogo');
+        let mvpAccolades = mvpScreen.FindChildInLayoutFile('MVPAccolades');
+        let mvpPlayerName = mvpScreen.FindChildInLayoutFile('MVPPlayerName');
+        let honorableMentions = mvpScreen.FindChildInLayoutFile("HonorableMentions");
+        mvpHeroScene.heroid = mvpPlayer.hero_id;
+        mvpHeroLogo.heroid = mvpPlayer.hero_id;
+        mvpScreen.SetDialogVariableInt("mvp_hero_id", mvpPlayer.hero_id);
+        mvpScreen.SwitchClass("mvp_team_class", mvpPlayer.team == 0 /* ECitadelLobbyTeam.k_ECitadelLobbyTeam_Team0 */ ? "MVPTeam1" : "MVPTeam2");
+        mvpPlayerName.SetPlayerOrBot(mvpPlayer.account_id, mvpPlayer.hero_id);
+        SetupAccolades(mvpAccolades, mvpPlayer.accolades, 3);
+        let arrHonorableMentions = GetHonorableMentions(data.mvp_data);
+        EnsureSnippetList(honorableMentions, "MVPHonorableMention", arrHonorableMentions.length);
+        for (let i = 0; i < arrHonorableMentions.length; ++i) {
+            let honorableMention = honorableMentions.GetChild(i);
+            let honorableMentionData = arrHonorableMentions[i];
+            let honorableMentionHeroScene = honorableMention.FindChildInLayoutFile('HeroScenePanel');
+            let honorableMentionHeroLogo = honorableMention.FindChildInLayoutFile('HeroLogo');
+            let honorableMentionAccolades = honorableMention.FindChildInLayoutFile('Accolades');
+            let honorableMentionPlayerName = honorableMention.FindChildInLayoutFile('PlayerName');
+            honorableMentionHeroScene.heroid = honorableMentionData.hero_id;
+            honorableMentionHeroLogo.heroid = honorableMentionData.hero_id;
+            honorableMention.SetDialogVariableInt("hero_id", honorableMentionData.hero_id);
+            honorableMention.SwitchClass("honorable_mention_team", honorableMentionData.team == 0 /* ECitadelLobbyTeam.k_ECitadelLobbyTeam_Team0 */ ? "Team1" : "Team2");
+            honorableMentionPlayerName.SetPlayerOrBot(honorableMentionData.account_id, honorableMentionData.hero_id);
+            SetupAccolades(honorableMentionAccolades, honorableMentionData.accolades, 2);
+        }
+        mvpScreen.RemoveClass('ShowProgressScreen');
+        mvpScreen.RemoveClass('ShowMVPTitle');
+        mvpScreen.RemoveClass('ShowMVPHero');
+        for (let i = 0; i < mvpAccolades.GetChildCount(); ++i) {
+            let accoladePanel = mvpAccolades.GetChild(i);
+            accoladePanel.RemoveClass('ShowAccolade');
+        }
+        for (let i = 0; i < honorableMentions.GetChildCount(); ++i) {
+            let honorableMention = honorableMentions.GetChild(i);
+            honorableMention.RemoveClass('ShowHonorableMention');
+        }
+        return true;
+    }
+    async WaitForScreenToLoad(panel, sequence, data) {
+        let mvpScreen = panel.FindChildInLayoutFile('MVPScreen');
+        let mvpHeroScene = mvpScreen.FindChildInLayoutFile('MVPHeroScenePanel');
+        return sequence.WaitFor(() => mvpHeroScene.BHasClass("SceneLoaded"));
+    }
+    async AnimateScreen(panel, sequence, data, bPauseAtEnd) {
+        let mvpScreen = panel.FindChildInLayoutFile('MVPScreen');
+        let mvpData = data.mvp_data;
+        let mvpPlayer = GetMVPPlayer(mvpData);
+        let mvpAccolades = mvpScreen.FindChildInLayoutFile('MVPAccolades');
+        let honorableMentions = mvpScreen.FindChildInLayoutFile("HonorableMentions");
+        mvpScreen.AddClass("ShowProgressScreen");
+        await sequence.Delay(0.0);
+        mvpScreen.AddClass('ShowMVPTitle');
+        await sequence.Delay(0.3);
+        mvpScreen.AddClass('ShowMVPHero');
+        await sequence.Delay(0.6);
+        for (let i = 0; i < mvpAccolades.GetChildCount(); ++i) {
+            let accoladePanel = mvpAccolades.GetChild(i);
+            accoladePanel.AddClass('ShowAccolade');
+            await sequence.Delay(0.3);
+        }
+        await sequence.Delay(2.0);
+        for (let i = 0; i < honorableMentions.GetChildCount(); ++i) {
+            let honorableMention = honorableMentions.GetChild(i);
+            honorableMention.AddClass('ShowHonorableMention');
+            await sequence.Delay(2.0);
+        }
+        sequence.EndSkipping();
+        await sequence.Delay(3.0);
+        if (bPauseAtEnd) {
+            await sequence.Delay(1000.0);
+        }
+        mvpScreen.RemoveClass("ShowProgressScreen");
+        await sequence.Delay(0.5);
+        return Promise.resolve();
+    }
+}
+// ----------------------------------------------------------------------------
+class PlayerProgressScreen {
+    BInitScreen(panel, data) {
+        let playerData = data.local_player;
+        if (playerData.accolades.length == 0)
+            return false;
+        // If the local player was also the MVP, don't bother showing this screen since the data is redundant
+        if (data.mvp_data.players.length > 0 && data.mvp_data.players[0].player_slot == playerData.player_slot)
+            return false;
+        let playerScreen = panel.FindChildInLayoutFile('PlayerProgressScreen');
+        let playerHeroScene = playerScreen.FindChildInLayoutFile('PlayerProgressHeroScenePanel');
+        let playerHeroLogo = playerScreen.FindChildInLayoutFile('PlayerProgressHeroLogo');
+        let playerAccolades = playerScreen.FindChildInLayoutFile('PlayerProgressAccolades');
+        let playerHeroBadge = playerScreen.FindChildInLayoutFile('PlayerProgressHeroBadge');
+        let playerPlayerName = playerScreen.FindChildInLayoutFile('PlayerProgressPlayerName');
+        playerHeroScene.heroid = playerData.hero_id;
+        playerHeroLogo.heroid = playerData.hero_id;
+        playerHeroBadge.heroid = playerData.hero_id;
+        playerPlayerName.SetPlayerOrBot(playerData.account_id, playerData.hero_id);
+        SetupAccolades(playerAccolades, playerData.accolades, 3);
+        return true;
+    }
+    async WaitForScreenToLoad(panel, sequence, data) {
+        let playerData = data.local_player;
+        let playerScreen = panel.FindChildInLayoutFile('PlayerProgressScreen');
+        let playerHeroScene = playerScreen.FindChildInLayoutFile('PlayerProgressHeroScenePanel');
+        return sequence.WaitFor(() => playerHeroScene.BHasClass("SceneLoaded"));
+    }
+    async AnimateScreen(panel, sequence, data, bPauseAtEnd) {
+        let playerScreen = panel.FindChildInLayoutFile('PlayerProgressScreen');
+        let playerAccolades = playerScreen.FindChildInLayoutFile('PlayerProgressAccolades');
+        playerScreen.AddClass("ShowProgressScreen");
+        await sequence.Delay(0.0);
+        playerScreen.AddClass('ShowPlayerHero');
+        await sequence.Delay(2.0);
+        for (let i = 0; i < playerAccolades.GetChildCount(); ++i) {
+            let accoladePanel = playerAccolades.GetChild(i);
+            accoladePanel.AddClass('ShowAccolade');
+            await sequence.Delay(0.5);
+        }
+        await sequence.Delay(2.0);
+        sequence.EndSkipping();
+        // A little delay at the end
+        await sequence.Delay(0.5);
+        if (bPauseAtEnd) {
+            await sequence.Delay(1000.0);
+        }
+        playerScreen.RemoveClass("ShowProgressScreen");
+        await sequence.Delay(0.5);
+    }
 }

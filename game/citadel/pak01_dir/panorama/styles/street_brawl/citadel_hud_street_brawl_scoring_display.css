@@ -1,0 +1,269 @@
+/* Prettified by Source 2 Viewer - https://valveresourceformat.github.io */
+
+CitadelHudStreetBrawlRoundScoringDisplay
+{
+	flow-children: down;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+}
+
+CitadelHudStreetBrawlRoundScoringDisplay.ShowingMessage
+{
+	opacity: 1;
+}
+
+#RoundCompleteBG
+{
+	width: 100%;
+	height: 100%;
+	opacity: 1;
+	background-color: white;
+	opacity: 0.5;
+	ignore-parent-flow: true;
+	opacity-mask-threshold: 10% 0%;
+	opacity-mask: url("s2r://panorama/images/hud/brawl/round_complete_mask_psd.vtex");
+}
+
+.ShowWipe #RoundCompleteBG
+{
+	animation-name: wipeAnim;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+	animation-iteration-count: 1;
+}
+
+.LocalPlayerTeam1.Team1Victory #RoundCompleteBG
+{
+	wash-color: team1Color;
+}
+
+.LocalPlayerTeam2.Team2Victory #RoundCompleteBG
+{
+	wash-color: team2Color;
+}
+
+.LocalPlayerTeam1.Team2Victory #RoundCompleteBG,.LocalPlayerTeam2.Team1Victory #RoundCompleteBG
+{
+	background-color: #912422;
+}
+
+@keyframes 'wipeAnim'
+{
+	0%
+	{
+		opacity-mask-threshold: 100% 0%;
+		opacity-mask: url("s2r://panorama/images/hud/brawl/round_complete_mask_psd.vtex");
+	}
+	
+	100%
+	{
+		opacity-mask-threshold: 10% 0%;
+		opacity-mask: url("s2r://panorama/images/hud/brawl/round_complete_mask_psd.vtex");
+	}
+	
+}
+
+Label
+{
+	color: offWhite;
+	horizontal-align: center;
+}
+
+.MessageContents
+{
+	flow-children: down;
+	horizontal-align: center;
+	vertical-align: center;
+	transform: rotateZ(-3deg);
+}
+
+.ScoreContents
+{
+	flow-children: right;
+	text-align: center;
+	horizontal-align: center;
+}
+
+@keyframes 'AnimateIn'
+{
+	0%
+	{
+		pre-transform-scale2d: 1.5;
+	}
+	
+	90%
+	{
+		pre-transform-scale2d: 0.9;
+	}
+	
+	100%
+	{
+		pre-transform-scale2d: 1;
+	}
+	
+}
+
+CitadelHudStreetBrawlRoundScoringDisplay.ShowingMessage .MessageContents
+{
+	opacity: 1;
+	animation-duration: 0.5s;
+	animation-delay: 2s;
+	animation-iteration-count: 1;
+}
+
+.LocalPlayerTeam1.Team1Victory .MessageContents
+{
+	wash-color: offBlack;
+}
+
+#TeamName
+{
+	width: 500px;
+	height: 150px;
+	visibility: collapse;
+	horizontal-align: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	margin-top: 100px;
+	vertical-align: top;
+}
+
+.Team1 #TeamName
+{
+	background-image: url("s2r://panorama/images/match_intro/team1_logo.vsvg");
+	margin-left: 90px;
+}
+
+.Team2 #TeamName
+{
+	background-image: url("s2r://panorama/images/match_intro/team2_logo.vsvg");
+	width: 1200px;
+	margin-top: 120px;
+	wash-color: silvered;
+	img-shadow: 0px 0px 10px offBlack;
+}
+
+.TeamColor
+{
+	height: 30px;
+	width: 30px;
+	border-radius: 15px;
+	text-align: center;
+}
+
+.OutcomeLabel
+{
+	font-size: 200px;
+	text-align: center;
+	font-family: block;
+	text-transform: uppercase;
+	color: offWhite;
+}
+
+.LocalPlayerTeam1 .TeamColor
+{
+	background-color: team1Color;
+}
+
+.LocalPlayerTeam2 .TeamColor
+{
+	background-color: team2Color;
+}
+
+.TeamName
+{
+	letter-spacing: 2px;
+}
+
+.LocalPlayerTeam1 .TeamName
+{
+	color: team1Color;
+	text-shadow: 2px 2px 20px #00000090;
+}
+
+.LocalPlayerTeam2 .TeamName
+{
+	color: team2Color;
+	text-shadow: 2px 2px 20px #00000090;
+}
+
+#ComicProgressBar
+{
+	margin-top: 50px;
+	horizontal-align: center;
+	opacity: 0.5;
+}
+
+.OutcomeLabel
+{
+	text-align: center;
+	font-size: 120px;
+	font-family: oracle;
+	font-weight: bold;
+	opacity: 1;
+	color: offWhite;
+}
+
+.Score
+{
+	text-align: center;
+	horizontal-align: left;
+	font-size: 120px;
+	text-shadow: 2px 2px 2px #00000090;
+	font-family: numericOracle;
+	font-family: block;
+	color: offWhite;
+}
+
+.Hypen
+{
+	text-align: center;
+	horizontal-align: left;
+	vertical-align: center;
+	font-size: 150px;
+	text-shadow: 2px 2px 2px #00000090;
+	font-family: numericOracle;
+	font-family: block;
+	color: offWhite;
+	margin: 0px 30px;
+}
+
+@keyframes 'ScoreAnimation'
+{
+	0%
+	{
+		pre-transform-scale2d: 0.6;
+		opacity: 0.0;
+	}
+	
+	50%
+	{
+		pre-transform-scale2d: 3;
+	}
+	
+	100%
+	{
+		pre-transform-scale2d: 1.0;
+		opacity: 1;
+	}
+	
+}
+
+.LeftShrinkCountdown #LeftScore
+{
+	animation-name: ScoreAnimation;
+	animation-duration: 2.0s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: 1;
+}
+
+.RightShrinkCountdown #RightScore
+{
+	animation-name: ScoreAnimation;
+	animation-duration: 2.0s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: 1;
+}
+

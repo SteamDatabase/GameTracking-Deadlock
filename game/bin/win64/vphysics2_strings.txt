@@ -24,25 +24,25 @@
 %14s %-30s[%u]%s\n
 %d bones found and initialized\n
 %d sec to find %d material files\n
-%d tests / %d recorded traces\n
 %d verts, %d polys}
 %d verts, %d tris}
 %d+%d layers excluded
 %s %f %f %f %f %f %f %f %f %f\n
 %s %g %g %g %g %g %g %g %g %g\n
+%s %s included in target detail layer '%s' of %s
 %s (Color)
 %s (Material)
 %s 0x%llX - 0x%llX, except %s\n
 %s 0x%llX\n
 %s F=%d V=%d hE=%d
-%s Forcing Collision With All
-%s could not allocate (pre-acquire) layer name '%s'. It was expected to be #%d. %d names already used.\n
-%s has solid contacts disabled - no resolve
-%s%s.traces.txt
-%s(%d traces, %d repeats) %.1f us/trace; kernel: %.0f ticks (%.1f mcs) * %lld calls\n
+%s NameIndex:AcquirePreindexedName( %x ) without name string\n
+%s could not allocate (pre-acquire) name '%s'. It was expected to be #%d. %d names already used.\n
+%s does not include FCOLLISION_FUNC_ENABLE_TOUCH_EVENT. Disabling all touch events.
+%s has FCOLLISION_FUNC_ENABLE_TOUCH_PERSISTS. Adding persistent touch events.
 %s(): Bone referenced by collision mesh not found in render skeleton. Skipping collision mesh.\n
 %s_color
 %s_matgrp
+&\tV_frexpf
 ( + %d more)
 (%.4g,%.4g)
 *?333?8
@@ -51,8 +51,8 @@
 -aggs
 -cloth
 -mem
--profiletraces
 -save
+-sdk
 -snapshots
 -touch
 ../src/utils/physics_testbed/benchmarks/
@@ -62,34 +62,46 @@
 .?AUVPhys2HandleInterface@@
 .?AV<lambda_1>@?1??CreateMotionControlCallbacksJob@CRnParticleRope@@AEAAX_NAEAVCJobContinuation@@1@Z@
 .?AV<lambda_1>@?1??CreateTautLineJobs@CRnParticleRope@@AEAAX_NAEAVCJobContinuation@@1@Z@
+.?AV<lambda_1>@?1??FindClosestRecordedTrace@CRnWorldHelper@@QEBAPEBURecordedTrace_t@@AEBV?$array@E$0BA@@std@@@Z@
+.?AV<lambda_1>@?1??FindTOI@CRnMeshContact@@UEBAMAEBURnSweep_t@@0M@Z@
 .?AV<lambda_1>@?1??ForEachAppliedConstraintImpulse@CPhysicsParticleRope@@UEBAXAEBV?$function@$$A6AXPEAVIPhysicsBody@@M@Z@std@@@Z@
 .?AV<lambda_1>@?1??WakeBodiesFromAppliedForces@CRnWorld@@QEAAXXZ@
 .?AV<lambda_1>@?4??BeginRopeAsyncJobs@CRnWorld@@QEAAX_N@Z@
-.?AV<lambda_1>@?8???0CMultiworldSoftbodyStepper@@QEAA@PEAPEAVCRnSoftbody@@HMH@Z@
 .?AV<lambda_1>@?8??BeginAsyncJobs@CRnParticleRope@@QEAAX_NPEAVCJobContinuation@@@Z@
 .?AV<lambda_1>@?8??ReleaseRef@CJobContinuation@@QEAAXXZ@
-.?AV<lambda_1>@?9??UpdateBodiesParallel@CPhysicsAbsoluteRagdollControl@@UEAAXPEBVCTransform@@MAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCThreadMutex@@@Z@
+.?AV<lambda_1>@?9??UpdateBodiesParallel@CPhysicsAbsoluteRagdollControl@@UEAAXPEBVCTransform@@MAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCAtomicMutex@@@Z@
 .?AV<lambda_1>@?BA@??BeginSimJobs@CRnParticleRope@@QEAAXM_NPEAVCJobContinuation@@@Z@
-.?AV<lambda_1>@?BA@??UpdateJointAbsolute@CPhysicsAbsoluteRagdollControl@@QEAAXHHM_NPEBHPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCThreadMutex@@@Z@
-.?AV<lambda_1>@?BD@??UpdateJointRelative@CPhysicsAbsoluteRagdollControl@@QEAAXHHMMPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCThreadMutex@@@Z@
-.?AV<lambda_1>@?BE@??UpdateJointsParallel@CPhysicsAbsoluteRagdollControl@@UEAAXHPEAUCPhysicsRagdollWeight@@PEBHPEBVCTransform@@M_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCThreadMutex@@@Z@
+.?AV<lambda_1>@?BA@??UpdateJointAbsolute@CPhysicsAbsoluteRagdollControl@@QEAAXHHM_NPEBHPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCAtomicMutex@@@Z@
+.?AV<lambda_1>@?BD@??UpdateJointRelative@CPhysicsAbsoluteRagdollControl@@QEAAXHHMMPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCAtomicMutex@@@Z@
+.?AV<lambda_1>@?BE@??UpdateJointsParallel@CPhysicsAbsoluteRagdollControl@@UEAAXHPEAUCPhysicsRagdollWeight@@PEBHPEBVCTransform@@M_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCAtomicMutex@@@Z@
+.?AV<lambda_1>@?BJ@??ReRunRecordedTrace@CRnWorldHelper@@QEAAXAEBURecordedTrace_t@@PEAV?$CUtlLeanVectorFixedGrowable@URecordedTraceResult_t@@$00HVCMemAllocAllocator@@@@@Z@
 .?AV<lambda_1>@?CL@??UpdateSceneObjects@CRnWorldHelper@@QEAAXAEAVCCallQueue@@URnDebugDrawOptions_t@@@Z@
+.?AV<lambda_1>@?O@??Init@CVPhysics2Interface@@UEAA?AW4InitReturnVal_t@@XZ@
+.?AV<lambda_1>@?P@??ToolCastRayMultipleUnfiltered@CRnWorldHelper@@QEBAXAEAV?$CUtlVectorFixedGrowable@URnToolQueryHit_t@@$07H@@AEBV?$Vec3D@M@@1_KM@Z@
 .?AV<lambda_2>@?3??CreateTautLineJobs@CRnParticleRope@@AEAAX_NAEAVCJobContinuation@@1@Z@
-.?AV<lambda_2>@?BE@??UpdateJointRelative@CPhysicsAbsoluteRagdollControl@@QEAAXHHMMPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCThreadMutex@@@Z@
+.?AV<lambda_2>@?4??CollideShape@CRnWorld@@AEBAXAEAV?$CUtlVectorFixedGrowable@VCRnPlaneResult@@$0CA@H@@AEBVBounds3@@AEBVCTransform@@AEBVCGJKProxy@@MAEBURnQueryAttr_t@@_N@Z@
+.?AV<lambda_2>@?4??LinearCast@CRnWorld@@AEBAXAEAV?$CUtlVectorFixedGrowable@UCLinearSweepResult@@$0IA@H@@W4SweepType_t@2@AEBVBounds3@@AEBVCTransform@@AEBVCGJKProxy@@MAEBV?$Vec3D@M@@AEBURnQueryAttr_t@@_N@Z@
+.?AV<lambda_2>@?4??Query@CRnWorld@@QEBAXAEAV?$CUtlVectorFixedGrowable@PEAVIPhysicsShape@@$0IA@H@@AEBUGenericShape_t@@AEBV?$Vec3D@M@@AEBURnQueryAttr_t@@W4OverlapTest_t@@@Z@
+.?AV<lambda_2>@?4??Query@CRnWorld@@QEBAXAEAV?$CUtlVectorFixedGrowable@PEAVIPhysicsShape@@$0IA@H@@AEBV?$Vec3D@M@@MAEBURnQueryAttr_t@@W4OverlapTest_t@@@Z@
+.?AV<lambda_2>@?4??SweepShape@CRnWorld@@AEBAXPEAUCSweepResult@@PEAV?$CUtlVectorFixedGrowable@UCSweepResult@@$0IA@H@@AEBVBounds3@@AEBURnSweep_t@@AEBVCTOIProxy@@AEBURnQueryAttr_t@@_N@Z@
+.?AV<lambda_2>@?9??Query@CRnWorld@@QEBAXAEAV?$CUtlVectorFixedGrowable@PEAVIPhysicsShape@@$0IA@H@@AEBVBounds3@@AEBURnQueryAttr_t@@W4OverlapTest_t@@_N@Z@
+.?AV<lambda_2>@?BE@??UpdateJointRelative@CPhysicsAbsoluteRagdollControl@@QEAAXHHMMPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCAtomicMutex@@@Z@
 .?AV<lambda_2>@?BF@??BeginSimJobs@CRnParticleRope@@QEAAXM_NPEAVCJobContinuation@@@Z@
-.?AV<lambda_2>@?BG@??UpdateJointAbsolute@CPhysicsAbsoluteRagdollControl@@QEAAXHHM_NPEBHPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCThreadMutex@@@Z@
-.?AV<lambda_2>@?CE@??UpdateJointsParallel@CPhysicsAbsoluteRagdollControl@@UEAAXHPEAUCPhysicsRagdollWeight@@PEBHPEBVCTransform@@M_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCThreadMutex@@@Z@
+.?AV<lambda_2>@?BG@??UpdateJointAbsolute@CPhysicsAbsoluteRagdollControl@@QEAAXHHM_NPEBHPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCAtomicMutex@@@Z@
+.?AV<lambda_2>@?CE@??UpdateJointsParallel@CPhysicsAbsoluteRagdollControl@@UEAAXHPEAUCPhysicsRagdollWeight@@PEBHPEBVCTransform@@M_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCAtomicMutex@@@Z@
 .?AV<lambda_2>@?DP@??UpdateSceneObjects@CRnWorldHelper@@QEAAXAEAVCCallQueue@@URnDebugDrawOptions_t@@@Z@
+.?AV<lambda_2>@?L@??CastRayIntervals@CRnWorld@@QEBAXAEAVCRayIntervalVector@@AEBV?$Vec3D@M@@1AEBURnQueryAttr_t@@M@Z@
 .?AV<lambda_3>@?1??CreateTautLineJobs@CRnParticleRope@@AEAAX_NAEAVCJobContinuation@@1@Z@
-.?AV<lambda_3>@?BF@??UpdateJointRelative@CPhysicsAbsoluteRagdollControl@@QEAAXHHMMPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCThreadMutex@@@Z@
+.?AV<lambda_3>@?BF@??UpdateJointRelative@CPhysicsAbsoluteRagdollControl@@QEAAXHHMMPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCAtomicMutex@@@Z@
 .?AV<lambda_3>@?BK@??BeginSimJobs@CRnParticleRope@@QEAAXM_NPEAVCJobContinuation@@@Z@
-.?AV<lambda_3>@?BM@??UpdateJointAbsolute@CPhysicsAbsoluteRagdollControl@@QEAAXHHM_NPEBHPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCThreadMutex@@@Z@
-.?AV<lambda_3>@?CH@??UpdateJointsParallel@CPhysicsAbsoluteRagdollControl@@UEAAXHPEAUCPhysicsRagdollWeight@@PEBHPEBVCTransform@@M_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCThreadMutex@@@Z@
+.?AV<lambda_3>@?BM@??UpdateJointAbsolute@CPhysicsAbsoluteRagdollControl@@QEAAXHHM_NPEBHPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCAtomicMutex@@@Z@
+.?AV<lambda_3>@?CH@??UpdateJointsParallel@CPhysicsAbsoluteRagdollControl@@UEAAXHPEAUCPhysicsRagdollWeight@@PEBHPEBVCTransform@@M_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCAtomicMutex@@@Z@
 .?AV<lambda_4>@?BA@??BeginSimJobs@CRnParticleRope@@QEAAXM_NPEAVCJobContinuation@@@Z@
-.?AV<lambda_4>@?BG@??UpdateJointRelative@CPhysicsAbsoluteRagdollControl@@QEAAXHHMMPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCThreadMutex@@@Z@
-.?AV<lambda_4>@?CB@??UpdateJointAbsolute@CPhysicsAbsoluteRagdollControl@@QEAAXHHM_NPEBHPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCThreadMutex@@@Z@
-.?AV<lambda_5>@?CG@??UpdateJointAbsolute@CPhysicsAbsoluteRagdollControl@@QEAAXHHM_NPEBHPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCThreadMutex@@@Z@
+.?AV<lambda_4>@?BG@??UpdateJointRelative@CPhysicsAbsoluteRagdollControl@@QEAAXHHMMPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCAtomicMutex@@@Z@
+.?AV<lambda_4>@?CB@??UpdateJointAbsolute@CPhysicsAbsoluteRagdollControl@@QEAAXHHM_NPEBHPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCAtomicMutex@@@Z@
+.?AV<lambda_5>@?CG@??UpdateJointAbsolute@CPhysicsAbsoluteRagdollControl@@QEAAXHHM_NPEBHPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCAtomicMutex@@@Z@
 .?AV<lambda_5>@?CH@??BeginSimJobs@CRnParticleRope@@QEAAXM_NPEAVCJobContinuation@@@Z@
+.?AV<lambda_6>@?LB@??Draw@CRnWorldHelper@@QEAAXPEAVISceneViewDebugOverlays@@URnDebugDrawOptions_t@@PEBVCSerialStreamSnapshot@@PEBVCFrustum@@@Z@
 .?AV?$CBaseAppSystem@UVPhys2HandleInterface@@@@
 .?AV?$CBaseAppSystem@VIVPhysics2@@@@
 .?AV?$CDefaultKV3TransferResourceTypeManager@$0GGHCHFHDHG@@@
@@ -116,6 +128,7 @@
 .?AV?$CParallelLambdaJob@V<lambda_1>@?2??Collide@CRnWorld@@AEAAXM@Z@@CParallelProcessLauncher@@
 .?AV?$CParallelLambdaJob@V<lambda_1>@?4??Solve@CRnWorld@@AEAAXM_NAEAUBroadphaseOverlappingPairQuery_t@@@Z@@CParallelProcessLauncher@@
 .?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_1>@?1??ConvertBodies@CVPhysics2Interface@@UEAAXAEAV?$CUtlVector@UPhysicsBodyDef_t@@HV?$CUtlVectorMemory_Growable@UPhysicsBodyDef_t@@H$0A@@@@@PEBUVPhysXAggregateData_t@@@Z@@@YAXHHPEBD$$QEAV1?1??ConvertBodies@CVPhysics2Interface@@UEAAXAEAV?$CUtlVector@UPhysicsBodyDef_t@@HV?$CUtlVectorMemory_Growable@UPhysicsBodyDef_t@@H$0A@@@@@PEBUVPhysXAggregateData_t@@@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
+.?AV?$CParallelLambdaJob@V<lambda_1>@?M@???$ParallelFor@$00V<lambda_2>@?4??BeginRopeAsyncJobs@CRnWorld@@QEAAX_N@Z@@@YAXHHPEBD$$QEAV<lambda_2>@?4??BeginRopeAsyncJobs@CRnWorld@@QEAAX_N@Z@HHW4JobPriority_t@@@Z@@CParallelProcessLauncher@@
 .?AV?$CParallelLambdaJob@V<lambda_2>@?1??FinalizeHierarchyUpdate@CBroadphase@@QEAAXAEAUBroadphaseHierarchyUpdate_t@@AEAUBroadphaseOverlappingPairQuery_t@@@Z@@CParallelProcessLauncher@@
 .?AV?$CParallelLambdaJob@V<lambda_2>@?6??SolveTOIBodies@CRnWorld@@AEAAXURnTOIParams_t@@AEAV?$CUtlAtomicAddVector@PEAVCRnBody@@$0A@V?$CUtlLeanVector@PEAVCRnBody@@HVCMemAllocAllocator@@@@@@@Z@@CParallelProcessLauncher@@
 .?AV?$CTier0AppSystem@UVPhys2HandleInterface@@$0A@@@
@@ -125,39 +138,55 @@
 .?AV?$CTier2AppSystem@UVPhys2HandleInterface@@$0A@@@
 .?AV?$CTier2AppSystem@VIVPhysics2@@$0A@@@
 .?AV?$CTypesafeIntrospectedToKV3TypeManager@$0HDHJGIHAHG@UVPhysXAggregateData_t@@@@
+.?AV?$_Func_base@XAEAURecordedTrace_t@@@std@@
+.?AV?$_Func_base@XAEBURecordedTrace_t@@@std@@
 .?AV?$_Func_base@XHH@std@@
 .?AV?$_Func_base@XPEAVCRnBody@@M@std@@
+.?AV?$_Func_base@_K$$V@std@@
+.?AV?$_Func_base@_NPEAVIPhysicsShape@@@std@@
+.?AV?$_Func_impl_no_alloc@P6A_KXZ_K$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??CreateMotionControlCallbacksJob@CRnParticleRope@@AEAAX_NAEAVCJobContinuation@@1@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??CreateTautLineJobs@CRnParticleRope@@AEAAX_NAEAVCJobContinuation@@1@Z@X$$V@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??FindClosestRecordedTrace@CRnWorldHelper@@QEBAPEBURecordedTrace_t@@AEBV?$array@E$0BA@@std@@@Z@XAEBU4@@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??FindTOI@CRnMeshContact@@UEBAMAEBURnSweep_t@@0M@Z@XHH@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??ForEachAppliedConstraintImpulse@CPhysicsParticleRope@@UEBAXAEBV?$function@$$A6AXPEAVIPhysicsBody@@M@Z@std@@@Z@XPEAVCRnBody@@M@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?1??WakeBodiesFromAppliedForces@CRnWorld@@QEAAXXZ@XHH@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?4??BeginRopeAsyncJobs@CRnWorld@@QEAAX_N@Z@X$$V@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_1>@?8???0CMultiworldSoftbodyStepper@@QEAA@PEAPEAVCRnSoftbody@@HMH@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?8??BeginAsyncJobs@CRnParticleRope@@QEAAX_NPEAVCJobContinuation@@@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?8??ReleaseRef@CJobContinuation@@QEAAXXZ@X$$V@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_1>@?9??UpdateBodiesParallel@CPhysicsAbsoluteRagdollControl@@UEAAXPEBVCTransform@@MAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCThreadMutex@@@Z@X$$V@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_1>@?9??UpdateBodiesParallel@CPhysicsAbsoluteRagdollControl@@UEAAXPEBVCTransform@@MAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCAtomicMutex@@@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?BA@??BeginSimJobs@CRnParticleRope@@QEAAXM_NPEAVCJobContinuation@@@Z@X$$V@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_1>@?BA@??UpdateJointAbsolute@CPhysicsAbsoluteRagdollControl@@QEAAXHHM_NPEBHPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCThreadMutex@@@Z@X$$V@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_1>@?BD@??UpdateJointRelative@CPhysicsAbsoluteRagdollControl@@QEAAXHHMMPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCThreadMutex@@@Z@X$$V@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_1>@?BE@??UpdateJointsParallel@CPhysicsAbsoluteRagdollControl@@UEAAXHPEAUCPhysicsRagdollWeight@@PEBHPEBVCTransform@@M_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCThreadMutex@@@Z@X$$V@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_1>@?BA@??UpdateJointAbsolute@CPhysicsAbsoluteRagdollControl@@QEAAXHHM_NPEBHPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCAtomicMutex@@@Z@X$$V@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_1>@?BD@??UpdateJointRelative@CPhysicsAbsoluteRagdollControl@@QEAAXHHMMPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCAtomicMutex@@@Z@X$$V@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_1>@?BE@??UpdateJointsParallel@CPhysicsAbsoluteRagdollControl@@UEAAXHPEAUCPhysicsRagdollWeight@@PEBHPEBVCTransform@@M_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCAtomicMutex@@@Z@X$$V@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_1>@?BJ@??ReRunRecordedTrace@CRnWorldHelper@@QEAAXAEBURecordedTrace_t@@PEAV?$CUtlLeanVectorFixedGrowable@URecordedTraceResult_t@@$00HVCMemAllocAllocator@@@@@Z@_NPEAVIPhysicsShape@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_1>@?CL@??UpdateSceneObjects@CRnWorldHelper@@QEAAXAEAVCCallQueue@@URnDebugDrawOptions_t@@@Z@X$$V@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_1>@?O@??Init@CVPhysics2Interface@@UEAA?AW4InitReturnVal_t@@XZ@_K$$V@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_1>@?P@??ToolCastRayMultipleUnfiltered@CRnWorldHelper@@QEBAXAEAV?$CUtlVectorFixedGrowable@URnToolQueryHit_t@@$07H@@AEBV?$Vec3D@M@@1_KM@Z@XAEBURecordedTrace_t@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_2>@?3??CreateTautLineJobs@CRnParticleRope@@AEAAX_NAEAVCJobContinuation@@1@Z@X$$V@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_2>@?BE@??UpdateJointRelative@CPhysicsAbsoluteRagdollControl@@QEAAXHHMMPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCThreadMutex@@@Z@X$$V@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_2>@?4??CollideShape@CRnWorld@@AEBAXAEAV?$CUtlVectorFixedGrowable@VCRnPlaneResult@@$0CA@H@@AEBVBounds3@@AEBVCTransform@@AEBVCGJKProxy@@MAEBURnQueryAttr_t@@_N@Z@XAEAURecordedTrace_t@@@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_2>@?4??LinearCast@CRnWorld@@AEBAXAEAV?$CUtlVectorFixedGrowable@UCLinearSweepResult@@$0IA@H@@W4SweepType_t@3@AEBVBounds3@@AEBVCTransform@@AEBVCGJKProxy@@MAEBV?$Vec3D@M@@AEBURnQueryAttr_t@@_N@Z@XAEAURecordedTrace_t@@@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_2>@?4??Query@CRnWorld@@QEBAXAEAV?$CUtlVectorFixedGrowable@PEAVIPhysicsShape@@$0IA@H@@AEBUGenericShape_t@@AEBV?$Vec3D@M@@AEBURnQueryAttr_t@@W4OverlapTest_t@@@Z@XAEAURecordedTrace_t@@@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_2>@?4??Query@CRnWorld@@QEBAXAEAV?$CUtlVectorFixedGrowable@PEAVIPhysicsShape@@$0IA@H@@AEBV?$Vec3D@M@@MAEBURnQueryAttr_t@@W4OverlapTest_t@@@Z@XAEAURecordedTrace_t@@@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_2>@?4??SweepShape@CRnWorld@@AEBAXPEAUCSweepResult@@PEAV?$CUtlVectorFixedGrowable@UCSweepResult@@$0IA@H@@AEBVBounds3@@AEBURnSweep_t@@AEBVCTOIProxy@@AEBURnQueryAttr_t@@_N@Z@XAEAURecordedTrace_t@@@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_2>@?9??Query@CRnWorld@@QEBAXAEAV?$CUtlVectorFixedGrowable@PEAVIPhysicsShape@@$0IA@H@@AEBVBounds3@@AEBURnQueryAttr_t@@W4OverlapTest_t@@_N@Z@XAEAURecordedTrace_t@@@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_2>@?BE@??UpdateJointRelative@CPhysicsAbsoluteRagdollControl@@QEAAXHHMMPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCAtomicMutex@@@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_2>@?BF@??BeginSimJobs@CRnParticleRope@@QEAAXM_NPEAVCJobContinuation@@@Z@X$$V@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_2>@?BG@??UpdateJointAbsolute@CPhysicsAbsoluteRagdollControl@@QEAAXHHM_NPEBHPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCThreadMutex@@@Z@X$$V@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_2>@?CE@??UpdateJointsParallel@CPhysicsAbsoluteRagdollControl@@UEAAXHPEAUCPhysicsRagdollWeight@@PEBHPEBVCTransform@@M_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCThreadMutex@@@Z@X$$V@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_2>@?BG@??UpdateJointAbsolute@CPhysicsAbsoluteRagdollControl@@QEAAXHHM_NPEBHPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCAtomicMutex@@@Z@X$$V@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_2>@?CE@??UpdateJointsParallel@CPhysicsAbsoluteRagdollControl@@UEAAXHPEAUCPhysicsRagdollWeight@@PEBHPEBVCTransform@@M_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCAtomicMutex@@@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_2>@?DP@??UpdateSceneObjects@CRnWorldHelper@@QEAAXAEAVCCallQueue@@URnDebugDrawOptions_t@@@Z@X$$V@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_2>@?L@??CastRayIntervals@CRnWorld@@QEBAXAEAVCRayIntervalVector@@AEBV?$Vec3D@M@@1AEBURnQueryAttr_t@@M@Z@XAEAURecordedTrace_t@@@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_3>@?1??CreateTautLineJobs@CRnParticleRope@@AEAAX_NAEAVCJobContinuation@@1@Z@X$$V@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_3>@?BF@??UpdateJointRelative@CPhysicsAbsoluteRagdollControl@@QEAAXHHMMPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCThreadMutex@@@Z@X$$V@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_3>@?BF@??UpdateJointRelative@CPhysicsAbsoluteRagdollControl@@QEAAXHHMMPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCAtomicMutex@@@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_3>@?BK@??BeginSimJobs@CRnParticleRope@@QEAAXM_NPEAVCJobContinuation@@@Z@X$$V@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_3>@?BM@??UpdateJointAbsolute@CPhysicsAbsoluteRagdollControl@@QEAAXHHM_NPEBHPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCThreadMutex@@@Z@X$$V@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_3>@?CH@??UpdateJointsParallel@CPhysicsAbsoluteRagdollControl@@UEAAXHPEAUCPhysicsRagdollWeight@@PEBHPEBVCTransform@@M_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCThreadMutex@@@Z@X$$V@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_3>@?BM@??UpdateJointAbsolute@CPhysicsAbsoluteRagdollControl@@QEAAXHHM_NPEBHPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCAtomicMutex@@@Z@X$$V@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_3>@?CH@??UpdateJointsParallel@CPhysicsAbsoluteRagdollControl@@UEAAXHPEAUCPhysicsRagdollWeight@@PEBHPEBVCTransform@@M_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCAtomicMutex@@@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_4>@?BA@??BeginSimJobs@CRnParticleRope@@QEAAXM_NPEAVCJobContinuation@@@Z@X$$V@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_4>@?BG@??UpdateJointRelative@CPhysicsAbsoluteRagdollControl@@QEAAXHHMMPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCThreadMutex@@@Z@X$$V@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_4>@?CB@??UpdateJointAbsolute@CPhysicsAbsoluteRagdollControl@@QEAAXHHM_NPEBHPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCThreadMutex@@@Z@X$$V@std@@
-.?AV?$_Func_impl_no_alloc@V<lambda_5>@?CG@??UpdateJointAbsolute@CPhysicsAbsoluteRagdollControl@@QEAAXHHM_NPEBHPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCThreadMutex@@@Z@X$$V@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_4>@?BG@??UpdateJointRelative@CPhysicsAbsoluteRagdollControl@@QEAAXHHMMPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCAtomicMutex@@@Z@X$$V@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_4>@?CB@??UpdateJointAbsolute@CPhysicsAbsoluteRagdollControl@@QEAAXHHM_NPEBHPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCAtomicMutex@@@Z@X$$V@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_5>@?CG@??UpdateJointAbsolute@CPhysicsAbsoluteRagdollControl@@QEAAXHHM_NPEBHPEBVCTransform@@AEBURnCollisionAttr_t@@AEA_NAEAV?$CUtlLeanVectorFixedGrowable@V?$function@$$A6AXXZ@std@@$0GE@HVCMemAllocAllocator@@@@AEAVCAtomicMutex@@@Z@X$$V@std@@
 .?AV?$_Func_impl_no_alloc@V<lambda_5>@?CH@??BeginSimJobs@CRnParticleRope@@QEAAXM_NPEAVCJobContinuation@@@Z@X$$V@std@@
-.?AV?$_Func_impl_no_alloc@VCMotionControllerUpdater@@X$$V@std@@
+.?AV?$_Func_impl_no_alloc@V<lambda_6>@?LB@??Draw@CRnWorldHelper@@QEAAXPEAVISceneViewDebugOverlays@@URnDebugDrawOptions_t@@PEBVCSerialStreamSnapshot@@PEBVCFrustum@@@Z@XAEBURecordedTrace_t@@@std@@
 .?AVCAimConstraint@@
 .?AVCAllocatorUtils@?1??AllocateAndLoad@?$CTypesafeIntrospectedToKV3TypeManager@$0HDHJGIHAHG@UVPhysXAggregateData_t@@@@UEAAPEAXAEAVCKV3TransferLoadContext@@PEBUResourceBindingBase_t@@PEAVIRD_RegisterResourceDataUtils@@@Z@
 .?AVCAllocatorUtils@?1??AllocateResource@CPhysDataTypeManager@@UEAAXPEBUResourceBindingBase_t@@VResourceId_t@@PEBUResourceFileHeader_t@@PEAVIRD_RegisterResourceDataUtils@@@Z@
@@ -200,8 +229,11 @@
 .?AVCIkSolver@@
 .?AVCIntersectionController@@
 .?AVCIntersectionDictionary@@
+.?AVCIntersectionDictionaryResourceListener@@
 .?AVCKV3ResourceBlockHelper@@
 .?AVCKV3Transfer_ResourceLoadInterface@@
+.?AVCLambdaJob@?1???$QueueJobWithFlags@AEAVCMotionControllerUpdater@@@IThreadPool@@QEAA?AV?$CSmartPtr@VCThreadedJob@@VCRefCountAccessor@@@@PEBDW4JobPriority_t@@IAEAVCMotionControllerUpdater@@@Z@
+.?AVCLambdaJob@?1???$QueueJobWithFlags@V<lambda_1>@?8???0CMultiworldSoftbodyStepper@@QEAA@PEAPEAVCRnSoftbody@@HMH@Z@@IThreadPool@@QEAA?AV?$CSmartPtr@VCThreadedJob@@VCRefCountAccessor@@@@PEBDW4JobPriority_t@@I$$QEAV<lambda_1>@?8???0CMultiworldSoftbodyStepper@@QEAA@PEAPEAVCRnSoftbody@@HMH@Z@@Z@
 .?AVCModelConfigElement@@
 .?AVCModelConfigElement_AttachedModel@@
 .?AVCModelConfigElement_Command@@
@@ -214,7 +246,7 @@
 .?AVCModelConfigElement_SetRenderColor@@
 .?AVCModelConfigElement_UserPick@@
 .?AVCMorphConstraint@@
-.?AVCMotionControllerUpdater@@
+.?AVCNameIndex@@
 .?AVCOrientConstraint@@
 .?AVCParentConstraint@@
 .?AVCPhysAggregateInstance@@
@@ -250,6 +282,7 @@
 .?AVCRnHullShape@@
 .?AVCRnJoint@@
 .?AVCRnLink@@
+.?AVCRnLinkBase@@
 .?AVCRnLinkage@@
 .?AVCRnMeshContact@@
 .?AVCRnMeshShape@@
@@ -313,7 +346,7 @@
 .?AVCVPhysPtrUtlVectorSaveRestoreOps@@
 .?AVCVPhysics2ConComm@@
 .?AVCVPhysics2Interface@@
-.?AVCVPhysics2SurfaceProperyManager@@
+.?AVCVPhysics2SurfacePropertyManager@@
 .?AVCWorldStepJob@@
 .?AVIAsyncProcessedDataResult@@
 .?AVIBaseSequence@@
@@ -349,6 +382,7 @@
 .?AVIPhysAggregateInstance@@
 .?AVIPhysIntersectionController@@
 .?AVIPhysIntersectionDictionary@@
+.?AVIPhysNameIndex@@
 .?AVIPhysReflContext@@
 .?AVIPhysSerialStreamSnapshot@@
 .?AVIPhysSurfacePropertyController@@
@@ -375,23 +409,27 @@
 .?AVISoftbodyEffect@@
 .?AVIStackTranslationHelperFactory@@
 .?AVITraceObject@@
+.?AVIVDataResourceListener@@
 .?AVIVPhysics2@@
 .?AVIVPhysics2World@@
 .?AVIVPhysicsLegacyKeyHandler@@
+.P6A_KXZ
 .bin
 .json
 .rnsave
 .vmdl
 /%u.rnsave
-0TX/
+0$B1
 0\r%0t
 0x%08X 
-2\vpTX/
+2\vp!T
+2\vpd"7
 2_BONE_IK
 4\r54t
 8a\v6;
 99ccff;"><b>Not Colliding</b>
 99ccff;">Should <b>Not</b> Collide: 
+:_not_pickable
 ; tris:
 ;"><b>Trigger</b> Touch
 ;width:1%;max-width:1%;
@@ -401,13 +439,13 @@
 <b>Both</b> sides
 <b>No</b>-contact Information
 <b>Non</b>-interaction Analysis
-<div align=center style="padding:3px;font-size:15px;text-align:center;background-color:#ff9966;">
 <div align=left style="padding:3px;font-size:40px;text-align:center;color:black;background-color:#
+<div align=left style="padding:3px;font-size:40px;text-align:center;color:black;background-color:#ff9966;">
 <div><font size=-1>%s</font></div>
 <font color="%s">%s</font>
 <font color="blue">%s</font>
-<font color="cyan">Left</font>
-<font color="green">Right</font>
+<font color="cyan">Right</font>
+<font color="green">Left</font>
 <font color="green">[C]</font> 
 <font color="red">Face is connected to itself, cannot dissolve</font>
 <font color="red">[x]</font> 
@@ -431,6 +469,7 @@
 <p><font color="red">Warning</font>: interact-as 0x%llx is <b>inconsistent</b> with override 0x%llx & ~0x%llx</p>
 <p>Collision Group <b>Always</b> always collides</p>
 <p>Collision Group Override (%d) %s
+<p>Forcing collision with <b>All</b></p>
 <p>Layers excluded:
 <p>No Solid Contact between <font color="cyan">%s</font> - <font color="blue">%s</font></p>
 <p>Shape interact-as overrides:</p><small><tt><table>
@@ -451,11 +490,10 @@
 ?DualHull
 ?SimplifyMesh (%.3f) (v=%d,t=%d) to (v=%d,t=%d)\n
 ?Strength
-?Xr7
+?VertexGenericIntegerData
 ?expf
 ?fff?
 ?unsupported?
-@HlL
 @fff>fff>fff>fff>
 AABB_t
 ATTACHMENT_INFLUENCE_FLAGS_NONE
@@ -466,8 +504,7 @@ Agg data %d: %p (%d parts, crc 0x%08X)\n
 Aggregate Count
 AirToCloth
 Algo
-All Groups:
-All Layers:
+All %s
 AllocateAndLoad failed for '%s' (%s)\n
 AllocateAndLoad failed for '%s'\n
 Ang Velocity: %.2f, %.2f, %.2f \n
@@ -483,26 +520,23 @@ Asleep
 Assuming parameter -sdk\n
 AttachObject called on motion controller with this object already attached.\n
 AttachmentHandle_t
+Available %s:\n
 Available Collision Functions:\n
-Available Collision Groups:\n
-Available Interaction Layers:\n
 Available debug layers:\n
 Awake
-B0m6
 BEVEL_GEAR_FAST_JOINT
 BLEND_PREALIGNED
 BODY_DYNAMIC
 BODY_KEYFRAMED
 BODY_STATIC
-B\vp\nP
 Bad FLC data for resource '%s': %s\n
 Bad KV3 data for resource '%s': %s\n
 BaseJointSave_t
+Begin Rope Jobs
 Bodies
 Bodies: %d (%d)
 Body1 = Null\n
 Body2 = Null\n
-BoneConstraintList
 BoneConstraintRbf :: Cannot find input bone "%s" :: %s\n
 BoneConstraintRbf :: Cannot find output bone "%s" :: %s\n
 BoneConstraintRbf :: Invalid input %d or output %d bone count :: %s\n
@@ -514,19 +548,12 @@ Buffer overflow
 Build Mass Unit Test centroid/floating-point-induced Max error: %f, %f, %f\n
 C:\buildworker\citadel_rel_win64\build\_build_\vphysics2\_vpc_vphysics2\default\win64\_msvc_\Retail\vphysics2.pdb
 C:\buildworker\citadel_rel_win64\build\src\common\stackhelpers\stackhelpers_vsymbolmodule_translation.cpp
-C:\buildworker\citadel_rel_win64\build\src\physicslib\physaggregatedata.cpp
-C:\buildworker\citadel_rel_win64\build\src\public\scenesystem\vertexformat.h
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\utlatomicaddvector.h
-C:\buildworker\citadel_rel_win64\build\src\rubikon\helpers\world_helper.cpp
-C:\buildworker\citadel_rel_win64\build\src\rubikon\helpers\world_helper.inl
+C:\buildworker\citadel_rel_win64\build\src\rubikon\intersectiondictionary.cpp
 C:\buildworker\citadel_rel_win64\build\src\rubikon\nulljoint.cpp
 C:\buildworker\citadel_rel_win64\build\src\rubikon\rncommon.cpp
 C:\buildworker\citadel_rel_win64\build\src\rubikon\solverjob.inl
-C:\buildworker\citadel_rel_win64\build\src\rubikon\world.cpp
-C:\buildworker\citadel_rel_win64\build\src\stacktranslate\universaltranslator.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0_perproject\keyvalues3.cpp
-C:\buildworker\citadel_rel_win64\build\src\vphysics2\fnphysicsworldimpl.cpp
 C:\buildworker\citadel_rel_win64\build\src\vphysics2\physicsragdollcontrol.cpp
+C:\buildworker\citadel_rel_win64\build\src\vphysics2\physicsrope.cpp
 C:\buildworker\citadel_rel_win64\build\src\vphysics2\vphys2_debug.cpp
 C:\buildworker\citadel_rel_win64\build\src\vphysics2\vphys2_world.cpp
 C:\buildworker\citadel_rel_win64\build\src\vphysics2\vphysics2.cpp
@@ -546,7 +573,7 @@ CBoneConstraintPoseSpaceBone::Input_t
 CBoneConstraintPoseSpaceMorph
 CBoneConstraintPoseSpaceMorph::Input_t
 CBoneConstraintRbf
-CBroadphase::FinalizeHierarchyUpdate(), C:\buildworker\citadel_rel_win64\build\src\rubikon\broadphase.cpp:725
+CBroadphase::FinalizeHierarchyUpdate(), C:\buildworker\citadel_rel_win64\build\src\rubikon\broadphase.cpp:720
 CBroadphase::QueryOverlappingPairs(), C:\buildworker\citadel_rel_win64\build\src\rubikon\broadphase.inl:223
 CColorGradient
 CConstraintSlave
@@ -577,10 +604,12 @@ CL 6900691
 CMaterialDrawDescriptor
 CMaterialDrawDescriptor::RigidMeshPart_t
 CMeshletDescriptor
+CModelAnimGraph2Identifier
 CModelAnimName
 CModelAnimNameWithDeltas
 CModelAttachmentName
 CModelBodyGroupName
+CModelBoneName
 CModelConfig
 CModelConfigElement
 CModelConfigElement_AttachedModel
@@ -622,11 +651,12 @@ CRenderSkeleton
 CResourceStreamFixed: trying to write past the end of allocated memory (new commit %u, allocated %u)\n
 CRnNullJoint::LoadVelocityConstraints
 CRnParallelJobChain::Initialize
-CRnWorld::Collide(), C:\buildworker\citadel_rel_win64\build\src\rubikon\world.cpp:2156
-CRnWorld::Solve(), C:\buildworker\citadel_rel_win64\build\src\rubikon\world.cpp:1633
-CRnWorld::SolveTOIBodies(), C:\buildworker\citadel_rel_win64\build\src\rubikon\world.cpp:1789
+CRnWorld::Collide(), C:\buildworker\citadel_rel_win64\build\src\rubikon\world.cpp:2208
+CRnWorld::Solve(), C:\buildworker\citadel_rel_win64\build\src\rubikon\world.cpp:1684
+CRnWorld::SolveTOIBodies(), C:\buildworker\citadel_rel_win64\build\src\rubikon\world.cpp:1840
 CRnWorld::WakeBodiesFromAppliedForces
 CSceneObjectData
+CSceneObjectData::RTProxyDrawDescriptor_t
 CStackTranslationHelper_VSymbolModule::CanTranslatePointer
 CStackTranslationHelper_VSymbolModule::GetMappedModuleName
 CStackTranslationHelper_VSymbolModule::UnloadModulesInTargetRange
@@ -637,7 +667,7 @@ CTransform
 CTwistConstraint
 CUtlDict<class CAttachment,class CDefFastCaselessStringLess>::Insert
 CUtlDict<class CHitBoxSet,class CDefFastCaselessStringLess>::Insert
-CUtlLeanVectorBase<struct UtlLinkedListElem_t<class CUtlKeyValuePair<class CEntIndexPair,class CEntPairTouchTracker>,unsigned short>,unsigned short,class CMemAllocAllocator>::EnsureCapacity
+CUtlLeanVectorBase<struct UtlLinkedListElem_t<class CUtlKeyValuePair<class CEntIndexPair,class CEntPairTouchTracker>,unsigned int>,unsigned int,class CMemAllocAllocator>::EnsureCapacity
 CUtlLeanVectorBase<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<unsigned __int64,unsigned __int64,class CDefLess<unsigned __int64>,unsigned short>::Node_t,unsigned short>,unsigned short,class CMemAllocAllocator>::EnsureCapacity
 CUtlLeanVectorFixedGrowable
 CUtlLeanVectorImpl<class CUtlLeanVectorBase<class CBaseConstraint *,int,class CMemAllocAllocator>,class CBaseConstraint *,int>::InsertBeforeGetPtr
@@ -651,18 +681,19 @@ CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct AABB_t,int,class CMemAllocAll
 CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct BroadphaseTreeHierarchyUpdate_t::AddProxy_t,int,class CMemAllocAllocator>,struct BroadphaseTreeHierarchyUpdate_t::AddProxy_t,int>::AddMultipleToTail
 CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CConstraintSlave,int,class CMemAllocAllocator>,struct CConstraintSlave,int>::InsertBeforeGetPtr
 CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CMaterialDrawDescriptor::RigidMeshPart_t,int,class CMemAllocAllocator>,struct CMaterialDrawDescriptor::RigidMeshPart_t,int>::InsertBeforeGetPtr
+CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CSceneObjectData::RTProxyDrawDescriptor_t,int,class CMemAllocAllocator>,struct CSceneObjectData::RTProxyDrawDescriptor_t,int>::InsertBeforeGetPtr
 CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct DeferredBodyOp_t,int,class CMemAllocAllocator>,struct DeferredBodyOp_t,int>::AddMultipleToTail
 CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct RnFrictionNotification_t,int,class CMemAllocAllocator>,struct RnFrictionNotification_t,int>::AddMultipleToTail
 CUtlLeanVectorImpl<class CUtlLeanVectorBase<unsigned int,int,class CMemAllocAllocator>,unsigned int,int>::AddMultipleToTail
 CUtlLeanVectorImpl<class CUtlLeanVectorFixedGrowableBase<class CSceneObjectData,1,int,class CMemAllocAllocator>,class CSceneObjectData,int>::InsertBeforeGetPtr
+CUtlLeanVectorImpl<class CUtlLeanVectorFixedGrowableBase<class Vec3D<float>,2,int,class CMemAllocAllocator>,class Vec3D<float>,int>::AddMultipleToTail
 CUtlRBTree<struct CUtlOrderedMapBase<unsigned __int64,unsigned __int64,class CDefLess<unsigned __int64>,unsigned short>::Node_t,class CUtlOrderedMapBase<unsigned __int64,unsigned __int64,class CDefLess<unsigned __int64>,unsigned short>::CKeyLess,unsigned short,class CUtlLeanVector<struct UtlRBTreeNode_t<struct CUtlOrderedMapBase<unsigned __int64,unsigned __int64,class CDefLess<unsigned __int64>,unsigned short>::Node_t,unsigned short>,unsigned short,class CMemAllocAllocator> >::Insert
 CUtlSortVector<unsigned int,class CUtlSortVectorDefaultLess<unsigned int>,class CUtlVector<unsigned int,int,class CUtlVectorMemory_Growable<unsigned int,int,0> > >::InsertIfNotFound
-CUtlString
 CUtlVectorSIMDPaddedVector
 CVPhys2World - Dumped World '%s'.
 CVPhys2World::BeginAsyncPostTickJobs
 CVPhysXSurfacePropertiesList
-CVPhysics2Interface::CreateDebugSceneObject(1226): 
+CVPhysics2Interface::CreateDebugSceneObject(1229): 
 Can <b>Not</b> Hit: %s
 Can <b>Not</b> Hit: Dynamic <font color="blue">body</font>
 Can <b>Not</b> Hit: Keyframed <font color="blue">body</font>
@@ -670,7 +701,9 @@ Can <b>Not</b> Hit: Static <font color="blue">body</font>
 Can <b>Not</b> Hit: ignoring entity id 0x%X
 Can Hit
 Can't restore aggregate state, different part count!!!\n
+Can't restore ragdoll control, different body count!!!\n
 Cannot allocate abstract class
+Cannot convert KV3 type '%s' (%u) to a string token
 Cannot save file %s, stopping snapshot dumping\n
 Cannot save file %s\n
 Cannot start streaming to physics debugger: please connect to VConsole2 first\n
@@ -680,29 +713,26 @@ Capsule - Ground
 CarriedObject
 CarriedWeapon
 Cast Face %d Entry
-CastBoxMultiple(extents=0;SweepSingleConvex)
-CastBoxSingle(extents=0;SweepSingleConvex)
-CastRayMultiple(IntersectSegmentTriangle)
-CastRaySingle(IntersectSegmentTriangle)
-CastSphereMultiple(radius=e;CastSphereTriangle)
 CastSphereSATParams_t
-CastSphereSingle(radius=e;CastSphereTriangle)
 Center 1
 Center 2
 Choppiness
 Class does not allow allocation from its schema binding
 Cloth: 
 Collide
+Collision Groups
 Collision disabled by owner ID %08x ignored matching shape (OWNER:%08x, ENTITY:%08x).
-Collision filtering: Acquiring unregistered name '%s'\n
 Collision filtering: Cannot allocate name '%s' already used %d names\n
 Collision group pair flags=%d. Pair Interacts.
 Collision group pair flags=0. Will not collide.
-Common interaction flags
+CollisionDetailLayerInfo_t
+CollisionDetailLayerInfo_t::Name_t
 Compared Bodies
 ConditionallySolid
 Contact Information
 Contacts: %d (%d)
+ControlBodies
+ControlJoints
 ConvertBodies
 Could not create phys debug IB for %lldd elements\n
 Could not create phys debug VB for %lld elements\n
@@ -711,8 +741,8 @@ Could not lock phys debug VB for %lld elements\n
 Couldn't load KV3 for resource: %s
 CovMatrix3
 Create Flags
-CreatePhysicsBodySceneObject(386): 
-CreatePhysicsEdgeSceneObject(476): 
+CreatePhysicsBodySceneObject(311): 
+CreatePhysicsEdgeSceneObject(401): 
 Currently allocated agg data: {
 DOT_TO_MORPH
 DWARF_SYMBOL_PATH
@@ -724,7 +754,9 @@ Data_Branch1xy
 Data_Branch1zBranch2x
 Data_Branch2yz
 DebugMeshInfoList_t::AppendDebugMeshInfo
+Description
 DestroyDebugSceneObject: pSceneObject ( %p ) has already been deleted!\n
+Detail Layers
 Different physics worlds have different debug draw filters\n
 Disabled
 Dissolved edge
@@ -737,7 +769,7 @@ DynamicMeshDeformParams_t
 Eiffel tower
 Enable the new, stateless version of FilterTransform
 Enabled
-Excluded flags exist:
+Excluded Interaction flags exist:
 Expected an array with two elements when loading a std::pair.
 ExtrudeReplaceHull failed to build new convex hull with extrusion %f\n
 FLAG0_SHIFT_BREAKABLE_FORCE
@@ -852,10 +884,12 @@ FeFollowNode_t
 FeHingeLimitBuild_t
 FeHingeLimit_t
 FeKelagerBend2_t
+FeModelSelfCollisionLayer_t
 FeMorphLayerDepr_t
 FeNodeBase_t
 FeNodeIntegrator_t
 FeNodeReverseOffset_t
+FeNodeStrayBox_t
 FeNodeWindBase_t
 FeProxyVertexMap_t
 FeQuad_t
@@ -883,8 +917,6 @@ FeVertexMapBuild_t
 FeVertexMapDesc_t
 FeWeightedNode_t
 FeWorldCollisionParams_t
-FeetSettings
-Finished trace recording...\n
 FlexOpCode_t
 FoliageAnimation
 For Hitbox Test
@@ -893,50 +925,67 @@ FourQuaternions
 FourVectors
 FourVectors2D
 Free
+Friendly Name
 GEAR
 GENERIC_JOINT
 GetInlineCallData
 GetTranslationData
-HB(C8
+Goals Substep %d %s
+HB(D:
 HELPER_BONE
 HITGROUP_INVALID
-Has Interaction due to %s Collision Group Always
+Has common interaction flags
+Has interaction due to %s Collision Group Always
 Height
 Hierarchy id is the same on both shapes (%d)
+How name is displayed in tools
+How the detail layer is meant to be used
 Hull
 Hulls
 IBphys
+IKV3TransferInterface_AllowRawStringTokenTransfer
+IKV3TransferInterface_ResourceSave
 INPUT_LAYOUT_VARIATION_DEFAULT
 INPUT_LAYOUT_VARIATION_MAX
 INPUT_LAYOUT_VARIATION_STREAM1_INSTANCEID
 INPUT_LAYOUT_VARIATION_STREAM1_INSTANCEID_MORPH_VERT_ID
 INVALID
+IPhysAggregateInstance
+IPhysicsBody
+IPhysicsBodyList
+IPhysicsJoint
+IPhysicsMotionController
+IPhysicsParticleRope
 IPhysicsPlayerController
+IPhysicsRagdollControl
+IS NOT
 Ignore Entity 0x%X
-Ignore for Hitbox on %s, interacts with Hitbox on the other
 Imported Collision %p
 Inconsistent collision attribute index array of size %d, expected %d (number of shapes)\n
 Incremental Face Reduction
 Incremental Vertex Reduction
 InfoForResourceTypeCAnimationGroup
 InfoForResourceTypeCModel
+InfoForResourceTypeCNmGraphDefinition
+InfoForResourceTypeCNmSkeleton
 InfoForResourceTypeCPhysAggregateData
 InfoForResourceTypeCRenderMesh
 InfoForResourceTypeCSequenceGroupData
 InfoForResourceTypeCTextureBase
 InfoForResourceTypeIMaterial2
 InputLayoutVariation_t
+Instant Stop
 Interact-as-exclude: excluded as-layers: 
 Interact-as-exclude: not excluded. All tests passed. These shapes should Collide.\n
 Interact-as-with test fails: there no common interaction layers found in the shapes
 Interact-as-with test passes, common layers: 
 Interaction Analysis
+Interaction Layers
 Invalid
+Invalid %s %s\n
 Invalid blob for %s (%d,%d)
 Invalid collision attr index %u, must be below %d\n, 
 Invalid collision attribute palette entry %u, expected below %d\n
-Invalid collision group %s\n
-Invalid interaction layer %s\n
 Invalid layer %s\n
 JIGGLE_BONE
 JOINT_AXIS_COUNT
@@ -955,6 +1004,7 @@ JointAxis_t
 JointMotion_t
 Joints
 Joints: %d
+KV3TransferLoad
 KeyValues3
 Keyframed
 Keyframed vs Keyframed
@@ -968,12 +1018,18 @@ Linkage %d collision disabled. Do Not Collide.
 LoadOwningPointer failed for '%s' (%s)\n
 LoadOwningPointer failed for '%s'\n
 LoadPhysicsDebugMaterials
-LoadSurfaceProperties
 Local Damp
 LocalSpace
 Locked
-LookAtList
+MAlternateSemanticName
 MAtomicTransfersAsPlainString
+MESH_BUFFER_USAGE_ADJACENCY
+MESH_BUFFER_USAGE_IB
+MESH_BUFFER_USAGE_MESHLET_TRIS
+MESH_BUFFER_USAGE_NONE
+MESH_BUFFER_USAGE_RT_PROXY
+MESH_BUFFER_USAGE_VB
+MESH_BUFFER_USAGE_VERTEX_ALBEDO
 MESH_DRAW_FLAGS_CAN_BATCH_WITH_DYNAMIC_SHADER_CONSTANTS
 MESH_DRAW_FLAGS_DRAW_LAST
 MESH_DRAW_FLAGS_NONE
@@ -1006,8 +1062,9 @@ MORPH_FLEXCONTROLLER_REMAP_NWAY
 MORPH_FLEXCONTROLLER_REMAP_PASSTHRU
 MOUSE_JOINT
 MPropertyCustomEditor
-MPropertyEditClassAsString_LEGACY
 MPropertySuppressField
+MVDataOutlinerLeafNameFn
+MVDataRoot
 Mass Priority Shift %d\n
 Mass: %.1f (inv %.3f)\n
 MaterialGroup_t
@@ -1016,11 +1073,14 @@ MaxSpeed
 Medium
 Merge Faces
 Merged face
+Mesh TOI
 Mesh triangle material index %d>=%d is out of bounds\n
 Mesh-Mesh
 MeshDrawPrimitiveFlags_t
 Meshes
 Missing animation bone %s. It is needed to drive cloth.\n
+ModelAnimGraph2Identifier()
+ModelAnimGraph2Ref_t
 ModelAnimName()
 ModelAnimNameWithDeltas()
 ModelAttachmentName()
@@ -1028,22 +1088,25 @@ ModelBodyGroupName()
 ModelBoneFlexComponent_t
 ModelBoneFlexDriverControl_t
 ModelBoneFlexDriver_t
+ModelBoneName()
 ModelConfigAttachmentType_t
 ModelEmbeddedMesh_t
 ModelMaterialGroupName()
 ModelMeshBufferData_t
+ModelMeshBufferUsage_t
 ModelSkeletonData_t
 ModelSkeletonData_t::BoneFlags_t
 MorphBundleType_t
 MorphFlexControllerRemapType_t
 Motion Controllers
 MotionController Async Update
+MovementCapability_t
 MovementGaitId_t
-MovementSettings
 NPCPhysicsHullType_t
 NULL_JOINT
-NameIndex:AcquireName( %x ) without name string\n
-NameIndex:PreacquireName( %x ) without name string\n
+NameIndex %s acquiring unregistered name '%s'\n
+NameIndex %s attempting to acquire token ( %x ) without name string\n
+NameIndex %s releasing unused name '%s'\n
 NavIgnore
 NavLocalIgnore
 Next edge after queue update
@@ -1053,11 +1116,11 @@ No DATA block for resource '%s'\n
 No DATA block for resource\n
 No Reason To Hit
 No Self Collision\n
-No Touch event enabled on %s: GetCollisionFunctionMask() = {<font color = "cyan">%d</font>, <font color = "green">%d</font>} does not include FCOLLISION_FUNC_ENABLE_TOUCH_EVENT = %d
 No common interaction as-with flags, so interactions disabled
 No contact now
+No interaction for Hitbox on %s, interacts with Hitbox on the other
 No interactions allowed between keyframed vs keyframed or keyframed vs static - unless the collision groups specify touch reports only (e.g. a trigger interaction)
-No matching exclude flags
+No matching excluded interaction flags
 No matching interaction layers
 No shared pair flags on the following collision groups:
 Node
@@ -1072,9 +1135,18 @@ Notify Lost
 Notify Persist
 ORIENT
 OldFeEdge_t
+Only query can use this layer, not collision
 Operation
 OverlayProjectionDirection
 PARENT
+PIID_IPHYSAGGREGATE
+PIID_IPHYSICSBODY
+PIID_IPHYSICSJOINT
+PIID_IPHYSICSMOTIONCONTROLLER
+PIID_IPHYSICSPARTICLEROPE
+PIID_IPHYSICSRAGDOLLCONTROL
+PIID_NUM_TYPES
+PIID_UNKNOWN
 POINT
 POSE_SPACE_BONE
 POSE_SPACE_MORPH
@@ -1082,7 +1154,9 @@ PRISMATIC_JOINT
 PRISMATIC_WELD_FUSED_JOINT
 PULLEY
 PackedAABB_t
+PackedBlobNormal
 Pair flag detail:
+Parent detail layers automatically include the child layer
 ParentAttachmentName()
 PerVertexLighting
 PermModelDataAnimatedMaterialAttribute_t
@@ -1091,6 +1165,7 @@ PermModelExtPart_t
 PermModelInfo_t
 PermModelInfo_t::FlagEnum
 PhysFeModelDesc_t
+PhysInterfaceId_t
 PhysShapeMarkup_t
 PhysSoftbodyDesc_t
 Physics
@@ -1113,6 +1188,7 @@ PhysicsWeldJointSave_t
 PhysicsWheelJointSave_t
 PhysicsWorld 0x%p->0x%p %s\n
 PivotPaint
+Planted Turn
 Please specify a file name to save to\n
 Please start Physics Debugger\n
 PostProcessingVolume
@@ -1130,12 +1206,13 @@ Quaternion
 QuaternionStorage
 Query and shape in hierarchy id=%d
 Query ignored this shape by owner ID. query(%08x, %08x) shape owner:%08x, shape entity:%08x).\n
+Query is not part of shape target detail layer '%s'
 RENDERMESH_SLOT_INVALID
 RENDERMESH_SLOT_PER_INSTANCE
 RENDERMESH_SLOT_PER_VERTEX
 RENDER_BUFFER_ACCELERATION_STRUCTURE
 RENDER_BUFFER_BYTEADDRESS_BUFFER
-RENDER_BUFFER_PER_FRAME_WRITE_ONCE
+RENDER_BUFFER_IMMOVABLE_ALLOCATION
 RENDER_BUFFER_POOL_ALLOCATED
 RENDER_BUFFER_SHADER_BINDING_TABLE
 RENDER_BUFFER_STRUCTURED_BUFFER
@@ -1177,8 +1254,8 @@ REVOLUTE_JOINT
 REVOLUTE_WELD_FUSED_JOINT
 ROTATION
 RSDS\r
-R\fpTX/
 Radius
+RagdollBodies
 Raise ground by this much for all cloth that traces the ground; should be 0 ideally
 Relax
 Relax vmap
@@ -1216,7 +1293,9 @@ RnMeshClone
 RnMeshCreate
 RnMeshDesc_t
 RnMeshDestroy
+RnMeshHideTriangles
 RnMeshUpdateChangedVertices
+RnMeshUpdateTriangleAABBs
 RnMesh_t
 RnNode_t
 RnPlane_t
@@ -1231,14 +1310,12 @@ RnTriangle_t
 RnUnitTest
 RnVertex_t
 RnWing_t
-Rubikon Collision Group name dictionary
-Rubikon Collision Layer name dictionary
 Rubikon Release No-Names
 Rubikon%s\n
 SPHERICAL_JOINT
 SPLINE_JOINT
 SPRING
-Same EntityID=%u on both shapes
+Same EntityID=%u on both shapes. Disabling all touch events.
 Same body
 Saving snapshots starting from Frame %u into '%s'\n
 ScriptedHeldWeaponBehavior_t
@@ -1250,6 +1327,7 @@ Self-Collision: <font color = "cyan">%s</font>, <font color = "green">%s</font>
 Set up debug-draw of physics internal state
 SetTotalMass(%g): Invalid argument\n
 Shape ignored this query by owner ID. shape owner ID: %08x, query owners:%08x, %08x, shape entities:%08x, %08x).\n
+Shape is not part of query target detail layer '%s'
 Shape1
 Shape2
 Shared pair flags exist for the following collision groups:
@@ -1260,6 +1338,7 @@ Should we straighten face island if the displacement is this much? (inches)
 Should we try to straighten an island of faces deviating from their average normal (tangent)?
 Should we try to straighten two faces connected to this edge? (tangent)
 ShouldCollide tests passed
+Shuffle
 Simplify algorithm '%s' could not simplify hull\n
 SkeletonAnimCapture_t
 SkeletonAnimCapture_t::Bone_t
@@ -1275,7 +1354,7 @@ Softbody #%d %s.%d %s (%.4g,%.4g)
 SoftbodyProcessor
 Solid Contact
 Solid Contacts: <font color = "cyan">%s</font>, <font color = "green">%s</font>
-Solid contact enabled on both shapes
+Solid contact but %s has solid contacts disabled. Disabling all collision
 Source Hull
 Source Hull F=%d V=%d hE=%d
 Speedup
@@ -1287,13 +1366,13 @@ StaticLevel
 Stiffness
 StopEffects
 Stopping saving snapshots at Frame %u into '%s'\n
+Strafe
 StreamToPhysicsDebugger: Stream started\n
 StreamToPhysicsDebugger: Stream stoped\n
 StreamToPhysicsDebugger: already not streaming\n
 StreamToPhysicsDebugger: already streaming\n
 Surface properties are not loaded.\n
 SurfacePropertiesList
-SurfacePropertiesStartup
 Suspicious: there is a joint between these two bodies\n
 TILT_TWIST
 TWIST
@@ -1311,6 +1390,7 @@ Tried to load a polymorphic pointer with no '%s' key
 Tried to load resource reference '%s' from a value without a resource reference specific type.
 Trigger
 Trigger <font color="cyan">Query</font>, common interaction flags
+Turn
 Twist: %.1f, Swing: %.1f, Twist Lambda: %.1f, Swing Lambda: %.1f
 Two meshes may not have collision\n
 Two non-dynamics do NOT have a Trigger flag
@@ -1318,15 +1398,16 @@ Two non-dynamics have a Trigger flag\n
 TypeManager
 Unexpected Keyword %s\n
 Unexpected end of buffer @%p, payload %d bytes, %d extra bytes at the end\n
-Unknown interaction layer: %s\n
 Unsupported version %d for resource '%s' (Expected %d)\n
-UpdatePhysicsBodySceneObject(451): 
-UpdatePhysicsEdgeSceneObject(518): 
-UpdatePhysicsEdgeSceneObject(538): 
-Usage: phys_debug_draw [options]:\n\t\tclient                    - draw client world(s)\n\t\tserver                    - draw server world(s)\n\t\tother                     - draw other world(s) - useful in tools\n\t\twireframe                 - draw wireframe\n\t\tsolid                     - draw solid (not wireframe, with tool textures)\n\t\tplain                     - draw solid (not wireframe, plain debug colors)\n\t\ttransparent 128           - draw transparent (0-255)\n\t\tnodraw | off              - draw nothing\n\t\t{collisionGroup, interactAs, interactWith, interactExclude} #FFFFFFFF\n\t\tlayer #401F or layer401F  - debug layer mask\n\t\tdebugName substring       - filter by substring in debug name\n\t\tstackFilter substring     - filter traces by callstack strings\n\t\tnot                       - invert filter\n\t\tsurface slipperymetal     - filter by surface names or (#41BC2B3D) hash\n\t\ttrigger|nav|clip          - draw corresponding tool materials\n\t\tcfFF                      - collision function mask\n
-Used Groups:
-Used Layers:
+UpdatePhysicsBodySceneObject(376): 
+UpdatePhysicsEdgeSceneObject(443): 
+UpdatePhysicsEdgeSceneObject(463): 
+Usage: phys_debug_draw [options]:\n\t\tclient                    - draw client world(s)\n\t\tserver                    - draw server world(s)\n\t\tother                     - draw other world(s) - useful in tools\n\t\twireframe                 - draw wireframe\n\t\tsolid                     - draw solid (not wireframe, with tool textures)\n\t\tplain                     - draw solid (not wireframe, plain debug colors)\n\t\ttransparent 128           - draw transparent (0-255)\n\t\tnodraw | off              - draw nothing\n\t\t{collisionGroup, interactAs, interactWith, interactExclude, targetDetailLayer, includedDetailLayers} #FFFFFFFF\n\t\tlayer #401F or layer401F  - debug layer mask\n\t\tdebugName substring       - filter by substring in debug name\n\t\tstackFilter substring     - filter traces by callstack strings\n\t\tnot                       - invert filter\n\t\tsurface slipperymetal     - filter by surface names or (#41BC2B3D) hash\n\t\ttrigger|nav|clip          - draw corresponding tool materials\n\t\tcfFF                      - collision function mask\n
+Used %s
 VBphys
+VERTEX_ALBEDO_565
+VERTEX_ALBEDO_8888
+VERTEX_ALBEDO_NONE
 VPhysXAggregateData_t
 VPhysXAggregateData_t::VPhysXFlagEnum_t
 VPhysXBodyPart_t
@@ -1339,6 +1420,7 @@ VPhysXJoint_t
 VPhysXJoint_t::Flags_t
 VPhysXRange_t
 VPhysics2ShapeDef_t
+VPhysics2Startup
 VPhysics2SurfacePropLoader
 VSYMMOD::%s( 0x%llX )\n
 VSYMMOD::Creating symbol module and loading symbols for '%s'\n
@@ -1349,9 +1431,9 @@ VSymbolModule init succeeded (symbols may or may not have been found)\n
 VectorAligned
 Velocity: %.2f, %.2f, %.2f \n
 Version
+VertexAlbedoFormat_t
 VertexColorPos_t
 VertexElementAnnotation
-VertexGenericIntegerData
 VertexMap
 VertexPaintBlendParams
 VertexPaintBlendParams1
@@ -1368,7 +1450,6 @@ WARNING: Invalid resource version (%d): %s\n
 WELD_JOINT
 WHEEL_JOINT
 Width
-Will report touch events
 World @%p has %d bodies, %d softbodies, %d joints, %d null joints, %d solver contacts, %d report contacts, %d entity pairs\n
 World @%p has %d softbodies:\n
 World context should be set for any code path that wants to create debug shapes, otherwise debug rendering won't work\n
@@ -1380,18 +1461,18 @@ Wrong alignment %d\n
 [4] Touch Found
 [8] Touch Persists
 \nLocal anchors: {%g,%g,%g}, {%g,%g,%g}\n
-\n\tV_atanf
+\nP$B1
 \ng default\n
 \t%2d.  %16llx - %s%s\n
 \t%d. %4x - %s\n
-\tV_strtoui64
+\tV_atanf
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\v\n\v\n\v\n\v\n\v\n\v\n\v\n\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\v\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\r\f\r\f\r\f\r\f\r\f\r\f\r\f\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r
+\tg_bUpdateStringTokenDatabase
 \tg_flConfigMaxCoord
 _____Bytes %-30s[body]\n
 acosf
 adult male human
 always
-and adding Touch Persist flag, because one of the shapes enables it
 angular_damping_ratio
 angular_frequency
 angularburst
@@ -1435,6 +1516,7 @@ client
 clips
 cloth_filter_transform_stateless
 cloth_ground_plane_thickness
+coarse
 collisionGroup
 collisionGroup 
 collision_group_override
@@ -1470,12 +1552,19 @@ eGenericCapsule
 eGroundBox
 eGroundCapsule
 eHolster
+eIdleTurn
+eInstantStop
 eInvalid
 eMedium
 eMoveWithGait
 eObsoleteBackCompat1
 eObsoleteBackCompat2
+ePlantedTurn
+eShuffle
 eSlow
+eStart
+eStop
+eStrafe
 eTeleport
 eVeryFast
 eWait
@@ -1484,7 +1573,6 @@ elasticity
 elephant
 enable_collision
 excludes
-extents
 f4MaxDist
 f4MinDist
 f4RelaxationFactor
@@ -1565,6 +1653,7 @@ golf ball
 green
 halfEdges %d,%d faces %d,%d angle %.1f deg.
 hingeAxis
+hires
 hitboxes
 hull
 hullIvr-0.obj
@@ -1579,6 +1668,8 @@ impactHardThreshold
 impacthard
 impactsoft
 in_vehicle
+includedDetailLayers
+includedDetailLayers 
 inertia_boxes
 interactAs
 interactAs 
@@ -1646,6 +1737,7 @@ m_CollisionAttrib.m_nInteractsExclude
 m_CollisionAttrib.m_nInteractsWith
 m_CollisionAttrib.m_nOwnerIdsToIgnore[ 0 ]
 m_CollisionAttrib.m_nOwnerIdsToIgnore[ 1 ]
+m_CollisionAttrib.m_nTargetDetailLayer
 m_CollisionAttributeIndices
 m_CollisionGroup
 m_CollisionGroupString
@@ -1663,6 +1755,8 @@ m_CtrlOsOffsets
 m_CtrlSoftOffsets
 m_CullingData
 m_Data
+m_DetailLayerStrings
+m_DetailLayers
 m_Distances
 m_DynKinLinks
 m_DynNodeFriction
@@ -1735,6 +1829,7 @@ m_NodeBases
 m_NodeCollisionRadii
 m_NodeIntegrator
 m_NodeInvMasses
+m_NodeStrayBoxes
 m_Nodes
 m_OpCode
 m_PackedAABB
@@ -1750,6 +1845,7 @@ m_RigidColliderPriorities
 m_Rods
 m_Ropes
 m_SDFRigids
+m_SelfCollisionLayers
 m_SimStateBones
 m_SimdAnimStrayRadii
 m_SimdNodeBases
@@ -1793,17 +1889,17 @@ m_WorldCollisionNodes
 m_WorldCollisionParams
 m_aAngOffset
 m_anchor
+m_animGraph2Refs
 m_ankleBoneIndex
 m_ankleBoneName
 m_attachments
 m_audioParams
 m_audioSounds
 m_axes
-m_bAcceptParentMaterialDrivenDecals
 m_bActiveInEditorByDefault
+m_bAllowMissingBodies
 m_bBakedTwoSided
 m_bBoneMergeFlex
-m_bBuoyancyDragEnabled
 m_bCanBatchWithDynamicShaderConstants
 m_bClamp
 m_bCompressedZSTD
@@ -1817,6 +1913,7 @@ m_bDrawLast
 m_bEmbeddedMapMesh
 m_bEnableAngularMotor
 m_bEnableCollision
+m_bEnableEyeBulgeDeformation
 m_bEnableLimit
 m_bEnableLinearLimit
 m_bEnableLinearMotor
@@ -1833,6 +1930,7 @@ m_bHidden
 m_bHideMaterialGroupInTools
 m_bHideRenderColorInTools
 m_bIgnoreRotation
+m_bIgnoreTeleport
 m_bInfluenceRootTransform
 m_bInverse
 m_bIsAngularConstraintDisabled
@@ -1845,18 +1943,22 @@ m_bIsEnabled
 m_bIsLinearConstraintDisabled
 m_bIsLinearConstraintEnabled
 m_bIsNotMatchedToMaterial
+m_bIsQueryOnly
 m_bIsRigid
 m_bIsTautLineEnabled
 m_bMeshoptCompressed
 m_bMeshoptIndexSequence
 m_bNoShadow
+m_bNotPickable
 m_bOnlyShadow
 m_bOverrideMassCenter
 m_bPredicted
 m_bRecomputeSmoothNormalsAfterAnimation
-m_bSimulateOnlyOnFinalTick
+m_bRequiresDynamicBodies
+m_bSimulateOncePerFrame
 m_bSleeping
 m_bSmoothNormalsAcrossUvSeams
+m_bSolidCollisionAtZeroWeight
 m_bSpeculativeEnabled
 m_bTeleport
 m_bTeleportTick
@@ -1905,6 +2007,7 @@ m_depth_elems
 m_description
 m_drawBounds
 m_drawCalls
+m_drawDesc
 m_driveDampingSlerp
 m_driveDampingSwing
 m_driveDampingTwist
@@ -1932,11 +2035,12 @@ m_flAlongDamping
 m_flAlongStiffness
 m_flAlpha
 m_flAngleLimit
-m_flAngularBuoyancyDrag
 m_flAngularDamping
 m_flAngularDampingRatio
 m_flAngularDampingRatios
 m_flAngularDrag
+m_flAngularDragScale
+m_flAngularFluidDragScale
 m_flAngularFrequencies
 m_flAngularFrequency
 m_flBaseDamping
@@ -1953,7 +2057,7 @@ m_flBaseStiffness
 m_flBaseUpFriction
 m_flBendingStiffness
 m_flBindPoseDirectionMS
-m_flBuoyancyFactor
+m_flBuoyancyScale
 m_flCapsuleHeight
 m_flCapsuleRadius
 m_flCurTime
@@ -1988,11 +2092,12 @@ m_flInertiaScale
 m_flInertiaScaleInv
 m_flInternalPressure
 m_flK
-m_flLinearBuoyancyDrag
 m_flLinearDamping
 m_flLinearDampingRatio
 m_flLinearDampingRatios
 m_flLinearDrag
+m_flLinearDragScale
+m_flLinearFluidDragScale
 m_flLinearFrequencies
 m_flLinearFrequency
 m_flLinkStretchToDisableCollision
@@ -2015,7 +2120,9 @@ m_flMaxNodeVelocity
 m_flMaxOffset
 m_flMaxPitch
 m_flMaxRestLength
+m_flMaxSpringFrequency
 m_flMaxSteeringAngle
+m_flMaxStretch
 m_flMaxSuspensionOffset
 m_flMaxTorque
 m_flMaxTwistAngle
@@ -2024,6 +2131,7 @@ m_flMinAngle
 m_flMinOffset
 m_flMinPitch
 m_flMinRestLength
+m_flMinSpringFrequency
 m_flMinSteeringAngle
 m_flMinSuspensionOffset
 m_flMinTwistAngle
@@ -2041,6 +2149,7 @@ m_flNodeMassInv
 m_flNodeRadius
 m_flNodeSeparation
 m_flOcclusionFactor
+m_flParentReaction
 m_flPitchBounce
 m_flPitchDamping
 m_flPitchFriction
@@ -2119,6 +2228,7 @@ m_goalAngularVelocity
 m_goalOrientation
 m_goalPosition
 m_hBuffer
+m_hGraph
 m_hModel
 m_hSimParamsMat
 m_hairPositionOffsets
@@ -2155,6 +2265,7 @@ m_linearLimitValue
 m_localSpaceTransforms
 m_lodBoneCounts
 m_lodGroupSwitchDistances
+m_mWorldFromLocal
 m_material
 m_materialGroups
 m_materials
@@ -2193,6 +2304,7 @@ m_nBoneIndex
 m_nBoneNameHash
 m_nBoneWeightCount
 m_nBoxRigidIndex
+m_nBufferUsage
 m_nCallbackFlags
 m_nChild
 m_nChildren
@@ -2212,6 +2324,7 @@ m_nDynamicNodeFlags
 m_nEdge
 m_nElementCount
 m_nElementSizeInBytes
+m_nEndIdx
 m_nEntIndex
 m_nEntParent
 m_nExtraGoalIterations
@@ -2234,6 +2347,7 @@ m_nGuideHairIndices_nSurfaceTriIndex
 m_nHairCount
 m_nHeight
 m_nHitBoxIndex
+m_nIncludeDetailLayerCount
 m_nIndex
 m_nIndex0
 m_nIndex1
@@ -2252,6 +2366,7 @@ m_nMinVelocityIterations
 m_nMorphBlock
 m_nMotorMode
 m_nNameHash
+m_nNameToken
 m_nNext
 m_nNode
 m_nNodeBaseJiggleboneDependsCount
@@ -2316,6 +2431,10 @@ m_nTriangleOffset
 m_nTwin
 m_nUpType
 m_nVBIBBlock
+m_nVertexAlbedoFormat
+m_nVertexAlbedoOffset
+m_nVertexAlbedoStride
+m_nVertexAlbedoVB
 m_nVertexCount
 m_nVertexMapHash
 m_nVertexOffset
@@ -2344,6 +2463,7 @@ m_pModelConfigList
 m_pRegionSVM
 m_pSemantic
 m_pSemanticName
+m_pSkeleton
 m_pTextureAtlas
 m_params
 m_parentName
@@ -2383,13 +2503,19 @@ m_rnShape
 m_rolling
 m_roughThreshold
 m_roughnessFactor
+m_rtProxyDrawCalls
 m_sAttachmentName
 m_sBoneName
 m_sDebugName
+m_sDescription
+m_sFriendlyName
 m_sHitGroup
 m_sId
+m_sIdentifier
 m_sMorphChannelName
 m_sName
+m_sNameString
+m_sParentDetailLayer
 m_sSurfaceProperty
 m_sTargetBoneName
 m_sTargetMorph
@@ -2441,6 +2567,7 @@ m_twistLowLimitSpring
 m_twistLowLimitValue
 m_vAngularTargetVelocity
 m_vAngularVelocity
+m_vAngularVelocityAccumulator
 m_vBallOffset
 m_vBasePosition
 m_vCapsuleCenter1
@@ -2451,6 +2578,7 @@ m_vDiag
 m_vEndpointAlignAxis[ 0 ]
 m_vEndpointAlignAxis[ 1 ]
 m_vEyePosition
+m_vForceAccumulator
 m_vGravity
 m_vGround1
 m_vGround2
@@ -2464,6 +2592,7 @@ m_vLastAwakeForceAccum
 m_vLastAwakeTorqueAccum
 m_vLinearTargetVelocity
 m_vLinearVelocity
+m_vLinearVelocityAccumulator
 m_vLocalMassCenter
 m_vLocalOrigin1
 m_vLocalOrigin2
@@ -2491,6 +2620,7 @@ m_vViewMax
 m_vViewMin
 m_vecCenter
 m_vecLastAwakeNodeForces
+m_vecNmSkeletonRefs
 m_vecNodeFlags
 m_vecNodeForces
 m_vecNodeMassesInv
@@ -2498,6 +2628,7 @@ m_vecNodePositions
 m_vecNodeVelocities
 m_vecPrevNodeTargets
 m_vecSize
+m_vecSubtreeDetailLayers
 m_vehicleParams
 m_vertexBuffers
 m_wheelDrag
@@ -2600,7 +2731,6 @@ other
 pModule->%s( 0x%llX )\n
 pObject
 pSkeletonPose
-pTX/
 particle_rope
 parts[%d]={
 passable_door
@@ -2638,8 +2768,6 @@ pushaway
 pushoff
 pz_clip
 qAdjust
-r\vp!4
-r\vpTX/
 race horse
 really freaking heavy
 recorded_forces
@@ -2656,6 +2784,7 @@ scale={%g,%g,%g};
 scrapeRoughThreshold
 scraperough
 scrapesmooth
+scripts/collision_detail_layers.vdata
 server 
 serverentityonclient
 shape_edges
@@ -2679,7 +2808,6 @@ space shuttle
 sphere
 stackFilter
 stackFilter 
-startInSolid
 staticImpactVolume
 static_bodies
 std::pair
@@ -2696,6 +2824,8 @@ t-rex
 tBSheetSequenceIntegerId_t
 tangent
 tangentu_signv
+targetDetailLayer
+targetDetailLayer 
 targetNodes
 target_velocity
 testbed
@@ -2708,13 +2838,13 @@ tmFrame2
 tool_materials_list_cache.txt
 torqueLimit
 touchall
-traces
 transparent
 transparent %d 
 trigger
 triggers
 twist_limit
 type %u, version %u, total size %u. %d data headers:\n
+u>Hi:
 u?pas
 unload %s 0x%llX - 0x%llX\n
 use_block_solver
@@ -2723,6 +2853,8 @@ vCenter
 vCenterOfMass
 vLocalMax
 vLocalMin
+vMax
+vMin
 vOffset
 vShape
 vSize
@@ -2737,6 +2869,7 @@ vphysics2.dll
 vphysics_save_aggregate_t
 vphysics_save_cphysicsbody_t
 vphysics_save_motioncontroller_t
+vphysics_save_ragdoll_control_t
 wakeup
 water
 weapon
@@ -2750,4 +2883,5 @@ worldAxisDirection
 worldGeometry
 worldPosition
 zD(knN
+|\tV_strtoui64
 }\n %llu aggs, %s total data\n

@@ -10,7 +10,6 @@ CitadelModIcon
 CitadelHudTopBar CitadelModIcon
 {
 	tooltip-body-position: 90% 90%;
-	tooltip-position: bottom;
 }
 
 CitadelHudTopBar .enemy CitadelModIcon
@@ -29,6 +28,27 @@ CitadelModIcon.newSlotUnlocked
 	animation-duration: 1s;
 	animation-timing-function: ease;
 	animation-iteration-count: 1;
+}
+
+#Enhanced
+{
+	width: 100%;
+	height: 100%;
+	vertical-align: bottom;
+	horizontal-align: left;
+	visibility: collapse;
+	text-shadow: 2px 2px 0px black;
+	opacity: 1;
+	background-color: gradient( linear, 0% 60%, 60% 0%, from( enhancedColorDark&90 ), to( enhancedColorDark&00 ) );
+	background-image: url("s2r://panorama/images/shop/enhanced_arrow_png.vtex");
+	background-size: 16px 20px;
+	background-position: right bottom;
+	background-repeat: no-repeat;
+}
+
+.isEnhanced #Enhanced
+{
+	visibility: visible;
 }
 
 @keyframes 'FlexSlotUnlocked'
@@ -59,6 +79,33 @@ CitadelModIcon.IsNewItem
 	animation-name: isNewItem;
 	animation-duration: 1s;
 	animation-iteration-count: 3;
+}
+
+CitadelHudTopBarPlayer CitadelModIcon
+{
+	brightness: 0.8;
+	wash-color: team1Color&80;
+	ui-scale: 60%;
+	margin: 2px;
+}
+
+.team2 CitadelHudTopBarPlayer CitadelModIcon
+{
+	wash-color: team2Color&80;
+}
+
+CitadelHudTopBarPlayer CitadelModIcon.isTier0
+{
+	visibility: collapse;
+	opacity: 0.4;
+}
+
+CitadelHudTopBarPlayer:selected CitadelModIcon
+{
+	opacity: 1;
+	brightness: 1;
+	saturation: 1;
+	wash-color: none;
 }
 
 @keyframes 'isNewItem'
@@ -191,6 +238,11 @@ CitadelModIcon.IsNewItem
 .isTech .mod_icon_single_container
 {
 	background-color: spiritLightColor;
+}
+
+.isTier5 .mod_icon_single_container
+{
+	background-color: none;
 }
 
 #StatsAndModsContainer .unowned.mod_icon_single_container
@@ -368,6 +420,11 @@ CitadelHudQuickbuy .isTech.VerticalCooldown #CooldownMask
 	visibility: visible;
 }
 
+.isTier5 #TierContainer
+{
+	visibility: collapse;
+}
+
 .tier_bg
 {
 	width: 100%;
@@ -462,5 +519,71 @@ CitadelHudQuickbuy .isTech.VerticalCooldown #CooldownMask
 CitadelAccountSurvey #TierContainer
 {
 	ui-scale: 180%;
+}
+
+#ActiveTagContainer
+{
+	horizontal-align: middle;
+	ignore-parent-flow: true;
+	padding: 0px 2px 0px 2px;
+	min-width: 60px;
+	height: 100%;
+	z-index: 2;
+}
+
+#embedded_active_tag
+{
+	text-transform: uppercase;
+	text-overflow: shrink;
+	font-weight: bold;
+	height: 10px;
+	text-align: center;
+	horizontal-align: center;
+	vertical-align: bottom;
+	background-color: #181818;
+	font-size: 10px;
+	box-shadow: 0px 0px 30px #00000060;
+	color: offWhite&aa;
+	letter-spacing: 0px;
+	border-radius: 2px;
+	visibility: collapse;
+	margin-bottom: 1px;
+}
+
+.isActiveItem #embedded_active_tag
+{
+	visibility: visible;
+}
+
+.isHidden.isActiveItem #embedded_active_tag
+{
+	visibility: collapse;
+}
+
+#LowerLeft .isActiveItem #embedded_active_tag
+{
+	visibility: collapse;
+}
+
+#ItemHidden
+{
+	width: 100%;
+	height: 100%;
+	background-color: offBlack;
+	visibility: collapse;
+}
+
+#ItemHidden Label
+{
+	font-size: 30px;
+	font-family: oracle;
+	horizontal-align: center;
+	vertical-align: center;
+	color: offWhite;
+}
+
+.isHidden #ItemHidden
+{
+	visibility: visible;
 }
 

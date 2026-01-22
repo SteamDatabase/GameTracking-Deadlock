@@ -6,13 +6,143 @@
 		<include src="s2r://panorama/styles/hero_testing_menu.vcss_c" />
 	</styles>
 	<CitadelHudHeroTesting class="hud_hero_testing_root">
-		<GlobalClassListener classes="gScoreboardOpen" />
+		<GlobalClassListener classes="gScoreboardOpen gShopOpen" />
 		<Panel id="hero_testing_stub">
-			<Panel class="nav_menu_item_header">
-				<Label text="#HeroTesting_TestTools" />
+			<Panel class="hero_testing_header">
+				<Panel class="nav_menu_item_header">
+					<Label text="#HeroTesting_TestTools" />
+				</Panel>
+				<Panel class="testing_prompt light full_width">
+					<Label text="#HeroTesting_HoldAlt" html="true" />
+				</Panel>
 			</Panel>
-			<Panel class="testing_prompt light full_width">
-				<Label text="#HeroTesting_HoldAlt" html="true" />
+			<Panel id="hero_testing_tabs" class="tab_selector">
+				<Panel class="LeftRightFlow tab_wrapper">
+					<RadioButton group="HeroTestingTabButtons" class="hero_testing_tab" selected="true" onactivate="HeroTestingSelectTab(&apos;hero_tools&apos;);" id="hero_tools_button" text="#HeroTesting_HeroTools" />
+				</Panel>
+				<Panel class="LeftRightFlow tab_wrapper">
+					<RadioButton group="HeroTestingTabButtons" class="hero_testing_tab" onactivate="HeroTestingSelectTab(&apos;game_rules&apos;);" id="game_rules_button" text="#HeroTesting_GameRules" />
+				</Panel>
+				<Panel class="LeftRightFlow tab_wrapper">
+					<RadioButton group="HeroTestingTabButtons" class="hero_testing_tab" onactivate="HeroTestingSelectTab(&apos;hero_control&apos;);" id="hero_control_button" text="#HeroTesting_HeroControl" />
+				</Panel>
+			</Panel>
+			<Panel id="hero_tools" class="nav_menu_tab_contents">
+				<Panel class="nav_menu_item_header">
+					<Label text="#HeroTesting_HeroTools" />
+					<Panel class="dash" />
+				</Panel>
+				<Panel class="nav_menu_item_container">
+					<Button class="nav_menu_item small_text half_width" onactivate="HeroTestingChangeHero()">
+						<Label text="#HeroTesting_ChangeHero" />
+					</Button>
+					<Button class="nav_menu_item small_text half_width" onactivate="HeroTestingChangeTeam();">
+						<Label text="#HeroTesting_ChangeTeam" />
+					</Button>
+				</Panel>
+				<Panel class="nav_menu_item_container">
+					<Button class="nav_menu_item small_text half_width" onactivate="CitadelConCommand( &apos;resetme&apos; ); PlaySoundEffect( Stinger.LevelUp )">
+						<Label text="#HeroTesting_ResetHero" />
+					</Button>
+				</Panel>
+				<Panel class="nav_menu_item_container">
+					<Button class="small_text nav_menu_item half_width" onactivate="CitadelConCommand( &apos;givelevelupgold 1&apos; ); PlaySoundEffect( Stinger.LevelUp )">
+						<Label text="#HeroTesting_LevelUp" />
+					</Button>
+					<Button class="small_text nav_menu_item half_width" onactivate="CitadelConCommand( &apos;givelevelupgold 36&apos; ); PlaySoundEffect( Stinger.LevelUp )">
+						<Label text="#HeroTesting_MaxLevel" />
+					</Button>
+				</Panel>
+				<Panel class="nav_menu_item_container">
+					<Button class="small_text nav_menu_item half_width" onactivate="CitadelConCommand( &apos;healthpct 50&apos; ); PlaySoundEffect( Stinger.LevelUp )">
+						<Label text="#HeroTesting_HalfHealth" />
+					</Button>
+					<Button class="small_text nav_menu_item half_width" onactivate="CitadelConCommand( &apos;healthpct 100&apos; ); PlaySoundEffect( Stinger.LevelUp )">
+						<Label text="#HeroTesting_FullHealth" />
+					</Button>
+				</Panel>
+				<Panel class="nav_menu_item_container">
+					<Button class="nav_menu_item small_text half_width" onactivate="CitadelConCommand( &apos;lethaldamageme&apos; ); PlaySoundEffect( Stinger.LevelUp )">
+						<Label text="#HeroTesting_KillHero" />
+					</Button>
+					<Button class="nav_menu_item small_text half_width" onactivate="CitadelConCommand( &apos;giveallupgrades&apos; ); PlaySoundEffect( Stinger.LevelUp )">
+						<Label text="#HeroTesting_AllPerks" />
+					</Button>
+				</Panel>
+				<Panel class="nav_menu_item_container">
+					<Button class="nav_menu_item small_text half_width" onactivate="CitadelConCommand( &apos;citadel_spawn_nearby_neutrals&apos; ); PlaySoundEffect( Stinger.LevelUp )">
+						<Label text="#HeroTesting_SpawnCamp" />
+					</Button>
+				</Panel>
+				<Panel class="nav_menu_item_header hideout_btns">
+					<Label text="#HeroTesting_GameRules" />
+					<Panel class="dash" />
+				</Panel>
+				<Panel class="nav_menu_item_container hideout_btns">
+					<ToggleButton class="nav_menu_item CitadelSettingsCheckbox half_width" id="DisableDeathCheckbox" text="#HeroTesting_NoDeath" onactivate="HeroTestingUpdateDisableDeath(); PlaySoundEffect( Stinger.LevelUp )" />
+					<ToggleButton class="nav_menu_item CitadelSettingsCheckbox half_width" id="EnableUnlimitedAmmoCheckbox" text="#HeroTesting_UnlimitedAmmo" onactivate="HeroTestingUpdateEnableUnlimitedAmmo()" />
+				</Panel>
+				<Panel class="nav_menu_item_container hideout_btns">
+					<ToggleButton class="nav_menu_item CitadelSettingsCheckbox half_width" id="DisableCooldownCheckbox" text="#HeroTesting_NoCooldown" onactivate="HeroTestingUpdateDisableCooldowns()" />
+					<ToggleButton class="nav_menu_item CitadelSettingsCheckbox half_width" id="EnableFastStaminaCheckbox" text="#HeroTesting_FastStamina" onactivate="HeroTestingUpdateEnableFastStamina()" />
+				</Panel>
+				<Panel class="nav_menu_item_container hide_in_coop">
+					<Button class="small_text nav_menu_item third_width" onactivate="CitadelConCommand( &apos;host_timescale_dec&apos; ); PlaySoundEffect( Stinger.LevelUp )">
+						<Label text="#HeroTesting_SpeedDown" />
+					</Button>
+					<Button class="small_text nav_menu_item third_width" onactivate="CitadelConCommand( &apos;host_timescale 1.0&apos; ); PlaySoundEffect( Stinger.LevelUp )">
+						<Label text="#HeroTesting_SpeedNormal" />
+					</Button>
+					<Button class="small_text nav_menu_item third_width" onactivate="CitadelConCommand( &apos;host_timescale_inc&apos; ); PlaySoundEffect( Stinger.LevelUp )">
+						<Label text="#HeroTesting_SpeedUp" />
+					</Button>
+				</Panel>
+				<Panel class="nav_menu_item_header">
+					<Label text="#HeroTesting_HeroControl" />
+					<Panel class="dash" />
+				</Panel>
+				<Panel class="nav_menu_item_container">
+					<Button class="nav_menu_item small_text half_width" onactivate="CitadelConCommand( &apos;citadel_assume_pawn_control&apos; );">
+						<Label text="#HeroTesting_TakeControl" />
+					</Button>
+					<Button class="nav_menu_item small_text half_width" onactivate="CitadelConCommand( &apos;bot_kick_all&apos; );">
+						<Label text="#HeroTesting_RemoveBots" />
+					</Button>
+				</Panel>
+				<Panel class="nav_menu_item_container">
+					<Panel class="nav_menu_item_container vertical_item">
+						<Panel class="small_text full_width">
+							<Label text="#HeroTesting_HeroToSpawn" />
+						</Panel>
+						<Button class="nav_menu_item small_text full_width" onactivate="HeroTestingSpawnBotHero(&apos;enemy&apos;)">
+							<Label text="#HeroTesting_SpawnEnemy" />
+						</Button>
+						<Button class="nav_menu_item small_text full_width" onactivate="HeroTestingSpawnBotHero(&apos;friend&apos;)">
+							<Label text="#HeroTesting_SpawnFriendly" />
+						</Button>
+					</Panel>
+					<CitadelHeroCard id="SpawnBotCard" onactivate="HeroTestingChangeSelectedBot()" />
+				</Panel>
+				<Panel class="nav_menu_item_container hide_in_coop">
+					<Button class="nav_menu_item small_text half_width" onactivate="CitadelConCommand( &apos;bot_mimic_target&apos; );">
+						<Label text="#HeroTesting_MakeMimic" />
+					</Button>
+					<Button class="nav_menu_item small_text half_width" onactivate="CitadelConCommand( &apos;bot_puppet_target&apos; );">
+						<Label text="#HeroTesting_MakePuppet" />
+					</Button>
+				</Panel>
+				<Panel class="nav_menu_item_container hide_in_coop">
+					<Button class="nav_menu_item small_text full_width" onactivate="CitadelConCommand( &apos;bot_mimic 0&apos; ); CitadelConCommand( &apos; bot_puppet 0&apos; );">
+						<Label text="#HeroTesting_ClearFollow" />
+					</Button>
+				</Panel>
+			</Panel>
+			<Panel id="collapse_menu_panel">
+				<Button id="collapse_button" class="nav_menu_item_small_text" onactivate="HeroTestingToggleMenuExpanded();">
+					<Label class="expand_label" text="Expand" />
+					<Label class="collapse_label" text="Collapse" />
+					<Image id="collapse_icon" src="s2r://panorama/images/icons/icon_carat.vsvg" />
+				</Button>
 			</Panel>
 			<Panel id="LaneChallengePanel">
 				<Panel class="nav_menu_item_header">
@@ -22,116 +152,7 @@
 				<Label class="lane_challenge" text="#HeroTesting_OrbsSecured" />
 				<Label class="lane_challenge" text="#HeroTesting_OrbsDenied" />
 			</Panel>
-		</Panel>
-		<Panel id="hero_testing_container">
-			<Panel class="nav_menu_item_header">
-				<Label text="#HeroTesting_HeroTools" />
-				<Panel class="dash" />
-			</Panel>
-			<Panel class="nav_menu_item_container">
-				<Button class="nav_menu_item small_text half_width" onactivate="HeroTestingChangeHero()">
-					<Label text="#HeroTesting_ChangeHero" />
-				</Button>
-				<Button class="nav_menu_item small_text half_width" onactivate="HeroTestingChangeTeam();">
-					<Label text="#HeroTesting_ChangeTeam" />
-				</Button>
-			</Panel>
-			<Panel class="nav_menu_item_container">
-				<Button class="nav_menu_item small_text half_width" onactivate="CitadelConCommand( &apos;resetme&apos; ); PlaySoundEffect( Stinger.LevelUp )">
-					<Label text="#HeroTesting_ResetHero" />
-				</Button>
-			</Panel>
-			<Panel class="nav_menu_item_container">
-				<Button class="small_text nav_menu_item half_width" onactivate="CitadelConCommand( &apos;givelevelupgold 1&apos; ); PlaySoundEffect( Stinger.LevelUp )">
-					<Label text="#HeroTesting_LevelUp" />
-				</Button>
-				<Button class="small_text nav_menu_item half_width" onactivate="CitadelConCommand( &apos;givelevelupgold 36&apos; ); PlaySoundEffect( Stinger.LevelUp )">
-					<Label text="#HeroTesting_MaxLevel" />
-				</Button>
-			</Panel>
-			<Panel class="nav_menu_item_container">
-				<Button class="small_text nav_menu_item half_width" onactivate="CitadelConCommand( &apos;healthpct 50&apos; ); PlaySoundEffect( Stinger.LevelUp )">
-					<Label text="#HeroTesting_HalfHealth" />
-				</Button>
-				<Button class="small_text nav_menu_item half_width" onactivate="CitadelConCommand( &apos;healthpct 100&apos; ); PlaySoundEffect( Stinger.LevelUp )">
-					<Label text="#HeroTesting_FullHealth" />
-				</Button>
-			</Panel>
-			<Panel class="nav_menu_item_container">
-				<Button class="nav_menu_item small_text half_width" onactivate="CitadelConCommand( &apos;lethaldamageme&apos; ); PlaySoundEffect( Stinger.LevelUp )">
-					<Label text="#HeroTesting_KillHero" />
-				</Button>
-				<Button class="nav_menu_item small_text half_width" onactivate="CitadelConCommand( &apos;giveallupgrades&apos; ); PlaySoundEffect( Stinger.LevelUp )">
-					<Label text="#HeroTesting_AllPerks" />
-				</Button>
-			</Panel>
-			<Panel class="nav_menu_item_container">
-				<Button class="nav_menu_item small_text half_width" onactivate="CitadelConCommand( &apos;citadel_spawn_nearby_neutrals&apos; ); PlaySoundEffect( Stinger.LevelUp )">
-					<Label text="#HeroTesting_SpawnCamp" />
-				</Button>
-			</Panel>
-			<Panel class="nav_menu_item_header hideout_btns">
-				<Label text="#HeroTesting_GameRules" />
-				<Panel class="dash" />
-			</Panel>
-			<Panel class="nav_menu_item_container hideout_btns">
-				<ToggleButton class="nav_menu_item CitadelSettingsCheckbox half_width" id="DisableDeathCheckbox" text="#HeroTesting_NoDeath" onactivate="HeroTestingUpdateDisableDeath(); PlaySoundEffect( Stinger.LevelUp )" />
-				<ToggleButton class="nav_menu_item CitadelSettingsCheckbox half_width" id="EnableUnlimitedAmmoCheckbox" text="#HeroTesting_UnlimitedAmmo" onactivate="HeroTestingUpdateEnableUnlimitedAmmo()" />
-			</Panel>
-			<Panel class="nav_menu_item_container hideout_btns">
-				<ToggleButton class="nav_menu_item CitadelSettingsCheckbox half_width" id="DisableCooldownCheckbox" text="#HeroTesting_NoCooldown" onactivate="HeroTestingUpdateDisableCooldowns()" />
-				<ToggleButton class="nav_menu_item CitadelSettingsCheckbox half_width" id="EnableFastStaminaCheckbox" text="#HeroTesting_FastStamina" onactivate="HeroTestingUpdateEnableFastStamina()" />
-			</Panel>
-			<Panel class="nav_menu_item_container hide_in_coop">
-				<Button class="small_text nav_menu_item third_width" onactivate="CitadelConCommand( &apos;host_timescale_dec&apos; ); PlaySoundEffect( Stinger.LevelUp )">
-					<Label text="#HeroTesting_SpeedDown" />
-				</Button>
-				<Button class="small_text nav_menu_item third_width" onactivate="CitadelConCommand( &apos;host_timescale 1.0&apos; ); PlaySoundEffect( Stinger.LevelUp )">
-					<Label text="#HeroTesting_SpeedNormal" />
-				</Button>
-				<Button class="small_text nav_menu_item third_width" onactivate="CitadelConCommand( &apos;host_timescale_inc&apos; ); PlaySoundEffect( Stinger.LevelUp )">
-					<Label text="#HeroTesting_SpeedUp" />
-				</Button>
-			</Panel>
-			<Panel class="nav_menu_item_header">
-				<Label text="#HeroTesting_HeroControl" />
-				<Panel class="dash" />
-			</Panel>
-			<Panel class="nav_menu_item_container">
-				<Button class="nav_menu_item small_text half_width" onactivate="CitadelConCommand( &apos;citadel_assume_pawn_control&apos; );">
-					<Label text="#HeroTesting_TakeControl" />
-				</Button>
-				<Button class="nav_menu_item small_text half_width" onactivate="CitadelConCommand( &apos;bot_kick_all&apos; );">
-					<Label text="#HeroTesting_RemoveBots" />
-				</Button>
-			</Panel>
-			<Panel class="nav_menu_item_container">
-				<Panel class="nav_menu_item_container vertical_item">
-					<Panel class="small_text full_width">
-						<Label text="#HeroTesting_HeroToSpawn" />
-					</Panel>
-					<Button class="nav_menu_item small_text full_width" onactivate="HeroTestingSpawnBotHero(&apos;enemy&apos;)">
-						<Label text="#HeroTesting_SpawnEnemy" />
-					</Button>
-					<Button class="nav_menu_item small_text full_width" onactivate="HeroTestingSpawnBotHero(&apos;friend&apos;)">
-						<Label text="#HeroTesting_SpawnFriendly" />
-					</Button>
-				</Panel>
-				<CitadelHeroCardBasic id="SpawnBotCard" onactivate="HeroTestingChangeSelectedBot()" />
-			</Panel>
-			<Panel class="nav_menu_item_container hide_in_coop">
-				<Button class="nav_menu_item small_text half_width" onactivate="CitadelConCommand( &apos;bot_mimic_target&apos; );">
-					<Label text="#HeroTesting_MakeMimic" />
-				</Button>
-				<Button class="nav_menu_item small_text half_width" onactivate="CitadelConCommand( &apos;bot_puppet_target&apos; );">
-					<Label text="#HeroTesting_MakePuppet" />
-				</Button>
-			</Panel>
-			<Panel class="nav_menu_item_container hide_in_coop">
-				<Button class="nav_menu_item small_text full_width" onactivate="CitadelConCommand( &apos;bot_mimic 0&apos; ); CitadelConCommand( &apos; bot_puppet 0&apos; );">
-					<Label text="#HeroTesting_ClearFollow" />
-				</Button>
-			</Panel>
+			<Panel id="game_rules" class="nav_menu_tab_contents" />
 		</Panel>
 	</CitadelHudHeroTesting>
 </root>

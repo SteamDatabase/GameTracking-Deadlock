@@ -79,7 +79,7 @@ CitadelHeroCard:hover
 	brightness: 0.4;
 	animation-name: none;
 	z-index: 1;
-	pre-transform-scale2d: 0.95;
+	pre-transform-scale2d: 0.98;
 }
 
 .HasHeroesInRoster .HeroCard.RosterSelect.inRoster
@@ -102,6 +102,55 @@ CitadelHeroCard:hover
 {
 	pre-transform-scale2d: 1.15;
 	z-index: 4;
+}
+
+.HasHeroesInRoster .HeroCard.RosterSelect.isPriorityToken
+{
+	pre-transform-scale2d: 1.2;
+	z-index: 10;
+}
+
+@keyframes 'RandomizeAnim'
+{
+	0%
+	{
+		pre-transform-scale2d: 1;
+		brightness: 0.5;
+	}
+	
+	50%
+	{
+		pre-transform-scale2d: 1.05;
+		brightness: 1;
+		transform: rotateZ(1deg);
+		saturation: 1;
+	}
+	
+	100%
+	{
+		pre-transform-scale2d: 1;
+		brightness: 0.5;
+	}
+	
+}
+
+.RandomActive .HeroCard.RosterSelect
+{
+	animation-name: RandomizeAnim;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+}
+
+.RandomActive #HeroPanel .HeroCard.RosterSelect:nth-child(even)
+{
+	animation-delay: 0.3s;
+	wash-color: red;
+}
+
+.RandomActive #HeroPanel .HeroCard.RosterSelect:nth-child(odd)
+{
+	animation-delay: 0s;
+	wash-color: green;
 }
 
 @keyframes 'cardPulse'
@@ -174,6 +223,11 @@ CitadelHeroCard:hover
 	wash-color: #575757;
 }
 
+.isTestingHero #CardShape
+{
+	wash-color: #97711d;
+}
+
 .inRoster #CardShape,.isNewHero.inRoster #CardShape
 {
 	wash-color: #c3dcd2;
@@ -187,6 +241,11 @@ CitadelHeroCard:hover
 .isHighPriority #CardShape,.isNewHero.isHighPriority #CardShape
 {
 	wash-color: #33e59f;
+}
+
+.isPriorityToken #CardShape,.isNewHero.isPriorityToken #CardShape
+{
+	wash-color: #dab5ff;
 }
 
 .SelectedIcon
@@ -289,6 +348,11 @@ CitadelHeroCard #GradiantOverlay
 	opacity: 1;
 }
 
+CitadelHeroCard.inRoster #GradiantOverlay
+{
+	opacity: 0.6;
+}
+
 #HeroImage
 {
 	opacity: 1;
@@ -370,11 +434,6 @@ CitadelHeroCard:hover #HeroImage
 	visibility: visible;
 }
 
-CitadelRosterHeroCard.inRoster #RosterIcon
-{
-	visibility: collapse;
-}
-
 .RosterSelect.inRoster #RosterIcon
 {
 	visibility: collapse;
@@ -412,9 +471,8 @@ CitadelRosterHeroCard.inRoster #RosterIcon
 	background-color: #ffc533;
 }
 
-.inRoster #HeroInfo,CitadelSelectionHeroCard:selected #HeroInfo
+.inRoster #HeroInfo
 {
-	background-color: spiritBrightColor;
 	background-color: offWhite;
 }
 
@@ -440,58 +498,9 @@ CitadelRosterHeroCard.inRoster #RosterIcon
 	font-weight: bold;
 }
 
-CitadelRosterHeroCard #HeroName,CitadelSelectionHeroCard #HeroName
-{
-	font-size: 22px;
-	max-height: 30px;
-	text-shadow: 0px 0px 0px 3.0 offBlack, 2px 5px 0px 3.0 offBlack;
-}
-
-.AspectRatio16x10 CitadelRosterHeroCard #HeroName,.AspectRatio16x10 CitadelSelectionHeroCard #HeroName
-{
-	font-size: 20px;
-	margin-top: 1px;
-}
-
 CitadelHeroCard:hover #HeroName
 {
 	opacity: 1;
-}
-
-CitadelRosterHeroCard.inRoster #HeroName,CitadelSelectionHeroCard:selected
-{
-	opacity: 1;
-	color: offBlack;
-	text-shadow: none;
-	text-shadow: 0px 0px 0px 3.0 offWhite, 2px 5px 0px 3.0 offBlack;
-}
-
-.ViewDetails
-{
-	opacity: 0;
-	flow-children: right;
-	transition-duration: 0.3s;
-	transition-property: transform, opacity;
-	transition-timing-function: ease-in;
-}
-
-.ViewDetails Label
-{
-	font-family: CriteriaCF;
-	text-transform: uppercase;
-	font-size: 13px;
-	margin-top: 3px;
-	margin-left: 1px;
-	text-shadow: 0px 0px 5px #000000;
-	color: #ffffff;
-}
-
-.ViewDetails .Arrow
-{
-	width: 12px;
-	height: 12px;
-	margin-top: 2px;
-	margin-left: 5px;
 }
 
 .isPriority #Add,.isHighPriority #Add,.inRoster #Add
@@ -690,16 +699,6 @@ CitadelHudHeroTesting .HeroCard.RosterSelect
 	
 }
 
-CitadelSelectionHeroCard .RecommendedHeroIcon,CitadelRosterHeroCard .RecommendedHeroIcon
-{
-	saturation: 0.2;
-	opacity: 0.6;
-	saturation: 1;
-	opacity: 1;
-	width: 40px;
-	height: 40px;
-}
-
 .RosterSelect .RecommendedHeroIcon
 {
 	saturation: 0.2;
@@ -710,13 +709,7 @@ CitadelSelectionHeroCard .RecommendedHeroIcon,CitadelRosterHeroCard .Recommended
 	height: 30px;
 }
 
-CitadelSelectionHeroCard:hover .RecommendedHeroIcon,CitadelRosterHeroCard:hover .RecommendedHeroIcon
-{
-	saturation: 1;
-	opacity: 1;
-}
-
-.inRoster .RecommendedHeroIcon,CitadelSelectionHeroCard:selected .RecommendedHeroIcon,CitadelSelectionHeroCard:selected:hover .RecommendedHeroIcon,CitadelRosterHeroCard.inRoster:hover .RecommendedHeroIcon
+.inRoster .RecommendedHeroIcon
 {
 	opacity: 0;
 }
@@ -726,13 +719,13 @@ CitadelSelectionHeroCard:hover .RecommendedHeroIcon,CitadelRosterHeroCard:hover 
 	opacity: 0;
 }
 
-CitadelHeroGrid .openTesting #DevMessageOpen,CitadelRosterConfirmPage .openTesting #DevMessageOpen
+CitadelHeroGrid .openTesting #DevMessageOpen
 {
 	visibility: visible;
 	background-color: #00B5E0ae;
 }
 
-CitadelHeroGrid .assignedPlayersOnly #DevMessageAssigned,CitadelRosterConfirmPage .assignedPlayersOnly #DevMessageAssigned
+CitadelHeroGrid .assignedPlayersOnly #DevMessageAssigned
 {
 	visibility: visible;
 	background-color: #ce1b36ae;
@@ -750,8 +743,25 @@ CitadelHeroGrid .assignedPlayersOnly #DevMessageAssigned,CitadelRosterConfirmPag
 	margin-bottom: 2px;
 }
 
-CitadelRosterHeroCard .DevMessage,CitadelSelectionHeroCard .DevMessage
+.testLabel
 {
+	horizontal-align: center;
+	vertical-align: top;
+	text-align: center;
+	font-size: 13px;
+	ignore-parent-flow: true;
+	font-weight: bold;
+	background-color: offWhite;
+	background-color: #d4963a;
+	text-overflow: shrink;
+	color: offBlack&ee;
+	font-family: block;
+	padding: 2px 5px 0px 5px;
+	text-transform: uppercase;
+	margin-top: 2px;
+	margin-left: 3px;
+	border-radius: 0px 0px 3px 3px;
+	box-shadow: 0px 0px 12px #00000090;
 	visibility: collapse;
 }
 
@@ -784,18 +794,17 @@ CitadelRosterHeroCard .DevMessage,CitadelSelectionHeroCard .DevMessage
 	z-index: 80;
 }
 
-CitadelRosterConfirmPage .newLabel
-{
-	font-size: 10px;
-	padding: -1px 3px 0px 3px;
-}
-
 .prereleaseOnly.HeroCard .newLabel
 {
-	visibility: collapse;
+	opacity: 0.2;
 }
 
 .isNewHero .newLabel
+{
+	visibility: visible;
+}
+
+.isTestingHero .testLabel
 {
 	visibility: visible;
 }
@@ -848,5 +857,39 @@ CitadelRosterConfirmPage .newLabel
 	width: 20px;
 	height: 20px;
 	margin-top: 2px;
+}
+
+.HeroCard.PriorityTokenDragHover
+{
+	border: 5px solid white;
+}
+
+.PriorityToken
+{
+	width: 36px;
+	height: 36px;
+	horizontal-align: center;
+	vertical-align: middle;
+	background-image: url("s2r://panorama/images/main_menu/pick_screen/ultra_priority_token_psd.vtex");
+	background-size: cover;
+	border-radius: 50%;
+	vertical-align: bottom;
+	horizontal-align: center;
+	margin-bottom: 4px;
+	margin-left: -35px;
+	visibility: collapse;
+}
+
+.PriorityToken Label
+{
+	vertical-align: middle;
+	text-overflow: shrink;
+	width: 100%;
+	text-align: center;
+}
+
+.isPriorityToken .PriorityToken
+{
+	visibility: visible;
 }
 

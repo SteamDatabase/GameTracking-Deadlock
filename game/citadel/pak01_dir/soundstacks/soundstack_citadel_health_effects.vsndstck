@@ -1,0 +1,91 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_health_effects = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "_builtins"
+				operator = "sos_builtins"
+				_voicegraph = "citadel.hrtf_basic"
+			},
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					citadel_perspective_default = 
+					{
+						data_type = "public_opvar"
+						value = "citadel_perspective_default"
+					}
+					health_pitch_scale_min = 
+					{
+						data_type = "float"
+						value = "1.0"
+						_system_properties = 
+						{
+							property_group = "Health - Pitch"
+							display_group = "Normal"
+							property_help = "Minimum value for pitch of the sound relative to the entity's normalized health level. Set this lower than 'Health Pitch Scale Max' for direct relation (higher health = higher pitch), and higher than 'Health Pitch Scale Max' for an inverse relation (higher health = lower pitch)."
+						}
+					}
+					health_pitch_scale_max = 
+					{
+						data_type = "float"
+						value = "1.0"
+						_system_properties = 
+						{
+							property_group = "Health - Pitch"
+							display_group = "Normal"
+							property_help = "Maximum value for pitch of the sound relative to the entity's normalized health level. Set this higher than 'Health Pitch Scale Min' for direct relation (higher health = higher pitch), and lower than 'Health Pitch Scale Min' for an inverse relation (higher health = lower pitch)."
+						}
+					}
+				}
+			},
+			
+			{
+				name = "source_info"
+				operator = "game_get_source_info"
+			},
+			
+			{
+				name = "get_effect_health_amount"
+				operator = "game_entity_get_health"
+				input_entity = "@source_info.output_entity_index"
+			},
+			
+			{
+				name = "remap_health_level_to_pitch_scale"
+				operator = "math_remap_float"
+				input = "@get_effect_health_amount.output_normalized"
+				input_min = "0.0"
+				input_max = "1.0"
+				input_map_min = "@public.health_pitch_scale_min"
+				input_map_max = "@public.health_pitch_scale_max"
+				default_to_max = "false"
+			},
+			
+			{
+				name = "citadel_perspective_default"
+				operator = "sos_import_stack"
+				import_stack = "citadel_perspective_default"
+				auto_connect_public_fields = "true"
+				operator_variables = 
+				{
+					pitch_adjust = 
+					{
+						data_type = "float"
+						value = "@remap_health_level_to_pitch_scale.output"
+					}
+				}
+			},
+		]
+		_system_properties = 
+		{
+			display_game = "citadel"
+		}
+	}
+}

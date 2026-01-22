@@ -5,63 +5,46 @@
 		<include src="s2r://panorama/styles/hud_common.vcss_c" />
 		<include src="s2r://panorama/styles/citadel_hud_top_bar.vcss_c" />
 	</styles>
-	<snippets>
-		<snippet name="ChatWheelMessage">
-			<Panel class="ChatLineContainer">
-				<Panel class="PingArrow" />
-				<Panel id="ChatTextContainer" class="LeftRightFlow">
-					<Label id="ChatText" html="false" class="ChatLine" />
-				</Panel>
-				<Panel id="ResponsesContainer">
-					<Panel id="NegativeResponses" />
-					<Panel id="PositiveResponses">
-						<Panel id="PositiveResponseHeroImages" />
-						<Panel id="PositiveBackground">
-							<Panel class="thumbsUpIcon" />
-						</Panel>
-					</Panel>
-				</Panel>
-			</Panel>
-		</snippet>
-	</snippets>
 	<CitadelHudTopBarPlayer>
 		<GlobalClassListener classes="gDetailView" />
-		<Panel id="PauseIndicator" />
-		<Panel class="VoiceBar" />
-		<Panel class="KingPandaContainer">
-			<Panel class="PandaBacker" />
-			<Panel class="PandaIcon" />
+		<Panel id="PauseIndicator">
+			<Panel id="PauseIcon" />
+			<Label text="#Citadel_Notification_Paused_Title" />
 		</Panel>
-		<Panel id="ChatMessageContainer" />
-		<Panel id="PlayerDetailsContainer" onmouseover="CitadelTopDownScoreboardPlayerHovered();">
-			<Panel id="KillStreakContainer">
-				<ParticleScenePanel id="KillStreakParticlePanel" particleonly="true" particleName="particles/ui/ui_topbar_killstreak.vpcf" fov="20" lookAt="0 0 -20" squarePixels="true" />
+		<Panel class="VoiceBar" />
+		<Panel id="PlayerDetailsContainer" hittest="false" onmouseover="CitadelTopDownScoreboardPlayerHovered();">
+			<Panel id="KillStreakContainer" hittest="false">
+				<ParticleScenePanel id="KillStreakParticlePanel" particleonly="false" particleName="particles/ui/ui_topbar_killstreak_stylized.vpcf" fov="33" lookAt="0 0 0" squarePixels="true" renderdeferred="true" deferredalpha="true" />
 				<Panel id="KillStreakText">
 					<Label class="KillStreakNum" text="{d:kill_streak}" />
-					<Panel class="KillStreakImageTextContainer">
-						<Panel class="KillStreakImageText SpreeText" />
-						<Panel class="FirstBloodImageText FirstBlood" />
+					<Panel class="KillStreakLabelContainer">
+						<Label class="KillStreakLabel SpreeText TopLine" html="true" text="#kill_hype_KillStreak" />
+						<Label class="KillStreakLabel FirstBlood TopLine" html="true" text="#kill_hype_FirstBlood" />
 					</Panel>
 				</Panel>
 			</Panel>
 			<CitadelBinding id="SpectateTeammateKeybind" class="TeammateKeybind" />
 			<Image class="SpectatorImage" src="s2r://panorama/images/hud/spec_icon_png.vtex" />
 			<Panel id="HeroContents" class="HeroContents">
+				<Panel class="SoulsValueContainer">
+					<Panel class="SoulsImage" />
+					<Label id="SoulsValue" class="SoulsValue" html="true" text="{g:citadel_thousands:gold}" />
+				</Panel>
 				<Panel id="HeroImageArea">
 					<Panel class="HeroContentsCoinBackground" />
 					<Panel class="HeroIconContainer">
-						<CitadelHeroBadge id="HeroBadge" />
+						<CitadelHeroBadge id="HeroBadge" class="TopBar" />
 						<Panel id="FrogImage" />
 					</Panel>
 					<Panel class="HeroContentsCoinInnerBorder" />
 				</Panel>
 				<Panel class="HeroInnerContent">
-					<Panel class="SoulsValueContainer">
-						<Panel class="SoulsImage" />
-						<Label id="SoulsValue" class="SoulsValue" html="true" text="0" />
+					<Panel class="HeroLevelBacker">
+						<Label class="HeroLevelLabel" text="{i:player_level}" />
 					</Panel>
 					<Panel id="HealthBar">
 						<ProgressBar id="HeroHealth" min="0" max="1" vertical="true" />
+						<Panel id="HealthBar_Border" />
 					</Panel>
 					<Panel class="DeathStatus">
 						<Label class="DeadLabel" text="{d:hero_level}" />
@@ -74,6 +57,9 @@
 						<Image class="NetworkIcon" />
 					</Panel>
 				</Panel>
+			</Panel>
+			<Panel id="CriticalIndicator">
+				<Label text="#Citadel_Hud_Critical" />
 			</Panel>
 			<Panel id="StatusRow">
 				<Panel id="UltimateStatus" class="UltimateStatus">
@@ -90,7 +76,8 @@
 				</Panel>
 			</Panel>
 		</Panel>
-		<Panel id="PlayerNameNWContainer">
+		<Panel id="PlayerNameNWContainer" onmouseover="CitadelTopDownScoreboardPlayerHovered();">
+			<Panel id="BackgroundStrip" />
 			<Panel class="PlayerInfoContainer TopBottomFlow">
 				<Label class="PlayerName" text="{s:player_name}" />
 				<Panel id="KDAContainer" class="TopBottomFlow">
@@ -111,13 +98,12 @@
 						<Label class="objDamageLabel" text="{i:objective_damage}" />
 					</Panel>
 				</Panel>
-				<CitadelHudItemBarGraph id="ItemBarGraph" />
+				<CitadelHudItemBarGraph class="TopBarStyle" id="ItemBarGraph" interactive_tooltip="true" tooltip_style="stats_panel" />
+				<CitadelTopBarPlayerDetails id="PlayerStatDetails" />
 			</Panel>
-			<Panel id="PlayerModsContainer">
-				<CitadelModsPurchasedPanel id="mod_weapon" class="mod_weapon" mod_category="Weapon" read_only="true" show_stats_panel_tooltip="true" />
-				<CitadelModsPurchasedPanel id="mod_armor" class="mod_armor" mod_category="Armor" read_only="true" show_stats_panel_tooltip="true" />
-				<CitadelModsPurchasedPanel id="mod_tech" class="mod_tech" mod_category="Tech" read_only="true" show_stats_panel_tooltip="true" />
-				<CitadelModsPurchasedPanel id="mod_universal_locked" class="mod_universal_locked" mod_category="Locked Universal" read_only="true" />
+			<Panel id="PlayerModsContainer" class="TopBottomFlow">
+				<CitadelModsPurchasedPanel id="mod_universal" class="mod_universal" mod_category="Universal" read_only="true" is_top_bar="true" />
+				<CitadelModsPurchasedPanel id="mod_universal_locked" class="mod_universal_locked" mod_category="Locked Universal" read_only="true" is_top_bar="true" />
 			</Panel>
 			<Panel id="PlayerAbilitiesContainer">
 				<CitadelAbilityIcon id="AbilityButton1" class="abilityButton1" read_only="true" ability_slot="1" show_upgrade_pips="true" />

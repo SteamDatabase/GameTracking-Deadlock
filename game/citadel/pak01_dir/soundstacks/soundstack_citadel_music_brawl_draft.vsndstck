@@ -1,0 +1,387 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_music_brawl_draft = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "_builtins"
+				operator = "sos_builtins"
+				_voicegraph = "music.brawl_draft"
+			},
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					citadel_music = 
+					{
+						data_type = "public_opvar"
+						value = "citadel_music"
+					}
+					brawl_buy_time_remaining = 
+					{
+						soundevent_data = "true"
+						data_type = "float"
+						value = "-1.0"
+					}
+					vsnd_files_draft = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = "sounds/common/null.vsnd"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					layer_draft_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "Volume"
+							display_group = "advanced"
+						}
+					}
+					layer_draft_countdown_crossfade_db = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]",
+							"[ 1.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "advanced"
+							display_edit_type = "field_curve_2d_editor"
+							property_group = "Volume"
+							property_help = "Maps countdown seconds to db attenuation."
+						}
+					}
+					vsnd_files_draft_fx = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = "sounds/common/null.vsnd"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					layer_draft_fx_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "Volume"
+							display_group = "advanced"
+						}
+					}
+					layer_draft_fx_countdown_crossfade_db = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]",
+							"[ 1.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "advanced"
+							display_edit_type = "field_curve_2d_editor"
+							property_group = "Volume"
+							property_help = "Maps countdown seconds to db attenuation."
+						}
+					}
+					vsnd_files_draft_timer = 
+					{
+						data_type = "vsnd"
+						soundevent_data = "true"
+						value = "sounds/common/null.vsnd"
+						_system_properties = 
+						{
+							property_group = "VSND Files"
+						}
+					}
+					layer_draft_timer_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "0.000000"
+						_system_properties = 
+						{
+							property_group = "Volume"
+							display_group = "advanced"
+						}
+					}
+					layer_draft_timer_countdown_crossfade_db = 
+					{
+						data_type = "float6"
+						soundevent_data = "true"
+						value = 
+						[
+							"[ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]",
+							"[ 1.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]",
+						]
+						_system_properties = 
+						{
+							display_group = "advanced"
+							display_edit_type = "field_curve_2d_editor"
+							property_group = "Volume"
+							property_help = "Maps countdown seconds to db attenuation."
+						}
+					}
+				}
+			},
+			
+			{
+				name = "private"
+				operator = "util_null"
+				operator_variables = 
+				{
+					smooth_time_remaining = 
+					{
+						data_type = "float"
+						value = "9999.0"
+					}
+				}
+			},
+			
+			{
+				name = "brawl_time_set"
+				operator = "math_float"
+				apply = "greater_than"
+				input1 = "@public.brawl_buy_time_remaining"
+				input2 = "-1.0"
+			},
+			
+			{
+				name = "opvar_set_init_smooth_time_remaining"
+				input = "@public.brawl_buy_time_remaining"
+				input_execute = "@brawl_time_set.output"
+				execute_once = "1.0"
+				operator = "opvar_set_float"
+				input_operator_name = "private"
+				input_field_name = "smooth_time_remaining"
+			},
+			
+			{
+				name = "math_delta_smooth_to_timer"
+				operator = "math_float"
+				input_execute = "@brawl_time_set.output"
+				apply = "sub"
+				input2 = "@public.brawl_buy_time_remaining"
+				input1 = "@private.smooth_time_remaining"
+			},
+			
+			{
+				name = "math_delta_greater_than_one"
+				input_execute = "@brawl_time_set.output"
+				operator = "math_float"
+				apply = "greater_than"
+				input1 = "@math_delta_smooth_to_timer.output"
+				input2 = "1.0"
+			},
+			
+			{
+				name = "math_filter_smooth"
+				operator = "math_filter_smooth_approach_float"
+				input_execute = "@brawl_time_set.output"
+				input_start_value = "@private.smooth_time_remaining"
+				input_target_value = "@public.brawl_buy_time_remaining"
+				input_rate_rising = "30.0"
+				input_rate_falling = "30.0"
+			},
+			
+			{
+				name = "math_filter_approach"
+				operator = "math_filter_approach_float"
+				input_execute = "@brawl_time_set.output"
+				input_value = "@private.smooth_time_remaining"
+				input_target = "@public.brawl_buy_time_remaining"
+				input_max_speed = "1.0"
+			},
+			
+			{
+				name = "ctrl_switch_delta_speed"
+				operator = "ctrl_switch_float"
+				input_execute = "@brawl_time_set.output"
+				input_switch = "@math_delta_greater_than_one.output"
+				input1 = "@math_filter_approach.output"
+				input2 = "@math_filter_smooth.output"
+			},
+			
+			{
+				name = "opvar_set_smooth_time_remaining"
+				input = "@ctrl_switch_delta_speed.output"
+				input_execute = "@brawl_time_set.output"
+				operator = "opvar_set_float"
+				input_operator_name = "private"
+				input_field_name = "smooth_time_remaining"
+			},
+			
+			{
+				name = "remap_draft_lerp_speed"
+				operator = "math_remap_float"
+				input = "@math_delta_smooth_to_timer.output"
+				input_min = "1.0"
+				input_max = "2.0"
+				input_map_min = "2.0"
+				input_map_max = "30.0"
+				clamp_range = "true"
+			},
+			
+			{
+				name = "draft_time_filter"
+				operator = "math_filter_float"
+				input_execute = "@brawl_time_set.output"
+				input = "@private.smooth_time_remaining"
+				input_max_velocity = "@remap_draft_lerp_speed.output"
+			},
+			
+			{
+				name = "ctrl_switch_draft_vol_input"
+				operator = "ctrl_switch_float"
+				input_switch = "@brawl_time_set.output"
+				input1 = "9999.00"
+				input2 = "@draft_time_filter.output"
+			},
+			
+			{
+				name = "remap_draft_vol_db"
+				operator = "math_curve_2d"
+				input = "@ctrl_switch_draft_vol_input.output"
+				public_field_name = "public.layer_draft_countdown_crossfade_db"
+			},
+			
+			{
+				name = "math_vol_offset_draft_db"
+				operator = "math_float"
+				apply = "add"
+				input1 = "@remap_draft_vol_db.output"
+				input2 = "@public.layer_draft_vol_offset_db"
+			},
+			
+			{
+				name = "remap_draft_fx_vol_db"
+				operator = "math_curve_2d"
+				input = "@draft_time_filter.output"
+				input_execute = "@brawl_time_set.output"
+				public_field_name = "public.layer_draft_fx_countdown_crossfade_db"
+			},
+			
+			{
+				name = "math_vol_offset_draft_fx_db"
+				operator = "math_float"
+				apply = "add"
+				input_execute = "@brawl_time_set.output"
+				input1 = "@remap_draft_fx_vol_db.output"
+				input2 = "@public.layer_draft_fx_vol_offset_db"
+			},
+			
+			{
+				name = "ctr_switch_draft_fx_vol_final"
+				operator = "ctrl_switch_float"
+				input_switch = "@brawl_time_set.output"
+				input1 = "-99.0"
+				input2 = "@math_vol_offset_draft_fx_db.output"
+			},
+			
+			{
+				name = "remap_draft_timer_lerp_speed"
+				operator = "math_remap_float"
+				input_execute = "@brawl_time_set.output"
+				input = "@math_delta_smooth_to_timer.output"
+				input_min = "1.0"
+				input_max = "3.0"
+				input_map_min = "10.0"
+				input_map_max = "30.0"
+				clamp_range = "true"
+			},
+			
+			{
+				name = "draft_timer_filter"
+				operator = "math_filter_float"
+				input_execute = "@brawl_time_set.output"
+				input = "@private.smooth_time_remaining"
+				input_max_velocity = "@remap_draft_timer_lerp_speed.output"
+			},
+			
+			{
+				name = "remap_draft_timer_vol_db"
+				operator = "math_curve_2d"
+				input = "@draft_timer_filter.output"
+				input_execute = "@brawl_time_set.output"
+				public_field_name = "public.layer_draft_timer_countdown_crossfade_db"
+			},
+			
+			{
+				name = "math_vol_offset_timer_fx_db"
+				operator = "math_float"
+				apply = "add"
+				input_execute = "@brawl_time_set.output"
+				input1 = "@remap_draft_timer_vol_db.output"
+				input2 = "@public.layer_draft_timer_vol_offset_db"
+			},
+			
+			{
+				name = "ctr_switch_draft_timer_vol_final"
+				operator = "ctrl_switch_float"
+				input_switch = "@brawl_time_set.output"
+				input1 = "-99.00"
+				input2 = "@math_vol_offset_timer_fx_db.output"
+			},
+			
+			{
+				name = "import_citadel_music"
+				operator = "sos_import_stack"
+				import_stack = "citadel_music"
+				auto_connect_public_fields = "true"
+				operator_variables = 
+				{
+					vsnd_files_field_name_track1 = 
+					{
+						data_type = "string"
+						value = "vsnd_files_draft"
+					}
+					vsnd_track1_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "@math_vol_offset_draft_db.output"
+					}
+					vsnd_files_field_name_track2 = 
+					{
+						data_type = "string"
+						value = "vsnd_files_draft_fx"
+					}
+					vsnd_track2_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "@ctr_switch_draft_fx_vol_final.output"
+					}
+					vsnd_files_field_name_track3 = 
+					{
+						data_type = "string"
+						value = "vsnd_files_draft_timer"
+					}
+					vsnd_track3_vol_offset_db = 
+					{
+						data_type = "float"
+						value = "@ctr_switch_draft_timer_vol_final.output"
+					}
+				}
+			},
+		]
+		_system_properties = 
+		{
+			display_game = "citadel"
+		}
+	}
+}

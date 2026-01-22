@@ -36,7 +36,7 @@
  - SymFindFileInPath failed\n
  - SymFindFileInPath_ returned %s\n
  - context match\n
- - context mismatch\n
+ - context mismatch: %s\n
  -codemsg "
  B\kji2
  Base Class Array'
@@ -76,7 +76,6 @@
 #include is NULL 
 #int#
 #nyf
-#vpulse1
 $Ib?s
 $eax
 $ebp
@@ -157,11 +156,13 @@ $xmm9
 %0*llx bytes of %s at %0*llx%s\n
 %0*llx: address after highest user-space virtual region\n
 %02X
+%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X
 %02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%x
 %02X%02X%02X%02X-%02X%02X-%02X%02X-%02X%02X-%02X%02X%02X%02X%02X%02X
 %02X%02X\
 %02u/%02u/%04u
 %02x
+%08X%lx
 %08x %s size %08x\n
 %10s:
 %10s: %11s %11s %11s %11s %11s\n
@@ -220,6 +221,7 @@ $xmm9
 %s allocation count overflow( %llu > %llu )\n
 %s allocation count overflow( add %llu + current %llu > max %llu )\n
 %s bytes used out of %s bytes available (%.2f%%)
+%s called on a pool arena (no root available)\n
 %s is out of range for KeyValues, which doesn't support signed 64-bit numbers
 %s not expected here.  A valid JSON document should be a single object, which begins with '{' and ends with '}'
 %s not expected here.  Missing ',' or ']'?
@@ -244,9 +246,11 @@ $xmm9
 %s: In debug session, letting debugger have a crack at it.\n
 %s: Invalid lock state %d\n
 %s: Start\n
+%s: ThreadPoolTest: YieldWaitPerFrameJobs - Basic test (%d jobs executed)\n
+%s: ThreadPoolTest: YieldWaitPerFrameJobs - Dynamic spawn test (%d initial + %d spawned = %d total)\n
+%s: ThreadPoolTest: YieldWaitPerFrameJobs - Only per-frame jobs executed by main thread test\n
 %s: Unable to get executable filename (%d byte buffer).
 %s: Unable to load SDL\n
-%s: Unable to progress %d jobs to finished state (%llums elapsed)\n
 %s: added string size %d overflows (added to %d)\n
 %s: allocation of %u too large, max %u\n
 %s: capacity request for %d can't be satisfied (max %d)\n
@@ -289,7 +293,7 @@ $xmm9
 %u MB memory used assuming maximum PageHeap overhead.\n
 %u lifetime allocations (%u delta).\n
 %u outstanding allocations (%d delta).\n
-%vmdlkeys1
+%vmdlkeys2
 &?PPPPPPP?
 &AElig;
 &Aacute;
@@ -400,6 +404,7 @@ $xmm9
 &yacute;
 &yen;
 &yuml;
+' vs test '
 '1C5
 ':' not expected inside an array.  ('[]' used when '{}' was intended?)
 'false'
@@ -425,7 +430,9 @@ $xmm9
 (unknown)
 (wPu@
 (yaX
-) %%%d.%ds 
+) : AssertMsg Failed in function 
+) : Assertion Failed in function 
+)05\tP:1
 )14:;EFIJ^de
 )14:EFIJNOde\
 )EIWde
@@ -561,13 +568,15 @@ $xmm9
 .?AVCMiniDumpCommentBuilderBase@@
 .?AVCOneTimeEvent@@
 .?AVCParallelProcessorAbstract_Base@@
+.?AVCPerFrameTestJob@ThreadPoolTest@@
 .?AVCPooledStdFunctionJob@@
 .?AVCProcess@@
 .?AVCProcessPipeRead@@
 .?AVCProcessUtils@@
 .?AVCQueueOps@TSListTests@@
-.?AVCReportOutput_Lambda@?1???$PrintReportLambda@V<lambda_1>@?1??PrintReport@CUtlReportPrinter@@QEBAXHW4LoggingSeverity_t@@I_N@Z@@CUtlReportPrinter@@QEBAX$$QEAV<lambda_1>@?1??PrintReport@1@QEBAXHW4LoggingSeverity_t@@I_N@Z@I1@Z@
+.?AVCReportOutput_Lambda@?1???$PrintReportLambda@V<lambda_1>@?1??PrintReport@CUtlReportPrinter@@QEBAXHW4LoggingSeverity_t@@AEBVReportOpt@@@Z@@CUtlReportPrinter@@QEBAX$$QEAV<lambda_1>@?1??PrintReport@1@QEBAXHW4LoggingSeverity_t@@AEBVReportOpt@@@Z@1@Z@
 .?AVCSimpleLoggingListener@@
+.?AVCSpawningPerFrameTestJob@ThreadPoolTest@@
 .?AVCStdFunctionJob@@
 .?AVCStdIOFormatOutputStream@@
 .?AVCStringConstructor@CUtlStringTokenSystem@@
@@ -696,6 +705,7 @@ $xmm9
 .eh_frame
 .exe
 .gnu_debuglink
+.gnu_debuglink doesn't have a 32-bit CRC\n
 .gnu_debuglink doesn't have a filename\n
 .gnu_debuglink doesn't have string terminator\n
 .idata$2
@@ -755,7 +765,6 @@ $xmm9
 0123456789abcdefghijklmnopqrstuvwxyz
 0;FALSE;NO;OFF
 0E>X
-0HC)
 0U@H
 0X8b?~
 0iN>/
@@ -770,16 +779,16 @@ $xmm9
 11Y@
 11eU%
 127.0.0.1
-16:34:37
 1;TRUE;YES;ON
 1A26b
 1DBlend
-1Ia 
+1Ia@:1
 1icl
 1wsHp
 2,THh
+23:59:07
 28~v
-2\vpHC)
+2\vpT
 2aNuE
 3 FB
 3+5<t
@@ -792,7 +801,6 @@ $xmm9
 3\r53h&
 3o=q
 3wl'
-420`
 4JpI?=
 4\tgA
 4^K\fOI
@@ -801,7 +809,7 @@ $xmm9
 5+eS
 51>W
 52F*
-58tA
+58tC
 5Bt)
 5U]_n
 5\fE5d
@@ -833,6 +841,7 @@ $xmm9
 8Z~H
 8ke?;
 8powf
+8xx81
 99jd9
 9>70
 9>expf
@@ -852,6 +861,7 @@ $xmm9
 ;BIb?
 ;srv*http://symbols/windows
 <!-- kv3 encoding:%s:version{%s} format:%s:version{%s} -->\n
+<!-- schema 
 </link>
 </script>
 <6Rj
@@ -871,6 +881,7 @@ $xmm9
 <missing>
 <null>
 <number>
+<opt %lu>
 <parse error>
 <pointer>
 <pre>
@@ -906,13 +917,13 @@ $xmm9
 ?7{KV\nU
 ?8UUUUU
 ?8bunz8
+??0?$CUniformRandomStreamImpl@VCAtomicMutex@@@@QEAA@H@Z
+??0?$CUniformRandomStreamImpl@VCAtomicMutex@@@@QEAA@XZ
 ??0?$CUniformRandomStreamImpl@VCThreadNullMutex@@@@QEAA@H@Z
 ??0?$CUniformRandomStreamImpl@VCThreadNullMutex@@@@QEAA@XZ
 ??0?$CUniformRandomStreamImpl@VCThreadNullVerificationMutex@@@@QEAA@AEBV0@@Z
 ??0?$CUniformRandomStreamImpl@VCThreadNullVerificationMutex@@@@QEAA@H@Z
 ??0?$CUniformRandomStreamImpl@VCThreadNullVerificationMutex@@@@QEAA@XZ
-??0?$CUniformRandomStreamImpl@VCThreadSpinMutex@@@@QEAA@H@Z
-??0?$CUniformRandomStreamImpl@VCThreadSpinMutex@@@@QEAA@XZ
 ??0CBlake3HashContext@@QEAA@XZ
 ??0CBufferStringFormatOutputStream@@QEAA@$$QEAV0@@Z
 ??0CBufferStringFormatOutputStream@@QEAA@AEAVCBufferString@@@Z
@@ -938,6 +949,7 @@ $xmm9
 ??0CEventDispatcher_Base@@IEAA@XZ
 ??0CExpressionEvaluator@@QEAA@XZ
 ??0CFiber@@QEAA@XZ
+??0CFilterString@@QEAA@PEBDW4FilterStringOp_t@@W4FilterStringCase_t@@@Z
 ??0CFormatStringElement@@QEAA@PEBD@Z
 ??0CFormatStringElement@@QEAA@XZ
 ??0CImageHlpFunctionsLoader@@QEAA@XZ
@@ -984,7 +996,6 @@ $xmm9
 ??0CThreadMultiWaitEvent@@QEAA@_N@Z
 ??0CThreadMultiWaitObject@@QEAA@XZ
 ??0CThreadMultiWaitSemaphore@@QEAA@XZ
-??0CThreadMutex@@QEAA@PEBD@Z
 ??0CThreadRWLock_FastRead@@QEAA@XZ
 ??0CThreadSemaphore@@QEAA@HHPEBD_N@Z
 ??0CThreadSwapContext_Base@@QEAA@PEAVCThreadSwapTarget@@PEAX_K@Z
@@ -1065,7 +1076,6 @@ $xmm9
 ??1CThreadMultiWaitEvent@@QEAA@XZ
 ??1CThreadMultiWaitObject@@QEAA@XZ
 ??1CThreadMultiWaitSemaphore@@QEAA@XZ
-??1CThreadMutex@@QEAA@XZ
 ??1CThreadSemaphore@@QEAA@XZ
 ??1CThreadSwapContext_Base@@QEAA@XZ
 ??1CThreadSyncObject@@QEAA@XZ
@@ -1178,7 +1188,6 @@ $xmm9
 ??_FCThreadFiber@@QEAAXXZ
 ??_FCThreadLocalScope@@QEAAXXZ
 ??_FCThreadMultiWaitEvent@@QEAAXXZ
-??_FCThreadMutex@@QEAAXXZ
 ??_FCUtlBuffer@@QEAAXXZ
 ??_FCUtlInplaceBuffer@@QEAAXXZ
 ??_FCUtlSymbolTable@@QEAAXXZ
@@ -1191,6 +1200,7 @@ $xmm9
 ?AccessPut@CUtlBuffer@@QEAAPEAXH@Z
 ?AccessUnprotected@CTSListBase@@QEAAPEATTSLHead_t@@XZ
 ?Acquire@CUtlString@@QEAAXPEAVCBufferString@@_N@Z
+?AcquireLock@CAtomicMutex@@AEAAXI@Z
 ?ActivateByteSwapping@CUtlBuffer@@QEAAX_N@Z
 ?AddBudgetGroupName@CVProfile@@KAHPEBDH@Z
 ?AddFileToChangeList@CDirWatcher@@AEAAXPEBD@Z
@@ -1211,6 +1221,7 @@ $xmm9
 ?AddWatch@CDirTreeWatchManager@@QEAA_NPEBDPEAVVisitor@1@_K@Z
 ?Advance@CCircularBuffer@@QEAAHH@Z
 ?AlignBuffer@CUtlBuffer@@QEAAXH@Z
+?AlignBufferGet@CUtlBuffer@@QEAA_NH@Z
 ?Alloc@CUtlMemoryArena@@QEAAPEAEI@Z
 ?Alloc@CUtlMemoryPoolBase@@QEAAPEAXXZ
 ?AllocAligned@CUtlScratchMemoryPool@@QEAAPEAXHH@Z
@@ -1240,7 +1251,6 @@ $xmm9
 ?ApplySymSrvDebugOutputWorkaround@CDbgHelpFunctionsLoader@@QEAAXPEAX@Z
 ?ArriveAndWait@CThreadBarrier@@QEAAXXZ
 ?AssertOwnedByCurrentThread@CThreadCrossProcessMutex@@QEBA_NXZ
-?AssertOwnedByCurrentThread@CThreadMutex@@QEBA_NXZ
 ?AssertUseable@CThreadSyncObject@@IEAAXXZ
 ?AssertValid@CCircularBuffer@@IEAAXXZ
 ?Assert_ConditionFailed@@YA_NAEBU_AssertCompileTimeConstantStruct_t@@@Z
@@ -1264,7 +1274,6 @@ $xmm9
 ?BuildMidpointFromVertexSubSet@CVertexKDTree@@QEAAXPEBMHPEBHH@Z
 ?BuildNode@CVertexKDTree@@AEAAHHH@Z
 ?CalcBudgetGroupTimes_Recursive@CVProfile@@QEAAXPEAVCVProfNode@@PEAIHM@Z
-?CalcStackDepth@CThread@@QEAA_KPEAX@Z
 ?Capture@CCallStackCapture@@QEAAXP6AHIPEAPEAXHH@ZII@Z
 ?Capture@CModuleListSnapshot@@QEAA_NI@Z
 ?Capture@CModuleListSnapshot@@QEAA_NPEAX@Z
@@ -1325,6 +1334,9 @@ $xmm9
 ?DelayAllQueuedCommands@CCommandBuffer@@QEAAXH@Z
 ?DeletePathStringBuffer@CPathString@@SAXPEAUBuffer_t@1@@Z
 ?DeleteWCharPath@CPathString@@IEAAXXZ
+?DelimitedHeader@CGridStringPrinter@@QEAAXDPEBDZZ
+?DelimitedPrint@CGridStringPrinter@@QEAAXDPEBDZZ
+?DelimitedPrint_SetTrimValues@CGridStringPrinter@@QEAAX_N@Z
 ?DequeueNextCommand@CCommandBuffer@@QEAAHAEAPEAPEBD@Z
 ?DequeueNextCommand@CCommandBuffer@@QEAA_NXZ
 ?DereferenceString@CCountedStringPool_CI@@QEAAXPEBD@Z
@@ -1336,8 +1348,9 @@ $xmm9
 ?Diff@CVirtualMemorySnapshot@@QEAAXPEBV1@0@Z
 ?DirName@CUtlString@@QEBA?AV1@XZ
 ?DisableVTuneGroup@CVProfile@@QEAAXXZ
+?DoWait@CAtomicSemaphore@@AEAAXXZ
 ?DoesHaveAnyReadLocks@?$CEventRWLock_Debuggable@$00@@AEAA_NAEAVCEventListNode@@@Z
-?DoesMatchString@CFilterString@@QEBA_NPEBDW4FilterStringMatchFlags_t@@@Z
+?DoesMatchString@CFilterString@@QEBA_NPEBD@Z
 ?DottedAppend@CUtlString@@QEBA?AV1@PEBD@Z
 ?Dump@KeyValues@@QEAA_NPEAVIKeyValuesDumpContext@@H@Z
 ?DumpBlockList@CUtlMemoryArena@@QEAAXH@Z
@@ -1418,6 +1431,7 @@ $xmm9
 ?Find@CUtlSymbolTable@@QEBA?AVCUtlSymbol@@PEBDH@Z
 ?FindAndDeleteSubKey@KeyValues@@QEAA_NPEBD@Z
 ?FindBudgetGroupName@CVProfile@@KAHPEBD@Z
+?FindCfiFrameData@CVBreakpadSymbolModule@@QEBA_N_KPEAUBreakpadCfiFrameData_t@@@Z
 ?FindConversion@CUtlCharConversion@@UEAADPEBDPEAH@Z
 ?FindDebugFiles@CDbgHelpFunctionsLoader@@QEAAXPEAXPEBDI1W4StackTools_ModuleIDFormat_t@@PEBX_KPEAD454@Z
 ?FindElfBuildId@CModuleListSnapshot@@SA_NPEBX_KPEAPEAEPEAI@Z
@@ -1446,6 +1460,8 @@ $xmm9
 ?FindVertsInBox@CVertexKDTree@@QEBAXAEAV?$CUtlVectorFixedGrowable@PEBM$0EA@H@@AEBV?$Vec3D@M@@1H@Z
 ?FindVertsInSphere@CVertexKDTree@@QEBAXAEAV?$CUtlVectorFixedGrowable@PEBM$0EA@H@@AEBV?$Vec3D@M@@MH@Z
 ?FindVertsInSphericalShell@CVertexKDTree@@QEBAXAEAV?$CUtlVectorFixedGrowable@PEBM$0EA@H@@AEBV?$Vec3D@M@@MMH@Z
+?FindWinFpoData@CVBreakpadSymbolModule@@QEBA_N_KPEAUBreakpadWinFpoData_t@@@Z
+?FindWinFrameProgram@CVBreakpadSymbolModule@@QEBA_N_KPEAUBreakpadWinFrameProgram_t@@@Z
 ?FioCancelIo@@YAHPEAX@Z
 ?FioClose@@YAHPEAX@Z
 ?FioCopyFile@@YAHPEBD0_N@Z
@@ -1520,7 +1536,7 @@ $xmm9
 ?FormatV@CUtlString@@QEAAHPEBDPEAD@Z
 ?Formatting_AdjustIndentation@@YAXH@Z
 ?Free3D@CUtl3DAllocator2@@QEAAXAEBURect3D_t@@@Z
-?Free@CPoolAllocator@@QEAAXUHandle_t@1@@Z
+?Free@CPoolAllocator@@QEAA_NUHandle_t@1@@Z
 ?Free@CUtlMemoryArena@@QEAAIPEAE@Z
 ?Free@CUtlMemoryPoolBase@@QEAAXPEAX@Z
 ?FreeInts@CVariableBitStringBase@@AEAAXXZ
@@ -1531,9 +1547,9 @@ $xmm9
 ?FreeToAllocPoint@CUtlScratchMemoryPool@@QEAAXUUtlScratchMemoryPoolMark_t@@@Z
 ?FromString@KeyValues@@SAPEAV1@PEBD0PEAPEBD@Z
 ?GenerateDataReport@CVProfile@@QEAAXPEAV?$CUtlVector@UVProfDataReportItem_t@@HV?$CUtlVectorMemory_Growable@UVProfDataReportItem_t@@H$0A@@@@@@Z
+?GenerateRandomNumber_Locked@?$CUniformRandomStreamImpl@VCAtomicMutex@@@@AEAAHXZ
 ?GenerateRandomNumber_Locked@?$CUniformRandomStreamImpl@VCThreadNullMutex@@@@AEAAHXZ
 ?GenerateRandomNumber_Locked@?$CUniformRandomStreamImpl@VCThreadNullVerificationMutex@@@@AEAAHXZ
-?GenerateRandomNumber_Locked@?$CUniformRandomStreamImpl@VCThreadSpinMutex@@@@AEAAHXZ
 ?Get@CUtlBinaryBlock@@QEBAXPEAXH@Z
 ?Get@CUtlBuffer@@QEAA_NPEAXH@Z
 ?GetAMDFamily@CPUInformation@@SA_NPEAI@Z
@@ -1580,7 +1596,6 @@ $xmm9
 ?GetDelimitedString@CUtlBuffer@@QEAAXPEAVCUtlCharConversion@@PEAVCBufferString@@@Z
 ?GetDelimiter@CUtlCharConversion@@QEBAPEBDXZ
 ?GetDelimiterLength@CUtlCharConversion@@QEBAHXZ
-?GetDepth@CThreadMutex@@QEBAHXZ
 ?GetDescription@CPUInformation@@QEBAPEBDPEAVCBufferString@@I@Z
 ?GetElements@CUtlSymbolTable@@QEBAHHHPEAVCUtlSymbol@@@Z
 ?GetEmptyString@CUtlString@@SAAEBV1@XZ
@@ -1648,7 +1663,7 @@ $xmm9
 ?GetResult@CThread@@QEAAHXZ
 ?GetRoot@CVProfile@@QEAAPEAVCVProfNode@@XZ
 ?GetSTUBFunctionTable@CCallStackStatsGatherer_Base@@SAPEBU?$CallStackGatherer_FunctionTable_Template@VCCallStackStatsGatherer_Base@@@detail@@XZ
-?GetScopeListMutex@CThreadLocalScope@@SAAEAVCThreadSpinMutex@@XZ
+?GetScopeListMutex@CThreadLocalScope@@SAAEAVCAtomicMutex@@XZ
 ?GetSize@CMemoryStack@@QEBAHXZ
 ?GetSourceLocation@CVProfNode@@QEBAAEBVCUtlSourceLocation@@XZ
 ?GetSourceServerPathForFile@CVSymbolModule@@QEAAPEBDPEBDPEAVCBufferString@@@Z
@@ -1708,7 +1723,6 @@ $xmm9
 ?InTargetThread@CVProfile@@QEAA_NXZ
 ?Init@CDirIterator@@IEAA_NPEBD00I@Z
 ?Init@CMemoryStack@@QEAA_NPEBDIIII@Z
-?Init@CThread@@MEAA_NXZ
 ?Init@CUtlMemoryPoolBase@@QEAAXHHHW4MemoryPoolGrowType_t@@PEBDW4MemAllocAttribute_t@@@Z
 ?Init@CUtlScratchMemoryPool@@QEAAXIIPEAX_N@Z
 ?Init@CVDbgHelpSymbolModule@@QEAA_NPEAVCDbgHelpFunctionsLoader@@PEAXPEBD22_K3W4StackTools_ModuleIDFormat_t@@PEBXH_N@Z
@@ -1760,8 +1774,8 @@ $xmm9
 ?IsBigEndian@CUtlBuffer@@QEAA_NXZ
 ?IsCompressed@CLZMA@@QEAA_NPEBE@Z
 ?IsCompressed@CLZSS@@QEAA_NPEAE@Z
-?IsElfHeader@CModuleListSnapshot@@SA_NPEAX_K1@Z
-?IsElfHeader@CModuleListSnapshot@@SA_NPEBX_K@Z
+?IsElfHeader@CModuleListSnapshot@@SA_NPEAX_K1_N@Z
+?IsElfHeader@CModuleListSnapshot@@SA_NPEBX_K_N@Z
 ?IsEmpty@CTSListBase@@QEBA_NXZ
 ?IsEmpty@KeyValues@@QEBA_NPEBD@Z
 ?IsEnabled@CVProfile@@QEBA_NXZ
@@ -1779,9 +1793,8 @@ $xmm9
 ?IsKV3Data@@YA_NPEBXHPEAUKV3ID_t@@PEADH@Z
 ?IsLocalThreadScope@CThreadLocalScope@@QEBA_NXZ
 ?IsLocalhost@netadr_t@@QEBA_NXZ
-?IsLocked@CThreadMutex@@QEBA_NXZ
 ?IsLoopback@netadr_t@@QEBA_NXZ
-?IsMachoHeader@CModuleListSnapshot@@SA_NPEBX_K@Z
+?IsMachoHeader@CModuleListSnapshot@@SA_NPEBX_K_N@Z
 ?IsMultiLine@IFormatOutputStream@@QEBA_NXZ
 ?IsNonFull@IFormatOutputStream@@QEBA_NXZ
 ?IsNotPlatModule@CModuleListSnapshot@@SA_NPEBDPEBX_K@Z
@@ -1819,10 +1832,10 @@ $xmm9
 ?LoadFromBuffer@KeyValues@@QEAA_NPEBD0PEAVIFileSystem@@0P6A_N0PEAX@ZPEAVIKeyValuesErrorSpew@@20@Z
 ?LoadFromBuffer@KeyValues@@QEAA_NPEBDAEAVCUtlBuffer@@PEAVIFileSystem@@0P6A_N0PEAX@ZPEAVIKeyValuesErrorSpew@@30@Z
 ?LoadFromFile@KeyValues@@QEAA_NPEAVIFileSystem@@PEBD1P6A_N1PEAX@Z21@Z
-?LoadKV3@@YA_NPEAVCKeyValues3Context@@PEAVCUtlString@@PEAVCUtlBuffer@@AEBUKV3ID_t@@PEBDI@Z
+?LoadKV3@@YA_NPEAVCKV3Arena@@PEAVCUtlString@@PEAVCUtlBuffer@@AEBUKV3ID_t@@PEBDI@Z
 ?LoadKV3@@YA_NPEAVKeyValues3@@PEAVCUtlString@@PEAVCUtlBuffer@@AEBUKV3ID_t@@PEBDI@Z
 ?LoadKV3@@YA_NPEAVKeyValues3@@PEAVCUtlString@@PEBDAEBUKV3ID_t@@2I@Z
-?LoadKV3FromFile@@YA_NPEAVCKeyValues3Context@@PEAVCUtlString@@PEBD2AEBUKV3ID_t@@I@Z
+?LoadKV3FromFile@@YA_NPEAVCKV3Arena@@PEAVCUtlString@@PEBD2AEBUKV3ID_t@@I@Z
 ?LoadKV3FromFile@@YA_NPEAVKeyValues3@@PEAVCUtlString@@PEBD2AEBUKV3ID_t@@I@Z
 ?LoadKV3FromJSON@@YA_NPEAVKeyValues3@@PEAVCUtlString@@PEBD2I@Z
 ?LoadKV3FromJSONFile@@YA_NPEAVKeyValues3@@PEAVCUtlString@@PEBD2I@Z
@@ -1837,14 +1850,7 @@ $xmm9
 ?LoadTemporaryFromFile@KeyValues@@SAPEAVCTemporaryKeyValues@@_NPEAVIFileSystem@@PEBD2P6A_N2PEAX@Z32@Z
 ?LocalSymCleanup@CDbgHelpFunctionsLoader@@QEAAXXZ
 ?LocalSymInitialize@CDbgHelpFunctionsLoader@@QEAAXPEBD@Z
-?Lock@CThreadMutex@@QEAAXPEBDH@Z
-?Lock@CThreadMutex@@QEBAXPEBDH@Z
-?Lock@CThreadSpinMutex@@AECAXPEBDHII@Z
 ?LockCommandBuffer@CCommandBuffer@@QEAAX_N@Z
-?LockForRead@CThreadMutex@@QEAAXPEBDH@Z
-?LockForRead@CThreadSpinRWLock@@QEAAXPEBDH@Z
-?LockForWrite@CThreadMutex@@QEAAXPEBDH@Z
-?LockForWrite@CThreadRWLock@@QEAAXPEBDH@Z
 ?LockMutex@CDbgHelpFunctionsLoader@@QEAAXXZ
 ?LogFailureOutput@CRunProcess@@QEAA_NHH@Z
 ?LoggingSystem_GetLogCapture@@YAXPEAV?$CUtlVector@VCUtlString@@HV?$CUtlVectorMemory_Growable@VCUtlString@@H$0A@@@@@_N@Z
@@ -1899,12 +1905,11 @@ $xmm9
 ?OnExit@CThread@@MEAAXXZ
 ?OnGetOverflow@CUtlBuffer@@IEAA_NH@Z
 ?OnPutOverflow@CUtlBuffer@@IEAA_NH@Z
-?Open@CVBreakpadSymbolModule@@QEAA_NPEBD0_K1IW4StackTools_ModuleIDFormat_t@@PEBXHI@Z
+?Open@CVBreakpadSymbolModule@@QEAA_NPEBD00_K1IW4StackTools_ModuleIDFormat_t@@PEBXHI@Z
 ?OpenAndParseSymbols@CVDwarfSymbolModule@@QEAA_NPEBDI0@Z
 ?OutputIndentation@IFormatOutputStream@@UEAAXXZ
 ?OutputReport@CVProfile@@QEAAXAEBUVProfReportSettings_t@@PEBDH@Z
 ?OutputReport@CVProfile@@QEAAXPEBDH@Z
-?OwnedByCurrentThread@CThreadMutex@@QEBA_NXZ
 ?OwnerThreadRun@CThreadSwapTarget@@QEAAXXZ
 ?ParallelCallQueued@CCallQueue@@QEAAXPEBDPEAVIThreadPool@@@Z
 ?ParseElement@CFormatStringElement@@QEAAPEBDPEBD@Z
@@ -1939,6 +1944,7 @@ $xmm9
 ?Printf@CUtlBuffer@@QEAAXPEBDZZ
 ?ProcessResolutionKeys@KeyValues@@QEAA_NPEBD@Z
 ?ProcessSingleBuffer@CBlake3HashContext@@SAXPEBX_KPEAE1@Z
+?ProcessText@CIdentifyFailureMessages@@QEAA?AW4State_t@1@PEBDHPEAPEBD@Z
 ?Purge@CBufferString@@QEAAXH@Z
 ?Purge@CCountedStringPool_CI@@QEAAXXZ
 ?Purge@CMemoryStack@@QEAAX_N@Z
@@ -1968,21 +1974,21 @@ $xmm9
 ?PutString@CUtlBuffer@@QEAAXPEBD@Z
 ?PutZeros@CUtlBuffer@@QEAAXH@Z
 ?R0I?
+?RandomFloat@?$CUniformRandomStreamImpl@VCAtomicMutex@@@@QEAAMMM@Z
 ?RandomFloat@?$CUniformRandomStreamImpl@VCThreadNullMutex@@@@QEAAMMM@Z
 ?RandomFloat@?$CUniformRandomStreamImpl@VCThreadNullVerificationMutex@@@@QEAAMMM@Z
-?RandomFloat@?$CUniformRandomStreamImpl@VCThreadSpinMutex@@@@QEAAMMM@Z
+?RandomFloatExp@?$CUniformRandomStreamImpl@VCAtomicMutex@@@@QEAAMMMM@Z
 ?RandomFloatExp@?$CUniformRandomStreamImpl@VCThreadNullMutex@@@@QEAAMMMM@Z
 ?RandomFloatExp@?$CUniformRandomStreamImpl@VCThreadNullVerificationMutex@@@@QEAAMMMM@Z
-?RandomFloatExp@?$CUniformRandomStreamImpl@VCThreadSpinMutex@@@@QEAAMMMM@Z
+?RandomGaussianFloat@?$CUniformRandomStreamImpl@VCAtomicMutex@@@@QEAAMMM@Z
 ?RandomGaussianFloat@?$CUniformRandomStreamImpl@VCThreadNullMutex@@@@QEAAMMM@Z
 ?RandomGaussianFloat@?$CUniformRandomStreamImpl@VCThreadNullVerificationMutex@@@@QEAAMMM@Z
-?RandomGaussianFloat@?$CUniformRandomStreamImpl@VCThreadSpinMutex@@@@QEAAMMM@Z
+?RandomInt@?$CUniformRandomStreamImpl@VCAtomicMutex@@@@QEAAHHH@Z
 ?RandomInt@?$CUniformRandomStreamImpl@VCThreadNullMutex@@@@QEAAHHH@Z
 ?RandomInt@?$CUniformRandomStreamImpl@VCThreadNullVerificationMutex@@@@QEAAHHH@Z
-?RandomInt@?$CUniformRandomStreamImpl@VCThreadSpinMutex@@@@QEAAHHH@Z
+?RandomizeBits@?$CUniformRandomStreamImpl@VCAtomicMutex@@@@QEAAXPEAX_K@Z
 ?RandomizeBits@?$CUniformRandomStreamImpl@VCThreadNullMutex@@@@QEAAXPEAX_K@Z
 ?RandomizeBits@?$CUniformRandomStreamImpl@VCThreadNullVerificationMutex@@@@QEAAXPEAX_K@Z
-?RandomizeBits@?$CUniformRandomStreamImpl@VCThreadSpinMutex@@@@QEAAXPEAX_K@Z
 ?ReachedZeroReferences@CFiber@@AEAAXXZ
 ?Read@CCircularBuffer@@QEAAHPEAXH@Z
 ?ReadAsBinary@KVPacker@@QEAA_NPEAVKeyValues@@AEAVCUtlBuffer@@@Z
@@ -2161,14 +2167,14 @@ $xmm9
 ?SetPtr@CBufferString@@QEAAXPEADHH_N1@Z
 ?SetPtr@KeyValues@@QEAAXPEBDPEAX@Z
 ?SetRequiredFlags@CCommandBuffer@@QEAA_K_K@Z
+?SetSeed@?$CUniformRandomStreamImpl@VCAtomicMutex@@@@QEAAXH@Z
 ?SetSeed@?$CUniformRandomStreamImpl@VCThreadNullMutex@@@@QEAAXH@Z
 ?SetSeed@?$CUniformRandomStreamImpl@VCThreadNullVerificationMutex@@@@QEAAXH@Z
-?SetSeed@?$CUniformRandomStreamImpl@VCThreadSpinMutex@@@@QEAAXH@Z
+?SetSeed_Locked@?$CUniformRandomStreamImpl@VCAtomicMutex@@@@AEAAXH@Z
 ?SetSeed_Locked@?$CUniformRandomStreamImpl@VCThreadNullMutex@@@@AEAAXH@Z
 ?SetSeed_Locked@?$CUniformRandomStreamImpl@VCThreadNullVerificationMutex@@@@AEAAXH@Z
-?SetSeed_Locked@?$CUniformRandomStreamImpl@VCThreadSpinMutex@@@@AEAAXH@Z
 ?SetString@CBufferStringFormatOutputStream@@QEAAXAEAVCBufferString@@@Z
-?SetString@CFilterString@@QEAAXPEBD@Z
+?SetString@CFilterString@@QEAAXPEBDW4FilterStringOp_t@@W4FilterStringCase_t@@@Z
 ?SetString@CGridStringPrinter@@QEAAXHHPEBD@Z
 ?SetString@KeyValues@@QEAAXPEBD0@Z
 ?SetTargetLine@IFormatOutputStream@@UEAAXH@Z
@@ -2176,7 +2182,6 @@ $xmm9
 ?SetThreadFiberMemoryRange@CFiber@@IEAAX_K@Z
 ?SetThreadName@CThreadLocalScope@@QEAAXPEBD@Z
 ?SetTrace@CThreadCrossProcessMutex@@QEAAX_N@Z
-?SetTrace@CThreadMutex@@QEAAX_N@Z
 ?SetType@netadr_t@@QEAAXW4netadrtype_t@@@Z
 ?SetUTF16Copy@CStrAutoEncode@@QEAAXPEBD@Z
 ?SetUTF16Copy@CStrAutoEncode@@QEAAXPEBI@Z
@@ -2202,7 +2207,6 @@ $xmm9
 ?SpewStats@CUtlLRUCacheBase@@SAXXZ
 ?SpewStrings@CCountedStringPool_CI@@QEBAXXZ
 ?SpewStrings@CUtlFilenameSymbolTable@@QEAAXXZ
-?SpinLockForWrite@CThreadSpinRWLock@@AEAAXPEBDHI@Z
 ?Split@CSplitString@@AEAAXPEBDHPEAPEBDH_N@Z
 ?SplitCommands@CCommandBuffer@@SAXPEBDHPEAV?$CUtlVector@VCUtlString@@HV?$CUtlVectorMemory_Growable@VCUtlString@@H$0A@@@@@@Z
 ?SplitPathAndPattern@CDirIterator@@IEAA_NPEBDPEAVCUtlString@@1@Z
@@ -2233,7 +2237,7 @@ $xmm9
 ?SumTimes@CVProfile@@IEAAXPEBVCVProfNode@@HAEAUCVProfSummingContext@@@Z
 ?SupportsInlineContext_@CDbgHelpFunctionsLoader@@QEAA_NXZ
 ?Suspend@CThread@@QEAAIXZ
-?Swap@CUtlBuffer@@QEAAXAEAV1@@Z
+?Swap@CUtlBuffer@@QEAAXAEAV1@_N@Z
 ?Swap@CUtlBuffer@@QEAAXAEAV?$CUtlLeanVector@EHVCMemAllocAllocator@@@@@Z
 ?Swap@CUtlString@@QEAAXAEAV1@@Z
 ?SwapFieldToTargetEndian@CByteswap@@QEAAXPEAX0PEAUtypedescription_t@@@Z
@@ -2277,6 +2281,10 @@ $xmm9
 ?Terminate@CThread@@QEAA_NH@Z
 ?Terminate@IFormatOutputStream@@UEAAXXZ
 ?TestMarkerAgainstCapturedStackIndex@CCallStackMarkerBase@@QEBA_NPEBQEBXHH@Z
+?ThreadAtomicNotifyAll@@YAXPEAI@Z
+?ThreadAtomicNotifyN@@YAXPEAII@Z
+?ThreadAtomicNotifyOne@@YAXPEAI@Z
+?ThreadAtomicWait@@YAXPEAII@Z
 ?ThreadMultiWaitObjectSetCreate@@YAPEAUThreadMultiWaitObjectSet_t@@PEBQEAXPEBUThreadMultiWaitExtra_t@@H@Z
 ?ThreadProc@CThread@@KA_KPEAX@Z
 ?ToLowerFast@CBufferString@@QEAAXH@Z
@@ -2303,11 +2311,6 @@ $xmm9
 ?TruncateAt@CBufferString@@QEAAPEBDPEBD_N@Z
 ?TryCullParticleSystemDisabledBlocks@@YA_NPEAVKeyValues3@@@Z
 ?TryLock@CThreadCrossProcessMutex@@QEAA_NPEBDHI@Z
-?TryLock@CThreadMutex@@QEAA_NPEBDH@Z
-?TryLock@CThreadMutex@@QEBA_NPEBDH@Z
-?TryLockForRead@CThreadMutex@@QEAA_NPEBDH@Z
-?TryLockForWrite@CThreadMutex@@QEAA_NPEBDH@Z
-?TryLockForWrite@CThreadRWLock@@QEAA_NPEBDH@Z
 ?TryUnlockRead_LockForWrite@CThreadRWLock_FastRead@@QEAA_NPEBDH_NW4WriteLockTransition_t@1@@Z
 ?TryUnlockWrite_LockForRead@CThreadRWLock_FastRead@@QEAA_NPEBDH@Z
 ?UUUUUU
@@ -2318,26 +2321,13 @@ $xmm9
 ?UnicodeOK@IFormatOutputStream@@QEBA_NXZ
 ?UnlinkFromLongJumpHierarchy@StackContext_StartData_t@@QEAAXXZ
 ?Unlock@CThreadCrossProcessMutex@@QEAAXPEBDH@Z
-?Unlock@CThreadMutex@@QEAAXPEBDH@Z
-?Unlock@CThreadMutex@@QEBAXPEBDH@Z
 ?UnlockMutex@CDbgHelpFunctionsLoader@@QEAAXXZ
-?UnlockRead@CThreadMutex@@QEAAXPEBDH@Z
-?UnlockRead@CThreadSpinRWLock@@QEAAXPEBDH@Z
 ?UnlockReadAccounting@CThreadRWLock_FastRead@@IEAAXPEBDHI@Z
 ?UnlockRead_LockForWrite@CEventRWLock@@QEAA?AW4RWLockTranstionResult_t@@AEAVCEventListNode@@@Z
-?UnlockRead_LockForWrite@CThreadMutex@@QEAA?AW4RWLockTranstionResult_t@@PEBDH@Z
-?UnlockRead_LockForWrite@CThreadRWLock@@QEAA?AW4RWLockTranstionResult_t@@PEBDH@Z
 ?UnlockRead_LockForWrite@CThreadRWLock_FastRead@@QEAA?AW4RWLockTranstionResult_t@@PEBDHW4WriteLockTransition_t@1@@Z
-?UnlockRead_LockForWrite@CThreadSpinRWLock@@QEAA?AW4RWLockTranstionResult_t@@PEBDH@Z
-?UnlockWrite@CThreadMutex@@QEAAXPEBDH@Z
-?UnlockWrite@CThreadRWLock@@QEAAXPEBDH@Z
 ?UnlockWrite@CThreadRWLock_FastRead@@QEAAXPEBDH@Z
-?UnlockWrite@CThreadSpinRWLock@@QEAAXPEBDH@Z
 ?UnlockWrite_LockForRead@CEventRWLock@@QEAA?AW4RWLockTranstionResult_t@@AEAVCEventListNode@@@Z
-?UnlockWrite_LockForRead@CThreadMutex@@QEAA?AW4RWLockTranstionResult_t@@PEBDH@Z
-?UnlockWrite_LockForRead@CThreadRWLock@@QEAA?AW4RWLockTranstionResult_t@@PEBDH@Z
 ?UnlockWrite_LockForRead@CThreadRWLock_FastRead@@QEAA?AW4RWLockTranstionResult_t@@PEBDH@Z
-?UnlockWrite_LockForRead@CThreadSpinRWLock@@QEAA?AW4RWLockTranstionResult_t@@PEBDH@Z
 ?UnpackIntoStructure@KeyValues@@QEAAXPEBUKeyValuesUnpackStructure@@PEAX@Z
 ?UnqualifiedFilenameAlloc@CUtlString@@QEBA?AV1@XZ
 ?UnregisterEventListener_Base@CEventDispatcher_Base@@IEAA_NAEBVCUtlAbstractDelegate@@AEAV?$CUtlVector@UEventListenerInfo_t@CEventDispatcher_Base@@HV?$CUtlVectorMemory_Growable@UEventListenerInfo_t@CEventDispatcher_Base@@H$0A@@@@@@Z
@@ -2351,6 +2341,8 @@ $xmm9
 ?VWMD_tier0_MiniDumpWriteDump@@YA_NIPEBD_NW4VWMD_MINIDUMP_TYPE@@PEAU_VWMD_MINIDUMP_EXCEPTION_INFORMATION@@PEAU_VWMD_MINIDUMP_USER_STREAM_INFORMATION@@PEAU_VWMD_MINIDUMP_CALLBACK_INFORMATION@@@Z
 ?VWMD_tier0_MiniDumpWriteDump@@YA_NPEAVCVDebugProcess@@PEBD_NW4VWMD_MINIDUMP_TYPE@@PEAU_VWMD_MINIDUMP_EXCEPTION_INFORMATION@@PEAU_VWMD_MINIDUMP_USER_STREAM_INFORMATION@@PEAU_VWMD_MINIDUMP_CALLBACK_INFORMATION@@@Z
 ?VWMD_tier0_MiniDumpWriteDump@@YA_NPEAXI0W4VWMD_MINIDUMP_TYPE@@PEAU_VWMD_MINIDUMP_EXCEPTION_INFORMATION@@PEAU_VWMD_MINIDUMP_USER_STREAM_INFORMATION@@PEAU_VWMD_MINIDUMP_CALLBACK_INFORMATION@@@Z
+?V_ConvertBetweenStringEncodings@@YAPEBDAEAVCBufferString@@II@Z
+?V_ConvertWin32ANSILatinToUTF8@@YAPEBDAEAVCBufferString@@@Z
 ?V_GetUTF8BytesNeeded@@YAHPEBDH@Z
 ?V_GetUTF8BytesNeeded@@YAHPEBIH@Z
 ?V_GetUTF8BytesNeeded@@YAHPEB_WH@Z
@@ -2361,7 +2353,7 @@ $xmm9
 ?V_JoinNumbers@@YAPEBDDAEBV?$CUtlVector@_JHV?$CUtlVectorMemory_Growable@_JH$0A@@@@@PEAVCUtlString@@@Z
 ?V_JoinNumbers@@YAPEBDDAEBV?$CUtlVector@_KHV?$CUtlVectorMemory_Growable@_KH$0A@@@@@PEAVCUtlString@@@Z
 ?V_RandomString@@YA?AVCUtlString@@H@Z
-?V_SanitizeTextForCommandLine@@YAPEBDPEBDPEAVCBufferString@@_N@Z
+?V_SanitizeTextForCommandLine@@YAPEBDPEBDPEAVCBufferString@@_NH@Z
 ?V_SplitNumbers@@YAHPEBDDAEAV?$CUtlVector@HHV?$CUtlVectorMemory_Growable@HH$0A@@@@@@Z
 ?V_SplitNumbers@@YAHPEBDDAEAV?$CUtlVector@IHV?$CUtlVectorMemory_Growable@IH$0A@@@@@@Z
 ?V_SplitNumbers@@YAHPEBDDAEAV?$CUtlVector@MHV?$CUtlVectorMemory_Growable@MH$0A@@@@@@Z
@@ -2416,7 +2408,6 @@ $xmm9
 ?WaitForMultiple@CThreadEvent@@SAIHPEAV1@_NI@Z
 ?WaitForMultiple@CThreadSyncObject@@SAIHPEAPEAV1@_NI@Z
 ?WaitForMultiple@CThreadSyncObject@@SAIHPEAV1@_NI@Z
-?WaitForRead@CThreadRWLock@@AEAAXXZ
 ?WaitForReadLockTransition@CEventRWLock@@IEAAXAEAVCEventListNode@@I@Z
 ?WaitOrImmediatelyExecute@CThreadedJob@@QEAAXXZ
 ?Wait_NoDiagnostics@CThreadSyncObject@@QEAA_NI@Z
@@ -2442,7 +2433,6 @@ $xmm9
 ?rAj
 ?s_iCurrentUniqueNodeID@CVProfNode@@1HA
 ?ysB
-@"Pv1
 @^8U)zj
 @aQY
 @pn>6
@@ -2507,6 +2497,7 @@ Acceleration_Heading
 Acceleration_Magnitude
 Acceleration_Sideways
 AcquireSRWLockExclusive
+AcquireSRWLockShared
 AddLayer
 AddVectoredExceptionHandler
 Address range refers to non-existent CU at 0x%llx\n
@@ -2514,6 +2505,7 @@ AdjustTokenPrivileges
 Alert
 Align
 AlignedByteArray not properly aligned\n
+Alloc exceeded allocation limit /+/ %llu > %llu
 AllocConsole
 AllocateAndInitializeSid
 AllowGameDVR
@@ -2601,6 +2593,27 @@ BC?>6t9^\tc:>
 BCryptGenRandom
 BF>^G
 BOOL
+BREAKPAD:   can't open cached file\n
+BREAKPAD:   can't open file\n
+BREAKPAD:   can't verify cached file\n
+BREAKPAD:   invalid file content\n
+BREAKPAD:   invalid file header\n
+BREAKPAD:   mismatch (non-windows breakpad found for windows binary)\n
+BREAKPAD:   mismatch (windows breakpad found for non-windows binary)\n
+BREAKPAD:   mismatched alt debug ID\n
+BREAKPAD:   mismatched debug ID\n
+BREAKPAD:   success\n
+BREAKPAD:   unable to read file header\n
+BREAKPAD:   unknown CPU architecture '%s'\n
+BREAKPAD:   unsupported STACK entry of type '%s'\n
+BREAKPAD:   unsupported WIN FPO frame with a program\n
+BREAKPAD:   unsupported WIN frame type 0x%x\n
+BREAKPAD:   unsupported WIN frame without a program\n
+BREAKPAD:   unsupported file element '%s'\n
+BREAKPAD: copying '%s' into cache as '%s'\n
+BREAKPAD: reopen cached file '%s'\n
+BREAKPAD: search for '%s'\n
+BREAKPAD: try and open '%s'\n
 BTcq
 Bad Shortcut
 Bad exponent in floating point number
@@ -2663,35 +2676,21 @@ C:\buildworker\citadel_rel_win64\build\src\public\tier0\threadmutex.h
 C:\buildworker\citadel_rel_win64\build\src\public\tier0\tslist.h
 C:\buildworker\citadel_rel_win64\build\src\public\tier0\utldict.h
 C:\buildworker\citadel_rel_win64\build\src\public\tier0\utlrbtree.h
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\utlsymboltable.h
-C:\buildworker\citadel_rel_win64\build\src\public\tier0\utltshash.h
 C:\buildworker\citadel_rel_win64\build\src\tier0\coroutine.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\fibertools.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\fileio.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\filenamesymboltable.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\keyvalues3_kv1textwriter.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\keyvalues3_textreader.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\keyvaluessystem.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\kv3format_manager.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\kv3formats_modeldoc.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\logging.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\mem_helpers.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\mempool.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\memprocessheap.cpp(336):***** OUT OF MEMORY! attempted allocation size: %I64d ****\n
+C:\buildworker\citadel_rel_win64\build\src\tier0\memprocessheap.cpp(339):***** OUT OF MEMORY! attempted allocation size: %I64d ****\n
 C:\buildworker\citadel_rel_win64\build\src\tier0\memstack.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\memstd.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\platform.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\quantizedfloatencoderregistry.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\random.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\stackhelpers_windows_dbghelp.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\stacktools.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\stringparse.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\stringpool.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\threadtools.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\tier0_strtools.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\utlmemoryarena.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\utlobjectregistry.cpp
-C:\buildworker\citadel_rel_win64\build\src\tier0\utlstringtokensystem.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\utlvectormemory.cpp
 C:\buildworker\citadel_rel_win64\build\src\tier0\vprof.cpp
 CAddAnimNode
@@ -2946,10 +2945,7 @@ CAnimTagSpanPtr
 CAnimUpdateSharedData
 CAnimationGraph
 CAnimationSubGraph
-CAssertGlobals::AssertDisableMutex
-CAssertGlobals::assertLock
 CAsyncScheduledFunctionManager::Init
-CAsyncScheduledFunctionManager::m_callMutex
 CAuthPhysBody
 CAuthPhysJoint
 CBindPoseAnimNode
@@ -2996,7 +2992,6 @@ CCoroutine::SaveStack
 CCoroutineMgr::PopCoroutineStack
 CCurrentRotationVelocityMetric
 CCurrentVelocityMetric
-CCvar
 CCycleCondition
 CCycleControlAnimNode
 CCycleControlClipAnimNode
@@ -3080,10 +3075,10 @@ CInputStreamAnimNode
 CIntAnimParameter
 CJiggleBoneAnimNode
 CJumpHelperAnimNode
+CKV3Arena::Root
 CKeyValues3Array::EnsureElementCapacity
 CKeyValues3Array::InsertMultipleBefore
 CKeyValues3Array::RemoveMultiple
-CKeyValues3Context::Root
 CKeyValues3Table::EnsureMemberCapacity
 CKeyValuesSystem::m_Strings
 CKeyValuesSystemBase::GetSymbolForStringCaseSensitiveInternal
@@ -3279,13 +3274,9 @@ CTestScriptMgr::InsertCommandsBeforeCheckpoint()\n
 CTestScriptMgr::LoopCount( %s ): no loop with this name exists.
 CTestScriptMgr::LoopForNumSeconds( %s ): no loop with this name exists.
 CTestScriptMgr::StartLoop( %s ): loop already exists.
-CThread
 CThreadNullVerificationMutex: Thread %llu acquiring null-mutex while thread %llu is still holding it, indicates unexpected thread-safety issue
 CThreadNullVerificationMutex::Lock
 CThreadPool::Start called and it was already initialized.
-CThreadPool::YieldWait
-CThreadPool::m_PerFrameJobListMutex
-CThreadPool::m_SuspendMutex
 CThreadedTraverseJobSync::WaitForAllDone
 CThreadedTraverseJob_FastWin32::CThreadedTraverseJob_FastWin32
 CTimeCondition
@@ -3300,6 +3291,7 @@ CUtlDict<int,class CDefFastCaselessStringLess>::Insert
 CUtlLeanVectorBase<struct UtlLinkedListElem_t<class CUtlString,unsigned int>,unsigned int,class CMemAllocAllocator>::EnsureCapacity
 CUtlLeanVectorBase<struct UtlLinkedListElem_t<struct CCvar::CommandCallbackData_t,unsigned short>,unsigned short,class CMemAllocAllocator>::EnsureCapacity
 CUtlLeanVectorBase<struct UtlLinkedListElem_t<struct CCvar::ConVarChangeCallbackData_t,unsigned short>,unsigned short,class CMemAllocAllocator>::EnsureCapacity
+CUtlLeanVectorBase<struct UtlLinkedListElem_t<struct CCvar::ConVarCompletionCallbackData_t,unsigned short>,unsigned short,class CMemAllocAllocator>::EnsureCapacity
 CUtlLeanVectorBase<struct UtlLinkedListElem_t<struct CCvar::ConVarFilterCallbackData_t,unsigned short>,unsigned short,class CMemAllocAllocator>::EnsureCapacity
 CUtlLeanVectorBase<struct UtlLinkedListElem_t<struct CCvar::SharedCommandData_t,unsigned short>,unsigned short,class CMemAllocAllocator>::EnsureCapacity
 CUtlLeanVectorBase<struct UtlLinkedListElem_t<struct ConVarInfo_t *,unsigned short>,unsigned short,class CMemAllocAllocator>::EnsureCapacity
@@ -3328,7 +3320,7 @@ CUtlString::FormatV
 CUtlStringTokenSystem could not open database file "%s" for writing. Aborting update operation\n
 CUtlStringTokenSystem could not update token database "%s" because the file is read-only.\n
 CUtlStringTokenSystem: Encountered string token collision: "%s" and "%s" both hash to %X!\n
-CUtlSymbolTableLargeBase
+CUtlSymbolTableLarge element limit of %u exceeded\n
 CV@@R
 CVAR_
 CVDbgHelpSymbolModule::WriteBreakpadCfiInfo
@@ -3479,6 +3471,7 @@ C_OP_TwistAroundAxis
 C_OP_WorldTraceConstraint
 Called Resume() on a thread that is not suspended!\n
 Can't allocate %d elements, will overflow.  Current count %d elements\n
+Can't change '%s' right now.\n
 Can't convert an empty string to bool\n
 Can't convert an empty string to float64\n
 Can't convert an empty string to int64\n
@@ -3513,6 +3506,7 @@ Channel Name
 CharacterSetBuild
 CheckForUnsafeInputString
 CheckTokenMembership
+ClearSecondaryMainThread
 Client Input/Output
 Client Physics
 Client Rendering
@@ -3696,9 +3690,11 @@ DWARF: virtual extent too large (0x%llx), not supported\n
 Debug server download process failed with exit code %d
 Debug server download running more than %u seconds, aborted
 Debug test scripts.
+DebugBuild_InitFillMemory
 DebugPrintBitStringBits
 December
 DeclareCurrentThreadIsMainThread
+DeclareCurrentThreadIsSecondaryMainThread
 DecodePointer
 Decompression failed, %d\n
 Decompression failure
@@ -3743,7 +3739,6 @@ Dw`z
 Dx,2$E
 DynamicConfigList
 E)nT
-E3x;1
 E9NF
 E>nEA
 EIde
@@ -3752,18 +3747,10 @@ ELF fallback symbols
 EMPTY - ok for slot zero only!
 ENGLISH
 ENTITY_NAME
-ERROR
 ERROR: %s is not implemented, breakpad symbols are incomplete\n
 ERROR: %s\n
-ERROR: Alloc exceeded allocation limit /+/ %llu > %llu
 ERROR: CUtlSymbolTableLarge element limit of %u exceeded\n
 ERROR: DWARF breakpad CFI is incomplete, breakpad symbols are incomplete\n
-ERROR: EnsureChildProcessKillOnParentEnd() - Failed to assign child process to shared job object. OS error message:\n\t"%s"\n
-ERROR: EnsureChildProcessKillOnParentEnd() - Failed to create shared job object. OS error message:\n\t"%s"\n
-ERROR: EnsureChildProcessKillOnParentEnd() - Failed to set flags on shared job object. OS error message:\n\t"%s"\n
-ERROR: Tools stall monitor thread exceeded the maximum number of allowed nested scopes!\n
-ERROR: Tools stall monitor thread scope underrun!\n
-ERROR: Virtual reservation exceeded limit /+/ %llu > %llu
 ET5>
 ETW0
 EXECUTE_PER_TICK
@@ -3781,11 +3768,14 @@ EnableWindow
 Enabling flag '%s' on channel '%s'.\n
 EncodePointer
 End of input was reached and '[' was not matched by ']'
-End of input was reached and '{' was not matched by '}'
 EndDialog
 EndPaint
 Engine2/MapMaxCoord
 EngineServiceMgr001
+EnsureCapacity
+EnsureChildProcessKillOnParentEnd() - Failed to assign child process to shared job object. OS error message:\n\t"%s"\n
+EnsureChildProcessKillOnParentEnd() - Failed to create shared job object. OS error message:\n\t"%s"\n
+EnsureChildProcessKillOnParentEnd() - Failed to set flags on shared job object. OS error message:\n\t"%s"\n
 EnterCriticalSection
 Entry '%s' already has a name (ignoring update to '%s')\n
 EnumProcessModules
@@ -3846,13 +3836,9 @@ F>qUxv
 FAIL: !IsEmpty()\n
 FAIL: !Validate()\n
 FAIL: Not all items popped\n
+FAILED
 FATAL
-FATAL ERROR
 FATAL ERROR: 
-FATAL ERROR: CUtlSymbolTableLarge element limit of %u exceeded\n
-FATAL ERROR: unable to create temp directory under '%s'\n
-FATAL ERROR: unable to create temp file under '%s'\n
-FATAL: %s called on a pool context (no root available)\n
 FAYz
 FCMOV 
 FCVAR_ARCHIVE
@@ -3871,7 +3857,6 @@ FILE
 FLOAT
 FRENCH
 FUNC
-FX:1
 FaceTo
 Facing_Heading
 Failed during call to CDirWatcher::SetDirToWatch for directory '%s'\n
@@ -3950,7 +3935,6 @@ Found existing value when inserting into dict - replacing existing value with ne
 Found existing value when inserting into tree - replacing existing value with new value. If this is intended behavior, use InsertOrReplace. If leaving existing values alone is intended, use InsertIfNotFound. If duplicate entries are intended, use InsertWithDupes.
 Found extraneous tokens past end of KV3 document.
 Found leading plus sign while parsing string '%s' as float64, ignoring it\n
-Found unhandled V41 regularization method '%s' that isn't available to V40
 Frame Boundary
 FrameTotal
 FreeCommandLine
@@ -4295,6 +4279,7 @@ INDEXVERSION=2\n
 INFO
 INHERITABLE_BOOL_INHERIT
 INHERITABLE_BOOL_TRUE
+INIT
 INITY
 INOWY^_
 INTEGER
@@ -4317,7 +4302,7 @@ ISolveIKChainAnimNode
 ISubGraphAnimNode
 ISubGraphManager
 ITALIAN
-I\zH6 
+I\zH6
 Ignore
 Ignore All Asserts
 Ignore For 24 Hours
@@ -4461,7 +4446,7 @@ JAPANESE
 JIxX
 JJK1
 JSON error, unterminated element: 
-Jan  1 2026
+Jan 21 2026
 JanFebMarAprMayJunJulAugSepOctNovDec
 January
 Jjw[Sc
@@ -4481,7 +4466,6 @@ KV Conditional: Unknown symbol %s\n
 KV3 EHANDLEs cannot be serialized
 KV3 instances cannot be set to an unspecified specific type
 KV3 pointers cannot be serialized
-KV3Convert_KV3_FORMAT_MODELDOC41_To_KV3_FORMAT_MODELDOC40
 Keeping "%s" cvar value, specified on cmdline\n
 Kernel32.dll
 KeyValueCache001
@@ -4884,8 +4868,10 @@ PARTICLE_VRHAND_CP
 PARTICLE_VRHAND_CP_OBJECT
 PARTICLE_VRHAND_LEFT
 PARTICLE_VRHAND_RIGHT
+PASSED
 PCLMULQDQ 
 PER_USER
+PFTest
 PF_BIAS_TYPE_EXPONENTIAL
 PF_BIAS_TYPE_STANDARD
 PF_MAP_TYPE_CURVE
@@ -4961,6 +4947,8 @@ Peak total virtual bytes: %s\n
 Peak working set: %s\n
 PeekMessageA
 PeekNamedPipe
+PerFrameTest_Basic
+PerFrameTest_OnlyPerFrameExecuted
 PhysicsBodyMarkup
 PhysicsBoneMarkup
 PhysicsBuilderMgr001
@@ -5001,6 +4989,7 @@ Plat_CreateWindow:  Could not create SDL window: %s\n
 Plat_DebugPrint
 Plat_DebugPrintV
 Plat_DebugString
+Plat_DebugString_Buffered
 Plat_DesktopNotify
 Plat_DestroyGameInstanceMutex
 Plat_DestroyWindow
@@ -5275,7 +5264,6 @@ PushPopThread
 PushThread
 Q5rHg,>
 QAf?
-QX;1
 Q]XV
 QguI
 Qkkbal
@@ -5300,8 +5288,6 @@ RPCRT4.dll
 RSDS
 RUSSIAN
 RVfQp
-R\fpHC)
-R\vpHC)
 RaiseException
 RandomFloat
 RandomFloatExp
@@ -5382,6 +5368,7 @@ Regular entry table is not sorted\n
 Release
 ReleaseMutex
 ReleaseSRWLockExclusive
+ReleaseSRWLockShared
 ReleaseSemaphore
 ReleaseThreadHandle
 RemoveAssertionCallback
@@ -5431,6 +5418,7 @@ RtlUnwindEx
 RtlVirtualUnwind
 RunTSListTests
 RunTSQueueTests
+RunThreadPoolPerFrameTests
 RunThreadPoolTests
 RunWithAlternateStack
 Running %s...\n
@@ -5882,7 +5870,6 @@ Subtract
 SunMonTueWedThuFriSat
 Sunday
 SuspendThread
-SwitchToThread
 SymCleanup
 SymEnumSourceFilesW
 SymEnumSourceLinesW
@@ -5988,7 +5975,6 @@ TfAX
 The specific type '%s' cannot be persisted
 The specific type '%u' cannot be persisted
 This convar is being accessed prior to ConVar_Register being called
-Thread failed to initialize\n
 Thread pool %s requested %d threads, using %u\n
 Thread(%p/%p)
 ThreadCloseProcess
@@ -6003,6 +5989,7 @@ ThreadGetProcessExitCode
 ThreadGetProcessIdFromHandle
 ThreadGetProcessPriority
 ThreadInMainThread
+ThreadInPrimaryOrSecondaryMainThread
 ThreadInitOnceCall_Finish
 ThreadInitOnceCall_ShouldRun
 ThreadIsProcessActive
@@ -6017,9 +6004,15 @@ ThreadOpenProcess
 ThreadPoolTest:         %d threads -- %d (%d) jobs processed in %fms, %fms to suspend (%f/%f)\n
 ThreadPoolTest:     NO Sleep\n
 ThreadPoolTest:   NOT to completion\n
+ThreadPoolTest:   Non-per-frame jobs executed by the time the per-frame jobs finished: %d (main thread: %d)\n
+ThreadPoolTest:   Per-frame jobs executed: %d (main thread: %d)\n
 ThreadPoolTest:   To completion\n
+ThreadPoolTest: ===== RunThreadPoolPerFrame Tests Complete =====\n\n
 ThreadPoolTest: Job distribution speed\n
 ThreadPoolTest: Jobs doing work, %s main thread\n
+ThreadPoolTest: YieldWaitPerFrameJobs - Basic test\n
+ThreadPoolTest: YieldWaitPerFrameJobs - Dynamic spawn test\n
+ThreadPoolTest: YieldWaitPerFrameJobs - Only per-frame jobs executed by main thread\n
 ThreadReadProcessMemory
 ThreadSetDebugNameS2
 ThreadSetPerfSetAffinity
@@ -6032,7 +6025,6 @@ ThreadSpin
 ThreadTerminateProcessCode
 ThreadWaitForProcessExit
 ThreadYield
-ThreadYieldToThisProcessor
 Thursday
 Tier0GenericMiniDumpHandler
 Tier0GenericMiniDumpHandler - Data segment attempt failed, trying smaller dump.\n
@@ -6069,11 +6061,14 @@ ToolFramework2_002
 ToolSceneNodeFactory_001
 ToolService_001
 Tools
+Tools stall monitor thread exceeded the maximum number of allowed nested scopes!\n
+Tools stall monitor thread scope underrun!\n
 Tools stall monitor thread was requested, but is being suppressed due to the '-disable_stall_monitor' flag.
 Tools stall monitor thread was requested, but is being suppressed due to the '-testmode' flag.
 ToolsStallMonitor
 ToolsStallMonitorInternal_BeginScope
 ToolsStallMonitorInternal_EndScope
+ToolsStallMonitorThread
 ToolsStallMonitor_IndicateActivity
 ToolsStallMonitor_Initialize
 ToolsStallMonitor_SetDisplayImageRGBA
@@ -6091,7 +6086,6 @@ TranslateStackInfo
 TrimRight
 Truncated data
 TryAcquireSRWLockExclusive
-TryEnterCriticalSection
 Tuesday
 Two Bone
 Two KV3 format GUIDs with the same human-friendly name ('%s')
@@ -6161,7 +6155,6 @@ Unexpected augmentation string byte 0x%x (shouldn't have augmentation data)\n
 Unexpected augmentation string byte 0x%x\n
 Unexpected character 0x%02x
 Unexpected character 0x%02x ('%c')
-Unexpected data at the end of .gnu_debuglink\n
 Unexpected duplicate table entry name '%s'\n
 Unexpected end of file
 Unexpected high PC attr in addition to ranges\n
@@ -6221,6 +6214,8 @@ Unsupported text encoding id.
 Unused augmentation data, %llu bytes\n
 UpdateProcThreadAttribute
 UpdateWindow
+UploadFilesToAnalyzer
+UploadTracyFile
 Usage:  find <string> [<string>...]\n
 Usage:  findflags <string>\n
 Usage:  help <cvarname>\n
@@ -6234,12 +6229,10 @@ UtlVectorMemory_FailedAllocation
 UuidCreate
 UuidFromStringA
 UuidToStringA
-V8:1
 VALVE-MODULE-DEBUG-%08X
 VALVE_ASSERT_DIALOG_HOTKEYS
 VALVE_CLOCK_SPEED_CALCULATION
 VALVE_TESTMODE
-VALVE_TEST_MONITOR_PROCESS
 VApplication001
 VAsyncFileSystem2_001
 VAvi001
@@ -6285,6 +6278,7 @@ VProfLite_GetEnabled
 VProfLite_GetHistoricalData
 VProfLite_NextFrame
 VProfLite_SetEnabled
+VProfLite_SetExclusivePercentiles
 VProfService_001
 VProf_AssignNextTimespanId
 VProf_EnterScopeAdHoc
@@ -6342,6 +6336,7 @@ V_IsAbsolutePath
 V_IsDeprecatedW
 V_IsFakePath
 V_IsMeanSpaceW
+V_IsPointerOnStack
 V_IsValidDomainNameCharacter
 V_IsValidURLCharacter
 V_LZ4_attach_HC_dictionary
@@ -6383,6 +6378,7 @@ V_RemoveDotSlashes
 V_RemoveFormatSpecifications
 V_SetErrno
 V_StrTrim
+V_StringHasNonAsciiCharacters
 V_StringParseError
 V_StringToBool
 V_StringToColor
@@ -6682,6 +6678,7 @@ VerifyVersionInfoW
 Vgh$
 Virtual Memory %s Report for PID %u\n
 Virtual memory regions sorted by size:\n
+Virtual reservation exceeded limit /+/ %llu > %llu
 VirtualAlloc
 VirtualAlloc2
 VirtualAlloc2FromApp
@@ -6734,8 +6731,11 @@ WaitForDebugEvent
 WaitForMultiple: %d exceeded maximum of %d\n
 WaitForMultipleObjects
 WaitForSingleObject
+WaitOnAddress
 Wak>E
 WakeAllConditionVariable
+WakeByAddressAll
+WakeByAddressSingle
 WakeConditionVariable
 Warning
 Warning: Failed to initialize COM! HRESULT = 0x%X %s\n
@@ -6805,7 +6805,6 @@ Z>w_F
 ZSq>
 Z\>z8
 Zjz\v
-Zvpcf2
 ZwSetTimerResolution
 [   func+child         func ]
 [   func+child       func ]
@@ -6851,11 +6850,13 @@ ZwSetTimerResolution
 \nCwf\r
 \nLightweight verifier:\n
 \nOS memory stats:\n
+\nThreadPoolTest: ===== RunThreadPoolPerFrame Tests =====\n
 \n\nCMiniDumpComment encountered an error while generating the comment
 \nh?oT
 \nk>oB
 \r00000000-0000-0000-0000-000000000000
 \rConsole
+\rEnd of input was reached and '{' was not matched by '}'
 \r\f\v\v\n\n\t\t\t\t\t
 \rmj>zjZ
 \sdktools\bin
@@ -6881,7 +6882,6 @@ ZwSetTimerResolution
 \v_dbghelp_home_linked
 \v_dbghelp_home_unlinked
 \veBV
-\vpHC)
 ]P4H
 ]u9g
 ]xEc
@@ -6960,7 +6960,9 @@ __unaligned
 __unwind_info
 __vector( 
 __vectorcall
-_breakpad_
+_breakpad_elf_
+_breakpad_macho_
+_breakpad_sym_
 _cabs
 _class
 _editor
@@ -7012,7 +7014,6 @@ _wWT+
 `vftable'
 `virtual displacement map'
 a6>r
-a8;1
 a?y#c?sIe?
 aC.B
 aG0"
@@ -7075,6 +7076,7 @@ animgraph6
 animgraph7
 animgraph8
 animgraph9
+api-ms-win-core-synch-l1-2-0.dll
 appears in lower database
 aq8D
 archive
@@ -7085,6 +7087,7 @@ arenas
 argument list too long
 argument not found
 argument out of domain
+arm64
 array
 arrayboundsexceeded
 asin
@@ -7331,6 +7334,7 @@ eh_frame
 ehandle
 elapsed
 emitFromWorld
+empty search name, failing\n
 enable_limit
 encoding
 end_frame
@@ -7365,7 +7369,6 @@ expression_value
 extractbuildid -multi %u -getsrcmapopt - "%s"
 extractbuildid -multi %u -setdbg "%s" "%s"
 extractbuildid -multi %u -setsrcmap "%s" "%s"
-f0;1
 fD>b
 fGa>
 fP~V
@@ -7566,6 +7569,7 @@ k>4\tF
 k>RU
 kernel32.dll
 kernelbase.dll
+kp:1
 l6qnk
 l<}2l
 lDa>
@@ -7682,6 +7686,7 @@ m_ExpectedArg1Type
 m_ExpectedArgs
 m_ExpectedRuntimeType
 m_Expression
+m_Flags compared different! %d != %d.
 m_FloatComponentX
 m_FloatComponentY
 m_FloatComponentZ
@@ -7814,7 +7819,9 @@ m_bScaleInitialValue
 m_bScaleLocal
 m_bScalePerParticle
 m_bScreenSpaceEffect
+m_bSetNormal
 m_bSlopeEnabled
+m_bTraceAlongNormal
 m_bTrailBias
 m_bUseBiasAndClamp
 m_bUseHighestEndCP
@@ -8040,6 +8047,7 @@ m_nFieldOutput
 m_nFireMode
 m_nFirstMultipleOverride_BackwardCompat
 m_nFogType
+m_nGroundNormalAttribute
 m_nHand
 m_nHeadLocation
 m_nIncomingTangent
@@ -8054,6 +8062,7 @@ m_nMinParticlesToEmit
 m_nModelCP
 m_nNoHitResult
 m_nNoiseType
+m_nOffset compared different! %d != %d.
 m_nOpEndCapState
 m_nOpScaleCP
 m_nOpStrengthScaleSeed
@@ -8084,8 +8093,10 @@ m_nSortMethod
 m_nStartCP
 m_nSubModelFieldType
 m_nSwitchValue
+m_nTab compared different! %d != %d.
 m_nTextureChannels
 m_nTextureType
+m_nTraceDirectionAttribute
 m_nTraceMissBehavior
 m_nTranslations == 1
 m_nType
@@ -8163,6 +8174,7 @@ m_vecSamplePosition
 m_vecScale
 m_vecTailColorScale
 m_vecTexturesInput
+m_vecTraceDir
 m_velocityInput
 macos
 malloc is redirected.\n
@@ -8248,7 +8260,6 @@ moredetailed
 moveto
 multiplayer_break
 n03>Pu
-n<!-- schema 
 n>log2
 nBits != 32
 nInterruptability
@@ -8258,6 +8269,7 @@ nOffset < m_nAllocationSize
 nSwitchValue
 nTries < 10000000
 n\f"pA3Q
+n\f"pA3QH
 n]?iJ
 name
 nan(ind)
@@ -8353,7 +8365,6 @@ p>Y3
 pAbilityName
 pClass
 pFrameBottom > m_pStackHigh || pFrameTop < m_pStackLow
-pHC)
 pKp\nZ
 pMessage
 pName
@@ -8434,7 +8445,6 @@ r9T6
 rNm>)
 rT+6ZNw
 r\tVr.>T
-r\vpHC)
 radius
 radius0
 radius1
@@ -8492,6 +8502,7 @@ schema
 scoped-name number doesn't end with '_'\n
 script
 scrubber
+search '
 searches
 secondary
 secure level: %d\n
@@ -8636,6 +8647,8 @@ unable to allocate huge OS page (error: %d (0x%x), address: %p, size: %zx bytes)
 unable to allocate memory (%zu bytes)\n
 unable to allocate thread local heap metadata (%zu bytes)\n
 unable to allocate using huge (1GiB) pages, trying large (2MiB) pages instead (status 0x%lx)\n
+unable to create temp directory under '%s'\n
+unable to create temp file under '%s'\n
 unable to free OS memory (error: %d (0x%x), size: 0x%zx bytes, address: %p)\n
 unable to get file indexes\n
 unable to use secure randomness\n
@@ -8701,7 +8714,7 @@ visualstudioautomation.exe -appverifier_setup %d
 visualstudioautomation.exe -attachtoprocessid %d
 vmdl;vmdl_prefab
 vmdlkeys0
-vmdlkeys2
+vmdlkeys1
 vmdlkeys3
 vmdlkeys4
 void
@@ -8718,6 +8731,7 @@ vpcf16
 vpcf17
 vpcf18
 vpcf19
+vpcf2
 vpcf20
 vpcf21
 vpcf22
@@ -8766,11 +8780,13 @@ vpcf60
 vpcf61
 vpcf62
 vpcf63
+vpcf64
 vpcf7
 vpcf8
 vpcf9
 vpk:
 vpulse
+vpulse1
 vpulse10
 vpulse11
 vpulse12
@@ -8821,12 +8837,14 @@ wqBv/?
 wrong protocol type
 wsbdp
 wsj=
+x86_64
 x8}0\t9
 x=9v
 xSvf$
 xT?V
 xYiu
 x`tm6
+xrY@;1
 xu37
 xuRCk
 y9*O
@@ -8835,7 +8853,6 @@ yTu=
 y]So
 yaw_end
 yaw_start
-z0v1
 z3zr
 z8ji
 z>h4

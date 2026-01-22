@@ -1,0 +1,102 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	citadel_music_end_game = 
+	{
+		operators = 
+		[
+			
+			{
+				name = "_builtins"
+				operator = "sos_builtins"
+				_voicegraph = "music.end_game"
+			},
+			
+			{
+				name = "public"
+				operator = "util_null"
+				operator_variables = 
+				{
+					citadel_music = 
+					{
+						data_type = "public_opvar"
+						value = "citadel_music"
+					}
+				}
+			},
+			
+			{
+				name = "opvar_get_can_damage_t3"
+				operator = "opvar_get_float"
+				input_execute = "1.0"
+				input_stack_name = "citadel_music_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "local_player_can_damage_t3"
+			},
+			
+			{
+				name = "opvar_get_amber_base_proximity"
+				operator = "opvar_get_float"
+				input_execute = "1.0"
+				input_stack_name = "citadel_music_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "base_amber_proximity_fraction"
+			},
+			
+			{
+				name = "opvar_get_sapphire_base_proximity"
+				operator = "opvar_get_float"
+				input_execute = "1.0"
+				input_stack_name = "citadel_music_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "base_sapphire_proximity_fraction"
+			},
+			
+			{
+				name = "max_base_proximity"
+				operator = "math_float"
+				apply = "max"
+				input1 = "@opvar_get_amber_base_proximity.output"
+				input2 = "@opvar_get_sapphire_base_proximity.output"
+			},
+			
+			{
+				name = "volume_to_gain"
+				operator = "math_db_to_gain"
+				input = "@public.volume"
+			},
+			
+			{
+				name = "math_mult_final_volume"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@volume_to_gain.output"
+				input2 = "@max_base_proximity.output"
+			},
+			
+			{
+				name = "final_volume"
+				operator = "math_gain_to_db"
+				input = "@math_mult_final_volume.output"
+			},
+			
+			{
+				name = "citadel_music"
+				operator = "sos_import_stack"
+				import_stack = "citadel_music"
+				auto_connect_public_fields = "true"
+				operator_variables = 
+				{
+					volume = 
+					{
+						data_type = "float"
+						value = "@final_volume.output"
+					}
+				}
+			},
+		]
+		_system_properties = 
+		{
+			display_game = "citadel"
+		}
+	}
+}

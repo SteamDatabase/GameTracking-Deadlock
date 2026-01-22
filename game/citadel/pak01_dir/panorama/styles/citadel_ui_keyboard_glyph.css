@@ -13,6 +13,7 @@ CitadelKeyboardGlyph
 
 .MouseButtonGlyphContainer,.KeyboardKeyGlyphContainer
 {
+	flow-children: none;
 	width: fit-children;
 	height: fit-children;
 	min-width: 18px;
@@ -21,10 +22,24 @@ CitadelKeyboardGlyph
 	horizontal-align: center;
 }
 
+.MouseButtonGlyphContainer .Shim,.KeyboardKeyGlyphContainer .Shim
+{
+	ignore-parent-flow: true;
+	width: 0px;
+	height: 0px;
+	transition-property: width;
+	transition-duration: 0.2s;
+}
+
+#KeyboardKey
+{
+	vertical-align: middle;
+	horizontal-align: center;
+}
+
 .MouseButtonGlyphContainer
 {
-	width: fit-children;
-	height: fit-children;
+	flow-children: none;
 }
 
 .KeyboardKeyGlyphContainer
@@ -38,40 +53,37 @@ CitadelKeyboardGlyph
 	vertical-align: middle;
 	horizontal-align: center;
 	font-size: 16px;
-	letter-spacing: 0.5px;
 	line-height: 0px;
 	text-shadow: none;
 	color: magenta;
 	text-align: center;
 	text-transform: uppercase;
-	margin: 3px 6px 1px 6px;
-	font-weight: black;
+	padding: 4px 6px 2px 6px;
 	font-family: block;
+	font-weight: bold;
 }
 
 .ModifierCombinerContainer Label.ModifierCombinerLabel
 {
+	font-family: block;
 	font-size: 14px;
+	font-weight: black;
 	vertical-align: middle;
 	color: offWhite&dd;
-	margin: 0px 0px 0px 0px;
+	margin: 2px 0px 0px 0px;
+	padding: 0px 6px;
 }
 
 @keyframes 'SawtoothTransparency'
 {
 	0%
 	{
-		opacity: 0.85;
-	}
-	
-	50%
-	{
-		opacity: 0.35;
+		opacity: 1;
 	}
 	
 	100%
 	{
-		opacity: 0.85;
+		opacity: 0.2;
 	}
 	
 }
@@ -90,24 +102,35 @@ CitadelKeyboardGlyph
 	height: 28px;
 }
 
+.UnboundKeyboardGlyph
+{
+	background-image: url("s2r://panorama/images/glyphs/unbound.vsvg");
+	background-texture-size: 40px 40px;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	animation-name: SawtoothTransparency;
+	animation-duration: 0.5s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
 .KeyboardButtonGlyph,.MouseButtonGlyph
 {
-	wash-color: keybindHousingBGColor;
 	vertical-align: center;
 	horizontal-align: center;
 	width: 24px;
 	height: 24px;
-	background-texture-size: 48px 48px;
-	background-size: 100% 100%;
+	background-texture-size: 24px 24px;
+	background-size: 100%;
 	background-repeat: no-repeat;
-	background-position: center center;
+	background-position: center;
+	wash-color: keybindHousingBGColor;
 }
 
 .MouseButtonGlyph
 {
 	width: 20px;
 	height: 20px;
-	margin: 2px;
 }
 
 .ability_key_container .MouseButtonGlyph
@@ -125,11 +148,11 @@ CitadelKeyboardGlyph
 
 .ModifierCombinerContainer
 {
-	width: fit-children;
+	width: 20px;
 	height: fit-children;
 	vertical-align: middle;
-	margin-left: 4px;
-	margin-right: 4px;
+	margin-left: 2px;
+	margin-right: 2px;
 }
 
 .light .MouseGlyphBackground
@@ -160,6 +183,11 @@ CitadelKeyboardGlyph
 CitadelKeyboardGlyph.light .KeyboardButtonGlyph
 {
 	wash-color: offBlack;
+}
+
+CitadelKeyboardGlyph.light .KeyboardButtonGlyph.UnboundKeyboardGlyph
+{
+	wash-color: white;
 }
 
 CitadelKeyboardGlyph.light Label
@@ -270,5 +298,36 @@ CitadelMatchInProgressStatus.StatusNotification .Details .Desc .light .KeyboardK
 .InviteHotkeyDecline .KeyboardKeyGlyphContainer
 {
 	background-color: transparent;
+}
+
+.customBinding .KeyboardKeyGlyphContainer,.customBinding .MouseGlyphBackground
+{
+	background-color: brandGreen;
+}
+
+.customBinding .MouseGlyphBackground
+{
+	wash-color: brandGreen&00;
+}
+
+.customBinding Label
+{
+	color: offBlack;
+}
+
+.AlreadyBound .KeyboardKeyGlyphContainer,.AlreadyBound .MouseGlyphBackground
+{
+	background-color: colorEnemy;
+	border-radius: 4px;
+}
+
+.AlreadyBound .MouseGlyphBackground
+{
+	wash-color: none;
+}
+
+.AlreadyBound Label
+{
+	color: offBlack;
 }
 

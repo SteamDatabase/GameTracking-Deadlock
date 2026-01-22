@@ -6,7 +6,7 @@
 	flow-children: down;
 	width: 100%;
 	height: fit-children;
-	margin: 4px 0px 4px 0px;
+	margin: 0px;
 	tooltip-position: bottom;
 }
 
@@ -32,9 +32,75 @@
 
 #BindingLabelContainer,#BindingLabelContainer2
 {
+	vertical-align: center;
+	width: fit-children;
 	height: 100%;
-	horizontal-align: center;
 	flow-children: right;
+}
+
+#BindingLabelContainer .Background,#BindingLabelContainer2 .Background
+{
+	ignore-parent-flow: true;
+	width: 100%;
+	height: 100%;
+	margin: 2px;
+	background-color: rgba(0, 0, 0, 0.75);
+	background-image: url("s2r://panorama/images/textures/paper_tile_1k_01_png.vtex");
+	box-shadow: inset rgba( 0, 0, 0, 0) 0px 2px 6px;
+	brightness: 0.75;
+	opacity: 0;
+	transition-property: opacity, box-shadow;
+	transition-duration: 0.2s;
+}
+
+#BindingLabelContainer .Border,#BindingLabelContainer2 .Border
+{
+	ignore-parent-flow: true;
+	width: 100%;
+	height: 100%;
+	border: 5px solid transparent;
+	border-image: url("s2r://panorama/images/buttons/input_field_border_png.vtex");
+	border-image-slice: 5px fill;
+	border-image-width: 5;
+	border-image-outset: 5px;
+	border-image-repeat: repeat;
+	wash-color: offWhite;
+	opacity: 0;
+	transition-property: opacity;
+	transition-duration: 0.1s;
+}
+
+.noKeyBinding #BindingLabelContainer,.noKeyBinding #BindingLabelContainer2
+{
+	width: 128px;
+	height: 24px;
+}
+
+.noKeyBinding #BindingLabelContainer .Background,.noKeyBinding #BindingLabelContainer2 .Background
+{
+	box-shadow: inset rgba( 0, 0, 0, 0.5) 0px 2px 6px;
+	opacity: 1;
+}
+
+.noKeyBinding #BindingLabelContainer .Border,.noKeyBinding #BindingLabelContainer2 .Border
+{
+	opacity: 0.05;
+}
+
+.KeybindConjunction
+{
+	visibility: collapse;
+}
+
+.hasPrimaryBinding.hasSecondaryBinding .KeybindConjunction
+{
+	vertical-align: center;
+	margin-right: 16px;
+	font-size: 14px;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: offWhite&33;
+	visibility: visible;
 }
 
 #BindingLabelContainer.ActiveBindButton,#BindingLabelContainer2.ActiveBindButton
@@ -78,32 +144,47 @@ b
 
 .ClearKeybinding
 {
-	width: 20px;
-	height: 20px;
+	width: 32px;
+	height: 24px;
 	vertical-align: center;
 	horizontal-align: right;
-	background-image: url("s2r://panorama/images/control_icons/x_close_png.vtex");
-	background-size: 100%;
+	background-image: url("s2r://panorama/images/icons/delete_small.vsvg");
+	background-size: 20px;
+	background-texture-size: 20px;
 	background-repeat: no-repeat;
+	background-position: center;
 	wash-color: #C0B4A2;
-	margin-left: 4px;
 }
 
 #ClearAndResetContainer
 {
 	width: fit-children;
 	vertical-align: center;
+	opacity: 0;
+	transition-property: opacity;
+	transition-duration: 0.2s;
+	transition-delay: 0.25s;
 }
 
 #ResetBindingButton
 {
-	margin-left: 10px;
+	visibility: visible;
+	width: 32px;
+	height: 24px;
+	vertical-align: center;
 	text-overflow: shrink;
+	background-image: url("s2r://panorama/images/icons/settings_reset.vsvg");
+	background-size: 24px;
+	background-texture-size: 24px;
+	background-repeat: no-repeat;
+	background-position: center;
+	wash-color: offWhite;
 }
 
 #ResetBindingButton:disabled
 {
 	opacity: 0.1;
+	wash-color: colorEnemy;
 }
 
 #PushToTalkBinder #ResetBindingButton,#PushToTalkPartyBinder #ResetBindingButton,#MuteConsoleBinder #ResetBindingButton
@@ -139,14 +220,23 @@ b
 	visibility: collapse;
 }
 
-#KeybindContainer:hover .BindingRowButton
+#KeybindContainer
 {
-	color: white;
+	vertical-align: center;
+}
+
+#KeybindContainer:hover #LabelFXContainer
+{
+	background-color: rgba(0, 0, 0, 0.75);
+}
+
+#KeybindContainer:hover #ClearAndResetContainer
+{
+	opacity: 1;
 }
 
 #KeybindContainer:hover Label
 {
-	color: white;
 	transition-property: color;
 	transition-duration: 0.16s;
 	transition-timing-function: ease-in-out;
@@ -168,6 +258,26 @@ b
 	transition-property: color, background-color;
 	transition-duration: 0.16s;
 	transition-timing-function: ease-in-out;
+}
+
+.SettingLabel
+{
+	width: 280px;
+	padding-right: 16px;
+	vertical-align: center;
+	font-weight: semi-bold;
+	transition-property: color;
+	transition-duration: 0.1s;
+}
+
+.SettingLabel.LabelRight
+{
+	margin-left: 16px;
+}
+
+.SettingLabel.LabelRight.Active
+{
+	color: brandGreen;
 }
 
 #KeybindContainer.CannotEdit:hover #LabelFXContainer,.CannotEdit #LabelFXContainer,#KeybindContainer.CannotEdit:hover #LabelFXContainer2,.CannotEdit #LabelFXContainer2,#KeybindContainer.CannotEdit:hover .BindingRowLabel
@@ -193,11 +303,7 @@ b
 
 .BindingRowButton
 {
-	color: #8d9698;
-	text-align: center;
-	font-size: 18px;
-	vertical-align: center;
-	text-overflow: shrink;
+	border: 1px solid red;
 }
 
 #ItemBindingContents .BindingRowButton
@@ -372,18 +478,31 @@ b
 
 #LabelFXContainer,#LabelFXContainer2
 {
-	background-color: #C0B4A203;
-	width: fill-parent-flow( 0.3 );
-	height: 100%;
+	flow-children: right;
 	horizontal-align: right;
+	width: 320px;
+	height: 100%;
+	margin-right: 16px;
+	background-color: #C0B4A203;
 	transition-property: box-shadow, background-color;
 	transition-duration: 0.16s;
 	transition-timing-function: ease-in-out;
+	visibility: collapse;
 }
 
-#LabelFXContainer2
+.hasPrimaryBinding #LabelFXContainer
 {
-	margin-left: 5px;
+	visibility: visible;
+}
+
+.noKeyBinding #LabelFXContainer
+{
+	visibility: visible;
+}
+
+.hasSecondaryBinding #LabelFXContainer2
+{
+	visibility: visible;
 }
 
 #KeybindContainer:hover .BindingRowLabel
@@ -450,12 +569,18 @@ b
 	margin-top: 8px;
 }
 
+#ChatWheelConceptsContainer #ChatWheelConceptsWrapper
+{
+	margin-left: 800px;
+}
+
 #QuickCastContainer
 {
 	visibility: collapse;
 	horizontal-align: right;
-	margin: 5px 68px 5px 5px;
+	margin: 0px 68px 0px 0px;
 	flow-children: right;
+	vertical-align: top;
 }
 
 .canQuickCast #QuickCastContainer
@@ -466,23 +591,34 @@ b
 .QuickCastDesc
 {
 	vertical-align: center;
+	font-weight: semi-bold;
+	margin-right: 10px;
+}
+
+#HeroIcon
+{
+	visibility: collapse;
+	height: 24px;
+	width: 24px;
+	vertical-align: center;
+	margin-right: 12px;
+	img-shadow: 0px 0px 16px #000000aa;
+}
+
+.isUnitSpecificBind #HeroIcon
+{
+	visibility: visible;
 }
 
 .unitSpecificBindIndicator
 {
 	visibility: collapse;
-	horizontal-align: right;
 	height: 10px;
 	width: 10px;
 	border-radius: 5px;
 	background-color: brandGreen;
 	vertical-align: center;
-	margin-right: 10px;
-}
-
-.isUnitSpecificBind .unitSpecificBindIndicator
-{
-	visibility: visible;
+	margin-right: 12px;
 }
 
 #QuickCastDropDown
@@ -490,27 +626,70 @@ b
 	width: 270px;
 }
 
-#UnitHasBindsIndicator
+#UnitHasBindsIndicator.QuickCastBind
 {
 	width: 10px;
 	height: 10px;
 	border-radius: 5px;
 	background-color: brandGreen;
 	visibility: collapse;
-	horizontal-align: right;
-	margin-right: 10px;
 	vertical-align: center;
-	margin-bottom: 3px;
+	margin-right: 10px;
 }
 
-.isUnitSpecificBind #UnitHasBindsIndicator
+#AddSecondaryBindingContainer
 {
-	visibility: visible;
+	vertical-align: center;
+	width: fit-children;
+	height: 100%;
+	padding-left: 12px;
+	padding-right: 12px;
+	background-color: offWhite&0a;
+	box-shadow: 0px 2px 16px rgba(0, 0, 0, 0);
+	transition-property: background-color, box-shadow, opacity;
+	transition-duration: 0.3s;
 }
 
-#ChatWheelConceptsContainer,.isChatWheelBinder #LabelFXContainer2
+#AddSecondaryBindingContainer .ExpandSecondary
+{
+	horizontal-align: center;
+	vertical-align: center;
+	text-align: center;
+	font-family: block;
+	color: offWhite&66;
+}
+
+#AddSecondaryBindingContainer:hover
+{
+	background-color: offWhite&22;
+	box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.25);
+}
+
+#AddSecondaryBindingContainer:hover Label
+{
+	color: white;
+}
+
+#AddSecondaryBindingContainer:active
+{
+	sound: "UI.MainMenu.Activate";
+	brightness: 1.5;
+	transform: scale3d( 0.98, 0.98, 1 );
+}
+
+.hasPrimaryBinding.hasSecondaryBinding.BindingRow:hover #AddSecondaryBindingContainer
 {
 	visibility: collapse;
+}
+
+.noKeyBinding.BindingRow:hover #AddSecondaryBindingContainer
+{
+	visibility: collapse;
+}
+
+#ChatWheelConceptsContainer
+{
+	ignore-parent-flow: true;
 }
 
 .isChatWheelBinder #ChatWheelConceptsContainer
