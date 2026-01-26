@@ -111,6 +111,36 @@
 						data_type = "float"
 						value = "0.000000"
 					}
+					use_distance_to_viewing_pawn = 
+					{
+						data_type = "bool"
+						value = "true"
+						_system_properties = 
+						{
+							property_group = "Position"
+							display_group = "advanced"
+						}
+					}
+					force_layer_distance_to_min = 
+					{
+						data_type = "float"
+						value = "0.0"
+						_system_properties = 
+						{
+							property_group = "Position"
+							display_group = "advanced"
+						}
+					}
+					layer_distance_filter_speed = 
+					{
+						data_type = "float"
+						value = "100.0"
+						_system_properties = 
+						{
+							property_group = "Position"
+							display_group = "advanced"
+						}
+					}
 				}
 			},
 			
@@ -148,16 +178,47 @@
 			},
 			
 			{
+				name = "ctrl_distance_position"
+				operator = "ctrl_switch_float3"
+				input_switch = "@public.use_distance_to_viewing_pawn"
+				input1 = "@globals.output_listener_position"
+				input2 = "@opvar_get_viewing_pawn_position.output"
+			},
+			
+			{
 				name = "distance_to_source"
 				operator = "calc_distance"
 				input_position1 = "@get_entity_info.output_position"
-				input_position2 = "@opvar_get_viewing_pawn_position.output"
+				input_position2 = "@ctrl_distance_position.output"
+			},
+			
+			{
+				name = "math_inv_force_min_distance"
+				operator = "math_float"
+				apply = "sub"
+				input1 = "1"
+				input2 = "@public.force_layer_distance_to_min"
+			},
+			
+			{
+				name = "math_float_distance_to_min"
+				operator = "math_float"
+				apply = "mult"
+				input1 = "@distance_to_source.output"
+				input2 = "@math_inv_force_min_distance.output"
+			},
+			
+			{
+				name = "layer_distance_filter"
+				operator = "math_filter_float"
+				input = "@math_float_distance_to_min.output"
+				input_max_velocity = "@public.layer_distance_filter_speed"
 			},
 			
 			{
 				name = "remap_distance_close"
 				operator = "math_curve_2d"
-				input = "@distance_to_source.output"
+				input = "@layer_distance_filter.output"
 				public_field_name = "public.layer_close_range_vol_ls"
 			},
 			
@@ -172,7 +233,7 @@
 			{
 				name = "remap_distance_med"
 				operator = "math_curve_2d"
-				input = "@distance_to_source.output"
+				input = "@layer_distance_filter.output"
 				public_field_name = "public.layer_med_range_vol_ls"
 			},
 			
@@ -187,7 +248,7 @@
 			{
 				name = "remap_distance_far"
 				operator = "math_curve_2d"
-				input = "@distance_to_source.output"
+				input = "@layer_distance_filter.output"
 				public_field_name = "public.layer_far_range_vol_ls"
 			},
 			
