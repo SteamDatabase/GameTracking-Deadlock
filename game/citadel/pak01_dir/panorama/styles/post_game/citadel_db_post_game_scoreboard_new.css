@@ -136,22 +136,22 @@ CitadelPostGameScoreboardNew
 
 #Team1 .Player:nth-child(odd)
 {
-	background-color: team1Color&04;
+	background-color: team1Color&06;
 }
 
 #Team1 .Player:nth-child(even)
 {
-	background-color: team1Color&02;
+	background-color: team1Color&04;
 }
 
 #Team2 .Player:nth-child(odd)
 {
-	background-color: team2Color&04;
+	background-color: team2Color&06;
 }
 
 #Team2 .Player:nth-child(even)
 {
-	background-color: team2Color&02;
+	background-color: team2Color&04;
 }
 
 .Player:last-child
@@ -240,14 +240,27 @@ CitadelPostGameScoreboardNew
 	font-family: oracle;
 	font-size: 18px;
 	color: offWhite;
+	text-overflow: shrink;
+	height: 26px;
+	max-width: 160px;
 }
 
 #HeroName
 {
 	font-family: oracle;
 	font-size: 18px;
-	margin-top: -6px;
+	margin-top: -8px;
 	color: offWhite&33;
+}
+
+#Team1 #HeroName
+{
+	color: copperFlat&55;
+}
+
+#Team2 #HeroName
+{
+	color: steelFlat&55;
 }
 
 .CommendColumn
@@ -325,29 +338,106 @@ CitadelPostGameScoreboardNew
 	margin-right: 4px;
 }
 
-#SoulsValue
+#Team1 .Player.AwardSouls #SoulsValue,#Team2 .Player.AwardSouls #SoulsValue
 {
 	color: soulShine;
 }
 
-#KillsValue
+.Player.AwardSouls #SoulsValue .demote
+{
+	color: soulFlat;
+}
+
+#Team1 .Player.AwardKills #KillsValue,#Team2 .Player.AwardKills #KillsValue
 {
 	color: redShine;
 }
 
-#AssistsValue
+#Team1 .Player.AwardAssists #AssistsValue,#Team2 .Player.AwardAssists #AssistsValue
 {
 	color: lightRedShine;
 }
 
-#ObjDmgValue,#PlayerDmgValue
+#Team1 .Player.AwardObjDmg #ObjDmgValue,#Team1 .Player.AwardPlayerDmg #PlayerDmgValue
+{
+	color: copperShine;
+}
+
+#Team1 .Player.AwardObjDmg #ObjDmgValue .demote,#Team1 .Player.AwardPlayerDmg #PlayerDmgValue .demote
+{
+	color: copperFlat;
+}
+
+#Team2 .Player.AwardObjDmg #ObjDmgValue,#Team2 .Player.AwardPlayerDmg #PlayerDmgValue
 {
 	color: steelShine;
 }
 
-#HealingValue
+#Team2 .Player.AwardObjDmg #ObjDmgValue .demote,#Team2 .Player.AwardPlayerDmg #PlayerDmgValue .demote
+{
+	color: steelFlat;
+}
+
+#Team1 .Player.AwardHealing #HealingValue,#Team2 .Player.AwardHealing #HealingValue,#Team1 .Player.IsLocalPlayer.AwardHealing #HealingValue,#Team2 .Player.IsLocalPlayer.AwardHealing #HealingValue
 {
 	color: greenShine;
+}
+
+#Team1 .Player.AwardHealing #HealingValue .demote,#Team2 .Player.AwardHealing #HealingValue .demote
+{
+	color: greenFlat;
+}
+
+#Team1 #SoulsValue,#Team1 #KillsValue,#Team1 #DeathsValue,#Team1 #AssistsValue,#Team1 #PlayerDmgValue,#Team1 #ObjDmgValue,#Team1 #HealingValue
+{
+	color: copperFlat;
+}
+
+#Team1 #DeathsValue
+{
+	opacity: 0.3;
+}
+
+#Team1 .demote
+{
+	color: copperFlat&55;
+}
+
+#Team2 #SoulsValue,#Team2 #KillsValue,#Team2 #DeathsValue,#Team2 #AssistsValue,#Team2 #PlayerDmgValue,#Team2 #ObjDmgValue,#Team2 #HealingValue
+{
+	color: steelFlat;
+}
+
+#Team2 #DeathsValue
+{
+	opacity: 0.3;
+}
+
+#Team2 .demote
+{
+	color: steelFlat&55;
+}
+
+#Team1 .Player.IsLocalPlayer #SoulsValue,#Team1 .Player.IsLocalPlayer #KillsValue,#Team1 .Player.IsLocalPlayer #DeathsValue,#Team1 .Player.IsLocalPlayer #AssistsValue,#Team1 .Player.IsLocalPlayer #PlayerDmgValue,#Team1 .Player.IsLocalPlayer #ObjDmgValue,#Team1 .Player.IsLocalPlayer #HealingValue
+{
+	color: copperFlat;
+	brightness: 3;
+}
+
+#Team2 .Player.IsLocalPlayer #SoulsValue,#Team2 .Player.IsLocalPlayer #KillsValue,#Team2 .Player.IsLocalPlayer #DeathsValue,#Team2 .Player.IsLocalPlayer #AssistsValue,#Team2 .Player.IsLocalPlayer #PlayerDmgValue,#Team2 .Player.IsLocalPlayer #ObjDmgValue,#Team2 .Player.IsLocalPlayer #HealingValue
+{
+	color: steelFlat;
+	brightness: 3;
+}
+
+#Team1 .Player.IsLocalPlayer .demote
+{
+	color: copperFlat&55;
+}
+
+#Team2 .Player.IsLocalPlayer .demote
+{
+	color: steelFlat&55;
 }
 
 #ItemsContainer
@@ -400,20 +490,21 @@ CitadelPostGameScoreboardNew
 	text-align: center;
 	horizontal-align: middle;
 	vertical-align: middle;
-	font-size: 18px;
+	font-size: 17px;
 	color: offWhite&44;
-	saturation: 0.9;
-	brightness: 0.9;
 	font-family: oracle;
 	font-weight: light;
-	text-shadow: 0px 0px 0px 2 black;
+	text-shadow: 0px 0px 0px 3 black;
+	font-weight: bold;
 }
 
 .TableHeaderStats .StatsContainer Label
 {
 	vertical-align: bottom;
-	color: offWhite&11;
-	font-size: 14px;
+	color: offWhite&16;
+	font-size: 13.8px;
+	font-family: block;
+	text-transform: uppercase;
 }
 
 .StatsContainer.ItemsContainer Label
@@ -464,7 +555,6 @@ CitadelPostGameScoreboardNew
 	height: 16px;
 	vertical-align: middle;
 	margin: 8px 24px 8px 8px;
-	wash-color: keybindBGColor;
 	opacity: 0.2;
 	background-image: url("s2r://panorama/images/icons/icon_copy.vsvg");
 	background-size: contain;
@@ -485,14 +575,88 @@ CitadelPostGameScoreboardNew
 	opacity: 1;
 }
 
+#Team1 #CopyBuildButton
+{
+	wash-color: copperFlat;
+}
+
+#Team2 #CopyBuildButton
+{
+	wash-color: steelFlat;
+}
+
+#Team1 .Player.AwardSouls #SoulsValue,#Team1 .Player.AwardKills #KillsValue,#Team1 .Player.AwardAssists #AssistsValue,#Team1 .Player.AwardPlayerDmg #PlayerDmgValue,#Team1 .Player.AwardObjDmg #ObjDmgValue,#Team1 .Player.AwardHealing #HealingValue
+{
+	background-image: url("s2r://panorama/images/post_game/starburst_team1.vsvg");
+}
+
+#Team2 .Player.AwardSouls #SoulsValue,#Team2 .Player.AwardKills #KillsValue,#Team2 .Player.AwardAssists #AssistsValue,#Team2 .Player.AwardPlayerDmg #PlayerDmgValue,#Team2 .Player.AwardObjDmg #ObjDmgValue,#Team2 .Player.AwardHealing #HealingValue
+{
+	background-image: url("s2r://panorama/images/post_game/starburst_team2.vsvg");
+}
+
 .Player.AwardSouls #SoulsValue,.Player.AwardKills #KillsValue,.Player.AwardAssists #AssistsValue,.Player.AwardPlayerDmg #PlayerDmgValue,.Player.AwardObjDmg #ObjDmgValue,.Player.AwardHealing #HealingValue
 {
-	font-weight: bold;
-	font-size: 20px;
-	pre-transform-rotate2d: -3deg;
-	brightness: 1.6;
-	text-shadow: 0px 0px 0px 6 black;
+	font-size: 18px;
+	height:40px;
+	line-height: 28px;
+	vertical-align: center;
+	horizontal-align: center;
+	brightness: 1.3;
+	text-shadow: 0px 0px 0px 4 black;
 	saturation: 1;
+	padding: 4px 0px 3px 0px;
+	background-size: 40px 40px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-img-opacity: 0.4;
+	animation-name: QuestGroove;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+}
+
+@keyframes 'QuestGroove'
+{
+	0%
+	{
+		transform: rotateZ(-3deg);
+	}
+	
+	25%
+	{
+		transform: rotateZ(-3deg);
+	}
+	
+	26%
+	{
+		transform: rotateZ(2deg);
+	}
+	
+	50%
+	{
+		transform: rotateZ(2deg);
+	}
+	
+	51%
+	{
+		transform: rotateZ(-1deg);
+	}
+	
+	75%
+	{
+		transform: rotateZ(-1deg);
+	}
+	
+	76%
+	{
+		transform: rotateZ(0deg);
+	}
+	
+	100%
+	{
+		transform: rotateZ(0deg);
+	}
+	
 }
 
 #Team1 .Player.TotalsRow,#Team2 .Player.TotalsRow
@@ -504,12 +668,14 @@ CitadelPostGameScoreboardNew
 {
 	border: 2px solid team2Color&09;
 	border-radius: 4px;
+	margin-left: -2px;
 }
 
 #Team1 .Player.TotalsRow .StatsContainer
 {
 	border: 2px solid team1Color&09;
 	border-radius: 4px;
+	margin-left: -2px;
 }
 
 .Player.TotalsRow
@@ -522,6 +688,7 @@ CitadelPostGameScoreboardNew
 .Player.TotalsRow Label
 {
 	font-size: 16px;
+	padding-top: 1px;
 }
 
 .Player.TotalsRow .PlayerInfoContainer

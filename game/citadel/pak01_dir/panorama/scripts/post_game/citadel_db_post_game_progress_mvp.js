@@ -46,7 +46,7 @@ async function DoProgressAnimation(strHeroVictorySound) {
     for (let i = 0; i < honorableMentions.GetChildCount(); ++i) {
         let honorableMention = honorableMentions.GetChild(i);
         honorableMention.AddClass('ShowHonorableMention');
-        await gProgressSequence.Delay(2.0);
+        await gProgressSequence.Delay(0.3);
     }
     gProgressSequence.EndSkipping();
     await gProgressSequence.Delay(3.0);
