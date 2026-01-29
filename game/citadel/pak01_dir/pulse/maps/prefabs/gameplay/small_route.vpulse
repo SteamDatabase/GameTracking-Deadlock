@@ -4,9 +4,33 @@
 	[
 		
 		{
+			_class = "CPulseCell_Inflow_Method"
+			m_nEditorNodeID = 130498979
+			m_EntryChunk = 0
+			m_RegisterMap = 
+			{
+				m_Inparams = null
+				m_Outparams = null
+			}
+			m_MethodName = "InputOpen"
+			m_Description = "Receives input from fake wall trigger to visually close the entrance."
+			m_bIsPublic = true
+			m_ReturnType = "PVAL_VOID"
+			m_Args = 
+			[
+			]
+		},
+		
+		{
+			m_nEditorNodeID = 530035210
+			_class = "CPulseCell_Step_EntFire"
+			m_Input = "Enable"
+		},
+		
+		{
 			_class = "CPulseCell_Inflow_GraphHook"
 			m_nEditorNodeID = 174153179
-			m_EntryChunk = 0
+			m_EntryChunk = 1
 			m_RegisterMap = 
 			{
 				m_Inparams = null
@@ -32,6 +56,30 @@
 			_class = "CPulseCell_Step_EntFire"
 			m_Input = "DisableCollision"
 		},
+		
+		{
+			_class = "CPulseCell_Inflow_Method"
+			m_nEditorNodeID = 836823617
+			m_EntryChunk = 2
+			m_RegisterMap = 
+			{
+				m_Inparams = null
+				m_Outparams = null
+			}
+			m_MethodName = "InputClose"
+			m_Description = "Receives input from fake wall trigger to visually open the entrance."
+			m_bIsPublic = true
+			m_ReturnType = "PVAL_VOID"
+			m_Args = 
+			[
+			]
+		},
+		
+		{
+			m_nEditorNodeID = 703710065
+			_class = "CPulseCell_Step_EntFire"
+			m_Input = "Disable"
+		},
 	]
 	m_DomainIdentifier = "ServerEntity"
 	m_DomainSubType = "PVAL_EHANDLE:point_pulse"
@@ -48,13 +96,13 @@
 		
 		{
 			m_nType = "ENTITY_NAME"
-			m_Value = "blocker_brush"
+			m_Value = "blocker_prop"
 			m_RequiredRuntimeType = "PVAL_ENTITY_NAME"
 		},
 		
 		{
 			m_nType = "ENTITY_NAME"
-			m_Value = "blocker_prop"
+			m_Value = "blocker_brush"
 			m_RequiredRuntimeType = "PVAL_ENTITY_NAME"
 		},
 	]
@@ -87,13 +135,28 @@
 			{
 				m_Inparams = 
 				{
+					TargetName = 0
+				}
+				m_Outparams = null
+			}
+			m_FuncName = "CPulseCell_Step_EntFire::FireAtName"
+			m_nCellIndex = 3
+			m_nSrcChunk = 1
+			m_nSrcInstruction = 2
+		},
+		
+		{
+			m_RegisterMap = 
+			{
+				m_Inparams = 
+				{
 					TargetName = 1
 				}
 				m_Outparams = null
 			}
 			m_FuncName = "CPulseCell_Step_EntFire::FireAtName"
-			m_nCellIndex = 2
-			m_nSrcChunk = 0
+			m_nCellIndex = 4
+			m_nSrcChunk = 1
 			m_nSrcInstruction = 4
 		},
 		
@@ -107,9 +170,24 @@
 				m_Outparams = null
 			}
 			m_FuncName = "CPulseCell_Step_EntFire::FireAtName"
-			m_nCellIndex = 3
-			m_nSrcChunk = 0
+			m_nCellIndex = 5
+			m_nSrcChunk = 1
 			m_nSrcInstruction = 6
+		},
+		
+		{
+			m_RegisterMap = 
+			{
+				m_Inparams = 
+				{
+					TargetName = 0
+				}
+				m_Outparams = null
+			}
+			m_FuncName = "CPulseCell_Step_EntFire::FireAtName"
+			m_nCellIndex = 7
+			m_nSrcChunk = 2
+			m_nSrcInstruction = 2
 		},
 	]
 	m_CallInfos = 
@@ -119,8 +197,22 @@
 	[
 		
 		{
+			m_SourceOutput = "InputOpen => Step_EntFire:530035210"
+			m_TargetEntity = "blocker_prop"
+			m_TargetInput = "Enable"
+			m_Param = ""
+		},
+		
+		{
 			m_SourceOutput = "Step_EntFire:646612061"
 			m_TargetEntity = "blocker_brush"
+			m_TargetInput = "Disable"
+			m_Param = ""
+		},
+		
+		{
+			m_SourceOutput = "InputClose => Step_EntFire:703710065"
+			m_TargetEntity = "blocker_prop"
 			m_TargetInput = "Disable"
 			m_Param = ""
 		},
@@ -192,9 +284,83 @@
 				},
 				
 				{
+					m_nCode = "RETURN_VOID"
+					m_nVar = -1
+					m_nReg0 = -1
+					m_nReg1 = -1
+					m_nReg2 = -1
+					m_nInvokeBindingIndex = -1
+					m_nChunk = -1
+					m_nDestInstruction = 0
+					m_nCallInfoIndex = -1
+					m_nConstIdx = -1
+					m_nDomainValueIdx = -1
+					m_nBlackboardReferenceIdx = -1
+				},
+			]
+			m_Registers = 
+			[
+				
+				{
+					m_nReg = 0
+					m_Type = "PVAL_ENTITY_NAME"
+					m_OriginName = "530035210:TargetName"
+					m_nWrittenByInstruction = 1
+					m_nLastReadByInstruction = -1
+				},
+			]
+			m_InstructionDebugInfos = 
+			[
+				
+				{
+					m_nFlowNodeID = 130498979
+					m_nValueNodeID = -1
+					m_SequencePointName = "m_PrimaryPoint"
+				},
+				
+				{
+					m_nFlowNodeID = 530035210
+					m_nValueNodeID = -1
+					m_SequencePointName = "m_StepPoint"
+				},
+				
+				{
+					m_nFlowNodeID = 530035210
+					m_nValueNodeID = -1
+					m_SequencePointName = "m_StepPoint"
+				},
+				
+				{
+					m_nFlowNodeID = 530035210
+					m_nValueNodeID = -1
+					m_SequencePointName = "OutDefault"
+				},
+			]
+		},
+		
+		{
+			m_Instructions = 
+			[
+				
+				{
+					m_nCode = "NOP"
+					m_nVar = -1
+					m_nReg0 = -1
+					m_nReg1 = -1
+					m_nReg2 = -1
+					m_nInvokeBindingIndex = -1
+					m_nChunk = -1
+					m_nDestInstruction = 0
+					m_nCallInfoIndex = -1
+					m_nConstIdx = -1
+					m_nDomainValueIdx = -1
+					m_nBlackboardReferenceIdx = -1
+				},
+				
+				{
 					m_nCode = "GET_DOMAIN_VALUE"
 					m_nVar = -1
-					m_nReg0 = 1
+					m_nReg0 = 0
 					m_nReg1 = -1
 					m_nReg2 = -1
 					m_nInvokeBindingIndex = -1
@@ -224,7 +390,7 @@
 				{
 					m_nCode = "GET_DOMAIN_VALUE"
 					m_nVar = -1
-					m_nReg0 = 2
+					m_nReg0 = 1
 					m_nReg1 = -1
 					m_nReg2 = -1
 					m_nInvokeBindingIndex = -1
@@ -232,7 +398,7 @@
 					m_nDestInstruction = 0
 					m_nCallInfoIndex = -1
 					m_nConstIdx = -1
-					m_nDomainValueIdx = 1
+					m_nDomainValueIdx = 0
 					m_nBlackboardReferenceIdx = -1
 				},
 				
@@ -243,6 +409,36 @@
 					m_nReg1 = -1
 					m_nReg2 = -1
 					m_nInvokeBindingIndex = 2
+					m_nChunk = -1
+					m_nDestInstruction = 0
+					m_nCallInfoIndex = -1
+					m_nConstIdx = -1
+					m_nDomainValueIdx = -1
+					m_nBlackboardReferenceIdx = -1
+				},
+				
+				{
+					m_nCode = "GET_DOMAIN_VALUE"
+					m_nVar = -1
+					m_nReg0 = 2
+					m_nReg1 = -1
+					m_nReg2 = -1
+					m_nInvokeBindingIndex = -1
+					m_nChunk = -1
+					m_nDestInstruction = 0
+					m_nCallInfoIndex = -1
+					m_nConstIdx = -1
+					m_nDomainValueIdx = 0
+					m_nBlackboardReferenceIdx = -1
+				},
+				
+				{
+					m_nCode = "CELL_INVOKE"
+					m_nVar = -1
+					m_nReg0 = -1
+					m_nReg1 = -1
+					m_nReg2 = -1
+					m_nInvokeBindingIndex = 3
 					m_nChunk = -1
 					m_nDestInstruction = 0
 					m_nCallInfoIndex = -1
@@ -340,6 +536,110 @@
 				
 				{
 					m_nFlowNodeID = 796090924
+					m_nValueNodeID = -1
+					m_SequencePointName = "OutDefault"
+				},
+			]
+		},
+		
+		{
+			m_Instructions = 
+			[
+				
+				{
+					m_nCode = "NOP"
+					m_nVar = -1
+					m_nReg0 = -1
+					m_nReg1 = -1
+					m_nReg2 = -1
+					m_nInvokeBindingIndex = -1
+					m_nChunk = -1
+					m_nDestInstruction = 0
+					m_nCallInfoIndex = -1
+					m_nConstIdx = -1
+					m_nDomainValueIdx = -1
+					m_nBlackboardReferenceIdx = -1
+				},
+				
+				{
+					m_nCode = "GET_DOMAIN_VALUE"
+					m_nVar = -1
+					m_nReg0 = 0
+					m_nReg1 = -1
+					m_nReg2 = -1
+					m_nInvokeBindingIndex = -1
+					m_nChunk = -1
+					m_nDestInstruction = 0
+					m_nCallInfoIndex = -1
+					m_nConstIdx = -1
+					m_nDomainValueIdx = 0
+					m_nBlackboardReferenceIdx = -1
+				},
+				
+				{
+					m_nCode = "CELL_INVOKE"
+					m_nVar = -1
+					m_nReg0 = -1
+					m_nReg1 = -1
+					m_nReg2 = -1
+					m_nInvokeBindingIndex = 4
+					m_nChunk = -1
+					m_nDestInstruction = 0
+					m_nCallInfoIndex = -1
+					m_nConstIdx = -1
+					m_nDomainValueIdx = -1
+					m_nBlackboardReferenceIdx = -1
+				},
+				
+				{
+					m_nCode = "RETURN_VOID"
+					m_nVar = -1
+					m_nReg0 = -1
+					m_nReg1 = -1
+					m_nReg2 = -1
+					m_nInvokeBindingIndex = -1
+					m_nChunk = -1
+					m_nDestInstruction = 0
+					m_nCallInfoIndex = -1
+					m_nConstIdx = -1
+					m_nDomainValueIdx = -1
+					m_nBlackboardReferenceIdx = -1
+				},
+			]
+			m_Registers = 
+			[
+				
+				{
+					m_nReg = 0
+					m_Type = "PVAL_ENTITY_NAME"
+					m_OriginName = "703710065:TargetName"
+					m_nWrittenByInstruction = 1
+					m_nLastReadByInstruction = -1
+				},
+			]
+			m_InstructionDebugInfos = 
+			[
+				
+				{
+					m_nFlowNodeID = 836823617
+					m_nValueNodeID = -1
+					m_SequencePointName = "m_PrimaryPoint"
+				},
+				
+				{
+					m_nFlowNodeID = 703710065
+					m_nValueNodeID = -1
+					m_SequencePointName = "m_StepPoint"
+				},
+				
+				{
+					m_nFlowNodeID = 703710065
+					m_nValueNodeID = -1
+					m_SequencePointName = "m_StepPoint"
+				},
+				
+				{
+					m_nFlowNodeID = 703710065
 					m_nValueNodeID = -1
 					m_SequencePointName = "OutDefault"
 				},
