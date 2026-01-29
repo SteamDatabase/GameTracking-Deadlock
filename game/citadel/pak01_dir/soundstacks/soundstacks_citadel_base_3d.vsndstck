@@ -91,16 +91,6 @@
 							display_group = "advanced"
 						}
 					}
-					hold_position_on_deleted_entity = 
-					{
-						data_type = "bool"
-						value = "true"
-						_system_properties = 
-						{
-							property_group = "Position"
-							display_group = "advanced"
-						}
-					}
 					volume = 
 					{
 						data_type = "float"
@@ -109,26 +99,6 @@
 						{
 							property_group = "Volume"
 							display_edit_type = "field_linear_atten_editor"
-						}
-					}
-					volume_rand_min = 
-					{
-						data_type = "float"
-						value = "0.000000"
-						_system_properties = 
-						{
-							property_group = "Volume"
-							display_group = "advanced"
-						}
-					}
-					volume_rand_max = 
-					{
-						data_type = "float"
-						value = "0.000000"
-						_system_properties = 
-						{
-							property_group = "Volume"
-							display_group = "advanced"
 						}
 					}
 					volume_mult = 
@@ -296,16 +266,6 @@
 						}
 					}
 					delay_rand_max = 
-					{
-						data_type = "float"
-						value = "0.000000"
-						_system_properties = 
-						{
-							property_group = "Delay"
-							display_group = "advanced"
-						}
-					}
-					delay_use_distance_curve = 
 					{
 						data_type = "float"
 						value = "0.000000"
@@ -502,16 +462,6 @@
 							display_group = "advanced"
 						}
 					}
-					limiter_match_event_duration = 
-					{
-						data_type = "float"
-						value = "-1.000000"
-						_system_properties = 
-						{
-							property_group = "Limiter"
-							display_group = "advanced"
-						}
-					}
 					limiter_global_event_distance_on = 
 					{
 						data_type = "bool"
@@ -582,15 +532,6 @@
 							display_group = "advanced"
 						}
 					}
-					event_stop_at_time = 
-					{
-						data_type = "float"
-						value = "-1.000000"
-						_system_properties = 
-						{
-							display_group = "advanced"
-						}
-					}
 					event_voice_layer = 
 					{
 						data_type = "enum"
@@ -655,36 +596,6 @@
 							property_help = "distance_filter parameter"
 						}
 					}
-					debug_radius_inner = 
-					{
-						data_type = "float"
-						value = "0.000000"
-						_system_properties = 
-						{
-							display_group = "advanced"
-							property_group = "Debug"
-						}
-					}
-					debug_radius_outer = 
-					{
-						data_type = "float"
-						value = "0.000000"
-						_system_properties = 
-						{
-							display_group = "advanced"
-							property_group = "Debug"
-						}
-					}
-					debug_string = 
-					{
-						data_type = "string"
-						value = "0"
-						_system_properties = 
-						{
-							display_group = "advanced"
-							property_group = "Debug"
-						}
-					}
 					doppler_factor = 
 					{
 						data_type = "float"
@@ -745,26 +656,6 @@
 							display_group = "advanced"
 						}
 					}
-					cull_think_time_min = 
-					{
-						data_type = "float"
-						value = "0.050000"
-						_system_properties = 
-						{
-							property_group = "Limiter"
-							display_group = "advanced"
-						}
-					}
-					cull_think_time_max = 
-					{
-						data_type = "float"
-						value = "1.000000"
-						_system_properties = 
-						{
-							property_group = "Limiter"
-							display_group = "advanced"
-						}
-					}
 					block_stop_radius_around_player = 
 					{
 						data_type = "float"
@@ -793,46 +684,6 @@
 						{
 							display_group = "advanced"
 							property_group = "Hrtf"
-						}
-					}
-					use_pathing_render = 
-					{
-						data_type = "float"
-						value = "0.000000"
-						_system_properties = 
-						{
-							display_group = "advanced"
-							property_group = "Pathing"
-						}
-					}
-					use_pathing_distance = 
-					{
-						data_type = "float"
-						value = "0.000000"
-						_system_properties = 
-						{
-							display_group = "advanced"
-							property_group = "Pathing"
-						}
-					}
-					use_pathing_render_eq = 
-					{
-						data_type = "float"
-						value = "0.000000"
-						_system_properties = 
-						{
-							display_group = "advanced"
-							property_group = "Pathing"
-						}
-					}
-					pathing_render_mix = 
-					{
-						data_type = "float"
-						value = "1.000000"
-						_system_properties = 
-						{
-							display_group = "advanced"
-							property_group = "Pathing"
 						}
 					}
 					recency_bias = 
@@ -1033,36 +884,6 @@
 			},
 			
 			{
-				name = "global_pathing_enabled"
-				operator = "convar_get"
-				convar = "snd_steamaudio_enable_pathing"
-			},
-			
-			{
-				name = "use_pathing_render_updated"
-				operator = "math_float"
-				apply = "and"
-				input1 = "@global_pathing_enabled.output"
-				input2 = "@public.use_pathing_render"
-			},
-			
-			{
-				name = "use_pathing_distance_updated"
-				operator = "math_float"
-				apply = "and"
-				input1 = "@global_pathing_enabled.output"
-				input2 = "@public.use_pathing_distance"
-			},
-			
-			{
-				name = "use_pathing_updated"
-				operator = "math_float"
-				apply = "or"
-				input1 = "@use_pathing_render_updated.output"
-				input2 = "@use_pathing_distance_updated.output"
-			},
-			
-			{
 				name = "test_from_player_index"
 				operator = "ctrl_switch_float"
 				input_switch = "@public.position_force_from_player"
@@ -1077,7 +898,7 @@
 				input_entity_index = "@test_from_player_index.output"
 				input_default_world_position = "@public.position"
 				input_default_local_position = "@globals.output_listener_front"
-				input_hold_position_on_deleted_entity = "@public.hold_position_on_deleted_entity"
+				input_hold_position_on_deleted_entity = "true"
 				use_world_position = "@public.position_force_from_input"
 				attachment = "@public.attachment"
 			},
@@ -1100,33 +921,9 @@
 			},
 			
 			{
-				name = "remap_delay_distance"
-				operator = "math_curve_2d_4knot"
-				curve_type = "linear"
-				execute_once = "1.000000"
-				input = "@distance_to_source.output"
-				input_X1 = "0.000000"
-				input_Y1 = "0.000000"
-				input_X2 = "100.000000"
-				input_Y2 = "0.100000"
-				input_X3 = "1000.000000"
-				input_Y3 = "0.150000"
-				input_X4 = "1000.000000"
-				input_Y4 = "0.150000"
-			},
-			
-			{
-				name = "switch_delay"
-				operator = "ctrl_switch_float"
-				input_switch = "@public.delay_use_distance_curve"
-				input1 = "@delay_random.output"
-				input2 = "@remap_delay_distance.output"
-			},
-			
-			{
 				name = "get_event_info"
 				operator = "soundevent_get_info"
-				input_stack_delay = "@switch_delay.output"
+				input_stack_delay = "@delay_random.output"
 			},
 			
 			{
@@ -1145,53 +942,10 @@
 			},
 			
 			{
-				name = "params_steamaudio_source"
-				operator = "process_steamaudio_source"
-				input_execute = "@use_pathing_updated.output"
-				input_source_position = "@add_position_offset.output"
-				input_listener_position = "@globals.output_listener_position"
-				input_pathing_enabled = "@use_pathing_updated.output"
-				input_pathing_eq_enabled = "@public.use_pathing_render_eq"
-				input_source_offset = 0
-			},
-			
-			{
-				name = "pathing_distance_ratio_updated"
-				operator = "ctrl_switch_float"
-				execute_once = "false"
-				input_switch = "@use_pathing_distance_updated.output"
-				input1 = "1.0"
-				input2 = "@params_steamaudio_source.output_pathing_distance_ratio"
-			},
-			
-			{
-				name = "distance_to_source_updated"
-				operator = "math_float"
-				execute_once = "false"
-				apply = "div"
-				input1 = "@distance_to_source.output"
-				input2 = "@pathing_distance_ratio_updated.output"
-			},
-			
-			{
 				name = "distance_filter"
 				operator = "math_filter_float"
-				input = "@distance_to_source_updated.output"
+				input = "@distance_to_source.output"
 				input_max_velocity = "@public.distance_max_velocity"
-			},
-			
-			{
-				name = "get_effect_health_amount"
-				operator = "game_entity_get_health"
-			},
-			
-			{
-				name = "block_radius_logic"
-				operator = "math_float"
-				execute_once = "true"
-				apply = "greater_than"
-				input1 = "@distance_to_source.output"
-				input2 = "@public.block_stop_radius_around_player"
 			},
 			
 			{
@@ -1206,27 +960,7 @@
 						data_type = "float3"
 						value = "@add_position_offset.output"
 					}
-					block_test = 
-					{
-						data_type = "float"
-						value = "@block_radius_logic.output"
-					}
-					block_execute = 
-					{
-						data_type = "float"
-						value = "@block_radius_logic.output"
-					}
 				}
-			},
-			
-			{
-				name = "test_debug_radius"
-				input_execute = "@public.debug_radius_inner"
-				operator = "util_draw_radius"
-				input_radius_min = "@public.debug_radius_inner"
-				input_radius_max = "@public.debug_radius_outer"
-				input_name = "@public.debug_string"
-				input_position = "@add_position_offset.output"
 			},
 			
 			{
@@ -1271,7 +1005,7 @@
 				input_execute = "@public.cull_at_distance"
 				execute_once = "true"
 				apply = "mult"
-				input1 = "@public.cull_think_time_max"
+				input1 = "1.0"
 				input2 = "0.600000"
 			},
 			
@@ -1280,7 +1014,7 @@
 				operator = "math_random_float"
 				input_execute = "@culling_and_unstopped.output"
 				input_min = "@calc_think_time_max_rand_val.output"
-				input_max = "@public.cull_think_time_max"
+				input_max = "1.0"
 				round_to_int = "0"
 			},
 			
@@ -1291,7 +1025,7 @@
 				input = "@distance_to_source.output"
 				input_min = "@public.cull_at_distance"
 				input_max = "@calc_max_think_time_distance.output"
-				input_map_min = "@public.cull_think_time_min"
+				input_map_min = "0.050000"
 				input_map_max = "@calc_random_max_think_time.output"
 			},
 			
@@ -1322,7 +1056,7 @@
 				operator = "sos_goto"
 				input_execute = "@culling_and_unstopped.output"
 				execute_once = "false"
-				input_goto_operator = "citadel_base_3d::has_stop_time"
+				input_goto_operator = "citadel_base_3d::set_output_opvar_distance"
 			},
 			
 			{
@@ -1334,7 +1068,7 @@
 				match_entity = "@public.limiter_match_entity"
 				stop_oldest = "@public.limiter_stop_oldest"
 				match_duration_type = "greater_than_or_equal"
-				match_event_duration = "@public.limiter_match_event_duration"
+				match_event_duration = "-1.0"
 				match_this_event = "true"
 			},
 			
@@ -1363,27 +1097,6 @@
 				name = "volume_to_gain"
 				operator = "math_db_to_gain"
 				input = "@public.volume"
-			},
-			
-			{
-				name = "volume_rand_min_to_gain"
-				operator = "math_db_to_gain"
-				input = "@public.volume_rand_max"
-			},
-			
-			{
-				name = "volume_rand_max_to_gain"
-				operator = "math_db_to_gain"
-				input = "@public.volume_rand_min"
-			},
-			
-			{
-				name = "volume_random"
-				operator = "math_randomize_float"
-				execute_once = "true"
-				input = "1.000000"
-				input_rand_min = "@volume_rand_min_to_gain.output"
-				input_rand_max = "@volume_rand_max_to_gain.output"
 			},
 			
 			{
@@ -1982,44 +1695,6 @@
 				input_spread_max_distance = "@public.spread_max"
 				input_spread_max_value = "@public.spread_max_value"
 				input_spread_min_value = "@public.spread_min_value"
-			},
-			
-			{
-				name = "has_stop_time"
-				operator = "math_float"
-				apply = "greater_than"
-				input1 = "@public.event_stop_at_time"
-				input2 = "0.000000"
-			},
-			
-			{
-				name = "add_stop_time_to_fade_out_time"
-				operator = "math_float"
-				apply = "add"
-				input1 = "@public.event_stop_at_time"
-				input2 = "@public.volume_fade_out"
-			},
-			
-			{
-				name = "elapsed_less_than_fade"
-				operator = "math_float"
-				apply = "less_than_or_equal"
-				input1 = "@get_event_info.output_elapsed_time"
-				input2 = "@add_stop_time_to_fade_out_time.output"
-			},
-			
-			{
-				name = "has_stop_time_and_not_elapsed"
-				operator = "math_float"
-				apply = "min"
-				input1 = "@elapsed_less_than_fade.output"
-				input2 = "@has_stop_time.output"
-			},
-			
-			{
-				name = "stop_at_time"
-				operator = "soundevent_control"
-				input_stop_at_time = "@public.event_stop_at_time"
 			},
 			
 			{
