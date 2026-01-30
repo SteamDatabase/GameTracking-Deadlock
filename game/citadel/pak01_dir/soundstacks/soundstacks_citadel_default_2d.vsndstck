@@ -85,24 +85,6 @@
 							property_help = "Override from citadel_base_3d."
 						}
 					}
-					apply_radio_effect_for_voice = 
-					{
-						data_type = "bool"
-						value = "false"
-						_system_properties = 
-						{
-							property_group = "Effects"
-						}
-					}
-					voice_radio_effect_distance_threshold = 
-					{
-						data_type = "float"
-						value = "500.0"
-						_system_properties = 
-						{
-							property_group = "Effects"
-						}
-					}
 					volume_max_gain_change_per_second = 
 					{
 						data_type = "float"
@@ -255,49 +237,6 @@
 				input_execute = "@start_vmix.output_voice_finished"
 				input = "0.000000"
 				mixlayer = "@public.mixer_mixlayer_to_set"
-			},
-			
-			{
-				name = "get_radio_entity_info"
-				input_execute = "1"
-				operator = "game_entity_info"
-				input_entity_index = "@citadel_base_3d::source_info.output_entity_index"
-				input_default_world_position = "@public.position"
-				input_default_local_position = "@citadel_base_3d::globals.output_listener_front"
-				use_world_position = "@public.position_force_from_input"
-				attachment = "@public.attachment"
-			},
-			
-			{
-				name = "add_radio_position_offset"
-				operator = "math_float3"
-				apply = "add"
-				input1 = "@get_radio_entity_info.output_position"
-				input2 = "@public.position_offset"
-			},
-			
-			{
-				name = "distance_to_radio_source"
-				operator = "calc_distance"
-				input_position1 = "@add_radio_position_offset.output"
-				input_position2 = "@citadel_base_3d::globals.output_listener_position"
-			},
-			
-			{
-				name = "check_radio_effect_distance"
-				input_execute = "@public.apply_radio_effect_for_voice"
-				operator = "math_float"
-				apply = "greater_than"
-				input1 = "@distance_to_radio_source.output"
-				input2 = "@public.voice_radio_effect_distance_threshold"
-			},
-			
-			{
-				name = "apply_hero_voice_VO_effect"
-				operator = "vmix_voicegraph_name_input"
-				input_execute = "@check_radio_effect_distance.output"
-				input_name = "effect.voiceEffect"
-				input_dsp_preset_name = "fx.radio_voice"
 			},
 		]
 		_system_properties = 

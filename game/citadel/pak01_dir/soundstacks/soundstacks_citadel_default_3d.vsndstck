@@ -67,24 +67,6 @@
 							property_group = "VSND Files"
 						}
 					}
-					apply_radio_effect_for_voice = 
-					{
-						data_type = "bool"
-						value = "false"
-						_system_properties = 
-						{
-							property_group = "Effects"
-						}
-					}
-					voice_radio_effect_distance_threshold = 
-					{
-						data_type = "float"
-						value = "500.0"
-						_system_properties = 
-						{
-							property_group = "Effects"
-						}
-					}
 					distance_hpf_on = 
 					{
 						data_type = "float"
@@ -389,23 +371,6 @@
 				operator = "vmix_voicegraph_input"
 				input_name = "hrtf_mix"
 				input = "@citadel_base_3d::speakers_spatialize.output_hrtf_mix"
-			},
-			
-			{
-				name = "check_radio_effect_distance"
-				input_execute = "@public.apply_radio_effect_for_voice"
-				operator = "math_float"
-				apply = "greater_than"
-				input1 = "@citadel_base_3d::distance_filter.output"
-				input2 = "@public.voice_radio_effect_distance_threshold"
-			},
-			
-			{
-				name = "apply_hero_voice_VO_effect"
-				operator = "vmix_voicegraph_name_input"
-				input_execute = "@check_radio_effect_distance.output"
-				input_name = "effect.voiceEffect"
-				input_dsp_preset_name = "fx.radio_voice"
 			},
 			
 			{

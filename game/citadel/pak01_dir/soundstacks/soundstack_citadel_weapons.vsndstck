@@ -594,6 +594,21 @@
 			},
 			
 			{
+				name = "citadel_find_perspective"
+				operator = "sos_import_stack"
+				import_stack = "citadel_find_perspective"
+				auto_connect_public_fields = "true"
+			},
+			
+			{
+				name = "switch_fade_out_time"
+				operator = "ctrl_switch_float"
+				input_switch = "@citadel_find_perspective::output.perspective_is_player"
+				input1 = ".03"
+				input2 = "@public.volume_fade_out"
+			},
+			
+			{
 				name = "citadel_perspective_default"
 				operator = "sos_import_stack"
 				import_stack = "citadel_perspective_default"
@@ -604,6 +619,11 @@
 					{
 						data_type = "float"
 						value = "@volume_accumulate.output"
+					}
+					volume_fade_out = 
+					{
+						data_type = "float"
+						value = "@switch_fade_out_time.output"
 					}
 					volume_fade_in_track1 = 
 					{
