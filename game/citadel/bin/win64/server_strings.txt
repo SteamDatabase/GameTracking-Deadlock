@@ -207,6 +207,7 @@
  8f\ff
  <-- Arg '%s'
  <-- Retval '%s'
+ @ScriptedConflictResponse_t
  ACTIVE GROUP
  Damage Dealt to Trooper Boss
  Damage Taken from Player
@@ -366,7 +367,6 @@
 "4\n!CMsgGCToGCUniverseStartupResponse
 "6\n CMsgGCGetAccountSubscriptionItem
 "9\n\vCMsgTESmoke
-":\n$CCitadelUserMsg_SpectatorTeamChanged
 "; boundary="----%s"%s%s
 ";\n\tEChatMode
 "C\n)CCitadelClientMsg_HideoutMatchmakingState
@@ -479,6 +479,7 @@
 #CITADEL_ABILITY_INVALID_NOT_LEARNED
 #CITADEL_ABILITY_INVALID_NO_ABILITY
 #CITADEL_ABILITY_INVALID_NO_DAMAGE_TO_CLEAR
+#CITADEL_ABILITY_INVALID_NO_POSTER_SELECTED
 #CITADEL_ABILITY_INVALID_NO_TARGET
 #CITADEL_ABILITY_INVALID_NO_TARGET_REQUIRES_HERO
 #CITADEL_ABILITY_INVALID_NO_TARGET_REQUIRES_NPC
@@ -4475,6 +4476,8 @@ $tJ@T\tK
 .?AV?$CNetworkHandleBase@VCCitadelBaseAbility@@VNetworkVar_m_hAbility@CCitadel_Nano_Predatory_Statue@@@@
 .?AV?$CNetworkHandleBase@VCCitadelBaseAbility@@VNetworkVar_m_hAbility@CNecro_HauntingSkullEntity@@@@
 .?AV?$CNetworkHandleBase@VCCitadelBaseAbility@@VNetworkVar_m_hAbilityToTrigger@CCitadelBaseTriggerAbility@@@@
+.?AV?$CNetworkHandleBase@VCCitadelBaseAbility@@VNetworkVar_m_hCastDelayingAbility@CCitadelAbilityComponent@@@@
+.?AV?$CNetworkHandleBase@VCCitadelBaseAbility@@VNetworkVar_m_hChannellingAbility@CCitadelAbilityComponent@@@@
 .?AV?$CNetworkHandleBase@VCCitadelBaseAbility@@VNetworkVar_m_hSelectedAbility@CCitadelAbilityComponent@@@@
 .?AV?$CNetworkHandleBase@VCCitadelBaseAbility@@VNetworkVar_m_pCopyUltimateAbility@CCitadel_Ability_Magician_CopyUlt@@@@
 .?AV?$CNetworkHandleBase@VCCitadelPlayerPawn@@VNetworkVar_m_hHeroPawn@CCitadelPlayerController@@@@
@@ -4538,6 +4541,7 @@ $tJ@T\tK
 .?AV?$CNetworkUtlVectorBase@V?$CHandle@VCBasePlayerPawn@@@@VNetworkVar_m_aPlayers@CTeam@@$0?0H@@
 .?AV?$CNetworkUtlVectorBase@V?$CHandle@VCBasePlayerWeapon@@@@VNetworkVar_m_hMyWeapons@CPlayer_WeaponServices@@$0?0H@@
 .?AV?$CNetworkUtlVectorBase@V?$CHandle@VCCitadelBaseAbility@@@@VNetworkVar_m_vecAbilities@CCitadelAbilityComponent@@$0?0H@@
+.?AV?$CNetworkUtlVectorBase@V?$CHandle@VCCitadelBaseAbility@@@@VNetworkVar_m_vecThinkableAbilities@CCitadelAbilityComponent@@$0?0H@@
 .?AV?$CNetworkUtlVectorBase@V?$CHandle@VCCitadelZipLineNode@@@@VNetworkVar_m_vecConnections@CCitadelZipLineNode@@$0?0H@@
 .?AV?$CNetworkUtlVectorBase@V?$CHandle@VCEconWearable@@@@VNetworkVar_m_hMyWearables@CBaseCombatCharacter@@$0?0H@@
 .?AV?$CNetworkUtlVectorBase@V?$CHandle@VCPathNode@@@@VNetworkVar_m_vecPathNodes@CPathWithDynamicNodes@@$0?0H@@
@@ -5867,6 +5871,7 @@ $tJ@T\tK
 .?AV?$CNetworkVarBase@VGameTime_t@@VNetworkVar_m_nActivateTime@CCitadelAbilityBeam_t@@@@
 .?AV?$CNetworkVarBase@VGameTime_t@@VNetworkVar_m_nFastFireEndTime@CCitadel_WeaponUpgrade_BurstFire@@@@
 .?AV?$CNetworkVarBase@VGameTime_t@@VNetworkVar_m_reloadQueuedStartTime@CCitadel_Ability_PrimaryWeapon@@@@
+.?AV?$CNetworkVarBase@VGameTime_t@@VNetworkVar_m_tActiveEndTime@CCitadel_Werewolf_UnloadGun2@@@@
 .?AV?$CNetworkVarBase@VGameTime_t@@VNetworkVar_m_tBeginTimeWithPrewarm@PlayOfTheGamePlaybackData_t@@@@
 .?AV?$CNetworkVarBase@VGameTime_t@@VNetworkVar_m_tChoreUseCooldownEndTime@CCitadel_Ability_Familiar_HelpingHands@@@@
 .?AV?$CNetworkVarBase@VGameTime_t@@VNetworkVar_m_tCooldownEndTime@CNPC_FamiliarHelper@@@@
@@ -14595,6 +14600,7 @@ $tJ@T\tK
 2\n\tsource_gc
 2\r.CameraAction
 2\rlhp
+2\vpP
 2^pV
 2_BONE_IK
 2_tasks_left
@@ -14656,7 +14662,7 @@ $tJ@T\tK
 4@AA
 4Ch;
 4F0I
-4F\v`6
+4F\v0t
 4Mv8
 4Zis
 4\fPl
@@ -14719,11 +14725,10 @@ $tJ@T\tK
 65535"j\n
 65535B$
 666666666666666666666666666666666666666666666666\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\.\ssl\s3_enc.c
-6666666666666666CAttributeContainer
+6666666666666666H
 67-s
 6H,N
 6O|T%
-6Pv.
 6Qd=
 6\n2GAME_PARTICLE_MANAGER_EVENT_UPDATE_ENTITY_POSITION
 6\n2STEAMLEARN_INFERENCE_ERROR_INVALID_NAMED_INFERENCE
@@ -14861,6 +14866,7 @@ $tJ@T\tK
 :9\n\tkey_field
 :BAD OBJECT
 :Blowfish part of OpenSSL 1.0.2j  26 Sep 2016
+:CCitadel_Ability_Melee_Base
 :EXTERNAL TYPE %s\n
 :LBN
 :NAy
@@ -14879,7 +14885,6 @@ $tJ@T\tK
 :\n\tmove_type
 :cwd|
 :eaI
-:float
 :gN(dq
 :mIR
 :parsed on tick %d of %d got %d new commands through command number %d [%s]\n
@@ -14888,7 +14893,7 @@ $tJ@T\tK
 ;"lY7
 ;5jNf
 ;83\v\nHBJ7
-;Dm_bQueueFinishLoading
+;DCGameScriptedMoveData
 ;LGEW
 ;Qo0
 ;X94<
@@ -15030,11 +15035,11 @@ $tJ@T\tK
 >ztq
 ?33s?
 ?CAnimFoot
-?COND_FAMILIARHELPER_HASTASK
+?CCitadel_Ability_Necro_NukeMapVData
+?CCitadel_Modifier_InFountain
 ?HAI\t81\t9dcG'
 ?HP4
-?HUMAN_HULL
-?TLK_CITADEL_DOORMAN_HOTEL_TAUNT
+?Shows client (red) and server (blue) bullet impact point (1=both, 2=client-only, 3=server-only)
 ?VBH;
 ?\n1increase_spring_strength_to_keep_target_on_screen
 ?\n;GAME_PARTICLE_MANAGER_EVENT_CHANGE_CONTROL_POINT_ATTACHMENT
@@ -15047,19 +15052,17 @@ $tJ@T\tK
 ?expf
 ?ffffff
 ?gwL
-?hEnt
 ?jOb
 ?srJO
 ?tya
 ?uWS
 ?x29
 @!@%@+@1@?@C@E@]@a@g@m@
-@08Nd
+@":\n$CCitadelUserMsg_SpectatorTeamChanged
+@08N$
 @0pp
-@60i.
 @BH]f
 @BoneSetup
-@HV0
 @MfKZ
 @Pgl
 @Pu\rm
@@ -15074,6 +15077,7 @@ $tJ@T\tK
 @\n\vPowerUpBuff
 @dKb]
 @fff>fff>fff>fff>
+@htP
 @i1V
 @n2w
 @player_start_teleport_destination
@@ -15271,6 +15275,7 @@ AISG_MAINTAIN_SMART_GOAL
 AISG_QUEUE_GOAL
 AISG_SET_ARRIVAL_FROM_PREVWP
 AIScheduleState_t
+AISchedulerSave_t
 AISquadSlotTargetInfo_t
 AISystemHook
 AIUG_NONE
@@ -15462,7 +15467,6 @@ ASN1_seq_unpack
 ASN1_sign
 ASN1_unpack_string
 ASN1_verify
-AStunsTargets
 ATTACHMENT_INFLUENCE_FLAGS_NONE
 AUTHORITY_INFO_ACCESS
 AUTHORITY_KEYID
@@ -15479,7 +15483,7 @@ A\n\tent_index
 A\n\vdescriptors
 A\n\vdiagnostics
 A\rjW
-A\vw6
+A\vGt
 AbW_
 Abandon
 Abandoned
@@ -15560,7 +15564,6 @@ AbilityUnitTargetLimit
 AbilityUnlocks
 AbilityUpgradeState_t
 AbilityUpgrade_t
-AbilityUpgrade_t::PropertyUpgrade_t
 Abs Float
 Abs Int
 AbsOrigin
@@ -15821,8 +15824,8 @@ Always
 Always false
 Always kick at least this much in the direction the player is facing.
 Always true
-Am_nForceRefreshCount
 Amber
+Amber Material Group Name
 Ambient Sound
 AmbientCubes
 AmbientParticleSettings_t
@@ -16163,12 +16166,12 @@ BAD INTEGER
 BAD RECURSION DEPTH\n
 BAD-TYPE
 BADFUNCTIONPOINTER
-BAISchedulerSave_t
 BASIC_CONSTRAINTS
 BAddToMessage
 BAsyncSend
 BAsyncSendProto
 BC (default)
+BCPulseCell_Outflow_ScriptedSequence
 BC_DEFAULT
 BC_EMPTY
 BC_PARTICLE_SYSTEM_OVERRIDE
@@ -16326,6 +16329,7 @@ BZZn\rN]#8f'
 B\n>STEAMLEARN_REGISTER_DATA_SOURCE_RESULT_ERROR_INVALID_TIMESTAMP
 B\n\nobjectives
 B\n\vbook_reward
+B\v0t
 B\vP\n0
 B\vp\n0
 B`4I
@@ -16453,6 +16457,7 @@ Batched Snapshot response without corresponding waiting handle! (%d)
 BatteryGenerationPercent
 BcT`
 Bd]U
+Bdebug_ai_heat_sensing
 Beam Weapon
 BeamClipStyle_t
 BeamCloseDamagePercent
@@ -17003,7 +17008,7 @@ C:\buildworker\citadel_rel_win64\build\src\game\shared\baseflex_shared.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\shared\baseplayercontroller.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\shared\baseplayerpawn_shared.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\shared\breakableprop.cpp
-C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\abilities\ability_melee.cpp:1441
+C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\abilities\ability_melee.cpp:1449
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\abilities\ability_slide.cpp:1026
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\abilities\ability_slide.cpp:287
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\abilities\ability_slide.cpp:329
@@ -17016,7 +17021,7 @@ C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_ability_b
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_ability_beam.cpp:243
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_accolades_schema.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_base_ability_shared.cpp
-C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_base_ability_shared.cpp:4264
+C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_base_ability_shared.cpp:4289
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_base_hero.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_bot_schema.cpp
 C:\buildworker\citadel_rel_win64\build\src\game\shared\citadel\citadel_gamerules.cpp
@@ -17532,6 +17537,7 @@ CAsyncDataCache::BatchRequestData
 CAsyncDataCache::RequestCurrentData
 CAttachment
 CAttachmentNameSymbolWithStorage
+CAttributeContainer
 CAttributeList
 CAttributeManager
 CAttributeManager::ProvideTo
@@ -18360,7 +18366,6 @@ CCitadel_Ability_Mantle
 CCitadel_Ability_MedicHeal
 CCitadel_Ability_MedicHeal_GraphController
 CCitadel_Ability_MeleeParry
-CCitadel_Ability_Melee_Base
 CCitadel_Ability_Mirage_FireBeetles
 CCitadel_Ability_Mirage_FireBeetles_VData
 CCitadel_Ability_Mirage_Teleport
@@ -18397,7 +18402,6 @@ CCitadel_Ability_Necro_KillSummonTrigger
 CCitadel_Ability_Necro_KillSummonTriggerVData
 CCitadel_Ability_Necro_KillSummonVData
 CCitadel_Ability_Necro_NukeMap
-CCitadel_Ability_Necro_NukeMapVData
 CCitadel_Ability_Necro_PrimaryWeapon
 CCitadel_Ability_Necro_PrimaryWeaponVData
 CCitadel_Ability_Necro_SummonSkele
@@ -18750,7 +18754,6 @@ CCitadel_CosmeticItem_Snowball
 CCitadel_CosmeticItem_Snowball_VData
 CCitadel_CosmeticItem_VotingPoster
 CCitadel_CosmeticItem_VotingPoster_VData
-CCitadel_DeployablePreview
 CCitadel_Destroyable_Building
 CCitadel_Destroyable_Building_GraphController
 CCitadel_Doorman_Bomb_Debuff
@@ -19349,7 +19352,6 @@ CCitadel_Modifier_IcePath_TechPowerLinger
 CCitadel_Modifier_IdolReturnTimer
 CCitadel_Modifier_IdolTeamTimeout
 CCitadel_Modifier_Idol_Return
-CCitadel_Modifier_InFountain
 CCitadel_Modifier_InHideoutMap
 CCitadel_Modifier_InHideoutZone
 CCitadel_Modifier_InMenu
@@ -20577,7 +20579,6 @@ CGameSceneNode::m_angRotation
 CGameSceneNode::m_hParent
 CGameSceneNode::m_hierarchyAttachName
 CGameSceneNodeHandle
-CGameScriptedMoveData
 CGameScriptedMoveDef_t
 CGameText
 CGenericConstraint
@@ -20703,7 +20704,6 @@ CITADEL_ABILITY_BEHAVIOR_COOLDOWN_REFILLS_ALL_CHARGES
 CITADEL_ABILITY_BEHAVIOR_COUNT
 CITADEL_ABILITY_BEHAVIOR_DAMAGE_DOESNT_WAKE_FROM_SLEEP
 CITADEL_ABILITY_BEHAVIOR_DEACTIVATE_CROUCH_TOGGLE_ON_CAST
-CITADEL_ABILITY_BEHAVIOR_DEPLOY_OBJECT
 CITADEL_ABILITY_BEHAVIOR_DISARMABLE
 CITADEL_ABILITY_BEHAVIOR_DISPLAYS_DAMAGE_IMPACT
 CITADEL_ABILITY_BEHAVIOR_DISPLAYS_DAMAGE_SOURCE_IMPACT
@@ -20758,6 +20758,7 @@ CITADEL_ABILITY_HUD_ELEMENT_TYPE_PROGRESS
 CITADEL_ABILITY_HUD_ELEMENT_TYPE_UNIT_TARGET
 CITADEL_ABILITY_TARGETING_LOCATION_COUNT
 CITADEL_ABILITY_TARGETING_LOCATION_CUSTOM
+CITADEL_ABILITY_TARGETING_LOCATION_DEPLOYED_OBJECT
 CITADEL_ABILITY_TARGETING_LOCATION_FIXED_RANGE_GROUND
 CITADEL_ABILITY_TARGETING_LOCATION_GROUND
 CITADEL_ABILITY_TARGETING_LOCATION_MINIMAP_GROUND
@@ -22048,6 +22049,7 @@ CNetworkUtlVectorBase< CHandle< CBasePlayerWeapon >, NetworkVar_m_hMyWeapons , -
 CNetworkUtlVectorBase< CHandle< CEconWearable >, NetworkVar_m_hMyWearables , -1, int >
 CNetworkUtlVectorBase< CHandle< CPathNode >, NetworkVar_m_vecPathNodes , -1, int >
 CNetworkUtlVectorBase< CHandle<CCitadelBaseAbility>, NetworkVar_m_vecAbilities , -1, int >
+CNetworkUtlVectorBase< CHandle<CCitadelBaseAbility>, NetworkVar_m_vecThinkableAbilities , -1, int >
 CNetworkUtlVectorBase< CHandle<CCitadelZipLineNode>, NetworkVar_m_vecConnections , -1, int >
 CNetworkUtlVectorBase< CHandle<CPostProcessingVolume>, NetworkVar_m_PostProcessingVolumes , -1, int >
 CNetworkUtlVectorBase< CPlayerSlot, NetworkVar_m_vecParticipants , -1, int >
@@ -22357,6 +22359,7 @@ COND_ESCORT_DORMANT
 COND_ESCORT_ENEMY_OBJECTIVE_NEARBY
 COND_FAMILIARHELPER_DOSLEEPCOOLDOWN
 COND_FAMILIARHELPER_HASPATROL
+COND_FAMILIARHELPER_HASTASK
 COND_FAMILIARHELPER_ISINFESTING
 COND_FAMILIARHELPER_NOPATROL
 COND_FAMILIARHELPER_PLAYERIDLE
@@ -22769,7 +22772,6 @@ CPulseCell_Outflow_PlayVCD::Cancel
 CPulseCell_Outflow_PlayVCD::CancelAtInterrupt
 CPulseCell_Outflow_PlayVCD::ResumePlayback
 CPulseCell_Outflow_PlayVCD::Run
-CPulseCell_Outflow_ScriptedSequence
 CPulseCell_Outflow_ScriptedSequence::BeginSequence
 CPulseCell_Outflow_ScriptedSequence::Cancel
 CPulseCell_Outflow_ScriptedSequence::CursorState_t
@@ -23615,7 +23617,7 @@ CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CUtlHashMap<class CUtlString,
 CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CUtlHashMap<class CUtlString,struct RecentAudioData_t,class CDefEquals<class CUtlString>,struct HashMapFunctor_t<class CUtlString>,int>::HashBucket_t,int,class CMemAllocAllocator>,struct CUtlHashMap<class CUtlString,struct RecentAudioData_t,class CDefEquals<class CUtlString>,struct HashMapFunctor_t<class CUtlString>,int>::HashBucket_t,int>::AddMultipleToTail
 CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CUtlHashMap<class CUtlStringToken,bool,class CDefEquals<class CUtlStringToken>,struct HashMapFunctor_t<class CUtlStringToken>,int>::HashBucket_t,int,class CMemAllocAllocator>,struct CUtlHashMap<class CUtlStringToken,bool,class CDefEquals<class CUtlStringToken>,struct HashMapFunctor_t<class CUtlStringToken>,int>::HashBucket_t,int>::AddMultipleToTail
 CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CUtlHashMap<class CitadelLobbyPlayerSlot_t,int,class CDefEquals<class CitadelLobbyPlayerSlot_t>,struct HashMapFunctor_t<class CitadelLobbyPlayerSlot_t>,int>::HashBucket_t,int,class CMemAllocAllocator>,struct CUtlHashMap<class CitadelLobbyPlayerSlot_t,int,class CDefEquals<class CitadelLobbyPlayerSlot_t>,struct HashMapFunctor_t<class CitadelLobbyPlayerSlot_t>,int>::HashBucket_t,int>::AddMultipleToTail
-CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CUtlHashMap<class GameTime_t,class CHandle<class CBaseEntity>,class CDefEquals<class GameTime_t>,struct HashMapFunctor_t<class GameTime_t>,int>::HashBucket_t,int,class CMemAllocAllocator>,struct CUtlHashMap<class GameTime_t,class CHandle<class CBaseEntity>,class CDefEquals<class GameTime_t>,struct HashMapFunctor_t<class GameTime_t>,int>::HashBucket_t,int>::AddMultipleToTail
+CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CUtlHashMap<class GameTime_t,class CHandle<class CBaseEntity>,class CDefEquals<class GameTime_t>,struct HashItemBytesFunctor<class GameTime_t>,int>::HashBucket_t,int,class CMemAllocAllocator>,struct CUtlHashMap<class GameTime_t,class CHandle<class CBaseEntity>,class CDefEquals<class GameTime_t>,struct HashItemBytesFunctor<class GameTime_t>,int>::HashBucket_t,int>::AddMultipleToTail
 CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CUtlHashMap<class ModifierSerialNumber_t,class GameTime_t,class CDefEquals<class ModifierSerialNumber_t>,struct HashMapFunctor_t<class ModifierSerialNumber_t>,int>::HashBucket_t,int,class CMemAllocAllocator>,struct CUtlHashMap<class ModifierSerialNumber_t,class GameTime_t,class CDefEquals<class ModifierSerialNumber_t>,struct HashMapFunctor_t<class ModifierSerialNumber_t>,int>::HashBucket_t,int>::AddMultipleToTail
 CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CUtlHashMap<class PingWheelOptionID_t,struct PingWheelMessage_t const *,class CDefEquals<class PingWheelOptionID_t>,struct HashMapFunctor_t<class PingWheelOptionID_t>,int>::HashBucket_t,int,class CMemAllocAllocator>,struct CUtlHashMap<class PingWheelOptionID_t,struct PingWheelMessage_t const *,class CDefEquals<class PingWheelOptionID_t>,struct HashMapFunctor_t<class PingWheelOptionID_t>,int>::HashBucket_t,int>::AddMultipleToTail
 CUtlLeanVectorImpl<class CUtlLeanVectorBase<struct CUtlHashMap<class VectorWS,struct CTrooperLaneStorageSystem::NodeKey_t,class CDefEquals<class VectorWS>,struct HashMapFunctor_t<class VectorWS>,int>::HashBucket_t,int,class CMemAllocAllocator>,struct CUtlHashMap<class VectorWS,struct CTrooperLaneStorageSystem::NodeKey_t,class CDefEquals<class VectorWS>,struct HashMapFunctor_t<class VectorWS>,int>::HashBucket_t,int>::AddMultipleToTail
@@ -23904,6 +23906,7 @@ CWorkThreadPool::~CWorkThreadPool: work complete queue not empty, %d items disca
 CWorkThreadPool::~CWorkThreadPool: work processing queue not empty: %d items discarded.\n
 CWorld
 CWorldCompositionChunkReferenceElement_t
+CXlZ
 C[L6
 C\lVQ
 C\n?k_EGCMsgInitiateTradeResponse_Free_Account_Initiator_DEPRECATED
@@ -24071,6 +24074,7 @@ Caster is enemy of victim
 Caster: [%s](%d)
 CasterBuffDuration
 CasterHealthPercent
+CasterLockDuration
 Casting "hero_action" value
 CastsRefreshDuration
 CatAboveGround
@@ -24899,6 +24903,7 @@ DAE!
 DAL\fL@
 DBDc
 DBF-
+DCCitadel_DeployablePreview
 DEAD
 DEBRIS
 DEFAULT
@@ -24966,6 +24971,7 @@ DFLAG_DO_NOT_SET_IN_COMBAT
 DFLAG_DO_NOT_SPLIT_SHOT
 DFLAG_DO_NOT_TRIGGER_DAMAGE_FLASH
 DFLAG_EMPHASIZED_DAMAGE_NUMBERS
+DFLAG_EXPRESS_SHOT_BONUS_SHOT
 DFLAG_FORCEREDUCEARMOR_DMG
 DFLAG_FORCE_DEATH
 DFLAG_FORCE_PHYSICS_FORCE
@@ -24989,7 +24995,6 @@ DFLAG_REMOVE_NO_RAGDOLL
 DFLAG_RICOCHET
 DFLAG_SKYRUNNER_RICOCHET
 DFLAG_SPECIAL_DAMAGE
-DFLAG_SUPPRESS_AP_BOUNTY
 DFLAG_SUPPRESS_BREAKABLES
 DFLAG_SUPPRESS_COINS_GOLD_BOUNTY
 DFLAG_SUPPRESS_CRIT_RESISTANCE
@@ -25560,6 +25565,7 @@ DeployUpSpeed
 DeployUpTime
 Deployable Orb
 Deployment Info
+Deployment targeting. Specifics around the location is defined by DeploymentInfo_t.
 DeploymentInfo_t
 DeploymentProjectileScale
 DeregisterEventSource
@@ -26396,6 +26402,7 @@ ECitadelAbilityOrder_Invalid_Muted
 ECitadelAbilityOrder_Invalid_NoAbility
 ECitadelAbilityOrder_Invalid_NoCharges
 ECitadelAbilityOrder_Invalid_NoDamageToClear
+ECitadelAbilityOrder_Invalid_NoPosterSelected
 ECitadelAbilityOrder_Invalid_NoTarget
 ECitadelAbilityOrder_Invalid_NoTargetRequiresHero
 ECitadelAbilityOrder_Invalid_NoTargetRequiresNPC
@@ -28324,7 +28331,6 @@ FearDuration
 Ff,n
 Ffff
 Fgi?)
-FhB6
 Fi:je
 Field "%s" of class "%s" cannot be unserialized yet (lacking array support)!\n
 Field %s::%s cannot have sub-keyfields since it is an atomic type!\n
@@ -29576,6 +29582,7 @@ HULL_SMALL_CENTERED
 HULL_TINY
 HULL_TINY_CENTERED
 HULL_WIDE_HUMAN
+HUMAN_HULL
 HVDataResource
 HWyn
 H\n\taccolades
@@ -31421,6 +31428,7 @@ Kill All Other Cursors
 Kill Cursors With Tag
 Kill This Cursor And Cancel
 Kill This Cursor And Fail
+Kill switch for the lost lobby functionality
 KillBonusMoveSpeedPerStack
 KillCheckWindow
 KillConstrained
@@ -31544,6 +31552,7 @@ LT_GAMETIME
 LT_INT
 LXKQ
 LY\r5
+L\tpa
 LabelledDebugHelperDebug
 LadderConnect
 LagCompensate
@@ -32082,6 +32091,7 @@ MODIFIER_EVENT_SCRIPTED_EVENT
 MODIFIER_EVENT_STAMINA_USED
 MODIFIER_EVENT_START_TOUCH
 MODIFIER_EVENT_TELEPORTED
+MODIFIER_EVENT_TELEPORTED_INTO_PLAYSPACE
 MODIFIER_EVENT_TIME_SCALE_CHANGED_BROADCAST
 MODIFIER_EVENT_UNIT_HEALED
 MODIFIER_EVENT_UNIT_SHIELD_ABSORBED_DAMAGE
@@ -32279,6 +32289,7 @@ MODIFIER_STATE_IN_TIER3_PHASE2_BOSS_PIT
 MODIFIER_STATE_IN_TUNNEL
 MODIFIER_STATE_IS_ASLEEP
 MODIFIER_STATE_IS_CLIMBING_ROPE
+MODIFIER_STATE_IS_IN_CHARGE_MELEE
 MODIFIER_STATE_IS_MAGIC_SHOCK_IMMUNE
 MODIFIER_STATE_IS_MELEE_TARGET
 MODIFIER_STATE_IS_SMALL_DEPLOYABLE
@@ -34923,7 +34934,7 @@ P-224
 P-256
 P-384
 P-521
-P08Nd
+P08N$
 P1\t98"
 P5[1
 PAGN_4
@@ -35936,6 +35947,7 @@ PropSetSequence
 PropWorldOrigin
 PropaneTank.Burst
 Properly kills all NPCs from the universe that aren't currently selected
+PropertyUpgrade_t
 PropertyValueApplyFilter_t
 Proportion of player's speed inherited directly from the player.
 Provided in ability code via MModifierFunction to caster
@@ -36330,6 +36342,7 @@ RUMBLE_STOP_ALL
 R\n\nBookReward
 R\r1>Vp
 R\vp!y
+R\vpP
 R]Di
 Rad2 Deg
 RadiationThink
@@ -37502,6 +37515,7 @@ Same as above but when meleeing
 Sample
 Sandbox
 Sapphire
+Sapphire Material Group Name
 SatVolumeIndex_t
 Saturate
 Saturate (clamps float between 0 and 1)
@@ -37827,7 +37841,6 @@ Scripted Settings
 Scripted command canceled
 Scripted command failed
 Scripted sequence %s found NPC %s, but can't play!\n
-ScriptedConflictResponse_t
 ScriptedHeldWeaponBehavior_t
 ScriptedMoveTo_t
 ScriptedMovement
@@ -38617,7 +38630,6 @@ Shows Stun Status Effect in the Important Box
 Shows Tethered Status Effect in the Important Box
 Shows Unstoppable Status Effect in the Important Box
 Shows base damage below what sv_showimpacts would show, and if a player was hit he'll show the damage he took above it (as healthdamage (armorabsorbed)).  1 = show hits.  2 = show hits and misses
-Shows client (red) and server (blue) bullet impact point (1=both, 2=client-only, 3=server-only)
 Shows debug properties.
 Shows memory of NPC.  Draws an X on top of each memory.\n\tEluded entities drawn in blue (don't know where it went)\n\tUnreachable entities drawn in green (can't get to it)\n\tCurrent enemy drawn in red\n\tCurrent target entity drawn in magenta\n\tAll other entities drawn in pink\n\tArguments:   \t{entity_name} / {class_name} / {entity_index} / {no argument = pick what player is looking at}
 Shows player spawn points (red=invalid)
@@ -38697,14 +38709,6 @@ Skip updating hierarchy information in PostDataUpdate for entities that have not
 Skipped enemy selection due to schedule restriction\n
 Skipping match meta data uploading due to convar being disabled\n
 Skipping replay recording since tv_citadel_auto_record is not set\n
-Skipping spawn - already loading after yield\n
-Skipping spawn - already loading in job\n
-Skipping spawn - already loading\n
-Skipping spawn - already spawned\n
-Skipping spawn - failed to re-acquire after yield\n
-Skipping spawn - hero already set\n
-Skipping spawn - hero not selectable\n
-Skipping spawn - missing hero data\n
 SkullBuildUp
 SkullCount
 SkullImmuneDuration
@@ -39350,6 +39354,7 @@ StunDuration
 StunOnLand
 StunRadius
 Stunned
+StunsTargets
 StyleChanged
 Sub Graph
 Sub R%d <- R%d - R%d
@@ -39712,6 +39717,7 @@ TLK_CITADEL_CUSTOM
 TLK_CITADEL_DEATH
 TLK_CITADEL_DEFEAT
 TLK_CITADEL_DENY
+TLK_CITADEL_DOORMAN_HOTEL_TAUNT
 TLK_CITADEL_DROP_ITEM
 TLK_CITADEL_ENEMY_ESCAPED
 TLK_CITADEL_ENEMY_PICKED_UP_REJUVENATOR
@@ -42188,6 +42194,7 @@ Z~wl
 \f]ne3
 \fdhWTh
 \fiaR
+\fp\vPL
 \ful2
 \fy&3Gl
 \l:ArR
@@ -43013,7 +43020,6 @@ Z~wl
 \ri1I
 \rjwB\t
 \roKK
-\rpB6
 \rrCj
 \rstyle_index_t
 \rusercmd.proto"
@@ -43193,8 +43199,8 @@ _tools_event_desc
 _xU`u
 _}eOk
 `28)fk
-`6Pl.
-`6Pm.
+`2PC
+`2pF
 `:zQF
 `D$daM-l
 `DZG
@@ -43222,7 +43228,7 @@ a:typeparam
 a;Tg
 a@XZ
 aA0k
-aBvd
+aBv$
 aD/x
 aDSS
 aECDH
@@ -45856,6 +45862,7 @@ citadel_num_team_pauses_allowed
 citadel_obscured_volume
 citadel_one_on_one_match
 citadel_one_on_one_match_starting_gold
+citadel_only_think_thinkable_abilities
 citadel_orb_allow_deny
 citadel_orb_debug_draw_state
 citadel_orb_debug_draw_velocity_lines
@@ -46784,6 +46791,7 @@ dHHp
 dITRedirect
 dNSDomain
 dOj\f,
+dP\tpa
 dSAQuality
 dWry
 dZ!2.
@@ -46888,7 +46896,6 @@ debuff
 debug - disable trace query cache
 debug force draw
 debug of origin changes for %d set to %s\n
-debug_ai_heat_sensing
 debug_destructible_parts
 debug_destructible_parts_enabled
 debug_destructible_parts_radius_damage
@@ -47211,7 +47218,7 @@ doorman_bomb_projectile
 dotProductMax
 double_shot
 down
-dq\fP0
+dq\fP
 draft
 draft_item_sets
 drag_override
@@ -52198,6 +52205,7 @@ m_CriterionDistance
 m_CriterionVisibility
 m_CrossbowEntImpactParticle
 m_CrossbowImpactParticle
+m_CrossbowMuzzleFlashParticle
 m_CrouchFraction
 m_CtrlHash
 m_CtrlName
@@ -52262,6 +52270,7 @@ m_DashLineEffect
 m_DashModifier
 m_DashParticle
 m_DashSwingEffect
+m_DashTrailEffect
 m_DashTrailParticle
 m_Data
 m_DazeModifier
@@ -54010,6 +54019,7 @@ m_SwingLimit
 m_SwingModifier
 m_SwingParticle
 m_SwingStartTime
+m_SwordChargeEffect
 m_SyncTimes
 m_TackleParticle
 m_Tag
@@ -54114,6 +54124,7 @@ m_TrailFX
 m_TrailParticle
 m_Transform
 m_TransformEndParticle
+m_TransformKillParticle
 m_TransformStartFx
 m_Transforms
 m_TrapHighlightParticle
@@ -54818,6 +54829,7 @@ m_bForceDrawDefaultCastBars
 m_bForceDynamicHull
 m_bForceFiring
 m_bForceHandshakeRestartOnScriptedSequenceCompletion
+m_bForceHideHUDPanel
 m_bForceInterrupt
 m_bForceModUpdate
 m_bForceNavIgnore
@@ -55379,6 +55391,7 @@ m_bPushPlayer
 m_bPushTowardsInfoTarget
 m_bPvsModifyEntity
 m_bQueueActiveSpawnGroupChange
+m_bQueueFinishLoading
 m_bQueueWallAttachJump
 m_bQueuedGoalSuccess
 m_bQuickbuyAutoPurchase
@@ -55704,6 +55717,7 @@ m_bUseSecondaryColor
 m_bUseSmoothPaths
 m_bUseStandardUpgrade
 m_bUseStartValue
+m_bUseTeamRelativeMaterialGroups
 m_bUseTrail
 m_bUseUV2ForCharting
 m_bUseUniqueColorTarget
@@ -59187,7 +59201,9 @@ m_hBuffer
 m_hCP
 m_hCamera
 m_hCarryingPlayer
+m_hCastDelayingAbility
 m_hCaster
+m_hChannellingAbility
 m_hChargingParticle
 m_hChoreoScene
 m_hColorCorrectionController
@@ -60436,7 +60452,6 @@ m_nDefaultNodeIdx
 m_nDefaultStateIndex
 m_nDeferState
 m_nDelayedTeleportToNode
-m_nDensity
 m_nDepletionCount
 m_nDepth
 m_nDepthVertexBufferIndex
@@ -60549,6 +60564,7 @@ m_nFogShadows
 m_nFootstepPriority
 m_nForceBone
 m_nForceLOD
+m_nForceRefreshCount
 m_nForcedCrouchState
 m_nFrameCount
 m_nFramePerfSamplesTotalReceived
@@ -62661,6 +62677,7 @@ m_szWorldModel
 m_tAbilityCreateTime
 m_tAbilityWatcherInProgress
 m_tActivationTime
+m_tActiveEndTime
 m_tAttackWindowStart
 m_tBeginTimeWithPrewarm
 m_tBuffRechargeTime
@@ -63564,6 +63581,7 @@ m_vecTeleportOrigin
 m_vecTeleportPosition
 m_vecTeleportPositionNormal
 m_vecTetheredEnemies
+m_vecThinkableAbilities
 m_vecThresholds
 m_vecTimeWarps
 m_vecTooltipSectionInfo
@@ -66178,7 +66196,8 @@ p.other
 p.ppBasis
 p.prime
 p.tpBasis
-p08@H^d
+p08@H^$
+p0jP
 p2{l
 p4Z3
 p5Z3
@@ -66207,7 +66226,6 @@ pData->GetDataDescMap() == pTemplateDataMap
 pDefault
 pDescription
 pEntity
-pF`Z.
 pField
 pFilter
 pFirstWaypoint type[%d]
@@ -69204,6 +69222,7 @@ sv_dev_simulate_gcdown
 sv_disable_querycache
 sv_early_network_message_processing
 sv_enable_hideout
+sv_enable_lost_lobby
 sv_enable_match
 sv_ent_showonlyhitbox
 sv_footsteps
@@ -69384,6 +69403,7 @@ tLY^m`6
 tLl 
 tLsq
 tNt5
+tR\tpa
 t\n\fDamageSource
 t\n\tCacheData
 t_movement_idle_turn_target
@@ -70605,6 +70625,7 @@ warn
 warp onto the nearest point of the zipline lane passed in.  provides the zipline intro modifier as well
 warp_onto_zipline
 warp_shield_impact
+was_lost_lobby
 was_server_shutdown
 was_stolen
 watched_death_replays
