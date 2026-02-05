@@ -15,7 +15,12 @@ CitadelPostGameScoreboardNew
 	flow-children: down;
 	height: 100%;
 	horizontal-align: center;
-	transform: translateY(88px);
+	transform: translateY(80px);
+}
+
+.CanCommendPlayers .ScoreboardScrollContainer
+{
+	margin-left: -24px;
 }
 
 .Team
@@ -38,6 +43,11 @@ CitadelPostGameScoreboardNew
 	flow-children: right;
 }
 
+.CanCommendPlayers .TeamNameContainer
+{
+	margin-left: 52px;
+}
+
 .TeamNameContainer
 {
 	vertical-align: bottom;
@@ -46,21 +56,21 @@ CitadelPostGameScoreboardNew
 
 .TeamNameContainer .TeamName
 {
-	width: 200px;
-	height: 60px;
-	background-size: contain;
+	width: 160px;
+	height: 48px;
+	background-size: 100% 100%;
 	background-repeat: no-repeat;
-	background-position: left;
+	background-position: left bottom;
 	horizontal-align: left;
 	opacity: 0.9;
-	pre-transform-scale2d: 0.86;
-	margin: 0px 0px 0px -4px;
+	margin: 0px 0px -4px 8px;
 }
 
 #Team1 .TeamNameContainer .TeamName
 {
 	background-image: url("s2r://panorama/images/hud/objectives/team1_patron_logo_psd.vtex");
 	wash-color: team1Color;
+	margin-bottom: -2px;
 }
 
 #Team2 .TeamNameContainer .TeamName
@@ -73,12 +83,9 @@ CitadelPostGameScoreboardNew
 {
 	font-family: oracle;
 	font-weight: bold;
-	font-size: 20px;
-	horizontal-align: right;
+	font-size: 18px;
 	vertical-align: bottom;
-	margin-bottom: 16px;
-	margin-right: 12px;
-	pre-transform-rotate2d: -2deg;
+	padding: 8px;
 }
 
 .TeamNameContainer #RankedBadge
@@ -104,6 +111,20 @@ CitadelPostGameScoreboardNew
 	margin-right: 0px;
 }
 
+#Team1 .VictoryLabel
+{
+	text-shadow: 0px 0px 6px team1Color;
+	margin-bottom: -10px;
+	margin-left: 166px;
+}
+
+#Team2 .VictoryLabel
+{
+	text-shadow: 0px 0px 6px team2Color;
+	margin-bottom: -6px;
+	margin-left: 156px;
+}
+
 .Player
 {
 	margin-bottom: 4px;
@@ -124,36 +145,36 @@ CitadelPostGameScoreboardNew
 	height: 100%;
 }
 
-#Team1 .Player.IsLocalPlayer
+#Team1 .Player.IsLocalPlayer .PlayerRow
 {
 	background-color: team1Color&28;
 	brightness: 2.0;
 	saturation: 0.96;
 }
 
-#Team2 .Player.IsLocalPlayer
+#Team2 .Player.IsLocalPlayer .PlayerRow
 {
 	background-color: team2Color&28;
 	brightness: 2.0;
 	saturation: 0.96;
 }
 
-#Team1 .Player:nth-child(odd)
+#Team1 .Player:nth-child(odd) .PlayerRow
 {
 	background-color: team1Color&12;
 }
 
-#Team1 .Player:nth-child(even)
+#Team1 .Player:nth-child(even) .PlayerRow
 {
 	background-color: team1Color&08;
 }
 
-#Team2 .Player:nth-child(odd)
+#Team2 .Player:nth-child(odd) .PlayerRow
 {
 	background-color: team2Color&12;
 }
 
-#Team2 .Player:nth-child(even)
+#Team2 .Player:nth-child(even) .PlayerRow
 {
 	background-color: team2Color&08;
 }
@@ -164,6 +185,105 @@ CitadelPostGameScoreboardNew
 }
 
 .Player.CommendedPlayer #CommendPlayerButton,.Player.IsLocalPlayer #CommendPlayerButton
+{
+	visibility: collapse;
+}
+
+.Player.CommendedPlayer .GotCommendedIcon.CommendColumn
+{
+	width: 48px;
+	height: 48px;
+	background-image: url("s2r://panorama/images/icons/icon_thumbsup.vsvg");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 32% 32%;
+	wash-color: offWhite;
+	opacity: 1;
+	margin-bottom: 4px;
+	margin-left: 1px;
+	img-shadow: 0px 0px 4px #00000088;
+	horizontal-align: center;
+	vertical-align: center;
+	opacity: 0.4;
+	visibility: visible;
+}
+
+#Team1 .GotCommendedIcon
+{
+	wash-color: team1Color;
+	img-shadow: 0px 0px 6px #000000cc;
+}
+
+#Team2 .GotCommendedIcon
+{
+	wash-color: team2Color;
+	img-shadow: 0px 0px 6px #000000cc;
+}
+
+.Player .GotCommendedIcon.CommendColumn
+{
+	visibility: collapse;
+}
+
+.Player.IsLocalPlayer #LocalPlayerIdentifier
+{
+	width: 48px;
+	height: 48px;
+	wash-color: offWhite;
+	background-image: url("s2r://panorama/images/icons/caret_up.vsvg");
+	background-size: contain;
+	background-size: 20px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	vertical-align: bottom;
+	visibility: collapse;
+	pre-transform-rotate2d: 90deg;
+	brightness: 1.5;
+	saturation: 0.96;
+}
+
+#CommendPlayerButton
+{
+	vertical-align: bottom;
+	tooltip-position: bottom;
+	background-color: offWhite&05;
+	pre-transform-scale2d: 0.7;
+}
+
+#CommendPlayerButton:hover
+{
+	pre-transform-scale2d: 0.8;
+}
+
+#CommendPlayerButton:active
+{
+	sound: "UI.CommendConfirmation";
+}
+
+#Team1 #LocalPlayerIdentifier
+{
+	wash-color: team1Color;
+	text-shadow: 0px 0px 10px team1Color;
+}
+
+#Team2 #LocalPlayerIdentifier
+{
+	wash-color: team2Color;
+	text-shadow: 0px 0px 10px team2Color;
+}
+
+.Player.IsLocalPlayer #LocalPlayerIdentifier
+{
+	visibility: visible;
+}
+
+#LocalPlayerIdentifier
+{
+	visibility: collapse;
+}
+
+.Player.TotalsRow #CommendPlayerButton
 {
 	visibility: collapse;
 }
@@ -184,7 +304,6 @@ CitadelPostGameScoreboardNew
 	width: 100%;
 	flow-children: right;
 	vertical-align: bottom;
-	margin-bottom: 4px;
 	margin-left: 8px;
 }
 
@@ -267,9 +386,16 @@ CitadelPostGameScoreboardNew
 	color: steelFlat&55;
 }
 
+.CanCommendPlayers .CommendColumn
+{
+	visibility: visible;
+}
+
 .CommendColumn
 {
 	visibility: collapse;
+	width: 48px;
+	margin-right: 4px;
 }
 
 .MVPContainer
@@ -684,7 +810,7 @@ CitadelPostGameScoreboardNew
 	
 }
 
-#Team1 .Player.TotalsRow,#Team2 .Player.TotalsRow
+#Team1 .Player.TotalsRow .PlayerRow,#Team2 .Player.TotalsRow .PlayerRow
 {
 	background-color: none;
 }
@@ -693,14 +819,17 @@ CitadelPostGameScoreboardNew
 {
 	border: 2px solid team2Color&09;
 	border-radius: 4px;
-	margin-left: -2px;
 }
 
 #Team1 .Player.TotalsRow .StatsContainer
 {
 	border: 2px solid team1Color&09;
 	border-radius: 4px;
-	margin-left: -2px;
+}
+
+.CanCommendPlayers .Player.TotalsRow
+{
+	margin-left: 376px;
 }
 
 .Player.TotalsRow
