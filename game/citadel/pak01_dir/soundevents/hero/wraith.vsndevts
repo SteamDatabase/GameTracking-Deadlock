@@ -5,7 +5,6 @@
 		base = "Base.Weapon.MachineGun"
 		volume = 0.000000
 		volume_fade_out = 0.250000
-		enable_initial_reflection_send = true
 		tail_vol_offset_db = -5.000000
 		low_ammo_threshold = 8.000000
 		last_shot_vol_offset_db = 3.000000
@@ -89,7 +88,6 @@
 		base = "Base.Weapon.MachineGun"
 		volume = 6.000000
 		volume_fade_out = 0.250000
-		enable_initial_reflection_send = true
 		low_ammo_vol_offset_db = -2.000000
 		tail_vol_offset_db = -5.000000
 		limiter_max = 0.000000
@@ -277,60 +275,74 @@
 		vsnd_files = "sounds/weapons/wraith/reload/clip_in.vsnd"
 		vsnd_duration = 1.039146
 	}
-	Wraith.CardTrick.Start = 
+	Wraith.CardTrick.Proc = 
 	{
 		base = "Base.Ability"
-		volume = 3.000000
+		volume = 4.500000
+		track_1.vsnd_selection_type = "index"
 		vsnd_files = 
 		[
-			"sounds/abilities/wraith/wraith_cardtrick_summon_01.vsnd",
-			"sounds/abilities/wraith/wraith_cardtrick_summon_02.vsnd",
-			"sounds/abilities/wraith/wraith_cardtrick_summon_03.vsnd",
-			"sounds/abilities/wraith/wraith_cardtrick_summon_04.vsnd",
+			"sounds/abilities/wraith/wraith_cardtrick_summon_club.vsnd",
+			"sounds/abilities/wraith/wraith_cardtrick_summon_diamond.vsnd",
+			"sounds/abilities/wraith/wraith_cardtrick_summon_heart.vsnd",
+			"sounds/abilities/wraith/wraith_cardtrick_summon_spade.vsnd",
+			"sounds/abilities/wraith/wraith_cardtrick_summon_joker.vsnd",
+			"sounds/abilities/wraith/wraith_cardtrick_summon_default.vsnd",
 		]
-		vsnd_duration = 1.851429
+		vsnd_duration = 2.223719
 	}
 	Wraith.CardTrick.Cast = 
 	{
 		base = "Base.Ability"
-		pitch = 1.000000
 		volume = 0.000000
-		delay = 0.050000
-		vsnd_files = "sounds/abilities/wraith/royalflush_cast.vsnd"
-		vsnd_duration = 2.033288
-	}
-	Wraith.CardTrick.Fire = 
-	{
-		base = "Base.Ability"
-		limiter_on = 1.000000
-		limiter_max = 4.000000
-		volume = 4.000000
+		pitch_rand_min = -0.020000
+		pitch_rand_max = 0.020000
+		track_1.vsnd_selection_type = "index"
 		vsnd_files = 
 		[
-			"sounds/abilities/wraith/royalflush_hit_01.vsnd",
-			"sounds/abilities/wraith/royalflush_hit_02.vsnd",
-			"sounds/abilities/wraith/royalflush_hit_03.vsnd",
-			"sounds/abilities/wraith/royalflush_hit_04.vsnd",
+			"sounds/abilities/wraith/wraith_card_trick_cast_club.vsnd",
+			"sounds/abilities/wraith/wraith_card_trick_cast_diamond.vsnd",
+			"sounds/abilities/wraith/wraith_card_trick_cast_heart.vsnd",
+			"sounds/abilities/wraith/wraith_card_trick_cast_spade.vsnd",
+			"sounds/abilities/wraith/wraith_card_trick_cast_joker.vsnd",
+			"sounds/abilities/wraith/wraith_card_trick_cast_spade.vsnd",
 		]
-		vsnd_duration = 1.699297
+		vsnd_duration = 2.160748
 	}
 	Wraith.CardTrick.Proj.Lp = 
 	{
 		base = "Base.Ability.Projectile"
 		pitch = 0.900000
 		volume = 8.000000
-		delay = 0.050000
+		delay_rand_min = -3.000000
+		volume_fade_in = 0.100000
+		volume_fade_out = 0.100000
 		vsnd_files = "sounds/abilities/wraith/royalflush_proj.vsnd"
 		vsnd_duration = 2.793991
 	}
-	Wraith.CardTrick.Impact = 
+	Wraith.CardTrick.Proj.Impact = 
 	{
 		base = "Base.Ability.Projectile"
 		volume = 4.000000
-		pitch_rand_min = -0.100000
-		pitch_rand_max = 0.100000
-		vsnd_files = "sounds/abilities/wraith/wraith_cardtrick_impact_hit.vsnd"
-		vsnd_duration = 1.282358
+		vsnd_files = 
+		[
+			"sounds/abilities/wraith/wraith_card_trick_proj_impact_01.vsnd",
+			"sounds/abilities/wraith/wraith_card_trick_proj_impact_02.vsnd",
+			"sounds/abilities/wraith/wraith_card_trick_proj_impact_03.vsnd",
+		]
+		vsnd_duration = 1.860726
+	}
+	Wraith.CardTrick.Hit = 
+	{
+		base = "Base.Ability.Hit"
+		volume = 2.000000
+		vsnd_files = 
+		[
+			"sounds/abilities/wraith/wraith_card_trick_hit_01.vsnd",
+			"sounds/abilities/wraith/wraith_card_trick_hit_02.vsnd",
+			"sounds/abilities/wraith/wraith_card_trick_hit_03.vsnd",
+		]
+		vsnd_duration = 1.362336
 	}
 	Wraith.ProjectMind.Select = 
 	{
@@ -397,7 +409,7 @@
 	Wraith.Telekinesis.Victim.Alert = 
 	{
 		base = "Base.Ability.StatusEffect"
-		volume = -5.000000
+		volume = 2.000000
 		pitch = 1.100000
 		vsnd_files = "sounds/abilities/wraith/psychic_lift_victim.vsnd"
 		vsnd_duration = 2.740917
@@ -443,6 +455,7 @@
 	{
 		base = "Base.Ability.Ult.CC"
 		volume = 4.000000
+		volume_offset_opponent = 3.000000
 		vsnd_files = "sounds/abilities/wraith/telekinesis_cast_start.vsnd"
 		vsnd_duration = 2.635533
 	}
@@ -455,8 +468,9 @@
 	}
 	Wraith.Telekenisis.Slam = 
 	{
-		base = "Base.Ability.Ult.Detached"
+		base = "Base.Ability.Hit"
 		volume = 0.000000
+		filter_include_others = true
 		pitch_rand_min = -0.050000
 		pitch_rand_max = 0.100000
 		vsnd_files = 
@@ -475,7 +489,7 @@
 	{
 		base = "Base.Movement"
 		volume = -5.000000
-		vsnd_track1_vol_offset_db = -5.000000
+		track_1.vsnd_track_vol_offset_db = -5.000000
 		vsnd_files = 
 		[
 			"sounds/player/movement/wraith/wraith_movement_foley_short_01.vsnd",
@@ -494,7 +508,7 @@
 			"sounds/player/movement/wraith/wraith_movement_foley_short_14.vsnd",
 			"sounds/player/movement/wraith/wraith_movement_foley_short_15.vsnd",
 		]
-		vsnd_files_track2 = 
+		track_2.track_vsnd_files = 
 		[
 			"sounds/player/footsteps/wraith/wraith_foley_paper_01.vsnd",
 			"sounds/player/footsteps/wraith/wraith_foley_paper_02.vsnd",
@@ -514,13 +528,13 @@
 			"sounds/player/footsteps/wraith/wraith_foley_paper_16.vsnd",
 			"sounds/player/footsteps/wraith/wraith_foley_paper_17.vsnd",
 		]
-		vsnd_duration = 0.896871
+		vsnd_duration = 0.305714
 	}
 	Wraith.JumpLand = 
 	{
 		base = "Base.Footsteps.JumpLand"
 		volume = -1.000000
-		vsnd_track2_vol_offset_db = -3.000000
+		track_2.vsnd_track_vol_offset_db = -3.000000
 		vsnd_files = 
 		[
 			"sounds/player/movement/wraith/wraith_jump_land_01.vsnd",
@@ -533,7 +547,7 @@
 			"sounds/player/movement/wraith/wraith_jump_land_08.vsnd",
 			"sounds/player/movement/wraith/wraith_jump_land_09.vsnd",
 		]
-		vsnd_files_track2 = 
+		track_2.track_vsnd_files = 
 		[
 			"sounds/player/footsteps/wraith/wraith_footstep_01.vsnd",
 			"sounds/player/footsteps/wraith/wraith_footstep_02.vsnd",
@@ -602,10 +616,10 @@
 	Wraith.Footstep = 
 	{
 		base = "Base.Footsteps"
-		vsnd_track1_vol_offset_db = -5.000000
-		vsnd_track2_vol_offset_db = -19.000000
-		vsnd_track3_vol_offset_db = -7.000000
-		track3_percent_chance_to_play = 0.600000
+		track_1.vsnd_track_vol_offset_db = -5.000000
+		track_2.vsnd_track_vol_offset_db = -19.000000
+		track_3.vsnd_track_vol_offset_db = -7.000000
+		track_3.track_percent_chance_to_play = 0.600000
 		vsnd_files = 
 		[
 			"sounds/player/footsteps/wraith/wraith_footstep_01.vsnd",
@@ -620,7 +634,7 @@
 			"sounds/player/footsteps/wraith/wraith_footstep_13.vsnd",
 			"sounds/player/footsteps/wraith/wraith_footstep_14.vsnd",
 		]
-		vsnd_files_track2 = 
+		track_2.track_vsnd_files = 
 		[
 			"sounds/player/movement/wraith/wraith_movement_foley_short_01.vsnd",
 			"sounds/player/movement/wraith/wraith_movement_foley_short_02.vsnd",
@@ -638,7 +652,7 @@
 			"sounds/player/movement/wraith/wraith_movement_foley_short_14.vsnd",
 			"sounds/player/movement/wraith/wraith_movement_foley_short_15.vsnd",
 		]
-		vsnd_files_track3 = 
+		track_3.track_vsnd_files = 
 		[
 			"sounds/player/footsteps/wraith/wraith_foley_paper_01.vsnd",
 			"sounds/player/footsteps/wraith/wraith_foley_paper_02.vsnd",
@@ -658,7 +672,7 @@
 			"sounds/player/footsteps/wraith/wraith_foley_paper_16.vsnd",
 			"sounds/player/footsteps/wraith/wraith_foley_paper_17.vsnd",
 		]
-		vsnd_duration = 0.896871
+		vsnd_duration = 0.296803
 	}
 	Wraith.Progession.Page.Win.VO = 
 	{

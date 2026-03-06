@@ -69,9 +69,11 @@
 	}
 	Mods.Armor.Healing.Rite.Cast = 
 	{
-		base = "Base.Mod.StatusEffect"
-		volume = -3.000000
-		pitch = 1.000000
+		base = "Base.Ability.Hit"
+		volume = -1.000000
+		volume_offset_attacker_db = 2.000000
+		volume_offset_other_db = 3.000000
+		filter_include_others = true
 		vsnd_files = "sounds/mods/armor/healing_rite/healingrite_cast.vsnd"
 		vsnd_duration = 3.383288
 	}
@@ -299,11 +301,23 @@
 	}
 	Mods.Armor.Savior.Start = 
 	{
-		base = "Base.Mod.StatusEffect"
-		volume = -2.000000
+		base = "Base.Ability.Hit"
+		volume = 2.000000
 		pitch = 1.050000
 		vsnd_files = "sounds/mods/armor/divine_barrier/activate.vsnd"
 		vsnd_duration = 2.891451
+	}
+	Mods.Armor.Guardian.Ward.Cast = 
+	{
+		base = "Base.Mod"
+		volume = 0.000000
+		vsnd_files = 
+		[
+			"sounds/mods/armor/guardian_ward/guardian_ward_cast_01.vsnd",
+			"sounds/mods/armor/guardian_ward/guardian_ward_cast_02.vsnd",
+			"sounds/mods/armor/guardian_ward/guardian_ward_cast_03.vsnd",
+		]
+		vsnd_duration = 2.895011
 	}
 	Mods.Armor.Guardian.Ward.Select = 
 	{
@@ -331,9 +345,10 @@
 	}
 	Mods.Armor.Divine.Barrier.Start = 
 	{
-		base = "Base.Mod.StatusEffect"
-		volume = -3.000000
-		delay = 0.300000
+		base = "Base.Ability.Hit"
+		volume = 2.000000
+		volume_offset_attacker_db = 3.000000
+		delay = 0.125000
 		vsnd_files = "sounds/mods/armor/divine_barrier/divine_barrier_buff_start_01.vsnd"
 		vsnd_duration = 3.124104
 	}
@@ -367,6 +382,19 @@
 		volume = -6.000000
 		vsnd_files = "sounds/mods/armor/divine_barrier/divine_barrier_deselect_01.vsnd"
 		vsnd_duration = 1.406463
+	}
+	Mods.Divine.Barrier.Purge = 
+	{
+		base = "Base.Mod.StatusEffect"
+		volume = 3.000000
+		volume_offset_player = 3.000000
+		vsnd_files = 
+		[
+			"sounds/mods/armor/celestial_blessing/celestial_blessing_purge_01.vsnd",
+			"sounds/mods/armor/celestial_blessing/celestial_blessing_purge_02.vsnd",
+			"sounds/mods/armor/celestial_blessing/celestial_blessing_purge_03.vsnd",
+		]
+		vsnd_duration = 3.723991
 	}
 	Mods.Armor.Rescue.Beam.Select = 
 	{
@@ -768,11 +796,13 @@
 	Mods.Armor.Healing.Tempo.End = 
 	{
 		base = "Base.Mod.StatusEffect"
-		volume = 5.000000
+		volume = 4.000000
 		limiter_on = 1.000000
 		limiter_max = 2.000000
 		pitch_rand_min = -0.050000
 		pitch_rand_max = 0.050000
+		block_team = true
+		block_opponent = true
 		vsnd_files = "sounds/mods/armor/healing_tempo/healing_tempo_end.vsnd"
 		block_npc_emitter = 1.000000
 		instance_attenuator_enabled = 1.000000
@@ -835,14 +865,17 @@
 	Mods.Armor.Phantom.Strike.Cast = 
 	{
 		base = "Base.Mod"
-		volume = -3.000000
+		volume = -2.000000
+		volume_offset_opponent = 2.000000
+		volume_enemy_targeting_boost = 4.000000
 		vsnd_files = "sounds/mods/armor/phantom_strike/phantom_strike_cast_01.vsnd"
 		vsnd_duration = 2.267007
 	}
 	Mods.Armor.Phantom.Strike.Hit = 
 	{
-		base = "Base.Mod"
-		volume = -2.000000
+		base = "Base.Ability.Hit"
+		volume = 4.000000
+		filter_include_others = true
 		vsnd_files = "sounds/mods/armor/phantom_strike/phantom_strike_hit_01.vsnd"
 		vsnd_duration = 1.440408
 	}
@@ -873,9 +906,9 @@
 	}
 	Mods.Armor.Witchmail.Proc = 
 	{
-		base = "Base.Ability.StatusEffect"
+		base = "Base.Mod.StatusEffect"
 		volume = 6.000000
-		vsnd_selection_type = "index"
+		track_1.vsnd_selection_type = "index"
 		volume_offset_team = -9.000000
 		vsnd_files = 
 		[
@@ -883,9 +916,8 @@
 			"sounds/mods/armor/witchmail/witchmail_proc_02.vsnd",
 			"sounds/mods/armor/witchmail/witchmail_proc_03.vsnd",
 			"sounds/mods/armor/witchmail/witchmail_proc_04.vsnd",
-			"sounds/mods/armor/witchmail/witchmail_proc_05.vsnd",
 		]
-		vsnd_duration = 2.805057
+		vsnd_duration = 1.647438
 	}
 	Mods.Shrink.Ray.Cast = 
 	{
@@ -985,36 +1017,6 @@
 			"sounds/mods/armor/celestial_blessing/celestial_blessing_purge_03.vsnd",
 		]
 		instance_attenuator_enabled = 0.000000
-		instance_count_offset_amount_db = 
-		[
-			
-			[
-				0.000000,
-				0.000000,
-				0.000000,
-				-0.293897,
-				0.000000,
-				0.000000,
-			],
-			
-			[
-				1.000000,
-				0.000000,
-				-0.293897,
-				-3.243744,
-				0.000000,
-				0.000000,
-			],
-			
-			[
-				4.000000,
-				-6.000000,
-				-3.243744,
-				0.000000,
-				0.000000,
-				0.000000,
-			],
-		]
 		vsnd_duration = 3.723991
 	}
 	Mods.Seraphim.Wings.Lp = 

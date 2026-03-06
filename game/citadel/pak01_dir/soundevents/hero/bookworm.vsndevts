@@ -71,7 +71,7 @@
 	Bookworm.Footstep = 
 	{
 		base = "Base.Footsteps"
-		vsnd_track1_vol_offset_db = -5.000000
+		track_1.vsnd_track_vol_offset_db = -5.000000
 		vsnd_files = 
 		[
 			"sounds/player/footsteps/wraith/wraith_footstep_01.vsnd",
@@ -101,7 +101,7 @@
 	Bookworm.JumpLand = 
 	{
 		base = "Base.Footsteps.JumpLand"
-		vsnd_track2_vol_offset_db = -5.000000
+		track_2.vsnd_track_vol_offset_db = -5.000000
 		vsnd_files = 
 		[
 			"sounds/player/footsteps/wraith/wraith_footstep_01.vsnd",
@@ -116,7 +116,7 @@
 			"sounds/player/footsteps/wraith/wraith_footstep_13.vsnd",
 			"sounds/player/footsteps/wraith/wraith_footstep_14.vsnd",
 		]
-		vsnd_files_track2 = 
+		track_2.track_vsnd_files = 
 		[
 			"sounds/player/movement/generic/foley_light/default_foley_01.vsnd",
 			"sounds/player/movement/generic/foley_light/default_foley_02.vsnd",
@@ -128,7 +128,7 @@
 			"sounds/player/movement/generic/foley_light/default_foley_08.vsnd",
 			"sounds/player/movement/generic/foley_light/default_foley_09.vsnd",
 		]
-		vsnd_duration = 0.730000
+		vsnd_duration = 0.296803
 	}
 	Bookworm.Mantle = 
 	{
@@ -138,7 +138,7 @@
 	Bookworm.Melee.Swing = 
 	{
 		base = "Base.Movement.Melee"
-		vsnd_track2_vol_offset_db = -5.000000
+		track_2.vsnd_track_vol_offset_db = -5.000000
 		vsnd_files = 
 		[
 			"sounds/player/melee/shared/swing_short_01.vsnd",
@@ -166,7 +166,7 @@
 			"sounds/player/melee/shared/swing_short_23.vsnd",
 			"sounds/player/melee/shared/swing_short_24.vsnd",
 		]
-		vsnd_files_track2 = 
+		track_2.track_vsnd_files = 
 		[
 			"sounds/player/movement/generic/foley_light/default_foley_01.vsnd",
 			"sounds/player/movement/generic/foley_light/default_foley_02.vsnd",
@@ -183,7 +183,7 @@
 	Bookworm.Melee.Swing.Charged = 
 	{
 		base = "Base.Movement.Melee"
-		vsnd_track2_vol_offset_db = -5.000000
+		track_2.vsnd_track_vol_offset_db = -5.000000
 		vsnd_files = 
 		[
 			"sounds/player/melee/shared/swing_long_01.vsnd",
@@ -212,7 +212,7 @@
 			"sounds/player/melee/shared/swing_long_24.vsnd",
 			"sounds/player/melee/shared/swing_long_25.vsnd",
 		]
-		vsnd_files_track2 = 
+		track_2.track_vsnd_files = 
 		[
 			"sounds/player/movement/generic/foley_light/default_foley_01.vsnd",
 			"sounds/player/movement/generic/foley_light/default_foley_02.vsnd",
@@ -242,6 +242,21 @@
 			"sounds/player/movement/bookworm/bookworm_dash_sweetener_06.vsnd",
 		]
 		vsnd_duration = 2.561179
+	}
+	Bookworm.Melee.Sweetener = 
+	{
+		base = "Base.Movement.Melee"
+		volume = 0.000000
+		volume_offset_opponent = -3.000000
+		pitch_rand_min = -0.020000
+		pitch_rand_max = 0.020000
+		vsnd_files = 
+		[
+			"sounds/player/movement/bookworm/bookworm_melee_sweetener_01.vsnd",
+			"sounds/player/movement/bookworm/bookworm_melee_sweetener_02.vsnd",
+			"sounds/player/movement/bookworm/bookworm_melee_sweetener_03.vsnd",
+		]
+		vsnd_duration = 1.403855
 	}
 	Bookworm.Conjure.Dragon.Lp = 
 	{
@@ -297,7 +312,7 @@
 	}
 	Bookworm.Conjure.Dragon.Burn.Start = 
 	{
-		base = "Base.Ability.StatusEffect"
+		base = "Base.Ability.Hit"
 		volume = 0.000000
 		instance_attenuator_enabled = 1.000000
 		vsnd_files = 
@@ -374,7 +389,7 @@
 	}
 	Bookworm.Barrier.Shield.Start = 
 	{
-		base = "Base.Ability.StatusEffect"
+		base = "Base.Ability.Hit"
 		volume = -4.000000
 		vsnd_files = "sounds/abilities/bookworm/a2_barrier/bookworm_barrier_shield_start.vsnd"
 		vsnd_duration = 3.367868
@@ -383,6 +398,8 @@
 	{
 		base = "Base.Ability.StatusEffect"
 		volume = -3.000000
+		block_team = 1.000000
+		block_opponent = 1.000000
 		vsnd_files = "sounds/abilities/bookworm/a2_barrier/bookworm_barrier_shield_expire.vsnd"
 		vsnd_duration = 2.759161
 	}
@@ -433,10 +450,9 @@
 	}
 	Bookworm.AOEMagic.Root.Proc = 
 	{
-		base = "Base.Ability.StatusEffect"
-		volume = -1.000000
-		volume_offset_player = 3.000000
-		volume_offset_opponent = 3.000000
+		base = "Base.Ability.Hit"
+		filter_include_others = true
+		volume = 4.000000
 		pitch_rand_min = -0.030000
 		pitch_rand_max = 0.050000
 		limiter_on = 1.000000
@@ -514,6 +530,14 @@
 		volume_offset_opponent = 3.000000
 		send_distance_to_blend_container = true
 		vsnd_files = "sounds/abilities/bookworm/a4_rallying_charge/bookworm_rallying_charge_lp_blend.vsnd"
+	}
+	Bookworm.Rallying.Charge.Impact = 
+	{
+		base = "Base.Ability.Hit"
+		volume = 4.000000
+		filter_include_others = true
+		vsnd_files = "sounds/mods/tech/immobilize/slowinghex_hit.vsnd"
+		vsnd_duration = 2.681814
 	}
 	Bookworm.Rallying.Charge.Horse.Expire = 
 	{

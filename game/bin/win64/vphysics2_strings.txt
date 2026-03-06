@@ -378,6 +378,7 @@
 .?AVIIkSolver@@
 .?AVIKV3ResourceAllocatorUtils@?$CTypesafeIntrospectedToKV3TypeManager@$0HDHJGIHAHG@UVPhysXAggregateData_t@@@@
 .?AVIKV3ResourceDeallocatorUtils@?$CTypesafeIntrospectedToKV3TypeManager@$0HDHJGIHAHG@UVPhysXAggregateData_t@@@@
+.?AVIKV3TransferSaveRestoreOps@@
 .?AVIModuleMappingListener@@
 .?AVIMotionEvent@@
 .?AVIPhysAggregateInstance@@
@@ -420,11 +421,11 @@
 .rnsave
 .vmdl
 /%u.rnsave
-0TX1
 0\r%0t
 0x%08X 
 2\vp!T
-2\vpTX1
+2\vpLU1
+2\vpt47
 2_BONE_IK
 4\r54t
 8a\v6;
@@ -487,6 +488,7 @@
 =<table width="100%">
 =CFootDefinition
 >333?
+>Hull
 ?CFeMorphLayer
 ?DualHull
 ?SimplifyMesh (%.3f) (v=%d,t=%d) to (v=%d,t=%d)\n
@@ -532,7 +534,6 @@ BODY_KEYFRAMED
 BODY_STATIC
 Bad FLC data for resource '%s': %s\n
 Bad KV3 data for resource '%s': %s\n
-BaseJointSave_t
 Begin Rope Jobs
 Bodies
 Bodies: %d (%d)
@@ -763,6 +764,7 @@ Disabled
 Dissolved edge
 Dop26_t
 Drag
+Dslow
 Dyn 
 Dynamic
 DynamicContinuousContactBehavior_t
@@ -932,7 +934,7 @@ GENERIC_JOINT
 GetInlineCallData
 GetTranslationData
 Goals Substep %d %s
-HB(T:
+HB(S:
 HELPER_BONE
 HITGROUP_INVALID
 Has common interaction flags
@@ -941,7 +943,6 @@ Height
 Hierarchy id is the same on both shapes (%d)
 How name is displayed in tools
 How the detail layer is meant to be used
-Hull
 Hulls
 IBphys
 IKV3TransferInterface_AllowRawStringTokenTransfer
@@ -1000,6 +1001,10 @@ JOINT_FLAGS_USE_BLOCK_SOLVER
 JOINT_MOTION_COUNT
 JOINT_MOTION_FREE
 JOINT_MOTION_LOCKED
+JOINT_MOTOR_DISABLED
+JOINT_MOTOR_POSITION_AND_VELOCITY_MODE
+JOINT_MOTOR_POSITION_MODE
+JOINT_MOTOR_VELOCITY_MODE
 Joint changed type from %d to %d, skipping!\n
 JointAxis_t
 JointMotion_t
@@ -1175,18 +1180,8 @@ Physics Debugger: outdated protocol %d (expected %d). Please restart VConsole2.\
 Physics RnMeshCreate: cannot create degenerate mesh (%d tris)\n
 Physics doesn't know how to handle Comm request %d (data:%d)\n
 Physics/BuildMeshWings
-PhysicsConicalJointSave_t
 PhysicsDebugMaterials
-PhysicsGenericJointSave_t
-PhysicsNullJointSave_t
 PhysicsParticleId_t
-PhysicsPrismaticJointSave_t
-PhysicsPulleyJointSave_t
-PhysicsRevoluteJointSave_t
-PhysicsSphericalJointSave_t
-PhysicsSpringJointSave_t
-PhysicsWeldJointSave_t
-PhysicsWheelJointSave_t
 PhysicsWorld 0x%p->0x%p %s\n
 PivotPaint
 Planted Turn
@@ -1255,7 +1250,6 @@ REVOLUTE_JOINT
 REVOLUTE_WELD_FUSED_JOINT
 ROTATION
 RSDS\r
-R\fpTX1
 Radius
 RagdollBodies
 Raise ground by this much for all cloth that traces the ground; should be 0 ideally
@@ -1312,6 +1306,7 @@ RnTriangle_t
 RnUnitTest
 RnVertex_t
 RnWing_t
+RotationVector
 Rubikon Release No-Names
 Rubikon%s\n
 SPHERICAL_JOINT
@@ -1463,7 +1458,7 @@ Wrong alignment %d\n
 [1] Resolve Contacts
 [4] Touch Found
 [8] Touch Persists
-\fp\v`TX1
+\fp\v`LU1
 \nLocal anchors: {%g,%g,%g}, {%g,%g,%g}\n
 \ng default\n
 \t%2d.  %16llx - %s%s\n
@@ -1473,7 +1468,6 @@ Wrong alignment %d\n
 \tg_bUpdateStringTokenDatabase
 \tg_flConfigMaxCoord
 _____Bytes %-30s[body]\n
-`TX1
 acosf
 adult male human
 always
@@ -1687,6 +1681,7 @@ interacts-as
 invA
 is <b><font color="red">inconsistent</font></b> with actual collision group
 isActive
+joint
 joints
 joints[%d]
 keyframed_bodies
@@ -1835,6 +1830,7 @@ m_NodeIntegrator
 m_NodeInvMasses
 m_NodeStrayBoxes
 m_Nodes
+m_ObjectList
 m_OpCode
 m_PackedAABB
 m_Params
@@ -1901,7 +1897,6 @@ m_audioParams
 m_audioSounds
 m_axes
 m_bActiveInEditorByDefault
-m_bAllowMissingBodies
 m_bBakedTwoSided
 m_bBoneMergeFlex
 m_bCanBatchWithDynamicShaderConstants
@@ -2450,7 +2445,6 @@ m_nXLeftDst
 m_nYTopDst
 m_nameHash
 m_numInfluences
-m_objectList
 m_offsets
 m_orientation
 m_outputBones
@@ -2735,14 +2729,13 @@ other
 pModule->%s( 0x%llX )\n
 pObject
 pSkeletonPose
-pTX1
 particle_rope
 parts[%d]={
 passable_door
 passbullets
 peaktailend
 penny
-physPointers
+physPointer
 phys_cull_internal_mesh_contacts
 phys_debug_draw
 phys_debug_draw 
@@ -2756,6 +2749,7 @@ physics debug material
 physics_debug_draw
 physics_prop
 physicslib
+physpointer
 pickup
 ping-pong ball
 placementattachment
@@ -2773,7 +2767,6 @@ pushaway
 pushoff
 pz_clip
 qAdjust
-r\vpTX1
 race horse
 really freaking heavy
 recorded_forces
@@ -2797,7 +2790,6 @@ shape_edges
 shapes
 skidstop
 slime
-slow
 small car
 snowflake
 softbodies
@@ -2873,7 +2865,6 @@ vmat_c
 vphysics2.dll
 vphysics_save_aggregate_t
 vphysics_save_cphysicsbody_t
-vphysics_save_motioncontroller_t
 vphysics_save_ragdoll_control_t
 wakeup
 water

@@ -4,6 +4,60 @@
 	{
 		operators = 
 		[
+			
+			{
+				name = "opvar_get_player_health_fraction"
+				operator = "opvar_get_float"
+				input_execute = "1.0"
+				input_stack_name = "citadel_relevance_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "player_health_fraction"
+			},
+			
+			{
+				name = "opvar_get_player_health_fraction_buffer_change"
+				operator = "opvar_get_float"
+				input_execute = "1.0"
+				input_stack_name = "citadel_relevance_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "player_health_fraction_buffer_change"
+			},
+			
+			{
+				name = "opvar_get_player_health_delta_effect"
+				operator = "opvar_get_float"
+				input_execute = "1.0"
+				input_stack_name = "citadel_global_opvars"
+				input_operator_name = "opvars"
+				input_field_name = "citadel_health_delta_effect"
+			},
+			
+			{
+				name = "set_vmix_param_health_fraction"
+				operator = "vmix_mixgraph_input"
+				input_execute = "1.0"
+				execute_once = "false"
+				input_name = "viewing_player_health_fraction"
+				input = "@opvar_get_player_health_fraction.output"
+			},
+			
+			{
+				name = "set_vmix_param_health_fraction_buffer_change"
+				operator = "vmix_mixgraph_input"
+				input_execute = "1.0"
+				execute_once = "false"
+				input_name = "viewing_player_health_fraction_change"
+				input = "@opvar_get_player_health_fraction_buffer_change.output"
+			},
+			
+			{
+				name = "set_vmix_param_health_delta_effect"
+				operator = "vmix_mixgraph_input"
+				input_execute = "1.0"
+				execute_once = "false"
+				input_name = "health_delta_effect"
+				input = "@opvar_get_player_health_delta_effect.output"
+			},
 		]
 		_system_properties = 
 		{
@@ -31,6 +85,16 @@
 						}
 					}
 					citadel_in_hideout = 
+					{
+						data_type = "float"
+						value = "-1.0"
+						_system_properties = 
+						{
+							property_group = "citadel_global_opvars"
+							display_group = "advanced"
+						}
+					}
+					citadel_health_delta_effect = 
 					{
 						data_type = "float"
 						value = "-1.0"

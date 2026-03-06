@@ -5,7 +5,6 @@
 		base = "Base.Weapon.MachineGun"
 		volume = 2.000000
 		volume_fade_out = 0.150000
-		enable_initial_reflection_send = true
 		tail_vol_offset_db = 0.000000
 		tail_interior_vol_offset_db = -10.000000
 		low_ammo_threshold = 8.000000
@@ -278,16 +277,44 @@
 		vsnd_files = "sounds/weapons/forge/zoom/zoom_out.vsnd"
 		vsnd_duration = 0.831250
 	}
+	Forge.Turret.Select = 
+	{
+		base = "Base.Ability"
+		volume = -7.000000
+		vsnd_files = "sounds/abilities/forge/forge_turret_select.vsnd"
+		vsnd_duration = 1.683991
+	}
+	Forge.Turret.Unselect = 
+	{
+		base = "Base.Ability"
+		volume = -7.000000
+		vsnd_files = "sounds/abilities/forge/forge_turret_unselect.vsnd"
+		vsnd_duration = 0.936145
+	}
+	Forge.Turret.Cast = 
+	{
+		base = "Base.Ability"
+		volume = 2.000000
+		pitch_rand_min = -0.050000
+		pitch_rand_max = 0.050000
+		vsnd_files = "sounds/abilities/forge/forge_turret_cast_01.vsnd"
+		vsnd_duration = 1.313243
+	}
 	Forge.Turret.Place = 
 	{
 		base = "Base.Ability.Detached"
-		volume = 0.000000
-		pitch_rand_max = 0.030000
-		pitch = 1.000000
-		volume_fade_out = 0.200000
-		delay = 0.200000
-		vsnd_files = "sounds/abilities/forge/a1_turret/deploy_full.vsnd"
-		vsnd_duration = 1.834308
+		volume = 2.000000
+		pitch_rand_max = 0.020000
+		pitch_rand_min = -0.020000
+		block_duration = 0.500000
+		block_match_entity = 0.000000
+		vsnd_files = 
+		[
+			"sounds/abilities/forge/forge_turret_deploy_01.vsnd",
+			"sounds/abilities/forge/forge_turret_deploy_02.vsnd",
+			"sounds/abilities/forge/forge_turret_deploy_03.vsnd",
+		]
+		vsnd_duration = 2.212132
 	}
 	Forge.Turret.LockOn = 
 	{
@@ -295,26 +322,30 @@
 		volume_fade_out = 0.500000
 		pitch_rand_max = 0.050000
 		pitch_rand_min = -0.100000
-		volume = -15.000000
+		volume = -99.000000
 		vsnd_files = "sounds/abilities/forge/a1_turret/alert.vsnd"
 		vsnd_duration = 1.018813
 	}
 	Forge.Turret.LockOn.LocalClient = 
 	{
 		base = "Base.Ability.Detached"
-		volume_fade_out = 0.500000
 		pitch_rand_max = 0.050000
 		pitch_rand_min = -0.100000
-		volume = -6.000000
+		volume = 5.000000
+		block_duration = 1.000000
+		block_match_entity = 0.000000
 		vsnd_files = "sounds/abilities/forge/a1_turret/alert.vsnd"
 		vsnd_duration = 1.018813
 	}
 	Forge.Turret.Shoot = 
 	{
 		base = "Base.Ability"
+		limiter_on = 1.000000
 		limiter_max = 0.000000
 		limiter_global_event_distance_on = true
 		limiter_global_event_distance_max = 2.000000
+		limiter_match_entity = 0.000000
+		volume_offset_team = -8.000000
 		vsnd_files = 
 		[
 			"sounds/abilities/forge/a1_turret/wpn_fire_01.vsnd",
@@ -333,7 +364,7 @@
 	Forge.Turret.Explosion = 
 	{
 		base = "Base.Ability.Detached"
-		volume = -9.000000
+		volume = -8.000000
 		vsnd_files = 
 		[
 			"sounds/abilities/forge/a1_turret/explode_01.vsnd",
@@ -345,7 +376,7 @@
 	}
 	Forge.MobileResupply.Start = 
 	{
-		base = "Base.Ability"
+		base = "Base.Ability.Detached"
 		volume_offset_team = 5.000000
 		vsnd_files = "sounds/abilities/forge/a2_mobile_resupply/forge_a2_mobile_resupply_activate_01.vsnd"
 		vsnd_duration = 5.413424
@@ -390,6 +421,7 @@
 		volume_fade_in = 0.200000
 		volume_fade_out = 0.200000
 		delay_rand_min = -2.000000
+		volume_offset_opponent = 8.000000
 		vsnd_files = "sounds/abilities/forge/a3_fissure_wall/forge_a3_fissure_wall_lp_01.vsnd"
 		vsnd_duration = 10.633039
 	}
@@ -403,7 +435,8 @@
 	Forge.FissureWall.End = 
 	{
 		base = "Base.Ability.Detached"
-		volume = -9.000000
+		volume = -3.000000
+		volume_offset_opponent = 3.000000
 		vsnd_files = 
 		[
 			"sounds/abilities/forge/a3_fissure_wall/end_01.vsnd",
@@ -413,12 +446,13 @@
 		]
 		vsnd_duration = 1.668646
 	}
-	Forge.FissureWall.TakeDamage = 
+	Forge.FissureWall.Hit = 
 	{
-		base = "Base.Ability"
+		base = "Base.Ability.Hit"
+		volume = 3.000000
 		pitch_rand_min = -0.100000
 		pitch_rand_max = 0.100000
-		volume_fade_out = 0.100000
+		volume_offset_attacker_db = 3.000000
 		vsnd_files = 
 		[
 			"sounds/abilities/forge/a3_fissure_wall/dmg_01.vsnd",
@@ -426,6 +460,58 @@
 			"sounds/abilities/forge/a3_fissure_wall/dmg_03.vsnd",
 		]
 		vsnd_duration = 1.283563
+	}
+	Forge.FissureWall.ApplySlow = 
+	{
+		base = "Base.Ability.StatusEffect"
+		volume = -1.000000
+		block_team = true
+		block_opponent = true
+		pitch_rand_min = -0.100000
+		pitch_rand_max = 0.100000
+		vsnd_files = 
+		[
+			"sounds/abilities/forge/forge_wall_apply_slow_01.vsnd",
+			"sounds/abilities/forge/forge_wall_apply_slow_02.vsnd",
+			"sounds/abilities/forge/forge_wall_apply_slow_03.vsnd",
+		]
+		vsnd_duration = 2.316644
+	}
+	Forge.FissureWall.Destroy = 
+	{
+		base = "Base.Ability.Detached"
+		volume = 5.000000
+		spread_max_value_opponent = 0.700000
+		spread_max_value_team = 0.700000
+		spread_min = 200.000000
+		spread_max = 500.000000
+		block_duration = 0.100000
+		block_match_entity = 0.000000
+		vsnd_files = 
+		[
+			"sounds/abilities/forge/forge_wall_destroy_01.vsnd",
+			"sounds/abilities/forge/forge_wall_destroy_02.vsnd",
+			"sounds/abilities/forge/forge_wall_destroy_03.vsnd",
+		]
+		vsnd_duration = 1.880408
+	}
+	Forge.FissureWall.Damage = 
+	{
+		base = "Base.Ability.Detached"
+		volume = 3.000000
+		spread_max_value_opponent = 0.700000
+		spread_max_value_team = 0.700000
+		spread_min = 200.000000
+		spread_max = 500.000000
+		block_duration = 0.100000
+		block_match_entity = 0.000000
+		vsnd_files = 
+		[
+			"sounds/abilities/forge/forge_wall_damage_01.vsnd",
+			"sounds/abilities/forge/forge_wall_damage_02.vsnd",
+			"sounds/abilities/forge/forge_wall_damage_03.vsnd",
+		]
+		vsnd_duration = 1.070091
 	}
 	Forge.Rocket.Barrage.Fire = 
 	{
@@ -520,8 +606,8 @@
 	McGinnis.JumpLand = 
 	{
 		base = "Base.Footsteps.JumpLand"
-		vsnd_track1_vol_offset_db = -3.000000
-		vsnd_track2_vol_offset_db = -4.000000
+		track_1.vsnd_track_vol_offset_db = -3.000000
+		track_2.vsnd_track_vol_offset_db = -4.000000
 		vsnd_files = 
 		[
 			"sounds/player/footsteps/forge/forge_step_01.vsnd",
@@ -540,7 +626,7 @@
 			"sounds/player/footsteps/forge/forge_step_14.vsnd",
 			"sounds/player/footsteps/forge/forge_step_15.vsnd",
 		]
-		vsnd_files_track2 = 
+		track_2.track_vsnd_files = 
 		[
 			"sounds/player/movement/forge/jump_land_01.vsnd",
 			"sounds/player/movement/forge/jump_land_02.vsnd",
@@ -552,7 +638,7 @@
 			"sounds/player/movement/forge/jump_land_08.vsnd",
 			"sounds/player/movement/forge/jump_land_09.vsnd",
 		]
-		vsnd_duration = 1.084771
+		vsnd_duration = 0.726213
 	}
 	McGinnis.Mantle = 
 	{
@@ -562,7 +648,7 @@
 	McGinnis.Melee.Swing = 
 	{
 		base = "Base.Movement.Melee"
-		vsnd_track2_vol_offset_db = -5.000000
+		track_2.vsnd_track_vol_offset_db = -5.000000
 		vsnd_files = 
 		[
 			"sounds/player/melee/shared/swing_short_01.vsnd",
@@ -590,7 +676,7 @@
 			"sounds/player/melee/shared/swing_short_23.vsnd",
 			"sounds/player/melee/shared/swing_short_24.vsnd",
 		]
-		vsnd_files_track2 = 
+		track_2.track_vsnd_files = 
 		[
 			"sounds/player/movement/forge/forge_foley_short_01.vsnd",
 			"sounds/player/movement/forge/forge_foley_short_02.vsnd",
@@ -606,7 +692,7 @@
 	McGinnis.Melee.Swing.Charged = 
 	{
 		base = "Base.Movement.Melee"
-		vsnd_track2_vol_offset_db = -5.000000
+		track_2.vsnd_track_vol_offset_db = -5.000000
 		vsnd_files = 
 		[
 			"sounds/player/melee/shared/swing_long_01.vsnd",
@@ -635,7 +721,7 @@
 			"sounds/player/melee/shared/swing_long_24.vsnd",
 			"sounds/player/melee/shared/swing_long_25.vsnd",
 		]
-		vsnd_files_track2 = 
+		track_2.track_vsnd_files = 
 		[
 			"sounds/player/movement/forge/forge_foley_short_01.vsnd",
 			"sounds/player/movement/forge/forge_foley_short_02.vsnd",
@@ -682,8 +768,8 @@
 	McGinnis.Footstep = 
 	{
 		base = "Base.Footsteps"
-		vsnd_track1_vol_offset_db = -3.000000
-		vsnd_track2_vol_offset_db = -12.000000
+		track_1.vsnd_track_vol_offset_db = -3.000000
+		track_2.vsnd_track_vol_offset_db = -12.000000
 		pitch = 1.000000
 		volume_fade_in = 0.020000
 		vsnd_files = 
@@ -704,7 +790,7 @@
 			"sounds/player/footsteps/forge/forge_step_14.vsnd",
 			"sounds/player/footsteps/forge/forge_step_15.vsnd",
 		]
-		vsnd_files_track2 = 
+		track_2.track_vsnd_files = 
 		[
 			"sounds/player/movement/forge/base_01.vsnd",
 			"sounds/player/movement/forge/base_02.vsnd",
@@ -716,7 +802,7 @@
 			"sounds/player/movement/forge/base_08.vsnd",
 			"sounds/player/movement/forge/base_09.vsnd",
 		]
-		vsnd_duration = 1.005000
+		vsnd_duration = 0.726213
 	}
 	Forge.Progession.Page.Win.VO = 
 	{
