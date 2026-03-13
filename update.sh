@@ -17,7 +17,7 @@ while IFS= read -r -d '' file
 do
 	echo " > $file"
 
-	# When updating vpk_extensions, also update "vpk:..." in GameTracking/files.json
+	# When updating vpk_extensions, also update "vpk:..." in files.json
 	"$VRF_PATH" \
 		--input "$file" \
 		--output "$(echo "$file" | sed -e 's/\.vpk$/\//g')" \
@@ -38,7 +38,7 @@ done <   <(find . -type f -name "*.js" -print0)
 #ProcessToolAssetInfo
 FixUCS2
 
-CreateCommit "$(grep "ClientVersion=" game/citadel/steam.inf | grep -o '[0-9\.]*')" "${1:-}"
+CreateCommit "$(grep "ClientVersion=" game/citadel/steam.inf | grep -o '[0-9\.]*')" "$(grep -o '[0-9\.]*' steam_buildid.txt)"
 
 echo "Done"
 
