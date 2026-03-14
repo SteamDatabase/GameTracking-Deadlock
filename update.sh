@@ -6,7 +6,10 @@ cd "${0%/*}"
 
 echo "Processing Deadlock..."
 
-DUMPER_EXIT_CODE=0
+set +e
+../tools/dump_source2.sh DEADLOCK
+DUMPER_EXIT_CODE=$?
+set -e
 
 ProcessDepot ".dll"
 DeduplicateStringsFrom ".dll" "game/bin/win64/engine2_strings.txt" "game/bin/win64/tier0_strings.txt"
