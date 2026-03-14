@@ -1,0 +1,4 @@
+// MResourceTypeForInfoType = "vnmskel"
+class InfoForResourceTypeCNmSkeleton
+{
+};

@@ -1,0 +1,4 @@
+// MResourceTypeForInfoType = "vnmgraph"
+class InfoForResourceTypeCNmGraphDefinition
+{
+};

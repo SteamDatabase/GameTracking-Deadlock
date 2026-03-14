@@ -1,0 +1,4 @@
+// MResourceTypeForInfoType = "vents"
+class InfoForResourceTypeCEntityLump
+{
+};

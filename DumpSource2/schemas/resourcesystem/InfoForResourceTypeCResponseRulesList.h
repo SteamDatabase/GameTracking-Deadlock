@@ -1,0 +1,4 @@
+// MResourceTypeForInfoType = "vrr"
+class InfoForResourceTypeCResponseRulesList
+{
+};

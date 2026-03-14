@@ -1,0 +1,4 @@
+// MResourceTypeForInfoType = "vgcxdata"
+class InfoForResourceTypeCGcExportableExternalData
+{
+};

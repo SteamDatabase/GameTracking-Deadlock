@@ -1,0 +1,4 @@
+// MResourceTypeForInfoType = "vdvn"
+class InfoForResourceTypeCDOTANovelsList
+{
+};

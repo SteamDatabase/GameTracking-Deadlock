@@ -1,0 +1,4 @@
+// MResourceTypeForInfoType = "vagrp"
+class InfoForResourceTypeCAnimationGroup
+{
+};

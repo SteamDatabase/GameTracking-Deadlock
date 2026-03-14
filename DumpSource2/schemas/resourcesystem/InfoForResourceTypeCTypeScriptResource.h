@@ -1,0 +1,4 @@
+// MResourceTypeForInfoType = "vts"
+class InfoForResourceTypeCTypeScriptResource
+{
+};

@@ -1,0 +1,4 @@
+// MResourceTypeForInfoType = "vmesh"
+class InfoForResourceTypeCRenderMesh
+{
+};

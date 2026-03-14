@@ -1,0 +1,4 @@
+// MResourceTypeForInfoType = "vdpn"
+class InfoForResourceTypeCDOTAPatchNotesList
+{
+};

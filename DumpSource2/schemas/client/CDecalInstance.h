@@ -1,0 +1,32 @@
+class CDecalInstance
+{
+	CGlobalSymbol m_sDecalGroup;
+	CStrongHandle< InfoForResourceTypeIMaterial2 > m_hMaterial;
+	CUtlStringToken m_sSequenceName;
+	CHandle< C_BaseEntity > m_hEntity;
+	int32 m_nBoneIndex;
+	int32 m_nTriangleIndex;
+	Vector m_vPositionLS;
+	Vector m_vNormalLS;
+	Vector m_vSAxisLS;
+	DecalFlags_t m_nFlags;
+	Color m_Color;
+	float32 m_flWidth;
+	float32 m_flHeight;
+	float32 m_flDepth;
+	CTransformWS m_transform;
+	float32 m_flAnimationScale;
+	float32 m_flAnimationStartTime;
+	GameTime_t m_flPlaceTime;
+	float32 m_flFadeStartTime;
+	float32 m_flFadeDuration;
+	float32 m_flLightingOriginOffset;
+	float32 m_flBoundingRadiusSqr;
+	// MNotSaved
+	int16 m_nSequenceIndex;
+	// MNotSaved
+	bool m_bIsAdjacent;
+	bool m_bDoDecalLightmapping;
+	DecalRtEncoding_t m_nDecalRtEncoding;
+	bool m_bProjectToBackfaces;
+};

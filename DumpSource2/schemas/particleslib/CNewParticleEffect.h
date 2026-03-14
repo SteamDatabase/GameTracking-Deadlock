@@ -1,0 +1,36 @@
+class CNewParticleEffect : public IParticleEffect
+{
+	CNewParticleEffect* m_pNext;
+	CNewParticleEffect* m_pPrev;
+	IParticleCollection* m_pParticles;
+	char* m_pDebugName;
+	bitfield:1 m_bDontRemove;
+	bitfield:1 m_bRemove;
+	bitfield:1 m_bNeedsBBoxUpdate;
+	bitfield:1 m_bIsFirstFrame;
+	bitfield:1 m_bAutoUpdateBBox;
+	bitfield:1 m_bAllocated;
+	bitfield:1 m_bSimulate;
+	bitfield:1 m_bShouldPerformCullCheck;
+	bitfield:1 m_bForceNoDraw;
+	bitfield:1 m_bSuppressScreenSpaceEffect;
+	bitfield:1 m_bShouldSave;
+	bitfield:1 m_bShouldSimulateDuringGamePaused;
+	bitfield:1 m_bShouldCheckFoW;
+	bitfield:1 m_bIsAsyncCreate;
+	bitfield:1 m_bFreezeTransitionActive;
+	bitfield:1 m_bFreezeTargetState;
+	bitfield:1 m_bCanFreeze;
+	Vector m_vSortOrigin;
+	float32 m_flScale;
+	PARTICLE_EHANDLE__* m_hOwner;
+	CParticleProperty* m_pOwningParticleProperty;
+	float32 m_flFreezeTransitionStart;
+	float32 m_flFreezeTransitionDuration;
+	float32 m_flFreezeTransitionOverride;
+	Vector m_LastMin;
+	Vector m_LastMax;
+	CSplitScreenSlot m_nSplitScreenUser;
+	Vector m_vecAggregationCenter;
+	int32 m_RefCount;
+};

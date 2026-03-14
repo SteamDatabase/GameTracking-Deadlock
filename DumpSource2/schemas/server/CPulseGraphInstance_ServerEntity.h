@@ -1,0 +1,9 @@
+class CPulseGraphInstance_ServerEntity : public CBasePulseGraphInstance
+{
+	CHandle< CBaseEntity > m_hOwner;
+	bool m_bActivated;
+	CUtlSymbolLarge m_sNameFixupStaticPrefix;
+	CUtlSymbolLarge m_sNameFixupParent;
+	CUtlSymbolLarge m_sNameFixupLocal;
+	CUtlSymbolLarge m_sProceduralWorldNameForRelays;
+};

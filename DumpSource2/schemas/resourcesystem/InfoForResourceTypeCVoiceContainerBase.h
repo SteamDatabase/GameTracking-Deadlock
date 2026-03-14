@@ -1,0 +1,4 @@
+// MResourceTypeForInfoType = "vsnd"
+class InfoForResourceTypeCVoiceContainerBase
+{
+};

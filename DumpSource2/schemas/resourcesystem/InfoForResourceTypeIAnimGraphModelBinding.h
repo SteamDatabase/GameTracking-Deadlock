@@ -1,0 +1,4 @@
+// MResourceTypeForInfoType = "vanmgrph"
+class InfoForResourceTypeIAnimGraphModelBinding
+{
+};

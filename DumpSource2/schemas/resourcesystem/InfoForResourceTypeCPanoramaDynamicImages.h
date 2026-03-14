@@ -1,0 +1,4 @@
+// MResourceTypeForInfoType = "vpdi"
+class InfoForResourceTypeCPanoramaDynamicImages
+{
+};

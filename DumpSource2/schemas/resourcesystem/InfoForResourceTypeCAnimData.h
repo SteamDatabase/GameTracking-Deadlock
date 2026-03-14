@@ -1,0 +1,4 @@
+// MResourceTypeForInfoType = "vanim"
+class InfoForResourceTypeCAnimData
+{
+};

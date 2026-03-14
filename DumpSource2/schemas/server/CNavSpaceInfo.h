@@ -1,0 +1,3 @@
+class CNavSpaceInfo : public CPointEntity
+{
+};

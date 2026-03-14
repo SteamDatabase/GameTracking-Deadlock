@@ -1,0 +1,4 @@
+// MPropertyCustomFGDType = "string"
+class CFootstepTableHandle
+{
+};

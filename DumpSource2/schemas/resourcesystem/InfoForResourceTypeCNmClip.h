@@ -1,0 +1,4 @@
+// MResourceTypeForInfoType = "vnmclip"
+class InfoForResourceTypeCNmClip
+{
+};

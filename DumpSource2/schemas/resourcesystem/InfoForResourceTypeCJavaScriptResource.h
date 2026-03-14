@@ -1,0 +1,4 @@
+// MResourceTypeForInfoType = "vjs"
+class InfoForResourceTypeCJavaScriptResource
+{
+};

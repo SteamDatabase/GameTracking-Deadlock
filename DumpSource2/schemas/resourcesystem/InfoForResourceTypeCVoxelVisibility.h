@@ -1,0 +1,4 @@
+// MResourceTypeForInfoType = "vvis"
+class InfoForResourceTypeCVoxelVisibility
+{
+};

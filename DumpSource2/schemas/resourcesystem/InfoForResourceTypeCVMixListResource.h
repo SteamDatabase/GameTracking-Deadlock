@@ -1,0 +1,4 @@
+// MResourceTypeForInfoType = "vmix"
+class InfoForResourceTypeCVMixListResource
+{
+};
