@@ -14,7 +14,7 @@
 //		"m_flRandomMin": 0.000000,
 //		"m_flRandomMax": 1.000000,
 //		"m_bHasRandomSignFlip": false,
-//		"m_nRandomSeed": -1,
+//		"m_nRandomSeed": <HIDDEN FOR DIFF>,
 //		"m_nRandomMode": "PF_RANDOM_MODE_CONSTANT",
 //		"m_strSnapshotSubset": "",
 //		"m_flLOD0": 0.000000,
@@ -113,7 +113,7 @@
 //		"m_flRandomMin": 0.000000,
 //		"m_flRandomMax": 1.000000,
 //		"m_bHasRandomSignFlip": false,
-//		"m_nRandomSeed": -1,
+//		"m_nRandomSeed": <HIDDEN FOR DIFF>,
 //		"m_nRandomMode": "PF_RANDOM_MODE_CONSTANT",
 //		"m_strSnapshotSubset": "",
 //		"m_flLOD0": 0.000000,
@@ -188,7 +188,7 @@
 //		"m_flRandomMin": 0.000000,
 //		"m_flRandomMax": 1.000000,
 //		"m_bHasRandomSignFlip": false,
-//		"m_nRandomSeed": -1,
+//		"m_nRandomSeed": <HIDDEN FOR DIFF>,
 //		"m_nRandomMode": "PF_RANDOM_MODE_CONSTANT",
 //		"m_strSnapshotSubset": "",
 //		"m_flLOD0": 0.000000,
@@ -249,7 +249,7 @@
 //			]
 //		}
 //	},
-//	"m_nRandomSeed": 0,
+//	"m_nRandomSeed": <HIDDEN FOR DIFF>,
 //	"m_bLocalSpaceAngles": false
 //}
 class C_INIT_InitFromCPSnapshot : public CParticleFunctionInitializer
