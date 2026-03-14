@@ -1,30 +1,4 @@
-// MGetKV3ClassDefaults = {
-//	"m_flMinSpringFrequency": 0.000000,
-//	"m_flMaxSpringFrequency": 0.000000,
-//	"m_flMaxStretch": 0.000000,
-//	"m_bSolidCollisionAtZeroWeight": false,
-//	"m_bRequiresDynamicBodies": false,
-//	"m_bIgnoreTeleport": false,
-//	"m_vLinearVelocityAccumulator":
-//	[
-//		0.000000,
-//		0.000000,
-//		-116805871832629229696057344.000000
-//	],
-//	"m_vAngularVelocityAccumulator":
-//	[
-//		0.000000,
-//		0.000000,
-//		0.000000
-//	],
-//	"m_vForceAccumulator":
-//	[
-//		0.000000,
-//		0.000000,
-//		0.000000
-//	],
-//	"m_nBodyCount": 0
-//}
+// MGetKV3ClassDefaults = Could not parse KV3 Defaults
 class vphysics_save_ragdoll_control_t
 {
 	float32 m_flMinSpringFrequency;
