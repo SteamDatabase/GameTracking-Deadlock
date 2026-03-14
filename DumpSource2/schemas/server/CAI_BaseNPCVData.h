@@ -94,7 +94,7 @@ class CAI_BaseNPCVData : public CEntitySubclassVDataBase
 	// MPropertyFriendlyName = "Enabled Shared Actions"
 	// MPropertyDescription = "List of the shared BaseNPC actions this NPC supports"
 	// MPropertyAttributeEditor = "AnimGraphParamEnumValue()"
-	// MPropertyEditContextOverrideValue (UNKNOWN FOR PARSER)
+	// MPropertyEditContextOverrideValue = "ToolEditContext_ID_AnimGraphEnumName"
 	CUtlVector< CGlobalSymbol > m_vecActionDesiredShared;
 	// MPropertyStartGroup = "Sounds"
 	// MPropertyDescription = "Player Killed NPC Sound"

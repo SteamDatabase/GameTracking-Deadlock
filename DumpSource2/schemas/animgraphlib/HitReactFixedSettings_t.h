@@ -9,7 +9,7 @@
 //	"m_flPropagationScale": 0.000000,
 //	"m_flWhipDelay": 0.000000,
 //	"m_flSpringStrength": 0.000000,
-//	"m_flWhipSpringStrength": 114045536069430034825216.000000,
+//	"m_flWhipSpringStrength": -39461562092532052805383303467106304.000000,
 //	"m_flMaxAngleRadians": 0.000000,
 //	"m_nHipBoneIndex": 0,
 //	"m_flHipBoneTranslationScale": 0.000000,

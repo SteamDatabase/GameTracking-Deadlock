@@ -11,6 +11,6 @@ class CNavLinkMotor_DefaultNavLink : public INavLinkMotor
 	CRelativeTransform m_target;
 	CTransformWS m_tSourcePrevious;
 	CTransformWS m_tTargetPrevious;
-	// MSaveOpsForField (UNKNOWN FOR PARSER)
+	// MSaveOpsForField = "GetAnimGraphControllerPtrSaveRestoreOps"
 	CNavLinkMotor_DefaultNavLink_GraphController* m_pGraphController;
 };

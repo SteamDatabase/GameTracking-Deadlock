@@ -23,7 +23,7 @@
 //}
 // MPropertyFriendlyName = "Listen for AnimGraph Tag"
 // MPropertyDescription = "Creates new cursors for when an animgraph tag is handled. Will listen until canceled."
-// MPulseEditorSubHeaderText (UNKNOWN FOR PARSER)
+// MPulseEditorSubHeaderText = "{ 'TagName'='m_TagName' }"
 class CPulseCell_Outflow_ListenForAnimgraphTag : public CPulseCell_BaseYieldingInflow
 {
 	CPulse_ResumePoint m_OnStart;

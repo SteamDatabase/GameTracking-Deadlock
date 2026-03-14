@@ -52,7 +52,7 @@ class CBaseEntity : public CEntityInstance
 	// MNetworkPriority = 48
 	CBodyComponent* m_CBodyComponent;
 	CNetworkTransmitComponent m_NetworkTransmitComponent;
-	// MSaveOpsForField (UNKNOWN FOR PARSER)
+	// MSaveOpsForField = "GetThinkContextSaveDataOps"
 	CUtlVector< thinkfunc_t > m_aThinkFunctions;
 	// MNotSaved
 	int32 m_iCurrentThinkContext;
@@ -97,7 +97,7 @@ class CBaseEntity : public CEntityInstance
 	CUtlSymbolLarge m_iszDamageFilterName;
 	float32 m_flMoveDoneTime;
 	// MNetworkEnable
-	// MNetworkSendProxyRecipientsFilter (UNKNOWN FOR PARSER)
+	// MNetworkSendProxyRecipientsFilter = "SubclassID_RecipientsFilter"
 	CUtlStringToken m_nSubclassID;
 	// MNetworkEnable
 	// MNetworkPriority = 0
@@ -108,7 +108,7 @@ class CBaseEntity : public CEntityInstance
 	// MNetworkEnable
 	// MNetworkPriority = 1
 	// MNetworkSerializer = "simulationTimeSerializer"
-	// MNetworkSendProxyRecipientsFilter (UNKNOWN FOR PARSER)
+	// MNetworkSendProxyRecipientsFilter = "SendProxyNoPlayerEntities_RecipientsFilter"
 	// MKV3TransferSaveOpsForField = "GetEngineTimeSaveRestoreOps"
 	float32 m_flSimulationTime;
 	// MNetworkEnable
@@ -210,6 +210,6 @@ class CBaseEntity : public CEntityInstance
 	CHandle< CBaseEntity > m_pBlocker;
 	float32 m_flLocalTime;
 	float32 m_flVPhysicsUpdateLocalTime;
-	// MSaveOpsForField (UNKNOWN FOR PARSER)
+	// MSaveOpsForField = "GetPulseInstanceSaveRestoreOps"
 	CPulseGraphInstance_ServerEntity* m_pPulseGraphInstance;
 };

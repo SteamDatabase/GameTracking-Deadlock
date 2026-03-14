@@ -1,10 +1,10 @@
 class CAI_Path
 {
-	// MSaveOpsForField (UNKNOWN FOR PARSER)
+	// MSaveOpsForField = "GetWaypointListSaveRestoreOps"
 	CAI_WaypointList m_Waypoints;
 	VectorWS m_vPrevWaypoint;
 	VectorWS m_vPrevWaypointBase;
-	// MSaveOpsForField (UNKNOWN FOR PARSER)
+	// MSaveOpsForField = "GetWaypointListSaveRestoreOps"
 	CAI_WaypointList m_WaypointsLocal;
 	uint32 m_nLocalPathHash;
 	CHandle< CBaseEntity > m_hTarget;

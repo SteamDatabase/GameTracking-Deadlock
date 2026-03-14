@@ -19,7 +19,7 @@
 //}
 // MPropertyFriendlyName = "Wait for Entity Output"
 // MPropertyDescription = "Waits for the entity to fire a specific output. By default, this listens once, but can be configured to listen until canceled."
-// MPulseEditorSubHeaderText (UNKNOWN FOR PARSER)
+// MPulseEditorSubHeaderText = "{ 'Output'='m_strEntityOutput' 'Param'='m_strEntityOutputParam' 'Until Canceled'='m_bListenUntilCanceled' }"
 // MPulseEditorHeaderIcon = "tools/images/pulse_editor/inflow_wait.png"
 class CPulseCell_Outflow_ListenForEntityOutput : public CPulseCell_BaseYieldingInflow
 {

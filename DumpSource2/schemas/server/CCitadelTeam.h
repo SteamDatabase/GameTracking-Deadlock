@@ -28,7 +28,7 @@ class CCitadelTeam : public CTeam
 	// MNetworkEnable
 	int32 m_nBaseGuardianLanesCleared;
 	// MNetworkEnable
-	// MNetworkSendProxyRecipientsFilter (UNKNOWN FOR PARSER)
+	// MNetworkSendProxyRecipientsFilter = "SendProxyTeamFOWEntity_RecipientsFilter"
 	// MNetworkPriority = 32
 	CUtlVectorEmbeddedNetworkVar< STeamFOWEntity > m_vecFOWEntities;
 	// MNetworkEnable

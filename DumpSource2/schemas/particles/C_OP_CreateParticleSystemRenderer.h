@@ -509,7 +509,7 @@ class C_OP_CreateParticleSystemRenderer : public CParticleFunctionRenderer
 	CUtlLeanVector< CPAssignment_t > m_vecCPs;
 	// MPropertyDescription = "Effect Config"
 	// MPropertyAttributeEditor = "ParticleConfigName()"
-	// MPropertyEditContextOverrideKey (UNKNOWN FOR PARSER)
+	// MPropertyEditContextOverrideKey = "ToolEditContext_ID_VPCF"
 	// MPropertyFriendlyName = "Particle Config"
 	CUtlString m_szParticleConfig;
 	// MPropertyFriendlyName = "Aggregation Position"

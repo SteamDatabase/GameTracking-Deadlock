@@ -1,8 +1,8 @@
 class globalentity_t
 {
-	// MSaveOpsForField (UNKNOWN FOR PARSER)
+	// MSaveOpsForField = "GetGlobalSymbolDataOps"
 	CUtlSymbol name;
-	// MSaveOpsForField (UNKNOWN FOR PARSER)
+	// MSaveOpsForField = "GetGlobalSymbolDataOps"
 	CUtlSymbol levelName;
 	GLOBALESTATE state;
 	int32 counter;

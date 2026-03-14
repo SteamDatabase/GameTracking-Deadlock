@@ -23,7 +23,7 @@ class CBaseAnimGraphController : public CSkeletonAnimationController
 	AnimationAlgorithm_t m_nAnimationAlgorithm;
 	// MNetworkEnable
 	CAnimGraphNetworkedVariables m_animGraphNetworkedVars;
-	// MSaveOpsForField (UNKNOWN FOR PARSER)
+	// MSaveOpsForField = "GetAnimGraphSaveRestoreOps"
 	CSmartPtr< IAnimationGraphInstance > m_pAnimGraphInstance;
 	ExternalAnimGraphHandle_t m_nNextExternalGraphHandle;
 	CUtlVector< CGlobalSymbol > m_vecSecondarySkeletonNames;
@@ -94,6 +94,6 @@ class CBaseAnimGraphController : public CSkeletonAnimationController
 	// MNetworkChangeCallback = "AG2_OnAnimGraphSerializationContextInvalidated"
 	CNetworkUtlVectorBase< ResourceId_t > m_vecExternalClipIds;
 	CGlobalSymbol m_sAnimGraph2Identifier;
-	// MSaveOpsForField (UNKNOWN FOR PARSER)
+	// MSaveOpsForField = "GetExternalAnimGraphSaveRestoreOps"
 	CUtlVector< ExternalAnimGraph_t > m_vecExternalGraphs;
 };

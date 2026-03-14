@@ -29,8 +29,8 @@ class CAI_MotorGroundAnimGraph
 	RotationVector m_vDesiredMovementHeadingChangeVelocity;
 	CFloatExponentialMovingAverage m_smoothedDesiredMoveHeading;
 	CMotionTransform m_proceduralRootMotion;
-	// MSaveOpsForField (UNKNOWN FOR PARSER)
+	// MSaveOpsForField = "GetAnimGraphControllerPtrSaveRestoreOps"
 	CAI_GroundLocomotion_GraphController* m_pGraphController;
-	// MSaveOpsForField (UNKNOWN FOR PARSER)
+	// MSaveOpsForField = "GetAnimGraphControllerPtrSaveRestoreOps"
 	CAI_GroundLocomotion_AG1_GraphController* m_pAG1GraphController;
 };

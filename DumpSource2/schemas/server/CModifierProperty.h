@@ -8,7 +8,7 @@ class CModifierProperty
 	// MNotSaved
 	CNetworkVarChainer __m_pChainEntity;
 	CHandle< CBaseEntity > m_hOwner;
-	// MSaveOpsForField (UNKNOWN FOR PARSER)
+	// MSaveOpsForField = "ModifierSaveRestoreOps"
 	CUtlVector< CBaseModifier* > m_vecModifiers;
 	// MNotSaved
 	bool m_bModifierStatesDirty;
@@ -24,7 +24,7 @@ class CModifierProperty
 	uint32 m_nBroadcastEventListenerMask;
 	// MNotSaved
 	ParticleIndex_t m_nCachedHighestParticleIndex;
-	// MSaveOpsForField (UNKNOWN FOR PARSER)
+	// MSaveOpsForField = "GetModifierOwnerEventsSaveRestoreOps"
 	CUtlVector< OwnerModifierEventListener_t >* m_pNotifyOwnerEvents;
 	// MNetworkEnable
 	uint32 m_nDisabledGroups;
