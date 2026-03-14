@@ -1,0 +1,3 @@
+class CCitadelTriggerHurt : public CTriggerHurt
+{
+};

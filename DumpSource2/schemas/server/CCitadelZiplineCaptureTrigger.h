@@ -1,0 +1,3 @@
+class CCitadelZiplineCaptureTrigger : public CBaseTrigger
+{
+};

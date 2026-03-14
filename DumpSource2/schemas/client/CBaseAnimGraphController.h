@@ -94,6 +94,7 @@ class CBaseAnimGraphController : public CSkeletonAnimationController
 	// MNetworkChangeCallback = "AG2_OnAnimGraphSerializationContextInvalidated"
 	C_NetworkUtlVectorBase< ResourceId_t > m_vecExternalClipIds;
 	CGlobalSymbol m_sAnimGraph2Identifier;
+	// MSaveOpsForField (UNKNOWN FOR PARSER)
 	CUtlVector< ExternalAnimGraph_t > m_vecExternalGraphs;
 	AnimationAlgorithm_t m_nPrevAnimationAlgorithm;
 };

@@ -33,6 +33,8 @@ class CBaseAnimGraph : public C_BaseModelEntity
 	CBaseAnimGraph* m_pClientsideRagdoll;
 	// MNotSaved
 	bool m_bBuiltRagdoll;
+	// MPhysPtr
+	IPhysicsRagdollControl* m_pRagdollControl;
 	// MNetworkEnable
 	PhysicsRagdollPose_t m_RagdollPose;
 	// MNetworkEnable
@@ -44,4 +46,5 @@ class CBaseAnimGraph : public C_BaseModelEntity
 	bool m_bRagdollClientSide;
 	// MNotSaved
 	bool m_bHasAnimatedMaterialAttributes;
+	CUtlHashtable< AnimTagID, CBaseAnimGraph::ModifierHandleVector_t > m_bodyGroupModifiers;
 };

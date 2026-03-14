@@ -13,6 +13,8 @@
 // MNetworkVarNames = "bool m_bConvertToDebrisWhenPossible"
 class CTriggerPhysics : public CBaseTrigger
 {
+	// MPhysPtr
+	IPhysicsMotionController* m_pController;
 	// MNetworkEnable
 	float32 m_gravityScale;
 	// MNetworkEnable

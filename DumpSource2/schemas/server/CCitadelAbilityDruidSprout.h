@@ -1,0 +1,3 @@
+class CCitadelAbilityDruidSprout : public CCitadelBaseAbility
+{
+};

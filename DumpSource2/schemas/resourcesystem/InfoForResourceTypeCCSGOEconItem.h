@@ -1,0 +1,4 @@
+// MResourceTypeForInfoType = "econitem"
+class InfoForResourceTypeCCSGOEconItem
+{
+};

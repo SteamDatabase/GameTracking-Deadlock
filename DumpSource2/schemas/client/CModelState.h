@@ -1,4 +1,6 @@
 // MNetworkVarNames = "HModelStrong m_hModel"
+// MNetworkVarNames = "Vector m_vRootBoneOffset"
+// MNetworkVarNames = "uint8 m_nRootBoneOffsetResetSerialNumber"
 // MNetworkVarNames = "bool m_bClientClothCreationSuppressed"
 // MNetworkVarNames = "MeshGroupMask_t m_MeshGroupMask"
 // MNetworkVarNames = "int32 m_nBodyGroupChoices"
@@ -9,6 +11,14 @@ class CModelState
 	// MNetworkChangeCallback = "skeletonModelChanged"
 	CStrongHandle< InfoForResourceTypeCModel > m_hModel;
 	CUtlSymbolLarge m_ModelName;
+	// MPhysPtr
+	IPhysAggregateInstance* m_pVPhysicsAggregate;
+	// MNetworkEnable
+	// MNetworkChangeCallback = "OnRootBoneOffsetChanged"
+	Vector m_vRootBoneOffset;
+	// MNetworkEnable
+	// MNetworkChangeCallback = "OnRootBoneOffsetResetChanged"
+	uint8 m_nRootBoneOffsetResetSerialNumber;
 	// MNetworkEnable
 	bool m_bClientClothCreationSuppressed;
 	// MNetworkEnable

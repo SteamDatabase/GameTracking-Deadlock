@@ -2,9 +2,9 @@
 class SoundeventPathCornerPairNetworked_t
 {
 	// MNetworkEnable
-	Vector vP1;
+	VectorWS vP1;
 	// MNetworkEnable
-	Vector vP2;
+	VectorWS vP2;
 	// MNetworkEnable
 	float32 flPathLengthSqr;
 	// MNetworkEnable

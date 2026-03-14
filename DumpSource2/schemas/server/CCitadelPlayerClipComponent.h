@@ -1,0 +1,3 @@
+class CCitadelPlayerClipComponent : public CEntityComponent
+{
+};

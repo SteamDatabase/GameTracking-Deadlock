@@ -12,14 +12,14 @@ class CBaseClientUIEntity : public CBaseModelEntity
 	CUtlSymbolLarge m_PanelClassName;
 	// MNetworkEnable
 	CUtlSymbolLarge m_PanelID;
-	CEntityOutputTemplate< CUtlString, char* > m_CustomOutput0;
-	CEntityOutputTemplate< CUtlString, char* > m_CustomOutput1;
-	CEntityOutputTemplate< CUtlString, char* > m_CustomOutput2;
-	CEntityOutputTemplate< CUtlString, char* > m_CustomOutput3;
-	CEntityOutputTemplate< CUtlString, char* > m_CustomOutput4;
-	CEntityOutputTemplate< CUtlString, char* > m_CustomOutput5;
-	CEntityOutputTemplate< CUtlString, char* > m_CustomOutput6;
-	CEntityOutputTemplate< CUtlString, char* > m_CustomOutput7;
-	CEntityOutputTemplate< CUtlString, char* > m_CustomOutput8;
-	CEntityOutputTemplate< CUtlString, char* > m_CustomOutput9;
+	CEntityOutputTemplate< CUtlString > m_CustomOutput0;
+	CEntityOutputTemplate< CUtlString > m_CustomOutput1;
+	CEntityOutputTemplate< CUtlString > m_CustomOutput2;
+	CEntityOutputTemplate< CUtlString > m_CustomOutput3;
+	CEntityOutputTemplate< CUtlString > m_CustomOutput4;
+	CEntityOutputTemplate< CUtlString > m_CustomOutput5;
+	CEntityOutputTemplate< CUtlString > m_CustomOutput6;
+	CEntityOutputTemplate< CUtlString > m_CustomOutput7;
+	CEntityOutputTemplate< CUtlString > m_CustomOutput8;
+	CEntityOutputTemplate< CUtlString > m_CustomOutput9;
 };

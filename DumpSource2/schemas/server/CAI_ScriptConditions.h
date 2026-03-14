@@ -1,0 +1,35 @@
+class CAI_ScriptConditions : public CBaseEntity
+{
+	CEntityIOOutput m_OnConditionsSatisfied;
+	CEntityIOOutput m_OnConditionsTimeout;
+	CEntityIOOutput m_NoValidActors;
+	bool m_fDisabled;
+	bool m_bLeaveAsleep;
+	CHandle< CBaseEntity > m_hTarget;
+	float32 m_flRequiredDuration;
+	NPC_STATE m_fMinState;
+	NPC_STATE m_fMaxState;
+	ThreeState_t m_fScriptStatus;
+	ThreeState_t m_fActorSeePlayer;
+	CUtlSymbolLarge m_Actor;
+	float32 m_flPlayerActorProximity;
+	CAI_ProxTester m_PlayerActorProxTester;
+	float32 m_flPlayerActorFOV;
+	bool m_bPlayerActorFOVTrueCone;
+	ThreeState_t m_fPlayerActorLOS;
+	ThreeState_t m_fActorSeeTarget;
+	float32 m_flActorTargetProximity;
+	CAI_ProxTester m_ActorTargetProxTester;
+	float32 m_flPlayerTargetProximity;
+	CAI_ProxTester m_PlayerTargetProxTester;
+	float32 m_flPlayerTargetFOV;
+	bool m_bPlayerTargetFOVTrueCone;
+	ThreeState_t m_fPlayerTargetLOS;
+	ThreeState_t m_fPlayerBlockingActor;
+	ThreeState_t m_fActorInPVS;
+	float32 m_flMinTimeout;
+	float32 m_flMaxTimeout;
+	ThreeState_t m_fActorInVehicle;
+	ThreeState_t m_fPlayerInVehicle;
+	CUtlVector< CAI_ScriptConditionsElement > m_ElementList;
+};

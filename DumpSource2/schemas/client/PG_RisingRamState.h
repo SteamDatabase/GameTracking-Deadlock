@@ -1,0 +1,8 @@
+enum PG_RisingRamState : uint8_t
+{
+	RRSTATE_INACTIVE = 0,
+	RRSTATE_CHARGING = 1,
+	RRSTATE_GOINGUP = 2,
+	RRSTATE_HOVERING = 3,
+	RRSTATE_COUNT = 4,
+};

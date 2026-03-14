@@ -43,7 +43,6 @@
 // MNetworkVarNames = "float m_flFogStrength"
 // MNetworkVarNames = "int m_nFogShadows"
 // MNetworkVarNames = "float m_flFogScale"
-// MNetworkVarNames = "bool m_bFogMixedShadows"
 // MNetworkVarNames = "float m_flFadeSizeStart"
 // MNetworkVarNames = "float m_flFadeSizeEnd"
 // MNetworkVarNames = "float m_flShadowFadeSizeStart"
@@ -208,9 +207,6 @@ class CBarnLight : public CBaseModelEntity
 	// MNetworkEnable
 	// MNetworkChangeCallback = "RenderingChanged"
 	float32 m_flFogScale;
-	// MNetworkEnable
-	// MNetworkChangeCallback = "RenderingChanged"
-	bool m_bFogMixedShadows;
 	// MNetworkEnable
 	// MNetworkChangeCallback = "RenderingChanged"
 	float32 m_flFadeSizeStart;

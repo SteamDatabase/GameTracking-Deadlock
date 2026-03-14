@@ -1,0 +1,3 @@
+class CTrooperApproachHorizon : public CServerOnlyEntity
+{
+};

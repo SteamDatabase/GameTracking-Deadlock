@@ -1,0 +1,6 @@
+enum ModifiersDisplayLocation_t : uint32_t
+{
+	MODIFIER_DISPLAY_LOCAITON_ALL = 0,
+	MODIFIER_DISPLAY_HEALTHBAR = 1,
+	MODIFIER_DISPLAY_BOTTOM_LEFT = 2,
+};

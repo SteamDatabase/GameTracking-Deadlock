@@ -1,0 +1,3 @@
+class CInWorldKeyBindPanel : public CPointClientUIWorldPanel
+{
+};

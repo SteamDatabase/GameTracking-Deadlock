@@ -1,0 +1,3 @@
+class CCitadelTriggerHideout : public CBaseTrigger
+{
+};

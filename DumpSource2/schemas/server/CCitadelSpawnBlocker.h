@@ -1,0 +1,3 @@
+class CCitadelSpawnBlocker : public CFuncBrush
+{
+};

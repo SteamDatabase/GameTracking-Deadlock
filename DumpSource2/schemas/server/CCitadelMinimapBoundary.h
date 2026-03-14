@@ -1,0 +1,3 @@
+class CCitadelMinimapBoundary : public CBaseEntity
+{
+};

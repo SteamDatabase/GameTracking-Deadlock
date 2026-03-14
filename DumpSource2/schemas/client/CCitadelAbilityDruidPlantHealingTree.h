@@ -1,0 +1,3 @@
+class CCitadelAbilityDruidPlantHealingTree : public CCitadelAbilityDruidBasePlant
+{
+};

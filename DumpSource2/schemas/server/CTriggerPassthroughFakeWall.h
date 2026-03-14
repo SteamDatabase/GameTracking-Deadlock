@@ -1,0 +1,3 @@
+class CTriggerPassthroughFakeWall : public CBaseTrigger
+{
+};

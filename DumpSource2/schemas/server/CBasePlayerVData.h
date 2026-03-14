@@ -1,6 +1,9 @@
 // MGetKV3ClassDefaults = {
 //	"_class": "CBasePlayerVData",
 //	"m_sModelName": "",
+//	"m_vecIntrinsicModifiers":
+//	[
+//	],
 //	"m_flHeadDamageMultiplier": 3.000000,
 //	"m_flChestDamageMultiplier": 1.000000,
 //	"m_flStomachDamageMultiplier": 1.000000,
@@ -19,6 +22,7 @@ class CBasePlayerVData : public CEntitySubclassVDataBase
 {
 	// MPropertyProvidesEditContextString = "ToolEditContext_ID_VMDL"
 	CResourceNameTyped< CWeakHandle< InfoForResourceTypeCModel > > m_sModelName;
+	CUtlVector< CEmbeddedSubclass< CCitadelModifier > > m_vecIntrinsicModifiers;
 	CSkillFloat m_flHeadDamageMultiplier;
 	CSkillFloat m_flChestDamageMultiplier;
 	CSkillFloat m_flStomachDamageMultiplier;

@@ -76,6 +76,7 @@
 //		}
 //	},
 //	"m_nOpEndCapState": "PARTICLE_ENDCAP_ALWAYS_ON",
+//	"m_nToolsState": "PARTICLE_TOOLS_STATE_ALWAYS_ON",
 //	"m_flOpStartFadeInTime": 0.000000,
 //	"m_flOpEndFadeInTime": 0.000000,
 //	"m_flOpStartFadeOutTime": 0.000000,
@@ -2358,7 +2359,7 @@ class C_OP_RenderModels : public CParticleFunctionRenderer
 	// MPropertyFriendlyName = "allow approximate transforms (cpu optimizaiton)"
 	bool m_bAllowApproximateTransforms;
 	// MPropertyFriendlyName = "render attribute"
-	char[4096] m_szRenderAttribute;
+	char[260] m_szRenderAttribute;
 	// MPropertyStartGroup = "+Renderer Modifiers"
 	// MPropertyFriendlyName = "Radius Scale"
 	// MPropertySortPriority = 700

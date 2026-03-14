@@ -7,7 +7,7 @@
 //	"m_optionWeights":
 //	[
 //	],
-//	"m_parameterNodeIdx": 0,
+//	"m_parameterNodeIdx": -1,
 //	"m_bIgnoreInvalidOptions": false,
 //	"m_bHasWeightsSet": false
 //}

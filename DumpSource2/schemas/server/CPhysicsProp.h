@@ -39,6 +39,7 @@ class CPhysicsProp : public CBreakableProp
 	Color m_glowColor;
 	bool m_bShouldAutoConvertBackFromDebris;
 	bool m_bMuteImpactEffects;
+	INavObstacle::NavObstacleType_t m_nNavObstacleType;
 	bool m_bUpdateNavWhenMoving;
 	bool m_bForceNavObstacleCut;
 	bool m_bAllowObstacleConvexHullMerging;

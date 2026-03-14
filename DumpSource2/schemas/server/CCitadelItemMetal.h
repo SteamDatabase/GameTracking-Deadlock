@@ -1,0 +1,3 @@
+class CCitadelItemMetal : public CItemGeneric
+{
+};

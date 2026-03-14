@@ -1,0 +1,3 @@
+class CScaleFunctionAbilityPropertyBase : public CScaleFunctionBase
+{
+};

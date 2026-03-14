@@ -13,6 +13,7 @@ class CSceneEventInfo
 	bool m_bIsGesture;
 	bool m_bShouldRemove;
 	CHandle< C_BaseEntity > m_hTarget;
+	CModifierHandleTyped< CCitadelModifier > m_hModifier;
 	SceneEventId_t m_nSceneEventId;
 	bool m_bClientSide;
 	bool m_bStarted;

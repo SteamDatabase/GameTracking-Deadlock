@@ -6,7 +6,6 @@
 // MNetworkVarNames = "bool m_bFlashing"
 // MNetworkVarNames = "float m_flGlowTime"
 // MNetworkVarNames = "float m_flGlowStartTime"
-// MNetworkVarNames = "bool m_bEligibleForScreenHighlight"
 class CGlowProperty
 {
 	// MNotSaved
@@ -36,8 +35,6 @@ class CGlowProperty
 	// MNetworkEnable
 	// MNotSaved
 	float32 m_flGlowStartTime;
-	// MNetworkEnable
-	bool m_bEligibleForScreenHighlight;
 	// MNotSaved
 	bool m_bGlowing;
 };

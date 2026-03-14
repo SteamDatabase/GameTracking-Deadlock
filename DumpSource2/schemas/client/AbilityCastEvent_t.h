@@ -1,0 +1,7 @@
+enum AbilityCastEvent_t : uint32_t
+{
+	CAST_DELAY_STARTED = 0,
+	CAST_COMPLETED = 1,
+	CAST_TOGGLED_ON = 2,
+	CAST_CHANNEL_STARTED = 3,
+};

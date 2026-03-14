@@ -1,0 +1,3 @@
+class CCitadelModifierProjectilePitchingLoopSoundThinker : public CCitadelModifier
+{
+};

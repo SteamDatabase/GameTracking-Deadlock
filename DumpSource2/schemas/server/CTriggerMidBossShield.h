@@ -1,0 +1,3 @@
+class CTriggerMidBossShield : public CTriggerNeutralShield
+{
+};

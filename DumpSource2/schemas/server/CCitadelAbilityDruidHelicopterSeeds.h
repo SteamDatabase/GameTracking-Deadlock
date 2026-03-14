@@ -1,0 +1,3 @@
+class CCitadelAbilityDruidHelicopterSeeds : public CCitadelBaseAbility
+{
+};

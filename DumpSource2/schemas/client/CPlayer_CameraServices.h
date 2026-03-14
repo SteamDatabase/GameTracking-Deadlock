@@ -1,6 +1,4 @@
-// MNetworkVarNames = "QAngle m_vecCsViewPunchAngle"
-// MNetworkVarNames = "GameTick_t m_nCsViewPunchAngleTick"
-// MNetworkVarNames = "float32 m_flCsViewPunchAngleTickRatio"
+// MNetworkVarNames = "GameTick_t m_nPunchAngleJoltTick"
 // MNetworkVarNames = "fogplayerparams_t m_PlayerFog"
 // MNetworkVarNames = "CHandle< CColorCorrection> m_hColorCorrectionCtrl"
 // MNetworkVarNames = "CHandle< CBaseEntity> m_hViewEntity"
@@ -10,12 +8,17 @@
 class CPlayer_CameraServices : public CPlayerPawnComponent
 {
 	// MNetworkEnable
+	// MNetworkPriority = 32
 	// MNetworkEncoder = "qangle_precise"
-	QAngle m_vecCsViewPunchAngle;
+	// MNetworkChangeCallback = "OnPunchChanged"
+	QAngle m_vecPunchAngle;
 	// MNetworkEnable
-	GameTick_t m_nCsViewPunchAngleTick;
+	// MNetworkEncoder = "qangle_precise"
+	QAngle m_vecPunchAngleVel;
+	GameTick_t m_nPunchAngleJoltTickClientSide;
 	// MNetworkEnable
-	float32 m_flCsViewPunchAngleTickRatio;
+	// MNetworkChangeCallback = "OnPunchJoltChanged"
+	GameTick_t m_nPunchAngleJoltTick;
 	// MNetworkEnable
 	C_fogplayerparams_t m_PlayerFog;
 	// MNetworkEnable

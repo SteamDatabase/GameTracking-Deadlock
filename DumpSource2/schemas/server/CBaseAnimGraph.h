@@ -30,6 +30,8 @@ class CBaseAnimGraph : public CBaseModelEntity
 	// MNetworkEnable
 	// MNotSaved
 	int32 m_nForceBone;
+	// MPhysPtr
+	IPhysicsRagdollControl* m_pRagdollControl;
 	// MNetworkEnable
 	PhysicsRagdollPose_t m_RagdollPose;
 	// MNetworkEnable
@@ -40,4 +42,5 @@ class CBaseAnimGraph : public CBaseModelEntity
 	// MNotSaved
 	bool m_bRagdollClientSide;
 	CTransform m_xParentedRagdollRootInEntitySpace;
+	CUtlHashtable< AnimTagID, CBaseAnimGraph::ModifierHandleVector_t > m_bodyGroupModifiers;
 };

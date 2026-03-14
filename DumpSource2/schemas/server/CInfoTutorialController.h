@@ -1,0 +1,3 @@
+class CInfoTutorialController : public CDynamicProp
+{
+};

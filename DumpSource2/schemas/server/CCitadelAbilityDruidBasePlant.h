@@ -1,0 +1,3 @@
+class CCitadelAbilityDruidBasePlant : public CCitadelBaseAbility
+{
+};

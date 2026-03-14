@@ -1,5 +1,6 @@
 // MGetKV3ClassDefaults = {
 //	"_class": "CBasePlayerWeaponVData",
+//	"m_szClassName": "",
 //	"m_szWorldModel": "",
 //	"m_sToolsOnlyOwnerModelName": "",
 //	"m_bBuiltRightHanded": true,
@@ -13,6 +14,9 @@
 //	"m_flMuzzleSmokeDecrementRate": 1.000000,
 //	"m_bGenerateMuzzleLight": true,
 //	"m_bLinkedCooldowns": false,
+//	"m_vecIntrinsicModifiers":
+//	[
+//	],
 //	"m_iFlags": "",
 //	"m_iWeight": 0,
 //	"m_bAutoSwitchTo": true,
@@ -34,8 +38,10 @@
 //	{
 //	}
 //}
-class CBasePlayerWeaponVData : public CEntitySubclassVDataBase
+class CBasePlayerWeaponVData
 {
+	// MPropertyDescription = "The name of the weapon entity to spawn for this NPC weapon."
+	CUtlString m_szClassName;
 	// MPropertyStartGroup = "Visuals"
 	// MPropertyDescription = "Model used on the ground or held by an entity"
 	// MPropertyProvidesEditContextString = "ToolEditContext_ID_VMDL"
@@ -66,6 +72,7 @@ class CBasePlayerWeaponVData : public CEntitySubclassVDataBase
 	// MPropertyStartGroup = "Behavior"
 	// MPropertyDescription = "Should both primary and secondary attacks be cooled down together (so cooling down primary attack would cooldown both primary + secondary attacks)?"
 	bool m_bLinkedCooldowns;
+	CUtlVector< CEmbeddedSubclass< CCitadelModifier > > m_vecIntrinsicModifiers;
 	ItemFlagTypes_t m_iFlags;
 	// MPropertyDescription = "This value used to determine this weapon's importance in autoselection"
 	int32 m_iWeight;

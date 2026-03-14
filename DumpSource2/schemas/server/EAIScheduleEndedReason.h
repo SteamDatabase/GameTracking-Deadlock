@@ -1,0 +1,6 @@
+enum EAIScheduleEndedReason : uint32_t
+{
+	SCHEDULE_SUCCEEDED = 0,
+	SCHEDULE_INTERRUPTED = 1,
+	SCHEDULE_TASK_FAILED = 2,
+};

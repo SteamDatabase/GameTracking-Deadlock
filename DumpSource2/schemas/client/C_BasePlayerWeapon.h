@@ -11,7 +11,7 @@
 // MNetworkVarNames = "int32 m_iClip1"
 // MNetworkVarNames = "int32 m_iClip2"
 // MNetworkVarNames = "int m_pReserveAmmo"
-class C_BasePlayerWeapon : public C_EconEntity
+class C_BasePlayerWeapon : public CBaseAnimGraph
 {
 	// MNetworkEnable
 	// MNetworkUserGroup = "LocalWeaponExclusive"

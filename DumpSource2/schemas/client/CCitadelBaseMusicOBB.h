@@ -1,0 +1,3 @@
+class CCitadelBaseMusicOBB : public CCitadelSoundStackFieldOBB
+{
+};

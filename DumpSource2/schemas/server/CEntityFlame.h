@@ -16,6 +16,7 @@ class CEntityFlame : public CBaseEntity
 	GameTime_t m_flLifetime;
 	// MNotSaved
 	CHandle< CBaseEntity > m_hAttacker;
+	AI_VolumetricEventHandle_t m_iDangerSound;
 	// MNotSaved
 	float32 m_flDirectDamagePerSecond;
 	// MNotSaved

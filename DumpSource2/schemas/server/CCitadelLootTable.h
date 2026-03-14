@@ -1,0 +1,3 @@
+class CCitadelLootTable : public CCitadelLootTableBase
+{
+};

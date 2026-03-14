@@ -1,0 +1,3 @@
+class CItemFlare : public CItemGeneric
+{
+};

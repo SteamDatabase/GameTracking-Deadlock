@@ -1,0 +1,52 @@
+enum ProjectileBehaviorFlag_t : uint32_t
+{
+	// MPropertySuppressEnumerator
+	PBF_None = 0,
+	// MPropertyFriendlyName = "Bounce off walls"
+	PBF_BounceOffWall = 1,
+	// MPropertyFriendlyName = "Stick to valid targets"
+	PBF_StickToTarget = 2,
+	// MPropertyFriendlyName = "Stick to world"
+	PBF_StickToWorld = 4,
+	// MPropertyFriendlyName = "Don't turn towards velocity"
+	PBF_NotTurnTowardVelocity = 8,
+	// MPropertyFriendlyName = "Detonate on hit valid target"
+	PBF_DetonateOnHitTarget = 16,
+	// MPropertyFriendlyName = "Detonate on hit world"
+	PBF_DetonateOnHitWorld = 32,
+	// MPropertyFriendlyName = "Detonate on hit ignore arming time"
+	PBF_DetonateOnHitIgnoreArmingTime = 64,
+	// MPropertyFriendlyName = "Start detonate time on hit target"
+	PBF_StartDetonateTimeOnHitTarget = 128,
+	// MPropertyFriendlyName = "Start detonate time on hit world"
+	PBF_StartDetonateTimeOnHitWorld = 256,
+	// MPropertyFriendlyName = "Disable touch on hit"
+	PBF_DisableTouchOnHit = 512,
+	// MPropertyFriendlyName = "Don't remove on touching tracked target"
+	// MPropertyDescription = "When set, tracked projectiles won't get removed automatically when touchign their target.  ***YOU MUST MANUALLY REMOVE THEM***"
+	PBF_DisableRemoveOnTouchTrackedTarget = 1024,
+	// MPropertyFriendlyName = "Disable trigger projectile impact behavior"
+	PBF_DisableTriggerProjectileImpactBehavior = 2048,
+	// MPropertyFriendlyName = "Detonate on lifetime expire"
+	PBF_DetonateOnLifetimeExpire = 4096,
+	// MPropertyFriendlyName = "Validate Target Line of Sight"
+	// MPropertyDescription = "When set, validates the projectile can 'see' the target. Mitigates trigger volumes from hitting targets that are behind cover from the attack position"
+	PBF_ValidateTargetLineOfSight = 8192,
+	// MPropertyFriendlyName = "Allow Hit On Non-Tracked Targets"
+	// MPropertyDescription = "When set, tracked projectiles can hit non-tracked targets, allowing people to intercept."
+	PBF_AllowHitOnNonTrackedTargets = 16384,
+	// MPropertyFriendlyName = "Projectile only interacts / touches world"
+	// MPropertyDescription = "When set, projectile will not touch anything but the world"
+	PBF_OnlyTouchWorld = 32768,
+	// MPropertyDescription = "When set, tracked projectiles won't have their lifetime set to 2seconds upon IsDoneTracking().  ***YOU MUST MANUALLY REMOVE THEM***"
+	PBF_DisableRemoveOnDoneTracking = 65536,
+	// MPropertyFriendlyName = "Disable passing through portals"
+	// MPropertyDescription = "When set, this projectile will not travel through portals and will never recive a OnPortalled() call, because it can't"
+	PBF_DontTravelThroughPortals = 131072,
+	// MPropertyFriendlyName = "Switch to position tracking if target dies."
+	// MPropertyDescription = "When set, this projectile will track to the last known good location of the target, if the target dies, instead of getting removed."
+	PBF_LocationTrackingOnTargetDeath = 262144,
+	// MPropertyFriendlyName = "Projetile should hit when near position"
+	// MPropertyDescription = "When set, this projectile will fire an on hit event when reaching a tracked position. Useful if your position isn't going to hit the ground."
+	PBF_DetonateWhenReachingTrackedPosition = 524288,
+};

@@ -81,7 +81,6 @@ class CGameSceneNode
 	// MNetworkEnable
 	// MNetworkChangeCallback = "gameSceneNodeHierarchyAttachmentChanged"
 	CUtlStringToken m_hierarchyAttachName;
-	float32 m_flZOffset;
 	float32 m_flClientLocalScale;
 	Vector m_vRenderOrigin;
 };

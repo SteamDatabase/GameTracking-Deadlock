@@ -1,0 +1,3 @@
+class CRegenerateZone : public CBaseTrigger
+{
+};

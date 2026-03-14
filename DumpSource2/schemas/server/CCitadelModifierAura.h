@@ -1,0 +1,3 @@
+class CCitadelModifierAura : public CBaseModifierAura
+{
+};

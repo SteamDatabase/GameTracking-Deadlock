@@ -1,0 +1,3 @@
+class CCitadelTriggerNoPortals : public CBaseTrigger
+{
+};

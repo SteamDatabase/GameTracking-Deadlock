@@ -6,6 +6,7 @@ class EngineCountdownTimer
 	// MNetworkEnable
 	float32 m_duration;
 	// MNetworkEnable
+	// MKV3TransferSaveOpsForField (UNKNOWN FOR PARSER)
 	float32 m_timestamp;
 	// MNetworkEnable
 	float32 m_timescale;

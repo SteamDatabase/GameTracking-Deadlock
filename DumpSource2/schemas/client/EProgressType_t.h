@@ -1,0 +1,20 @@
+enum EProgressType_t : uint32_t
+{
+	EProgress_None = 0,
+	EProgress_Opacity = 1,
+	EProgress_OffsetLeft = 2,
+	EProgress_OffsetRight = 3,
+	EProgress_OffsetUp = 4,
+	EProgress_OffsetDown = 5,
+	EProgress_FillLeft = 6,
+	EProgress_FillRight = 7,
+	EProgress_FillUp = 8,
+	EProgress_FillDown = 9,
+	EProgress_RadialCW = 10,
+	EProgress_RadialCCW = 11,
+	EProgress_ClipLeft = 12,
+	EProgress_ClipRight = 13,
+	EProgress_ClipUp = 14,
+	EProgress_ClipDown = 15,
+	EProgress_Scale = 16,
+};

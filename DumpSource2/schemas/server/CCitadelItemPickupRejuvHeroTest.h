@@ -1,0 +1,3 @@
+class CCitadelItemPickupRejuvHeroTest : public CCitadelItemPickupRejuv
+{
+};

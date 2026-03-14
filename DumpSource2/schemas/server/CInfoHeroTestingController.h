@@ -1,0 +1,3 @@
+class CInfoHeroTestingController : public CPointEntity
+{
+};

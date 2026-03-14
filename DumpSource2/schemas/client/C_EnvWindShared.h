@@ -11,7 +11,7 @@
 // MNetworkVarNames = "uint16 m_iGustDirChange"
 // MNetworkVarNames = "uint16 m_iInitialWindDir"
 // MNetworkVarNames = "float32 m_flInitialWindSpeed"
-// MNetworkVarNames = "Vector m_location"
+// MNetworkVarNames = "VectorWS m_location"
 class C_EnvWindShared
 {
 	// MNetworkEnable
@@ -47,7 +47,7 @@ class C_EnvWindShared
 	// MNetworkEnable
 	// MNetworkEncoder = "coord"
 	// MNotSaved
-	Vector m_location;
+	VectorWS m_location;
 	// MNotSaved
 	CHandle< C_BaseEntity > m_hEntOwner;
 };

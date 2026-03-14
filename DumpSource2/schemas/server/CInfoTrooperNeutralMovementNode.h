@@ -1,0 +1,3 @@
+class CInfoTrooperNeutralMovementNode : public CBaseProp
+{
+};

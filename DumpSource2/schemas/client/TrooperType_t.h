@@ -1,0 +1,8 @@
+enum TrooperType_t : uint32_t
+{
+	TROOPER_INVALID = 0,
+	TROOPER_NORMAL = 1,
+	TROOPER_MEDIC = 2,
+	TROOPER_MELEE = 3,
+	TROOPER_ZIPLINE_CONTAINER = 4,
+};

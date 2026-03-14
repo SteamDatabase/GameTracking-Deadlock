@@ -1,0 +1,3 @@
+class CTriggerIcePathVolume : public CBaseTrigger
+{
+};

@@ -1,0 +1,3 @@
+class CItemExplosiveBarrel : public CCitadelProjectile
+{
+};

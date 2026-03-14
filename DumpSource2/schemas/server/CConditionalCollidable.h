@@ -1,0 +1,3 @@
+class CConditionalCollidable : public CBaseModelEntity
+{
+};

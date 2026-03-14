@@ -4,6 +4,7 @@
 class CAttributeManager
 {
 	CUtlVector< CHandle< C_BaseEntity > > m_Providers;
+	CUtlVector< CHandle< C_BaseEntity > > m_Receivers;
 	// MNetworkEnable
 	int32 m_iReapplyProvisionParity;
 	// MNetworkEnable

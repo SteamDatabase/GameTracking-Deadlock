@@ -1,0 +1,3 @@
+class CCitadelDruidInvisAura : public CCitadelModifierAura
+{
+};

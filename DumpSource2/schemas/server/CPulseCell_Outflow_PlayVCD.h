@@ -28,11 +28,15 @@
 //		"m_SourceOutflowName": "",
 //		"m_nDestChunk": -1,
 //		"m_nInstruction": -1
-//	}
+//	},
+//	"m_OutRequirements":
+//	[
+//	]
 //}
 class CPulseCell_Outflow_PlayVCD : public CPulseCell_Outflow_PlaySceneBase
 {
 	CStrongHandle< InfoForResourceTypeCChoreoSceneResource > m_hChoreoScene;
 	CPulse_OutflowConnection m_OnPaused;
 	CPulse_OutflowConnection m_OnResumed;
+	CUtlVector< CPulseCell_Outflow_PlayVCD::VCDRequirementInfo_t > m_OutRequirements;
 };

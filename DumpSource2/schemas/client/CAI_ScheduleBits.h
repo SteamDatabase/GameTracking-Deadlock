@@ -1,0 +1,3 @@
+class CAI_ScheduleBits
+{
+};

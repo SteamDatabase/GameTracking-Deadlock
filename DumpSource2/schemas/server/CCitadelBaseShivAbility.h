@@ -1,0 +1,3 @@
+class CCitadelBaseShivAbility : public CCitadelBaseAbility
+{
+};

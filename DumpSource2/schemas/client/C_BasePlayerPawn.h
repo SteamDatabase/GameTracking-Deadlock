@@ -33,32 +33,23 @@
 class C_BasePlayerPawn : public C_BaseCombatCharacter
 {
 	// MNetworkEnable
-	// MNotSaved
 	CPlayer_WeaponServices* m_pWeaponServices;
 	// MNetworkEnable
-	// MNotSaved
 	CPlayer_ItemServices* m_pItemServices;
 	// MNetworkEnable
-	// MNotSaved
 	// MNetworkUserGroup = "LocalPlayerExclusive"
 	CPlayer_AutoaimServices* m_pAutoaimServices;
 	// MNetworkEnable
-	// MNotSaved
 	CPlayer_ObserverServices* m_pObserverServices;
 	// MNetworkEnable
-	// MNotSaved
 	CPlayer_WaterServices* m_pWaterServices;
 	// MNetworkEnable
-	// MNotSaved
 	CPlayer_UseServices* m_pUseServices;
 	// MNetworkEnable
-	// MNotSaved
 	CPlayer_FlashlightServices* m_pFlashlightServices;
 	// MNetworkEnable
-	// MNotSaved
 	CPlayer_CameraServices* m_pCameraServices;
 	// MNetworkEnable
-	// MNotSaved
 	CPlayer_MovementServices* m_pMovementServices;
 	// MNetworkEnable
 	// MNetworkUserGroup = "LocalPlayerExclusive"

@@ -1,0 +1,3 @@
+class CCitadelDruidHealingFruit : public CCitadelAnimatingModelEntity
+{
+};

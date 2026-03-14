@@ -1,0 +1,3 @@
+class CCitadelBaseYamatoAbility : public CCitadelBaseAbility
+{
+};

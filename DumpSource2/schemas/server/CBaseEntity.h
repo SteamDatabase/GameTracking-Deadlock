@@ -29,7 +29,7 @@
 // MNetworkVarNames = "GameTick_t m_nNextThinkTick"
 // MNetworkVarNames = "uint32 m_fFlags"
 // MNetworkVarNames = "CNetworkVelocityVector m_vecVelocity"
-// MNetworkVarNames = "Vector m_vecBaseVelocity"
+// MNetworkVarNames = "CModifierProperty * m_pModifierProp"
 // MNetworkVarNames = "CHandle< CBaseEntity> m_hEffectEntity"
 // MNetworkVarNames = "CHandle< CBaseEntity> m_hOwnerEntity"
 // MNetworkVarNames = "uint32 m_fEffects"
@@ -43,7 +43,6 @@
 // MNetworkVarNames = "bool m_bGravityDisabled"
 // MNetworkVarNames = "bool m_bAnimatedEveryTick"
 // MNetworkVarNames = "GameTime_t m_flNavIgnoreUntilTime"
-// MNetworkVarNames = "BloodType m_nBloodType"
 class CBaseEntity : public CEntityInstance
 {
 	// MNetworkEnable
@@ -104,11 +103,13 @@ class CBaseEntity : public CEntityInstance
 	// MNetworkPriority = 0
 	// MNetworkSerializer = "animTimeSerializer"
 	// MNetworkUserGroup = "AnimTime"
+	// MKV3TransferSaveOpsForField (UNKNOWN FOR PARSER)
 	float32 m_flAnimTime;
 	// MNetworkEnable
 	// MNetworkPriority = 1
 	// MNetworkSerializer = "simulationTimeSerializer"
 	// MNetworkSendProxyRecipientsFilter (UNKNOWN FOR PARSER)
+	// MKV3TransferSaveOpsForField (UNKNOWN FOR PARSER)
 	float32 m_flSimulationTime;
 	// MNetworkEnable
 	GameTime_t m_flCreateTime;
@@ -130,6 +131,7 @@ class CBaseEntity : public CEntityInstance
 	// MNetworkEnable
 	// MNetworkUserGroup = "LocalPlayerExclusive"
 	GameTick_t m_nNextThinkTick;
+	// MKV3TransferSaveOpsForField (UNKNOWN FOR PARSER)
 	int32 m_nSimulationTick;
 	CEntityIOOutput m_OnKilled;
 	// MNetworkEnable
@@ -141,13 +143,13 @@ class CBaseEntity : public CEntityInstance
 	// MNetworkUserGroup = "LocalPlayerExclusive"
 	// MNetworkPriority = 32
 	CNetworkVelocityVector m_vecVelocity;
-	// MNetworkEnable
-	// MNetworkUserGroup = "LocalPlayerExclusive"
-	Vector m_vecBaseVelocity;
 	// MNotSaved
 	int32 m_nPushEnumCount;
 	// MNotSaved
 	CCollisionProperty* m_pCollision;
+	// MNetworkEnable
+	// MPtrAutoallocate
+	CModifierProperty* m_pModifierProp;
 	// MNetworkEnable
 	CHandle< CBaseEntity > m_hEffectEntity;
 	// MNetworkEnable
@@ -208,8 +210,6 @@ class CBaseEntity : public CEntityInstance
 	CHandle< CBaseEntity > m_pBlocker;
 	float32 m_flLocalTime;
 	float32 m_flVPhysicsUpdateLocalTime;
-	// MNetworkEnable
-	BloodType m_nBloodType;
 	// MSaveOpsForField (UNKNOWN FOR PARSER)
 	CPulseGraphInstance_ServerEntity* m_pPulseGraphInstance;
 };

@@ -4,5 +4,4 @@ enum WeaponSwitchReason_t : uint32_t
 	eEquipped = 1,
 	eUserInitiatedSwitchToLast = 2,
 	eUserInitiatedUIKeyPress = 3,
-	eUserInitiatedSwitchHands = 4,
 };

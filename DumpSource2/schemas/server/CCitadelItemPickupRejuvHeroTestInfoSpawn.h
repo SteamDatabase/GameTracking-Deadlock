@@ -1,0 +1,3 @@
+class CCitadelItemPickupRejuvHeroTestInfoSpawn : public CPointEntity
+{
+};

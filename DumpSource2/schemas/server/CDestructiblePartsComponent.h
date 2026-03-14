@@ -6,4 +6,6 @@ class CDestructiblePartsComponent
 	CUtlVector< uint16 > m_vecDamageTakenByHitGroup;
 	// MNetworkEnable
 	CHandle< CBaseModelEntity > m_hOwner;
+	// MSaveOpsForField (UNKNOWN FOR PARSER)
+	CBaseAnimGraphDestructibleParts_GraphController* m_pAnimGraphDestructibleGraphController;
 };

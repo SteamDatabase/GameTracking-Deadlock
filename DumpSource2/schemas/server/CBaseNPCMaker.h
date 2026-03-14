@@ -1,0 +1,31 @@
+class CBaseNPCMaker : public CBaseEntity
+{
+	int32 m_nMaxNumNPCs;
+	float32 m_flSpawnFrequency;
+	float32 m_flRetryFrequency;
+	int32 m_nHullCheckMode;
+	CEntityOutputTemplate< CHandle< CBaseEntity > > m_OnSpawnNPC;
+	CEntityIOOutput m_OnSpawnedNPCDied;
+	CEntityIOOutput m_OnAllSpawned;
+	CEntityIOOutput m_OnAllSpawnedDead;
+	CEntityIOOutput m_OnAllLiveChildrenDead;
+	int32 m_nLiveChildren;
+	int32 m_nMaxLiveChildren;
+	int32 m_nMinSpawnDistance;
+	int32 m_nSpawnThreshold;
+	int32 m_nBatchCount;
+	float32 m_flRadius;
+	bool m_bDisabled;
+	bool m_bSpawning;
+	bool m_bZeroPitchAndRoll;
+	CHandle< CBaseEntity > m_hIgnoreEntity;
+	CUtlSymbolLarge m_iszIgnoreEnt;
+	CUtlSymbolLarge m_iszDestinationGroup;
+	CHandle< CNPCSpawnDestination > m_hSpawnEntity;
+	CHandle< CAI_BaseNPC > m_hSpawnedNPC;
+	int32 m_nCurrentBatchCount;
+	int32 m_nNumSpawnDestinations;
+	int32 m_nNumValidDestinations;
+	CBaseNPCMaker::VisibilityCriterion_t m_CriterionVisibility;
+	CBaseNPCMaker::ThreeStateDist_t m_CriterionDistance;
+};

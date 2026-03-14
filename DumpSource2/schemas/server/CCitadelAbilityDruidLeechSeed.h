@@ -1,0 +1,3 @@
+class CCitadelAbilityDruidLeechSeed : public CCitadelBaseAbility
+{
+};

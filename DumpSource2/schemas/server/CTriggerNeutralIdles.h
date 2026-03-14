@@ -1,0 +1,3 @@
+class CTriggerNeutralIdles : public CTriggerNeutralShield
+{
+};

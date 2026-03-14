@@ -1,5 +1,6 @@
 // MNetworkVarNames = "CRenderComponent::Storage_t m_CRenderComponent"
 // MNetworkVarNames = "CHitboxComponent::Storage_t m_CHitboxComponent"
+// MNetworkVarNames = "CChoreoComponent * m_pChoreoComponent"
 // MNetworkVarNames = "CDestructiblePartsComponent * m_pDestructiblePartsSystemComponent"
 // MNetworkVarNames = "RenderMode_t m_nRenderMode"
 // MNetworkVarNames = "RenderFx_t m_nRenderFX"
@@ -26,6 +27,10 @@ class CBaseModelEntity : public CBaseEntity
 	// MNetworkAlias = "CHitboxComponent"
 	// MNetworkTypeAlias = "CHitboxComponent"
 	CHitboxComponent m_CHitboxComponent;
+	// MNetworkEnable
+	// MPtrAutoallocate
+	// MNetworkChangePointerCallback = "OnChoreoComponentPointerChanged"
+	CChoreoComponent* m_pChoreoComponent;
 	HitGroup_t m_nDestructiblePartInitialStateDestructed0;
 	HitGroup_t m_nDestructiblePartInitialStateDestructed1;
 	HitGroup_t m_nDestructiblePartInitialStateDestructed2;
@@ -40,13 +45,17 @@ class CBaseModelEntity : public CBaseEntity
 	// MPtrAutoallocate
 	// MNetworkTypeAlias = "CDestructiblePartsSystemComponent*"
 	CDestructiblePartsComponent* m_pDestructiblePartsSystemComponent;
+	CEntityOutputTemplate< CBaseModelEntity::OnDamageLevelChangedArgs_t > m_OnDestructibleHitGroupDamageLevelChanged;
 	GameTime_t m_flDissolveStartTime;
 	CEntityIOOutput m_OnIgnite;
 	// MNetworkEnable
 	RenderMode_t m_nRenderMode;
 	// MNetworkEnable
 	RenderFx_t m_nRenderFX;
+	CUtlString m_szAddModifier;
 	bool m_bAllowFadeInView;
+	bool m_bHasCollision;
+	Vector m_vSupport;
 	// MNetworkEnable
 	// MNetworkChangeCallback = "OnColorChanged"
 	Color m_clrRender;
@@ -73,6 +82,7 @@ class CBaseModelEntity : public CBaseEntity
 	float32 m_flShadowStrength;
 	// MNetworkEnable
 	uint8 m_nObjectCulling;
+	CUtlOrderedMap< CGlobalSymbol, int32 > m_bodyGroupChoices;
 	// MNetworkEnable
 	// MNetworkPriority = 32
 	// MNetworkUserGroup = "Player"

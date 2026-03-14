@@ -9,9 +9,9 @@
 // MNetworkExcludeByName = "m_vecAbsVelocity"
 // MNetworkExcludeByName = "m_flSpeed"
 // MNetworkExcludeByName = "m_flWaterLevel"
-// MNetworkExcludeByName = "m_flTimeScale"
 // MNetworkExcludeByName = "m_vecBaseVelocity"
 // MNetworkVarNames = "CBodyComponent::Storage_t m_CBodyComponent"
+// MNetworkVarNames = "CModifierProperty * m_pModifierProp"
 // MNetworkVarNames = "int32 m_iMaxHealth"
 // MNetworkVarNames = "int32 m_iHealth"
 // MNetworkVarNames = "uint8 m_lifeState"
@@ -29,7 +29,6 @@
 // MNetworkVarNames = "uint32 m_spawnflags"
 // MNetworkVarNames = "GameTick_t m_nNextThinkTick"
 // MNetworkVarNames = "uint32 m_fFlags"
-// MNetworkVarNames = "Vector m_vecBaseVelocity"
 // MNetworkVarNames = "CHandle< CBaseEntity> m_hEffectEntity"
 // MNetworkVarNames = "CHandle< CBaseEntity> m_hOwnerEntity"
 // MNetworkVarNames = "MoveCollide_t m_MoveCollide"
@@ -45,7 +44,6 @@
 // MNetworkVarNames = "bool m_bAnimatedEveryTick"
 // MNetworkVarNames = "bool m_bGravityDisabled"
 // MNetworkVarNames = "GameTime_t m_flNavIgnoreUntilTime"
-// MNetworkVarNames = "BloodType m_nBloodType"
 class C_BaseEntity : public CEntityInstance
 {
 	// MNetworkEnable
@@ -64,6 +62,9 @@ class C_BaseEntity : public CEntityInstance
 	CRenderComponent* m_pRenderComponent;
 	// MNotSaved
 	CCollisionProperty* m_pCollision;
+	// MNetworkEnable
+	// MNetworkChangePointerCallback = "OnModifierPointerChanged"
+	CModifierProperty* m_pModifierProp;
 	// MNetworkEnable
 	// MNetworkUserGroup = "LocalPlayerExclusive"
 	// MNotSaved
@@ -180,10 +181,6 @@ class C_BaseEntity : public CEntityInstance
 	CNetworkVelocityVector m_vecServerVelocity;
 	CNetworkVelocityVector m_vecVelocity;
 	// MNetworkEnable
-	// MNetworkUserGroup = "LocalPlayerExclusive"
-	// MNotSaved
-	Vector m_vecBaseVelocity;
-	// MNetworkEnable
 	// MNotSaved
 	CHandle< C_BaseEntity > m_hEffectEntity;
 	// MNetworkEnable
@@ -280,6 +277,4 @@ class C_BaseEntity : public CEntityInstance
 	bool m_bSimulationTimeChanged;
 	// MNotSaved
 	CUtlString m_sUniqueHammerID;
-	// MNetworkEnable
-	BloodType m_nBloodType;
 };

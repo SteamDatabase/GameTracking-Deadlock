@@ -1,0 +1,3 @@
+class CCitadelPlayerPawnBase : public CBasePlayerPawn
+{
+};

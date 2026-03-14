@@ -1,0 +1,3 @@
+class CCitadelItemPunchableNeutralGold : public CCitadelItemPickup
+{
+};

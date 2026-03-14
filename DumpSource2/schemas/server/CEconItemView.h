@@ -1,27 +1,22 @@
 // MNetworkVarNames = "item_definition_index_t m_iItemDefinitionIndex"
 // MNetworkVarNames = "int m_iEntityQuality"
 // MNetworkVarNames = "uint32 m_iEntityLevel"
-// MNetworkVarNames = "uint32 m_iItemIDHigh"
-// MNetworkVarNames = "uint32 m_iItemIDLow"
+// MNetworkVarNames = "itemid_t m_iItemID"
 // MNetworkVarNames = "uint32 m_iAccountID"
 // MNetworkVarNames = "uint32 m_iInventoryPosition"
 // MNetworkVarNames = "bool m_bInitialized"
+// MNetworkVarNames = "style_index_t m_nOverrideStyle"
 // MNetworkVarNames = "CAttributeList m_AttributeList"
-// MNetworkVarNames = "CAttributeList m_NetworkedDynamicAttributes"
-// MNetworkVarNames = "char m_szCustomName"
 class CEconItemView : public IEconItemInterface
 {
 	// MNetworkEnable
-	uint16 m_iItemDefinitionIndex;
+	item_definition_index_t m_iItemDefinitionIndex;
 	// MNetworkEnable
 	int32 m_iEntityQuality;
 	// MNetworkEnable
 	uint32 m_iEntityLevel;
-	uint64 m_iItemID;
 	// MNetworkEnable
-	uint32 m_iItemIDHigh;
-	// MNetworkEnable
-	uint32 m_iItemIDLow;
+	itemid_t m_iItemID;
 	// MNetworkEnable
 	uint32 m_iAccountID;
 	// MNetworkEnable
@@ -29,10 +24,14 @@ class CEconItemView : public IEconItemInterface
 	// MNetworkEnable
 	bool m_bInitialized;
 	// MNetworkEnable
+	style_index_t m_nOverrideStyle;
+	bool m_bIsStoreItem;
+	bool m_bIsTradeItem;
+	bool m_bHasComputedAttachedParticles;
+	bool m_bHasAttachedParticles;
+	int32 m_iEntityQuantity;
+	uint8 m_unClientFlags;
+	eEconItemOrigin m_unOverrideOrigin;
+	// MNetworkEnable
 	CAttributeList m_AttributeList;
-	// MNetworkEnable
-	CAttributeList m_NetworkedDynamicAttributes;
-	// MNetworkEnable
-	char[161] m_szCustomName;
-	char[161] m_szCustomNameOverride;
 };

@@ -4,7 +4,6 @@
 // MNetworkVarNames = "float32 m_flBlendWeight"
 class CRagdollProp : public CBaseAnimGraph
 {
-	// MNotSaved
 	ragdoll_t m_ragdoll;
 	bool m_bStartDisabled;
 	// MNetworkEnable

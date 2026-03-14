@@ -11,9 +11,5 @@ class CBaseFlex : public CBaseAnimGraph
 	// MNetworkEnable
 	// MNetworkEncoder = "coord"
 	VectorWS m_vLookTargetPosition;
-	GameTime_t m_flAllowResponsesEndTime;
 	GameTime_t m_flLastFlexAnimationTime;
-	SceneEventId_t m_nNextSceneEventId;
-	// MNotSaved
-	bool m_bUpdateLayerPriorities;
 };

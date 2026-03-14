@@ -15,7 +15,6 @@ class C_BaseFlex : public CBaseAnimGraph
 	int32 m_nLastFlexUpdateFrameCount;
 	// MNotSaved
 	Vector m_CachedViewTarget;
-	SceneEventId_t m_nNextSceneEventId;
 	// MNotSaved
 	AttachmentHandle_t m_iMouthAttachment;
 	// MNotSaved

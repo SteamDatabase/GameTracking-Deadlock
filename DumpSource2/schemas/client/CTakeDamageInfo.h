@@ -15,11 +15,30 @@ class CTakeDamageInfo
 	float32 m_flOriginalDamage;
 	bool m_bShouldBleed;
 	bool m_bShouldSpark;
+	float32 m_flDamageAbsorbed;
 	TakeDamageFlags_t m_nDamageFlags;
+	// MNotSaved
 	HitGroup_t m_iHitGroupId;
-	int32 m_nNumObjectsPenetrated;
-	float32 m_flFriendlyFireDamageReductionRatio;
-	bool m_bStoppedBullet;
+	// MNotSaved
+	ECitadelDamageType m_eCitadelDamageType;
+	// MNotSaved
+	float32 m_flAfterBuffDamage;
+	// MNotSaved
+	float32 m_flPreResistDamage;
+	// MNotSaved
+	bool m_bEvaded;
+	// MNotSaved
+	Vector m_vecDamageNormal;
+	// MNotSaved
+	CHandle< C_BaseEntity > m_hOriginator;
+	// MNotSaved
+	int32 m_iBatchCount;
+	// MNotSaved
+	float32 m_flEffectiveness;
+	// MNotSaved
+	float32 m_timeDamage;
+	// MNotSaved
+	float32 m_flCritDamage;
 	CUtlVector< DestructibleHitGroupToDestroy_t > m_nDestructibleHitGroupsToForceDestroy;
 	// MNotSaved
 	bool m_bInTakeDamageFlow;

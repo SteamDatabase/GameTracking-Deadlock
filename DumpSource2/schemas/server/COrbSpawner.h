@@ -1,0 +1,3 @@
+class COrbSpawner : public CBaseEntity
+{
+};

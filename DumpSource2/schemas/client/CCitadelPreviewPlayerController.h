@@ -1,0 +1,3 @@
+class CCitadelPreviewPlayerController : public CCitadelPlayerController
+{
+};

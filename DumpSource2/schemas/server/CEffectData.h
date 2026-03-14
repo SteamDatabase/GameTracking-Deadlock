@@ -18,7 +18,6 @@
 // MNetworkVarNames = "AttachmentHandle_t m_nAttachmentIndex"
 // MNetworkVarNames = "CUtlStringToken m_nAttachmentName"
 // MNetworkVarNames = "uint16 m_iEffectName"
-// MNetworkVarNames = "uint8 m_nExplosionType"
 class CEffectData
 {
 	// MNetworkEnable
@@ -73,6 +72,4 @@ class CEffectData
 	CUtlStringToken m_nAttachmentName;
 	// MNetworkEnable
 	uint16 m_iEffectName;
-	// MNetworkEnable
-	uint8 m_nExplosionType;
 };

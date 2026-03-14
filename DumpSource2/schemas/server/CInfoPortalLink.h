@@ -1,0 +1,3 @@
+class CInfoPortalLink : public CPointEntity
+{
+};

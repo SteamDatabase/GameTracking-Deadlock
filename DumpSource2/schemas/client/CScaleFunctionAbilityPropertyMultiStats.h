@@ -1,0 +1,3 @@
+class CScaleFunctionAbilityPropertyMultiStats : public CScaleFunctionBase
+{
+};

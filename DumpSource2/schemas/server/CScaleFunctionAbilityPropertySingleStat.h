@@ -1,0 +1,3 @@
+class CScaleFunctionAbilityPropertySingleStat : public CScaleFunctionBase
+{
+};

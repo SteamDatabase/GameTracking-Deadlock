@@ -1,19 +1,21 @@
 // MNetworkVarNames = "int m_nUniqueID"
 // MNetworkVarNames = "uint32 m_unAccountID"
 // MNetworkVarNames = "uint32 m_unTraceID"
-// MNetworkVarNames = "uint32 m_rtGcTime"
 // MNetworkVarNames = "Vector m_vecEndPos"
 // MNetworkVarNames = "Vector m_vecStart"
 // MNetworkVarNames = "Vector m_vecLeft"
 // MNetworkVarNames = "Vector m_vecNormal"
-// MNetworkVarNames = "int m_nPlayer"
+// MNetworkVarNames = "CPlayerSlot m_nPlayerSlot"
 // MNetworkVarNames = "int m_nEntity"
 // MNetworkVarNames = "int m_nHitbox"
 // MNetworkVarNames = "float m_flCreationTime"
 // MNetworkVarNames = "int m_nTintID"
 // MNetworkVarNames = "uint8 m_nVersion"
-// MNetworkVarNames = "uint8 m_ubSignature"
-class CPlayerSprayDecal : public CModelPointEntity
+// MNetworkVarNames = "CUtlString m_sTextureName"
+// MNetworkVarNames = "CUtlString m_sTextureNameDamaged"
+// MNetworkVarNames = "CUtlString m_sSoundNameDamaged"
+// MNetworkVarNames = "bool m_bDamaged"
+class CPlayerSprayDecal : public CBaseModelEntity
 {
 	// MNetworkEnable
 	int32 m_nUniqueID;
@@ -21,8 +23,6 @@ class CPlayerSprayDecal : public CModelPointEntity
 	uint32 m_unAccountID;
 	// MNetworkEnable
 	uint32 m_unTraceID;
-	// MNetworkEnable
-	uint32 m_rtGcTime;
 	// MNetworkEnable
 	Vector m_vecEndPos;
 	// MNetworkEnable
@@ -32,7 +32,7 @@ class CPlayerSprayDecal : public CModelPointEntity
 	// MNetworkEnable
 	Vector m_vecNormal;
 	// MNetworkEnable
-	int32 m_nPlayer;
+	CPlayerSlot m_nPlayerSlot;
 	// MNetworkEnable
 	int32 m_nEntity;
 	// MNetworkEnable
@@ -44,5 +44,11 @@ class CPlayerSprayDecal : public CModelPointEntity
 	// MNetworkEnable
 	uint8 m_nVersion;
 	// MNetworkEnable
-	uint8[128] m_ubSignature;
+	CUtlString m_sTextureName;
+	// MNetworkEnable
+	CUtlString m_sTextureNameDamaged;
+	// MNetworkEnable
+	CUtlString m_sSoundNameDamaged;
+	// MNetworkEnable
+	bool m_bDamaged;
 };

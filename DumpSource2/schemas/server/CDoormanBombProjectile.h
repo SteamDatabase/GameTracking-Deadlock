@@ -1,0 +1,3 @@
+class CDoormanBombProjectile : public CCitadelProjectile
+{
+};

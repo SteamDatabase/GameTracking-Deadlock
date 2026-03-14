@@ -1,0 +1,3 @@
+class CCitadelBulletRedirectVolume : public CBaseModelEntity
+{
+};
