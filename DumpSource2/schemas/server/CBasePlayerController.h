@@ -58,7 +58,7 @@ class CBasePlayerController : public CBaseEntity
 	bool m_bGamePaused;
 	// MNotSaved
 	ChatIgnoreType_t m_iIgnoreGlobalChat;
-	// MKV3TransferSaveOpsForField (UNKNOWN FOR PARSER)
+	// MKV3TransferSaveOpsForField = "GetEngineTimeSaveRestoreOps"
 	float32 m_flLastPlayerTalkTime;
 	// MNotSaved
 	float32 m_flLastEntitySteadyState;

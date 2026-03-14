@@ -103,13 +103,13 @@ class CBaseEntity : public CEntityInstance
 	// MNetworkPriority = 0
 	// MNetworkSerializer = "animTimeSerializer"
 	// MNetworkUserGroup = "AnimTime"
-	// MKV3TransferSaveOpsForField (UNKNOWN FOR PARSER)
+	// MKV3TransferSaveOpsForField = "GetEngineTimeSaveRestoreOps"
 	float32 m_flAnimTime;
 	// MNetworkEnable
 	// MNetworkPriority = 1
 	// MNetworkSerializer = "simulationTimeSerializer"
 	// MNetworkSendProxyRecipientsFilter (UNKNOWN FOR PARSER)
-	// MKV3TransferSaveOpsForField (UNKNOWN FOR PARSER)
+	// MKV3TransferSaveOpsForField = "GetEngineTimeSaveRestoreOps"
 	float32 m_flSimulationTime;
 	// MNetworkEnable
 	GameTime_t m_flCreateTime;
@@ -131,7 +131,7 @@ class CBaseEntity : public CEntityInstance
 	// MNetworkEnable
 	// MNetworkUserGroup = "LocalPlayerExclusive"
 	GameTick_t m_nNextThinkTick;
-	// MKV3TransferSaveOpsForField (UNKNOWN FOR PARSER)
+	// MKV3TransferSaveOpsForField = "GetEngineTickSaveRestoreOps"
 	int32 m_nSimulationTick;
 	CEntityIOOutput m_OnKilled;
 	// MNetworkEnable

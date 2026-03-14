@@ -146,6 +146,6 @@ class CAnimGraphNetworkedVariables
 	// MNetworkEnable
 	// MNetworkUserGroup = "animationgraph"
 	// MNetworkChangeCallback = "OnTeleportTimeChanged"
-	// MKV3TransferSaveOpsForField (UNKNOWN FOR PARSER)
+	// MKV3TransferSaveOpsForField = "GetEngineTimeSaveRestoreOps"
 	float32 m_flLastTeleportTime;
 };
