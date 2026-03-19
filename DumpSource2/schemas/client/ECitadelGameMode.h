@@ -6,4 +6,5 @@ enum ECitadelGameMode : uint32_t
 	k_ECitadelGameMode_Sandbox = 3,
 	k_ECitadelGameMode_StreetBrawl = 4,
 	k_ECitadelGameMode_ExploreNYC = 5,
+	k_ECitadelGameMode_Internal = 6,
 };

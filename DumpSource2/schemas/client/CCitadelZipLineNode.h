@@ -22,7 +22,7 @@
 // MNetworkVarNames = "float m_flSpeedMultiplierFromBaseBonus"
 // MNetworkVarNames = "float m_flTaper"
 // MNetworkVarNames = "Color m_Color"
-// MNetworkVarNames = "EHANDLE m_hGuardingBoss"
+// MNetworkVarNames = "EHANDLE m_hGuardingBosses"
 // MNetworkVarNames = "float m_flRopeRadius"
 // MNetworkVarNames = "bool m_bEnabled"
 class CCitadelZipLineNode : public C_BaseModelEntity
@@ -82,7 +82,7 @@ class CCitadelZipLineNode : public C_BaseModelEntity
 	Color m_Color;
 	// MNetworkEnable
 	// MNotSaved
-	CHandle< C_BaseEntity > m_hGuardingBoss;
+	C_NetworkUtlVectorBase< CHandle< C_BaseEntity > > m_hGuardingBosses;
 	// MNetworkEnable
 	float32 m_flRopeRadius;
 	// MNetworkEnable

@@ -435,6 +435,9 @@
 //	"m_TargetRevealModifier":
 //	{
 //	},
+//	"m_OutOfCombatSprintCamera":
+//	{
+//	},
 //	"m_CastParticle": "",
 //	"m_CastDelayParticle": "",
 //	"m_HitConfirmSound": ""
@@ -445,6 +448,7 @@ class CAbility_Drifter_Darkness_VData : public CitadelAbilityVData
 	CEmbeddedSubclass< CCitadelModifier > m_CasterModifier;
 	CEmbeddedSubclass< CCitadelModifier > m_TargetModifier;
 	CEmbeddedSubclass< CCitadelModifier > m_TargetRevealModifier;
+	CEmbeddedSubclass< CCitadelModifier > m_OutOfCombatSprintCamera;
 	// MPropertyStartGroup = "Visuals"
 	CResourceNameTyped< CWeakHandle< InfoForResourceTypeIParticleSystemDefinition > > m_CastParticle;
 	CResourceNameTyped< CWeakHandle< InfoForResourceTypeIParticleSystemDefinition > > m_CastDelayParticle;
