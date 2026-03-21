@@ -431,6 +431,7 @@
 //	},
 //	"m_TargetParticle": "",
 //	"m_AoEPreviewParticle": "",
+//	"m_DirectionalBeamParticle": "",
 //	"m_TargetCastSound": "",
 //	"m_HitConfirmSound": ""
 //}
@@ -441,6 +442,7 @@ class CAbilityPsychicLiftVData : public CitadelAbilityVData
 	// MPropertyStartGroup = "Visuals"
 	CResourceNameTyped< CWeakHandle< InfoForResourceTypeIParticleSystemDefinition > > m_TargetParticle;
 	CResourceNameTyped< CWeakHandle< InfoForResourceTypeIParticleSystemDefinition > > m_AoEPreviewParticle;
+	CResourceNameTyped< CWeakHandle< InfoForResourceTypeIParticleSystemDefinition > > m_DirectionalBeamParticle;
 	// MPropertyStartGroup = "Sounds"
 	CSoundEventName m_TargetCastSound;
 	CSoundEventName m_HitConfirmSound;

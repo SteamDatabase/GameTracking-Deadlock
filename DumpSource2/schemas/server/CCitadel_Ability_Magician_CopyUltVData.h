@@ -435,6 +435,9 @@
 //	},
 //	"m_InformTargetUltCopiedModifier":
 //	{
+//	},
+//	"m_CopiedUltSpawnedEntityModifier":
+//	{
 //	}
 //}
 class CCitadel_Ability_Magician_CopyUltVData : public CitadelAbilityVData
@@ -445,4 +448,5 @@ class CCitadel_Ability_Magician_CopyUltVData : public CitadelAbilityVData
 	CEmbeddedSubclass< CCitadelModifier > m_UltCopiedModifier;
 	CEmbeddedSubclass< CCitadelModifier > m_UltActiveModifier;
 	CEmbeddedSubclass< CCitadelModifier > m_InformTargetUltCopiedModifier;
+	CEmbeddedSubclass< CCitadelModifier > m_CopiedUltSpawnedEntityModifier;
 };

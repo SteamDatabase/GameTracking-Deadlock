@@ -4,6 +4,9 @@
 //	"m_subclassScaleFunction":
 //	{
 //	},
+//	"m_subclassScaleFunctionStreetBrawl":
+//	{
+//	},
 //	"m_eProvidedPropertyType": "MODIFIER_VALUE_INVALID",
 //	"m_eApplyFilter": "EApplyFilter_None",
 //	"m_strDisableValue": "",
@@ -25,6 +28,7 @@ class CitadelAbilityProperty_t
 	CUtlString m_strValue;
 	CUtlString m_strStreetBrawlValue;
 	CEmbeddedSubclass< CScaleFunctionBase > m_subclassScaleFunction;
+	CEmbeddedSubclass< CScaleFunctionBase > m_subclassScaleFunctionStreetBrawl;
 	// MPropertyDescription = "What type of modifier value does this property provide?  Used by modifiers to know what type to auto-register this property for and to tell the UI how this interacts with other stats and items."
 	EModifierValue m_eProvidedPropertyType;
 	// MPropertyDescription = "Conditions to filter what other abilities this property can affect."

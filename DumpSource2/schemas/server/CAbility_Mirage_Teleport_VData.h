@@ -437,7 +437,8 @@
 //	"m_TeleportEndParticle": "",
 //	"m_strArriveSound": "",
 //	"m_strDepartSound": "",
-//	"m_strChannelDestinationSound": ""
+//	"m_strChannelDestinationSound": "",
+//	"m_flObjectiveOffset": 200.000000
 //}
 class CAbility_Mirage_Teleport_VData : public CitadelAbilityVData
 {
@@ -452,4 +453,6 @@ class CAbility_Mirage_Teleport_VData : public CitadelAbilityVData
 	CSoundEventName m_strArriveSound;
 	CSoundEventName m_strDepartSound;
 	CSoundEventName m_strChannelDestinationSound;
+	// MPropertyStartGroup = "Gameplay"
+	float32 m_flObjectiveOffset;
 };

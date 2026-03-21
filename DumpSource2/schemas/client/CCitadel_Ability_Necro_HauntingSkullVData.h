@@ -428,7 +428,6 @@
 //	},
 //	"m_JarExplodeParticle": "",
 //	"m_SkullFriendlyFoundParticle": "",
-//	"m_SkullTargetFoundParticle": "",
 //	"m_SkullTargetDashParticle": "",
 //	"m_SkullHitParticle": "",
 //	"m_SkullExplodeParticle": "",
@@ -510,7 +509,6 @@ class CCitadel_Ability_Necro_HauntingSkullVData : public CitadelAbilityVData
 	// MPropertyStartGroup = "Visuals"
 	CResourceNameTyped< CWeakHandle< InfoForResourceTypeIParticleSystemDefinition > > m_JarExplodeParticle;
 	CResourceNameTyped< CWeakHandle< InfoForResourceTypeIParticleSystemDefinition > > m_SkullFriendlyFoundParticle;
-	CResourceNameTyped< CWeakHandle< InfoForResourceTypeIParticleSystemDefinition > > m_SkullTargetFoundParticle;
 	CResourceNameTyped< CWeakHandle< InfoForResourceTypeIParticleSystemDefinition > > m_SkullTargetDashParticle;
 	CResourceNameTyped< CWeakHandle< InfoForResourceTypeIParticleSystemDefinition > > m_SkullHitParticle;
 	CResourceNameTyped< CWeakHandle< InfoForResourceTypeIParticleSystemDefinition > > m_SkullExplodeParticle;

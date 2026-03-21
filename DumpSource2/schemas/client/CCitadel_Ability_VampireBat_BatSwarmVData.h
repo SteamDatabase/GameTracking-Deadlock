@@ -503,7 +503,8 @@
 //		184
 //	],
 //	"m_flSatVolumePulsePerBat": 0.500000,
-//	"m_flSatVolumeInnerConeSize": 0.500000
+//	"m_flSatVolumeInnerConeSize": 0.500000,
+//	"m_flLowTickRateDistCheck": 60.000000
 //}
 class CCitadel_Ability_VampireBat_BatSwarmVData : public CitadelAbilityVData
 {
@@ -536,4 +537,5 @@ class CCitadel_Ability_VampireBat_BatSwarmVData : public CitadelAbilityVData
 	Color aimColorOutline;
 	float32 m_flSatVolumePulsePerBat;
 	float32 m_flSatVolumeInnerConeSize;
+	float32 m_flLowTickRateDistCheck;
 };

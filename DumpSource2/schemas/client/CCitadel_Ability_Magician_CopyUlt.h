@@ -3,7 +3,6 @@
 // MNetworkVarNames = "bool m_bIsModelSwapped"
 // MNetworkVarNames = "GameTime_t m_timeSwappedModel"
 // MNetworkVarNames = "CHandle< CCitadelBaseAbility> m_pActiveCopyUltimateAbility"
-// MNetworkVarNames = "CHandle< CCitadelBaseAbility> m_pLastTrainedCopiedUltimateAbility"
 // MNetworkVarNames = "HeroID_t m_nCopiedHeroID"
 class CCitadel_Ability_Magician_CopyUlt : public C_CitadelBaseAbility
 {
@@ -18,11 +17,7 @@ class CCitadel_Ability_Magician_CopyUlt : public C_CitadelBaseAbility
 	// MNetworkEnable
 	CHandle< C_CitadelBaseAbility > m_pActiveCopyUltimateAbility;
 	// MNetworkEnable
-	CHandle< C_CitadelBaseAbility > m_pLastTrainedCopiedUltimateAbility;
-	// MNetworkEnable
 	HeroID_t m_nCopiedHeroID;
-	GameTime_t m_flShouldKeepLastCopiedUltimateTrainedTime;
-	CUtlVector< CModifierHandleTyped< CCitadelModifier > > m_vecModifiersThatKeepThisAbilityTrained;
+	CUtlVector< LingeringCopiedAbility_t > m_vecLingeringCopiedAbilities;
 	ModelChange_t m_ModelChange;
-	int32 m_nNumAbilityBulletsStillLive;
 };

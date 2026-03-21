@@ -97,6 +97,7 @@ enum EStatsType : uint32_t
 	EAirDashDuration = 94,
 	EDashSpeedInMeters = 95,
 	EEnableAbilityCharges = 96,
-	EStatsCount = 97,
-	EStatsInvalid = 97,
+	EAbilityLevel = 97,
+	EStatsCount = 98,
+	EStatsInvalid = 98,
 };

@@ -135,15 +135,10 @@
 //	},
 //	"m_FootstepAdditional": "",
 //	"m_bRemoveOnInterrupted": false,
-//	"m_SiphonParticle": "",
-//	"m_HealModifier":
-//	{
-//	}
+//	"m_SiphonParticle": ""
 //}
 class CModifier_Mirage_FireScarabs_HealthLoss_VData : public CCitadelModifierVData
 {
 	// MPropertyStartGroup = "Visuals"
 	CResourceNameTyped< CWeakHandle< InfoForResourceTypeIParticleSystemDefinition > > m_SiphonParticle;
-	// MPropertyStartGroup = "Modifiers"
-	CEmbeddedSubclass< CCitadelModifier > m_HealModifier;
 };

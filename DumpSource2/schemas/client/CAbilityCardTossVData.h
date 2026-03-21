@@ -462,7 +462,8 @@
 //		1.000000,
 //		0.900000,
 //		1.000000
-//	]
+//	],
+//	"m_strNewCardActionName": ""
 //}
 class CAbilityCardTossVData : public CitadelAbilityVData
 {
@@ -494,4 +495,6 @@ class CAbilityCardTossVData : public CitadelAbilityVData
 	float32 m_flImprovedJokerWeight;
 	Vector m_vDefaultCardColor;
 	Vector m_vNextCardColor;
+	// MPropertyStartGroup = "AnimGraph2"
+	CGlobalSymbol m_strNewCardActionName;
 };

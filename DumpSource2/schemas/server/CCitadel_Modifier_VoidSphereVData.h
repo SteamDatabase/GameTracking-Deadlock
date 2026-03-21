@@ -159,7 +159,10 @@
 //			0.000000
 //		]
 //	},
-//	"m_strAmbientLoopingLocalPlayerSound": ""
+//	"m_strAmbientLoopingLocalPlayerSound": "",
+//	"m_BuffModifier":
+//	{
+//	}
 //}
 class CCitadel_Modifier_VoidSphereVData : public CCitadelModifierVData
 {
@@ -173,4 +176,6 @@ class CCitadel_Modifier_VoidSphereVData : public CCitadelModifierVData
 	CPiecewiseCurve m_TeleportVerticalOffsetCurve;
 	// MPropertyGroupName = "Sounds"
 	CSoundEventName m_strAmbientLoopingLocalPlayerSound;
+	// MPropertyGroupName = "Modifiers"
+	CEmbeddedSubclass< CBaseModifier > m_BuffModifier;
 };

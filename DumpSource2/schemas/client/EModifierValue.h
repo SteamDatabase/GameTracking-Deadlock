@@ -337,8 +337,9 @@ enum EModifierValue : uint32_t
 	// MPropertyDescription = "When specified, self casts will be treated as casts on another target"
 	MODIFIER_VALUE_SELFCAST_TARGET_OVERRIDE = 236,
 	MODIFIER_VALUE_HERO_ATTACH_PARENT = 237,
+	MODIFIER_VALUE_DOORWAY_MINIMAP_RANGE = 238,
 	// MPropertySuppressEnumerator
-	MODIFIER_VALUE_COUNT = 238,
+	MODIFIER_VALUE_COUNT = 239,
 	// MPropertySuppressEnumerator
 	MODIFIER_VALUE_INVALID = 255,
 };

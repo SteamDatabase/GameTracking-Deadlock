@@ -146,7 +146,9 @@
 //	"m_StackAppliedParticle": "",
 //	"m_ConsumeMaxStacksSound": "",
 //	"m_ConsumeMaxStacksHeroSound": "",
-//	"m_ApplyStackSound": ""
+//	"m_ApplyStackSound": "",
+//	"m_ApplyStackNPCSound": "",
+//	"m_StunSound": ""
 //}
 class CCitadel_Modifier_Mirage_SandPhantom_Passive_Victim_VData : public CCitadelModifierVData
 {
@@ -163,4 +165,6 @@ class CCitadel_Modifier_Mirage_SandPhantom_Passive_Victim_VData : public CCitade
 	CSoundEventName m_ConsumeMaxStacksSound;
 	CSoundEventName m_ConsumeMaxStacksHeroSound;
 	CSoundEventName m_ApplyStackSound;
+	CSoundEventName m_ApplyStackNPCSound;
+	CSoundEventName m_StunSound;
 };

@@ -430,9 +430,11 @@
 //	"m_DebuffModifier":
 //	{
 //	},
-//	"m_StealWatcherModifier":
+//	"m_StatStolenDebuffModifier":
 //	{
-//	}
+//	},
+//	"m_strHitConfirmSound": "",
+//	"m_strWorldImpactSound": ""
 //}
 class CCitadel_Ability_Mirage_FireBeetles_VData : public CitadelAbilityVData
 {
@@ -440,5 +442,8 @@ class CCitadel_Ability_Mirage_FireBeetles_VData : public CitadelAbilityVData
 	CResourceNameTyped< CWeakHandle< InfoForResourceTypeIParticleSystemDefinition > > m_ExplodeParticle;
 	// MPropertyStartGroup = "Modifiers"
 	CEmbeddedSubclass< CCitadelModifier > m_DebuffModifier;
-	CEmbeddedSubclass< CCitadelModifier > m_StealWatcherModifier;
+	CEmbeddedSubclass< CCitadelModifier > m_StatStolenDebuffModifier;
+	// MPropertyStartGroup = "Sounds"
+	CSoundEventName m_strHitConfirmSound;
+	CSoundEventName m_strWorldImpactSound;
 };

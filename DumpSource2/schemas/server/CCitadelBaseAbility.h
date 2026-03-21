@@ -38,7 +38,7 @@
 // MNetworkVarNames = "bool m_bShouldBeExecuted"
 // MNetworkVarNames = "bool m_bCanBeUpgraded"
 // MNetworkVarNames = "CitadelStolenAbilitySlot_t m_eStolenInSlot"
-// MNetworkVarNames = "int m_nUpgradeBits"
+// MNetworkVarNames = "CitadelAbilityUpgradeInfoPacked_t m_nUpgradeInfo"
 // MNetworkVarNames = "EAbilityBucketType m_iBucketID"
 // MNetworkVarNames = "bool m_bToggleState"
 // MNetworkVarNames = "GameTime_t m_flCooldownStart"
@@ -81,9 +81,9 @@ class CCitadelBaseAbility : public CBaseEntity
 	// MNetworkEnable
 	CitadelStolenAbilitySlot_t m_eStolenInSlot;
 	// MNetworkEnable
-	// MNetworkChangeCallback = "OnUpgradeBitsChanged"
+	// MNetworkChangeCallback = "OnUpgradeInfoChanged"
 	// MNetworkPriority = 32
-	int32 m_nUpgradeBits;
+	CitadelAbilityUpgradeInfoPacked_t m_nUpgradeInfo;
 	// MNetworkEnable
 	EAbilityBucketType m_iBucketID;
 	// MNetworkEnable

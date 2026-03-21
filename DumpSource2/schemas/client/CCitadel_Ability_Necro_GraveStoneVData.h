@@ -431,6 +431,9 @@
 //	"m_GraveStoneModifier":
 //	{
 //	},
+//	"m_ZombieSummonModifier":
+//	{
+//	},
 //	"m_BlockerModel": "",
 //	"m_flStoneSubmergeMinDepth": 10.000000,
 //	"m_flStoneSubmergeMaxDepth": 10.000000,
@@ -454,6 +457,7 @@ class CCitadel_Ability_Necro_GraveStoneVData : public CitadelAbilityVData
 	CSoundEventName m_strSummonGravestoneSound;
 	// MPropertyStartGroup = "Modifiers"
 	CEmbeddedSubclass< CCitadelModifier > m_GraveStoneModifier;
+	CEmbeddedSubclass< CCitadelModifier > m_ZombieSummonModifier;
 	// MPropertyStartGroup = "Gameplay"
 	CResourceNameTyped< CWeakHandle< InfoForResourceTypeCModel > > m_BlockerModel;
 	float32 m_flStoneSubmergeMinDepth;

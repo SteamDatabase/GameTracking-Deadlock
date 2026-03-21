@@ -1,5 +1,5 @@
 // MGetKV3ClassDefaults = {
-//	"_class": "CCitadel_Modifier_Mirage_FireScarabs_WatcherVData",
+//	"_class": "CCitadel_Modifier_CopiedUlt_SpawnedEntityVData",
 //	"m_flDuration": -1.000000,
 //	"m_bKeepMaximumDurationOnRefresh": false,
 //	"m_strParticleEffect": "",
@@ -134,19 +134,8 @@
 //		"m_nFootstepPriority": -1
 //	},
 //	"m_FootstepAdditional": "",
-//	"m_bRemoveOnInterrupted": false,
-//	"m_StatStolenDebuffModifier":
-//	{
-//	},
-//	"m_StatStolenBuffModifier":
-//	{
-//	},
-//	"m_HealModifier":
-//	{
-//	}
+//	"m_bRemoveOnInterrupted": false
 //}
-class CCitadel_Modifier_Mirage_FireScarabs_WatcherVData : public CCitadel_Modifier_StatStealBaseVData
+class CCitadel_Modifier_CopiedUlt_SpawnedEntityVData : public CCitadelModifierVData
 {
-	// MPropertyStartGroup = "Modifiers"
-	CEmbeddedSubclass< CCitadelModifier > m_HealModifier;
 };

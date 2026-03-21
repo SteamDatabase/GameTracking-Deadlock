@@ -445,7 +445,7 @@
 //	"m_flFracToAllowUp": 0.330000,
 //	"m_flMinLeapTime": 0.250000,
 //	"m_flCheckRadius": 70.000000,
-//	"m_flSlashRadius": 120.000000,
+//	"m_flSlashRadius": 200.000000,
 //	"m_flMaxTurnRate": 140.000000,
 //	"m_flCameraTurnRate": 200.000000,
 //	"m_SpeedCurve":

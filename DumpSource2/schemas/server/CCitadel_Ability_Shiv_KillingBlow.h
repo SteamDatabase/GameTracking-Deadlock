@@ -8,6 +8,7 @@
 // MNetworkVarNames = "GameTime_t m_flRecastWindowEnd"
 class CCitadel_Ability_Shiv_KillingBlow : public CCitadelBaseShivAbility
 {
+	CUtlVector< CHandle< CBaseEntity > > m_vHitEnts;
 	// MNetworkEnable
 	bool m_bActive;
 	// MNetworkEnable

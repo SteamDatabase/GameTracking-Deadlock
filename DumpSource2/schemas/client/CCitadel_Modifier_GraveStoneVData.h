@@ -149,56 +149,25 @@
 //	"m_flModifierProvidedByAuraDuration": -1.000000,
 //	"m_bRemoveProvidedModifierOnAuraRemoval": false,
 //	"m_GravestoneParticle": "",
-//	"m_SummonParticle": "",
 //	"m_DestroyParticle": "",
 //	"m_AuraParticle": "",
-//	"m_SummonModifier":
-//	{
-//	},
-//	"m_SummonDecayModifier":
-//	{
-//	},
-//	"m_SpawningInModifier":
-//	{
-//	},
 //	"m_CasterBuffModifier":
 //	{
 //	},
 //	"m_GravestoneCriticalModifier":
 //	{
 //	},
-//	"m_DestroySound": "",
-//	"m_bDebug": false,
-//	"m_flRandomSpawnOffsetPerSummon": 0.000000,
-//	"m_flZombieSpawnVerticalOffset": 5.000000,
-//	"m_flZombieSpawnForwardOffset": 60.000000,
-//	"m_flZombieSpawnNavMeshSearchDistance": 20.000000,
-//	"m_flForwardWalkDistance": 200.000000,
-//	"m_flWalkDestinationRandomness": 200.000000,
-//	"m_flSpawningInTime": 0.100000
+//	"m_DestroySound": ""
 //}
 class CCitadel_Modifier_GraveStoneVData : public CCitadelModifierAuraVData
 {
 	// MPropertyStartGroup = "Visuals"
 	CResourceNameTyped< CWeakHandle< InfoForResourceTypeIParticleSystemDefinition > > m_GravestoneParticle;
-	CResourceNameTyped< CWeakHandle< InfoForResourceTypeIParticleSystemDefinition > > m_SummonParticle;
 	CResourceNameTyped< CWeakHandle< InfoForResourceTypeIParticleSystemDefinition > > m_DestroyParticle;
 	CResourceNameTyped< CWeakHandle< InfoForResourceTypeIParticleSystemDefinition > > m_AuraParticle;
 	// MPropertyStartGroup = "Modifiers"
-	CEmbeddedSubclass< CCitadelModifier > m_SummonModifier;
-	CEmbeddedSubclass< CCitadelModifier > m_SummonDecayModifier;
-	CEmbeddedSubclass< CCitadelModifier > m_SpawningInModifier;
 	CEmbeddedSubclass< CCitadelModifier > m_CasterBuffModifier;
 	CEmbeddedSubclass< CCitadelModifier > m_GravestoneCriticalModifier;
 	// MPropertyGroupName = "Sounds"
 	CSoundEventName m_DestroySound;
-	// MPropertyStartGroup = "Gameplay"
-	bool m_bDebug;
-	float32 m_flRandomSpawnOffsetPerSummon;
-	float32 m_flZombieSpawnVerticalOffset;
-	float32 m_flZombieSpawnForwardOffset;
-	float32 m_flZombieSpawnNavMeshSearchDistance;
-	float32 m_flForwardWalkDistance;
-	float32 m_flWalkDestinationRandomness;
-	float32 m_flSpawningInTime;
 };

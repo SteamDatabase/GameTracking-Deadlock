@@ -1,0 +1,3 @@
+class CScaleFunctionAbilityPropertySingleStatCurve : public CScaleFunctionBase
+{
+};

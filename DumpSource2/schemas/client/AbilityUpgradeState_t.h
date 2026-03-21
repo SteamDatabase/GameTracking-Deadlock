@@ -1,9 +1,9 @@
 // MNetworkVarNames = "AbilityID_t m_ItemID"
-// MNetworkVarNames = "int m_nUpgradeBits"
+// MNetworkVarNames = "CitadelAbilityUpgradeInfoPacked_t m_nUpgradeInfo"
 class AbilityUpgradeState_t
 {
 	// MNetworkEnable
 	CUtlStringToken m_ItemID;
 	// MNetworkEnable
-	int32 m_nUpgradeBits;
+	CitadelAbilityUpgradeInfoPacked_t m_nUpgradeInfo;
 };

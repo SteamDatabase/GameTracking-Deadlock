@@ -464,6 +464,7 @@
 //			0.000000
 //		]
 //	},
+//	"m_flGroundBreakOffAngle": 0.000000,
 //	"m_Charging":
 //	{
 //	},
@@ -486,6 +487,7 @@ class CAbilityPunkgoatGoatFlipVData : public CitadelAbilityVData
 	// MPropertyStartGroup = "Motion"
 	CPiecewiseCurve m_ChargingSpeedCurve;
 	CPiecewiseCurve m_GoingUpSpeedCurve;
+	float32 m_flGroundBreakOffAngle;
 	// MPropertyStartGroup = "Modifiers"
 	CEmbeddedSubclass< CCitadelModifier > m_Charging;
 	CEmbeddedSubclass< CCitadelModifier > m_GoatGoingUp;

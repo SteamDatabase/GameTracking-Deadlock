@@ -447,6 +447,7 @@
 //	},
 //	"m_flVelocityCarryoverOnMiss": 0.330000,
 //	"m_flFracToAllowUp": 0.330000,
+//	"m_flGroundBreakOffAngle": 10.000000,
 //	"m_KickHitImpact": "",
 //	"m_PushOffImpact": "",
 //	"m_BootKickCast": "",
@@ -480,6 +481,7 @@ class CCitadel_Ability_Werewolf_KickFlipVData : public CitadelAbilityVData
 	CPiecewiseCurve m_LeapingSpeedCurve;
 	float32 m_flVelocityCarryoverOnMiss;
 	float32 m_flFracToAllowUp;
+	float32 m_flGroundBreakOffAngle;
 	// MPropertyStartGroup = "Visuals"
 	CResourceNameTyped< CWeakHandle< InfoForResourceTypeIParticleSystemDefinition > > m_KickHitImpact;
 	CResourceNameTyped< CWeakHandle< InfoForResourceTypeIParticleSystemDefinition > > m_PushOffImpact;
